@@ -29,6 +29,7 @@
     "css-watch":   "sass --watch --style expanded --source-map --embed-sources --no-error-css scss/:src/web/css/"
   },
   "devDependencies": {
+    "bootstrap": "^5.3.5",
     "sass": "^1.89.2"
   }
 }
