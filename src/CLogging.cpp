@@ -98,7 +98,7 @@ void CLogWriter::writeLogEntry(const char *pszType, const char *pszMessage) {
 /// @param nMsgType MSG_LOG_ENTRY or MSG_LOG_ENTRY_JSON are interesting
 /// @param pMessage Either a string of a JsonObject/JsonDocument
 /// @param nClass   Class Level -> representing LogLevel like 'I' or 'W' as number
-int CLogWriter::receiveEvent(void *pSender, int nMsgType, const void *pMessage, int nClass) {
+int CLogWriter::receiveEvent(const void *pSender, int nMsgType, const void *pMessage, int nClass) {
     if(nMsgType == MSG_LOG_ENTRY || nMsgType == MSG_LOG_ENTRY_JSON) {
         String strType = "";
         char cLogClass = nClass;

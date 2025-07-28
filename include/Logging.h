@@ -49,7 +49,7 @@ class CLogWriter : public IMsgEventReceiver {
         CLogWriter(){};
         int setLogLevel(int nLogLevel);
         int getLogLevel();
-        virtual int  receiveEvent(void *pSender, int nMsgType, const void *pMessage, int nClass) override;   
+        virtual int  receiveEvent(const void * pSender, int nMsgType, const void * pMessage, int nClass) override;   
 
         virtual void writeLogEntry(const char *strType, const char *strMessage);
         virtual void writeLogEntry(const char *strType, JsonDocument *oDoc);

@@ -1,0 +1,25 @@
+
+input:read-only {
+    background-color: var(--text-ro-bg-color);
+}
+
+input:invalid {
+    color: var(--invalid-input-color);
+    outline: 2px solid var(--invalid-input-border-color);
+    background-color: var(--invalid-input-bg-color);
+    font-style: italic;
+}
+
+input:invalid + span::after {
+    content: "\00274C";
+    font-size: xx-small;
+    padding-left: 10px;
+}
+
+.input-sm {
+    height: 30px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius:3px
+}

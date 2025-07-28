@@ -18,7 +18,7 @@ struct LSC_FS {
 };
 
  class CFS : public IStatusHandler {
-    private:
+    protected:
         static LSC_FS m_oFS;
     public:
         CFS();

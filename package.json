@@ -1,0 +1,34 @@
+{
+  "name": "plibespv1",
+  "version": "1.0.0",
+  "description": "Runtime library for smart devices (ESP - Arduino)",
+  "keywords": [
+    "esp",
+    "esp32",
+    "smartdevice",
+    "runtime"
+  ],
+  "homepage": "https://github.com/lsc-labs/PLibESPV1#readme",
+  "bugs": {
+    "url": "https://github.com/lsc-labs/PLibESPV1/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lsc-labs/PLibESPV1.git"
+  },
+  "license": "ISC",
+  "author": "LSC Labs - P.Liebl",
+  "type": "c",
+  "main": " ",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "css-compile": "sass         --style expanded --source-map --embed-sources --no-error-css scss/:src/web/css/",
+    "css-watch":   "sass --watch --style expanded --source-map --embed-sources --no-error-css scss/:src/web/css/"
+  },
+  "devDependencies": {
+    "sass": "^1.89.2"
+  }
+}

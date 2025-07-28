@@ -12,7 +12,7 @@
 class IMsgEventReceiver
 {
     public:
-        virtual int receiveEvent(void *pSender, int nMsgType, const void *pMessage, int nClass) = 0;
+        virtual int receiveEvent(const void * pSender, int nMsgType, const void * pMessage, int nClass) = 0;
 };  
 
 class CEventHandler

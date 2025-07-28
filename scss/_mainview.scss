@@ -1,0 +1,105 @@
+
+#mainView {
+  padding: 20px;
+  color: var(--txt-color);
+  background-color: var(--bg-color);
+}
+
+#sidebarShow {
+  border-radius: 5px;
+  border:0;
+  svg {
+    rotate: 180deg;
+    padding-bottom:2px;
+    flex-shrink:0;
+  }
+}
+
+#infoBar {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1em;
+}
+
+#statusInfo {
+  flex-grow: 1;
+  text-align: center;
+  .alert {
+    background-color: var(--alert-bg-color);
+    color: var(--alert-text-color);
+    border-radius: 5px;
+    min-height: 20px;
+    svg {
+      margin-left: 5px;
+      margin-right: 5px;
+      padding-top: 2px;
+      fill: var(--alert-text-color);
+    }
+  }
+}
+
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: var(--footer-height);
+  background-color: var(--footer-color);
+}
+
+
+
+.actionPanel {
+  padding: 10px;
+  padding-top: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  background-color: var(--action-bg-color);
+  border: 1px solid var(--primary-border-color);
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px var(--sidebar-shadow-color);
+  
+  div {
+    margin-top: 1.5em
+  };
+  button,label {
+     box-shadow: 3px 3px 3px var(--sidebar-shadow-color);
+  }
+
+  legend {
+    font-size: 18px;
+    width: auto;
+  }
+}
+.actionPanel::after {
+  content:"";
+  display:table;
+  clear:both,
+}
+
+.changePending {
+  background-color: var(--change-pending-bg);
+  border-radius: 5px;
+  padding-top: 3px;
+  vertical-align: middle;
+  text-align:center;
+  border: 1px solid var(--change-pending-border);
+}
+
+
+.info-icon {
+    gap: 1em;
+    display: flex;
+    margin-top: 5px;
+    svg { 
+        flex-shrink: 0;
+        height: 14px;
+        width: 14px;
+        fill: var(--primary-bg-color);
+    }
+}
+
+#fwInstall {
+  margin-top:10px;
+}

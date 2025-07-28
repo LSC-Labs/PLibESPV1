@@ -1,0 +1,15 @@
+
+
+.progressBar {
+    width: 100%;
+    background-color: var(--progress-bar-color);
+    border: 2px fixed;
+    border-radius: 10px;
+}
+
+.progressStatus {
+  width: 0%;
+  height: 30px;
+  border-radius: 10px;
+  background-color: var(--progress-status-color);
+}

@@ -1,0 +1,61 @@
+
+:root {
+    /** Basic colors 
+    ============================== */
+    --txt-color:            #11121a; /* Main Text color of page           */
+    --bg-color:             #e6e6ef; /* Main Background color             */
+    --bg-disabled-color:    #ccc;    /* Main Background disabled color    */
+    --txt-muted-color:      #777;    // Text is muted...
+
+    /** Alert colors 
+    ============================== */
+    --alert-bg-color  : rgb(243, 68, 68);
+    --alert-text-color: #ffffff;
+
+    --progress-bar-color: rgb(243, 195, 118);
+    --progress-status-color: maroon;
+
+
+    --primary-color:              #fff;
+    --primary-bg-color:           #337ab7;
+    --primary-bg-focus-color:     #286090;
+    --primary-bg-hover-color:     #286090;
+
+    --primary-border-color:       #2e6da4;
+    --primary-border-focus-color: #122b40;
+    --primary-border-hover-color: #204d74;
+  
+    --invalid-input-color:        red;
+    --invalid-input-bg-color:     bisque;
+    --invalid-input-border-color: maroon;
+    
+    --footer-color:         #f1f3f6;
+    --change-pending-bg:    rgba(250, 250, 0, 0.383);
+    --change-pending-border:maroon;
+    
+    
+    --sidebar-txt-color:    #fff;
+    --sidebar-bg-color:     #337ab7;
+    --sidebar-shadow-color: rgba(0, 0, 0, 0.2);
+
+    --sidebar-hover-color:  #5a5b61;
+    
+    --nav-sel-txt-color:    #eee309;
+    --nav-sel-bg-color:     #6a6b7a;
+    --nav-sel-sub-bg-color: #575977;
+    
+
+    --box-shadow-color:   rgba(0, 0, 0, .075);
+
+    --form-color:          #555;  
+    --form-bg-color:       #fff;
+    --form-border-color:   #ccc;
+    --text-ro-bg-color:     #eee;
+
+    --action-bg-color: #e5e5ec;
+    --action-border-colr:  rgba(0,0,0,.2);;
+
+  
+  }
+
+  

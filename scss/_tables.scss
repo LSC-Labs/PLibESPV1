@@ -1,0 +1,50 @@
+
+.table {
+  width: 100%;
+  max-width: 100%;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+.table-responsive {
+  min-height: .01%;
+  overflow-x: auto; 
+}
+.table-responsive > .table caption {
+    padding-right: 15px;
+    padding-left:15px;
+}
+
+table {
+  background-color: transparent;
+  border-spacing: 0;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  text-indent: initial;
+  tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-top-color: inherit;
+    border-right-color: inherit;
+    border-bottom-color: inherit;
+    border-left-color: inherit;
+  }
+  td, th {
+    border-top: 1px solid#ddd;
+    vertical-align: top;
+    display: table-cell;
+    padding: 5px;
+  }
+  th {
+    text-align: left;
+    font-weight: bold;
+  }
+
+    caption {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        color: #777;
+        text-align:left
+    }
+}

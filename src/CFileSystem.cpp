@@ -8,20 +8,25 @@
 #include <LittleFS.h>
 #include <DevelopmentHelper.h>
 
+namespace LSC {
+    namespace FS {
+        bool isInitializedAndOpen = false;
+    }
+}
 
  
 CFS::CFS() {
-    if(!m_oFS.isFSInitializedAndOpen) {
-        m_oFS.isFSInitializedAndOpen = LittleFS.begin();
+    if(!LSC::FS::isInitializedAndOpen) {
+        LSC::FS::isInitializedAndOpen = LittleFS.begin();
     }
-    if(!m_oFS.isFSInitializedAndOpen) {
+    if(!LSC::FS::isInitializedAndOpen) {
         LittleFS.format();
-        m_oFS.isFSInitializedAndOpen = LittleFS.begin();
+        LSC::FS::isInitializedAndOpen = LittleFS.begin();
     } 
 }
 
 void CFS::writeStatusTo(JsonObject &oStatus) {
-    if(m_oFS.isFSInitializedAndOpen) {
+    if(LSC::FS::isInitializedAndOpen) {
         oStatus["fs_total"]          = getTotalBytes();
         oStatus["fs_used"]           = getUsedBytes();
     }

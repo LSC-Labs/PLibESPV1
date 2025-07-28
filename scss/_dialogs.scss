@@ -1,0 +1,44 @@
+
+.dialogHeader {
+    text-align: center;
+    padding-bottom: 0em;
+    margin-bottom: 1em;
+    border-width: 2px;
+    border-color: var(--form-border-color);
+    border-bottom-style: double
+}
+.dialogFooter {
+    padding-top: 1em;
+    border-top: 1 dotted red;
+}
+
+.modalDialog {
+    width: 80%;
+    max-width: 30em;
+    border-radius: 10px;
+    border-color: var(--form-border-color);
+    background-color: var(--bg-color);
+    transition-duration: 1s;
+    transition-delay: 1s;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.modalDialog[open] {
+    /*
+    // Find your favorite style from here: https://cubic-bezier.com/
+    // animation: myTop2Center 3.0s ease normal;
+    */
+    animation: Top2Center 0.3s cubic-bezier(.17,.67,.44,.95)
+}
+
+
+.modal-open {
+    --blur-size: 1px;
+    -webkit-filter: blur(var(--blur-size));
+    -moz-filter: blur(var(--blur-size));
+    -o-filter: blur(var(--blur-size));
+    -ms-filter: blur(var(--blur-size));
+    filter: blur(var(--blur-size)); 
+}
+
+

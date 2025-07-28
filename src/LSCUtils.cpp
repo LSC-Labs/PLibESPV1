@@ -28,6 +28,38 @@ namespace LSC {
         }
     }
 
+    /// @brief parse a string with delimited values into a byte array.
+    /// @param pBytes    Pointer to the byte Array to be filled in min length of nMaxBytes
+    /// @param pszInput  The string to be parsed like "xx:xx:xx:xx"
+    /// @param cSep      The separator like ':'
+    /// @param nMaxBytes Max bytes available in pBytes Array
+    /// @param nBase     Base to convert, like 10 - decimal
+    /// @return 
+    int ICACHE_FLASH_ATTR parseBytesToArray(byte *pBytes, const char * pszInput, char cSep, int nMaxBytes, int nBase)
+    {
+        // set target to zero...
+        memset(pBytes,'\0',nMaxBytes);
+
+        // copy source into buffer
+        char tBuffer[strlen(pszInput) +2 ];
+        memset(tBuffer,'\0',sizeof(tBuffer));
+        strcpy(tBuffer,pszInput);
+
+        // prepare the token
+        char tToken[2];
+        tToken[0] = cSep;
+        tToken[1] = '\0';
+
+        // start tokenization
+        char * psz = strtok(tBuffer,tToken);
+        int nIdx = 0;
+        while(psz != NULL && nMaxBytes > nIdx) {
+            pBytes[nIdx++] = strtol(psz,NULL,nBase);
+            psz = strtok(NULL, " ");
+        }
+        return(nIdx);
+    }
+
     /// @brief check if it is a "false" value string
     /// @param pszData either nullptr, "0", "false", "off" or "-" will result in a false result
     /// @return 
@@ -74,6 +106,7 @@ namespace LSC {
     /// @param pDefault pointer to a default, if strValue can not be used.
     /// @return  true, if value or default could be set
     bool ICACHE_FLASH_ATTR setValue(float* pTarget, String strValue, const float *pDefault) {
+        DEBUG_FUNC_START();
         bool bResult = true;
         if(pTarget) {
             if(strValue && strValue.length() > 0) { 
@@ -96,6 +129,7 @@ namespace LSC {
     /// @param pDefault pointer to a default, if strValue can not be used.
     /// @return  true, if value or default could be set
     bool ICACHE_FLASH_ATTR setValue(int* pTarget, String strValue, const int *pDefault) {
+        DEBUG_FUNC_START();
         bool bResult = true;
         if(pTarget) {
             if(strValue && strValue.length() > 0) { 
@@ -117,6 +151,7 @@ namespace LSC {
     /// @param pDefault pointer to a default, if strValue can not be used.
     /// @return  true, if value or default could be set
     bool ICACHE_FLASH_ATTR setValue(unsigned long* pTarget, String strValue, const unsigned long *pDefault) {
+        DEBUG_FUNC_START();
         bool bResult = true;
         if(pTarget) {
             if(strValue && strValue.length() > 0) { 
@@ -137,6 +172,7 @@ namespace LSC {
     /// @param bDefault The default, if strValue can not be used. 
     /// @return  true, if value or default could be set
     bool ICACHE_FLASH_ATTR setValue(bool *pTarget, String strValue, const bool *pDefault) {
+        DEBUG_FUNC_START();
         bool bResult = true;
         if(pTarget) {
             if(strValue && strValue.length() > 0) { 
@@ -157,6 +193,7 @@ namespace LSC {
     /// @param pszDefault The default, if pszValue can not be used.
     /// @return  true, if value or default could be set
     bool ICACHE_FLASH_ATTR setValue(String &strTarget, const char* pszValue, const char* pszDefault) {
+        DEBUG_FUNC_START();
         bool bResult = true;
         if(strTarget) {
             if(pszValue && *pszValue && *pszValue != '\0') {
@@ -172,6 +209,7 @@ namespace LSC {
 
 
     bool ICACHE_FLASH_ATTR setValue(IPAddress &oAddress, const char *pszAddress, const char *pszDefault) {
+        DEBUG_FUNC_START();
         bool bResult = true;
         if(pszAddress) {
             oAddress.fromString(pszAddress);

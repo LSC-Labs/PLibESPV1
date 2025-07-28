@@ -1,4 +1,6 @@
 .pio
 .vscode
 *.code-workspace*
+node_modules
+
 

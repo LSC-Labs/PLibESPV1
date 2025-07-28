@@ -49,7 +49,7 @@ String CWiFiController::getStatusText(int nWiFiStatus) {
     }
 }
 
-#pragma region "Interface to Config / Status handling"
+// #pragma region "Interface to Config / Status handling"
 /**
  * Write your configuration into the json object,
  */
@@ -101,14 +101,14 @@ void CWiFiController::readConfigFrom(JsonObject &oNode) {
     if(!(oNode["wifi_pwd"] == WIFI_HIDDEN_PASSWORD)) {
         LSC::setValue(Config.wifi_Password ,oNode["wifi_pwd"]);
     }
-    if(oNode["bssid"]) LSC::parseBytesTo(Config.wifi_bssid, oNode["bssid"],':',sizeof(Config.wifi_bssid),16);
+    if(oNode["bssid"]) LSC::parseBytesToArray(Config.wifi_bssid, oNode["bssid"],':',sizeof(Config.wifi_bssid),16);
     LSC::setValue(&Config.dhcpEnabled,      oNode["dhcp"]);
     LSC::setValue(Config.ipAddress,         oNode["ipaddress"]);
     LSC::setValue(Config.ipSubnetMask,      oNode["subnet"]);
     LSC::setValue(Config.ipGateway,         oNode["gwip"]);
     LSC::setValue(Config.ipDNS,             oNode["dnsip"]);
     DEBUG_FUNC_END();
-}
+} 
 
 void CWiFiController::writeStatusTo(JsonObject &oStatusNode) {
     DEBUG_FUNC_START();
@@ -151,7 +151,11 @@ void CWiFiController::writeStatusTo(JsonObject &oStatusNode) {
 }
 
 void CWiFiController::writeStatusToLog() {
-    DynamicJsonDocument oStatusDoc(1024);
+    #if ARDUINOJSON_VERSION_MAJOR < 7
+        DynamicJsonDocument oStatusDoc(1024);
+    #else
+        JsonDocument oStatusDoc;
+    #endif
     JsonObject oStatusObj = oStatusDoc.to<JsonObject>();
     writeStatusTo(oStatusObj);
     String strPretty;
@@ -159,9 +163,9 @@ void CWiFiController::writeStatusToLog() {
     Appl.Log.logVerbose(F("WiFi Status:%s\n"),strPretty.c_str());
 }
 
-#pragma endregion
+// #pragma endregion
 
-#pragma region "Starter for Access Point and Station Mode"
+// #pragma region "Starter for Access Point and Station Mode"
 
 /// @brief start the access point
 ///       - if it does not work by config start a default access point
@@ -282,9 +286,9 @@ bool CWiFiController::joinNetwork(const char *pszSSID, const char *pszPassword, 
 }
 
 
-#pragma endregion
+// #pragma endregion
 
-
+// #pragma region enable...
 
 /// @brief start the setup of wifi (first call in usage)
 /// If the instance has already a configuration, we can start the setup with enableWiFi).
@@ -361,3 +365,4 @@ void CWiFiController::disableWiFi()
     DEBUG_FUNC_END();
 }
 
+// #pragma endregion

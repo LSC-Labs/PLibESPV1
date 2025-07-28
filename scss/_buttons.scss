@@ -1,0 +1,21 @@
+
+.btn {
+    border-radius:4px;
+    box-shadow: 3px 3px 3px var(--sidebar-shadow-color);
+}
+
+
+
+
+// If not inside a row... use btn-right instead of pull-right !
+// otherwise the button "jumps" outside the container
+.btn-right {
+  margin-right: 0;
+  margin-left:auto;
+  display:block;
+}
+
+// System Button - has a min width
+.sysBtn {
+  min-width: 12em;
+}
