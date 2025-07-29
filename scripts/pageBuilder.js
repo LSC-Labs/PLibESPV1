@@ -200,8 +200,8 @@ function printStatus() {
 console.log("=======================================");
 console.log(`${ProgName} - v${ProgVersion}`)
 console.log("=======================================");
-prepareAndWritePreample();
 loadControlFile();
+prepareAndWritePreample();
 removeTargets();
 processPages();
 printStatus();
