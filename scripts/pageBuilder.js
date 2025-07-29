@@ -66,7 +66,8 @@ const HTML_PREAMBLE = [
     " * The pageBuilder is part of the PLibESPV1 project.",
     " * Build date: " + new Date().toISOString(),
     " * Build context: " + getProjectName(),
-    " *************************************************************************** -->"
+    " *************************************************************************** -->",
+    ""
 ];
 
 var Settings = {};
