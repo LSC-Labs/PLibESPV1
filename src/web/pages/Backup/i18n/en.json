@@ -1,0 +1,18 @@
+{
+    "SysCfg": {
+        "legend": "Backup & Restore",
+        "title": "Backup or Restore the device configuration. Be aware, the backup file is <b>NOT</b> encrypted.<br/> Store it on a safe place to avoid loosing your access credentials...",
+        "Backup": {
+            "title": "Backup Settings",
+            "desc": "Save the config to a backup file.",
+            "btn": "Backup Settings"
+        },            
+        "Restore": {
+            "title": "Restore Settings",
+            "desc": "Click and choose your file from your local device to be restored.",
+            "btn": "Restore Settings",
+            "invalidFile" : "The file you selected is not a valid backup file..."
+        },
+        "changePending": "You have uncommited changes, please click here to review and commit."
+    }
+}

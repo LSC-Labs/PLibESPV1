@@ -1,0 +1,16 @@
+{
+    "System": {
+        "title": "Restart or Reset",
+        "desc": "Restart or Reset the device",
+        "Restart" : {
+            "btn": "Restart Device",
+            "title": "Restart Device",
+            "desc": "Restart the device. Save your changes, otherwise they will be lost."
+        },
+        "Reset" : {
+            "btn": "Reset Device",
+            "title": "Factory Reset",
+            "desc": "All settings will be dropped, the device will reboot with factory settings."
+        }
+    }
+}

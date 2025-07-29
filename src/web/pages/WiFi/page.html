@@ -1,0 +1,200 @@
+<!-- 
+    Network and WiFi settings
+-->
+<div id="WiFiPage" data-menu='{"name":"Settings|WiFi","title":"Wi-Fi","icon":"WiFi"}'>
+     <!-- WiFi Scan Dialog -->
+    <dialog id="scanWiFiDialog" class="modalDialog">
+        <div class="dialogHeader"></div>
+        <select id="scan_ssid" class="form-control input-sm"></select>
+        <div class="dialogFooter">
+            <button type="button" class="btn btn-secondary btn-sm" 
+                    data-i18n="main.cancel" data-dismiss="modal">C</button>
+            <button type="button" class="btn btn-primary btn-sm pull-right" id="useWifiBtn" data-auth="1"
+                    data-i18n="WiFi.scan.use">U</button>
+        </div>
+    </dialog>
+
+    <!-- Page -->
+    <legend data-i18n="WiFi.legend"></legend>
+    <div class="pageDesc">
+        <span data-viewon="ap_mode=1" data-i18n="WiFi.AP.desc"></span>
+        <span data-viewon="ap_mode=0" data-i18n="WiFi.STA.desc"></span>
+    </div>
+    <!-- AP or STA Mode -->
+    <div class="row form-group" data-auth="RO">
+        <label class="$(col-label-class) info-icon" data-i18n="@title:WiFi.mode.info">
+            <span data-i18n="WiFi.mode.label"></span>
+            <icon data-icon="Info"></icon>
+        </label>
+        <div class="$(col-input-class)">
+            <form >
+                <label class="radio-inline">
+                    <input type="radio" value="1" name="ap_mode" checked>
+                    <span data-i18n="WiFi.AP.type"></span>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" value="0" name="ap_mode">
+                    <span data-i18n="WiFi.STA.type"></span>
+                </label>
+            </form>
+        </div>
+    </div>
+   
+
+    <!-- WiFi SSID Input -->
+    <div class="row form-group" data-auth="RO">
+        <label class="$(col-label-class) info-icon" data-i18n="@title:WiFi.ssid.info">
+            <span data-i18n="WiFi.ssid.label"></span>
+            <icon data-icon="Info"></icon>
+        </label>
+        <span class="$(col-input-class)">
+            <input class="form-control input-sm"  type="text" 
+                   data-cfg="ap_ssid" pattern="^.{2,50}" required data-viewon="ap_mode=1">
+        </span>
+        <span class="col-xs-6">
+            <input class="form-control input-sm" type="text"  
+                   data-cfg="ssid"    pattern="^.{2,50}" required data-viewon="ap_mode=0" >
+        </span>
+        <span class="col-xs-2">
+            <button type="button" class="btn btn-primary btn-sm" data-evt-args="showScanDialog"
+                onclick44="APP.on('showScanDialog',this)" data-i18n="WiFi.scan" data-viewon="ap_mode=0">Scan</button>
+        </span>
+    </div>
+
+
+   <!-- WiFi Passwords -->
+    <div class="row form-group" data-auth="1">
+        <label class="$(col-label-class) info-icon" data-i18n="@title:WiFi.passwd.info">
+            <span data-i18n="WiFi.passwd.label"></span>
+            <icon data-icon="Info"></icon>
+        </label>
+        <span class="$(col-input-class)">
+            <input data-cfg="ap_pwd"    class="form-control input-sm"  type="password" data-viewon="ap_mode=1">
+            <input data-cfg="wifi_pwd"  class="form-control input-sm" type="password" data-viewon="ap_mode=0">
+        </span>
+    </div>
+
+    <!-- Input of BSSID (if needed in station mode)-->
+    <div class="row form-group" data-viewon="ap_mode=0" data-auth="RO">
+        <label class="$(col-label-class) info-icon" data-i18n="@title:WiFi.bssid.info">
+            <span data-i18n="WiFi.bssid.label"></span>
+            <icon data-icon="Info"></icon>
+        </label>
+        <span class="$(col-input-class)">
+            <input data-cfg="bssid" class="form-control input-sm" type="text" 
+                pattern="^$|^[\da-fA-F]{2}:[\da-fA-F]{2}:[\da-fA-F]{2}:[\da-fA-F]{2}:[\da-fA-F]{2}:[\da-fA-F]{2}$">
+        </span>
+    </div>
+
+    <!-- Hide WiFi (AP mode only -->
+    <div class="row form-group" data-viewon="ap_mode=1" data-auth="RO">
+        <label class="$(col-label-class) info-icon" data-i18n="@title:WiFi.hide.info">
+            <span data-i18n="WiFi.hide.label"></span>
+            <icon data-icon="Info"></icon>
+        </label>
+        <div class="$(col-input-class)">
+            <form>
+                <label class="radio-inline">
+                    <input type="radio" value="1" name="hidewifi" >
+                    <span data-i18n="main.yes"></span>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" value="0" name="hidewifi" checked>
+                    <span data-i18n="main.no"></span>
+                </label>
+            </form>
+        </div>
+    </div>
+
+    <!-- Use DHCP (Station mode only)-->
+    <div class="row form-group" data-viewon="ap_mode=0" data-auth="RO">
+        <label class="$(col-label-class) info-icon" data-i18n="@title:WiFi.dhcp.info">
+            <span data-i18n="WiFi.dhcp.label"></span>
+            <icon data-icon="Info"></icon>
+        </label>
+        <div class="$(col-input-class)">
+            <form>
+                <label class="radio-inline">
+                    <input type="radio" value="1" name="dhcp_on" checked>
+                    <span data-i18n="main.yes"></span>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" value="0" name="dhcp_on" >
+                    <span data-i18n="main.no"></span>
+                </label>
+            </form>
+        </div>
+    </div>
+
+   
+    <div id="ip_statics" style="display:none" data-viewon="dhcp_on=0|ap_mode=1" data-auth="RO">
+         <!-- Static IP address-->
+        <div class="row form-group">
+            <label class="$(col-label-class) info-icon" data-i18n="@title:WiFi.ip.info">
+                <span data-i18n="WiFi.ip.label"></span>
+                <icon data-icon="Info"></icon>
+            </label>
+            <span class="$(col-input-class)">
+              <input id="ap_ipaddress" class="form-control input-sm" pattern="$(val-IP)" required data-viewon="ap_mode=1">
+              <input id="ipaddress"    class="form-control input-sm" pattern="$(val-IP)" required data-viewon="ap_mode=0">
+            </span>
+        </div>
+
+         <!-- Static Netmask -->
+        <div class="row form-group">
+            <label class="$(col-label-class) info-icon" data-i18n="@title:WiFi.subnet.info">
+                <span data-i18n="WiFi.subnet.label"></span>
+                <icon data-icon="Info"></icon>
+            </label>
+            
+            <span class="$(col-input-class)">
+              <input id="ap_subnet" class="form-control input-sm"  pattern="$(val-IP)" data-viewon="ap_mode=1">
+              <input id="subnet"    class="form-control input-sm"  pattern="$(val-IP)" data-viewon="ap_mode=0">
+            </span>
+        </div>
+    </div>
+
+    <!-- Static DNS and GW Infos -->
+    <div id="ip_services" data-viewon="dhcp_on=0;ap_mode=0" data-auth="RO">
+        <div class="row form-group">
+            <label class="$(col-label-class) info-icon" data-i18n="@title:WiFi.dns.info">
+                <span data-i18n="WiFi.dns.label"></span>
+                <icon data-icon="Info"></icon>
+            </label>
+            <span class="$(col-input-class)">
+                <input id="dnsip" class="form-control input-sm" pattern="$(val-IP)">
+            </span>
+        </div>
+        <div class="row form-group">
+            <label class="$(col-label-class) info-icon" data-i18n="@title:WiFi.gw.info">
+                <span data-i18n="WiFi.gw.label"></span>
+                <icon data-icon="Info"></icon>
+            </label>
+            <span class="$(col-input-class)">
+                <input id="gwip" class="form-control input-sm" pattern="$(val-IP)">
+            </span>
+        </div>
+    </div>
+
+    <!-- Fallback to AP Mode if needed -->
+    <div id="fallback" class="row form-group" data-viewon="ap_mode=0" data-auth="RO">   
+        <label class="$(col-label-class) info-icon" data-i18n="@title:WiFi.fallback.info">
+            <span data-i18n="WiFi.fallback.label"></span>
+            <icon data-icon="Info"></icon>
+        </label>
+        <div class="$(col-input-class)">
+            <form name="fallbackmodeForm">
+                <label class="radio-inline">
+                    <input type="radio" value="1" name="fallbackmode">
+                    <span  data-i18n="main.enabled"></span>
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" value="0" name="fallbackmode" checked>
+                    <span data-i18n="main.disabled"></span>
+                </label>
+            </form>
+        </div>
+    </div>
+
+    <div class="row form-group" data-element-type="save-btn-row"></div>
+</div>

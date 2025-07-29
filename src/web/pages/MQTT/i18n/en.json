@@ -1,0 +1,43 @@
+{
+    "MQTT": {
+        "title": "Message Broker",
+        "desc": {
+            "enable" : "Enable the message broker to use this service.",
+            "configure": "Configure the message broker or disable to stop the service."
+        },
+        "enable": {
+            "label": "MQTT Support",
+            "info": "Enable or disable the MQTT support."
+            
+        },
+        
+        "host": {
+            "label" : "Host",
+            "info": "MQTT Server host name, IP address or url."
+        },
+        "port": {
+            "label" : "Port",
+            "info": "MQTT server port."
+        },
+        "user": {
+            "label" : "User",
+            "info": "MQTT technical user to login."
+        },
+        "passwd": {
+            "label" : "Password",
+            "info": "Password of the technical login user."
+        },
+        "topic": {
+            "label" : "Topic prefix",
+            "info": "Prefix applied to all MQTT topics."
+        },
+        "autotopic": {
+            "label" : "Auto topic",
+            "info": "Automatically add a unique identifier (last 6 digits of MAC address) to the MQTT topic prefix."
+        },
+        "syncrate": {
+            "label" : "Sync time (seconds)",
+            "info": "Sync time to send a heartbeat message to the MQTT server."
+        }
+    }
+}

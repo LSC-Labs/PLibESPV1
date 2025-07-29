@@ -1,0 +1,65 @@
+{
+    "WiFi": {
+        "legend": "Wi-Fi Settings",
+        "scan":   {
+            "title" : "Scanning WiFi - please wait...",
+            "titleDone": "Select a WiFi to use...",
+            "use"   : "Select WiFi"
+        },
+        
+        "mode": {
+            "info": "You can run your device in AP Mode or Client Mode. In client mode you will need to connect to an existing Wi-Fi network, in AP Mode ESP creates a Wi-Fi network by itself.",
+            "label": "Mode"
+        },
+
+        "ssid": {
+            "info": "Select the network name.",
+            "label": "SSID"
+        },
+        "bssid": {
+            "info": "Select the BSSID to use explicit node (optional).",
+            "label": "BSSID"
+        },
+        "passwd": {
+            "info": "Enter the WiFi password.",
+            "label": "Password"
+        },
+        "hide": {
+            "info": "Hide the SSID of the access point.",
+            "label": "Hide SSID"
+        },
+        "dhcp": {
+            "info": "Use DHCP or static ip addresses.",
+            "label": "Use DHCP"
+        },
+        "ip": {
+            "info": "Set the static IP address of this node.",
+            "label": "IP Address"
+        },
+        "subnet": {
+            "info": "Set the subnet mask to be used.",
+            "label": "Subnet mask"
+        },
+        "dns": {
+            "info": "Address of the DNS server.",
+            "label": "DNS server"
+        },
+        "gw": {
+            "info": "Address of the Gateway to the world.",
+            "label": "Gatway"
+        },
+        "fallback": {
+            "info": "Fallback to Access Point Mode when WiFi Network could not be joined.",
+            "label": "Fallback"
+        },
+        
+        "AP" : {
+            "type": "Access Point",
+            "desc": "Type your Wi-Fi Network's SSID."
+        },
+        "STA" : {
+            "type": "Client",
+            "desc": "Type your Wi-Fi Network's SSID or press 'Scan' for nearby Wireless Networks to join."
+        }
+    }
+}

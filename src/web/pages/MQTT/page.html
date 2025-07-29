@@ -1,0 +1,135 @@
+<!-- 
+    Message broker 
+-->
+<div id="MQTTPage" data-menu='{"name":"Settings|MQTT","title":"MQTT","icon":"MQTT"}'>
+    <legend data-i18n="MQTT.title"></legend>
+    <div class="pageDesc">
+        <span data-i18n="MQTT.desc.enable" data-viewon="enabled=0"></span>
+         <span data-i18n="MQTT.desc.configure" data-viewon="enabled=1"></span>
+    </div>
+
+    <!-- Enable / Disable the MQTT Service support -->
+    <div class="row form-group" data-auth="RO">
+         <label class="$(col-label-class) info-icon" data-i18n="@title:MQTT.enable.info">
+            <span data-i18n="MQTT.enable.label"></span>
+            <icon data-icon="Info"></icon>
+        </label>
+       
+        <div class="$(col-input-class)">
+            <form>
+                <label class="radio-inline">
+                    <input type="radio" value="1" name="enabled">
+                    <span data-i18n="main.enabled">Enabled</span>
+                </label> 
+                <label class="radio-inline">
+                    <input type="radio" value="0" name="enabled" checked>
+                    <span data-i18n="main.disabled">Disabled</span>
+                </label>
+            </form>
+        </div>
+    </div>
+
+    <!-- Settings, if MQTT is enabeled -->
+    <div data-viewon="enabled=1" data-auth="RO">
+        <!-- MQTT Server -->
+        <div class="row form-group">
+            <label class="$(col-label-class) info-icon" data-i18n="@title:MQTT.host.info">
+                <span data-i18n="MQTT.host.label"></span>
+                <icon data-icon="Info"></icon>
+            </label>
+            <span class="$(col-input-class)">
+                <input class="form-control input-sm"  type="text" 
+                    data-cfg="host" required >
+            </span>
+        </div>
+
+        <!-- MQTT Port -->
+        <div class="row form-group" data-auth="RO">
+            <label class="$(col-label-class) info-icon" data-i18n="@title:MQTT.port.info">
+                <span data-i18n="MQTT.port.label"></span>
+                <icon data-icon="Info"></icon>
+            </label>
+            <span class="$(col-input-class)">
+                <input data-cfg="port" class="form-control input-sm " pattern="^$|^[\d]{1,5}$">
+            </span>
+        </div>
+
+        <!-- MQTT User -->
+        <div class="row form-group" data-auth="RO">
+            <label class="$(col-label-class) info-icon" data-i18n="@title:MQTT.user.info">
+                <span data-i18n="MQTT.user.label"></span>
+                <icon data-icon="Info"></icon>
+            </label>
+            <span class="$(col-input-class)">
+                <input data-cfg="user" type="text" class="form-control input-sm" placeholder="MQTT User" >
+            </span>
+        </div>
+
+        <!-- MQTT Password -->
+        <div class="row form-group" data-auth="1">
+            <label class="$(col-label-class) info-icon" data-i18n="@title:MQTT.passwd.info">
+                <span data-i18n="MQTT.passwd.label"></span>
+                <icon data-icon="Info"></icon>
+            </label>
+            <span class="$(col-input-class)">
+                <input data-cfg="passwd" type="password" class="form-control input-sm" placeholder="" value="" >
+            </span>
+            <br>
+        </div>
+        
+        <!-- MQTT topic info -->
+        <div class="row form-group" data-auth="RO">
+            <label class="$(col-label-class) info-icon" data-i18n="@title:MQTT.topic.info">
+                <span data-i18n="MQTT.topic.label"></span>
+                <icon data-icon="Info"></icon>
+            </label>
+            <span class="$(col-input-class)">
+                <input data-cfg="topic" type="text" class="form-control input-sm" placeholder="MQTT Topic" >
+            </span>
+        </div>
+
+        <!-- MQTT auto topic switch -->
+        <div class="row form-group" data-auth="RO">
+            <label class="$(col-label-class) info-icon" data-i18n="@title:MQTT.autotopic.info">
+                <span data-i18n="MQTT.autotopic.label"></span>
+                <icon data-icon="Info"></icon>
+            </label>
+            <span class="$(col-input-class)">
+                <input type="checkbox" data-cfg="autotopic">
+            </span>
+        </div>
+
+        <!-- MQTT sync rate -->
+        <div class="row form-group" data-auth="RO">   
+            <label class="$(col-label-class) info-icon" data-i18n="@title:MQTT.syncrate.info">
+                <span data-i18n="MQTT.syncrate.label"></span>
+                <icon data-icon="Info"></icon>
+            </label>
+            <span class="$(col-input-class)">
+                <input  type="text" class="form-control input-sm" placeholder="Sync rate" 
+                        data-cfg="syncrate" pattern="^[\d]{0,10}$">
+            </span>
+            <br>
+        </div>
+
+        <!-- Future... -->
+        <div class="row form-group" style="display:none;" data-auth="RO">  
+             <label class="$(col-label-class) info-icon" data-i18n="@title:MQTT.ha.info">
+                <span data-i18n="MQTT.ha.label"></span>
+                <icon data-icon="Info"></icon>
+            </label>  
+            <!--
+            <label class="col-xs-4">MQTT for Home Assistant<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Enable MQTT topics and discovery for Home Assistant"></i></label>
+            -->
+            <div class="$(col-input-class)" data-auth="RO">
+                <form>
+                    <label class="radio-inline"><input data-cfg="useha"    type="radio" value="1" name="useha">Enabled</label>
+                    <label class="radio-inline"><input type="radio"                     value="0" name="useha" checked>Disabled</label>
+                </form>
+            </div>
+            <br> 
+        </div>
+    
+    </div>
+    <div class="row form-group" data-element-type="save-btn-row"></div>
+</div>

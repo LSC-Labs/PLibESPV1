@@ -1,0 +1,38 @@
+<!--
+    DevicePage
+-->
+ <div id="DevicePage" data-menu='{"name":"Settings|Device","icon":"Status"}' data-cfg="">
+    <legend data-i18n="Device.legend"></legend>
+        <div class="pageDesc" data-i18n="Device.title"></div>
+        <div class="row form-group">
+            <label class="$(col-label-class)">
+                <div class="info-icon" data-icon="Info">
+                    <span data-i18n="Device.hostname"></span>
+                </div>
+            </label>
+            <span class="$(col-input-class)">
+            <input  class="form-control input-sm" 
+                    placeholder="Hostname" 
+                    data-cfg="hostname" 
+                    data-auth="RO"
+                    type="text" 
+                    pattern="^[\-_A-Za-z0-9]*" required/>
+            </span>
+        </div>
+        <div class="row form-group" data-auth="1">
+            <label class="$(col-label-class)">
+            <div class="info-icon"
+                    title="choose a password for your admin account."
+                    data-icon="Info">
+                    <span data-i18n="Device.password">Password</span>
+            </div>        
+            </label>
+            <span class="$(col-input-class)">
+            <input type="password" class="form-control input-sm" placeholder="Administrator Password" 
+                    data-cfg="adminpwd" 
+                    
+                    pattern="^.{2,80}$" >
+            </span>
+        </div>
+      <div class="row form-group" data-element-type="save-btn-row"></div>
+</div>

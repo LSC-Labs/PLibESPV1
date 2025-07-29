@@ -1,0 +1,35 @@
+<!-- 
+    Update Firmware page 
+-->
+<div id="FirmwarePage" data-menu='{"name":"Maintenance|Firmware","title":"Firmware","icon":"Firmware"}'>
+    <legend data-i18n="Firmware.title"></legend>
+    <div class="pageDesc" data-i18n="Firmware.desc"></div>
+    
+    <div class="row actionPanel"> 
+        <legend data-i18n="Firmware.latest"></legend>
+        <div>
+            <span id="Name"></span>
+            (<span id="Version"></span>) - <span data-i18n="Firmware.released"></span> <span id="Date"></span>
+        </div>
+        <hr/>
+        <div id="Desc" data-i18n="Firmware.noInternet"></div>
+        <div data-auth="1">
+            <a id="downloadupdate" style="display:none" ></a>
+            <button id="download" class="btn btn-primary btn-sm pull-right sysBtn" disabled>
+                <span data-i18n="Firmware.downloadBtn"></span>
+            </button>
+            
+        </div>
+    </div>
+    
+    <div class="row actionPanel" data-auth="1">
+        <legend data-i18n="Firmware.install" ></legend>
+        <div>
+            <input  id="fwSelect" style="width:100%" type="file" name="update" accept=".bin"
+                    onchange="APP.on('fwSelected',this)" >
+            <button id="fwInstall" class="btn btn-danger btn-sm pull-right sysBtn" 
+                    data-i18n="Firmware.installBtn" disabled></button>
+        </div>
+    </div>
+    <br/>
+</div>

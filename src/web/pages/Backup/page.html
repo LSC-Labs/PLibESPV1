@@ -1,0 +1,41 @@
+<!-- 
+    Backup and Restore page 
+-->
+<div id="BackupPage" data-menu='{"name":"Maintenance|Backup","title":"Backup & Restore","icon":"DISK", "attr": { "data-auth":"1" } }' data-auth="1">
+    <legend data-i18n="SysCfg.legend"></legend>
+    <h6 class="text-muted" data-i18n="SysCfg.title" ></span>.</h6>
+
+    <div class="row form-group actionPanel"> 
+        <legend data-i18n="SysCfg.Backup.title"></legend>
+        <div data-i18n="SysCfg.Backup.desc"></div>
+        <div>
+            <button id="backupSet" class="btn btn-primary btn-sm pull-right sysBtn" data-i18n="SysCfg.Backup.btn"></button>
+            <a id="downloadSet" style="display:none"></a>
+        </div>
+    </div>
+
+     <div class="row form-group actionPanel">
+        <legend data-i18n="SysCfg.Restore.title"></legend>
+        <div data-i18n="SysCfg.Restore.desc"></div>
+        <div>
+            <label for="restoreSet" class="btn btn-warning btn-sm pull-right sysBtn" data-i18n="SysCfg.Restore.btn"></label>
+            <input id="restoreSet" type="file" accept="text/json" onchange="APP.on('restoreBackup',this);" style="display:none;">
+        </div>
+    </div>
+
+    <dialog id="restoreDialog" class="modalDialog">
+        <div class="dialogHeader">
+            <button type="button" class="closeButton pull-right" data-dismiss="modal" >&times;</button>
+            <h4 class="modal-title" data-i18n="SysCfg.Restore.dialog.title">Please wait while restoring user data..</h4>
+        </div>
+        <div class="dialogBody">
+            <div id="pbar" class="progress">
+                <div id="dynamic" class="progress-bar progress-bar-primary progress-bar-striped active">Restoring...</div>
+            </div>
+        </div>
+        <div class="dialogFooter">
+            <button type="button" id="restoreclose" style="display:none;" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </dialog>
+
+</div>
