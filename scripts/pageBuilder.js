@@ -17,7 +17,13 @@
  *          path:        (default is src/web)
  *          pageFile:    (default is pages.html)
  *          pageScript:  (default is pages.js)
- *      }
+ *          i18nLoc:     (default is i18n)
+ *          writePageRegistration: (default true, if set to false, no page registration will be written)
+ *          updateDefaults: (default true, if set to false, the defaults will not be updated)
+ *      },
+ *      sync: {
+ *          files: []
+ *           },
  *      include: [
  *              "pathToPageDir",
  *              "pathToPages/*"
@@ -41,11 +47,33 @@ const DEFAULTS = {
     "out": {
         "path": "src/web",
         "pageFile": "pages.html",
-        "pageScript": "pages.js",
+        "pageScript": "js/pages.js",
         "i18nLoc" : "i18n",
-        "writePageRegistration": true
+        "writePageRegistration": true,
     },
-    "include": {},
+    // Sync file section....
+    "sync" : {
+        // Files are searched ... first local, then in the library...
+        // >   == copy source to target, if source is newer than target
+        // <   == copy target to source, if target is newer than source
+        // <>  == copy source to target, if source is newer than target, and copy target to source, if target is newer than source
+        // =   == copy only if target does not exist....
+        "files": [
+                    "src/web/css/runtime.css     > dist/css/_runtime.css",
+                    "src/web/css/runtime.css.map > dist/css/_runtime.css.map",
+                    "src/web/js/runtime.js       > dist/js/_runtime.js",
+                    "src/web/js/settings.js      > dist/js/_settings.js"
+                ]
+    },
+
+    // Array of paths to include pages from 
+    "include": [
+        "src/web/pages/_Defaults",
+        "src/web/pages/System",
+        "src/web/pages/WiFi",
+        "src/web/pages/Device",
+    ],  
+
     "getHtmlTargetName": function() {
         return(path.join(Settings.out.path,Settings.out.pageFile));
     },
@@ -88,6 +116,7 @@ var Status = {
     "numScript": 0,
     "numLanguages": 0,
     "numErrors": 0,
+    "numSyncFiles": 0,
     "bCreatePageRegistration": false
 }
 
@@ -117,6 +146,7 @@ function joinHtmlPage(strPagePath) {
         let strOut = Settings.getHtmlTargetName();
         console.log("   -> appending HTML to : " + strOut);
         let strData = fs.readFileSync(strInput);
+        fs.mkdirSync(path.dirname(strOut), { recursive: true });
         fs.appendFileSync(strOut,strData);
         Status.numHTML++;
     }
@@ -131,6 +161,7 @@ function joinScriptPage(strPagePath) {
         let strOut = Settings.getScriptTargetName();
         console.log("   -> appending Script to : " + strOut);
         let strData = fs.readFileSync(strInput);
+        fs.mkdirSync(path.dirname(strOut), { recursive: true });
         fs.appendFileSync(strOut,strData);
         Status.numScript++;
 
@@ -200,13 +231,13 @@ function joinLanguages(strPagePath) {
 }
 
 
-function removeTargets() {
+function removeTargetPages() {
     if(fs.existsSync(Settings.getHtmlTargetName())) fs.rmSync(Settings.getHtmlTargetName())
     if(fs.existsSync(Settings.getScriptTargetName())) fs.rmSync(Settings.getScriptTargetName())
 }
 
 
-function prepareAndWritePreample() {
+function prepareAndWritePreamples() {
     let strPath = Settings.out.path;
     if(!fs.existsSync(strPath)) fs.mkdirSync(strPath);
     let strHtmlFileName = Settings.getHtmlTargetName();
@@ -241,7 +272,131 @@ function processPages() {
     }
 }
 
-function printStatus() {
+/**
+ * the path, where the library is located...
+ * normally this is inside the project, but can also be outside.
+ * If inside, the path is relative to the project root.
+ * If outside, the path is absolute.
+ * @returns 
+ */
+function getLibaryPath() {
+    let strActPath = path.cwd; // this is the path, where node starts the script...
+    let strLibPath = __dirname.startsWith(strActPath) ?
+                     __dirname.substring(0,strActPath.length) : path.join(__dirname,"..");
+    return(strLibPath);
+}
+
+/**
+ * the path where the project is located.
+ * This is the root of the project with package.json script started from.
+ * @returns 
+ */
+function getProjectPath() {
+    return(path.cwd);
+}
+
+function syncFile(strSourceFile, strTargetFile, strDirection) {
+    let bSourceExists = fs.existsSync(strSourceFile);
+    let bTargetExists = fs.existsSync(strTargetFile);
+    let nSrcMS = bSourceExists ? fs.statSync(strSourceFile).mtimeMs : 0;
+    let nTgtMS = bTargetExists ? fs.statSync(strTargetFile).mtimeMs : 0;
+    
+    // console.log(` - syncing files : "${strSourceFile}" ${strDirection} "${strTargetFile}"`);
+    switch(strDirection) {
+        case "=":  if(!bTargetExists) {
+                        console.log("   -> copying source file to target : " + strTargetFile);
+                        fs.copyFileSync(strSourceFile, strTargetFile);
+                        Status.numSyncFiles++;
+                    } else {
+                        console.log("   -> target file already exists - no action : " + strTargetFile);
+                    }
+                    break;
+
+                    case ">":   if(nSrcMS > nTgtMS && bSourceExists) {
+                        console.log("   -> copying newer source file to target " + strTargetFile);
+                        fs.copyFileSync(strSourceFile, strTargetFile);
+                        Status.numSyncFiles++;
+                    } else {
+                        console.log(bSourceExists ? 
+                                    "   -> source file is not newer  - no action" :
+                                    "   -> source file does not exist - no action : " + strSourceFile);
+                    }
+                    break;
+
+        case "<":   if(nTgtMS > nSrcMS && bTargetExists) {
+                        console.log("   -> copying newer target file to source : " + strSourceFile);
+                        fs.copyFileSync(strTargetFile, strSourceFile);
+                        Status.numSyncFiles++;
+                    } 
+                    break;
+
+        case "<>":  if(nSrcMS > nTgtMS) syncFile(strSourceFile, strTargetFile,">");
+                    if(nTgtMS > nSrcMS) syncFile(strSourceFile, strTargetFile,"<")
+                    break;
+
+        default:    console.error(" - ERROR : invalid sync command : " + strDirection);
+                    Status.numErrors++;
+                    break;
+    }
+}
+
+function findSourceFile(strFile) {
+    let strSourceFile = strFile;
+    if(!fs.existsSync(strSourceFile)) strSourceFile = path.join(getLibaryPath(),strFile);
+    if(!fs.existsSync(strSourceFile)) strSourceFile = null;
+    return(strSourceFile);
+}
+
+function findTargetFile(strFile, strSourceFile) {
+    let strTargetFile = strFile;
+    if(!strTargetFile) strTargetFile = strSourceFile;
+    if(strTargetFile) {
+        let strTargetPath = path.normalize(path.dirname(strTargetFile));
+        if(strTargetPath.startsWith("/"))  strTargetPath = "." + strTargetPath;
+        if(strTargetPath.startsWith("../")) {
+            console.error(" - ERROR : target path is outside the project : " + strTargetPath);
+            strTargetFile = null;   
+        } else {
+            fs.mkdirSync(strTargetPath, { recursive: true });
+            strTargetFile = path.join(strTargetPath, path.basename(strTargetFile));
+        }
+    }
+    return(strTargetFile);
+}
+
+function syncFiles() {
+    if(Settings.out && Settings.sync) {
+        if(Settings.sync && Settings.sync.files   ) {
+            Settings.sync.files.forEach((strInstruction) => {
+                console.log(" - executing sync command : " + strInstruction);
+                let oRegEx = new RegExp("^(?<source>[\\/\\._a-zA-Z]*)\\s*(?<cmd>[<=>]?)\\s*(?<target>.*)$");
+                let oMatch = oRegEx.exec(strInstruction);
+                if(oMatch) {
+                    if(oMatch.groups.cmd && oMatch.groups.target) {
+                        let strSourceFile = findSourceFile(oMatch.groups.source.trim());
+                        if(!strSourceFile) { console.error(" - source file not found : " + oMatch.groups.source.trim());}
+                        else {
+                            let strTargetFile = findTargetFile(oMatch.groups.target.trim(), strSourceFile);
+                            syncFile(   strSourceFile,
+                                        strTargetFile,
+                                        oMatch.groups.cmd.trim());
+                        }
+                    } else {
+                        console.error(" - invalid instruction : " + strInstruction);
+                        Status.numErrors++;
+                    }
+                } else {
+                    console.error(" - instruction does not respect rule <source> [<>] <target> : " + strInstruction);
+                    Status
+                }
+            });
+        }  
+    } 
+}
+
+
+
+function printSummary() {
     console.log("=======================================");
     console.log(" pageBuilder - Status");
     console.log("=======================================");
@@ -253,19 +408,23 @@ function printStatus() {
     console.log(" - HTML pages joined     : " + Status.numHTML);
     console.log(" - Script pages joined   : " + Status.numScript);
     console.log(" - Languages joined      : " + Status.numLanguages);
+    console.log(" - Files synced          : " + Status.numSyncFiles);
+    console.log("=======================================");
     if(Status.numErrors > 0) {
         console.error(" - Errors encountered    : " + Status.numErrors);
     } else {
         console.log(" - No errors encountered.");
     }
+    console.log("=======================================");
 }
 
 console.log("=======================================");
 console.log(`${ProgName} - v${ProgVersion}`)
 console.log("=======================================");
 loadControlFile();
-removeTargets();
-prepareAndWritePreample();
+removeTargetPages();
+prepareAndWritePreamples();
 processPages();
 writePageHandlerRegistration();
-printStatus();
+syncFiles();
+printSummary();

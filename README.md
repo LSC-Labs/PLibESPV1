@@ -13,12 +13,13 @@ The library offers you:
 - Wifi access point with a web gui, so you can initialize the device with the wifi credentials, without coding it into the source code.
 - An admin web interface, so you can configure your device with all needed settings.
 - Web GUI with user/public functionality.
+- Multi language support.
 - Authentication (basic) functions.
 - Security functions like en/decryption.
 - Authentication and authorization on REST, Socket or web GUI.
 - Backup and Restore the settings
 - Over the air update for your device.
-- Plugable architecture, so you can select which modules you want to use and insert your own modules.
+- Modulare Plugable architecture, so you can select which modules you want to use and insert your own modules.
 - Basic services like buttons and LED's
 
 ## Default Modules
@@ -36,15 +37,70 @@ The library offers you:
 All communication between the modules is done by a message bus system.
 In addition there are some interfaces to follow for configuration and statis in place, the modules will follow.
 
-### A Module
+
+### The Application
+The Application coordinates the communication and does the most work for you.
+
+To plug into the application you have to write a "Module" and register the available
+interface in the application object.
+
+#### On the device
+The Application is the global object "App" as in instance of CAppl.
+
+It offers a message bus, an interface for configuration and an interface for status information.
+
+##### Message Bus
+Every module or component can use the Message Bus to send or receive messages as events.
+
+If a module needs to be informed about these events, it has to register on the Applications Message Bus.
+- Send and receive messages from Websocket
+- Status changes from other modules
+- Own module message
+
+The messages will be sent synchron, and each module has the chance to stop the further processing and 
+send a "feedback". So a module can stop a reboot if it is currently not the best time to do so.
+
+##### Config Interface
+When a module registers itself with a (unique) key, the key will be used
+to build a separate area in the main configuration object and the module will be inserted into
+the config file processing (readConfig()/writeConfig()).
+
+Everytime, when the application is asked to load or to save the device configuration,
+the registered modules interface is called to fill in or to read the configuration by handling
+the interface this area (JSON Object)
+
+##### Status Interface
+The key, that is used on registration of the module is used
+to build a separate area in the main status object.
+
+When the application needs the current status of the module (i.E. when the GUI as asking for),
+the module will be asked to fill in it's status.
+
+#### Web GUI
+In the GUI, the Application is an instance of CAppl and coordinates the configuration and status
+pages and offers a websocket communication with the device.
+
+
+
+### Writing a Module
+A module consists of the runtime and Config/ Status Web Pages.
+
+Each module uses a unique key to exchange status und config information.
+
+#### Runtime
+
+
+#### Web Page
+The Web Page can have the following components:
+- The HTML description of the Web.
+- Menu entries for the navigation bar.
+- Java script to enhance the HTML page.
+- Language files for multi language support.
+
+
+
+
 A Module registers itself on a main object, called "Appl" with an id that should be unique. The WiFi module i.E. is using the id "wifi". This id is used by the applicationto reserve this area for the module. All config, statis and other infos are stored in this "area".
 
 The id will become also the key to the web GUI, as the settings and the statis for this module will be sent to the GUI within this areas.
 
-
-
-### The Appl
-The Appl is a global instance of the class CAppl and is the coordinator for the communication and functions.
-
-The Appl is offering a message bus system and a standard
-The library uses a common instance of the class CAppl, the "Appl"
