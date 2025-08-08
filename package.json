@@ -12,13 +12,14 @@
   "bugs": {
     "url": "https://github.com/lsc-labs/PLibESPV1/issues"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lsc-labs/PLibESPV1.git"
   },
   "license": "ISC",
   "author": "LSC Labs - P.Liebl",
-  "type": "c",
+  "type": "module",
   "main": " ",
   "directories": {
     "lib": "lib",
