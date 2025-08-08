@@ -18,7 +18,6 @@
   },
   "license": "ISC",
   "author": "LSC Labs - P.Liebl",
-  "type": "c",
   "main": " ",
   "directories": {
     "lib": "lib",
