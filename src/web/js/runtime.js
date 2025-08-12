@@ -3085,7 +3085,7 @@ class CAppl {
     const Log = new CLog();
     Log.setLogLevel(APPSettings.getData("app.logLevel",2));
     
-    fetch(`main.html`)
+    fetch(`_pages.html`)
         .then((response) => {
             return response.text();
         })
