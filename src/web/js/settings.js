@@ -9,8 +9,8 @@ const APP_SETTINGS = {
         "prog_ver": "0.1",
         "prog_copy": "(c) 2025 LSC-Labs",
         "logLevel": 5,
-        "mqtt": {
-            "recon": false,
+        "ws": {
+            "recon": false, // Reconnect to the WebSocket if lost...
         },
         "latest": {
             "url": "https://api.github.com/repos/LSC-Labs/OnAir-Light/releases/latest"

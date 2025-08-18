@@ -4,7 +4,21 @@
     width: 100%;
     background-color: var(--progress-bar-color);
     border: 2px fixed;
-    border-radius: 10px;
+    padding:2px;
+    border-radius: 5px;
+    .usageStatus {
+        width: 0%;
+        height: 1rem;
+        border-radius: 5px;
+        color: var(--progress-usage-color);
+        font-size:smaller;
+    }
+    .usageOK {
+         background-color: var(--progress-usage-ok-color) 
+    }
+    .usageWarn {
+        background-color: var(--progress-usage-warn-color);
+    }
 }
 
 .progressStatus {

@@ -100,14 +100,16 @@ class CSecurity
     _setRO(oElement,bRO = true,bIterate = true) {
         let oE = CElement.asNative(oElement);
         let strType = oE.type;
+       
         switch(strType) {
             case "text":        oE.readOnly = bRO; break;
             case 'select' :
+            case 'select-one' :
             case 'radio':
             case 'checkbox':    oE.disabled = bRO; break;
         }
         if(bIterate) {
-            EC(oE).selAll("input").forEach(e => this._setRO(e,bRO,bIterate));
+            EC(oE).selAll("input, select, radio, checkbox").forEach(e => this._setRO(e,bRO,bIterate));
         }
     }
     setAuthMode(oBaseElement) {
@@ -171,24 +173,31 @@ class CVarTable {
      * @param {*} oData either an array [], an instance of CVarTable or an object {...}.
      * @returns this VarTable
      */
-    setVars(oData) {
+    setVars(oData) {   
         if(oData) {
-            let tVars = Array.isArray(oData) ? oData : Array.isArray(oData.m_tVars) ? oData._tVars : undefined;
+            let tVars = Array.isArray(oData) ? oData : Array.isArray(oData._tVars) ? oData._tVars : undefined;
             if(Array.isArray(tVars)) {
-                for(const strKey in tVars) { this._tVars[strKey] = tVars[strKey] }
+                for(const strKey in tVars) { 
+                    this._tVars[strKey] = tVars[strKey] 
+                }
             }
             else if(typeof oData === 'object') {
-                for(const strKey in oData) { this._tVars[strKey] = oData[strKey] }
+                for(const strKey in oData) { 
+                    this._tVars[strKey] = oData[strKey] 
+                }
             }
         }
         return(this);
     }
 
     /**
-     * scans the HTML document for "VarTable" elements
+     * scans the HTML document or a given element for "VarTable" elements
+     * @param {Document} [oElement=document] Default is the document
+     * @param {string} [strTable="VarTable"] Default is the global vars.. specify your local table if needed like "PageVarTable"
      */
-    setPageVars() {
-        document.querySelectorAll("VarTable").forEach((t) => {
+    setPageVars(oElement = document,strTable = "VarTable") {
+        let oBase = CElement.asNative(oElement);
+        oElement.querySelectorAll(strTable).forEach((t) => {
             try {
                 let tVars = JSON.parse(t.innerText);
                 for(const strKey in tVars) this.setVar(strKey,tVars[strKey]);
@@ -828,10 +837,12 @@ class CElement extends Utils {
     }
     ac(strClass) {
         if(strClass && this._oBE) this._oBE.classList.add(strClass);
+        return(this);
     }
 
     rc(strClass) {
         if(strClass && this._oBE) this._oBE.classList.remove(strClass);
+        return(this);
     }
 
     /**
@@ -1474,14 +1485,15 @@ class CTranslator {
      * 
      * If no info could be found, the default will be returned
      * 
-     * @param {*} i18nKey               The key to be searched
-     * @param {*} strLanguage 
-     * @param {*} oDefaultData 
+     * @param {string} i18nKey               The key to be searched
+     * @param {string} strLanguage 
+     * @param {string|object|undefined} oDefaultData 
      * @returns 
      */
     async getKeyData(i18nKey, strLanguage, oDefaultData) {
         let oDefaultLangDef;
         let oData = oDefaultData;
+        if(!strLanguage) strLanguage = this.getUserLanguage();
         return(this.getLanguageDef(CTranslator._defaultLang)
             .then(oLD => {
                 oDefaultLangDef = oLD;
@@ -1539,6 +1551,15 @@ class CTranslator {
             }
         }
         return(oElement);
+    }
+
+    async translateI18n(strI18n,strLanguage,oVars) {
+        let strResult = "";
+        await this.getKeyData(strI18n,strLanguage)
+            .then(str => {
+                strResult = oVars ? oVars.subst(str) : str;
+            })
+        return(strResult);
     }
 
     /**
@@ -1648,13 +1669,20 @@ class CView extends CElement {
             else if(Utils.isInstanceOf(CElement)) strContent = oData.getBase().innerHTML;
 
             if(strContent) {
-                if(tVars) strContent = tVars.subst(strContent);
+                this.rc("isLoaded");
+                // set the content to scan for var definition.. in "PageVarTable"
+                this.html(strContent);
+                let oVars = new CVarTable();
+                if(tVars) oVars.setVars(tVars);
+                oVars.setPageVars(this.getArea(),"PageVarTable");
+                // Now process the content...
+                strContent = oVars.subst(strContent);
                 // Load the content into the container and set the data-act-page attribute.
-                this.rc("isLoaded")
+                
                 this.html(strContent);
                 this.setID(strID);
                 this.ac("isLoaded");
-                let oTemplates = new CTemplates(this._Settings,tVars);
+                let oTemplates = new CTemplates(this._Settings,oVars);
 
                 oTemplates.createElements(this.getArea(),pCaller)
                 oTemplates.createIcons(this.getArea());
@@ -1813,7 +1841,6 @@ class CPageHandler {
                     let oOverlay = {};
                     try { oOverlay = JSON.parse(strMenu) }
                     catch (ex) {
-                        this.Log.logVerbose();
                         this.Log.logEx(ex,`loading menu: "${strMenu}"`);
                     }
                     this._oMenuDef = {...this._oMenuDef, ...oOverlay};
@@ -2693,6 +2720,10 @@ class CAppl {
         this.Vars.setDefaults();
         this.Vars.setPageVars();
         this.Vars.setVars(this.Settings.getSection("app"));
+        // Create Global Vars with this table...
+        // This Vars will be used to reset by loading pages.
+        // this.GlobalVars = new CVarTable();
+        // this.GlobalVars.setVars(this.Vars);
         this.Translator.preload()
             .then(t => {   
                 this.MenuBar.init(oSettings, { 
@@ -2708,16 +2739,16 @@ class CAppl {
                 let strHomePage = this.Settings.getData("DefaultPage") ?? "HomePage";
                 this.loadPage(strHomePage);
                 // TODO: insert login logic... in DEBUG connect Websocket now...
-                let bRecon =  Utils.isTrueValue(this.Settings.getData("app.mqtt.recon","1"))
+                let bRecon =  Utils.isTrueValue(this.Settings.getData("app.ws.recon","1"))
                 this.WS.connect(bRecon);
                 this.setAuthMode(this.isAuth());
             })
     }
-
+    /*
     _setDefaultVar(strName, strValue) {
         this.Vars.setVar(strName,this.Vars.getValue(strName,strValue))
     }
-
+*/
     // #region Views and operations on containers...
     
     /**
@@ -2728,11 +2759,14 @@ class CAppl {
      * @param {*} oContainer 
      */
     prepareContainer(oContainer) {
+        let oPageVars = new CVarTable();
+        oPageVars.setVars(this.Vars);
+        oPageVars.setPageVars(oContainer,"LocalVarTable");
         this.createKnownActions(oContainer);
-        let oTemplates = new CTemplates(this.Settings,this.Vars);
+        let oTemplates = new CTemplates(this.Settings,oPageVars);
         oTemplates.createElements(oContainer,this);
         oTemplates.createIcons(oContainer);
-        this.Translator.translate(oContainer,undefined,this.Vars);
+        this.Translator.translate(oContainer,undefined,oPageVars);
         this.Security.setAuthMode(oContainer);
     }
 
