@@ -86,21 +86,22 @@ def before_build(source, target, env):
 	# os.chdir("tools/webfilesbuilder/")
 	# os.system("echo current dir :&& pwd && npm run start")
 	# os.chdir(strCWD)
+	print(" *** checking version number...")
 	with open(VERSION_FILE, 'r') as oFP:
 		oVersion = json.load(oFP)
 		oFP.close()
 	
 	if(oPackageFile["version"]):
-		print(f'Current package version: {oPackageFile["version"]}')
+		print(f'Current package version  : {oPackageFile["version"]}')
 		tVersion = oPackageFile["version"].split(".")
 		if(len(tVersion) == 3):
 			oVersion["major"] 	= tVersion[0]
 			oVersion["minor"] 	= tVersion[1]
 			oVersion["patch"]	= tVersion[2]	
-		print(oVersion)
+		
 
 	if strEnv.endswith("_debug"):
-		print(f' - Debug environment version detected, no further actions... : {strEnv}')
+		print(f' - Debug version, no further actions... : {strEnv}')
 	else:
 		print("-------------------------------------------------")
 		print(f'* building new version string for env : {strEnv}')
@@ -115,6 +116,8 @@ def before_build(source, target, env):
 			oFP.close()
 
 		writeVersionIncludeFile(oVersion)
+
+	print(f'Using application version: {oVersion["major"]}.{oVersion["minor"]}.{oVersion["patch"]}.{oVersion["build"]}')
 
 print("---------------------------------------------------------------")
 print("ESP build script for PlatformIO (c) LSC-Labs 2024 - P.Liebl" )

@@ -105,6 +105,103 @@ void CWebSocket::onWebSocketEvent(AsyncWebSocket *pSocket, AsyncWebSocketClient 
 	}
 }
 
+
+
+/// @brief send a Json doc message to a client, or if not defined - to all
+/// @param oDoc 	// Document to be sent
+/// @param pSocket 	// Socket to handle the communication
+/// @param pClient  // Specific client to talk to.
+void ICACHE_FLASH_ATTR CWebSocket::sendJsonDocMessage(JsonDocument &oDoc, AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient) {
+	DEBUG_FUNC_START();
+	// If no socket is in place, use your own socket...
+	if(!pSocket) pSocket = this;
+
+    // Serialize the message to be sent...
+	size_t nSize = measureJson(oDoc) * 2;
+	DEBUG_INFOS("WS: - allocating buffer(%u bytes)",nSize);
+	char *pszMessageBuffer = (char *) malloc(nSize);
+	memset(pszMessageBuffer,'\0',nSize);
+
+	int nFinalSize = serializeJson(oDoc,pszMessageBuffer,nSize);
+	ApplLogVerboseWithParms("WS: - sending (%d) bytes of data: %s",nFinalSize, pszMessageBuffer);
+
+	if(pClient) pClient->text(pszMessageBuffer);
+	else pSocket->textAll(pszMessageBuffer);
+	free(pszMessageBuffer);
+	DEBUG_FUNC_END();
+}
+
+/// @brief send an "ERROR: Access Denied (401)" Message to a specific client...
+/// @param oDoc Container will be filled with the message
+/// @param pClient Client to send to...
+/// @return 
+void ICACHE_FLASH_ATTR CWebSocket::sendAccessDeniedMessage(JsonDocument &oRequestDoc,AsyncWebSocketClient *pClient) {
+	if(pClient) {
+		// Remember the requested command / type so it can be inserted in the message again.
+		String strCommand = oRequestDoc["command"];
+        String strType    = oRequestDoc["type"];
+
+		oRequestDoc.clear();
+		JsonObject oPayload = createPayloadStructure(F("error"),F("401"),oRequestDoc);
+		oRequestDoc["AccessToken"] 	= F("notValid");		// destroy an existing access token
+		oPayload["msg"] 			= F("access denied");	// set message for user...
+		oPayload["command"] 		= strCommand;			// command that is not allowed
+		oPayload["type"]    		= strType;				// type that is not allowed 
+		sendJsonDocMessage(oRequestDoc,nullptr,pClient);
+	}
+}
+
+void ICACHE_FLASH_ATTR CWebSocket::sendStatus(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient)
+{
+    JSONDOC_RESPONSE(oStatusDoc);
+	JsonObject oStatusObj = createPayloadStructure(F("update"),F("status"),oStatusDoc);
+	Appl.writeStatusTo(oStatusObj);
+	sendJsonDocMessage(oStatusDoc,pSocket,pClient);	
+}
+
+JsonObject CWebSocket::createPayloadStructure(const char* pszCommand, const char *pszDataType, JsonDocument &oPayloadDoc, const char *pszData) {
+	DEBUG_FUNC_START_PARMS("%s,%s,...",NULL_POINTER_STRING(pszCommand),NULL_POINTER_STRING(pszDataType));
+
+	char pszBuffer[256];
+	sprintf(pszBuffer,"{\"command\":\"%s\",\"data\":\"%s\"",pszCommand,pszDataType);
+	String strData = pszBuffer;
+	if(pszData) {
+		strData += ",\"payload\":";
+		strData += pszData;
+	}
+	strData += "}";
+	DEBUG_INFO(" --> creating payload:");
+	DEBUG_INFOS("%s",strData.c_str());
+	DeserializationError error = deserializeJson(oPayloadDoc,strData);
+	if(error) {
+		ApplLogErrorWithParms("WS: Error creating payload structure : %s",error.c_str());
+	} 
+	DEBUG_FUNC_END();
+	return(pszData == nullptr ? CreateJsonObject(oPayloadDoc,"payload") : oPayloadDoc["payload"]);
+}
+
+inline JsonObject CWebSocket::createPayloadStructure(const __FlashStringHelper* pszCommand, const __FlashStringHelper* pszDataType, JsonDocument &oPayloadDoc, const char *pszPayload) {
+	return(createPayloadStructure((const char*) pszCommand,(const char*) pszDataType,oPayloadDoc,pszPayload));
+}
+
+
+bool inline CWebSocket::needsAuth(String &strCommand) {
+	return(strNeedsAuth.indexOf(strCommand) > -1);
+}
+
+bool CWebSocket::checkAuth(JsonDocument &oJsonRequest, AsyncWebSocketClient *pClient) {
+	DEBUG_FUNC_START();
+	bool isAuthenticated = false;
+	String strAuthToken = oJsonRequest["token"];
+	if(strAuthToken.length() > 10 && pClient) {
+		String strClientRemoteIP = pClient->remoteIP().toString();
+		isAuthenticated = isAuthTokenValid(strAuthToken, strClientRemoteIP);
+	}
+	DEBUG_FUNC_END_PARMS("%d",isAuthenticated);
+	return(isAuthenticated);
+}
+
+
 // messageSize needs to be one char bigger than the string to contain the string terminator
 void CWebSocket::addMessageToQueue(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient, int nMessageSize)
 {
@@ -138,148 +235,35 @@ void CWebSocket::addMessageToQueue(AsyncWebSocket *pSocket, AsyncWebSocketClient
 	}
 }
 
-
-/// @brief send a Json doc message to a client, or if not defined - to all
-/// @param oDoc 	// Document to be sent
-/// @param pSocket 	// Socket to handle the communication
-/// @param pClient  // Specific client to talk to.
-void ICACHE_FLASH_ATTR CWebSocket::sendJsonDocMessage(JsonDocument &oDoc, AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient) {
-	DEBUG_FUNC_START();
-	// If no socket is in place, use your own socket...
-	if(!pSocket) pSocket = this;
-
-    // Serialize the message to be sent...
-	size_t nSize = measureJson(oDoc) * 2;
-	DEBUG_INFOS("WS: - allocating buffer(%u bytes)",nSize);
-	char *pszMessageBuffer = (char *) malloc(nSize);
-	memset(pszMessageBuffer,'\0',nSize);
-
-	int nFinalSize = serializeJson(oDoc,pszMessageBuffer,nSize);
-	ApplLogVerboseWithParms("WS: - sending (%d) bytes of data: %s",nFinalSize, pszMessageBuffer);
-
-	if(pClient) pClient->text(pszMessageBuffer);
-	else pSocket->textAll(pszMessageBuffer);
-	free(pszMessageBuffer);
-	DEBUG_FUNC_END();
-}
-
-
-
-/// @brief send an "ERROR: Access Denied (401)" Message to a specific client...
-/// @param oDoc Container will be filled with the message
-/// @param pClient Client to send to...
-/// @return 
-void ICACHE_FLASH_ATTR CWebSocket::sendAccessDeniedMessage(JsonDocument &oRequestDoc,AsyncWebSocketClient *pClient) {
-	if(pClient) {
-		// Remember the requested command / type so it can be inserted in the message again.
-		String strCommand = oRequestDoc["command"];
-        String strType    = oRequestDoc["type"];
-
-		oRequestDoc.clear();
-		JsonObject oPayload = createPayloadStructure(F("error"),F("401"),oRequestDoc);
-		oRequestDoc["AccessToken"] 	= F("notValid");		// destroy an existing access token
-		oPayload["msg"] 			= F("access denied");	// set message for user...
-		oPayload["command"] 		= strCommand;			// command that is not allowed
-		oPayload["type"]    		= strType;				// type that is not allowed 
-		sendJsonDocMessage(oRequestDoc,nullptr,pClient);
-	}
-}
-
 /// @brief Dispatch the message queue...
 ///  	   This function should be called in the main loop to process the message queue
 ///        Processes all messages in the queue and cleans up the memory
-void CWebSocket::dispatchMessageQueue()
+void CWebSocket::dispatchMessageQueue(funcDispatchMessage pFuncDispatchMessage)
 {
 	while (pMsgQueue != NULL)
 	{
-		ApplLogTrace("WS: Dispatching message....");
+		DEBUG_INFOS("WS: dispatchMessageQueue()");
 		WebSocketMessage *pMessageToProcess = CWebSocket::pMsgQueue;
 		CWebSocket::pMsgQueue = pMessageToProcess->pNextMessage;
-		// Process the message
-		dispatchMessage(pMessageToProcess);
+		// Process the message.
+		// If not in default processing, use the application specific, if defined.
+		if(!dispatchMessage(pMessageToProcess) && pFuncDispatchMessage != nullptr) {
+			pFuncDispatchMessage(pMessageToProcess);
+		};
 		/// Clean up...
 		free(pMessageToProcess->pSerializedMessage);
 		free(pMessageToProcess);
-		// yield();
 	}
-}
-
-void CWebSocket::onWiFiScanResult(int nNetworksFound) {
-	DEBUG_FUNC_START_PARMS("%d",nNetworksFound);
-// sort by RSSI
-	// int n = nNetworksFound;
-	int tIndices[nNetworksFound];
-	// int tSkip[nNetworksFound];
-	for (int i = 0; i < nNetworksFound; i++)
-	{
-		tIndices[i] = i;
-	}
-	for (int i = 0; i < nNetworksFound; i++)
-	{
-		for (int j = i + 1; j < nNetworksFound; j++)
-		{
-			if (WiFi.RSSI(tIndices[j]) > WiFi.RSSI(tIndices[i]))
-			{
-				std::swap(tIndices[i], tIndices[j]);
-				// std::swap(tSkip[i], tSkip[j]);
-			}
-		}
-	}
-	JSON_DOC(oRootDoc,512);
-	// DynamicJsonDocument oRootDoc(512);
-//	JsonObject oCfgNode = createPayloadStructure(F("update"),F("ssidlist"),oRootDoc);
-	oRootDoc["command"] = "update";
-	oRootDoc["data"] 	= "ssidlist";
-	// JsonArray oScanResult = oRootDoc.createNestedArray("payload");
-	JsonArray oScanResult = CreateJsonArray(oRootDoc,"payload");
-	for (int i = 0; i < 10 && i < nNetworksFound; ++i)
-	{
-		// JsonObject oItem = oScanResult.createNestedObject();
-		JsonObject oItem = CreateEmptyJsonObject(oScanResult);
-
-		oItem["ssid"] 		= WiFi.SSID(tIndices[i]);
-		oItem["bssid"] 		= WiFi.BSSIDstr(tIndices[i]);
-		oItem["rssi"] 		= WiFi.RSSI(tIndices[i]);
-		oItem["channel"] 	= WiFi.channel(tIndices[i]);
-		oItem["enctype"] 	= WiFi.encryptionType(tIndices[i]);
-		oItem["hidden"] 	= WiFi.isHidden(tIndices[i]) ? true : false;
-	}
-	sendJsonDocMessage(oRootDoc,this,nullptr);
-	WiFi.scanDelete();
-	DEBUG_FUNC_END();
-}
-
-void ICACHE_FLASH_ATTR CWebSocket::sendStatus(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient)
-{
-    JSONDOC_RESPONSE(oStatusDoc);
-	JsonObject oStatusObj = createPayloadStructure(F("update"),F("status"),oStatusDoc);
-	Appl.writeStatusTo(oStatusObj);
-	sendJsonDocMessage(oStatusDoc,pSocket,pClient);	
-}
-
-bool inline CWebSocket::needsAuth(String &strCommand) {
-	return(strNeedsAuth.indexOf(strCommand) > -1);
-}
-
-bool CWebSocket::checkAuth(JsonDocument &oJsonRequest, AsyncWebSocketClient *pClient) {
-	DEBUG_FUNC_START();
-	bool isAuthenticated = false;
-	String strAuthToken = oJsonRequest["token"];
-	if(strAuthToken.length() > 10 && pClient) {
-		String strClientRemoteIP = pClient->remoteIP().toString();
-		isAuthenticated = isAuthTokenValid(strAuthToken, strClientRemoteIP);
-	}
-	DEBUG_FUNC_END_PARMS("%d",isAuthenticated);
-	return(isAuthenticated);
 }
 
 /**
  * Dispatch the WebSocket Message
  * Expecting always a JSON Object from client !
  */
-void CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
+bool CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
 	DEBUG_FUNC_START();
 	DEBUG_INFOS("WS: dispatching message : %s",pMessage->serializedMessage);
+	bool bResult = true;
     CFS oFS;
     // We should always get a JSON object (stringfied) from browser, so parse it
 
@@ -336,10 +320,7 @@ void CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
 				if(isAuthenticated) {
 					Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,nullptr,0);
 				}
-				// request the reboot (loop is responsible)
-				// oStatus.isRebootPending = true;
 			}
-
 			else if (strCommand.equalsIgnoreCase(F("scanwifi")))
 			{
                 Appl.MsgBus.sendEvent(this,MSG_WIFI_SCAN,pMessage->pClient,0);
@@ -385,33 +366,11 @@ void CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
 					Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,nullptr,0);
 				}
 			}
+			else bResult = false;
 		}
     }
-	DEBUG_FUNC_END();
+	DEBUG_FUNC_END_PARMS("%d",bResult);
+	return(bResult);
 }
 
-JsonObject CWebSocket::createPayloadStructure(const char* pszCommand, const char *pszDataType, JsonDocument &oPayloadDoc, const char *pszData) {
-	DEBUG_FUNC_START_PARMS("%s,%s,...",NULL_POINTER_STRING(pszCommand),NULL_POINTER_STRING(pszDataType));
-
-	char pszBuffer[256];
-	sprintf(pszBuffer,"{\"command\":\"%s\",\"data\":\"%s\"",pszCommand,pszDataType);
-	String strData = pszBuffer;
-	if(pszData) {
-		strData += ",\"payload\":";
-		strData += pszData;
-	}
-	strData += "}";
-	DEBUG_INFO(" --> creating payload:");
-	DEBUG_INFOS("%s",strData.c_str());
-	DeserializationError error = deserializeJson(oPayloadDoc,strData);
-	if(error) {
-		ApplLogErrorWithParms("WS: Error creating payload structure : %s",error.c_str());
-	} 
-	DEBUG_FUNC_END();
-	return(pszData == nullptr ? CreateJsonObject(oPayloadDoc,"payload") : oPayloadDoc["payload"]);
-}
-
-inline JsonObject CWebSocket::createPayloadStructure(const __FlashStringHelper* pszCommand, const __FlashStringHelper* pszDataType, JsonDocument &oPayloadDoc, const char *pszPayload) {
-	return(createPayloadStructure((const char*) pszCommand,(const char*) pszDataType,oPayloadDoc,pszPayload));
-}
 

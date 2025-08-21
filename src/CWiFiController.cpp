@@ -415,11 +415,8 @@ void CWiFiController::onWiFiScanResult(int nNetworksFound) {
 			}
 		}
 	}
-    #if ARDUINOJSON_VERSION_MAJOR < 7
-	    DynamicJsonDocument oRootDoc(512);
-    #else
-        JsonDocument oRootDoc;
-    #endif
+
+    JSON_DOC(oRootDoc,512);
 //	JsonObject oCfgNode = createPayloadStructure(F("update"),F("ssidlist"),oRootDoc);
 	oRootDoc["command"] = "update";
 	oRootDoc["data"] 	= "ssidlist";
