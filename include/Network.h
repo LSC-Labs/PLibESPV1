@@ -4,4 +4,8 @@
     #include <WiFi.h>
 #else
     #include <ESP8266WiFi.h>
+    #include <ESP8266mDNS.h>
 #endif
+
+#include <ESPAsyncTCP.h>
+#include <ESPAsyncWebServer.h>

@@ -18,7 +18,7 @@
  * and the addes unique MAC info is 8 characters long.
  */
 #ifndef WIFI_DEFAULT_AP_SSID_PREFIX
-    #define WIFI_DEFAULT_AP_SSID_PREFIX "OnAir"
+    #define WIFI_DEFAULT_AP_SSID_PREFIX "LSCLabs"
 #endif
 
 #ifndef WIFI_DEFAULT_AP_SSID
@@ -55,7 +55,7 @@ struct WiFiConfig {
     String    wifi_ssid;                          // SSID to join
     byte      wifi_bssid[6]     = {0, 0, 0, 0, 0, 0};
     String    wifi_Password;                      // WiFi join Password
-    String    wifi_Hostname     = "LSC-OnAir";    // Hostname
+    String    wifi_Hostname     = "LSC-Device";   // Hostname
 
     bool      dhcpEnabled = true;   // Use DHCP or not 
 
@@ -89,7 +89,7 @@ struct WiFiStatus {
 
 /// @brief WiFi Controller class to handle the WiFi connection
 /// Use WiFi Node to setup the callback functions
-class CWiFiController : public IConfigHandler, public IStatusHandler { 
+class CWiFiController : public IConfigHandler, public IStatusHandler, public IMsgEventReceiver { 
     private:
         WiFiConfig    Config;
         // CEventHandler *pEventHandler = nullptr;
@@ -102,7 +102,7 @@ class CWiFiController : public IConfigHandler, public IStatusHandler {
     public:
         /// @brief constructor
         /// @param oConfig Configuration object (override own settings)
-        CWiFiController(const WiFiConfig *pConfig = nullptr);
+        CWiFiController(const WiFiConfig *pConfig = nullptr, bool bRegisterOnMsgBus = true);
 
         // WiFiStatus getStatus() { return Status; }    
         void writeConfigTo( JsonObject &oCfgObj, bool bHideCritical) override;
@@ -119,6 +119,10 @@ class CWiFiController : public IConfigHandler, public IStatusHandler {
 
         bool restartIfNeeded();
 
+        void scanWiFi();
+        int receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType);
+
+
         private:
             String getStatusText(int nWiFiStatus);
             void disableWiFi();
@@ -132,6 +136,8 @@ class CWiFiController : public IConfigHandler, public IStatusHandler {
             bool joinNetwork(const char * pszSSID, 
                             const char * pszPassword, 
                             byte bSSID[6]);
+
+            void onWiFiScanResult(int nNumber);
 };
 
 

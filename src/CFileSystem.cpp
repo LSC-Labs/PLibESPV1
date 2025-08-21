@@ -25,6 +25,8 @@ CFS::CFS() {
     } 
 }
 
+FS CFS::getBaseFS() { return(LittleFS); }
+
 void CFS::writeStatusTo(JsonObject &oStatus) {
     if(LSC::FS::isInitializedAndOpen) {
         oStatus["fs_total"]          = getTotalBytes();
@@ -175,7 +177,7 @@ size_t CFS::loadFileToBuffer(const char* strFileName, std::unique_ptr<char[]> &p
     return(nDataLen);
 }
 
-bool loadFileToString(const char* strFileName, String &strResult) {
+bool CFS::loadFileToString(const char* strFileName, String &strResult) {
     bool bResult = false;
     File oFile = LittleFS.open(strFileName,"r");
     if(oFile) {

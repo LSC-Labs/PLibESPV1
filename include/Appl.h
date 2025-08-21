@@ -8,8 +8,9 @@
 #include <Vars.h>
 #include <Msgs.h>
 #include <DevelopmentHelper.h>
+#include <JsonHelper.h>
 
-#define GetJsonDocumentAsObject(oDoc) oDoc.as<JsonObject>()
+
 
 #define ApplLogInfo(oData)          Appl.Log.log("I",oData)
 #define ApplLogWarn(oData)          Appl.Log.log("W",oData)
@@ -33,6 +34,7 @@
 #if ARDUINOJSON_VERSION_MAJOR < 7
     #define JSON_CONFIG_DOC_DEFAULT_SIZE  2048      // Until the new runtime comes in place, this is necessary !
 #endif
+
 #ifndef JSON_CONFIG_DEFAULT_NAME
     #define JSON_CONFIG_DEFAULT_NAME      "/config.json"
 #endif

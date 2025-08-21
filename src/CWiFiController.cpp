@@ -4,7 +4,9 @@
 #endif
 
 #include <Appl.h>
-#include <ArduinoJson.h>
+#include <Msgs.h>
+#include <EventHandler.h>
+#include <JsonHelper.h>
 #include <WiFiController.h>
 #include <LSCUtils.h>
 
@@ -21,9 +23,14 @@ namespace LSC_WIFI {
     }
 }
 
-CWiFiController::CWiFiController(const WiFiConfig *pConfig) 
+/// @brief Create a WiFi Controller and register to the message bus...
+///        Register only one object to process the requested WiFi operations (!)
+/// @param pConfig 
+/// @param bRegisterOnMsgBus if true, the object will register on msg bus
+CWiFiController::CWiFiController(const WiFiConfig *pConfig, bool bRegisterOnMsgBus) 
 {
     if(pConfig != nullptr) Config = *pConfig;
+    if(bRegisterOnMsgBus) Appl.MsgBus.registerEventReceiver(this);
 }
 
 
@@ -161,6 +168,19 @@ void CWiFiController::writeStatusToLog() {
     String strPretty;
     serializeJsonPretty(oStatusDoc,strPretty);
     Appl.Log.logVerbose(F("WiFi Status:%s\n"),strPretty.c_str());
+}
+
+/// @brief Listen to the application mesage bus
+/// @param pSender 
+/// @param nMsgId 
+/// @param pMessage 
+/// @param nType 
+/// @return EVENT_MSG_RESULT_OK => continue processing
+int CWiFiController::receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType) {
+    switch(nMsgId) {
+        case MSG_WIFI_SCAN : scanWiFi(); break;
+    }
+    return(EVENT_MSG_RESULT_OK);
 }
 
 // #pragma endregion
@@ -366,3 +386,57 @@ void CWiFiController::disableWiFi()
 }
 
 // #pragma endregion
+
+
+void CWiFiController::scanWiFi() {
+    // Use Member function of this object - and broadcast to all...
+    std::function<void(int)> printWiFiScanResult = std::bind(&CWiFiController::onWiFiScanResult,this,std::placeholders::_1);
+    WiFi.scanNetworksAsync(printWiFiScanResult,true);
+}
+
+void CWiFiController::onWiFiScanResult(int nNetworksFound) {
+	DEBUG_FUNC_START_PARMS("%d",nNetworksFound);
+// sort by RSSI
+	// int n = nNetworksFound;
+	int tIndices[nNetworksFound];
+	// int tSkip[nNetworksFound];
+	for (int i = 0; i < nNetworksFound; i++)
+	{
+		tIndices[i] = i;
+	}
+	for (int i = 0; i < nNetworksFound; i++)
+	{
+		for (int j = i + 1; j < nNetworksFound; j++)
+		{
+			if (WiFi.RSSI(tIndices[j]) > WiFi.RSSI(tIndices[i]))
+			{
+				std::swap(tIndices[i], tIndices[j]);
+				// std::swap(tSkip[i], tSkip[j]);
+			}
+		}
+	}
+    #if ARDUINOJSON_VERSION_MAJOR < 7
+	    DynamicJsonDocument oRootDoc(512);
+    #else
+        JsonDocument oRootDoc;
+    #endif
+//	JsonObject oCfgNode = createPayloadStructure(F("update"),F("ssidlist"),oRootDoc);
+	oRootDoc["command"] = "update";
+	oRootDoc["data"] 	= "ssidlist";
+	JsonArray oScanResult = CreateJsonArray(oRootDoc,"payload");
+	for (int i = 0; i < 10 && i < nNetworksFound; ++i)
+	{
+		// JsonObject oItem = oScanResult.createNestedObject();
+        JsonObject oItem = CreateEmptyJsonObject(oScanResult);
+		oItem["ssid"] 		= WiFi.SSID(tIndices[i]);
+		oItem["bssid"] 		= WiFi.BSSIDstr(tIndices[i]);
+		oItem["rssi"] 		= WiFi.RSSI(tIndices[i]);
+		oItem["channel"] 	= WiFi.channel(tIndices[i]);
+		oItem["enctype"] 	= WiFi.encryptionType(tIndices[i]);
+		oItem["hidden"] 	= WiFi.isHidden(tIndices[i]) ? true : false;
+	}
+    Appl.MsgBus.sendEvent(this,MSG_WIFI_SCAN_RESULT,&oScanResult,0);
+	// sendJsonDocMessage(oRootDoc,this,nullptr);
+	WiFi.scanDelete();
+	DEBUG_FUNC_END();
+}

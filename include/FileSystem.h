@@ -30,6 +30,7 @@ struct LSC_FS {
         void deleteAllFilesOnPath(const char *pszPath);
         size_t getFileSize(const char *pszFileName);
         size_t getFileSize(String &strFileName);
+        FS getBaseFS();
     
     
         size_t loadFileToBuffer(const char* strFileName, std::unique_ptr<char[]> &pData);

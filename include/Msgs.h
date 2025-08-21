@@ -7,11 +7,18 @@
 #define MSG_BUTTON_ON          1021
 #define MSG_BUTTON_OFF         1022
 
+#define MSG_SCAN_RF433         2020
+
 #define MSG_WIFI_STARTING      5000
 #define MSG_WIFI_CONNECTED     5001
+#define MSG_WIFI_SCAN          5002
+#define MSG_WIFI_SCAN_RESULT   5003
 #define MSG_WIFI_DISABLING     5007
 #define MSG_WIFI_DISABLED      5008
 #define MSG_WIFI_ERROR         5009
+
+
+
 
 
 #define MSG_MQTT_MSG_RECEIVED  7001
