@@ -40,3 +40,8 @@ const int MSG_USER_BASE = 10000;
 #define LOG_CLASS_DEBUG      8
 #define LOG_CLASS_EXCEPTION  9
 
+
+#define WIFI_ACCESS_POINT_MODE  0
+#define WIFI_STATION_MODE       1
+
+

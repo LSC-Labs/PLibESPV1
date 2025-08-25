@@ -1,6 +1,7 @@
 #include <SysStatusLed.h>
 #include <Msgs.h>
 #include <WiFiController.h>
+#include <DevelopmentHelper.h>
 
 CSysStatusLed::CSysStatusLed(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow) :
     CRGBLed(nRedPin,nGreenPin,nBluePin,bActiveLow) 

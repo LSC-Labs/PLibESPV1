@@ -92,7 +92,7 @@ void CWebServer::registerFileAccess() {
 /// - offer the OTA page "/update"
 /// - offer the default "/status" REST API
 void CWebServer::registerDefaults() {
-
+    DEBUG_FUNC_START();
     rewrite("/", "/index.html");
 
     onNotFound([](AsyncWebServerRequest *request) {
@@ -101,6 +101,7 @@ void CWebServer::registerDefaults() {
 	});
 
     on("/login", HTTP_GET, [](AsyncWebServerRequest *pRequest) {    
+        DEBUG_FUNC_START();
         if (!WebServer::Config.authenticate(pRequest,"login",true)) {
             return pRequest->requestAuthentication();
 		}
@@ -111,6 +112,7 @@ void CWebServer::registerDefaults() {
 	});
 
      on("/status", HTTP_GET, [](AsyncWebServerRequest *pRequest) {
+        ApplLogInfo(F("WEB:/status"));
         DEBUG_INFO("/status route called...");
 
         // DynamicJsonDocument oStatusDoc(2048);
@@ -164,6 +166,7 @@ void CWebServer::registerDefaults() {
 			}
 		}
 	});
+    DEBUG_FUNC_END();
     
 }
 

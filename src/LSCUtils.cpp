@@ -3,6 +3,13 @@
 
 namespace LSC {
 
+    float getFarenheitFromCelsius(float fTemp) {
+        return((fTemp * 1.8) + 32);
+    }
+    float getCelsiusFromFarenheit(float fTemp) {
+        return((fTemp - 32) * 1.8);
+    }
+
     String getAddressAsString(IPAddress ip) {
         return String(ip[0]) + "." + String(ip[1]) + "." + String(ip[2]) + "." + String(ip[3]);
     }

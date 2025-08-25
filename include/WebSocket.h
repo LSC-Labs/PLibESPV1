@@ -8,17 +8,17 @@
  * Structure of a captured message
  */
 struct WebSocketMessage {
-    char *pSerializedMessage;
-    AsyncWebSocket *pSocket;
-    AsyncWebSocketClient *pClient;
-    WebSocketMessage *pNextMessage;
+    char *pSerializedMessage        = NULL;
+    AsyncWebSocket *pSocket         = NULL;
+    AsyncWebSocketClient *pClient   = NULL;
+    WebSocketMessage *pNextMessage  = NULL;
 };
 struct WebSocketStatus {
     long uptime = millis();
 };
 
 #ifndef WS_NEEDS_AUTH
-    #define WS_NEEDS_AUTH "getconfig,saveconfig,getbackup,restorebackup,restart,factoryreset"
+    #define WS_NEEDS_AUTH "saveconfig,getbackup,restorebackup,restart,factoryreset"
 #endif
 
 /// @brief Function pointer to register the routes
@@ -27,7 +27,7 @@ typedef void (funcDispatchMessage)(const WebSocketMessage *pMessage);
 class CWebSocket : public AsyncWebSocket {
     private:
         WebSocketStatus Status;
-        WebSocketMessage *pMsgQueue;
+        WebSocketMessage *pMsgQueue = NULL;
         String strNeedsAuth = WS_NEEDS_AUTH;
     
     public:

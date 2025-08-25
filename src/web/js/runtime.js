@@ -86,11 +86,11 @@ class CSecurity
                     if (xhr.status === 200) {
                         // Login is ok, store the access token and establish the websocket
                         CSecurity.AccessToken = xhr.getResponseHeader("AUTHTOKEN");
-                        oThis._closeDlg(oDlg);
+                        oSelf._closeDlg(oDlg);
                     } else {
                         alert("Incorrect password!");
                     }
-                    this.setAuthMode()
+                    oSelf.setAuthMode()
                 }
             };
             xhr.send(null);

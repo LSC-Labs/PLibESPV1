@@ -41,7 +41,7 @@ void CRGBLed::switchOff() {
     BlueLED.switchOff();
 }
 
-/// @brief set the colre by using the Color Tabel with masks
+/// @brief set the color by using the Color Table with masks
 /// @param eColor 
 void CRGBLed::setColor(RGB_COLOR eColor, bool bSwitchLeds) 
 {

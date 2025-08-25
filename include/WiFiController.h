@@ -30,8 +30,7 @@
 #endif
 
 
-#define WIFI_ACCESS_POINT_MODE  0
-#define WIFI_STATION_MODE       1
+
 
 namespace LSC_WIFI {
     String getDefaultSSIDofAP();

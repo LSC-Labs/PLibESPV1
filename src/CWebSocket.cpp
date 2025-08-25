@@ -29,6 +29,7 @@
 /// @param strSocketName 
 CWebSocket::CWebSocket(const char* strSocketName) : AsyncWebSocket(strSocketName){
 	DEBUG_FUNC_START_PARMS("%s",NULL_POINTER_STRING(strSocketName));
+	this->pMsgQueue = NULL;
 	std::function<void(	AsyncWebSocket *, 
 						AsyncWebSocketClient *, 
 						AwsEventType, 
@@ -111,23 +112,30 @@ void CWebSocket::onWebSocketEvent(AsyncWebSocket *pSocket, AsyncWebSocketClient 
 /// @param oDoc 	// Document to be sent
 /// @param pSocket 	// Socket to handle the communication
 /// @param pClient  // Specific client to talk to.
+/// @see  https://github.com/ESP32Async/ESPAsyncWebServer/wiki#asyncwebsocketmessagebuffer-and-makebuffer
 void ICACHE_FLASH_ATTR CWebSocket::sendJsonDocMessage(JsonDocument &oDoc, AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient) {
 	DEBUG_FUNC_START();
 	// If no socket is in place, use your own socket...
 	if(!pSocket) pSocket = this;
-
     // Serialize the message to be sent...
-	size_t nSize = measureJson(oDoc) * 2;
+	size_t nSize = measureJson(oDoc);
 	DEBUG_INFOS("WS: - allocating buffer(%u bytes)",nSize);
+	AsyncWebSocketMessageBuffer* pBuffer = pSocket->makeBuffer(nSize);
+	assert(pBuffer);
+	serializeJson(oDoc,pBuffer->get(),nSize);
+	if(pClient) pClient->text(pBuffer);
+	else pSocket->textAll(pBuffer);
+	/*
 	char *pszMessageBuffer = (char *) malloc(nSize);
 	memset(pszMessageBuffer,'\0',nSize);
-
-	int nFinalSize = serializeJson(oDoc,pszMessageBuffer,nSize);
+	DEBUG_JSON_OBJ(oDoc);
+	size_t nFinalSize = serializeJson(oDoc,pszMessageBuffer);
 	ApplLogVerboseWithParms("WS: - sending (%d) bytes of data: %s",nFinalSize, pszMessageBuffer);
 
 	if(pClient) pClient->text(pszMessageBuffer);
 	else pSocket->textAll(pszMessageBuffer);
 	free(pszMessageBuffer);
+	*/
 	DEBUG_FUNC_END();
 }
 
@@ -153,10 +161,12 @@ void ICACHE_FLASH_ATTR CWebSocket::sendAccessDeniedMessage(JsonDocument &oReques
 
 void ICACHE_FLASH_ATTR CWebSocket::sendStatus(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient)
 {
+	DEBUG_FUNC_START();
     JSONDOC_RESPONSE(oStatusDoc);
 	JsonObject oStatusObj = createPayloadStructure(F("update"),F("status"),oStatusDoc);
 	Appl.writeStatusTo(oStatusObj);
 	sendJsonDocMessage(oStatusDoc,pSocket,pClient);	
+	DEBUG_FUNC_END();
 }
 
 JsonObject CWebSocket::createPayloadStructure(const char* pszCommand, const char *pszDataType, JsonDocument &oPayloadDoc, const char *pszData) {
@@ -209,30 +219,38 @@ void CWebSocket::addMessageToQueue(AsyncWebSocket *pSocket, AsyncWebSocketClient
 	ApplLogTrace("WS: Adding message to queue....");
 	WebSocketMessage *pNewMessage = new WebSocketMessage;
 	// To be sure, to get always a zero terminated string, allocate + 1.
+	DEBUG_INFOS(" --- allocating memory for Message : %d",nMessageSize);
 	pNewMessage->pSerializedMessage = (char *) malloc(nMessageSize + 1);
 	memset(pNewMessage->pSerializedMessage,'\0',nMessageSize + 1);
 	memcpy(pNewMessage->pSerializedMessage, (const char *)pClient->_tempObject, nMessageSize);
+	DEBUG_INFOS(" --- message : %s",pNewMessage->pSerializedMessage);
 	// strlcpy(pNewMessage->serializedMessage, (const char *)pClient->_tempObject, nMessageSize +1);
 	free(pClient->_tempObject);
 	pClient->_tempObject = NULL;
 
 	pNewMessage->pClient = pClient;
 	pNewMessage->pSocket = pSocket;
+	DEBUG_INFO(" --- adding message to queue...");
 
 	WebSocketMessage *lastMessage = pMsgQueue;
 	// process only one message at the time
 	if (lastMessage == NULL)
 	{
+		DEBUG_INFO(" --->> is first message...");
 		pMsgQueue = pNewMessage;
 	}
 	else
 	{
 		while (lastMessage->pNextMessage != NULL)
 		{
+			DEBUG_INFO(" --->> searching last message...");
 			lastMessage = lastMessage->pNextMessage;
 		}
+		DEBUG_INFO(" --->> adding message...");
 		lastMessage->pNextMessage = pNewMessage;
 	}
+	DEBUG_INFO(" --- done ----");
+	DEBUG_FUNC_END();
 }
 
 /// @brief Dispatch the message queue...
@@ -242,7 +260,7 @@ void CWebSocket::dispatchMessageQueue(funcDispatchMessage pFuncDispatchMessage)
 {
 	while (pMsgQueue != NULL)
 	{
-		DEBUG_INFOS("WS: dispatchMessageQueue()");
+		DEBUG_INFO("WS: dispatchMessageQueue()");
 		WebSocketMessage *pMessageToProcess = CWebSocket::pMsgQueue;
 		CWebSocket::pMsgQueue = pMessageToProcess->pNextMessage;
 		// Process the message.
@@ -262,7 +280,7 @@ void CWebSocket::dispatchMessageQueue(funcDispatchMessage pFuncDispatchMessage)
  */
 bool CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
 	DEBUG_FUNC_START();
-	DEBUG_INFOS("WS: dispatching message : %s",pMessage->serializedMessage);
+	DEBUG_INFOS("WS: dispatching message : %s",pMessage->pSerializedMessage);
 	bool bResult = true;
     CFS oFS;
     // We should always get a JSON object (stringfied) from browser, so parse it
@@ -297,11 +315,10 @@ bool CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
 			}
 			else if (strCommand.equalsIgnoreCase(F("getconfig")))
 			{
-				if(isAuthenticated) { // To ensure - only if authenticated...
-					JsonObject oCfgNode = createPayloadStructure(F("update"),F("config"),oXChangeDoc);
-					Appl.writeConfigTo(oCfgNode,true);
-					sendJsonDocMessage(oXChangeDoc,pMessage->pSocket,pMessage->pClient);
-				}
+				// NO authentication needed, cause critical informations are hidde (!)
+				JsonObject oCfgNode = createPayloadStructure(F("update"),F("config"),oXChangeDoc);
+				Appl.writeConfigTo(oCfgNode,true);
+				sendJsonDocMessage(oXChangeDoc,pMessage->pSocket,pMessage->pClient);
 			}
 			else if (strCommand.equalsIgnoreCase(F("saveconfig")))
 			{

@@ -4,7 +4,8 @@
 
 namespace LSC {
 
-    
+    float getFarenheitFromCelsius(float fTemp);
+    float getCelsiusFromFarenheit(float fTemp);
 
     void ICACHE_FLASH_ATTR copyTo(char *pszTarget, const char *pszSource, int nMaxLen);
     bool ICACHE_FLASH_ATTR isTrueValue(const char * pszData, bool bExplicit = false);
