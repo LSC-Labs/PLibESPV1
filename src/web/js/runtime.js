@@ -3208,7 +3208,7 @@ class CAppl {
         if(this.Security) this.Security.signout();
     }
     getAccessToken() {
-        return(this.Security ? this.Security.AccessToken : undefined);
+        return(CSecurity.AccessToken);
     }
     updateAuthModeView(bIsAuth = false) {
         this.Security.updateAuthModeView();
