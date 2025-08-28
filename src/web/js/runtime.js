@@ -5,7 +5,11 @@
  * Runtime is a base library for simple GUI's on smart devices.
  * Main intention is to save space and be plugable with pages.
  * 
- * Hint: use an editor that supports the #region command like Visual code, to get a structured view to this code.
+ * Hints: 
+ * ======
+ * - use an editor that supports the #region command like Visual code, to get a structured view to this code.
+ * - gulp-preprocess is used with the @exclude syntax for prod,
+ *   ==> see  https://github.com/jsoverson/preprocess - and https://github.com/jsoverson/preprocess#directive-syntax
  * 
  * Global objects:
  * ===============
@@ -66,18 +70,21 @@ class CSecurity
     }
     signout() {
         CSecurity.AccessToken = undefined;
-        if(this._App) this._App.setAuthMode(this.isAuth())
+        this.updateAuthModeView(document.body);
     }
+
     authenticate(strPasswd,oDlg) {
         CSecurity.AccessToken = undefined;
+        // @exclude 
+        // is used for websocket emulator tests only
         if (strPasswd === "emu") {
             CSecurity.AccessToken = DEFAULTS.DEBUG_TOKEN;
             this._closeDlg(oDlg);
-            this.setAuthMode()
+            this.updateAuthModeView()
         } else {
+        // @endexclude
             let oSelf = this;
             let strUser = "admin";
-            // let password = document.getElementById("password").value;
             let url = "/login";
             let xhr = new XMLHttpRequest();
             xhr.open("get", url, true, strUser, strPasswd);
@@ -90,11 +97,13 @@ class CSecurity
                     } else {
                         alert("Incorrect password!");
                     }
-                    oSelf.setAuthMode()
+                    oSelf.updateAuthModeView()
                 }
             };
             xhr.send(null);
+        //@exclude
         }
+        //@endexclude
     }
 
     _setRO(oElement,bRO = true,bIterate = true) {
@@ -112,7 +121,13 @@ class CSecurity
             EC(oE).selAll("input, select, radio, checkbox").forEach(e => this._setRO(e,bRO,bIterate));
         }
     }
-    setAuthMode(oBaseElement) {
+
+    /**
+     * Update the BaseElement to view only elements reflecting the 
+     * correct authentication mode by using the show and hide functions of CElement
+     * @param {HTMLElement|undefined|null} oBaseElement The element ot process or the body of the document
+     */
+    updateAuthModeView(oBaseElement) {
         if(!oBaseElement) oBaseElement = document.body;
         let bIsAuth = this.isAuth();
         EC(oBaseElement).gelAll("[data-auth]").forEach(e => {
@@ -170,7 +185,7 @@ class CVarTable {
     /**
      * Set the vars into the local var table.
      * 
-     * @param {*} oData either an array [], an instance of CVarTable or an object {...}.
+     * @param {[]|CVarTable|object} oData either an array [], an instance of CVarTable or an object {...}.
      * @returns this VarTable
      */
     setVars(oData) {   
@@ -192,19 +207,21 @@ class CVarTable {
 
     /**
      * scans the HTML document or a given element for "VarTable" elements
-     * @param {Document} [oElement=document] Default is the document
+     * @param {HTMLElement|CElement} [oElement=document.body] Default is the document body
      * @param {string} [strTable="VarTable"] Default is the global vars.. specify your local table if needed like "PageVarTable"
      */
     setPageVars(oElement = document,strTable = "VarTable") {
-        let oBase = CElement.asNative(oElement);
-        oElement.querySelectorAll(strTable).forEach((t) => {
-            try {
-                let tVars = JSON.parse(t.innerText);
-                for(const strKey in tVars) this.setVar(strKey,tVars[strKey]);
-            } catch (ex){
-                console.log(ex);
-            }
-        })
+        if(oElement && strTable) {
+            let oBase = CElement.asNative(oElement);
+            oBase.querySelectorAll(strTable).forEach((t) => {
+                try {
+                    let tVars = JSON.parse(t.innerText);
+                    for(const strKey in tVars) this.setVar(strKey,tVars[strKey]);
+                } catch (ex){
+                    Log.logEx(ex,"json : " + t.innerText);
+                }
+            })
+        }
     }
 
     getValue(strName, strDefault = "") {
@@ -254,6 +271,8 @@ class Utils {
             bResult = [ "false", "0", "no", "off" ].includes(oValue);
         } else if(this.isBoolean(oValue)) {
             bResult = !oValue;
+        } else if(oValue === undefined) {
+            bResult = true;
         }
         return(bResult);
 
@@ -320,6 +339,10 @@ class Utils {
 
     static isElement(oElement) {
         return(this.isObj(oElement) && oElement.nodeType == 1);
+    }
+
+    static isArray(oElement) {
+        return(Array.isArray(oElement));
     }
 
 }
@@ -734,11 +757,11 @@ class CElement extends Utils {
         let oResult = this;
         let oElement = this._oBE;
         if(oElement) {
-            if(strHTML) {
-                oElement.innerHTML = strHTML;
-            } else {
+            if(strHTML === undefined || strHTML === null) {
                 oResult = oElement.innerHTML;
-            }
+            } else {
+                oElement.innerHTML = strHTML;
+            } 
         }
         return(oResult);
     }
@@ -752,24 +775,40 @@ class CElement extends Utils {
         if(this._oBE) {
             if(Utils.isString(strID)) {
                 this._oBE.id = strID;
-            } else if(strID == null) {
-                this.attr("id",null);
+            } else if(strID === undefined) {
+                 oResult = this._oBE.id;
             } else {
-                oResult = this._oBE.id;
+                this.attr("id",null);
             }
         }
         return(oResult);
     }
 
-    data(strName,strValue) {
+    /**
+     * set the dataset info
+     * @param {*} strName 
+     * @param {string|object|null|undefined} oValue null== delete, undefined == get, all other set...
+     * @returns the value or the json object by get, otherwise this object
+     */
+    data(strName,oValue) {
         let oResult = this;
         let oE = this.getBase();
         if(strName && oE) {
-            if(strValue === null) delete oE.dataset[strName];
-            else if (strValue) {
-                oE.dataset[strName] = strValue;
+            if(oValue === null) delete oE.dataset[strName];
+            else if (oValue) {
+                if(Utils.isObj(oValue)) {
+                    try {
+                        oValue = JSON.stringify(oValue);
+                    } catch {}
+                }
+                oE.dataset[strName] = oValue;
             } else {
-                oResult = oE.dataset[strName];
+                oResult = oE.dataset[strName]; 
+                if(oResult && oResult.startsWith("{")) {
+                    try {
+                        oResult = JSON.parse(oResult);
+                    } catch(ex) { console.log("EX: parsing to json object"); console.log(oResult); console.log(ex)}
+                }
             }
         }
         return(oResult);
@@ -910,7 +949,7 @@ class CElement extends Utils {
                                         break;
                     case "checkbox"   :
                                         // set checked, if value is true ( keep in mind, also "1" will become true )
-                                        oElement.checked = this.isTrueValue(oValue);
+                                        oElement.checked = Utils.isTrueValue(oValue);
                                         break;
 
                     case "radio"      : // Set the checked radio button to true / false.
@@ -1317,7 +1356,7 @@ class CAppSettings extends CConfig {
 
     /**
      * update or create a menu entry.
-     * The menu entry will be inserted at the right position in the menu tree,
+     * The menu entry will be inserted at correct position in the menu tree,
      * if the name property has parent elements.
      * "home" will become a root menu entry "home".
      * "Settings|wifi" will become a submenu entry in the drop down menu "Settings"
@@ -1326,9 +1365,10 @@ class CAppSettings extends CConfig {
      * @param {*} oMenuDef 
      * @returns 
      */
-    setMenuEntry(oMenuDef) {
+    setMenuEntry(oMenuDef, strPageContainerID) {
         let oMenuEntry;
         let oParent = this.getMenuDefs();
+        // At least a name must be in place... !
         if(oMenuDef && oMenuDef.name) {
             let tNames = oMenuDef.name.split("|");
             // Search the parent menu - or create if not exist...
@@ -1342,6 +1382,11 @@ class CAppSettings extends CConfig {
                 if(!oEntry.menu) oEntry.menu = [];
                 oParent = oEntry.menu;
             }
+            // a special container id where the page is stored ?
+            if(strPageContainerID) {
+                if(!oMenuDef.attr) oMenuDef.attr = {}
+                if(!oMenuDef.attr.pageID) oMenuDef.attr.pageID = strPageContainerID;
+            } 
             // now get or create the menu entry...
             let strMenuName = tNames[tNames.length -1];
             this.Log.logTrace(`setting menu entry: ${strMenuName}`)
@@ -1629,6 +1674,8 @@ class CTranslator {
 
 // #region (Partial) View class for end user
 class CView extends CElement {
+    LocalVars = new CVarTable();
+
     constructor(oSel, oSettings) {
         super(oSel);
         this._Settings = Utils.isInstanceOf(oSettings,"CAppSettings") ? oSettings :
@@ -1648,17 +1695,25 @@ class CView extends CElement {
         this.getBase().dataset.viewId = strID;
         return(this);
     }
+
     getArea() {
         return(this.getBase());
     }
 
+    Payload(oPayload) {
+        return(this.data("payload",oPayload));
+    }
+
     /**
-     * Load the content of oData into this area and set the  content id.
+     * Load the content of oData into this area, set the content id and load the local vars.
      * Create the shortcut element types and needed icons.
+     * The page is loaded, but NOT translated... !
+     * 
      * @param {*} strID the id to be used for this content in getID() and setID()
-     * @param {*} oData string with html data, a HTMLElement or a CElement to pick the innerHTML
+     * @param {string|HTMLElement|CElement} oData  sourc to pick the innerHTML
      * @param {IEventCallback} pCaller // Interface for calling the onEvent function
      * @param {CVarTable} tVars Vars to be used for substitution
+     * @returns true.
      */
     loadView(strID,oData,tVars,pCaller) {
         let bLoaded = false;
@@ -1670,24 +1725,30 @@ class CView extends CElement {
 
             if(strContent) {
                 this.rc("isLoaded");
-                // set the content to scan for var definition.. in "PageVarTable"
+                this.data("cfg",null);
+                // set the content to scan for var definition.. in "PageVars"
+                // then load all needed vars, substitute the content and load again
                 this.html(strContent);
-                let oVars = new CVarTable();
-                if(tVars) oVars.setVars(tVars);
-                oVars.setPageVars(this.getArea(),"PageVarTable");
+                this.LocalVars = new CVarTable();
+                this.LocalVars.setVars(tVars); // empty object will be covered by CVarTable()
+                this.LocalVars.setPageVars(this.getArea(),"PageVars");
+                // If Payload object contains a var object, set this vars also...
+                let oPayload = this.Payload();
+                if(Utils.isObj(oPayload)) this.LocalVars.setVars(oPayload.vars);
                 // Now process the content...
-                strContent = oVars.subst(strContent);
+                strContent = this.LocalVars.subst(strContent);
                 // Load the content into the container and set the data-act-page attribute.
-                
                 this.html(strContent);
                 this.setID(strID);
                 this.ac("isLoaded");
-                let oTemplates = new CTemplates(this._Settings,oVars);
+
+                // Now it's time to create all user templates and icons...
+                let oTemplates = new CTemplates(this._Settings,this.LocalVars);
 
                 oTemplates.createElements(this.getArea(),pCaller)
                 oTemplates.createIcons(this.getArea());
 
-                // Translate the data-cfg/data-id attributes to id of the elments (to avoid duplicate id's in the doc)
+                // Translate the data-id attributes to id of the elments (to avoid duplicate id's in the doc)
                 this.selAll("[data-id]").forEach((e) => {
                     if(!e.id) e.id = e.dataset.id;
                 });
@@ -1902,6 +1963,8 @@ class CPageHandler {
      * @returns the used config for this page to be re-used by derivited objects 
      */
     loadPageConfig(pView, pApp) {
+        let strConfigName = pView.data("cfg");
+        if(strConfigName) this.setConfigName(strConfigName);
         let oCfg = this.getConfig(false);
         this.setConfigValues(pView,oCfg);
         this.updateView(pView, pApp);
@@ -2461,11 +2524,21 @@ class CWebSocketV2 {
 // #endregion
 
 // #region MenuBar / SideBar classes
+
+/**
+ * A Menu Bar - Based on CElement
+ * - can use all CElement operations on this "Container"
+ */
 class CMenuBar extends CElement {
     _Settings;      // CAppSettings object;
     _oCallBacks;    // Callback object with functions inside
     Log = new CLog();
 
+    /**
+     * 
+     * @param {string} selBar The select to the ID of the menubar
+     * @param {*} oSettings CAppSettings or object with application settings
+     */
     constructor(selBar = "#menubar", oSettings) {
         super(selBar)
         this._oMenu    =  new CElement(selBar + " ul");
@@ -2473,13 +2546,16 @@ class CMenuBar extends CElement {
     }
 
     /**
-     * 
-     * @param {CAppSettings} oSettings 
+     * Initialize the Sidebar
+     * @param {CAppSettings} oSettings  Settings of the application with (basic) menu structure
+     * @param {object}  oCallBacks Callback functions
+     * @param {CVarTable} tVars Needed to create elements by CTemplates 
      */
     init(oSettings,oCallBacks = {} ,tVars) {
         this.Templates = new CTemplates(oSettings,tVars)
         this.addMenuEntries(oSettings);
         this._oCallBacks = oCallBacks;
+        // register the UAC classes to this object
         this.gelAll(".UAC li").forEach(e => {
             e.on("click",this.onUAC.bind(this));
         })
@@ -2507,6 +2583,7 @@ class CMenuBar extends CElement {
     onClicked(oEvent) {
        this._callBack("onClicked",oEvent);
     }
+
     onUAC(oEvent) {
         let oElement = EC(oEvent.currentTarget).gel("button");
         let strCall = "on" + oElement.data("on");
@@ -2558,11 +2635,13 @@ class CMenuBar extends CElement {
      * Add a single menu entry to the sidebar.
      * @param {object}   oSettings // The settings object - also containing defaults and icons
      * @param {object}   oMenuDef  // The menu definiton object to process
-     * @param {CElement} pParent   // null or the parent element to append the new entry.
+     * @param {CElement|null|undefined} pParent   // null or the parent element to append the new entry.
      */
     addMenuEntry(oSettings, oMenuDef, pParent) {
         const oLI = this.ce("li");
         oLI.setAttributes(oMenuDef.attr);
+        // Keep the payload info for the handler when clicked...
+        if(oMenuDef.payload) oLI.data("payload",oMenuDef.payload);
         const oIconDef = this.Templates.findIconDef(oMenuDef.icon ?? oMenuDef.name);
         if (oMenuDef.hasOwnProperty("menu")) {
             const oButton = oLI.cce("button");
@@ -2580,6 +2659,8 @@ class CMenuBar extends CElement {
             }
         }
         else {
+            // Create the click link and bind the onClicked to this instance...
+            // Also set the id of the link to the name of the menu entry.
             const a = this.ce("a");
             a.getBase().addEventListener("click",this.onClicked.bind(this));
             a.id(oMenuDef.name);
@@ -2588,12 +2669,6 @@ class CMenuBar extends CElement {
                 let bIsSub = (oParent && oParent.parentNode && oParent.parentNode.classList.contains("sub-menu"));
                 let oIcon = bIsSub ? this.Templates.createIcon(oIconDef,"Sub"): this.Templates.createIcon(oIconDef);
                 a.append(oIcon);
-                /*
-                if(oParent && oParent.parentNode && oParent.parentNode.classList.contains("sub-menu")) {
-                    // override attributes, if sub-menu
-                    CE(oIcon).setAttributes(this._Settings.getSection("icons.svgSub"));
-                }
-                */
             }
             const span = this.ce("span");
             this.setText(span, oMenuDef.name, oMenuDef.title);
@@ -2646,6 +2721,17 @@ class CSideBar extends CMenuBar {
     constructor(selBar = "#sidebar", oSettings) {
         super(selBar,oSettings)
     }
+
+    init(oSettings,oCallBacks = {} ,tVars) {
+        super.init(oSettings,oCallBacks,tVars);
+        try {
+            this.gel("#sidebarHide").on("click",this.hide.bind(this))
+            EC(document.body).gel("#sidebarShow").on("click",this.show.bind(this));
+        } catch {}
+    }
+
+    show() { this.ac("show");}
+    hide() { this.rc("show") }
 }
 
 // #endregion
@@ -2691,7 +2777,7 @@ class CAppl {
         }
     }
     _tPageHandler = [];        // List of known page handlers
-    MainView;                // The Activ main page root root object.
+    MainView;                  // CView - The Activ main view instance.
     _pCurHandler;              // Current active page handler.
     _pMPH;                     // Main Page Handler to handle requests to the main content...
     Log = new CLog();
@@ -2717,13 +2803,12 @@ class CAppl {
     init(oSettings) {
         this.Settings = new CAppSettings({...this._oDefaults,...oSettings});
         this.MainView = new CView("#mainContent",this.Settings);
-        this.Vars.setDefaults();
-        this.Vars.setPageVars();
-        this.Vars.setVars(this.Settings.getSection("app"));
-        // Create Global Vars with this table...
-        // This Vars will be used to reset by loading pages.
-        // this.GlobalVars = new CVarTable();
-        // this.GlobalVars.setVars(this.Vars);
+        this.Vars.setDefaults();    // Default var definitions
+        this.Vars.setPageVars();    // All VarTable elements from the current html page
+        this.Vars.setVars(this.Settings.getSection("app")); // and the application specifc settings.
+        // Prepare the translator and load the languages...
+        // - initialize the menubar
+        // - prepare the current html page
         this.Translator.preload()
             .then(t => {   
                 this.MenuBar.init(oSettings, { 
@@ -2733,22 +2818,20 @@ class CAppl {
                 });
                 this.prepareContainer(document.body);
 
-                // Register well known pages...
+                // Now register all well known pages... if defined by framework build
                 if(typeof registerPageHandler === 'function') registerPageHandler(this);
             
+                // Select the Default Page from Application Settings...
                 let strHomePage = this.Settings.getData("DefaultPage") ?? "HomePage";
                 this.loadPage(strHomePage);
+
                 // TODO: insert login logic... in DEBUG connect Websocket now...
                 let bRecon =  Utils.isTrueValue(this.Settings.getData("app.ws.recon","1"))
                 this.WS.connect(bRecon);
-                this.setAuthMode(this.isAuth());
+                // Update the Authentication view for the elements.
+                this.updateAuthModeView(this.isAuth());
             })
     }
-    /*
-    _setDefaultVar(strName, strValue) {
-        this.Vars.setVar(strName,this.Vars.getValue(strName,strValue))
-    }
-*/
     // #region Views and operations on containers...
     
     /**
@@ -2756,18 +2839,36 @@ class CAppl {
      * - create and replace Elements if needed,
      * - create Wellknown functions and handler
      * - translate the page into user language..
-     * @param {*} oContainer 
+     * @param {HTMLElement|CView} oContainer 
      */
     prepareContainer(oContainer) {
         let oPageVars = new CVarTable();
-        oPageVars.setVars(this.Vars);
-        oPageVars.setPageVars(oContainer,"LocalVarTable");
+        // If it is a CView, all operations are done by the CView.loadView() 
+        // Otherwise process, if the container is a simple HTMLElement.
+        if(Utils.isInstanceOf(oContainer,"CView")) {
+            oPageVars = oContainer.LocalVars;
+        } else {
+            oPageVars.setVars(this.Vars);
+            oPageVars.setPageVars(oContainer,"LocalVars");
+            let oTemplates = new CTemplates(this.Settings,oPageVars);
+            oTemplates.createElements(oContainer,this);
+            oTemplates.createIcons(oContainer);
+        }
+
+        // Register the actions, translate and update Auth Mode View
         this.createKnownActions(oContainer);
-        let oTemplates = new CTemplates(this.Settings,oPageVars);
-        oTemplates.createElements(oContainer,this);
-        oTemplates.createIcons(oContainer);
+        this.translateContainer(oContainer,oPageVars);
+        this.Security.updateAuthModeView(oContainer);
+    }
+
+    translateContainer(oContainer, oVarTable) {
+        let oPageVars = oVarTable;
+        if(!oPageVars) {
+            oPageVars = new CVarTable();
+            oPageVars.setVars(this.Vars);
+            oPageVars.setPageVars(oContainer,"LocalVarTable");
+        }
         this.Translator.translate(oContainer,undefined,oPageVars);
-        this.Security.setAuthMode(oContainer);
     }
 
     createKnownActions(oContainer) {
@@ -2819,7 +2920,7 @@ class CAppl {
      * The page is the id of the section like "Status" + the name "Page"
      * The webpart id to search is id="StatusPage"
      * 
-     * @param {*} soel     // (String Or Element) String (with id) or Menu Element with id of page...
+     * @param {string|HTMLElement} soel     // (String Or Element) String (with id) or Menu Element with id of page...
      */
     loadPage(soel) {
         if(soel) {
@@ -2834,18 +2935,30 @@ class CAppl {
                 // soel = this.MenuBar.oSB.querySelector("#" + soel);
                 soel = this.MenuBar.selById(soel);
             } else {
-                // If it is an HTMLElement, use the id of the menu and enhance with "Page"
+                // If it is an HTMLElement, 
+                // if the parent has an attribute "containerid" - load this element
+                // otherwise use the id of the menu and enhance with "Page"
                 // The config section name is the element "data-cfg-section", or the id of the element in lowercase.
-                let strID = soel.id ?? "";
-                strPageID = strID.endsWith("Page") ? strID : strID + "Page";
                 oMenuElement = soel.parentElement;
+                let strID = oMenuElement.getAttribute("pageid") ?? soel.id ?? "";
+                strPageID = strID.endsWith("Page") ? strID : strID + "Page";
             }
-
+           
             // Create a page handler and get the matching config section...
             let oPH = this.getPageHandler(strPageID);          
-
+            this.MainView.Payload(oMenuElement.dataset.payload)
             if(this.MainView.loadView(strPageID,oPH.getContent(),this.Vars,this)) {
+                // soel is definitly an HTMLElement.
+                let strMenuID = soel.id;
                 this.prepareContainer(this.MainView.getArea());
+                // Inform the world, that the page is loaded by menu click with attribute data-menu-id.
+                if(strMenuID) this.MainView.data("menuId",strMenuID);
+                // Also set the data-cfg attribute if not already in place, so the default handler
+                // can load the page already without further operations by specialized handlers.
+                // - first, if the menu entry has a data-cfg - this will go in place...
+                // - if not, the menu id will be the config name...
+                if(oMenuElement.dataset.cfg) this.MainView.data("cfg",oMenuElement.dataset.cfg);
+                // if(!this.MainView.data("cfg")) this.MainView.data("cfg",strMenuID);
                 this._pCurHandler = oPH;
                 
                 // If the Pagehandler has additional load logic, call this also.
@@ -3097,8 +3210,8 @@ class CAppl {
     getAccessToken() {
         return(this.Security ? this.Security.AccessToken : undefined);
     }
-    setAuthMode(bIsAuth = false) {
-        this.Security.setAuthMode();
+    updateAuthModeView(bIsAuth = false) {
+        this.Security.updateAuthModeView();
     }
     // #endregion
 
@@ -3114,10 +3227,17 @@ class CAppl {
  */
 (function() {
     const APP         = new CAppl();
+    
 
     const APPSettings = new CAppSettings(APP_SETTINGS);
     const Log = new CLog();
     Log.setLogLevel(APPSettings.getData("app.logLevel",2));
+    if(Utils.isFalseValue(APPSettings.getData("app.hideApp"))) {
+        window.APP = APP;
+    }
+    if(Utils.isFalseValue(APPSettings.getData("app.hideLog"))) {
+        window.Log = Log;
+    }
     
     fetch(`_pages.html`)
         .then((response) => {
@@ -3139,9 +3259,23 @@ class CAppl {
                 
             // Create the menu structure, based on html data-menu attributes.
             oPC.selAll("[data-menu]").forEach((e) => {
-                APPSettings.setMenuEntry(JSON.parse(e.getAttribute("data-menu")));
+                let oAttr = e.getAttribute("data-menu");
+                try {
+                    let oDM = JSON.parse(oAttr);
+                    if(Utils.isArray(oDM)) {
+                        // It is an array, so process each (multiple menu entries...)
+                        for(let oME of oDM) APPSettings.setMenuEntry(oME,e.id);
+                    } else {
+                        // No it is a single menu entry...
+                        APPSettings.setMenuEntry(JSON.parse(e.getAttribute("data-menu")));
+                    }
+                } catch(ex) {
+                    APP.Log.logEx(ex,"parsing menu def... : ");
+                    APP.logInfo(oAttr);
+                }
             })
 
+           
             // Initialize the sidebar and the application.
             // SB.init(APPSettings.getConfig());
             APP.init(APPSettings.getConfig());

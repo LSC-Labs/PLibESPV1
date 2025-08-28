@@ -1,4 +1,5 @@
 #include <SysStatus.h>
+#include <FileSystem.h>
 #include <DevelopmentHelper.h>
 #pragma GCC diagnostic ignored "-Wunknown-pragmas"
 /** 
@@ -85,9 +86,7 @@ uint32_t CSysStatus::getCpuFrequencyMhz() {
 void CSysStatus::writeStatusTo(JsonObject &oStatusObj) {
     DEBUG_FUNC_START_PARMS("%s",oStatusObj ? "OK" : "-null-");
     
-    // FSInfo oFsInfo;
-    // LittleFS.info(oFsInfo);
-
+    CFS oFS;   
     // uint32_t nFreeHeap;
     // uint32_t nMaxHeap;
     // uint8_t  nFragHeap;
@@ -104,8 +103,8 @@ void CSysStatus::writeStatusTo(JsonObject &oStatusObj) {
     oStatusObj["heap_max"]          = getHeapSize(); // nMaxHeap;
     oStatusObj["sketch_size"]       = getSketchSize();
     oStatusObj["sketch_free_size"]  = getFreeSketchSpace(); // availsize - should be able to cover a new sketch
-    // oStatusObj["fs_total"]          = oFsInfo.totalBytes;
-    // oStatusObj["fs_used"]           = oFsInfo.usedBytes;
+    oStatusObj["fs_total"]          = oFS.getTotalBytes();
+    oStatusObj["fs_used"]           = oFS.getUsedBytes();
 
     DEBUG_FUNC_END();
 }

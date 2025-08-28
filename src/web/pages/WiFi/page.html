@@ -177,19 +177,19 @@
     </div>
 
     <!-- Fallback to AP Mode if needed -->
-    <div id="fallback" class="row form-group" data-viewon="ap_mode=0" data-auth="RO">   
+    <div id="fallbackmode" class="row form-group" data-viewon="ap_mode=0" data-auth="RO">   
         <label class="$(col-label-class) info-icon" data-i18n="@title:WiFi.fallback.info">
             <span data-i18n="WiFi.fallback.label"></span>
             <icon data-icon="Info"></icon>
         </label>
         <div class="$(col-input-class)">
-            <form name="fallbackmodeForm">
+            <form>
                 <label class="radio-inline">
-                    <input type="radio" value="1" name="fallbackmode">
+                    <input type="radio" value="1" name="fallback">
                     <span  data-i18n="main.enabled"></span>
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" value="0" name="fallbackmode" checked>
+                    <input type="radio" value="0" name="fallback" checked>
                     <span data-i18n="main.disabled"></span>
                 </label>
             </form>

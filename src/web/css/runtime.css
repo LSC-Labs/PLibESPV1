@@ -1252,6 +1252,10 @@ input:invalid + span::after {
   fill: var(--alert-text-color);
 }
 
+VarTable, PageVars, LocalVars {
+  display: none;
+}
+
 .footer {
   position: fixed;
   bottom: 0;
@@ -1286,6 +1290,36 @@ input:invalid + span::after {
   content: "";
   display: table;
   clear: both;
+}
+
+.groupPanel {
+  padding: 10px;
+  background-color: var(--action-bg-color);
+  border: 1px solid var(--primary-border-color);
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px var(--sidebar-shadow-color);
+  margin-bottom: 20px;
+}
+.groupPanel button, .groupPanel label {
+  box-shadow: 3px 3px 3px var(--sidebar-shadow-color);
+}
+.groupPanel legend {
+  font-size: 18px;
+  width: auto;
+}
+
+.groupPanelHeader {
+  border-bottom: 1px solid var(--primary-border-color);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.groupPanelFooter {
+  border-top: 1px solid var(--primary-border-color);
+  padding-top: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .changePending {

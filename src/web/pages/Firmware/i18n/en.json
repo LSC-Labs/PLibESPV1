@@ -1,0 +1,13 @@
+{
+
+    "Firmware" : {
+        "legend": "Firmware update (current firmware: $(prog_ver))",
+        "title": "Firmware update is possible. Make a backup first, before updating to avoid loss of data.",
+        "latest": "Current available version online",
+        "install": "Select the version you want to install",
+        "downloadBtn": "Download",
+        "installBtn": "Install",
+        "noInternet": "It seems, there is no internet connection available or the firmware update server is down."
+
+    }
+}
