@@ -17,6 +17,8 @@
 #define MSG_WIFI_DISABLED      5008
 #define MSG_WIFI_ERROR         5009
 
+#define MSG_SOCKET_SEND_JSON   5100
+
 
 
 

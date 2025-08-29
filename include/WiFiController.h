@@ -101,7 +101,8 @@ class CWiFiController : public IConfigHandler, public IStatusHandler, public IMs
     public:
         /// @brief constructor
         /// @param oConfig Configuration object (override own settings)
-        CWiFiController(const WiFiConfig *pConfig = nullptr, bool bRegisterOnMsgBus = true);
+        CWiFiController(const WiFiConfig *pConfig, bool bDontRegisterOnMsgBus = false);
+        CWiFiController(bool bDontRegisterOnMsgBus = false);
 
         // WiFiStatus getStatus() { return Status; }    
         void writeConfigTo( JsonObject &oCfgObj, bool bHideCritical) override;

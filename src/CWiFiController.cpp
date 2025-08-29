@@ -27,10 +27,14 @@ namespace LSC_WIFI {
 ///        Register only one object to process the requested WiFi operations (!)
 /// @param pConfig 
 /// @param bRegisterOnMsgBus if true, the object will register on msg bus
-CWiFiController::CWiFiController(const WiFiConfig *pConfig, bool bRegisterOnMsgBus) 
+CWiFiController::CWiFiController(const WiFiConfig *pConfig, bool bDontRegisterOnMsgBus) 
 {
     if(pConfig != nullptr) Config = *pConfig;
-    if(bRegisterOnMsgBus) Appl.MsgBus.registerEventReceiver(this);
+    if(!bDontRegisterOnMsgBus) Appl.MsgBus.registerEventReceiver(this);
+}
+CWiFiController::CWiFiController(bool bDontRegisterOnMsgBus) 
+{
+    if(!bDontRegisterOnMsgBus) Appl.MsgBus.registerEventReceiver(this);
 }
 
 
@@ -389,6 +393,7 @@ void CWiFiController::disableWiFi()
 
 
 void CWiFiController::scanWiFi() {
+    DEBUG_FUNC_START();
     // Use Member function of this object - and broadcast to all...
     std::function<void(int)> printWiFiScanResult = std::bind(&CWiFiController::onWiFiScanResult,this,std::placeholders::_1);
     WiFi.scanNetworksAsync(printWiFiScanResult,true);
@@ -432,7 +437,7 @@ void CWiFiController::onWiFiScanResult(int nNetworksFound) {
 		oItem["enctype"] 	= WiFi.encryptionType(tIndices[i]);
 		oItem["hidden"] 	= WiFi.isHidden(tIndices[i]) ? true : false;
 	}
-    Appl.MsgBus.sendEvent(this,MSG_WIFI_SCAN_RESULT,&oScanResult,0);
+    Appl.MsgBus.sendEvent(this,MSG_WIFI_SCAN_RESULT,&oRootDoc,0);
 	// sendJsonDocMessage(oRootDoc,this,nullptr);
 	WiFi.scanDelete();
 	DEBUG_FUNC_END();

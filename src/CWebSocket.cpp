@@ -27,7 +27,7 @@
 /// @brief Constructor - register the onEvent Handler...
 ///        Binds the onWebSocketEvent Handler to the basic WebSocket object.
 /// @param strSocketName 
-CWebSocket::CWebSocket(const char* strSocketName) : AsyncWebSocket(strSocketName){
+CWebSocket::CWebSocket(const char* strSocketName, bool bDontRegisterOnMsgBus) : AsyncWebSocket(strSocketName){
 	DEBUG_FUNC_START_PARMS("%s",NULL_POINTER_STRING(strSocketName));
 	this->pMsgQueue = NULL;
 	std::function<void(	AsyncWebSocket *, 
@@ -48,7 +48,30 @@ CWebSocket::CWebSocket(const char* strSocketName) : AsyncWebSocket(strSocketName
 
 	// Register the onEventCallback to the socket
 	onEvent(funcOnEvent);
+	// Now listen on the message bus for incomming commands....
+	if(!bDontRegisterOnMsgBus) Appl.MsgBus.registerEventReceiver(this);
 }
+
+int CWebSocket::receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType) {
+    switch(nMsgId) {
+		case MSG_SOCKET_SEND_JSON :
+        case MSG_WIFI_SCAN_RESULT : if(pMessage != nullptr) {
+										JsonDocument *pDoc = ( JsonDocument *) pMessage;
+										sendJsonDocMessage(*pDoc);
+									}
+									break;
+    }
+    return(EVENT_MSG_RESULT_OK);
+}
+
+String CWebSocket::setNeedsAuth(const String &strCommands) {
+	strNeedsAuth = strCommands;
+	return strNeedsAuth;
+};
+
+String CWebSocket::getNeedsAuth() {
+	return strNeedsAuth;
+};
 
 /// @brief Catch the message from WebSocket and write the received data to the message queue
 /// To process the queue, you have to dispatch the queue on a regular base (in loop)
@@ -105,7 +128,6 @@ void CWebSocket::onWebSocketEvent(AsyncWebSocket *pSocket, AsyncWebSocketClient 
 		}
 	}
 }
-
 
 
 /// @brief send a Json doc message to a client, or if not defined - to all
@@ -193,7 +215,6 @@ JsonObject CWebSocket::createPayloadStructure(const char* pszCommand, const char
 inline JsonObject CWebSocket::createPayloadStructure(const __FlashStringHelper* pszCommand, const __FlashStringHelper* pszDataType, JsonDocument &oPayloadDoc, const char *pszPayload) {
 	return(createPayloadStructure((const char*) pszCommand,(const char*) pszDataType,oPayloadDoc,pszPayload));
 }
-
 
 bool inline CWebSocket::needsAuth(String &strCommand) {
 	return(strNeedsAuth.indexOf(strCommand) > -1);
@@ -292,13 +313,13 @@ bool CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
 	// cast to const char * to avoid in-place editing of serializedMessage
 	auto error = deserializeJson(oXChangeDoc, (const char *)pMessage->pSerializedMessage);
     if(error) {
-        ApplLogErrorWithParms(F("WS: Parse WebSocket message to Json : %s"),error.c_str());
+        ApplLogErrorWithParms(F("WS: Parse message : %s"),error.c_str());
     } else {
         // Json Document is ready...
         // Web Browser sends some commands, check which command is given
 	    String strCommand = oXChangeDoc["command"];
 		strCommand.toLowerCase();
-		ApplLogTraceWithParms(F("WS: dispatching command \"%s\""),strCommand.c_str());
+		DEBUG_INFOS("WS: dispatching command \"%s\"",strCommand.c_str());
 		bool isAuthNeeded = needsAuth(strCommand);
 		bool isAuthenticated = isAuthNeeded ? checkAuth(oXChangeDoc,pMessage->pClient) : false;
 		DEBUG_INFOS("WS: Auth needed : %d, Authenticated : %d",isAuthNeeded,isAuthenticated);
@@ -340,6 +361,7 @@ bool CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
 			}
 			else if (strCommand.equalsIgnoreCase(F("scanwifi")))
 			{
+				DEBUG_INFO("WS: sending scan wifi request...");
                 Appl.MsgBus.sendEvent(this,MSG_WIFI_SCAN,pMessage->pClient,0);
 			}
 			else if (strCommand.equalsIgnoreCase(F("scanrf433")))
