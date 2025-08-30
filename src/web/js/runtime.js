@@ -111,6 +111,7 @@ class CSecurity
         let strType = oE.type;
        
         switch(strType) {
+            case "number":
             case "text":        oE.readOnly = bRO; break;
             case 'select' :
             case 'select-one' :
@@ -935,6 +936,7 @@ class CElement extends Utils {
             else {
                 switch(oElement.type) {
                     case "password"   :
+                    case "number":
                     case "text"       : oElement.value = oValue; break;
                     case "select-one" : // Select the option if exists - if not, append...
                                         let bExists = false;
@@ -975,6 +977,7 @@ class CElement extends Utils {
         if(oElement) {
             switch(oElement.type) {
                 case "password"   :
+                case "number":
                 case "text"       : oResult = oElement.value; 
                                     if(!oResult) oResult = "";
                                     break;
@@ -1603,6 +1606,15 @@ class CTranslator {
         return(oElement);
     }
 
+    async translateI18n(strI18n,strLanguage,oVars) {
+        let strResult = "";
+        await this.getKeyData(strI18n,strLanguage)
+            .then(str => {
+                strResult = oVars ? oVars.subst(str) : str;
+            })
+        return(strResult);
+    }
+
     /**
      * Translate an (html) element into the requested language
      * and substitute it against the var table
@@ -1763,6 +1775,7 @@ class CView extends CElement {
                             case "radio":
                                         if(!ec.hasAttr("onclick")) ec.on("click",pCallBack,"onRadioClick");
                                         break;
+                            case "number":
                             case "text": 
                                         if(!ec.hasAttr("onchange")) ec.on("keyup",pCallBack,"onTextKeyUp");
                                         break;
