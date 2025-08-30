@@ -67,7 +67,7 @@ String CWiFiController::getStatusText(int nWiFiStatus) {
 void CWiFiController::writeConfigTo(JsonObject &oCfgNode,bool bHideCritical) {
     DEBUG_FUNC_START();
     // Hostname, Operation Mode and Fallback settings
-    oCfgNode["hostname"]        = Config.wifi_Hostname;
+    // oCfgNode["hostname"]        = Config.wifi_Hostname;
     oCfgNode["ap_mode"]         = Config.accessPointMode;
     oCfgNode["fallback"]        = Config.autoFallbackMode;
 
@@ -93,7 +93,7 @@ void CWiFiController::writeConfigTo(JsonObject &oCfgNode,bool bHideCritical) {
 void CWiFiController::readConfigFrom(JsonObject &oNode) {
     DEBUG_FUNC_START();
     DEBUG_JSON_OBJ(oNode);
-    LSC::setValue(Config.wifi_Hostname,     oNode["hostname"]);
+    // LSC::setValue(Config.wifi_Hostname,     oNode["hostname"]);
     LSC::setValue(&Config.accessPointMode,  oNode["ap_mode"]);
     LSC::setValue(&Config.autoFallbackMode, oNode["fallback"]);
 
@@ -322,17 +322,16 @@ void CWiFiController::startWiFi(bool bUseConfigData)
 {
     DEBUG_FUNC_START_PARMS("%d",bUseConfigData);
     Status.restartTimeInMillis = -1;
-    // Appl.MsgBus.sendEvent(this,MSG_RESTART_WIFI,nullptr,WIFI_RESTART_OFF);
     if (!bUseConfigData)
     {
         WiFi.hostname( WIFI_DEFAULT_AP_SSID_PREFIX );
         startAccessPoint(false);
     } else
     {
-         //  wifiConnectHandler = WiFi.onStationModeConnected(onWifiConnect);
+        // wifiConnectHandler = WiFi.onStationModeConnected(onWifiConnect);
         // wifiDisconnectHandler = WiFi.onStationModeDisconnected(onWifiDisconnect);
         // wifiOnStationModeGotIPHandler = WiFi.onStationModeGotIP(onWifiGotIP);
-        WiFi.hostname(Config.wifi_Hostname);
+        WiFi.hostname(Appl.getDeviceName());
         bool bIsConnected = false;
         if(Config.accessPointMode) {
             bIsConnected = startAccessPoint(true);
@@ -401,10 +400,8 @@ void CWiFiController::scanWiFi() {
 
 void CWiFiController::onWiFiScanResult(int nNetworksFound) {
 	DEBUG_FUNC_START_PARMS("%d",nNetworksFound);
-// sort by RSSI
-	// int n = nNetworksFound;
+    // sort by RSSI (Signal Strength - highest first)
 	int tIndices[nNetworksFound];
-	// int tSkip[nNetworksFound];
 	for (int i = 0; i < nNetworksFound; i++)
 	{
 		tIndices[i] = i;
@@ -416,7 +413,6 @@ void CWiFiController::onWiFiScanResult(int nNetworksFound) {
 			if (WiFi.RSSI(tIndices[j]) > WiFi.RSSI(tIndices[i]))
 			{
 				std::swap(tIndices[i], tIndices[j]);
-				// std::swap(tSkip[i], tSkip[j]);
 			}
 		}
 	}

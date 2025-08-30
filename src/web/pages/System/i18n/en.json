@@ -5,12 +5,16 @@
         "Restart" : {
             "btn": "Restart Device",
             "title": "Restart Device",
-            "desc": "Restart the device. Save your changes, otherwise they will be lost."
+            "desc": "Restart the device. Save your changes, otherwise they will be lost.",
+            "confirm": "Restart the device now? - all unsaved changes will be lost!",
+            "waitmsg": "Please wait while the device is restarting..."
         },
         "Reset" : {
             "btn": "Reset Device",
             "title": "Factory Reset",
-            "desc": "All settings will be dropped, the device will reboot with factory settings."
+            "desc": "All settings will be dropped, the device will reboot with factory settings.",
+            "confirm": "Are you sure you want to reset the device to factory defaults? The device will restart in delivery state.",
+            "waitmsg": "Please wait while the device is resetting to factory defaults..."
         }
     }
 }

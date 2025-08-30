@@ -54,7 +54,7 @@ struct WiFiConfig {
     String    wifi_ssid;                          // SSID to join
     byte      wifi_bssid[6]     = {0, 0, 0, 0, 0, 0};
     String    wifi_Password;                      // WiFi join Password
-    String    wifi_Hostname     = "LSC-Device";   // Hostname
+    // String    wifi_Hostname     = "LSC-Device";   // Hostname
 
     bool      dhcpEnabled = true;   // Use DHCP or not 
 

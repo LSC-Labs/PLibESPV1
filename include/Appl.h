@@ -1,5 +1,4 @@
 #pragma once
-
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include <EventHandler.h>
@@ -36,13 +35,29 @@
 #endif
 
 #ifndef JSON_CONFIG_DEFAULT_NAME
-    #define JSON_CONFIG_DEFAULT_NAME      "/config.json"
+    #define JSON_CONFIG_DEFAULT_NAME        "/config.json"
 #endif
+
+#ifndef DEFAULT_DEVICE_NAME
+    #define DEFAULT_DEVICE_NAME             "LSC-Device"
+#endif
+#ifndef DEFAULT_DEVICE_PWD
+    #define DEFAULT_DEVICE_PWD              "admin"
+#endif
+
 
 /// @brief Configuration structure of CAppl object
 struct ApplConfig {
-    bool bLogToSerial       = true;     // Log to serial port
-    bool bTraceMode         = false;    // Trace Mode on / off
+    bool bLogToSerial       = true;             // Log to serial port
+    bool bTraceMode         = false;            // Trace Mode on / off
+    String strDeviceName    = DEFAULT_DEVICE_NAME;     // Devicename (hostname) of the device
+    String strDevicePwd     = DEFAULT_DEVICE_PWD;      // Default device password
+
+#ifdef DEBUG_LSC_FRONTEND
+    bool bDebugFrontend     = true;    // Debug Mode for the HTML Frontend
+#else
+    bool bDebugFrontend     = false;    // Debug Mode for the HTML Frontend
+#endif
 };
 
 class CAppl : public CConfigHandler, public CStatusHandler {
@@ -55,7 +70,7 @@ class CAppl : public CConfigHandler, public CStatusHandler {
     public:
 
         // CSystemStatusHandler SystemStatus;
-        CVarTable Config;
+        CVarTable      Config;
         CEventHandler  MsgBus;
         CEventLogger   Log;
         void writeConfigTo(JsonObject &oNode,bool bHideCritical) override;
@@ -74,7 +89,12 @@ class CAppl : public CConfigHandler, public CStatusHandler {
         void writeStatusTo(JsonObject &oNode) override;
         void writeSystemStatusTo(JsonObject &oNode);
         String getUpTime();
-        
+        String getDeviceName() { return(m_oCfg.strDeviceName);}
+        void setDeviceName(const char *pszName) { m_oCfg.strDeviceName = String(pszName); }  
+        void setDeviceName(String strName) { m_oCfg.strDeviceName = strName; } 
+        void setDevicePwd(const char *pszName) { m_oCfg.strDevicePwd = String(pszName); }  
+        void setDevicePwd(String strName) { m_oCfg.strDevicePwd = strName; }      
+        String getDevicePwd() { return(m_oCfg.strDevicePwd);}
 
     public:
         CAppl();

@@ -1,0 +1,23 @@
+{
+    "_language": "English",
+    "menu": {
+        "signin": "Sign in",
+        "signout": "Sign out",
+        "Support": "Feedback / Ticket"
+    },
+    "main": {
+        "ok": "OK",
+        "cancel": "Cancel",
+        "yes": "Yes",
+        "no": "No",
+        "enabled": "Enabled",
+        "disabled": "Disabled",
+        "pleaseReview": "Please review the changes.",
+        "saveReboot": "Save and Reboot...",
+        "conLost": "Connection with $(prog_name) device absent. Reconnecting...",
+        "noFileSelected": "There is no file selected..."
+    },
+    "login": {
+        "title": "Please enter your device admin password..."
+    }
+}

@@ -9,6 +9,9 @@
 #include <SysStatus.h>
 #include <LSCUtils.h>
 
+#define LSC_APPL_HIDDEN_PASSWORD       "******"
+
+
 CAppl::CAppl() {
     Log = CEventLogger(&MsgBus);
 }  
@@ -79,7 +82,6 @@ void CAppl::writeSystemStatusTo(JsonObject &oStatusObj) {
 #if ARDUINOJSON_VERSION_MAJOR < 7
 bool CAppl::saveConfig(const char *pszConfigFileName, int nJsonDocSize) {
 	DEBUG_FUNC_START_PARMS("%s,%d",NULL_POINTER_STRING(pszConfigFileName),nJsonDocSize);
-
 #else
 bool CAppl::saveConfig(const char *pszConfigFileName) {
 	DEBUG_FUNC_START_PARMS("%s,%d",NULL_POINTER_STRING(pszConfigFileName));
@@ -105,6 +107,8 @@ void CAppl::writeConfigTo(JsonObject &oJsonObj, bool bHideCritical) {
 	Config.writeConfigTo(oJsonObj,bHideCritical);
 	oJsonObj["logToSerial"] = m_oCfg.bLogToSerial;
 	oJsonObj["traceMode"] = m_oCfg.bTraceMode;
+	oJsonObj["devicename"] = m_oCfg.strDeviceName;
+	oJsonObj["devicepwd"]  = bHideCritical ? LSC_APPL_HIDDEN_PASSWORD : m_oCfg.strDevicePwd;
 
 	// Iterate through registered Config Handler
 	CConfigHandler::writeConfigTo(oJsonObj,bHideCritical);
@@ -119,9 +123,9 @@ void CAppl::writeStatusTo(JsonObject &oStatusObj) {
 	oStatusObj["uptime"] 		= getUpTime();
 	oStatusObj["starttime"]     = StartTime;
 	oStatusObj["now"] 			= millis();	
-	#ifdef DEBUG_LSC_HTLM_PAGES
+	if(m_oCfg.bDebugFrontend) {
 		oStatusObj["DebugMode"]     = "1";
-	#endif
+	}
 	writeSystemStatusTo(oStatusObj);
 	// Iterate through additional registered Status Handler
 	CStatusHandler::writeStatusTo(oStatusObj);
@@ -136,6 +140,12 @@ void CAppl::readConfigFrom(JsonObject &oJsonObj) {
 	// Speed oper
 	LSC::setValue(&m_oCfg.bLogToSerial, oJsonObj["logToSerial"]);
 	LSC::setValue(&m_oCfg.bTraceMode,   oJsonObj["traceMode"]);
+	LSC::setValue(m_oCfg.strDeviceName, oJsonObj["devicename"]);
+	/** Passwort only, if it is NOT the hidden appl password */
+	String strPasswd = oJsonObj["devicepwd"];
+    if(!strPasswd.equals(LSC_APPL_HIDDEN_PASSWORD)) {
+       m_oCfg.strDevicePwd = strPasswd;
+    }
 	// Iterate through registerd Config Handler
 	CConfigHandler::readConfigFrom(oJsonObj);
 	DEBUG_FUNC_END();

@@ -6,9 +6,10 @@
 #include <FileSystem.h>
 #include <JsonHelper.h>
 
+/*
 #define WEBSERVER_HIDDEN_PASSWORD       "******"
 #define WEBSERVER_CONFIG_PASSWORD_KEY   "httpPasswd"
-
+*/
 
 namespace WebServer {
     WebServerConfig Config;
@@ -20,21 +21,19 @@ namespace WebServer {
 /// @param bRegisterRoutes true - default routes will be registered, otherwise do it by yourself.
 /// 
 CWebServer::CWebServer(int nPortNumber) 
-	: AsyncWebServer(nPortNumber) {
-    if (WebServer::Config.Passwd == "") {
-		WebServer::Config.Passwd = "admin";
-	}
-}
+	: AsyncWebServer(nPortNumber) {}
 
 void CWebServer::readConfigFrom(JsonObject &oNode) {
+    /* Currently no config - password is moved to appl - device password.
     String strPasswd = oNode[WEBSERVER_CONFIG_PASSWORD_KEY];
     if(!strPasswd.equals(WEBSERVER_HIDDEN_PASSWORD)) {
         WebServer::Config.Passwd = strPasswd;
     }
+    */
 }
 
 void CWebServer::writeConfigTo(JsonObject &oCfgNode,bool bHideCritical) {
-    oCfgNode[WEBSERVER_CONFIG_PASSWORD_KEY] = bHideCritical ? WEBSERVER_HIDDEN_PASSWORD : WebServer::Config.Passwd;
+    // oCfgNode[WEBSERVER_CONFIG_PASSWORD_KEY] = bHideCritical ? WEBSERVER_HIDDEN_PASSWORD : WebServer::Config.Passwd;
 }
 
 void CWebServer::registerFileAccess() {

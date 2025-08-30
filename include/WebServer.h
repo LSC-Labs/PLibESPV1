@@ -6,7 +6,7 @@
 
 struct WebServerConfig {
     String UserName = "admin";
-    String Passwd   = "admin";
+    // String Passwd   = "admin";
 
     /// @brief Function to authenticate against the UserName and Passwd of this config
     /// @param pRequest 
@@ -14,7 +14,7 @@ struct WebServerConfig {
     /// @param bLogFailed 
     /// @return 
     bool authenticate(AsyncWebServerRequest *pRequest, const char* pszReason, bool bLogFailed) {
-        bool bAuthenticated = pRequest->authenticate(UserName.c_str(),Passwd.c_str());
+        bool bAuthenticated = pRequest->authenticate(UserName.c_str(),Appl.getDevicePwd().c_str());
         if(!bAuthenticated && bLogFailed) {
             IPAddress oRemoteIP = pRequest->client()->remoteIP();
             ApplLogWarnWithParms(F("unauthorized web access (%s): %s"),

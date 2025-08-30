@@ -464,13 +464,15 @@ class CConfig {
      */
     setData(strKey, oData) {
         let oBase = this.getConfig();
-        if(strKey.contains(".")) {
-            let nPos = strKey.lastIndexOf(".");
-            let strPath = strKey.substring(nPos);
-            let strKey  = strKey.substring(nPos +1 );
-            oBase = this.getSection(strPath,true);
-        }
-        oBase[strKey] = oData;
+        if(Utils.isString(strKey)) {
+            let nPos    = strKey.lastIndexOf("."); 
+            if(nPos > -1) {
+                let strPath = strKey.substring(0,nPos);
+                strKey      = strKey.substring(nPos +1 );
+                oBase       = this.getSection(strPath,true);
+            }
+            oBase[strKey] = oData;
+        };
     }
 
     /**
@@ -1512,6 +1514,8 @@ class CTranslator {
         } catch  {}
         return(oData);
     }
+
+
     getAsString(oData, strDefault) {
         let strResult = "";
         if(oData) {
@@ -1523,6 +1527,7 @@ class CTranslator {
         }
         return(strResult ?? strDefault);
     }
+
     /**
      * gets the Language data - 
      * - either from the requested language (object)
@@ -1596,15 +1601,6 @@ class CTranslator {
             }
         }
         return(oElement);
-    }
-
-    async translateI18n(strI18n,strLanguage,oVars) {
-        let strResult = "";
-        await this.getKeyData(strI18n,strLanguage)
-            .then(str => {
-                strResult = oVars ? oVars.subst(str) : str;
-            })
-        return(strResult);
     }
 
     /**
@@ -2825,13 +2821,13 @@ class CAppl {
                 let strHomePage = this.Settings.getData("DefaultPage") ?? "HomePage";
                 this.loadPage(strHomePage);
 
-                // TODO: insert login logic... in DEBUG connect Websocket now...
                 let bRecon =  Utils.isTrueValue(this.Settings.getData("app.ws.recon","1"))
                 this.WS.connect(bRecon);
-                // Update the Authentication view for the elements.
                 this.updateAuthModeView(this.isAuth());
             })
     }
+
+
     // #region Views and operations on containers...
     
     /**
@@ -3049,7 +3045,21 @@ class CAppl {
      */
     commitChanges(oSender) {
         CDialog.close(oSender);
-        // TODO: send data via Websocket (!)
+        this.sendSocketCommand(DEFAULTS.SAVE_CONFIG_COMMAND,"",this.Config.getConfig());
+        this._bChangePending = false;
+        this.showChangePending(false)
+        this.restartDevice();
+    }
+
+    restartDevice() {
+        this.sendSocketCommand(DEFAULTS.RESTART_COMMAND);
+    }
+
+    /**
+     * Factory reset....
+     */
+    resetDevice() {
+        this.sendSocketCommand(DEFAULTS.FACTORY_RESET_COMMAND);
     }
 
     // #endregion
@@ -3159,7 +3169,7 @@ class CAppl {
                 break
 
             case "error": // Error received
-                // oThis.onErrorMessageReceived(oMsgData);
+                this._onErrorMessageReceived(oMsgData);
                 break;
 
             default:
@@ -3169,14 +3179,24 @@ class CAppl {
         this._callPageHandler("onSocketMessage",oMsgData);
     }
 
+    _onErrorMessageReceived(oMsg) {
+        let oErrorDlg = new CAlertDialog({
+            "title": "Error: " + oMsg.data,
+            "body" : oMsg.payload.msg + ' => "' + oMsg.payload.command + '"'
+        });
+        oErrorDlg.showModal();
+    }
+
     _onUpdateMessage(oMsg) {
         if(oMsg) {
             switch(oMsg.data) {
 
                 case "status":  // A new status received
                     this.DeviceStatus = oMsg.payload;
+                    if(this.DeviceStatus.DebugMode) this.Log.setDebug(this.DeviceStatus.DebugMode);
                     this.Vars.setVar("prog_name",this.DeviceStatus.prog_name);
                     this.Vars.setVar("prog_ver",this.DeviceStatus.prog_version);
+                    this.Vars.setVar("DebugMode", Utils.isTrueValue(this.DeviceStatus.DebugMode) ? "1" : "0");
                     break;
 
                 case "config":

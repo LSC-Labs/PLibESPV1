@@ -21,15 +21,22 @@
     #define DEBUG_JSON_OBJ(oJsonObj)        {serializeJson(oJsonObj,Serial);Serial.println();}    // (!) Be carefully, this delay can have side effects. (also in Async function callbacks !)
     #define DEBUG_DELAY(ms)                 delay(ms)
 #else
+    
     #pragma GCC diagnostic ignored "-Wunused-value"
-    #define DEBUG_FUNC_START()              ((void*)0)
-    #define DEBUG_FUNC_END()                ((void*)0)
-    #define DEBUG_FUNC_START_PARMS(str,...) ((void*)0)
-    #define DEBUG_FUNC_END_PARMS(str,...)   ((void*)0)
-    #define DEBUG_DELAY(ms)                 ((void*)0)
-    #define DEBUG_INFOS(str,...)            ((void*)0) 
-    #define DEBUG_INFO(str)                 ((void*)0)
-    #define DEBUG_JSON_OBJ(oJsonObj)        ((void*)0)
+    /*
+        using nullFunction - cause the compile for ESP32 throws a lot of warnings when using ((void*)0)
+    */
+   namespace LSC {
+        void nullFunction();
+    }
+    #define DEBUG_FUNC_START()              LSC::nullFunction()
+    #define DEBUG_FUNC_END()                LSC::nullFunction()
+    #define DEBUG_FUNC_START_PARMS(str,...) LSC::nullFunction()
+    #define DEBUG_FUNC_END_PARMS(str,...)   LSC::nullFunction()
+    #define DEBUG_DELAY(ms)                 LSC::nullFunction()
+    #define DEBUG_INFOS(str,...)            LSC::nullFunction() 
+    #define DEBUG_INFO(str)                 LSC::nullFunction()
+    #define DEBUG_JSON_OBJ(oJsonObj)        LSC::nullFunction()
 #endif
 
 #define NULL_POINTER_STRING(str)  (str == nullptr ? "-nullptr-" : str)
