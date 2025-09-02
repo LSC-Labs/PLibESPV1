@@ -1,3 +1,7 @@
+#ifndef DEBUG_LSC_APPL
+	#undef DEBUGINFOS
+#endif
+
 #include <SysStatus.h>
 #include <FileSystem.h>
 #include <DevelopmentHelper.h>

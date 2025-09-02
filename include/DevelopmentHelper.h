@@ -1,5 +1,7 @@
 #pragma once
 
+#define NULL_FUNCTION do { (void)0; } while (0)
+
 /**
  * Development Helpers
  * 
@@ -29,6 +31,7 @@
    namespace LSC {
         void nullFunction();
     }
+    /*
     #define DEBUG_FUNC_START()              LSC::nullFunction()
     #define DEBUG_FUNC_END()                LSC::nullFunction()
     #define DEBUG_FUNC_START_PARMS(str,...) LSC::nullFunction()
@@ -37,6 +40,18 @@
     #define DEBUG_INFOS(str,...)            LSC::nullFunction() 
     #define DEBUG_INFO(str)                 LSC::nullFunction()
     #define DEBUG_JSON_OBJ(oJsonObj)        LSC::nullFunction()
+    */
+    
+    #define DEBUG_FUNC_START()              NULL_FUNCTION
+    #define DEBUG_FUNC_END()                NULL_FUNCTION
+    #define DEBUG_FUNC_START_PARMS(str,...) NULL_FUNCTION
+    #define DEBUG_FUNC_END_PARMS(str,...)   NULL_FUNCTION
+    #define DEBUG_DELAY(ms)                 NULL_FUNCTION
+    #define DEBUG_INFOS(str,...)            NULL_FUNCTION 
+    #define DEBUG_INFO(str)                 NULL_FUNCTION
+    #define DEBUG_JSON_OBJ(oJsonObj)        NULL_FUNCTION
+
+    
 #endif
 
 #define NULL_POINTER_STRING(str)  (str == nullptr ? "-nullptr-" : str)

@@ -133,7 +133,7 @@ function syncFile(strSourceFile, strTargetFile, strDirection) {
 async function syncFileList(cb) {
     Settings.getData("sync.files",[]).forEach((strInstruction) => {
         console.log(` - parsing: "${strInstruction}"`) ;
-        let oRegEx = new RegExp("^(?<source>[\\/\\._a-zA-Z]*)\\s*(?<cmd>[<=>]?)\\s*(?<target>.*)$");
+        let oRegEx = new RegExp("^(?<source>[\\/\\._a-zA-Z]*)\\s*(?<cmd>[<=>]{1,2})\\s*(?<target>.*)$");
         let oMatch = oRegEx.exec(strInstruction);
         if(oMatch) {
             if(oMatch.groups.cmd && oMatch.groups.target) {

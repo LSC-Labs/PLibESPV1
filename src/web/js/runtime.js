@@ -265,6 +265,11 @@ class CVarTable {
  */
 class Utils {
 
+    static capitalizeFirstLetter(strWord) {
+        let oResult = strWord;
+        if(Utils.isString(strWord)) oResult = String(strWord).charAt(0).toUpperCase() + String(strWord).slice(1);
+    }
+
     static isFalseValue(oValue) {
         let bResult = false;
         if(this.isString(oValue)) {
@@ -392,6 +397,9 @@ class CLog {
     }
     logVerbose(e) {
         if(this.getLogLevel() > 2) this._log("V",e);
+    }
+    logError(e) {
+        if(this.getLogLevel() > 0) this._log("E",e);
     }
     logTrace(e) {
         if(this.getLogLevel() > 4) this._log("T",e);
@@ -1860,6 +1868,21 @@ class CPageHandler {
     }
 
     /**
+     * Once called, when the handler becomes active,
+     * and the page view has been loaded.
+     * @param {*} pView 
+     * @param {*} pApp 
+     */
+    preparePage(pView, pApp) {
+    }
+
+    /**
+     * Page cleanup - override if needed.
+     * Page View and this handler will be destroyed after this call.
+     */
+    disposePage(pView, pApp) {}
+
+    /**
      * Set the config section name.
      * Default is the page id, without "Page" in lowercase.
      * If the logic detects a data-cfg attribute in the page root,
@@ -1976,7 +1999,7 @@ class CPageHandler {
         if(strConfigName) this.setConfigName(strConfigName);
         let oCfg = this.getConfig(false);
         this.setConfigValues(pView,oCfg);
-        this.updateView(pView, pApp);
+        
         return(oCfg);
     }
 
@@ -2815,6 +2838,7 @@ class CAppl {
         this.Vars.setDefaults();    // Default var definitions
         this.Vars.setPageVars();    // All VarTable elements from the current html page
         this.Vars.setVars(this.Settings.getSection("app")); // and the application specifc settings.
+        this.requestActDeviceStatus();
         // Prepare the translator and load the languages...
         // - initialize the menubar
         // - prepare the current html page
@@ -2825,18 +2849,21 @@ class CAppl {
                     "onSignin" : this.signin.bind(this),
                     "onSignout": this.signout.bind(this)
                 });
-                this.prepareContainer(document.body);
-
-                // Now register all well known pages... if defined by framework build
-                if(typeof registerPageHandler === 'function') registerPageHandler(this);
-            
-                // Select the Default Page from Application Settings...
-                let strHomePage = this.Settings.getData("DefaultPage") ?? "HomePage";
-                this.loadPage(strHomePage);
-
+                            
                 let bRecon =  Utils.isTrueValue(this.Settings.getData("app.ws.recon","1"))
                 this.WS.connect(bRecon);
-                this.updateAuthModeView(this.isAuth());
+                
+                // Now register all well known pages... if defined by framework build
+                if(typeof registerPageHandler === 'function') registerPageHandler(this);
+                this.requestActStatus()
+                .then(pApp => {
+                    this.prepareContainer(document.body);
+                    // Select the Default Page from Application Settings...
+                    let strHomePage = this.Settings.getData("DefaultPage") ?? "HomePage";
+                    this.updateAuthModeView(this.isAuth());
+                    this.loadPage(strHomePage);
+                })
+                
             })
     }
 
@@ -2952,7 +2979,8 @@ class CAppl {
                 let strID = oMenuElement.getAttribute("pageid") ?? soel.id ?? "";
                 strPageID = strID.endsWith("Page") ? strID : strID + "Page";
             }
-           
+            // Inform the current page handler, that we leave the page...
+            this._callPageHandler("disposePage",this);
             // Create a page handler and get the matching config section...
             let oPH = this.getPageHandler(strPageID);          
             this.MainView.Payload(oMenuElement.dataset.payload)
@@ -2969,14 +2997,24 @@ class CAppl {
                 if(oMenuElement.dataset.cfg) this.MainView.data("cfg",oMenuElement.dataset.cfg);
                 // if(!this.MainView.data("cfg")) this.MainView.data("cfg",strMenuID);
                 this._pCurHandler = oPH;
+
+                // As loadPageConfig can happen multiple times - async, give the handler a chance to prepare the page first...
+                this._callPageHandler("preparePage",    this);
+                this._callPageHandler("loadPageConfig", this);
+                this._callPageHandler("updateView",this);
                 
                 // If the Pagehandler has additional load logic, call this also.
-                oPH.loadPageConfig(this.MainView,this);
+                // oPH.loadPageConfig(this.MainView,this);
                 // activate the selected menu..
                 this.MenuBar.setAsActiveEntry(oMenuElement);
             }
         }
     }
+
+    refreshContentPage() {
+        if(this._pCurHandler) this._pCurHandler.loadPageConfig(this.MainView,this);
+    }
+
 
     /**
      * Workhorse to call a page handler
@@ -2984,16 +3022,18 @@ class CAppl {
      * @param {*} strFuncName function to be called (if it exists in the page handler)
      * @param {*} oElement  HTMLElement to operate on
      */
-    _callPageHandler(strFuncName,oElement) {
+    _callPageHandler(strFuncName,oElement,oPayload) {
+        let oResult = null;
         if(this._pCurHandler) {
             let pFunc = this._pCurHandler[strFuncName];
             if(typeof pFunc === 'function') {
                 this.Log.logTrace(`-calling: ${Utils.getInstanceName(this._pCurHandler)}.${strFuncName}(...)`);
-                this._pCurHandler[strFuncName](this.MainView,oElement,strFuncName);
+                oResult = this._pCurHandler[strFuncName](this.MainView,oElement,oPayload);
             }
         } else {
             this.Log.logTrace(` - no function handler ${strFuncName} found in page handler !`);
         }
+        return(oResult);
     }
 
     /**
@@ -3064,6 +3104,9 @@ class CAppl {
         this.restartDevice();
     }
 
+    // #endregion
+
+    // #region calls to admin the device
     restartDevice() {
         this.sendSocketCommand(DEFAULTS.RESTART_COMMAND);
     }
@@ -3073,6 +3116,57 @@ class CAppl {
      */
     resetDevice() {
         this.sendSocketCommand(DEFAULTS.FACTORY_RESET_COMMAND);
+    }
+
+    async requestActDeviceStatus() {
+        // this.sendSocketCommand(DEFAULTS.GET_STATUS_COMMAND);
+        let oSelf = this;
+        fetch(`apiV1/sysstatus`)
+            .then((oResponse) => {
+                return oResponse.json();
+            })
+            .then((oStatus) => {
+                this.setNewSysStatus(oStatus);
+                return(oSelf)
+            })
+            .catch((error) => {
+                this.Log.logError("Error fetching status: " + error);
+            });
+    }
+
+    async requestActStatus() {
+        let oSelf = this;
+        // this.sendSocketCommand(DEFAULTS.GET_STATUS_COMMAND);
+        fetch(`apiV1/status`)
+            .then((oResponse) => {
+                return oResponse.json();
+            })
+            .then((oStatus) => {
+                this.setNewStatus(oStatus);
+                return(oSelf);
+            })
+            .catch((error) => {
+                this.Log.logError("Error fetching status: " + error);
+            });
+    }
+
+    setNewSysStatus(oStatusObj) {
+        if(Utils.isObj(oStatusObj)) {
+            this.DeviceStatus = {...this.DeviceStatus,...oStatusObj};
+        }
+    }
+
+    setNewStatus(oStatusObj) {
+        if(Utils.isObj(oStatusObj)) {
+            this.setNewSysStatus(oStatusObj);
+            if(this.DeviceStatus.DebugMode) this.Log.setDebug(this.DeviceStatus.DebugMode);
+
+            // Update the vars from the status, in special the prog name, version and the debug mode.
+            this.Vars.setVar("prog_name",this.DeviceStatus.prog_name);
+            this.Vars.setVar("prog_ver",this.DeviceStatus.prog_version);
+            this.Vars.setVar("DebugMode", Utils.isTrueValue(this.DeviceStatus.DebugMode) ? "1" : "0");
+            this._callPageHandler("onUpdateStatusReceived",this,oStatusObj);
+        }
     }
 
     // #endregion
@@ -3142,7 +3236,6 @@ class CAppl {
         this.Log.logTrace("APP: Socket status changed to : " + eNewStatus);
         if(eNewStatus == "open") {
             if(!(this._bInitialDataReceived === true)) {
-                this.sendSocketCommand(DEFAULTS.GET_STATUS_COMMAND);
                 this.sendSocketCommand(DEFAULTS.GET_CONFIG_COMMAND);
                 this._bInitialDataReceived = true;
             }
@@ -3201,30 +3294,25 @@ class CAppl {
     }
 
     _onUpdateMessage(oMsg) {
-        if(oMsg) {
+        if(oMsg && Utils.isString(oMsg.data)) {
             switch(oMsg.data) {
-
                 case "status":  // A new status received
-                    this.DeviceStatus = oMsg.payload;
-                    if(this.DeviceStatus.DebugMode) this.Log.setDebug(this.DeviceStatus.DebugMode);
-                    this.Vars.setVar("prog_name",this.DeviceStatus.prog_name);
-                    this.Vars.setVar("prog_ver",this.DeviceStatus.prog_version);
-                    this.Vars.setVar("DebugMode", Utils.isTrueValue(this.DeviceStatus.DebugMode) ? "1" : "0");
+                    this.setNewStatus(oMsg.payload);
                     break;
 
                 case "config":
                     this.Config.setConfig(oMsg.payload);
                     if(this._pCurHandler) this._pCurHandler.loadPageConfig(this.MainView,this);
-                    break;
-            
-                case "rf433code":
-                    RF433Dialog.setScanCode(oMsg.payload);
-                    // insertRF433Code(oMsg.payload);
-                    break;
-
+                    this._callPageHandler("onUpdateConfigReceived");
+                    break;            
                 }
-            // this._callPageHandler("onUpdateMessageReceived",oMsg);
-            // refreshContentPage("#" + oMsg.data + "content");
+            // Call the specific handler for this update, if in place...
+            // If the result is explicit false, do not call the refreshContentPage,
+            // to avoid loops, when the refreshContentPage calls an update request again.
+            if(this._callPageHandler("onUpdate_" + oMsg.data + "_Received",this,oMsg.payload) !== false) {
+                this.refreshContentPage();
+            }
+           
         }
     }
 

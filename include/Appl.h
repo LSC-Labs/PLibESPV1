@@ -30,9 +30,15 @@
     #define ApplLogTrace(oData)                 ((void*)0)
 #endif
 
-#if ARDUINOJSON_VERSION_MAJOR < 7
-    #define JSON_CONFIG_DOC_DEFAULT_SIZE  2048      // Until the new runtime comes in place, this is necessary !
+// Default sizes for Json Status Documents (needed for JSON < 7)
+#ifndef JSON_STATUS_DOC_DEFAULT_SIZE
+    #define JSON_STATUS_DOC_DEFAULT_SIZE 2048
 #endif
+// Default sizes for Json Config Documents (needed for JSON < 7)
+#ifndef JSON_CONFIG_DOC_DEFAULT_SIZE
+    #define JSON_CONFIG_DOC_DEFAULT_SIZE  2048 
+#endif
+
 
 #ifndef JSON_CONFIG_DEFAULT_NAME
     #define JSON_CONFIG_DEFAULT_NAME        "/config.json"
@@ -60,8 +66,13 @@ struct ApplConfig {
 #endif
 };
 
-class CAppl : public CConfigHandler, public CStatusHandler {
+class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
     ApplConfig m_oCfg;   
+    JsonDocument *m_pStatusDoc = nullptr;
+    // JSON_DOC(m_oStatusDoc,JSON_STATUS_DOC_DEFAULT_SIZE);
+    bool m_bStatusChanged = true;
+    unsigned long m_ulLastStatusUpdate = 0;
+
     public:
         String AppName;
         String AppVersion;
@@ -85,8 +96,10 @@ class CAppl : public CConfigHandler, public CStatusHandler {
             bool readConfigFrom(const char *pszFileName = JSON_CONFIG_DEFAULT_NAME);   // Load config from Files
             bool saveConfig(const char *pszFileName = JSON_CONFIG_DEFAULT_NAME);   // Load config from Files
         #endif
-        
+       
+        void writeStatusTo(JsonDocument &oDoc);
         void writeStatusTo(JsonObject &oNode) override;
+        void writeSystemStatusTo(JsonDocument &oDoc);
         void writeSystemStatusTo(JsonObject &oNode);
         String getUpTime();
         String getDeviceName() { return(m_oCfg.strDeviceName);}
@@ -98,6 +111,7 @@ class CAppl : public CConfigHandler, public CStatusHandler {
 
     public:
         CAppl();
+        int receiveEvent(const void * pSender, int nMsgType, const void * pMessage, int nClass);
         void init(const char *strAppName, const char *strAppVersion);
         void sayHello();
         void printDiag();

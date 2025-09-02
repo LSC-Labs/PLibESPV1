@@ -17,21 +17,23 @@
 #define MSG_WIFI_DISABLED      5008
 #define MSG_WIFI_ERROR         5009
 
-#define MSG_SOCKET_SEND_JSON   5100
+#define MSG_SOCKET_SEND_JSON        5100
 
+#define MSG_MQTT_MSG_RECEIVED       7001
 
+#define MSG_REBOOT_REQUEST          8000    // Request a reboot, nClass = delay in ms
+#define MSG_APPL_INITIALIZED        9000    // Application has been initialized... let's start.
+#define MSG_APPL_SHUTDOWN           9001    // Application is going down, modules should close connections and free resources
+#define MSG_APPL_STATUS_CHANGED     9002    // Application notification, Status has changed
 
+/**
+ * Generic Payload Message, object is a JsonDocument in Message Payload strcuture
+ */
+#define MSG_PAYLOAD                 9010   
 
-
-#define MSG_MQTT_MSG_RECEIVED  7001
-
-#define MSG_REBOOT_REQUEST     8000
-#define MSG_APPL_INITIALIZED   9000
-#define MSG_APPL_SHUTDOWN      9001
-
-
-
-
+/**
+ * Base Value - User defined messages should start with this value
+ */
 const int MSG_USER_BASE = 10000;
 
 #define LOG_CLASS_INFO       1   // [I]

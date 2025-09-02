@@ -33,4 +33,9 @@ class CEventHandler
         /// @param pMessage The message for the receiver, depending on nMsgType
         /// @param nClass   Additional Flag for the receiving team
         int sendEvent(void *pSender, int nMsgType, const void *pMessage, int nClass);
-};
+
+
+
+    
+    };
+

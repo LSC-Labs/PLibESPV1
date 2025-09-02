@@ -20,6 +20,11 @@ void CStatusHandler::addStatusHandler(String strName, IStatusHandler *pHandler) 
     } 
 }
 
+/**
+ * Basic write operation of status
+ * Override and write your own settings, then call this base class
+ * to iterate through all sub - status handler...
+ */
 void CStatusHandler::writeStatusTo(JsonObject &oStatusNode){
     DEBUG_FUNC_START();
     for (const auto& oEntry : tListOfStatusHandler) { 
@@ -30,7 +35,7 @@ void CStatusHandler::writeStatusTo(JsonObject &oStatusNode){
             JsonObject oSubNode = oStatusNode[oEntry.Name].to<JsonObject>();
         #endif
         if(oEntry.pHandler) {
-            DEBUG_INFOS(" - calling status handler : %s",oEntry.Name.c_str());
+            DEBUG_INFOS(" - writing status of handler : %s",oEntry.Name.c_str());
             oEntry.pHandler->writeStatusTo(oSubNode);
         }
     }

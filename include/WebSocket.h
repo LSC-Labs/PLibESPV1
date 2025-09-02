@@ -46,10 +46,9 @@ class CWebSocket : public AsyncWebSocket, public IMsgEventReceiver {
         bool checkAuth(JsonDocument &oRequestDoc, AsyncWebSocketClient *pClient);
 		bool dispatchMessage(WebSocketMessage *pMessage);
 		void ICACHE_FLASH_ATTR sendAccessDeniedMessage(JsonDocument &oDoc,AsyncWebSocketClient *pClient);
-		void ICACHE_FLASH_ATTR sendStatus(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient);
-
+/*
+        void ICACHE_FLASH_ATTR sendStatus(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient);
+*/
 	public:
-		JsonObject createPayloadStructure(const __FlashStringHelper* pszCommand, const __FlashStringHelper* pszDataType, JsonDocument &oPayloadDoc, const char *pszData = nullptr);
-		JsonObject createPayloadStructure(const char* pszCommand, const char *pszDataType, JsonDocument &oPayloadDoc,const char *pszData = nullptr);
 		
 };

@@ -1,4 +1,9 @@
+#ifndef DEBUG_LSC_UTILS
+    #undef DEBUGINFOS
+#endif
+#include <Appl.h>
 #include <LSCUtils.h>
+#include <ArduinoJson.h>
 #include <DevelopmentHelper.h>
 
 namespace LSC {

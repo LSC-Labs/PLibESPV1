@@ -8,12 +8,14 @@
 #include <FileSystem.h>
 #include <SysStatus.h>
 #include <LSCUtils.h>
+#include <JsonHelper.h>
 
 #define LSC_APPL_HIDDEN_PASSWORD       "******"
 
 
 CAppl::CAppl() {
     Log = CEventLogger(&MsgBus);
+	MsgBus.registerEventReceiver(this);
 }  
 
 void CAppl::init(const char *strAppName, const char *strAppVersion) {
@@ -23,6 +25,15 @@ void CAppl::init(const char *strAppName, const char *strAppVersion) {
         MsgBus.registerEventReceiver(new CSerialLogWriter());
     }
 	MsgBus.sendEvent(this,MSG_APPL_INITIALIZED,nullptr,0);
+}
+
+int CAppl::receiveEvent(const void * pSender, int nMsgType, const void * pMessage, int nClass) {
+    switch(nMsgType) {
+        case MSG_REBOOT_REQUEST:
+            reboot(nClass > 0 ? nClass : 2000,true);
+            break;
+    }
+	return(EVENT_MSG_RESULT_OK);
 }
 
 void CAppl::reboot(int nDelay, bool bForce) {
@@ -64,14 +75,6 @@ void CAppl::sayHello() {
 	Serial.println("");
 }   
 
-void CAppl::writeSystemStatusTo(JsonObject &oStatusObj) {
-    DEBUG_FUNC_START();
-	if(!oStatusObj.isNull()) {
-		CSysStatus oSysStatus;
-		oSysStatus.writeStatusTo(oStatusObj);
-	}
-    DEBUG_FUNC_END();
-}
 
 /// @brief write the current configuration into the file system.
 ///        a current config file will be loaded first to avoid loosing unknown config data...
@@ -116,22 +119,50 @@ void CAppl::writeConfigTo(JsonObject &oJsonObj, bool bHideCritical) {
 
 }
 
+/**
+ * @brief write the status into a JsonDocument...
+ * As the document cannot be converted to a JsonObject, when it is empty,
+ * write an entry first, and then convert it to an object... !
+ */
+void CAppl::writeStatusTo(JsonDocument &oStatusDoc) {
+	oStatusDoc["now"] = millis();JsonObject oStatusObj = oStatusDoc.as<JsonObject>();
+	writeStatusTo(oStatusObj);
+}
+
 void CAppl::writeStatusTo(JsonObject &oStatusObj) {
 	DEBUG_FUNC_START();
+	oStatusObj["now"] 			= millis();	
 	oStatusObj["prog_name"] 	= AppName;
 	oStatusObj["prog_version"] 	= AppVersion;
 	oStatusObj["uptime"] 		= getUpTime();
 	oStatusObj["starttime"]     = StartTime;
-	oStatusObj["now"] 			= millis();	
 	if(m_oCfg.bDebugFrontend) {
 		oStatusObj["DebugMode"]     = "1";
 	}
-	writeSystemStatusTo(oStatusObj);
-	// Iterate through additional registered Status Handler
+	// Systemstatus becomes a own function call, to avoid
+	// system operations on a high frequence...
+	// writeSystemStatusTo(oStatusObj);
+	// Iterate through additional registered Status Handler by
+	// calling the base class member (this is NOT a static function ;-)
 	CStatusHandler::writeStatusTo(oStatusObj);
-	// DEBUG_INFO(" - status collected...");
-	// DEBUG_JSON_OBJ(oStatusObj);
 	DEBUG_FUNC_END();
+}
+
+void CAppl::writeSystemStatusTo(JsonDocument &oStatusDoc) {
+	DEBUG_FUNC_START();
+		oStatusDoc["now"] = millis();
+		JsonObject oStatus = oStatusDoc.as<JsonObject>();
+		writeSystemStatusTo(oStatus);
+	DEBUG_FUNC_END();
+}
+
+void CAppl::writeSystemStatusTo(JsonObject &oStatusObj) {
+    DEBUG_FUNC_START();
+	if(!oStatusObj.isNull()) {
+		CSysStatus oSysStatus;
+		oSysStatus.writeStatusTo(oStatusObj);
+	}
+    DEBUG_FUNC_END();
 }
 
 void CAppl::readConfigFrom(JsonObject &oJsonObj) {

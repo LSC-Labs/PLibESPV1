@@ -7,6 +7,7 @@
 #include <Network.h>
 #include <Security.h>
 #include <FileSystem.h>
+#include <JsonHelper.h>
 
 #if ARDUINOJSON_VERSION_MAJOR < 7
     #define DEFAULT_REQUEST_DOC_SIZE  2048
@@ -60,6 +61,7 @@ int CWebSocket::receiveEvent(const void * pSender, int nMsgId, const void * pMes
 										sendJsonDocMessage(*pDoc);
 									}
 									break;
+		default: break;
     }
     return(EVENT_MSG_RESULT_OK);
 }
@@ -172,7 +174,7 @@ void ICACHE_FLASH_ATTR CWebSocket::sendAccessDeniedMessage(JsonDocument &oReques
         String strType    = oRequestDoc["type"];
 
 		oRequestDoc.clear();
-		JsonObject oPayload = createPayloadStructure(F("error"),F("401"),oRequestDoc);
+		JsonObject oPayload = LSC::createPayloadStructure(F("error"),F("401"),oRequestDoc);
 		oRequestDoc["AccessToken"] 	= F("notValid");		// destroy an existing access token
 		oPayload["msg"] 			= F("access denied");	// set message for user...
 		oPayload["command"] 		= strCommand;			// command that is not allowed
@@ -180,17 +182,7 @@ void ICACHE_FLASH_ATTR CWebSocket::sendAccessDeniedMessage(JsonDocument &oReques
 		sendJsonDocMessage(oRequestDoc,nullptr,pClient);
 	}
 }
-
-void ICACHE_FLASH_ATTR CWebSocket::sendStatus(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient)
-{
-	DEBUG_FUNC_START();
-    JSONDOC_RESPONSE(oStatusDoc);
-	JsonObject oStatusObj = createPayloadStructure(F("update"),F("status"),oStatusDoc);
-	Appl.writeStatusTo(oStatusObj);
-	sendJsonDocMessage(oStatusDoc,pSocket,pClient);	
-	DEBUG_FUNC_END();
-}
-
+/*
 JsonObject CWebSocket::createPayloadStructure(const char* pszCommand, const char *pszDataType, JsonDocument &oPayloadDoc, const char *pszData) {
 	DEBUG_FUNC_START_PARMS("%s,%s,...",NULL_POINTER_STRING(pszCommand),NULL_POINTER_STRING(pszDataType));
 
@@ -215,7 +207,7 @@ JsonObject CWebSocket::createPayloadStructure(const char* pszCommand, const char
 inline JsonObject CWebSocket::createPayloadStructure(const __FlashStringHelper* pszCommand, const __FlashStringHelper* pszDataType, JsonDocument &oPayloadDoc, const char *pszPayload) {
 	return(createPayloadStructure((const char*) pszCommand,(const char*) pszDataType,oPayloadDoc,pszPayload));
 }
-
+*/
 bool inline CWebSocket::needsAuth(String &strCommand) {
 	return(strNeedsAuth.indexOf(strCommand) > -1);
 }
@@ -330,14 +322,14 @@ bool CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
 			// bool isAuthenticated = bNeedsAuth ? isAuthTokenValid(strAuthToken, strClientRemoteIP) : true;
 			if (strCommand.equalsIgnoreCase(F("getstatus")))
 			{
-				JsonObject oStatusNode = createPayloadStructure(F("update"),F("status"),oXChangeDoc);
+				JsonObject oStatusNode = LSC::createPayloadStructure(F("update"),F("status"),oXChangeDoc);
 				Appl.writeStatusTo(oStatusNode);
 				sendJsonDocMessage(oXChangeDoc,pMessage->pSocket,pMessage->pClient);
 			}
 			else if (strCommand.equalsIgnoreCase(F("getconfig")))
 			{
 				// NO authentication needed, cause critical informations are hidde (!)
-				JsonObject oCfgNode = createPayloadStructure(F("update"),F("config"),oXChangeDoc);
+				JsonObject oCfgNode = LSC::createPayloadStructure(F("update"),F("config"),oXChangeDoc);
 				Appl.writeConfigTo(oCfgNode,true);
 				sendJsonDocMessage(oXChangeDoc,pMessage->pSocket,pMessage->pClient);
 			}
@@ -378,10 +370,10 @@ bool CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
 						String strData;
 						oFS.loadFileToString(JSON_CONFIG_DEFAULT_NAME,strData);
 						// deserializeJson(oXChangeDoc,strData);
-						createPayloadStructure(F("backup"),F("config"),oXChangeDoc,strData.c_str());
+						LSC::createPayloadStructure(F("backup"),F("config"),oXChangeDoc,strData.c_str());
 					} else {
 						ApplLogWarnWithParms(F("WS: Config file %s not found, using current config"),JSON_CONFIG_DEFAULT_NAME);
-						JsonObject oCfgNode = createPayloadStructure(F("backup"),F("config"),oXChangeDoc);
+						JsonObject oCfgNode = LSC::createPayloadStructure(F("backup"),F("config"),oXChangeDoc);
 						Appl.writeConfigTo(oCfgNode,false);
 					} 
 					sendJsonDocMessage(oXChangeDoc,pMessage->pSocket,pMessage->pClient);

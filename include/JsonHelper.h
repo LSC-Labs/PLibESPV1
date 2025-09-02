@@ -21,5 +21,8 @@
     #define CreateJsonObject(doc,name)  doc[name].to<JsonObject>()
 #endif
 
-
+namespace LSC {
+    JsonObject createPayloadStructure(const __FlashStringHelper* pszCommand, const __FlashStringHelper* pszDataType, JsonDocument &oPayloadDoc, const char *pszData = nullptr);
+    JsonObject createPayloadStructure(const char* pszCommand, const char *pszDataType, JsonDocument &oPayloadDoc,const char *pszData = nullptr);
+}
 
