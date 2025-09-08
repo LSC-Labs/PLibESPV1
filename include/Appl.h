@@ -72,6 +72,10 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
     // JSON_DOC(m_oStatusDoc,JSON_STATUS_DOC_DEFAULT_SIZE);
     bool m_bStatusChanged = true;
     unsigned long m_ulLastStatusUpdate = 0;
+    time_t  m_oRawTime;   
+    char m_szISODateTime[32];   // Buffer for ISO - Time
+    char m_szCurTime[16];       // Buffer for Time part of ISO
+    char m_szCurDate[16];       // Buffer for Date part of ISO
 
     public:
         String AppName;
@@ -102,6 +106,10 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
         void writeSystemStatusTo(JsonDocument &oDoc);
         void writeSystemStatusTo(JsonObject &oNode);
         String getUpTime();
+        time_t getNativeTime();
+        const char * getISODateTime();
+        const char * getISODate();
+        const char * getISOTime();
         String getDeviceName() { return(m_oCfg.strDeviceName);}
         void setDeviceName(const char *pszName) { m_oCfg.strDeviceName = String(pszName); }  
         void setDeviceName(String strName) { m_oCfg.strDeviceName = strName; } 

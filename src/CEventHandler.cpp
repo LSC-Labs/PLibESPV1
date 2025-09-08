@@ -9,9 +9,8 @@ int CEventHandler::sendEvent(void *pSender, int nMsgType, const void *pMessage, 
             try {
                 int nResult = pEventReceiver->receiveEvent(pSender,nMsgType,pMessage,nClass);
                 if(nResult > nTotalResult) nTotalResult = nResult;
-            } catch(std::exception oEx) {
+            } catch(...) {
                 Serial.println("[X] sending event..." );
-                Serial.printf( "[X] %s\n",oEx.what());
             }
         }
         if(nTotalResult == EVENT_MSG_RESULT_STOP_PROCESSING) break;

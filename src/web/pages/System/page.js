@@ -16,7 +16,7 @@ class CSystemPage extends CPageHandler {
             this._App.restartDevice();
             let oDlg = new CWaitDialog({
                 title: "i18n:System.Restart.title",
-                title: "i18n:System.Restart.waitmsg",
+                body: "i18n:System.Restart.waitmsg",
                 onFinished: function() { location.href = location.href; }
             });
             oDlg.showModal();
@@ -29,7 +29,7 @@ class CSystemPage extends CPageHandler {
             this._App.resetDevice();
             let oDlg = new CWaitDialog({
                 title: "i18n:System.Reset.title",
-                title: "i18n:System.Reset.waitmsg",
+                body: "i18n:System.Reset.waitmsg",
                 onFinished: function() { location.href = location.href; }
             });
             oDlg.showModal();

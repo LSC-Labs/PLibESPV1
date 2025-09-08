@@ -19,5 +19,9 @@
     },
     "login": {
         "title": "Please enter your device admin password..."
+    },
+    "save": {
+        "title"   : "Saving configuration and restarting",
+        "waitmsg" : "Please wait until configuration is saved and the device is restarted."
     }
 }

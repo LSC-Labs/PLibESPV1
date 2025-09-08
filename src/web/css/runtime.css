@@ -1559,6 +1559,10 @@ VarTable, PageVars, LocalVars {
   border-top: 1 dotted red;
 }
 
+.waitBody {
+  margin-bottom: 20px;
+}
+
 .modalDialog {
   width: 80%;
   max-width: 30em;

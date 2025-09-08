@@ -3076,8 +3076,9 @@ class CAppl {
      * show the review changes dialog...
      */
     reviewChanges() {
+        let oData = "";
         try {
-            let oData = this.Config.getSerialized();
+            oData = this.Config.getSerialized();
             let oOptions = {
                 "title": "i18n:save.review",
                 "okBtn": "i18n:save.ok",
@@ -3101,6 +3102,12 @@ class CAppl {
         this.sendSocketCommand(DEFAULTS.SAVE_CONFIG_COMMAND,"",this.Config.getConfig());
         this._bChangePending = false;
         this.showChangePending(false)
+        let oDlg = new CWaitDialog({ 
+                title: "i18n:dialog.save.title",
+                body: "i18n:dialog.save.waitmsg",
+                onFinished: function() { location.href = location.href; }
+            });
+        oDlg.showModal();
         this.restartDevice();
     }
 

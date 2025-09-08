@@ -25,6 +25,11 @@
     "dialog": {
         "wait": {
             "title": "Please wait"
+        },
+        "save": {
+            "title"     : "Saving configuration",
+            "waitmsg"   : "Please wait until process is finished..."
         }
     }
+     
 }

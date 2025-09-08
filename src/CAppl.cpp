@@ -212,6 +212,37 @@ bool CAppl::readConfigFrom(const char *pszConfigFileName) {
     return(bResult);
 }
 
+const char * CAppl::getISODate() {
+	if(sizeof(m_szCurDate) > 10) {
+		getISODateTime();
+		memset(m_szCurDate,'\0',sizeof(m_szCurDate));
+		memcpy(m_szCurDate,m_szISODateTime,10);
+	}
+	return(m_szCurDate);
+}
+
+const char * CAppl::getISOTime() {
+	if(sizeof(m_szCurTime) > 8) {
+		getISODateTime();
+		memset(m_szCurTime,'\0',sizeof(m_szCurTime));
+		memcpy(m_szCurTime,&m_szISODateTime[11],8);
+	}
+	return(m_szCurTime);
+}
+
+time_t CAppl::getNativeTime() {
+        time(&m_oRawTime);
+        return(m_oRawTime);
+}
+
+const char * CAppl::getISODateTime() {
+        time_t oNativeTime = getNativeTime();
+        struct tm* oTimeInfo = localtime(&oNativeTime);
+        memset(m_szISODateTime,'\0',sizeof(m_szISODateTime));
+        strftime(m_szISODateTime,sizeof(m_szISODateTime),"%FT%T",oTimeInfo);
+        return(m_szISODateTime);
+}
+
 /// @brief print some diagnostic information
 /// https://42project.net/groesse-des-esp8266-flash-speicher-sowie-chip-id-ausgeben-und-mit-der-konfiguration-ueberpruefen/
 void CAppl::printDiag() {
