@@ -55,7 +55,7 @@ CWebSocket::CWebSocket(const char* strSocketName, bool bDontRegisterOnMsgBus) : 
 
 int CWebSocket::receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType) {
     switch(nMsgId) {
-		case MSG_SOCKET_SEND_JSON :
+		case MSG_WEBSOCKET_SEND_JSON :
         case MSG_WIFI_SCAN_RESULT : if(pMessage != nullptr) {
 										JsonDocument *pDoc = ( JsonDocument *) pMessage;
 										sendJsonDocMessage(*pDoc);
@@ -358,7 +358,7 @@ bool CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
 			}
 			else if (strCommand.equalsIgnoreCase(F("scanrf433")))
 			{
-				Appl.MsgBus.sendEvent(this,MSG_SCAN_RF433,pMessage->pClient,0);
+				Appl.MsgBus.sendEvent(this,MSG_RF433_SCAN,pMessage->pClient,0);
 			}
 			else if (strCommand.equalsIgnoreCase(F("getbackup"))) 
 			{

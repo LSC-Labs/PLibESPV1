@@ -1,3 +1,7 @@
+#ifndef DEBUG_LSC_STATUSHANDLER
+    #undef DEBUG_INFOS
+#endif
+
 #include <SysStatusLed.h>
 #include <Msgs.h>
 #include <WiFiController.h>
@@ -11,19 +15,19 @@ CSysStatusLed::CSysStatusLed(int nRedPin, int nGreenPin, int nBluePin, bool bAct
 
 int CSysStatusLed::receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType) {
     switch(nMsgId) {
-        case MSG_REBOOT_REQUEST: isRebootPending = true;    break;
-        case MSG_BUTTON_ON     : isButtonPressed = true;    break;
-        case MSG_BUTTON_OFF    : isButtonPressed = false;   break;
+        case MSG_REBOOT_REQUEST: isRebootPending = true;   DEBUG_INFO("STATUSLED: Reboot request received...");   break;
+        case MSG_BUTTON_ON     : isButtonPressed = true;   DEBUG_INFO("STATUSLED: Button pressed received...");   break;
+        case MSG_BUTTON_OFF    : isButtonPressed = false;  DEBUG_INFO("STATUSLED: Button released received..."); break;
         case MSG_WIFI_CONNECTED: 
-                    isInAccessPointMode = (nType == WIFI_ACCESS_POINT_MODE);
-                    isInStationMode     = (nType == WIFI_STATION_MODE);
-                    isWiFiConnected = isInAccessPointMode || isInStationMode;
-                    break;
+                isInAccessPointMode = (nType == WIFI_ACCESS_POINT_MODE);
+                isInStationMode     = (nType == WIFI_STATION_MODE);
+                isWiFiConnected = isInAccessPointMode || isInStationMode;
+                break;
         case MSG_WIFI_DISABLED :
-                    isInAccessPointMode = false;
-                    isInStationMode = false;
-                    isWiFiConnected = false;
-                    break;
+                isInAccessPointMode = false;
+                isInStationMode = false;
+                isWiFiConnected = false;
+                break;
     };
     return(EVENT_MSG_RESULT_OK);
 }

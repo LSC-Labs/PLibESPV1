@@ -24,6 +24,7 @@ void CAppl::init(const char *strAppName, const char *strAppVersion) {
     if(m_oCfg.bLogToSerial) {
         MsgBus.registerEventReceiver(new CSerialLogWriter());
     }
+	MsgBus.sendEvent(this,MSG_APPL_STARTING,nullptr,0);
 	MsgBus.sendEvent(this,MSG_APPL_INITIALIZED,nullptr,0);
 }
 
@@ -109,9 +110,9 @@ bool CAppl::saveConfig(const char *pszConfigFileName) {
 void CAppl::writeConfigTo(JsonObject &oJsonObj, bool bHideCritical) {
 	Config.writeConfigTo(oJsonObj,bHideCritical);
 	oJsonObj["logToSerial"] = m_oCfg.bLogToSerial;
-	oJsonObj["traceMode"] = m_oCfg.bTraceMode;
-	oJsonObj["devicename"] = m_oCfg.strDeviceName;
-	oJsonObj["devicepwd"]  = bHideCritical ? LSC_APPL_HIDDEN_PASSWORD : m_oCfg.strDevicePwd;
+	oJsonObj["traceMode"] 	= m_oCfg.bTraceMode;
+	oJsonObj["devicename"] 	= m_oCfg.strDeviceName;
+	oJsonObj["devicepwd"]  	= bHideCritical ? LSC_APPL_HIDDEN_PASSWORD : m_oCfg.strDevicePwd;
 
 	// Iterate through registered Config Handler
 	CConfigHandler::writeConfigTo(oJsonObj,bHideCritical);
@@ -136,6 +137,7 @@ void CAppl::writeStatusTo(JsonObject &oStatusObj) {
 	oStatusObj["prog_version"] 	= AppVersion;
 	oStatusObj["uptime"] 		= getUpTime();
 	oStatusObj["starttime"]     = StartTime;
+	oStatusObj["datetime"]		= getISODateTime();
 	if(m_oCfg.bDebugFrontend) {
 		oStatusObj["DebugMode"]     = "1";
 	}

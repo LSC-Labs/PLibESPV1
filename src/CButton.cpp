@@ -30,6 +30,7 @@ void CButton::startMonitoring(){
         DEBUG_INFO("BTN: - initializing interrupt handler....");
         attachInterrupt(m_nPin, std::bind(&CButton::interruptHandler, this), CHANGE);
     } 
+    DEBUG_FUNC_END();
 }
 
 void CButton::stopMonitoring(){
