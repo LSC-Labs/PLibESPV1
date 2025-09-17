@@ -1,8 +1,9 @@
 #pragma once 
-
+#include <Arduino.h>
 #include <functional>
 #include <vector>
 
+#define EVENT_MSG_CALL_AGAIN_WHEN_ALL_OK -9
 #define EVENT_MSG_RESULT_OK               0
 #define EVENT_MSG_RESULT_WARN             1
 #define EVENT_MSG_RESULT_ERROR            2
@@ -12,7 +13,7 @@
 class IMsgEventReceiver
 {
     public:
-        virtual int receiveEvent(const void * pSender, int nMsgType, const void * pMessage, int nClass) = 0;
+        virtual int receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) = 0;
 };  
 
 class CEventHandler
@@ -32,8 +33,13 @@ class CEventHandler
         /// @param nMsgType use message number from msg.h - or specify owm message with MSG_USER_BASE + xxx
         /// @param pMessage The message for the receiver, depending on nMsgType
         /// @param nClass   Additional Flag for the receiving team
-        int sendEvent(void *pSender, int nMsgType, const void *pMessage, int nClass);
-
+        int sendEvent(void *pSender, int nMsg, const void *pMessage, int nClass);
+       
+        void dumpReceiver() {
+            for(IMsgEventReceiver *pEventReceiver : m_oEventReceivers) {
+                Serial.printf("EVH: - registered receiver address: %p\n",pEventReceiver);
+            }
+        }
 
 
     

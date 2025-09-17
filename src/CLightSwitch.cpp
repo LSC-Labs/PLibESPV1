@@ -10,8 +10,8 @@ CLightSwitch::CLightSwitch() {}
 
 /// @brief Constructor of the class to handle the OnAir Light
 /// use this constructor if you want to handel the setup immediatly.
-CLightSwitch::CLightSwitch(int nSwitchPin, bool bLowLevelIsOff){
-    setup(nSwitchPin,bLowLevelIsOff); 
+CLightSwitch::CLightSwitch(int nSwitchPin, bool bLowLevelIsOn){
+    setup(nSwitchPin,bLowLevelIsOn); 
 }
 
 
@@ -104,10 +104,10 @@ void CLightSwitch::runTests() {
     Serial.print(" -> ");
     for(int nLoops = 2; nLoops > 0; nLoops--) {
         switchOn();
-        Serial.printf("%d",m_bLowLevelIsOff ? HIGH : LOW);
+        Serial.printf("%d",m_bLowLevelIsOn ? LOW : HIGH);
         delay(1000);
         switchOff();
-        Serial.printf("%d", m_bLowLevelIsOff ? LOW : HIGH);
+        Serial.printf("%d", m_bLowLevelIsOn ? HIGH : LOW);
         delay(500);
     }
     Serial.println(" ...done");

@@ -15,9 +15,13 @@ CSysStatusLed::CSysStatusLed(int nRedPin, int nGreenPin, int nBluePin, bool bAct
 
 int CSysStatusLed::receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType) {
     switch(nMsgId) {
-        case MSG_REBOOT_REQUEST: isRebootPending = true;   DEBUG_INFO("STATUSLED: Reboot request received...");   break;
-        case MSG_BUTTON_ON     : isButtonPressed = true;   DEBUG_INFO("STATUSLED: Button pressed received...");   break;
-        case MSG_BUTTON_OFF    : isButtonPressed = false;  DEBUG_INFO("STATUSLED: Button released received..."); break;
+        case MSG_APPL_SHUTDOWN  :
+        case MSG_REBOOT_REQUEST : setColor(RGB_COLOR::RED);
+                                  isRebootRequested     = true;   
+                                  DEBUG_INFO("STATUSLED: Reboot requested...");   
+                                  break;
+        case MSG_BUTTON_ON      : isButtonPressed        = true;   DEBUG_INFO("STATUSLED: Button pressed received...");   break;
+        case MSG_BUTTON_OFF     : isButtonPressed        = false;  DEBUG_INFO("STATUSLED: Button released received..."); break;
         case MSG_WIFI_CONNECTED: 
                 isInAccessPointMode = (nType == WIFI_ACCESS_POINT_MODE);
                 isInStationMode     = (nType == WIFI_STATION_MODE);
@@ -34,10 +38,10 @@ int CSysStatusLed::receiveEvent(const void * pSender, int nMsgId, const void * p
 
 void CSysStatusLed::updateLED() {
     // Reboot and Button Pressed == Prio 1
-    if(isRebootPending) {
+    if(isRebootRequested) {
         setColor(RGB_COLOR::RED);
     } else if(isButtonPressed) {
-        blink(RGB_COLOR::GREEN,100,100);
+        blink(RGB_COLOR::YELLOW,100,100);
     }  else {
         // Normal operation...
         int nBlinkOn = 50;

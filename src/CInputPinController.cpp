@@ -11,20 +11,25 @@
     #define LSC_PIN_PULLDOWN INPUT_PULLDOWN 
 #endif
 
-CInputPinController::CInputPinController(int nPin, bool bLowLevelIsOff, bool bWithPullUpOrDown)
+/// @brief constructor
+/// @param nPin Pin of chip to be controlled
+/// @param bLowLevelIsOn true (default) if level is low, the pin is "On/Activ",
+/// @param bWithPullUpOrDown Use a pull up or a pull down, depending on bLowLevelIsOn
+CInputPinController::CInputPinController(int nPin, bool bLowLevelIsOn, bool bWithPullUpOrDown)
 {
-    setup(nPin,bLowLevelIsOff,bWithPullUpOrDown);
+    setup(nPin,bLowLevelIsOn,bWithPullUpOrDown);
 }
 
-void CInputPinController::setup(int nPin, bool bLowLevelIsOff, bool bWithPullUpDown) {
-    DEBUG_FUNC_START_PARMS("%d,%d,%d",nPin,bLowLevelIsOff,bWithPullUpDown);
+void CInputPinController::setup(int nPin, bool bLowLevelIsOn, bool bWithPullUpDown) {
+    DEBUG_FUNC_START_PARMS("%d,%d,%d",nPin,bLowLevelIsOn,bWithPullUpDown);
     this->m_nPin = nPin;
-    this->m_bLowLevelIsOff = bLowLevelIsOff;
+    this->m_bLowLevelIsOn = bLowLevelIsOn;
     int nMode = INPUT;
     if(bWithPullUpDown) {
-        if(m_bLowLevelIsOff) nMode = LSC_PIN_PULLDOWN;
-        else                 nMode = INPUT_PULLUP;
+        if(m_bLowLevelIsOn) nMode = INPUT_PULLUP;
+        else                nMode = LSC_PIN_PULLDOWN;
     }
+    m_nMode = nMode;
     pinMode(this->m_nPin,nMode);
 };
 
@@ -32,13 +37,14 @@ bool CInputPinController::canSendInterrupts() {
     return(digitalPinToInterrupt(m_nPin) > 0);
 }
 
-
+/// @brief check if the pin is logical ON/Activ, depending on the setup
+/// @return true or false if the pin is logical activ / on
 bool CInputPinController::isPinLogicalON() {
     DEBUG_FUNC_START();
     int nStatus = digitalRead(m_nPin);
     bool isOn = false;
-    if(m_bLowLevelIsOff) isOn = (nStatus == HIGH) ? true : false;
-    else                 isOn = (nStatus == LOW)  ? true : false;
+    if(m_bLowLevelIsOn) isOn = (nStatus == LOW)   ? true : false;
+    else                isOn = (nStatus == HIGH)  ? true : false;
     DEBUG_FUNC_END_PARMS("%d",isOn);
     return(isOn);
 }

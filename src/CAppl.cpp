@@ -21,6 +21,7 @@ CAppl::CAppl() {
 void CAppl::init(const char *strAppName, const char *strAppVersion) {
     AppName 	= strAppName;
     AppVersion  = strAppVersion;
+	
     if(m_oCfg.bLogToSerial) {
         MsgBus.registerEventReceiver(new CSerialLogWriter());
     }
@@ -28,17 +29,26 @@ void CAppl::init(const char *strAppName, const char *strAppVersion) {
 	MsgBus.sendEvent(this,MSG_APPL_INITIALIZED,nullptr,0);
 }
 
-int CAppl::receiveEvent(const void * pSender, int nMsgType, const void * pMessage, int nClass) {
-    switch(nMsgType) {
+int CAppl::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
+    int nResult = EVENT_MSG_RESULT_OK;
+	switch(nMsg) {
         case MSG_REBOOT_REQUEST:
-            reboot(nClass > 0 ? nClass : 2000,true);
+			// As Appl is the first in Message queue, the rest will NOT be informed.
+			// So send the message again to inform the rest, but dont do this,
+			// if reboot is already pending, to avoid loops... (multi CAppl instances)
+			if(!m_isRebootPending) {
+				m_isRebootPending = true;
+				nResult = EVENT_MSG_CALL_AGAIN_WHEN_ALL_OK;
+			} else {
+				reboot(nClass > 0 ? nClass : 3000,true);
+			}
             break;
     }
-	return(EVENT_MSG_RESULT_OK);
+	return(nResult);
 }
 
 void CAppl::reboot(int nDelay, bool bForce) {
-	Log.log("W",F("Reboot requested..."));
+	Log.log("W",F("Rebooting..."));
 	int nResult = MsgBus.sendEvent(this,MSG_APPL_SHUTDOWN,nullptr,0);
 	if(nResult == EVENT_MSG_RESULT_OK || bForce) {
 		Log.log("W",F("Restarting system..."));

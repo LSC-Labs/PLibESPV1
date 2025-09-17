@@ -5,7 +5,7 @@
 
 class CSysStatusLed : public CRGBLed, public IMsgEventReceiver {
 
-    bool isRebootPending = false;
+    bool isRebootRequested = false;
     bool isButtonPressed = false;
     bool isInAccessPointMode = false;
     bool isInStationMode = false;

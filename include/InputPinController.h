@@ -24,12 +24,13 @@ class CInputPinController : public CPinController {
 
     protected:
         bool m_bWithPullUpDown = false;
+        int  m_nMode = INPUT;
 
     public:
         CInputPinController() {};
-        CInputPinController(int nPin, bool bLowLevelIsOff = false, bool bWithPullUpOrDown = false);
+        CInputPinController(int nPin, bool bLowLevelIsOn = true, bool bWithPullUpOrDown = false);
 
-        virtual void setup(int SwitchPin, bool bLowLevelIsOff = true, bool bWithPullUpOrDown = false);
+        virtual void setup(int SwitchPin, bool bLowLevelIsOn = true, bool bWithPullUpOrDown = false);
         virtual bool isPinLogicalON();
         virtual bool isPinLogicalOFF();
         virtual bool canSendInterrupts();

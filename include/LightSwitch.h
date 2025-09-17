@@ -17,7 +17,7 @@ class CLightSwitch : public COutputPinController {
     
     public:
         CLightSwitch();
-        CLightSwitch(int nSwitchPin, bool bLowLevelIsOff = true);
+        CLightSwitch(int nSwitchPin, bool bLowLevelIsOn = true);
 
         void blink(unsigned long nOnMillis = 1000,unsigned long nOffMillis = 1000);
         void wave(unsigned long ulFadeInMillis=200, unsigned long ulFadeOutMillis = 200, unsigned long ulOnTime = 1000, unsigned long ulOffTime = 1000, int nMaxLevelInPercent = -1);

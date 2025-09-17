@@ -12,15 +12,21 @@ CButton::CButton() {}
 CButton::~CButton() {
     stopMonitoring();
 }
-
-CButton::CButton(int nPin, bool bLowLevelIsOff,bool bUsePullUpDown) {
+/// @brief constructor, is using setup()
+/// @param nPin Pin of the button
+/// @param bLowLevelIsOn Default is true => the button is activ on low signal
+/// @param bUsePullUpDown Default is true => use a pull up / down, depending in bLowLevelIsOn
+CButton::CButton(int nPin, bool bLowLevelIsOn,bool bUsePullUpDown) {
     // Initialize the button immediatly...
-    setup(nPin,bLowLevelIsOff,bUsePullUpDown);
+    setup(nPin,bLowLevelIsOn,bUsePullUpDown);
 };
 
-void CButton::setup(int nPin,bool bLowLevelIsOff, bool bUsePullUpDown) {
-    CInputPinController::setup(nPin,bLowLevelIsOff,bUsePullUpDown);
-    // m_nButtonActiveStatus = bLowLevelIsOff ? HIGH : LOW;
+/// @brief set the mode of the button pin
+/// @param nPin Input - Pin of the button
+/// @param bLowLevelIsOn Defaul is true => the button is activ on low signal 
+/// @param bUsePullUpDown Default is true => use a pull up
+void CButton::setup(int nPin,bool bLowLevelIsOn, bool bUsePullUpDown) {
+    CInputPinController::setup(nPin,bLowLevelIsOn,bUsePullUpDown);
     m_nCurStatus = isPinLogicalON() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
 }
 
@@ -40,10 +46,19 @@ void CButton::stopMonitoring(){
 /// @brief Interrupt Handler for Hardware Interrupts
 /// respects the debouncing time of the last pressed button
 void IRAM_ATTR CButton::interruptHandler() {
-
     m_nCurStatus = isPinLogicalON() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
+    DEBUG_INFOS("BTN: pin %d is %d logical(%d) - operation mode(%d)",
+                m_nPin,
+                digitalRead(m_nPin),
+                isPinLogicalON(),
+                m_nMode);
     int nMsg = m_nCurStatus == BUTTON_STATUS_ON ? MSG_BUTTON_ON : MSG_BUTTON_OFF;
     Appl.MsgBus.sendEvent(this,nMsg ,nullptr,m_nPin);
+    DEBUG_INFOS("BTN: pin %d is %s (active level == %s)",
+                m_nPin,
+                m_nCurStatus == BUTTON_STATUS_ON ? "pressed" : "released",
+                m_bLowLevelIsOn ? "low" : "high");
+
 }
 
 /// @brief Check if the button is pressed...

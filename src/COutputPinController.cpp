@@ -12,15 +12,15 @@
 COutputPinController::COutputPinController() {}
 
 /// @brief Constructor of the class to handle the OnAir Light
-/// use this constructor if you want to handel the setup immediatly.
-COutputPinController::COutputPinController(int nSwitchPin, bool bLowLevelIsOff){
-    setup(nSwitchPin,bLowLevelIsOff);
+/// use this constructor if you want to handle the setup immediatly.
+COutputPinController::COutputPinController(int nSwitchPin, bool bLowLevelIsOn){
+    setup(nSwitchPin,bLowLevelIsOn);
 }
 
 /// @brief Initialize the Light Switch - call before first usage, or use constructor with parms.
-void COutputPinController::setup(int nSwitchPin, bool bLowLevelIsOff) {
+void COutputPinController::setup(int nSwitchPin, bool bLowLevelIsOn) {
     m_nPin = nSwitchPin;
-    m_bLowLevelIsOff = bLowLevelIsOff;
+    m_bLowLevelIsOn = bLowLevelIsOn;
     if(m_nPin > -1) {
         pinMode(m_nPin, OUTPUT);
         switchOff();
@@ -29,7 +29,7 @@ void COutputPinController::setup(int nSwitchPin, bool bLowLevelIsOff) {
 
 void COutputPinController::switchOff() {
     if(m_nPin > -1) {
-        digitalWrite(m_nPin, m_bLowLevelIsOff ? LOW : HIGH);
+        digitalWrite(m_nPin, m_bLowLevelIsOn ? LOW : HIGH);
         m_nState = 0;
     }
 }
@@ -38,7 +38,7 @@ void COutputPinController::switchOff() {
 /// if a brightnes is set, calculate the value first and make a PWM operation.
 void COutputPinController::switchOn() {
     if(m_nPin > -1) {
-        if(m_nLevelInPercent == 100) digitalWrite(m_nPin,m_bLowLevelIsOff ? HIGH : LOW);
+        if(m_nLevelInPercent == 100) digitalWrite(m_nPin,m_bLowLevelIsOn ? HIGH : LOW);
         else {
             analogWrite(m_nPin,getPinLevelValueForPWM(m_nLevelInPercent));
         }
@@ -55,7 +55,7 @@ void COutputPinController::toggleSwitch() {
 /// @return the value to write into the port.
 int COutputPinController::getPinLevelValueForPWM(int nLevelInPercent) {
     int nBrightnessNormal    = (nLevelInPercent * m_nMaxOutputLevel) / 100;
-    return(m_bLowLevelIsOff ? nBrightnessNormal : m_nMaxOutputLevel - nBrightnessNormal);
+    return(m_bLowLevelIsOn ? nBrightnessNormal : m_nMaxOutputLevel - nBrightnessNormal);
 }  
 
 bool COutputPinController::isOn() { return(m_nState == 1); }

@@ -103,9 +103,7 @@ int CLogWriter::receiveEvent(const void *pSender, int nMsgType, const void *pMes
         String strType = "";
         char cLogClass = nClass;
         if(isLogLevelToWrite(cLogClass) || isTypeToWriteAlways(cLogClass)) {
-            strType = "[";
-            strType += cLogClass;
-            strType += "] ";
+            strType = cLogClass;
             if(nMsgType == MSG_LOG_ENTRY) {
                 writeLogEntry(strType.c_str(),(const char *) pMessage);
             } 

@@ -23,13 +23,12 @@ class CButton : CInputPinController {
         
     public:
         CButton();   
-        CButton(   int nPin, bool bLowLevelIsOff = false, bool bUsePullUpDown = true);
+        CButton(   int nPin, bool bLowLevelIsOn = false, bool bUsePullUpDown = true);
         ~CButton();
-        void setup(int nPin, bool bLowLevelIsOff = false, bool bUsePullUpDown = true);
+        void setup(int nPin, bool bLowLevelIsOn = false, bool bUsePullUpDown = true);
 
         void startMonitoring();
         void stopMonitoring();
-        // void setPollingFrequence(int nMS = 200) { m_nPollMillis = nMS; };
 
         bool isPressed();
 };

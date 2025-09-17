@@ -15,10 +15,10 @@ CRGBLed::CRGBLed() {}
 /// @param nGreenPin Pin number for the green LED
 /// @param nBluePin  Pin number for the blue LED
 /// @param bActiveLow If true, the LED is active low (Common Cathode)
-CRGBLed::CRGBLed(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow) : 
-    RedLED(nRedPin,bActiveLow),
+CRGBLed::CRGBLed(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow) :
+    RedLED(nRedPin, bActiveLow),
     GreenLED(nGreenPin,bActiveLow),
-    BlueLED(nBluePin,bActiveLow) {
+    BlueLED(nBluePin,bActiveLow) { 
         switchOff();
 }
 

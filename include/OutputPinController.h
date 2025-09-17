@@ -31,8 +31,8 @@ class COutputPinController : public CPinController {
 
     public:
         COutputPinController();
-        COutputPinController(int nSwitchPin, bool bLowLevelIsOff = true);
-        virtual void setup(int SwitchPin, bool bLowLevelIsOff = true);
+        COutputPinController(int nSwitchPin, bool bLowLevelIsOn = false);
+        virtual void setup(int SwitchPin, bool bLowLevelIsOn = false);
         virtual void switchOff();
         virtual void switchOn();
         virtual void toggleSwitch();
