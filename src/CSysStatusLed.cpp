@@ -44,8 +44,8 @@ void CSysStatusLed::updateLED() {
         blink(RGB_COLOR::YELLOW,100,100);
     }  else {
         // Normal operation...
-        int nBlinkOn = 50;
-        int nBlinkOff = 10000;
+        int nBlinkOn = getNormalBlinkOnTime();
+        int nBlinkOff = getNormalBlinkOffTime();
         int nColor = RGB_COLOR::YELLOW;
         if(isInAccessPointMode) {
             nColor = RGB_COLOR::BLUE;

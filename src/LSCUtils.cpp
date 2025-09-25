@@ -1,6 +1,7 @@
 #ifndef DEBUG_LSC_UTILS
     #undef DEBUGINFOS
 #endif
+#include <stdlib.h>
 #include <Appl.h>
 #include <LSCUtils.h>
 #include <ArduinoJson.h>
@@ -123,7 +124,7 @@ namespace LSC {
         if(pTarget) {
             if(strValue && strValue.length() > 0) { 
                 
-                *pTarget = strValue.toInt();
+                *pTarget = strtod(strValue.c_str(),NULL); // strValue.toInt();
                 // DEBUG_INFOS(" storeValue(int) -> %s (%d)", strValue.c_str(),*pTarget);
             } else if(pDefault && pTarget != pDefault) {
                 *pTarget = *pDefault;

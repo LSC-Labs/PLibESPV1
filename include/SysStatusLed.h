@@ -16,4 +16,6 @@ class CSysStatusLed : public CRGBLed, public IMsgEventReceiver {
 
         int receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType);
         void updateLED();
+        virtual unsigned long getNormalBlinkOnTime() { return 50; };
+        virtual unsigned long getNormalBlinkOffTime() { return 10000; };
 };

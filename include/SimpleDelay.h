@@ -14,8 +14,9 @@
  * 
  */
 class CSimpleDelay {
-        unsigned long nStartMillis = 0;
-        unsigned long nDelayMillis = 0;
+        unsigned long m_ulStartMillis = 0;
+        unsigned long m_ulDelayMillis = 0;
+        bool m_bIsExpired = false;  // First start Flag..
     public:
         CSimpleDelay() {};
         CSimpleDelay(unsigned long nDelayMillis) { start(nDelayMillis); };
@@ -27,46 +28,63 @@ class CSimpleDelay {
          * @param bStartNow If true, the delay starts immediately. If false, the delay starts after nDelayMillis (default: true). 
          *                  This is useful to avoid immediate calls after start.
          */
-        void start(unsigned long nDelayMillis, bool bStartNow = true ) {
-            if(nDelayMillis > 0) this->nDelayMillis = nDelayMillis;
-            nStartMillis = bStartNow ? 0 : millis();
+        CSimpleDelay * start(unsigned long ulDelayMillis, bool bStartNow = true ) {
+            if(ulDelayMillis > 0) this->m_ulDelayMillis = ulDelayMillis;
+            m_ulStartMillis = bStartNow ? millis() : 0;
+            m_bIsExpired = false;
+            return(this);
         }
+        void stop() {
+            m_ulStartMillis = 0;
+            m_bIsExpired = false;
+        }
+        /**
+         * @brief Resets the delay (stops it).
+         */
+        void reset() { m_ulStartMillis = 0; m_ulDelayMillis = 0; m_bIsExpired = false;}
+       
+        bool isActive() { return(m_ulStartMillis > 0); }
         /**
          * @brief Restarts the delay with the previous set delay time.
         */
-        unsigned long restart() { nStartMillis = millis();  return(nStartMillis); }
+        unsigned long restart() { 
+            m_bIsExpired = false;
+            m_ulStartMillis = millis();  
+            return(m_ulStartMillis); 
+        }
+
+        void setExpired() {
+            m_bIsExpired = true;
+        }
 
         /**
          * @brief Checks if the delay time has elapsed.
          * 
          */
         bool isDone() {
-            if(nStartMillis == 0) return(true);
-            return( (nStartMillis + nDelayMillis) < millis());
+            if(m_bIsExpired) return(true);
+            if(m_ulStartMillis == 0) return(false);
+            return( (m_ulStartMillis + m_ulDelayMillis) < millis());
         }
 
-        /**
-         * @brief Resets the delay (stops it).
-         */
-        void reset() { nStartMillis = 0; nDelayMillis = 0;}
        
         /**
          * @brief Get the Elapsed time since start in milliseconds.
          */
-        unsigned long getElapsed() { return(millis() - nStartMillis); }
+        unsigned long getElapsed() { return(millis() - m_ulStartMillis); }
 
         /**
          * @brief Get the Remaining time until the delay is done in milliseconds.
          */
         unsigned long getRemaining() { 
-            if(nStartMillis == 0) return(0);
-            unsigned long nEnd = nStartMillis + nDelayMillis;
+            if(m_ulStartMillis == 0) return(0);
+            unsigned long nEnd = m_ulStartMillis + m_ulDelayMillis;
             if(nEnd > millis()) return(nEnd - millis());
             return(0); 
         }
 
         void printDiag() {
             Serial.printf("Delay: start=%lu, delay=%lu, elapsed=%lu, remaining=%lu\n",
-                nStartMillis,nDelayMillis,getElapsed(),getRemaining());
+                m_ulStartMillis,m_ulDelayMillis,getElapsed(),getRemaining());
         }
 };

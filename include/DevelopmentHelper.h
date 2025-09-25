@@ -1,6 +1,7 @@
 #pragma once
 
-#define NULL_FUNCTION do { (void)0; } while (0)
+// #define NULL_FUNCTION do { (void)0; } while (0)
+#define NULL_FUNCTION {}
 
 /**
  * Development Helpers
