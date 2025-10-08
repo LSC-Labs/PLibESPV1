@@ -4,7 +4,9 @@
     "menu" : {
         "signin": "Sign in",
         "signout": "Sign out",
-        "Support": "Feedback / Ticket"
+        "Support": "Feedback / Ticket",
+        "Settings": "Settings",
+        "Maintenance": "Maintenance"
     },
 
     "main": {
@@ -14,13 +16,16 @@
         "enabled": "Enabled",
         "disabled": "Disabled",
         "cancel": "Cancel",
+        "changePending": "You have uncommited changes, please click here to review and commit.",
         "pleaseReview": "Please review the changes.",
         "saveReboot": "Save and Reboot...",
         "conLost": "Connection with $(prog_name) device absent. Reconnecting...",
-        "noFileSelected": "There is no file selected..."
+        "noFileSelected": "There is no file selected...",
+        "saveBtn": "Save"
     },
-    "login": {
-        "title": "Please enter your device admin password..."
+    "signin": {
+        "title": "Please enter your device admin password...",
+        "submit": "Login"
     },
     "dialog": {
         "wait": {

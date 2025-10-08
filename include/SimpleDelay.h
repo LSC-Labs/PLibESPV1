@@ -50,12 +50,28 @@ class CSimpleDelay {
         unsigned long restart() { 
             m_bIsExpired = false;
             m_ulStartMillis = millis();  
-            return(m_ulStartMillis); 
+            return(m_ulStartMillis + m_ulDelayMillis); 
+        }
+
+        /**
+         * @brief Advances to the next delay period without resetting the start time.
+         * This is useful to maintain a consistent interval even if the check is delayed.
+         */
+        unsigned long next() { 
+            m_bIsExpired = false;
+            if(isActive() && !isExpired()) {
+                while((m_ulStartMillis + m_ulDelayMillis) < millis()) {
+                    m_ulStartMillis += m_ulDelayMillis;
+                }
+            }
+            return(m_ulStartMillis + m_ulDelayMillis); 
         }
 
         void setExpired() {
             m_bIsExpired = true;
         }
+
+        bool isExpired() { return(m_bIsExpired); }
 
         /**
          * @brief Checks if the delay time has elapsed.

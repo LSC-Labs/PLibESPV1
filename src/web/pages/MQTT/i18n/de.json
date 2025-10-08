@@ -1,0 +1,43 @@
+{
+    "MQTT": {
+        "title": "Message Broker",
+        "desc": {
+            "enable" : "Aktiviere den Message Broker.",
+            "configure": "Konfiguriere den Zugriff auf den Message Broker, oder stoppe den Dienst."
+        },
+        "enable": {
+            "label": "MQTT Unterstützung",
+            "info": "Aktiviere oder deaktivire den MQTT service."
+            
+        },
+        
+        "host": {
+            "label" : "Host",
+            "info": "Der Name oder die Adresse des MQTT Servers."
+        },
+        "port": {
+            "label" : "Port",
+            "info": "Port des MQTT Servers."
+        },
+        "user": {
+            "label" : "User",
+            "info": "Technischer User für den MQTT Zugriff."
+        },
+        "passwd": {
+            "label" : "Passwort",
+            "info": "Passwort des technischen Users."
+        },
+        "topic": {
+            "label" : "Topic prefix",
+            "info": "Prefix für alle MQTT Topics."
+        },
+        "autotopic": {
+            "label" : "Auto Topic",
+            "info": "Füge einen automatisches Topic Prefix an die Topics (die letzten 6 Zahlen der MAC Adresse)."
+        },
+        "syncrate": {
+            "label" : "Sync (Sekunden)",
+            "info": "Synchronisations Zeit um einen Status an den MQTT Server zu schicken (Heartbeat)."
+        }
+    }
+}

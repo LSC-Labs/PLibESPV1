@@ -1,0 +1,17 @@
+{
+    "menu" : {
+        "Device": "Gerät"
+    },
+    "Device": {
+        "legend": "Wilkommen zu ihrem Taupunkt Schalter",
+        "title" : "Setzen Sie den Namen des Gerätes (Hostname) und das Admin Passwort",
+        "hostname": {
+            "text": "Gerätename",
+            "title": "Der Name des Gerätes im Netzwerk (Hostname)"
+        },
+        "password": {
+            "text"  : "Passwort",
+            "title" : "Setzen Sie das Passwort für den administrativen Zugriff"
+        }
+    }
+}

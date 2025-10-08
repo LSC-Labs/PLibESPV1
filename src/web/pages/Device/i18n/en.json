@@ -1,11 +1,17 @@
 {
+    "menu" : {
+        "Device": "Device"
+    },
      "Device": {
         "legend": "Welcome to your Dew Point Device",
         "title" : "Set the name of your device (hostname) and the password for the admin account",
         "hostname": {
             "text": "Host name",
-            "info": "enter here..."
+            "title": "Enter the hostname here..."
         },
-        "password": "Password"
+        "password": {
+            "text"  : "Password",
+            "title" : "Enter the password for the admin account"
+        }
     }
 }

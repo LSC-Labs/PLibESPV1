@@ -1,0 +1,17 @@
+{
+    "SysCfg": {
+        "legend": "Sichern & Wiederherstellung",
+        "title": "Sichern oder Wiederherstellen der Geräte Konfiguration. Achtung, die Backup Datei wird <b>NICHT</b> verschlüsselt.<br/> Sichern Sie die Datei an einen geschützten Platz um zu verhindern, dass jemand Zugriff auf ihre Zugangsdaten erhält...",
+        "Backup": {
+            "title": "Sichern",
+            "desc": "Sichere die aktuelle Konfiguration in eine Datei.",
+            "btn": "Sichere Konfig"
+        },            
+        "Restore": {
+            "title": "Lade eine Konfiguration",
+            "desc": "Wählen Sie die Datei aus der die Konfiguration wieder hergestellt, bzw. geladen werden soll.",
+            "btn": "Lade Konfig",
+            "invalidFile" : "Die gewählte Datei ist keine gültige Sicherungsdatei..."
+        }
+    }
+}

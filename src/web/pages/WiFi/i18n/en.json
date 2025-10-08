@@ -46,7 +46,7 @@
         },
         "gw": {
             "info": "Address of the Gateway to the world.",
-            "label": "Gatway"
+            "label": "Gateway"
         },
         "fallback": {
             "info": "Fallback to Access Point Mode when WiFi Network could not be joined.",

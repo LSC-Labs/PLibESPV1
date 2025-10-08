@@ -72,7 +72,7 @@
         <span id="ticketLink"></span>
       </div>
       <div id="changePending"  style="display:none" >
-        <a data-i18n="SysCfg.changePending"></a>
+        <a data-i18n="main.changePending"></a>
       </div>
     </div>
   </div>
@@ -122,18 +122,22 @@
     <dialog id="signinDialog" class="modalDialog">     
       <div class="dialogHeader">
         <button type="button" class="closeButton pull-right" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title" data-i18n="login.title">...</h4>
+        <h4 class="modal-title" data-i18n="signin.title"></h4>
       </div>
       <form role="form">      <!-- Form starts here... to avoid loosing the "escape key" function-->
         <div class="dialogBody">
           <div class="form-group">
             <!-- Browser validation fails, when btn-primary is in place !? validate in java script -->
-            <input autofocus class="form-control" placeholder="Password" name="password" type="password" value="" required title="Please enter your password">
+            <input  autofocus class="form-control" 
+                    placeholder="Password" name="password" type="password" 
+                    value="" required 
+                    title="Please enter your password">
           </div>
           <div class="inError" style="display:none">Error message comes here...</div>
         </div>
         <div class="dialogFooter">
-          <button type="submit" class="btn btn-primary btn-md pull-right">Login</button>
+          <button type="submit" class="btn btn-primary btn-md pull-right" 
+                  data-i18n="signin.submit"></button>
         </div>
       </form>
 

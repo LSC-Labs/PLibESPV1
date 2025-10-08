@@ -1,0 +1,12 @@
+{
+
+    "Firmware" : {
+        "legend": "Firmware update (aktuelle firmware: $(prog_ver))",
+        "title": "Firmware update. Machen Sie vorab ein Backup der Konfiguration um einen Datenverlust zu vermeiden.",
+        "latest": "Aktuell verfügbare Version (online)",
+        "install": "Wählen Sie die Version, die sie installieren möchten",
+        "downloadBtn": "Download",
+        "installBtn": "Install",
+        "noInternet": "Aktuell scheint keine Internet Verbindung vorhanden zu sein, oder der Firmware Update Server ist offline."
+    }
+}

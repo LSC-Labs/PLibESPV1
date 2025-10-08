@@ -12,7 +12,7 @@
             "desc": "Click and choose your file from your local device to be restored.",
             "btn": "Restore Settings",
             "invalidFile" : "The file you selected is not a valid backup file..."
-        },
-        "changePending": "You have uncommited changes, please click here to review and commit."
+        }
+        
     }
 }

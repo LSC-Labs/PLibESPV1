@@ -1,0 +1,39 @@
+{
+    "_language": "Deutsch",
+ 
+    "menu": {
+        "signin": "Anmelden",
+        "signout": "Abmelden",
+        "Support": "Feedback / Ticket",
+        "Settings": "Einstellungen",
+        "Maintenance": "Wartung"
+    },
+    "main": {
+        "ok" : "OK",
+        "yes": "Ja",
+        "no" : "Nein",
+        "enabled": "Aktiv",
+        "disabled": "Inaktiv",
+        "cancel": "Abbruch",
+        "changePending": "Änderungen liegen vor, zum Prüfen und Bestätigen bitte hier klicken.",
+        "pleaseReview": "Bitte die Änderungen überprüfen.",
+        "saveReboot": "Speichern und Neustart...",
+        "conLost": "Verbindung mit $(prog_name) abgebrochen. Erneuter Verbindungsaufbau...",
+        "noFileSelected": "Es wurde keine Datei ausgewählt...",
+        "saveBtn": "Speichern"
+    
+    },
+    "signin": {
+        "title": "Bitte geben Sie das Geräte Passwort ein...",
+        "submit": "Anmelden"
+    },
+    "dialog": {
+        "wait": {
+            "title": "Bitte warten"
+        },
+        "save": {
+            "title"     : "Speichere die Konfiguration",
+            "waitmsg"   : "Bitte warten sie, bis die Aktion beendet ist..."
+        }
+    }
+}

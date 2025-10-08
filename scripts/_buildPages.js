@@ -167,9 +167,12 @@ function joinLanguages(strPagePath) {
                     let oTarget = getJsonFromFile(strTargetFile);
                     let strInputFile = path.join(strInputPath, strFile);
                     let oInput = getJsonFromFile(strInputFile);
+                    let oTargetConfig = new CConfig(oTarget);
+                    oTargetConfig.addConfig(oInput);
                     // merge the data and write back...
-                    let oResult = {...oTarget,...oInput}
-                    fs.writeFileSync(strTargetFile,JSON.stringify(oResult,null,2));
+                    // let oResult = {...oTarget,...oInput}
+                    // fs.writeFileSync(strTargetFile,JSON.stringify(oResult,null,2));
+                    fs.writeFileSync(strTargetFile,JSON.stringify(oTargetConfig.getConfig(),null,2));
 
                     Status.numLanguages++;
                 }
