@@ -71,7 +71,6 @@ class CFirmwarePage extends CPageHandler {
                     fetch('/update',{ 
                         method:'POST', 
                         body: oFormData
-                        // formData 
                     });
                     break;
             }
