@@ -393,7 +393,7 @@ bool CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
 			{
 				if(isAuthenticated) { 
 					ApplLogInfo("WS: Restoring factory settings...");
-					oFS.deleteAllFilesOnPath("/");
+					oFS.deleteFile("/config.json");
 					Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,nullptr,0);
 				}
 			}

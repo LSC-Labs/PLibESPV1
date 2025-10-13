@@ -32,6 +32,10 @@
 #define MSG_WIFI_DISABLING          5007
 #define MSG_WIFI_DISABLED           5008
 #define MSG_WIFI_ERROR              5009
+#define MSG_OTA_START               5090
+#define MSG_OTA_END                 5091
+#define MSG_OTA_PROGRESS            5092
+#define MSG_OTA_ERROR               5093
 
 #define MSG_WEBSOCKET_SEND_JSON     5100
 

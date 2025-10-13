@@ -130,40 +130,40 @@ void CWebServer::registerDefaults() {
         pRequest->send(response);
     });
 
-     on("/update", HTTP_POST, [](AsyncWebServerRequest *request) {
-        ApplLogInfo(F("WEB:/update"));
-		AsyncWebServerResponse * response = request->beginResponse(200, "text/plain", "OK");
-		response->addHeader("Connection", "close");
-		request->send(response);
-	}, [](AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
-		/*
-        if (!WebServer::Config.authenticate(request,"update (firmware)", true)) {
-            ApplLogError(F("... not authenticated !!! - update rejected"));
-            return request->requestAuthentication();
-		}
-            */
-		if (!index) {
-            ApplLogInfoWithParms(F("Firmware update started : %s"),filename.c_str());
-			Update.runAsync(true);
-			if (!Update.begin((ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000)) {
-				ApplLogError(F("Not enough space..."));
-			}
-		}
-		if (!Update.hasError()) {
-			if (Update.write(data, len) != len) {
-                ApplLogErrorWithParms(F("Writing to flash failed..."), filename.c_str());
-                ApplLogErrorWithParms(F("%s"),Update.getErrorString().c_str());
-			}
-		}
-		if (final) {
-			if (Update.end(true)) {
-                ApplLogInfoWithParms(F("Firmware update finished (%uB)"),index + len);
-                if(!Update.hasError()) Appl.MsgBus.sendEvent(nullptr,MSG_REBOOT_REQUEST,F("Firmware update"),0);
-			} else {
-                ApplLogError(F("Firmware update failed."));
-                ApplLogErrorWithParms(F("%s"),Update.getErrorString().c_str());
-			}
-		}
+    on("/update", HTTP_POST, 
+        [](AsyncWebServerRequest *request) {
+            ApplLogInfo(F("WEB:/update (POST)"));
+            AsyncWebServerResponse * response = request->beginResponse(200, "text/plain", "OK");
+            response->addHeader("Connection", "close");
+            request->send(response);
+        },
+        [](AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
+            if (!index) {
+                ApplLogInfoWithParms(F("Firmware update started : %s"),filename.c_str());
+                Appl.MsgBus.sendEvent(nullptr,MSG_OTA_START,filename.c_str(),0);
+                Update.runAsync(true);
+                if (!Update.begin((ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000)) {
+                    ApplLogError(F("Not enough space..."));
+                    Appl.MsgBus.sendEvent(nullptr,MSG_OTA_ERROR,F("Not enough space"),0);
+                }
+            }
+            if (!Update.hasError()) {
+                Appl.MsgBus.sendEvent(nullptr,MSG_OTA_PROGRESS,nullptr,(index + len));
+                if (Update.write(data, len) != len) {
+                    ApplLogErrorWithParms(F("Writing to flash failed..."), filename.c_str());
+                    ApplLogErrorWithParms(F("%s"),Update.getErrorString().c_str());
+                    Appl.MsgBus.sendEvent(nullptr,MSG_OTA_ERROR,Update.getErrorString().c_str(),0);
+                }
+            }
+            if (final) {
+                if (Update.end(true)) {
+                    ApplLogInfoWithParms(F("Firmware update finished (%uB)"),index + len);
+                    if(!Update.hasError()) Appl.MsgBus.sendEvent(nullptr,MSG_REBOOT_REQUEST,F("Firmware update"),0);
+                } else {
+                    ApplLogError(F("Firmware update failed."));
+                    ApplLogErrorWithParms(F("%s"),Update.getErrorString().c_str());
+                }
+            }
 	});
     DEBUG_FUNC_END();
     

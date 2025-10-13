@@ -55,15 +55,24 @@ class CFirmwarePage extends CPageHandler {
 
                 case 'fwInstall':
                     // Install the selected Firmware file
-                    let formData = new FormData();
-                    formData.append("bin", pView.sel("#fwSelect").files[0]);
+                    
+                    // formData.append("bin", pView.sel("#fwSelect").files[0]);
+                    
                     let oDlg = new CWaitDialog({
                         title: "installing firmware - please wait",
                         timeOutSecs: this._fwInstTime,
                         onFinished: function() { location.href = location.href; }
                     });
                     oDlg.showModal();
-                    fetch('/update',{ method:'POST', formData })
+                    let oFile = pView.sel("#fwSelect").files[0];
+                    let oFormData = new FormData();
+                    oFormData.append("bin", oFile, oFile.name);
+                    
+                    fetch('/update',{ 
+                        method:'POST', 
+                        body: oFormData
+                        // formData 
+                    });
                     break;
             }
         }
