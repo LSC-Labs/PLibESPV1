@@ -2858,6 +2858,8 @@ class CAppl {
                 this.requestActStatus()
                 .then(pApp => {
                     this.prepareContainer(document.body);
+                    let strTitle = this.Settings.getData("app.prog_name","LSC");
+                    document.title = strTitle;
                     // Select the Default Page from Application Settings...
                     let strHomePage = this.Settings.getData("DefaultPage") ?? "HomePage";
                     this.updateAuthModeView(this.isAuth());

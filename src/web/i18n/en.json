@@ -1,6 +1,7 @@
 {
     "_language": "English",
     "menu": {
+        "title": "LSC Labs",
         "signin": "Sign in",
         "signout": "Sign out",
         "Support": "Feedback / Ticket"
