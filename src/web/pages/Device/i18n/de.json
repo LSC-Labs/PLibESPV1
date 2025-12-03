@@ -3,7 +3,7 @@
         "Device": "Gerät"
     },
     "Device": {
-        "legend": "Wilkommen zu ihrem Taupunkt Schalter",
+        "legend": "Wilkommen zu ihrem '$(prog_name)' Gerät",
         "title" : "Setzen Sie den Namen des Gerätes (Hostname) und das Admin Passwort",
         "hostname": {
             "text": "Gerätename",

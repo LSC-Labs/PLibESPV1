@@ -3,7 +3,7 @@
         "Device": "Device"
     },
      "Device": {
-        "legend": "Welcome to your Dew Point Device",
+        "legend": "Welcome to your $(prog_name) Device",
         "title" : "Set the name of your device (hostname) and the password for the admin account",
         "hostname": {
             "text": "Host name",
