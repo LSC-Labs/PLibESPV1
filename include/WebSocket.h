@@ -33,22 +33,19 @@ class CWebSocket : public AsyncWebSocket, public IMsgEventReceiver {
     
     public:
         CWebSocket(const char *pszSocketName, bool bDontRegisterOnMsgBus = false);
-		void dispatchMessageQueue(funcDispatchMessage pFuncDispatchMessage = nullptr);
-		void ICACHE_FLASH_ATTR sendJsonDocMessage(JsonDocument &oDoc, AsyncWebSocket *pSocket = nullptr, AsyncWebSocketClient *pClient = nullptr);
-		String setNeedsAuth(const String &strCommands);
-        String getNeedsAuth();
+		void dispatchMessageQueue();
+		virtual bool dispatchMessage(WebSocketMessage *pMessage);
+		virtual String setNeedsAuth(const String &strCommands);
+        virtual String getNeedsAuth();
+        virtual bool inline needsAuth(String &strCommand);
         int receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType);
-        
-	private:
-        void onWebSocketEvent(AsyncWebSocket *pServer, AsyncWebSocketClient *pClient, AwsEventType eType, void *arg, uint8_t *pData, size_t nLen);
-		void addMessageToQueue(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient, int nMessageSize);
-        bool inline needsAuth(String &strCommand);
+        virtual void onWebSocketEvent(AsyncWebSocket *pServer, AsyncWebSocketClient *pClient, AwsEventType eType, void *arg, uint8_t *pData, size_t nLen);
+		
+        void ICACHE_FLASH_ATTR sendAccessDeniedMessage(JsonDocument &oDoc,AsyncWebSocketClient *pClient);
+		void ICACHE_FLASH_ATTR sendJsonDocMessage(JsonDocument &oDoc, AsyncWebSocket *pSocket = nullptr, AsyncWebSocketClient *pClient = nullptr);
+	
+    private:
+        void addMessageToQueue(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient, int nMessageSize);
         bool checkAuth(JsonDocument &oRequestDoc, AsyncWebSocketClient *pClient);
-		bool dispatchMessage(WebSocketMessage *pMessage);
-		void ICACHE_FLASH_ATTR sendAccessDeniedMessage(JsonDocument &oDoc,AsyncWebSocketClient *pClient);
-/*
-        void ICACHE_FLASH_ATTR sendStatus(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient);
-*/
-	public:
 		
 };

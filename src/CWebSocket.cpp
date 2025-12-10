@@ -22,8 +22,6 @@
 #define JSONDOC_REQUEST(s)  JsonDocument s
 #define JSONDOC_RESPONSE(s) JsonDocument s
 
-// DynamicJsonDocument oXChangeDoc(DEFAULT_REQUEST_DOC_SIZE);
-
 
 /// @brief Constructor - register the onEvent Handler...
 ///        Binds the onWebSocketEvent Handler to the basic WebSocket object.
@@ -53,6 +51,11 @@ CWebSocket::CWebSocket(const char* strSocketName, bool bDontRegisterOnMsgBus) : 
 	if(!bDontRegisterOnMsgBus) Appl.MsgBus.registerEventReceiver(this);
 }
 
+/**
+ * @brief Dispatch the message queue from the application object
+ * To get this work, this object instance will register itself on the message bus of the application.
+ * @see constructor CWebSocket
+ */
 int CWebSocket::receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType) {
     switch(nMsgId) {
 		case MSG_WEBSOCKET_SEND_JSON :
@@ -66,11 +69,21 @@ int CWebSocket::receiveEvent(const void * pSender, int nMsgId, const void * pMes
     return(EVENT_MSG_RESULT_OK);
 }
 
+/**
+ * @brief Set the Needs Auth string
+ * Be aware that this will overwrite any existing command list.
+ * @param strCommands Comma delimited string containing the commands needing authentication.
+ * @return The set string
+ */
 String CWebSocket::setNeedsAuth(const String &strCommands) {
 	strNeedsAuth = strCommands;
 	return strNeedsAuth;
 };
 
+/**
+ * @brief Get the Needs Auth string
+ * @return String containing the commands needing authentication, delimited by commas
+ */
 String CWebSocket::getNeedsAuth() {
 	return strNeedsAuth;
 };
@@ -149,17 +162,6 @@ void ICACHE_FLASH_ATTR CWebSocket::sendJsonDocMessage(JsonDocument &oDoc, AsyncW
 	serializeJson(oDoc,pBuffer->get(),nSize);
 	if(pClient) pClient->text(pBuffer);
 	else pSocket->textAll(pBuffer);
-	/*
-	char *pszMessageBuffer = (char *) malloc(nSize);
-	memset(pszMessageBuffer,'\0',nSize);
-	DEBUG_JSON_OBJ(oDoc);
-	size_t nFinalSize = serializeJson(oDoc,pszMessageBuffer);
-	ApplLogVerboseWithParms("WS: - sending (%d) bytes of data: %s",nFinalSize, pszMessageBuffer);
-
-	if(pClient) pClient->text(pszMessageBuffer);
-	else pSocket->textAll(pszMessageBuffer);
-	free(pszMessageBuffer);
-	*/
 	DEBUG_FUNC_END();
 }
 
@@ -182,36 +184,22 @@ void ICACHE_FLASH_ATTR CWebSocket::sendAccessDeniedMessage(JsonDocument &oReques
 		sendJsonDocMessage(oRequestDoc,nullptr,pClient);
 	}
 }
-/*
-JsonObject CWebSocket::createPayloadStructure(const char* pszCommand, const char *pszDataType, JsonDocument &oPayloadDoc, const char *pszData) {
-	DEBUG_FUNC_START_PARMS("%s,%s,...",NULL_POINTER_STRING(pszCommand),NULL_POINTER_STRING(pszDataType));
 
-	char pszBuffer[256];
-	sprintf(pszBuffer,"{\"command\":\"%s\",\"data\":\"%s\"",pszCommand,pszDataType);
-	String strData = pszBuffer;
-	if(pszData) {
-		strData += ",\"payload\":";
-		strData += pszData;
-	}
-	strData += "}";
-	DEBUG_INFO(" --> creating payload:");
-	DEBUG_INFOS("%s",strData.c_str());
-	DeserializationError error = deserializeJson(oPayloadDoc,strData);
-	if(error) {
-		ApplLogErrorWithParms("WS: Error creating payload structure : %s",error.c_str());
-	} 
-	DEBUG_FUNC_END();
-	return(pszData == nullptr ? CreateJsonObject(oPayloadDoc,"payload") : oPayloadDoc["payload"]);
-}
-
-inline JsonObject CWebSocket::createPayloadStructure(const __FlashStringHelper* pszCommand, const __FlashStringHelper* pszDataType, JsonDocument &oPayloadDoc, const char *pszPayload) {
-	return(createPayloadStructure((const char*) pszCommand,(const char*) pszDataType,oPayloadDoc,pszPayload));
-}
-*/
+/**
+ * @brief Check if a command needs authentication
+ * @param strCommand The command to be checked	
+ * @return true if the command needs authentication, false otherwise
+ */
 bool inline CWebSocket::needsAuth(String &strCommand) {
 	return(strNeedsAuth.indexOf(strCommand) > -1);
 }
 
+/**
+ * @brief Check the authentication token in the Json Document is a valid token and matches the client IP
+ * @param oJsonRequest The Json Document containing the request and the token
+ * @param pClient The WebSocket Client requesting the command (needed to get the remote IP)
+ * @return true if the token is valid, false otherwise
+ */
 bool CWebSocket::checkAuth(JsonDocument &oJsonRequest, AsyncWebSocketClient *pClient) {
 	DEBUG_FUNC_START();
 	bool isAuthenticated = false;
@@ -266,10 +254,14 @@ void CWebSocket::addMessageToQueue(AsyncWebSocket *pSocket, AsyncWebSocketClient
 	DEBUG_FUNC_END();
 }
 
-/// @brief Dispatch the message queue...
-///  	   This function should be called in the main loop to process the message queue
-///        Processes all messages in the queue and cleans up the memory
-void CWebSocket::dispatchMessageQueue(funcDispatchMessage pFuncDispatchMessage)
+
+     
+/**
+ * @brief Dispatch the current message queue with the well known commands...
+ * This function should be called in the main loop to process the message queue.
+ * Calls dispatchMessage with the act message and cleans up the memory after processing.
+ */
+void CWebSocket::dispatchMessageQueue()
 {
 	while (pMsgQueue != NULL)
 	{
@@ -277,19 +269,19 @@ void CWebSocket::dispatchMessageQueue(funcDispatchMessage pFuncDispatchMessage)
 		WebSocketMessage *pMessageToProcess = CWebSocket::pMsgQueue;
 		CWebSocket::pMsgQueue = pMessageToProcess->pNextMessage;
 		// Process the message.
-		// If not in default processing, use the application specific, if defined.
-		if(!dispatchMessage(pMessageToProcess) && pFuncDispatchMessage != nullptr) {
-			pFuncDispatchMessage(pMessageToProcess);
-		};
-		/// Clean up...
+		dispatchMessage(pMessageToProcess);
+		// Clean up the processed message...
 		free(pMessageToProcess->pSerializedMessage);
 		free(pMessageToProcess);
 	}
 }
 
 /**
- * Dispatch the WebSocket Message
+ * @brief Dispatch a single WebSocket Message
+ * Override this function to implement your own message handling.
  * Expecting always a JSON Object from client !
+ * @param pMessage the message to be processed
+ * @return true if message command was recognized processed, false otherwise
  */
 bool CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
 	DEBUG_FUNC_START();
@@ -306,6 +298,7 @@ bool CWebSocket::dispatchMessage( WebSocketMessage *pMessage) {
 	auto error = deserializeJson(oXChangeDoc, (const char *)pMessage->pSerializedMessage);
     if(error) {
         ApplLogErrorWithParms(F("WS: Parse message : %s"),error.c_str());
+		bResult = false;
     } else {
         // Json Document is ready...
         // Web Browser sends some commands, check which command is given

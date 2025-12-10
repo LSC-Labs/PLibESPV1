@@ -17,7 +17,7 @@ Properties of pages.json
         "webSource": "src/web",
         "webDist"  : "dist/web",
         "webPacked": "dist/tmp",
-        "includes" : "include"
+        "includes" : "include/web"
     },
 
 | Section | Property | Type | Description| 
