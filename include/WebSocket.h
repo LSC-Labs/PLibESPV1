@@ -23,7 +23,7 @@ struct WebSocketStatus {
 #endif
 
 /// @brief Function pointer to register the routes
-typedef void (funcDispatchMessage)(const WebSocketMessage *pMessage);
+// typedef void (funcDispatchMessage)(const WebSocketMessage *pMessage);
 
 class CWebSocket : public AsyncWebSocket, public IMsgEventReceiver {
     private:

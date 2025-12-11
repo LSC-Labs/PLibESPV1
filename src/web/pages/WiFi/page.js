@@ -23,15 +23,20 @@ class CWiFiPage extends CPageHandler {
      */
     on(pView,oElement,strCmd) {
         super.on(pView,oElement);
-        if(Utils.isElement(oElement) && oElement.id == "useWifiBtn") {
-            let oSource = pView.selById("scan_ssid");
-            let oSelected = oSource.options[oSource.selectedIndex];
-            if(oSelected) {
-                pView.sel("[data-cfg = 'ssid']").value  = oSelected.value;
-                pView.sel("[data-cfg = 'bssid']").value = oSelected.bssidvalue; 
-            }
-            this.closeDialog(pView,oElement);
+        if(Utils.isElement(oElement)) {
+            if(oElement.id == "useWifiBtn") {
+                let oSource = pView.selById("scan_ssid");
+                let oSelected = oSource.options[oSource.selectedIndex];
+                if(oSelected) {
+                    pView.sel("[data-cfg = 'ssid']").value  = oSelected.value;
+                    pView.sel("[data-cfg = 'bssid']").value = oSelected.bssidvalue; 
+                }
+                this.closeDialog(pView,oElement);
+            } 
+            // Close action for modal dialog ?
+            if(oElement.dataset.dismiss == "modal")  this.closeDialog(pView,oElement);
         }
+        
     }
 
     /**
