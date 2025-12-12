@@ -1,7 +1,5 @@
-# Classes
-
-## WebSocket
-The Websocket is part of the Webserver.
+## CWebSocket
+The Websocket is a subset of the Webserver.
 
 If you want to use Websocket communication, you have to instanciate the class CWebSocket,
 register it at the WebSever object and call dispatch() in the loop.
@@ -40,7 +38,6 @@ To set which function is allowed to access, there are the following possibilitie
 - define at compile time  "WS_NEEDS_AUTH"  with the string that contains the command names
 - set the allowed commands at runtime via the function `setNeedsAuth(strFunctionNames)`.
 To see which commands needs an authenticated user, use the `getNeedsAuth()`.
-
 
 ### Own commands
 To implement or enhance the existing commands, 
