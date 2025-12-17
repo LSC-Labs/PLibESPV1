@@ -3,6 +3,7 @@
 #endif
 
 #include <Arduino.h>
+#include <ArduinoJson.h>
 #include <Appl.h>
 #include <Network.h>
 #include <MQTTController.h>
@@ -284,6 +285,23 @@ void CMQTTController::onMqttMessage(char *topic, char *pszPayload, AsyncMqttClie
     }
 }
 
+int CMQTTController::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
+    int nResult = 0;
+    switch(nMsg) {
+        case MSG_MQTT_SEND_JSONOBJ:
+            {
+                // Extract parameters
+                JsonObject *pMsgDoc = (JsonObject *)pMessage;
+                String strData;
+                serializeJson(*pMsgDoc,strData);
+                publishEvent("tick",strData.c_str());
+            }
+            break;
+        default:
+            break;
+    }
+    return nResult;
+}
 /// @brief set Last Will and register needed handlers
 void CMQTTController::setup() {
   if (Config.isEnabled) {

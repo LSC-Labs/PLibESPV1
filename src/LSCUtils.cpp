@@ -9,6 +9,34 @@
 
 namespace LSC {
 
+    /**
+     * @brief Get the current ISO Time String representation.
+     * @param pszBuffer The buffer to store the resulting ISO time string.
+     * @param nBufferLen The length of the buffer.
+     * @return String The ISO formatted time string.
+     */
+    char * getCurrentISODateTime(char *pszBuffer, int nBufferLen) {
+        time_t oNativeTime;
+        time(&oNativeTime);
+        return(getISODateTime(oNativeTime,pszBuffer,nBufferLen));
+    }
+
+    /**
+     * @brief Get the ISO Time String representation of a native time_t value.
+     * @param oNativeTime The native time_t value to be converted.
+     * @param pszBuffer The buffer to store the resulting ISO time string.
+     * @param nBufferLen The length of the buffer.
+     * @return String The ISO formatted time string.
+     */
+    char * getISODateTime(time_t oNativeTime, char *pszBuffer, int nBufferLen) {
+        struct tm* oTimeInfo = localtime(&oNativeTime);
+        if(nBufferLen > 20) {
+            memset(pszBuffer,'\0',sizeof(nBufferLen));
+            strftime(pszBuffer,nBufferLen,"%FT%T",oTimeInfo);
+        }
+        return(pszBuffer);
+    }
+
     float getFarenheitFromCelsius(float fTemp) {
         return((fTemp * 1.8) + 32);
     }

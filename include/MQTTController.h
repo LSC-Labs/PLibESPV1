@@ -27,7 +27,7 @@ struct MQTTStatus {
 };
 
 
-class CMQTTController : public AsyncMqttClient, public IConfigHandler, public IStatusHandler{
+class CMQTTController : public AsyncMqttClient, public IConfigHandler, public IStatusHandler, public IMsgEventReceiver{
     private:
         size_t m_nMessageBufferSize = 0;
         char * m_pszMessageBuffer = nullptr;
@@ -43,6 +43,7 @@ class CMQTTController : public AsyncMqttClient, public IConfigHandler, public IS
         void readConfigFrom(JsonObject &oCfg) override;
         void writeConfigTo(JsonObject &oCfg, bool bHideCritical) override;
         void writeStatusTo(JsonObject &oCfg) override;
+        int receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) override;
 
 
         bool isSessionActiv();

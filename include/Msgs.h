@@ -40,6 +40,7 @@
 #define MSG_WEBSOCKET_SEND_JSON     5100
 
 #define MSG_MQTT_MSG_RECEIVED       5301
+#define MSG_MQTT_SEND_JSONOBJ       5302
 
 
 

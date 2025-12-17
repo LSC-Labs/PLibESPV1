@@ -4,6 +4,9 @@
 
 namespace LSC {
 
+    char * getCurrentISODateTime(char *pszBuffer, int nBufferLen);
+    char * getISODateTime(time_t oNativeTime, char *pszBuffer, int nBufferLen);
+    
     float getFarenheitFromCelsius(float fTemp);
     float getCelsiusFromFarenheit(float fTemp);
 
