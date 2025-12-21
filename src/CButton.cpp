@@ -27,7 +27,7 @@ CButton::CButton(int nPin, bool bLowLevelIsOn,bool bUsePullUpDown) {
 /// @param bUsePullUpDown Default is true => use a pull up
 void CButton::setup(int nPin,bool bLowLevelIsOn, bool bUsePullUpDown) {
     CInputPinController::setup(nPin,bLowLevelIsOn,bUsePullUpDown);
-    m_nCurStatus = isPinLogicalON() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
+    m_nCurStatus = isPinLogicalOn() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
 }
 
 void CButton::startMonitoring(){
@@ -46,11 +46,11 @@ void CButton::stopMonitoring(){
 /// @brief Interrupt Handler for Hardware Interrupts
 /// respects the debouncing time of the last pressed button
 void IRAM_ATTR CButton::interruptHandler() {
-    m_nCurStatus = isPinLogicalON() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
+    m_nCurStatus = isPinLogicalOn() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
     DEBUG_INFOS("BTN: pin %d is %d logical(%d) - operation mode(%d)",
                 m_nPin,
                 digitalRead(m_nPin),
-                isPinLogicalON(),
+                isPinLogicalOn(),
                 m_nMode);
     int nMsg = m_nCurStatus == BUTTON_STATUS_ON ? MSG_BUTTON_ON : MSG_BUTTON_OFF;
     Appl.MsgBus.sendEvent(this,nMsg ,nullptr,m_nPin);
@@ -68,7 +68,7 @@ void IRAM_ATTR CButton::interruptHandler() {
 bool CButton::isPressed() {
     DEBUG_FUNC_START();
     if(m_ulLastCheckTime + m_ulDebouncingTime < millis()) { 
-        m_nCurStatus = isPinLogicalON() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
+        m_nCurStatus = isPinLogicalOn() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
         m_ulLastCheckTime = millis();
     }
     bool bResult = m_nCurStatus == BUTTON_STATUS_ON;

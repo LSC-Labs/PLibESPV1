@@ -14,7 +14,7 @@
  */
 
 
- #include <Arduino.h>
+#include <Arduino.h>
 #include <PinController.h>
 
 #define DEVICE_STATE_UNKNOWN -1
@@ -35,7 +35,7 @@ class COutputPinController : public CPinController {
         virtual void setup(int SwitchPin, bool bLowLevelIsOn = false);
         virtual void switchOff();
         virtual void switchOn();
-        virtual void toggleSwitch();
+        virtual bool toggleSwitch();
         virtual bool isOn();
 
         virtual void setOutputLevelInPercent(int nLevelInPercent = 100);

@@ -39,7 +39,7 @@ bool CInputPinController::canSendInterrupts() {
 
 /// @brief check if the pin is logical ON/Activ, depending on the setup
 /// @return true or false if the pin is logical activ / on
-bool CInputPinController::isPinLogicalON() {
+bool CInputPinController::isPinLogicalOn() {
     DEBUG_FUNC_START();
     int nStatus = digitalRead(m_nPin);
     bool isOn = false;
@@ -48,6 +48,6 @@ bool CInputPinController::isPinLogicalON() {
     DEBUG_FUNC_END_PARMS("%d",isOn);
     return(isOn);
 }
-bool CInputPinController::isPinLogicalOFF() {
-    return(!isPinLogicalON());
+bool CInputPinController::isPinLogicalOff() {
+    return(!isPinLogicalOn());
 }

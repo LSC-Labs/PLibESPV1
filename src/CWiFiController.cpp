@@ -260,6 +260,7 @@ bool CWiFiController::joinNetwork(const char *pszSSID, const char *pszPassword, 
 {
     DEBUG_FUNC_START();
     Appl.Log.logInfo(F("Joining WiFi network %s"),pszSSID);
+    Appl.MsgBus.sendEvent(this,MSG_WIFI_STARTING,nullptr,WIFI_STATION_MODE);
 
     Status.isInStationMode = true;
     Status.isInAccessPointMode = false;

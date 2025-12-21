@@ -31,8 +31,8 @@ class CInputPinController : public CPinController {
         CInputPinController(int nPin, bool bLowLevelIsOn = true, bool bWithPullUpOrDown = false);
 
         virtual void setup(int SwitchPin, bool bLowLevelIsOn = true, bool bWithPullUpOrDown = false);
-        virtual bool isPinLogicalON();
-        virtual bool isPinLogicalOFF();
+        virtual bool isPinLogicalOn();
+        virtual bool isPinLogicalOff();
         virtual bool canSendInterrupts();
 };
 

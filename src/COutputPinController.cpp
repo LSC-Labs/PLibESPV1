@@ -46,7 +46,7 @@ void COutputPinController::switchOn() {
     }
 }
 
-void COutputPinController::toggleSwitch() {
+bool COutputPinController::toggleSwitch() {
     if(isOn()) switchOff();
     else switchOn();
 }   
