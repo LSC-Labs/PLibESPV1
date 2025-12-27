@@ -88,9 +88,14 @@ A module consists of the runtime and Config/ Status Web Pages.
 Each module uses a unique key to exchange status und config information.
 
 #### Runtime
+At the device, write your logic and support the interfaces
+- IConfigHandler for configuration
+- IStatusHandler for status information
+- IMessageEventReceiver to participate from system messages
+- and send messages if needed, via the Application Message Bus
 
 
-#### Web Page
+#### Web Page / User Frontend
 The Web Page can have the following components:
 - The HTML description of the Web.
 - Menu entries for the navigation bar.
@@ -98,9 +103,14 @@ The Web Page can have the following components:
 - Language files for multi language support.
 
 
-
-
 A Module registers itself on a main object, called "Appl" with an id that should be unique. The WiFi module i.E. is using the id "wifi". This id is used by the applicationto reserve this area for the module. All config, statis and other infos are stored in this "area".
 
 The id will become also the key to the web GUI, as the settings and the statis for this module will be sent to the GUI within this areas.
 
+## Where to go from here...
+If you like, you can use the [ESP-ProjectTemplate](https://github.com/LSC-Labs/ESP-ProjectTemplate) template.
+
+This is a template that is using this library and supports you with additional scripts in context to develop and prepares most of the environmet for you:
+- Visiual Studio Code
+- PlatformIO Development Environment
+- This library as a runtime lib
