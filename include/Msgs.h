@@ -10,10 +10,10 @@
 #define MSG_APPL_STARTING           100    // Application starts - prepare, if needed
 #define MSG_APPL_INITIALIZED        102    // Application has been initialized... let's start.
 #define MSG_APPL_STATUS_CHANGED     103    // Application notification, Status has changed
+#define MSG_APPL_LOOP               110    // Application loop message, pMessage and nClass are optional data   
 #define MSG_REBOOT_REQUEST          198    // Request a reboot, nClass = delay in ms
 #define MSG_RESTART_REQUEST         198    // Reqeust a restart/reboot - same as MSG_REBOOT_REQUEST
 #define MSG_APPL_SHUTDOWN           199    // Application is going down, modules should close connections and free resources
-
 
 #define MSG_LOG_ENTRY               201    // Log Entry request message see CLog
 #define MSG_LOG_ENTRY_JSON          202    // Log Entry request, msg is a json object 

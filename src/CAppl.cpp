@@ -47,6 +47,10 @@ int CAppl::receiveEvent(const void * pSender, int nMsg, const void * pMessage, i
 	return(nResult);
 }
 
+void CAppl::loop(const void *pMsg, int nMsgClass) {
+	this->MsgBus.sendEvent(this,MSG_APPL_LOOP,pMsg,nMsgClass);
+}
+
 void CAppl::reboot(int nDelay, bool bForce) {
 	Log.log("W",F("Rebooting..."));
 	int nResult = MsgBus.sendEvent(this,MSG_APPL_SHUTDOWN,nullptr,0);
