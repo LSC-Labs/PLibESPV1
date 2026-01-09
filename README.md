@@ -24,6 +24,7 @@ The library offers you:
 
 ## Default Modules
 - WiFi with Access Point and Station Mode for initial configuration or Stand Alone operating.
+- Multicast DNS service (Apple Bonjour) to simple publish your service.
 - MQTT service to connect to an existing message broker service, to be able to send and receive heartbeats or commands.
 - HTTP Web service to handle the admin web pages and to offer a REST api.
 - Websocket service for realtime communication with your device
