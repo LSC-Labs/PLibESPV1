@@ -6,11 +6,11 @@
 #include <MDNSController.h>
 #include <DevelopmentHelper.h>
 
-CMDNSHandler::CMDNSHandler() {
+CMDNSController::CMDNSController() {
     Appl.MsgBus.registerEventReceiver(this);
 }
 
-CMDNSHandler::~CMDNSHandler() {
+CMDNSController::~CMDNSController() {
     end();
 }
 
@@ -21,7 +21,7 @@ CMDNSHandler::~CMDNSHandler() {
  * @return true on success, false on failure
  * @todo: Make services configurable
  */
-bool CMDNSHandler::begin(const char* pszHostname) {
+bool CMDNSController::begin(const char* pszHostname) {
     DEBUG_FUNC_START_PARMS("\"%s\"",NULL_POINTER_STRING(pszHostname));
     if(pszHostname == nullptr) {
         pszHostname = Appl.getDeviceName().c_str();
@@ -33,7 +33,7 @@ bool CMDNSHandler::begin(const char* pszHostname) {
     return bBegined;
 }   
 
-void CMDNSHandler::end() {
+void CMDNSController::end() {
     DEBUG_FUNC_START();
     DEBUG_INFOS("MDNS: stopping responder");
     MDNS.removeService(nullptr,"_http", "_tcp");
@@ -41,7 +41,7 @@ void CMDNSHandler::end() {
     DEBUG_FUNC_END();
 }
 
-int CMDNSHandler::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
+int CMDNSController::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
     int nResult = EVENT_MSG_RESULT_OK;
     switch(nMsg) {
         // Regular update in program loop (Arduino style)

@@ -17,10 +17,10 @@
 #include <EventHandler.h>
 #include <Appl.h>
 
-class CMDNSHandler : public IMsgEventReceiver{
+class CMDNSController : public IMsgEventReceiver{
     public:
-        CMDNSHandler();
-        ~CMDNSHandler();
+        CMDNSController();
+        ~CMDNSController();
 
         bool begin(const char* pszHostname = nullptr);
         void end();

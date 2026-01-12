@@ -49,6 +49,7 @@ void COutputPinController::switchOn() {
 bool COutputPinController::toggleSwitch() {
     if(isOn()) switchOff();
     else switchOn();
+    return(isOn());
 }   
 
 /// @brief get the level to write on a pin, depending on the requested LevelInPercent

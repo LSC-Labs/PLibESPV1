@@ -14,8 +14,8 @@ class CSysStatusLed : public CRGBLed, public IMsgEventReceiver {
     public:
         CSysStatusLed(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow = true );
 
-        int receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType);
-        void updateLED();
+        virtual int receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType);
+        virtual void updateLED();
         virtual unsigned long getNormalBlinkOnTime() { return 50; };
         virtual unsigned long getNormalBlinkOffTime() { return 10000; };
 };

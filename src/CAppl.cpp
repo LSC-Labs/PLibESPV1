@@ -47,7 +47,7 @@ int CAppl::receiveEvent(const void * pSender, int nMsg, const void * pMessage, i
 	return(nResult);
 }
 
-void CAppl::loop(const void *pMsg, int nMsgClass) {
+void CAppl::dispatch(const void *pMsg, int nMsgClass) {
 	this->MsgBus.sendEvent(this,MSG_APPL_LOOP,pMsg,nMsgClass);
 }
 
