@@ -12,7 +12,7 @@ class CBatteryMeasure : public IConfigHandler, public IStatusHandler {
         /// @brief Battery measure constructor
         /// @param nPin Pin to monitor
         /// @param fCalcFactor factor to calculate the battery voltage (i.E. 4.4 for 3.7 LiOn)
-        CBatteryMeasure(int nPin, float fCalcFactor = 0.0);
+        CBatteryMeasure(int nPin, float fCalcFactor = 4.2);
 
         bool  isBatteryAvailable();
         int   getRawMeasureData();

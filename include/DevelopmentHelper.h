@@ -21,7 +21,8 @@
     #define DEBUG_FUNC_END_PARMS(str,...)   Serial.printf( "[D] Function -end-: %s - (" str ")\n",__PRETTY_FUNCTION__,__VA_ARGS__)
     #define DEBUG_INFOS(str,...)            Serial.printf( "[D] " str "\n",__VA_ARGS__)
     #define DEBUG_INFO(str)                 Serial.println("[D] " str) 
-    #define DEBUG_JSON_OBJ(oJsonObj)        {serializeJson(oJsonObj,Serial);Serial.println();}    // (!) Be carefully, this delay can have side effects. (also in Async function callbacks !)
+    #define DEBUG_JSON_OBJ(oJsonObj)        {serializeJson(oJsonObj,Serial);Serial.println();}    
+    // (!) Be carefully, this delay can have side effects. (also in Async function callbacks !)
     #define DEBUG_DELAY(ms)                 delay(ms)
 #else
     
