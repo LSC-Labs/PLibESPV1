@@ -41,7 +41,7 @@ float CBatteryMeasure::getVoltage(int nDigits) {
 #pragma region Interfaces
 
 void CBatteryMeasure::writeStatusTo(JsonObject &oStatusObj) {
-    oStatusObj["volts"]     = getVoltage(2);
+    oStatusObj["volt"]     = getVoltage(2);
     oStatusObj["available"] = isBatteryAvailable();
     oStatusObj["raw"]       = getRawMeasureData();
 }
