@@ -3403,7 +3403,7 @@ class CAppl {
                     }
                 } catch(ex) {
                     APP.Log.logEx(ex,"parsing menu def... : ");
-                    APP.logInfo(oAttr);
+                    APP.Log.logInfo(oAttr);
                 }
             })
 
