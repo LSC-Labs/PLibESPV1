@@ -8,6 +8,7 @@
 #include <Network.h>
 #include <MQTTController.h>
 #include <LSCUtils.h>
+#include <Msgs.h>
 
 #define MQTT_RECV_MESSAGE_BUFFER_SIZE 2048
 
@@ -56,7 +57,10 @@ bool CMQTTController::isSessionActiv() {
                     default: // keep the compiler quiet.
                             break;
                 }
-                if(bTryConnect) connect();
+                if(bTryConnect) {
+                    Appl.MsgBus.sendEvent(this,MSG_MQTT_STARTING,this,0);
+                    connect();
+                }
             }
         }
     }
@@ -219,6 +223,8 @@ void CMQTTController::onMqttConnect(bool sessionPresent)
         subscribe(strTopic.c_str(), 2);
     }
     ApplLogInfoWithParms("MQTT session established (%d)",sessionPresent);
+    Appl.MsgBus.sendEvent(this,MSG_MQTT_CONNECTED,this,0);
+
 }
 
 void CMQTTController::onMqttDisconnect(AsyncMqttClientDisconnectReason oReason)
@@ -252,7 +258,8 @@ void CMQTTController::onMqttDisconnect(AsyncMqttClientDisconnectReason oReason)
             Status.DisConReasonString  = F("Unknown");
             break;
 	}
-    ApplLogErrorWithParms("MQTT disconnected (%d) - %s",
+    Appl.MsgBus.sendEvent(this,MSG_MQTT_DISCONNECTED,this,(int) oReason);
+    ApplLogInfoWithParms("MQTT disconnected (%d) - %s",
                           oReason,
                           Status.DisConReasonString.c_str());
 }
@@ -288,6 +295,11 @@ void CMQTTController::onMqttMessage(char *topic, char *pszPayload, AsyncMqttClie
 int CMQTTController::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
     int nResult = 0;
     switch(nMsg) {
+        // Send a heart beat on loop message
+        case MSG_APPL_LOOP:
+            publishHeartBeat(false);
+            break;
+
         case MSG_MQTT_SEND_JSONOBJ:
             {
                 // Extract parameters

@@ -32,6 +32,8 @@
 #define MSG_WIFI_DISABLING          5007
 #define MSG_WIFI_DISABLED           5008
 #define MSG_WIFI_ERROR              5009
+#define MSG_CAPTIVE_PORTAL_STARTED  5050
+#define MSG_CAPTIVE_PORTAL_STOPPED  5051
 #define MSG_OTA_START               5090
 #define MSG_OTA_END                 5091
 #define MSG_OTA_PROGRESS            5092
@@ -39,8 +41,11 @@
 
 #define MSG_WEBSOCKET_SEND_JSON     5100
 
-#define MSG_MQTT_MSG_RECEIVED       5301
-#define MSG_MQTT_SEND_JSONOBJ       5302
+#define MSG_MQTT_STARTING           5300
+#define MSG_MQTT_CONNECTED          5301
+#define MSG_MQTT_DISCONNECTED       5308
+#define MSG_MQTT_MSG_RECEIVED       5310
+#define MSG_MQTT_SEND_JSONOBJ       5320
 
 
 
