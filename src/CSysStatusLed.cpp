@@ -15,6 +15,8 @@ CSysStatusLed::CSysStatusLed(int nRedPin, int nGreenPin, int nBluePin, bool bAct
 
 int CSysStatusLed::receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType) {
     switch(nMsgId) {
+        case MSG_APPL_LOOP     :  updateLED();                                 
+                                  break;
         case MSG_APPL_SHUTDOWN  :
         case MSG_REBOOT_REQUEST : setColor(RGB_COLOR::RED);
                                   isRebootRequested     = true;   
