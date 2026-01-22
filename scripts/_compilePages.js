@@ -123,6 +123,7 @@ async function buildHeaderFiles(cb) {
                     if (i < tData.length - 1) oWS.write(',');
                 }
                 oWS.write("\n};");
+                oWS.write("\n// TS: " + new Date().toISOString()); 
                 oWS.end();
                 fTotalSize += nPackedFileSize;
             }
@@ -145,13 +146,15 @@ async function buildHeaderFiles(cb) {
                 return console.log(err);
             }
             let strTouchText = "touched by page compiler : ";
-            let strMatchMask = strTouchText + "\\d*";
+            // 2026-01-22T13:36:26.786Z
+            let strMatchMask = strTouchText + "[\\d-T:\\.Z]*";
+            // let strMatchMask = strTouchText + "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{1,3}Z";
             let oRegEx = new RegExp(strMatchMask, 'g');
             // If found, replace it, else append it...
             if(strData.match(oRegEx)) {
-                strData = strData.replace(oRegEx,strTouchText + changedModifiedTime.getTime());
+                strData = strData.replace(oRegEx,strTouchText + changedModifiedTime.toISOString()); //new Date().toISOString()
             } else {
-                strData += "/* " + strTouchText + changedModifiedTime.getTime() + " */\n";
+                strData += "/* " + strTouchText + changedModifiedTime.toISOString() + " */\n";
             }
             // Write the file back to disk...
             fs.writeFile(strTouchFile, strData, 'utf8', function (err) {
