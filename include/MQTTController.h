@@ -1,7 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include <AsyncMqttClient.h>
-#include <ConfigHandler.h>
+#include <ModuleInterface.h>
 
 
 struct MQTTConfig {
@@ -27,7 +27,7 @@ struct MQTTStatus {
 };
 
 
-class CMQTTController : public AsyncMqttClient, public IConfigHandler, public IStatusHandler, public IMsgEventReceiver{
+class CMQTTController : public AsyncMqttClient, public IModule {
     private:
         size_t m_nMessageBufferSize = 0;
         char * m_pszMessageBuffer = nullptr;

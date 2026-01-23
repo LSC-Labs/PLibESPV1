@@ -1,6 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include <time.h>
+#include <ModuleInterface.h>
 #include <ConfigHandler.h>
 #include <StatusHandler.h>
 #include <EventHandler.h>
@@ -20,7 +21,7 @@
     String TZ = "CET-1CEST,M3.5.0/02,M10.5.0/03";
  };
 
- class CNTPHandler : public IConfigHandler, public IStatusHandler, public IMsgEventReceiver {
+ class CNTPHandler : public IModule {
     protected:
         NTPConfig Config;
         time_t  m_oRawTime;

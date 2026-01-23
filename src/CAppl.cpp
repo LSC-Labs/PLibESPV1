@@ -90,6 +90,24 @@ void CAppl::sayHello() {
 	Serial.println("");
 }   
 
+/**
+ * @brief Register a Module to the Application
+ * - Register Config Handler
+ * - Register Status Handler
+ * - Register Message Event Receiver
+ * @param pszModuleName The name of the module (Config / Status Handler Name)
+ * @param pModule Pointer to the Module Interface
+ */
+void CAppl::registerModule(const char * pszModuleName, IModule * pModule) {
+	if(pModule) {
+		if(pszModuleName != nullptr) {
+			addConfigHandler(pszModuleName, pModule);
+			addStatusHandler(pszModuleName, pModule);
+		}
+		MsgBus.registerEventReceiver(pModule);
+	}
+}
+
 
 /// @brief write the current configuration into the file system.
 ///        a current config file will be loaded first to avoid loosing unknown config data...

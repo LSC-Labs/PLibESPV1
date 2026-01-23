@@ -5,7 +5,10 @@
 #include <Security.h>
 #include <FileSystem.h>
 #include <JsonHelper.h>
+#include <DevelopmentHelper.h>
 
+
+const char * WEBSERVER_AUTOREDIRECT_MODE       = "autoRedirectMode";
 /*
 #define WEBSERVER_HIDDEN_PASSWORD       "******"
 #define WEBSERVER_CONFIG_PASSWORD_KEY   "httpPasswd"
@@ -20,10 +23,11 @@ namespace WebServer {
 /// @param nPortNumber 
 /// @param bRegisterRoutes true - default routes will be registered, otherwise do it by yourself.
 /// 
-CWebServer::CWebServer(int nPortNumber) 
+CWebServer::CWebServer(int nPortNumber )
 	: AsyncWebServer(nPortNumber) {}
 
 void CWebServer::readConfigFrom(JsonObject &oNode) {
+    WebServer::Config.AutoRedirectMode = oNode[WEBSERVER_AUTOREDIRECT_MODE] | false;
     /* Currently no config - password is moved to appl - device password.
     String strPasswd = oNode[WEBSERVER_CONFIG_PASSWORD_KEY];
     if(!strPasswd.equals(WEBSERVER_HIDDEN_PASSWORD)) {
@@ -33,8 +37,27 @@ void CWebServer::readConfigFrom(JsonObject &oNode) {
 }
 
 void CWebServer::writeConfigTo(JsonObject &oCfgNode,bool bHideCritical) {
+    oCfgNode[WEBSERVER_AUTOREDIRECT_MODE] = WebServer::Config.AutoRedirectMode;
     // oCfgNode[WEBSERVER_CONFIG_PASSWORD_KEY] = bHideCritical ? WEBSERVER_HIDDEN_PASSWORD : WebServer::Config.Passwd;
 }
+
+void CWebServer::writeStatusTo(JsonObject &oStatusNode) {
+    oStatusNode["started"] = Status.Started;
+    oStatusNode[WEBSERVER_AUTOREDIRECT_MODE] = Status.AutoRedirectMode;
+}   
+
+int CWebServer::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
+    int nResult = EVENT_MSG_RESULT_OK;
+    switch(nMsg) {
+        case MSG_CAPTIVE_PORTAL_STARTED: {
+            Status.AutoRedirectMode = true;
+            DEBUG_INFO("WEB: Autoredirect mode enabled");
+            break;
+        }
+    }
+    return(nResult);
+}
+
 
 void CWebServer::registerFileAccess() {
 
@@ -61,7 +84,7 @@ void CWebServer::registerFileAccess() {
             static File file;
             CFS oFS;
             if (index == 0) {  // Neue Datei öffnen
-                Serial.printf("Speichere Datei: %s\n", filename.c_str());
+                Serial.printf("Saving File: %s\n", filename.c_str());
                 file =  oFS.getBaseFS().open("/" + filename, "w");
             }
             if (file) {
@@ -69,7 +92,7 @@ void CWebServer::registerFileAccess() {
             }
             if (final) {  // Datei schließen
                 file.close();
-                Serial.printf("Upload abgeschlossen: %s\n", filename.c_str());
+                Serial.printf("Upload finished: %s\n", filename.c_str());
             }
         }
     );
@@ -94,9 +117,24 @@ void CWebServer::registerDefaults() {
     DEBUG_FUNC_START();
     rewrite("/", "/index.html");
 
-    onNotFound([](AsyncWebServerRequest *request) {
-		AsyncWebServerResponse *response = request->beginResponse(404, "text/plain", "Not found");
-		request->send(response);
+    // Not found handler - for captive portal support
+    // If not found and capture mode is active, redirect to "/", if a HTML page is requested
+    onNotFound([this](AsyncWebServerRequest *request) {
+        bool bIsHtmlPage = true;
+        ApplLogErrorWithParms(F("WEB: 404 Not found: %s"),request->url().c_str());
+        if(request->url().indexOf(".") > -1) {
+            bIsHtmlPage = request->url().endsWith(".htm") || request->url().endsWith(".html");
+        }
+        DEBUG_INFOS("WEB: Requested URL: %s (CaptureMode=%d) (isHtmlPage=%s)",request->url().c_str(),Status.AutoRedirectMode, bIsHtmlPage ? "true" : "false");
+        if(Status.AutoRedirectMode && bIsHtmlPage) {
+            DEBUG_INFO("WEB: Captive portal mode - redirect to /");
+            AsyncWebServerResponse *response = request->beginResponse(302, "text/plain", "Redirecting to captive portal");
+            response->addHeader("Location", "/");
+            request->send(response);
+        } else {
+            AsyncWebServerResponse *response = request->beginResponse(404, "text/plain", "Not found");
+            request->send(response);
+        }
 	});
 
     on("/login", HTTP_GET, [](AsyncWebServerRequest *pRequest) {    

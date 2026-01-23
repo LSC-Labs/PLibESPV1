@@ -1,6 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include <ArduinoJson.h>
+#include <ModuleInterface.h>
 #include <EventHandler.h>
 #include <StatusHandler.h>
 #include <Logging.h>
@@ -90,6 +91,7 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
         CVarTable      Config;
         CEventHandler  MsgBus;
         CEventLogger   Log;
+        void registerModule(const char *pszModuleName, IModule * pModule);
         void writeConfigTo(JsonObject &oNode,bool bHideCritical) override;
 
         void readConfigFrom(JsonDocument &oDoc);

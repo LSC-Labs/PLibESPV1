@@ -2,8 +2,7 @@
 #include <Network.h>
 #include <EventHandler.h>
 #include <ArduinoJson.h>
-#include <ConfigHandler.h>
-#include <StatusHandler.h>
+#include <ModuleInterface.h>
 
 #ifndef WIFI_MODULE_DEFAULT_AP_IP
     #define WIFI_MODULE_DEFAULT_AP_IP     IPAddress(192,168,4,1)
@@ -88,7 +87,7 @@ struct WiFiStatus {
 
 /// @brief WiFi Controller class to handle the WiFi connection
 /// Use WiFi Node to setup the callback functions
-class CWiFiController : public IConfigHandler, public IStatusHandler, public IMsgEventReceiver { 
+class CWiFiController : public IModule { 
     private:
         WiFiConfig    Config;
         // CEventHandler *pEventHandler = nullptr;

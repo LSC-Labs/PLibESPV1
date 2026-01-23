@@ -3,8 +3,10 @@
 #include <Arduino.h>
 #include <Network.h>
 #include <Appl.h>
+#include <ModuleInterface.h>
 
 struct WebServerConfig {
+    bool   AutoRedirectMode = false;
     String UserName = "admin";
     // String Passwd   = "admin";
 
@@ -25,15 +27,23 @@ struct WebServerConfig {
     }
 };
 
+struct WebServerStatus {
+    bool   Started = false;
+    bool   AutoRedirectMode = false;
+};
+
 /// @brief Class to handle the WebServer and to register the routes
-class CWebServer : public AsyncWebServer, public IConfigHandler {
+class CWebServer : public AsyncWebServer, public IModule {
     public:
         int nVersion = 1;
-        WebServerConfig Config;
+        WebServerConfig Config; // Configuration of the webserver
+        WebServerStatus Status; // Status information about the webserver
     public:
         CWebServer(int nPortNumber);
+        void writeStatusTo(JsonObject &oStatusNode) override;
         void writeConfigTo(JsonObject &oNode, bool bHideCritical)  override; 
         void readConfigFrom(JsonObject &oNode) override;
+        int receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) override;
     
         void registerFileAccess();
         void registerDefaults();

@@ -1,4 +1,3 @@
-
 /**
  * WebRoutes.cpp
  * 
@@ -17,6 +16,7 @@
 #include <JsonHelper.h>
 #include <web/index.html.gz.h>
 #include <web/app.css.gz.h>
+#include <web/index.js.gz.h>
 #include <web/settings.js.gz.h>
 #include <web/_runtime.css.gz.h>
 #include <web/_runtime.js.gz.h>
@@ -26,9 +26,10 @@
 #include <web/en.json.gz.h>
 
 
+
 void sendGzipResponse(AsyncWebServerRequest *pRequest, AsyncWebServerResponse *pResponse) {
     DEBUG_FUNC_START();
-    DEBUG_INFOS("WEB: %s",pRequest->url().c_str());
+    DEBUG_INFOS("WEB: sending %s",pRequest->url().c_str());
     pResponse->addHeader("Content-Encoding", "gzip");
     pRequest->send(pResponse);
     DEBUG_FUNC_END();
@@ -100,6 +101,16 @@ void registerWebRoutes(CWebServer &oWebServer) {
                         );
 	});
 
+    oWebServer.on("/js/index.js", HTTP_GET, [](AsyncWebServerRequest *request) {
+        sendGzipResponse(request,
+                         request->beginResponse_P(
+                            200,
+                            F("text/javascript"),
+                            index_js_gz, 
+                            index_js_gz_len)
+                        );
+	});
+
 
 	oWebServer.on("/js/_runtime.js", HTTP_GET, [](AsyncWebServerRequest *request) {
         sendGzipResponse(request,
@@ -152,4 +163,3 @@ void registerWebRoutes(CWebServer &oWebServer) {
         sendJsonResponse(oStatus,request);
 	});
 }
-
