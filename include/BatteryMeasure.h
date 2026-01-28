@@ -1,9 +1,9 @@
 #pragma once
-#include <ModuleInterface.h>
+#include <ApplModule.h>
 #include <ConfigHandler.h>
 #include <StatusHandler.h>
 
-class CBatteryMeasure : public AModule {
+class CBatteryMeasure : public ApplModule {
     private:
         int   m_nPin;
         int   m_nBatteryAvailableThreshold = 100;
