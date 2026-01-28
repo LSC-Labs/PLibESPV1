@@ -1,11 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include <time.h>
-#include <ModuleInterface.h>
-#include <ConfigHandler.h>
-#include <StatusHandler.h>
-#include <EventHandler.h>
-
+#include <Appl.h>
 /**
  * NTP Service for ESP Devices
  * Setup when a internet connection (WiFi) becomes available...
@@ -30,6 +26,9 @@
         char m_szISODateTime[40];
 
     public:
+        CNTPHandler(const char * pszAutoRegisterName = nullptr) {
+            if(pszAutoRegisterName) Appl.registerModule(pszAutoRegisterName ,this);  
+        };
         void setup();
         void timeUpdatedByService();
         bool hasValidTime();
