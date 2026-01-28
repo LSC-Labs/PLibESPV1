@@ -6,8 +6,6 @@
  * @brief Full Interface for a module and an abstract basic module implementation
  */
 
-
-
 #include <ConfigHandler.h>
 #include <StatusHandler.h>
 #include <EventHandler.h>
@@ -23,19 +21,3 @@ class IModule : public IConfigHandler, public IStatusHandler, public IMsgEventRe
   
 };
 
-/**
- * @brief Abstract Basic Module Implementation
- * You have to override the dispatch method to implement your module logic
- * Implement the configuration and status handling
- */
-class AModule: public IModule {
-
-    public:
-        virtual void dispatch();
-        virtual int receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) override {
-            switch(nMsg) {
-                case MSG_APPL_LOOP: dispatch(); break;
-            }
-            return EVENT_MSG_RESULT_OK;
-        };
-};
