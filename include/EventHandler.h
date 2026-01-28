@@ -22,9 +22,7 @@ class CEventHandler
         std::vector<IMsgEventReceiver*> m_oEventReceivers;
         
     public: 
-        void registerEventReceiver(IMsgEventReceiver * pEventReceiver) {
-            m_oEventReceivers.push_back(pEventReceiver);
-        }
+        void registerEventReceiver(IMsgEventReceiver * pEventReceiver);
        
         /// @brief Send the message to the Message Event Receivers
         ///        To avoid receiving your own message, specify the Sender (this).
