@@ -10,13 +10,17 @@ class IStatusHandler {
 
 class CStatusHandler : public IStatusHandler {
     struct StatusHandlerEntry {
-        String Name;
+        const char * pszName;
         IStatusHandler *pHandler;
     };
-    std::vector<StatusHandlerEntry> tListOfStatusHandler;
+    std::vector<StatusHandlerEntry> m_tListOfStatusHandler;
 
     public:
         void addStatusHandler(String strName, IStatusHandler *pHandler);
+        void addStatusHandler(const char *pszName, IStatusHandler *pHandler);
+        IStatusHandler * getStatusHandler(String strName);        // Get a Config Handler by his name
+        IStatusHandler * getStatusHandler(const char * pszName);  // Get a Config Handler by his name
+
+        /** Interface implementation */
         void writeStatusTo(JsonObject &oStatusNode) override;
-        IStatusHandler * getStatusHandler(String strName);  // Get a Config Handler by his name
 };

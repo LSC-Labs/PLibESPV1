@@ -5,18 +5,25 @@
 #include <DevelopmentHelper.h>
 
 IStatusHandler * CStatusHandler::getStatusHandler(String strName) {
+    return(getStatusHandler(strName.c_str()));
+}
+
+IStatusHandler * CStatusHandler::getStatusHandler(const char *pszName) {
     IStatusHandler *pHandler = nullptr;
-    for (const auto& oEntry : tListOfStatusHandler) { 
-        if(oEntry.Name == strName) pHandler = oEntry.pHandler;
+    for (const auto& oEntry : m_tListOfStatusHandler) { 
+        if(strcmp(oEntry.pszName,pszName) == 0) pHandler = oEntry.pHandler;
     }
     return(pHandler);
 }
-
 void CStatusHandler::addStatusHandler(String strName, IStatusHandler *pHandler) {
-    IStatusHandler *pOrgHandler = getStatusHandler(strName);
+    addStatusHandler(strName.c_str(),pHandler);
+}
+
+void CStatusHandler::addStatusHandler(const char *pszName, IStatusHandler *pHandler) {
+    IStatusHandler *pOrgHandler = getStatusHandler(pszName);
     if(!pOrgHandler) {
-        StatusHandlerEntry oEntry { strName, pHandler };
-        tListOfStatusHandler.push_back(oEntry);
+        StatusHandlerEntry oEntry { strdup(pszName), pHandler };
+        m_tListOfStatusHandler.push_back(oEntry);
     } 
 }
 
@@ -27,15 +34,15 @@ void CStatusHandler::addStatusHandler(String strName, IStatusHandler *pHandler) 
  */
 void CStatusHandler::writeStatusTo(JsonObject &oStatusNode){
     DEBUG_FUNC_START();
-    for (const auto& oEntry : tListOfStatusHandler) { 
+    for (const auto& oEntry : m_tListOfStatusHandler) { 
         #if ARDUINOJSON_VERSION_MAJOR < 7
-            JsonObject oSubNode = oStatusNode[oEntry.Name];
-            if(!oSubNode) oSubNode = oStatusNode.createNestedObject(oEntry.Name);
+            JsonObject oSubNode = oStatusNode[oEntry.pszName];
+            if(!oSubNode) oSubNode = oStatusNode.createNestedObject(oEntry.pszName);
         #else
-            JsonObject oSubNode = oStatusNode[oEntry.Name].to<JsonObject>();
+            JsonObject oSubNode = oStatusNode[oEntry.pszName].to<JsonObject>();
         #endif
         if(oEntry.pHandler) {
-            DEBUG_INFOS(" - writing status of handler : %s",oEntry.Name.c_str());
+            DEBUG_INFOS(" - writing status of handler : %s",oEntry.pszName);
             oEntry.pHandler->writeStatusTo(oSubNode);
         }
     }
