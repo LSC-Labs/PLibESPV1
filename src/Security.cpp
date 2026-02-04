@@ -15,13 +15,25 @@
 #define JSON_DOC_TOKEN_SIZE 512
 #define TOKEN_TIME_ALIVE    (30*60*1000)       // 30 minutes...
 
-const String strAppPass = "Kis8%$vvQ@ä+qw12";  // 16 chars !
+// Ensure the APPL_SECUIRTY_TOKEN_PASS is exact 16 chars long
+#ifndef APPL_SECURITY_TOKEN_PASS
+    #define APPL_SECUIRTY_TOKEN_PASS "Kis8%$vvQ@ä+qw12"
+#endif
+
+// Key - embeded into the token
+#ifndef APPL_SECURITY_TOKEN_KEY
+    #define APPL_SECURITY_TOKEN_KEY "ds$woEir=ncn<jek"
+#endif
+
+const String strAppPass = APPL_SECUIRTY_TOKEN_PASS;  // exact 16 chars !
 
 #pragma region Base64 encoding/decoding
 
-/// @brief Get a the base64 decoded data (as string)
-/// @param strBase64String 
-/// @return 
+/**
+ * @brief Get the base64 decoded data (as string)
+ * @param strBase64String 
+ * @return 
+ *  */
 String getBase64DecodedString(String &strBase64String) {
     DEBUG_FUNC_START_PARMS("%s",strBase64String.c_str());
     char tData[strBase64String.length()];
@@ -31,6 +43,9 @@ String getBase64DecodedString(String &strBase64String) {
     return(String(tData));
 }
 
+/**
+ * @brief Get the base64 encoded data (as string).
+ */
 String getBase64EncodedString(String &strString) {
     DEBUG_FUNC_START_PARMS("%s",strString.c_str());
     char tData[strString.length() * 4];
@@ -53,6 +68,9 @@ String getBase64EncodedString(String &strString) {
     return(strResult);
 }
 
+/**
+ * Get a base 64 encoded string (based on an array)
+ */
 String getBase64EncodedString(const char *tArray, int nSizeOfArray) {
     DEBUG_FUNC_START_PARMS("..,%d",nSizeOfArray);
     char tData[nSizeOfArray * 4];
@@ -64,57 +82,70 @@ String getBase64EncodedString(const char *tArray, int nSizeOfArray) {
 }
 #pragma endregion
 
+/** Convert a string with hex data into an array */
 void convertStringToHex(const String &str, uint8_t *hexArray, size_t arraySize) {
     memset(hexArray,'\0',arraySize);
     for (size_t i = 0; i < arraySize; ++i) {
         if(str.length() > i) hexArray[i] = str[i];
     }
-  }
+}
 
 #pragma region Random numbers - as good as possible without hw support ...
-  bool _bRandomNumbersInitialized = false;
-  const void initializeRandomNumbers(bool bForce) {
-      if(bForce || !_bRandomNumbersInitialized) {
-          randomSeed(millis());
-          _bRandomNumbersInitialized = true;
-      }
-  }
-  
-  const String getRandomNumbers(byte tBuffer[], int nBufferLen) {
-      initializeRandomNumbers(false);
-      String strNumbers;
-      for(int nIdx = 0; nIdx < nBufferLen; nIdx++) {
-          tBuffer[nIdx] = random(1,254);
-          strNumbers += tBuffer[nIdx];
-          strNumbers += ",";
-      }
-      char tData[ nBufferLen * 2];
-      base64_encode_chars((char*)tBuffer,nBufferLen,tData);
-      String strEncoded = (char*)tData;
-      return(strEncoded);
-  }
-  #pragma endregion
+
+bool _bRandomNumbersInitialized = false;
+/**
+ * Initialize the random generator on the first time usage...
+ */
+const void initializeRandomNumbers(bool bForce) {
+    if(bForce || !_bRandomNumbersInitialized) {
+        randomSeed(millis());
+        _bRandomNumbersInitialized = true;
+    }
+}
+
+/**
+ * get random numbers
+ * @param tBuffer Array to store the random numbers in
+ * @param nBufferLen Size of the array (tBuffer)
+ * @return a string with the native numbers (base64 encoded)
+ */
+const String getRandomNumbers(byte tBuffer[], int nBufferLen) {
+    initializeRandomNumbers(false);
+    String strNumbers;
+    for(int nIdx = 0; nIdx < nBufferLen; nIdx++) {
+        tBuffer[nIdx] = random(1,254);
+        strNumbers += tBuffer[nIdx];
+        strNumbers += ",";
+    }
+    char tData[ nBufferLen * 2];
+    base64_encode_chars((char*) tBuffer,nBufferLen,tData);
+    String strEncoded = (char*) tData;
+    return(strEncoded);
+}
+#pragma endregion
   
 #pragma region PKCS7 Padding 
   
-  void insertPkcs7Padding(byte* pData, size_t nDataLength, size_t nBlockSize) {
-      size_t nPaddingLen = nBlockSize - (nDataLength % nBlockSize);
-      for (size_t i = nDataLength; i < nDataLength + nPaddingLen; i++) {
+void insertPkcs7Padding(byte* pData, size_t nDataLength, size_t nBlockSize) {
+    size_t nPaddingLen = nBlockSize - (nDataLength % nBlockSize);
+    for (size_t i = nDataLength; i < nDataLength + nPaddingLen; i++) {
         pData[i] = nPaddingLen;
-      }
     }
+}
   
-  void removePkcs7Padding(byte* pData, size_t& nDataLength, size_t nBlockSize) {
-      size_t nPaddingLen = pData[nDataLength - 1];
-      if (nPaddingLen <= nBlockSize) {
-          nDataLength -= nPaddingLen;
-      }
-  }
+void removePkcs7Padding(byte* pData, size_t& nDataLength, size_t nBlockSize) {
+    size_t nPaddingLen = pData[nDataLength - 1];
+    if (nPaddingLen <= nBlockSize) {
+        nDataLength -= nPaddingLen;
+    }
+}
   
-  #pragma endregion
+#pragma endregion
   
 #pragma region AES encryption / decryption
-const String encryptDataToBase64(String strData, byte tIV[]) {
+
+
+String encryptDataToBase64(String strData, byte tIV[]) {
     // Load into tData and fill with paddings.
     int nLen = strData.length();
     int nBlocks = nLen / 16 + 1;
@@ -135,7 +166,7 @@ const String encryptDataToBase64(String strData, byte tIV[]) {
 
 }
 
-const String decryptDataFromBase64(String strData, byte tIV[]) {
+String decryptDataFromBase64(String strData, byte tIV[]) {
     DEBUG_FUNC_START_PARMS("%s",strData.c_str());
     int nInputLen = strData.length();
     char *pszEncodedData = const_cast<char *>(strData.c_str());
@@ -156,8 +187,8 @@ const String decryptDataFromBase64(String strData, byte tIV[]) {
 #pragma endregion
 
 
-const String getTokenKey() {
-    return(String("ds$woEir=ncn<jek"));
+String getTokenKey() {
+    return(String(APPL_SECURITY_TOKEN_KEY));
 }
 
 /**
@@ -175,7 +206,7 @@ const String getTokenKey() {
  * Insert the client IP - to identify the client,
  * Insert an application key
  */
-const String getNewAuthToken(String &strClientIPAddress) {
+String getNewAuthToken(String &strClientIPAddress) {
     DEBUG_FUNC_START();
     JSON_DOC_STATIC(oToken,JSON_DOC_TOKEN_SIZE);
     // StaticJsonDocument<JSON_DOC_TOKEN_SIZE> oToken;
@@ -206,12 +237,14 @@ void setNewAuthHeader(AsyncWebServerRequest *pRequest, AsyncWebServerResponse *p
     if(pResponse) pResponse->addHeader("AUTHTOKEN",getNewAuthToken(strIPAddress));
 }
 
-/// @brief Write the decrypted token into a json doc.
-//        
-/// @param strEncBase64Token encrypted token as received from the client... in Base64
-/// @param oTokenDoc Document to store the token - data inside will be lost...
-/// @return true if successfully decoded and written.
-const bool writeDecryptedTokenToJsonDoc(String &strEncBase64Token, JsonDocument &oTokenDoc) {
+/**
+ * @brief Write the decrypted token into a json doc.
+ *        
+ * @param strEncBase64Token encrypted token as received from the client... in Base64
+ * @param oTokenDoc Document to store the token - data inside will be lost...
+ * @return true if successfully decoded and written.
+ *  */
+bool writeDecryptedTokenToJsonDoc(String &strEncBase64Token, JsonDocument &oTokenDoc) {
     DEBUG_FUNC_START_PARMS("%s",strEncBase64Token.c_str());
     bool bIsValid = false;
     String strNativeToken = getBase64DecodedString(strEncBase64Token);
@@ -234,16 +267,22 @@ const bool writeDecryptedTokenToJsonDoc(String &strEncBase64Token, JsonDocument 
     return(bIsValid);
 }
 
-/// @brief Check if the Auth Token is valid
-/// @param strToken Basae64 encrypted token
-/// @param strClientIPAddress 
-/// @return 
-const bool isAuthTokenValid(String &strEncBase64Token, String &strClientIPAddress) {
+/**
+ * @brief Check if the auth token is valid
+ * {
+ *  - Token Key has to match
+ *  - IP address has to match
+ *  - token live time may not be expired
+ * }
+ * @param strToken Base64 encrypted token
+ * @param strClientIPAddress 
+ * @return 
+ * */
+bool isAuthTokenValid(String &strEncBase64Token, String &strClientIPAddress) {
     DEBUG_FUNC_START_PARMS("%s,%s",strEncBase64Token.c_str(),strClientIPAddress.c_str());
     bool bIsValid = false;
     if(strEncBase64Token && strEncBase64Token.length() > 2) {
         JSON_DOC_STATIC(oTokenDoc,JSON_DOC_TOKEN_SIZE);
-        // StaticJsonDocument<JSON_DOC_TOKEN_SIZE> oTokenDoc;
         if(writeDecryptedTokenToJsonDoc(strEncBase64Token,oTokenDoc)) {
             if (  // My token
                 oTokenDoc["K"]  == getTokenKey()   &&

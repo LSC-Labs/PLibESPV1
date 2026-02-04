@@ -2,12 +2,18 @@
 #include <ArduinoJson.h>
 #include <vector>
 
-
+/**
+ * Interface for a status handler module
+ */
 class IStatusHandler {
     public:
         virtual void writeStatusTo(JsonObject &oStatusNode) = 0;
 };
 
+/**
+ * Status handler class.
+ * Works as a status handler and can register further status handler modules.
+ */
 class CStatusHandler : public IStatusHandler {
     struct StatusHandlerEntry {
         const char * pszName;

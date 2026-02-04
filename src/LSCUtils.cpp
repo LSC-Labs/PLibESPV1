@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <Appl.h>
 #include <LSCUtils.h>
-#include <ArduinoJson.h>
+#include <JsonHelper.h>
 #include <DevelopmentHelper.h>
 
 namespace LSC {
@@ -114,10 +114,6 @@ namespace LSC {
         return(bResult);
     }
 
-    bool ICACHE_FLASH_ATTR isFalseValue(const char &szData) {
-        return(isFalseValue(&szData));
-    }
-
     /// @brief Check if the value is a true value.
     ///        checks if a string is NOT false, by using the isFalseValue() function.
     ///        To check explicit if the values represents a true state, use bExplicit=true
@@ -136,9 +132,6 @@ namespace LSC {
             }
         }
         return(bResult);
-    }
-    bool ICACHE_FLASH_ATTR isTrueValue(const char &szData, bool bExplicit) {
-        return(isTrueValue(&szData,bExplicit));
     }
 
     /// @brief Store a int value to the target (by pointer)
@@ -207,13 +200,13 @@ namespace LSC {
     }
        
 
+
     /// @brief Store a bool value to the target (by pointer)
     /// @param pTarget pointer to store the value
     /// @param strValue the value to be stored. if null or empty, try to set the default
     /// @param bDefault The default, if strValue can not be used. 
     /// @return  true, if value or default could be set
     bool ICACHE_FLASH_ATTR setValue(bool *pTarget, String strValue, const bool *pDefault) {
-        DEBUG_FUNC_START();
         bool bResult = true;
         if(pTarget) {
             if(strValue && strValue.length() > 0) { 
@@ -226,7 +219,6 @@ namespace LSC {
         } else bResult = false;
         return(bResult);
     }
-
 
     /// @brief Store a psz value to the target 
     /// @param strTarget Target string object

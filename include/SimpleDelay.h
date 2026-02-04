@@ -43,7 +43,11 @@ class CSimpleDelay {
          */
         void reset() { m_ulStartMillis = 0; m_ulDelayMillis = 0; m_bIsExpired = false;}
        
+        /**
+         * checks if the delay is activ (running)
+         */
         bool isActive() { return(m_ulStartMillis > 0); }
+
         /**
          * @brief Restarts the delay with the previous set delay time.
         */
@@ -67,15 +71,24 @@ class CSimpleDelay {
             return(m_ulStartMillis + m_ulDelayMillis); 
         }
 
+        /**
+         * Set the delay to expired (stop the timer, without
+         * reseting the start time). This enables to getRemaining()
+         * and other time dependend infos
+         */
         void setExpired() {
             m_bIsExpired = true;
         }
 
+        /**
+         * checks if the delay is expired 
+         * (stopped by an explicit setExpired() - not, if the delay isDone())
+         */
         bool isExpired() { return(m_bIsExpired); }
 
         /**
-         * @brief Checks if the delay time has elapsed.
-         * 
+         * @brief Checks if the delay time has elapsed,
+         * or the user has stopped the delay with setExpired()
          */
         bool isDone() {
             if(m_bIsExpired) return(true);
