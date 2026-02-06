@@ -24,6 +24,7 @@
 
 #include <DevelopmentHelper.h>
 #include <Vars.h>
+#include <JsonHelper.h>
 
 
 #ifndef LSC_VARS_CRITICAL_ENTRY_MASK
@@ -35,10 +36,13 @@
 
 #pragma region CVarTableEntry implementation
 
-/// @brief create a new VarTable Entry object...
-/// @param pszVarName name of the var
-/// @param isCaseSensitive is the context case - sensitive ?
-CVarTable::CVarTableEntry::CVarTableEntry(const char *pszVarName, bool isCaseSensitive) {
+/**
+ * @brief create a new VarTable Entry object...
+ * @param pszVarName name of the var
+ *  @param isCaseSensitive is the context case - sensitive ?
+ *
+ *  */
+ CVarTable::CVarTableEntry::CVarTableEntry(const char *pszVarName, bool isCaseSensitive) {
     if(pszVarName == nullptr) pszVarName = "";
     int nKeyNameLen = strlen(pszVarName) + 2;
     this->pszKeyName = (char *) malloc(nKeyNameLen);
@@ -60,10 +64,12 @@ CVarTable::CVarTableEntry::~CVarTableEntry() {
 }
 #pragma endregion
 
-#pragma reagion Constructor / destructor and helper...
-/// @brief constructor 
-/// @param isCaseSensitive Set var names case sensitive == true  
-CVarTable::CVarTable(bool isCaseSensitive) {
+#pragma region Constructor / destructor and helper...
+/** 
+ * @brief constructor 
+ * @param isCaseSensitive Set var names case sensitive == true  
+ */
+ CVarTable::CVarTable(bool isCaseSensitive) {
     this->isCaseSensitive = isCaseSensitive;
 }
 
@@ -79,10 +85,12 @@ CVarTable::~CVarTable() {
     DEBUG_FUNC_END();
 }
 
-/// @brief get the used key name, depending on the case sensitivity settings
-/// @param pszKeyName Key name to be prepared 
-/// @return true - key can be used...
-bool CVarTable::prepareKeyName(char * pszKeyName) {
+/*
+ * @brief get the used key name, depending on the case sensitivity settings
+ * @param pszKeyName Key name to be prepared 
+ * @return true - key can be used...
+ */
+ bool CVarTable::prepareKeyName(char * pszKeyName) {
     bool bResult = pszKeyName != nullptr;
     if(bResult) {
         if(!isCaseSensitive) strlwr(pszKeyName);
@@ -90,6 +98,10 @@ bool CVarTable::prepareKeyName(char * pszKeyName) {
     return(bResult);
 }
 
+/**
+ * @brief checks if there are critical vars in the table
+ * @return true - there are critical vars
+ */
 bool CVarTable::hasCriticalVars() {
     bool bResult = false;
     CVarTableEntry * pEntry = this->pVarEntries;
@@ -108,9 +120,11 @@ bool CVarTable::hasCriticalVars() {
 
 #pragma region Find var by name... or create new var
 
-/// @brief find the var inside the table
-/// @param pszName Name of the var to be searched
-/// @return nullptr or the var object
+/**
+ * @brief find the var inside the table
+ * @param pszName Name of the var to be searched
+ * @return nullptr or the var object
+ */
 CVar * CVarTable::find(const char * pszName) {
     DEBUG_FUNC_START_PARMS("%s",NULL_POINTER_STRING(pszName));
     CVar *pResult = nullptr;
@@ -122,9 +136,8 @@ CVar * CVarTable::find(const char * pszName) {
             DEBUG_INFOS(" - searching for key : '%s'", tKeyName);
             CVarTableEntry * pEntry = this->pVarEntries;
             while(pEntry != nullptr) {
-                DEBUG_INFOS(" -> iterating %d",pEntry);
+                DEBUG_INFOS(" -> iterating %p",pEntry);
                 if(pEntry->pszKeyName != nullptr) {
-                    DEBUG_INFO(" -> has key name...");
                     DEBUG_INFOS(" -> comparing %s == %s",pEntry->pszKeyName,tKeyName);
                     if(strcmp(pEntry->pszKeyName,tKeyName) == 0) {
                         DEBUG_INFO(" -> is match...");
@@ -151,9 +164,11 @@ CVar * CVarTable::find(String strName) {
     return(find(strName.c_str()));
 }
 
-/// @brief returns the var entry if it exists, otherwise it creates a new one.
-/// @param pszName Name of the var.
-/// @return 
+/**
+ * @brief returns the var entry if it exists, otherwise it creates a new one.
+ * @param pszName Name of the var.
+ * @return pointer to the var or nullptr if it could not be created.
+ *  */
 CVar * CVarTable::getOrCreateVarEntry(const char *pszName) {
     DEBUG_FUNC_START_PARMS("%s",NULL_POINTER_STRING(pszName));
     CVar * pResult = find(pszName);
@@ -315,21 +330,32 @@ CVar * CVarTable::set(const __FlashStringHelper* strName, bool bValue) {
 
 #pragma region IConfigHandler Interface
 
+/**
+ * @brief write the config to a JSON object
+ * @param oCfgObj JSON object to write the config to
+ * @param bHideCritical true - hide critical vars values
+ * Critical var names will be written in the JSON object with name defined in LSC_VARS_CRITICAL_NAMES_KEY.
+ */
 void CVarTable::writeConfigTo(JsonObject &oCfgObj, bool bHideCritical) {
+    DEBUG_FUNC_START();
     CVarTableEntry * pVarEntry = this->pVarEntries;
     while(pVarEntry) {
-        bool showValue = !(bHideCritical && pVarEntry->oVar.isCriticalVar());
+        bool showValue = true;
+        if(bHideCritical && pVarEntry->oVar.isCriticalVar()) showValue = false;
+
+        DEBUG_INFOS("Writing var '%s' value='%s' (critical=%d) (showValue=%d)",
+                    pVarEntry->oVar.getName(),
+                    showValue ? pVarEntry->oVar.getValue() : LSC_VARS_CRITICAL_ENTRY_MASK,
+                    pVarEntry->oVar.isCriticalVar() ? 1 : 0,
+                    showValue ? 1 : 0);
+
         oCfgObj[pVarEntry->oVar.getName()] = showValue ? 
                                               pVarEntry->oVar.getValue() :
                                               LSC_VARS_CRITICAL_ENTRY_MASK;
         pVarEntry = pVarEntry->pNextEntry;
     }
     if(hasCriticalVars()) {
-        #if ARDUINOJSON_VERSION_MAJOR < 7
-            JsonObject oCriticalNames = oCfgObj.createNestedObject(LSC_VARS_CRITICAL_NAMES_KEY);
-        #else
-            JsonObject oCriticalNames = oCfgObj[LSC_VARS_CRITICAL_NAMES_KEY].to<JsonObject>();
-        #endif
+        JsonObject oCriticalNames = CreateJsonObject(oCfgObj,LSC_VARS_CRITICAL_NAMES_KEY);
         pVarEntry = this->pVarEntries;
         int nCount = 0;
         char tCountBuffer[80];
@@ -343,8 +369,13 @@ void CVarTable::writeConfigTo(JsonObject &oCfgObj, bool bHideCritical) {
         }
         oCriticalNames["n.0"] = nCount;
     }
+    DEBUG_FUNC_END();
 }
 
+/**
+ * @brief read the config from a JSON object
+ * @param oCfgObj JSON object to read the config from
+ */
 void CVarTable::readConfigFrom(JsonObject &oCfgObj) {
     DEBUG_FUNC_START();
     for(JsonPair oElement : oCfgObj) {
@@ -359,8 +390,8 @@ void CVarTable::readConfigFrom(JsonObject &oCfgObj) {
         }
     }   
     // Now correct the critical vars setting...
-    JsonObject oCriticalNames = oCfgObj[LSC_VARS_CRITICAL_NAMES_KEY];
-    if(oCriticalNames) {
+    if(JsonKeyExists(oCfgObj,LSC_VARS_CRITICAL_NAMES_KEY,JsonObject)) {
+        JsonObject oCriticalNames = GetJsonObject(oCfgObj,LSC_VARS_CRITICAL_NAMES_KEY);
         int nCount = oCriticalNames["n.0"];
         for(int i = 1; i <= nCount; i++) {
             char tCountBuffer[80];

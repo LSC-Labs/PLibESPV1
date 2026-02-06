@@ -10,9 +10,30 @@
 #include <WiFiController.h>
 #include <LSCUtils.h>
 
+
+const char * WIFI_AP_MODE           = "ap_mode";
+const char * WIFI_AP_SSID           = "ap_ssid";
+const char * WIFI_AP_CHANNEL        = "ap_channel";
+const char * WIFI_AP_PASSWORD       = "ap_pwd";
+const char * WIFI_AP_IPADDRESS      = "ap_ipaddress";
+const char * WIFI_AP_SUBNETMASK     = "ap_subnet";
+const char * WIFI_FALLBACK_MODE     = "fallback";
+const char * WIFI_AP_HIDDEN         = "ap_hide";
+
+const char * WIFI_SSID              = "ssid";
+const char * WIFI_BSSID             = "bssid";
+const char * WIFI_PASSWORD          = "wifi_pwd";
+const char * WIFI_DHCP              = "dhcp";
+const char * WIFI_IPADDRESS         = "ipaddress";
+const char * WIFI_SUBNETMASK        = "subnet";
+const char * WIFI_GATEWAY           = "gwip";
+const char * WIFI_DNS               = "dnsip";
+
 namespace LSC_WIFI {
-    /// @brief Create the Default SSID for the Access Point
-    /// @return 
+
+    /**
+     *  @brief Create the Default SSID for the Access Point
+     */ 
     String getDefaultSSIDofAP()
     {
         uint8_t macAddr[6];
@@ -23,28 +44,29 @@ namespace LSC_WIFI {
     }
 }
 
-/// @brief Create a WiFi Controller and register to the message bus...
-///        Register only one object to process the requested WiFi operations (!)
-/// @param pConfig 
-/// @param bRegisterOnMsgBus if true, the object will register on msg bus
-CWiFiController::CWiFiController(const WiFiConfig *pConfig, bool bDontRegisterOnMsgBus) 
-{
-    if(pConfig != nullptr) Config = *pConfig;
-    if(!bDontRegisterOnMsgBus) Appl.MsgBus.registerEventReceiver(this);
-}
-CWiFiController::CWiFiController(bool bDontRegisterOnMsgBus) 
-{
-    if(!bDontRegisterOnMsgBus) Appl.MsgBus.registerEventReceiver(this);
-}
+/**
+ * Constructor
+
+ */
+CWiFiController::CWiFiController() {}
 
 
-/// @brief Create the Default SSID for the Access Point
-/// @return 
+
+/**
+ * @brief Create the Default SSID for the Access Point
+ */ 
 String CWiFiController::getDefaultSSIDofAP()
 {
     return(LSC_WIFI::getDefaultSSIDofAP());
 }
 
+
+
+#pragma region "Interface to Config / Status handling"
+
+/**
+ * @brief Get the textual representation of the WiFi status
+ */
 String CWiFiController::getStatusText(int nWiFiStatus) {
     switch (nWiFiStatus)
     {
@@ -60,67 +82,66 @@ String CWiFiController::getStatusText(int nWiFiStatus) {
     }
 }
 
-// #pragma region "Interface to Config / Status handling"
 /**
- * Write your configuration into the json object,
+ * @brief Write your configuration into the json object
  */
 void CWiFiController::writeConfigTo(JsonObject &oCfgNode,bool bHideCritical) {
     DEBUG_FUNC_START();
     // Hostname, Operation Mode and Fallback settings
     // oCfgNode["hostname"]        = Config.wifi_Hostname;
-    oCfgNode["ap_mode"]         = Config.accessPointMode;
-    oCfgNode["fallback"]        = Config.autoFallbackMode;
+    oCfgNode[WIFI_AP_MODE]          = Config.accessPointMode;
+    oCfgNode[WIFI_FALLBACK_MODE]    = Config.autoFallbackMode;
 
     // Access Point specific settings
-    oCfgNode["ap_ssid"]         = Config.ap_ssid;
-    oCfgNode["ap_pwd"]          = bHideCritical ? WIFI_HIDDEN_PASSWORD : Config.ap_Password;
-    oCfgNode["ap_hide"]         = Config.ap_hidden;
-    oCfgNode["ap_channel"]      = Config.ap_channel;
-    if(Config.ap_ipAddress.isSet())   oCfgNode["ap_ipaddress"] = Config.ap_ipAddress.toString(); 
-    if(Config.ap_ipSubnetMask.isSet())oCfgNode["ap_subnet"]    = Config.ap_ipSubnetMask.toString();
+    oCfgNode[WIFI_AP_SSID]          = Config.ap_ssid;
+    oCfgNode[WIFI_AP_PASSWORD]      = bHideCritical ? WIFI_HIDDEN_PASSWORD : Config.ap_Password;
+    oCfgNode[WIFI_AP_HIDDEN]        = Config.ap_hidden;
+    oCfgNode[WIFI_AP_CHANNEL]       = Config.ap_channel;
+    if(Config.ap_ipAddress.isSet())   oCfgNode[WIFI_AP_IPADDRESS] = Config.ap_ipAddress.toString(); 
+    if(Config.ap_ipSubnetMask.isSet())oCfgNode[WIFI_AP_SUBNETMASK]= Config.ap_ipSubnetMask.toString();
     // WiFi specific settings
-    oCfgNode["ssid"]            = Config.wifi_ssid;
-    oCfgNode["bssid"]           = Config.wifi_bssid;
-    oCfgNode["wifi_pwd"]        = bHideCritical ? WIFI_HIDDEN_PASSWORD : Config.wifi_Password;
-    oCfgNode["dhcp"]            = Config.dhcpEnabled;
-    if(Config.ipAddress.isSet())     oCfgNode["ipaddress"] = Config.ipAddress.toString();
-    if(Config.ipSubnetMask.isSet())  oCfgNode["subnet"]    = Config.ipSubnetMask.toString();
-    if(Config.ipDNS.isSet())         oCfgNode["dnsip"]     = Config.ipDNS.toString();
-    if(Config.ipGateway.isSet())     oCfgNode["gwip"]      = Config.ipGateway.toString();
+    oCfgNode[WIFI_SSID]            = Config.wifi_ssid;
+    oCfgNode[WIFI_BSSID]           = Config.wifi_bssid;
+    oCfgNode[WIFI_PASSWORD]        = bHideCritical ? WIFI_HIDDEN_PASSWORD : Config.wifi_Password;
+    oCfgNode[WIFI_DHCP]            = Config.dhcpEnabled;
+    if(Config.ipAddress.isSet())     oCfgNode[WIFI_IPADDRESS] = Config.ipAddress.toString();
+    if(Config.ipSubnetMask.isSet())  oCfgNode[WIFI_SUBNETMASK]    = Config.ipSubnetMask.toString();
+    if(Config.ipDNS.isSet())         oCfgNode[WIFI_DNS]     = Config.ipDNS.toString();
+    if(Config.ipGateway.isSet())     oCfgNode[WIFI_GATEWAY]      = Config.ipGateway.toString();
     DEBUG_FUNC_END();
 }
 
+/**
+ * @brief Read the configuration from the json object
+ */
 void CWiFiController::readConfigFrom(JsonObject &oNode) {
     DEBUG_FUNC_START();
     DEBUG_JSON_OBJ(oNode);
     // LSC::setValue(Config.wifi_Hostname,     oNode["hostname"]);
-    LSC::setValue(&Config.accessPointMode,  oNode["ap_mode"]);
-    LSC::setValue(&Config.autoFallbackMode, oNode["fallback"]);
+    LSC::setJsonValue(oNode,WIFI_FALLBACK_MODE, &  Config.autoFallbackMode);
+    LSC::setJsonValue(oNode,WIFI_AP_MODE,       &  (Config.accessPointMode));
+    LSC::setJsonValue(oNode,WIFI_AP_HIDDEN,     &  Config.ap_hidden);
+    LSC::setJsonValue(oNode,WIFI_AP_CHANNEL,    &  Config.ap_channel);
+    LSC::setJsonValue(oNode,WIFI_AP_IPADDRESS,     Config.ap_ipAddress);
+    LSC::setJsonValue(oNode,WIFI_AP_SUBNETMASK,    Config.ap_ipSubnetMask);
+    LSC::setJsonValue(oNode,WIFI_AP_SSID,          Config.ap_ssid);
+    LSC::setJsonValueIfNot(oNode,WIFI_AP_PASSWORD, Config.ap_Password, WIFI_HIDDEN_PASSWORD);
 
-    LSC::setValue(Config.ap_ssid ,          oNode["ap_ssid"]);
-    String strPass = oNode["ap_pwd"];
-    if(!(oNode["ap_pwd"] == WIFI_HIDDEN_PASSWORD)) {
-        LSC::setValue(Config.ap_Password,oNode["ap_pwd"]);
-    }
-    LSC::setValue(&Config.ap_hidden,        oNode["ap_hide"]);
-    LSC::setValue(&Config.ap_channel,       oNode["ap_channel"]);
-    LSC::setValue(Config.ap_ipAddress,      oNode["ap_ipaddress"]);
-    LSC::setValue(Config.ap_ipSubnetMask,   oNode["ap_subnet"]);
+    LSC::setJsonValue(oNode,WIFI_SSID,          Config.wifi_ssid);
+    LSC::setJsonValueIfNot(oNode,WIFI_PASSWORD, Config.wifi_Password, WIFI_HIDDEN_PASSWORD);
 
-    LSC::setValue(Config.wifi_ssid ,        oNode["ssid"]);
-
-    if(!(oNode["wifi_pwd"] == WIFI_HIDDEN_PASSWORD)) {
-        LSC::setValue(Config.wifi_Password ,oNode["wifi_pwd"]);
-    }
     if(oNode["bssid"]) LSC::parseBytesToArray(Config.wifi_bssid, oNode["bssid"],':',sizeof(Config.wifi_bssid),16);
-    LSC::setValue(&Config.dhcpEnabled,      oNode["dhcp"]);
-    LSC::setValue(Config.ipAddress,         oNode["ipaddress"]);
-    LSC::setValue(Config.ipSubnetMask,      oNode["subnet"]);
-    LSC::setValue(Config.ipGateway,         oNode["gwip"]);
-    LSC::setValue(Config.ipDNS,             oNode["dnsip"]);
+    LSC::setJsonValue(oNode,WIFI_DHCP,         &Config.dhcpEnabled);
+    LSC::setJsonValue(oNode,WIFI_IPADDRESS,     Config.ipAddress);
+    LSC::setJsonValue(oNode,WIFI_SUBNETMASK,    Config.ipSubnetMask);
+    LSC::setJsonValue(oNode,WIFI_GATEWAY,       Config.ipGateway);
+    LSC::setJsonValue(oNode,WIFI_DNS,           Config.ipDNS);
     DEBUG_FUNC_END();
 } 
 
+/**
+ * @brief Write the status information into the json object
+ */
 void CWiFiController::writeStatusTo(JsonObject &oStatusNode) {
     DEBUG_FUNC_START();
     oStatusNode["accesspoint"] = Status.isInAccessPointMode;
@@ -161,18 +182,19 @@ void CWiFiController::writeStatusTo(JsonObject &oStatusNode) {
     DEBUG_FUNC_END();
 }
 
+/**
+ * @brief Write the status information into the log
+ */
 void CWiFiController::writeStatusToLog() {
-    #if ARDUINOJSON_VERSION_MAJOR < 7
-        DynamicJsonDocument oStatusDoc(1024);
-    #else
-        JsonDocument oStatusDoc;
-    #endif
+    JSON_DOC(oStatusDoc, 1024);
     JsonObject oStatusObj = oStatusDoc.to<JsonObject>();
     writeStatusTo(oStatusObj);
     String strPretty;
     serializeJsonPretty(oStatusDoc,strPretty);
-    Appl.Log.logVerbose(F("WiFi Status:%s\n"),strPretty.c_str());
+    ApplLogVerboseWithParms(F("WiFi Status:\n%s"),strPretty.c_str());
 }
+
+#pragma endregion
 
 /// @brief Listen to the application mesage bus
 /// @param pSender 
@@ -187,21 +209,23 @@ int CWiFiController::receiveEvent(const void * pSender, int nMsgId, const void *
     return(EVENT_MSG_RESULT_OK);
 }
 
-// #pragma endregion
 
-// #pragma region "Starter for Access Point and Station Mode"
+#pragma region "Starter for Access Point and Station Mode"
 
-/// @brief start the access point
-///       - if it does not work by config start a default access point
-/// @param bUseConfigData use config data
-/// @return 
+/** 
+ * @brief start the access point
+ *       - if it does not work by config start a default access point
+ * @param bUseConfigData use config data
+ * @return connected or not
+ * */
 bool CWiFiController::startAccessPoint(bool bUseConfigData)
 {   bool bIsConnected = false;
     if(bUseConfigData) {
         bIsConnected = startAccessPoint(Config.ap_ssid.c_str(),
                                         Config.ap_ipAddress,
                                         Config.ap_ipSubnetMask,
-                                        Config.ap_hidden);
+                                        Config.ap_hidden,
+                                        Config.ap_Password.c_str());
     }
     // Start the default access point, if config did not work...
     if(!bIsConnected) {    
@@ -214,22 +238,25 @@ bool CWiFiController::startAccessPoint(bool bUseConfigData)
     return bIsConnected;
 }
 
-/// @brief Start the Access Point of WiFi so, the user can connect and configure this device
-///        SSID will be the default SSID of this Node...
-/// @param ipAP         IPAddress of this node
-/// @param ipSubnetAP   Subnet mask of this node. 
-/// @param bHidden      if true, the SSID will be hidden...
-/// @param pszPassword  Password for this Accesspoint
-/// @return connected or not
+/** 
+ * @brief start the access point
+ *       - if it does not work by config start a default access point
+ * @param pszSSID      SSID of this node
+ * @param ipAP         IPAddress of this node
+ * @param ipSubnetAP   Subnet mask of this node. 
+ * @param bHidden      if true, the SSID Network will be hidden...
+ * @param pszPassword  Password for this Accesspoint
+ * @return connected or not
+ * */
 bool CWiFiController::startAccessPoint(const char * pszSSID, 
                                         IPAddress ipAP, 
                                         IPAddress ipSubnetAP,
-                                         bool bHidden, 
-                                         const char *pszPassword)
+                                        bool bHidden, 
+                                        const char *pszPassword)
 {
     DEBUG_FUNC_START();
     if(pszSSID != nullptr) {
-        Appl.Log.logInfo(F("Starting WiFi Access Point: %s"),pszSSID);
+        ApplLogInfoWithParms(F("Starting WiFi Access Point: %s"),pszSSID);
         Appl.MsgBus.sendEvent(this,MSG_WIFI_STARTING,nullptr,WIFI_ACCESS_POINT_MODE);
 
         Status.isInStationMode      = false;
@@ -255,11 +282,18 @@ bool CWiFiController::startAccessPoint(const char * pszSSID,
     return Status.isWiFiConnected;
 }
 
-// Try to connect to an existing Wi-Fi (Station Mode)
+
+/**
+ * @brief join an existing network (Station Mode)
+ * @param pszSSID SSID to join
+ * @param pszPassword Password to use
+ * @param bSSID BSSID to use (if 0,0,0,0,0,0 - do not use BSSID)
+ * @return connected or not
+ */
 bool CWiFiController::joinNetwork(const char *pszSSID, const char *pszPassword, byte bSSID[6])
 {
     DEBUG_FUNC_START();
-    Appl.Log.logInfo(F("Joining WiFi network %s"),pszSSID);
+    ApplLogInfoWithParms(F("Joining WiFi network %s"),pszSSID);
     Appl.MsgBus.sendEvent(this,MSG_WIFI_STARTING,nullptr,WIFI_STATION_MODE);
 
     Status.isInStationMode = true;
@@ -273,7 +307,7 @@ bool CWiFiController::joinNetwork(const char *pszSSID, const char *pszPassword, 
     
     if (!Config.dhcpEnabled)
     {
-        Appl.Log.logInfo(F(" - using static IP address %s"), Config.ipAddress.toString().c_str());   
+        DEBUG_INFOS(" - using static IP address %s", Config.ipAddress.toString().c_str());   
         WiFi.config(Config.ipAddress, Config.ipGateway, Config.ipSubnetMask, Config.ipDNS);
     }
     bool useBSSID = false;
@@ -282,7 +316,7 @@ bool CWiFiController::joinNetwork(const char *pszSSID, const char *pszPassword, 
         if (bSSID[i] != 0) useBSSID = true;
     }
     if (useBSSID) {
-        Appl.Log.logInfo(F(" - using fix bssid"));
+        DEBUG_INFO(" - using fix bssid");
         Status.wifiStatus = WiFi.begin(Config.wifi_ssid, Config.wifi_Password, 0, Config.wifi_bssid);
     }
     else {
@@ -304,21 +338,21 @@ bool CWiFiController::joinNetwork(const char *pszSSID, const char *pszPassword, 
         Status.startTimeInMillis = millis();
     } else {
         Appl.MsgBus.sendEvent(this,MSG_WIFI_ERROR,nullptr,Status.wifiStatus);
-        Appl.Log.logError(F(" - failed to connect to %s"),Config.wifi_ssid.c_str());
-        Appl.Log.logError(F(" - status: %d (%s)"),Status.wifiStatus,getStatusText(Status.wifiStatus));
+        ApplLogErrorWithParms(F(" - failed to connect to %s"),Config.wifi_ssid.c_str());
+        ApplLogErrorWithParms(F(" - status: %d (%s)"),Status.wifiStatus,getStatusText(Status.wifiStatus));
     }
     return(Status.isWiFiConnected );
 }
 
 
-// #pragma endregion
-
-// #pragma region enable...
-
-/// @brief start the setup of wifi (first call in usage)
-/// If the instance has already a configuration, we can start the setup with enableWiFi).
-/// Otherwise go into Default Acces Point mode
-/// @param bUseConfigData if false - start default AP, if true, use the loaded config data.
+/**
+ * @brief start the setup of wifi (first call in usage)
+ * Main entry point to start the WiFi.
+ * 
+ * If the instance has already a configuration, we can start the setup with enableWiFi).
+ * Otherwise go into Default Acces Point mode
+ * @param bUseConfigData if false - start default AP, if true, use the loaded config data.
+ */
 void CWiFiController::startWiFi(bool bUseConfigData)
 {
     DEBUG_FUNC_START_PARMS("%d",bUseConfigData);
@@ -329,6 +363,7 @@ void CWiFiController::startWiFi(bool bUseConfigData)
         startAccessPoint(false);
     } else
     {
+        // possible useful event handlers for WiFi events
         // wifiConnectHandler = WiFi.onStationModeConnected(onWifiConnect);
         // wifiDisconnectHandler = WiFi.onStationModeDisconnected(onWifiDisconnect);
         // wifiOnStationModeGotIPHandler = WiFi.onStationModeGotIP(onWifiGotIP);
@@ -359,6 +394,11 @@ void CWiFiController::startWiFi(bool bUseConfigData)
     DEBUG_FUNC_END();
 };
 
+/** 
+ * @brief restart the WiFi if needed
+ * If the wifi is not connected and the restart time is reached, try to restart the WiFi
+ * @return connected or not
+ */
 bool CWiFiController::restartIfNeeded() {
     if(!Status.isWiFiConnected) {
         if(Status.restartTimeInMillis > millis()) {
@@ -373,6 +413,9 @@ bool CWiFiController::restartIfNeeded() {
     return Status.isWiFiConnected;
 }
 
+/**
+ * @brief disable the WiFi
+ */
 void CWiFiController::disableWiFi()
 {
     DEBUG_FUNC_START();
@@ -389,9 +432,13 @@ void CWiFiController::disableWiFi()
     DEBUG_FUNC_END();
 }
 
-// #pragma endregion
+#pragma endregion
 
-
+#pragma region "WiFi Scan"
+/**
+ * @brief Start a WiFi Scan
+ * the result will be send via MSG_WIFI_SCAN_RESULT event on the message bus
+ */
 void CWiFiController::scanWiFi() {
     DEBUG_FUNC_START();
     // Use Member function of this object - and broadcast to all...
@@ -399,6 +446,10 @@ void CWiFiController::scanWiFi() {
     WiFi.scanNetworksAsync(printWiFiScanResult,true);
 }
 
+/**
+ * @brief Callback function for WiFi Scan Result
+ * send the result via message bus
+ */
 void CWiFiController::onWiFiScanResult(int nNetworksFound) {
 	DEBUG_FUNC_START_PARMS("%d",nNetworksFound);
     // sort by RSSI (Signal Strength - highest first)
@@ -419,7 +470,6 @@ void CWiFiController::onWiFiScanResult(int nNetworksFound) {
 	}
 
     JSON_DOC(oRootDoc,512);
-//	JsonObject oCfgNode = createPayloadStructure(F("update"),F("ssidlist"),oRootDoc);
 	oRootDoc["command"] = "update";
 	oRootDoc["data"] 	= "ssidlist";
 	JsonArray oScanResult = CreateJsonArray(oRootDoc,"payload");
@@ -439,3 +489,5 @@ void CWiFiController::onWiFiScanResult(int nNetworksFound) {
 	WiFi.scanDelete();
 	DEBUG_FUNC_END();
 }
+
+#pragma endregion

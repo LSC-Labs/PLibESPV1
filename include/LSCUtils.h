@@ -1,5 +1,6 @@
 #pragma once
 #include <Arduino.h>
+#include <ArduinoJson.h>
 #include <IPAddress.h>
 
 namespace LSC {
@@ -18,7 +19,7 @@ namespace LSC {
     // String getAddressAsString(ip4_addr ip);
 
     int ICACHE_FLASH_ATTR parseBytesToArray(byte *pBytes, const char * pszData, char cSep, int nMaxBytes, int nBase);
-
+/*
     bool ICACHE_FLASH_ATTR setValue(float         *pTarget, String strValue, const float         *pDefault   = nullptr);
     bool ICACHE_FLASH_ATTR setValue(int           *pTarget, String strValue, const int           *pDefault   = nullptr);
     bool ICACHE_FLASH_ATTR setValue(unsigned long *pTarget, String strValue, const unsigned long *pDefault   = nullptr);
@@ -26,11 +27,6 @@ namespace LSC {
 
     bool ICACHE_FLASH_ATTR setValue(String & strTarget, const char* pszValue, const char          *pszDefault = nullptr);
 
-    /*
-    bool ICACHE_FLASH_ATTR storeValueIF(char  pTarget[], size_t nTargetSize, const char* pszValue,const char* pszDefault = nullptr);
-    bool ICACHE_FLASH_ATTR storeValue(  char  pTarget[], size_t nTargetSize, const char* pszValue,const char* pszDefault = nullptr);
-    */
-
     bool ICACHE_FLASH_ATTR setValue(IPAddress &oAddress, const char *pszAddress, const char *pszDefault = nullptr);
-
+*/
 }

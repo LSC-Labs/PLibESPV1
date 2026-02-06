@@ -10,6 +10,7 @@
 #include <LSCUtils.h>
 #include <Msgs.h>
 
+
 #define MQTT_RECV_MESSAGE_BUFFER_SIZE 2048
 
 const char * MQTT_HIDDEN_PASSWORD       = "******";
@@ -32,6 +33,12 @@ const char * MQTT_CONFIG_USEHA          = "useha";
 
 CMQTTController::CMQTTController() {
        
+}
+
+CMQTTController::~CMQTTController() {
+    if(m_pszLastWillPayload) free(m_pszLastWillPayload);
+    if(m_pszLastWillTopic) free(m_pszLastWillTopic);
+    
 }
 /**
  * The session is activ, if MQTT is enabled by user settings
@@ -70,22 +77,19 @@ bool CMQTTController::isSessionActiv() {
 void CMQTTController::readConfigFrom(JsonObject &oCfg) {
     DEBUG_FUNC_START();
     DEBUG_JSON_OBJ(oCfg);
-    Config.isEnabled    = oCfg[MQTT_CONFIG_ENABLED];
-    Config.useHA        = oCfg[MQTT_CONFIG_USEHA];
-    Config.useAutoTopic = oCfg[MQTT_CONFIG_USEAUTOTOPIC];
 
-    LSC::setValue(&(Config.BrokerPort),      oCfg[MQTT_CONFIG_BROCKERPORT]);
-    LSC::setValue(Config.BrokerAddress,      oCfg[MQTT_CONFIG_BROCKERADDRESS]);
-    LSC::setValue(Config.UserName,           oCfg[MQTT_CONFIG_USERNAME]);
-    LSC::setValue(Config.PublishTopic,       oCfg[MQTT_CONFIG_PUBLISHTOPIC]);
-    LSC::setValue(&(Config.PublishInterval), oCfg[MQTT_CONFIG_PUBLISHINTERVAL]);
-    LSC::setValue(&(Config.useAutoTopic),    oCfg[MQTT_CONFIG_USEAUTOTOPIC]);
-    String strPasswd = oCfg[MQTT_CONFIG_USERPASSWORD];
-    if(strPasswd && strPasswd.length() > 0 && strPasswd != MQTT_HIDDEN_PASSWORD) {
-        Config.UserPassword = strPasswd;
-    }
+    LSC::setJsonValue(oCfg,MQTT_CONFIG_ENABLED,         &   Config.isEnabled);
+    LSC::setJsonValue(oCfg,MQTT_CONFIG_USEHA,           &   Config.useHA);;
+
+    LSC::setJsonValue(oCfg,MQTT_CONFIG_BROCKERPORT,     &   Config.BrokerPort);
+    LSC::setJsonValue(oCfg,MQTT_CONFIG_BROCKERADDRESS,      Config.BrokerAddress);
+    LSC::setJsonValue(oCfg,MQTT_CONFIG_USERNAME,            Config.UserName);
+    LSC::setJsonValue(oCfg,MQTT_CONFIG_PUBLISHTOPIC,        Config.PublishTopic);
+    LSC::setJsonValue(oCfg,MQTT_CONFIG_PUBLISHINTERVAL, &   Config.PublishInterval);
+    LSC::setJsonValue(oCfg,MQTT_CONFIG_USEAUTOTOPIC,    &   Config.useAutoTopic);
+
+    LSC::setJsonValueIfNot(oCfg,MQTT_CONFIG_USERPASSWORD,Config.UserPassword, MQTT_HIDDEN_PASSWORD);
     Config.SubscribeTopic = Config.PublishTopic;
-
 }
 
 void CMQTTController::writeConfigTo(JsonObject &oCfg, bool bHideCritical) {
@@ -106,6 +110,9 @@ void CMQTTController::writeConfigTo(JsonObject &oCfg, bool bHideCritical) {
     
 }
 
+/**
+ * write the status
+ */
 void CMQTTController::writeStatusTo(JsonObject &oStatus) {
     oStatus["isEnabled"]    = Config.isEnabled;
     oStatus["isConnected"]  = connected();
@@ -118,7 +125,10 @@ void CMQTTController::writeStatusTo(JsonObject &oStatus) {
 }
 #pragma endregion
 
-#pragma region Publish an Event to the Message Broker
+#pragma region Publish functions like a JsonDocument to the Message Broker
+/**
+ * publish a json document on the message broker.
+ */
 void CMQTTController::publishEvent(String strTopic, JsonDocument &oData, bool bToHA)
 {
     // JsonObject oNode = oData.as<JsonObject>();
@@ -126,6 +136,9 @@ void CMQTTController::publishEvent(String strTopic, JsonDocument &oData, bool bT
     publishEvent(strTopic, oNode,bToHA);
 }
 
+/**
+ * publish an JsonObject on the Message Broker
+ */
 void CMQTTController::publishEvent(String strTopic, JsonObject &oData,  bool bToHA)
 {
 	if (isSessionActiv())
@@ -136,6 +149,9 @@ void CMQTTController::publishEvent(String strTopic, JsonObject &oData,  bool bTo
 	}
 }
 
+/**
+ * Publish a string on the Message Broker
+ */
 void CMQTTController::publishEvent(const char *pszTopic, const char * pszData, bool bToHA)
 {
     DEBUG_FUNC_START_PARMS("\"%s\",\"%s\"",NULL_POINTER_STRING(pszTopic),NULL_POINTER_STRING(pszData));
@@ -154,9 +170,9 @@ void CMQTTController::publishEvent(const char *pszTopic, const char * pszData, b
 	}
 }
 
-#pragma endregion
-
-
+/**
+ * Publish a book information and the status
+ */
 void CMQTTController::publishBoot()
 {
     if(isSessionActiv()) {
@@ -164,12 +180,8 @@ void CMQTTController::publishBoot()
         publishEvent("version",Appl.AppVersion.c_str());
         publishEvent("ip",WiFi.localIP().toString().c_str());
         publishEvent("status","booting");
-        #if ARDUINOJSON_VERSION_MAJOR < 7
-            StaticJsonDocument<512> oData;
-	    #else
-		    JsonDocument oData;
-	    #endif
-        
+
+        JSON_DOC_STATIC(oData,512);        
         oData["type"]       = "boot";
         oData["clientid"]   = this->getClientId();
         oData["prog"]       = Appl.AppName;
@@ -178,10 +190,12 @@ void CMQTTController::publishBoot()
         oData["uptime"]     = Appl.getUpTime();
         oData["ip"]         = WiFi.localIP().toString();
         publishEvent(String("info"),oData);
-        // m_ulLastHeartBeat = millis();
     }
 }
 
+/**
+ * Publish a heart beat, when publish interval is set
+ */
 void CMQTTController::publishHeartBeat(bool bForceSend) {
     if(isSessionActiv() && Config.PublishInterval > 0) {
         // Immediatly, if it is the first time - otherwise use the user publish intervall...
@@ -189,15 +203,11 @@ void CMQTTController::publishHeartBeat(bool bForceSend) {
         if(m_ulLastHeartBeat > 0) ulNextPublish = (Config.PublishInterval * 1000) + m_ulLastHeartBeat;
         // Time to start ?
         if(bForceSend || ulNextPublish < millis()) {
-            ApplLogVerboseWithParms("MQTT sending hartbeat... %d",Config.PublishInterval);
+            DEBUG_INFOS("MQTT sending hartbeat... %d",Config.PublishInterval);
             String strUpTime = Appl.getUpTime();
             publishEvent("uptime",strUpTime.c_str());
             publishEvent("status","online");
-            #if ARDUINOJSON_VERSION_MAJOR < 7
-                StaticJsonDocument<256> oHeartBeat;
-            #else
-                JsonDocument oHeartBeat;
-            #endif
+            JSON_DOC_STATIC(oHeartBeat,256);
             // Send Json Object with details...
             oHeartBeat["type"]      = "heartbeat";
             oHeartBeat["clientid"]  = this->getClientId();
@@ -209,7 +219,11 @@ void CMQTTController::publishHeartBeat(bool bForceSend) {
         }
     }
 }
+#pragma endregion
 
+/**
+ * Trigger, when message broker connected
+ */
 void CMQTTController::onMqttConnect(bool sessionPresent)
 {
     DEBUG_FUNC_START_PARMS("%d",sessionPresent);
@@ -227,6 +241,9 @@ void CMQTTController::onMqttConnect(bool sessionPresent)
 
 }
 
+/**
+ * Trigger, when message broker disconnected
+ */
 void CMQTTController::onMqttDisconnect(AsyncMqttClientDisconnectReason oReason)
 {
     Status.ConEnd = millis();
@@ -264,6 +281,10 @@ void CMQTTController::onMqttDisconnect(AsyncMqttClientDisconnectReason oReason)
                           Status.DisConReasonString.c_str());
 }
 
+/**
+ * A message received from the message broker...
+ * - remember, you are in an interrupt - so hurry up!
+ */
 void CMQTTController::onMqttMessage(char *topic, char *pszPayload, AsyncMqttClientMessageProperties properties, size_t nLen, size_t nIndex, size_t nTotal)
 {
     DEBUG_FUNC_START_PARMS("%s,..,..,%d,%d,%d",
@@ -285,28 +306,53 @@ void CMQTTController::onMqttMessage(char *topic, char *pszPayload, AsyncMqttClie
     // Last Block received ? => store data in queue
     if(nIndex + nLen == nTotal) {
         DEBUG_INFOS("MQTT final message received %s",m_pszMessageBuffer);
-        Appl.MsgBus.sendEvent(this,MSG_MQTT_MSG_RECEIVED,m_pszMessageBuffer,nTotal);
+        MQTTMessage *pMessage = new MQTTMessage(m_pszMessageBuffer);
+        if(m_bRealtimeMode) Appl.MsgBus.sendEvent(this,MSG_MQTT_MSG_RECEIVED,pMessage,nTotal);
+        else m_tMessageQeue.push(pMessage);
         free(m_pszMessageBuffer);
         m_pszMessageBuffer = nullptr;
         m_nMessageBufferSize = 0;
     }
 }
 
+void CMQTTController::dispatch() {
+    publishHeartBeat(false);
+    while(!m_tMessageQeue.empty()) {
+        MQTTMessage * pMessage = m_tMessageQeue.front();
+        Appl.MsgBus.sendEvent(this,MSG_MQTT_MSG_RECEIVED,pMessage,0);
+        m_tMessageQeue.pop();
+        delete pMessage;
+    }
+}
+
 int CMQTTController::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
-    int nResult = 0;
+    // Call the base class receiver first (calls dispatch on MSG_APPL_LOOP)
+    int nResult = ApplModule::receiveEvent(pSender,nMsg,pMessage,nClass);
     switch(nMsg) {
+        /*
         // Send a heart beat on loop message
         case MSG_APPL_LOOP:
             publishHeartBeat(false);
             break;
-
+        */
         case MSG_MQTT_SEND_JSONOBJ:
             {
+                String strTopic = "msg";
+                String strPayload;
                 // Extract parameters
-                JsonObject *pMsgDoc = (JsonObject *)pMessage;
-                String strData;
-                serializeJson(*pMsgDoc,strData);
-                publishEvent("tick",strData.c_str());
+                JsonObject *pMsgDoc = (JsonObject *) pMessage;
+                if(pMsgDoc) {
+                    // If the doc contains "payload" as Json Object and nClass == 1,
+                    // send the payload only, with topic, if exist - otherwise topic is "msg"
+                    if(nClass == 1 && JsonKeyExists((*pMsgDoc),"payload",JsonObject)) {
+                        JsonObject oPayload = GetJsonObject((*pMsgDoc),"payload");
+                        serializeJson(oPayload,strPayload);
+                        LSC::setJsonValue(*pMsgDoc,"topic",strTopic);
+                    } else {
+                        serializeJson(*pMsgDoc,strPayload);
+                    }
+                }
+                publishEvent(strTopic.c_str(),strPayload.c_str(),Config.useHA);
             }
             break;
         default:
@@ -314,22 +360,23 @@ int CMQTTController::receiveEvent(const void * pSender, int nMsg, const void * p
     }
     return nResult;
 }
-/// @brief set Last Will and register needed handlers
+/**
+ * @brief set Last Will and register needed handlers
+ */
 void CMQTTController::setup() {
   if (Config.isEnabled) {
     String strTopicString = Config.PublishTopic + Config.useHA ? HA_MSG_AVAILABILITY : "/status";
     String strPayloadString = "offline";
-    char *pszTopicLWT   = strdup(strTopicString.c_str());
-    char *pszPayloadLWT = strdup(strPayloadString.c_str());
-    setWill(pszTopicLWT, 2, true, pszPayloadLWT);
+    // Last will has to stay alive during lifteme of this object...
+    // create an independend pointer and give it to the function...
+    m_pszLastWillTopic = strdup(strTopicString.c_str());
+    m_pszLastWillPayload = strdup(strPayloadString.c_str());
+    setWill(m_pszLastWillTopic, 2, true, m_pszLastWillPayload);
     setServer(Config.BrokerAddress.c_str(), Config.BrokerPort);
     setCredentials(Config.UserName.c_str(), Config.UserPassword.c_str());
 
     onDisconnect(std::bind(&CMQTTController::onMqttDisconnect, this, std::placeholders::_1));
-    /*
-    mqttClient.onPublish(onMqttPublish);
-    mqttClient.onSubscribe(onMqttSubscribe);
-    */
+    
     onConnect(std::bind(&CMQTTController::onMqttConnect, this, std::placeholders::_1));
 
     onMessage(std::bind(&CMQTTController::onMqttMessage,this,
