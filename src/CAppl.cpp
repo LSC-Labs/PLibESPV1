@@ -3,30 +3,41 @@
 #endif
 
 #include <Appl.h>
-#include <Logging.h>
-#include <ConfigHandler.h>
 #include <FileSystem.h>
 #include <SysStatus.h>
 #include <LSCUtils.h>
-#include <JsonHelper.h>
 
-#define LSC_APPL_HIDDEN_PASSWORD       "******"
-
+#pragma region Constructor / init and Message Dispatching
 
 CAppl::CAppl() {
     Log = CEventLogger(&MsgBus);
-	MsgBus.registerEventReceiver(this);
+	MsgBus.registerEventReceiver(this,__FUNCTION__);
 }  
 
+/**
+ * @brief Initialize the Application Framework
+ * @param strAppName    The name of the Application
+ * @param strAppVersion The Version of the Application
+ */
 void CAppl::init(const char *strAppName, const char *strAppVersion) {
     AppName 	= strAppName;
     AppVersion  = strAppVersion;
 	
     if(m_oCfg.bLogToSerial) {
-        MsgBus.registerEventReceiver(new CSerialLogWriter());
+        MsgBus.registerEventReceiver(new CSerialLogWriter(),"CSerialLogWriter");
     }
 	MsgBus.sendEvent(this,MSG_APPL_STARTING,nullptr,0);
 	MsgBus.sendEvent(this,MSG_APPL_INITIALIZED,nullptr,0);
+}
+
+
+/**
+ * @brief Dispatch a periodic message to all registered Message Event Receivers
+ * @param pMsg       Optional Message Pointer
+ * @param nMsgClass Optional Message Class
+ */
+void CAppl::dispatch(const void *pMsg, int nMsgClass) {
+	this->MsgBus.sendEvent(this,MSG_APPL_LOOP,pMsg,nMsgClass);
 }
 
 int CAppl::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
@@ -47,48 +58,9 @@ int CAppl::receiveEvent(const void * pSender, int nMsg, const void * pMessage, i
 	return(nResult);
 }
 
-void CAppl::dispatch(const void *pMsg, int nMsgClass) {
-	this->MsgBus.sendEvent(this,MSG_APPL_LOOP,pMsg,nMsgClass);
-}
+#pragma endregion Constructor / init and Message Dispatching
 
-void CAppl::reboot(int nDelay, bool bForce) {
-	Log.log("W",F("Rebooting..."));
-	int nResult = MsgBus.sendEvent(this,MSG_APPL_SHUTDOWN,nullptr,0);
-	if(nResult == EVENT_MSG_RESULT_OK || bForce) {
-		Log.log("W",F("Restarting system..."));
-		delay(nDelay);
-		ESP.restart();
-	}
-}
-
-String CAppl::getUpTime() {
-	unsigned long ulUpTime = millis() - this->StartTime;
-	// 3600000 milliseconds in an hour
-	long nHours   = ulUpTime / 3600000; 		// 1000 * 60 * 60
-	ulUpTime = ulUpTime - 3600000 * nHours;		// Remove hours
-
-	// 60000 milliseconds in a minute
-	long nMinutes = ulUpTime / 60000;			// 1000 * 60
-	ulUpTime = ulUpTime - 60000 * nMinutes;		// Remove minutes
-
-	// 1000 milliseconds in a second		
-	long nSeconds = ulUpTime / 1000;			// 1000 ms
-	
-	char tUpTimeBuffer[20];
-	sprintf(tUpTimeBuffer, "%02lu:%02lu:%02lu", nHours, nMinutes, nSeconds);
-	return(String(tUpTimeBuffer));
-}
-
-void CAppl::sayHello() {
-	char strBuff[100];
-	sprintf(strBuff, "%s v%s", AppName.c_str(), AppVersion.c_str());
-	Serial.println("");
-	Serial.println(strBuff);
-	for(size_t i = 0; i < strlen(strBuff); i++) {
-		Serial.print("=");
-	}
-	Serial.println("");
-}   
+#pragma region Module Registration and Rebooting
 
 /**
  * @brief Register a Module to the Application
@@ -99,58 +71,146 @@ void CAppl::sayHello() {
  * @param pModule Pointer to the Module Interface
  */
 void CAppl::registerModule(const char * pszModuleName, IModule * pModule) {
+	DEBUG_FUNC_START_PARMS("%s,%p",NULL_POINTER_STRING(pszModuleName),pModule);
 	if(pModule) {
-		if(pszModuleName != nullptr) {
+		if(pszModuleName) {
 			addConfigHandler(pszModuleName, pModule);
 			addStatusHandler(pszModuleName, pModule);
-		}
-		MsgBus.registerEventReceiver(pModule);
+		} 
+		MsgBus.registerEventReceiver(pModule,pszModuleName);
+	}
+	DEBUG_FUNC_END();
+}
+
+/**
+ * @brief Reboot the System after nDelayMillis milliseconds
+ * @param nDelayMillis Delay in milliseconds before rebooting
+ */
+void CAppl::reboot(int nDelay, bool bForce) {
+	Log.log("W",F("Rebooting..."));
+	int nResult = MsgBus.sendEvent(this,MSG_APPL_SHUTDOWN,nullptr,0);
+	if(nResult == EVENT_MSG_RESULT_OK || bForce) {
+		Log.log("W",F("Restarting system..."));
+		delay(nDelay);
+		ESP.restart();
 	}
 }
 
+#pragma endregion Module Registration and Rebooting
 
-/// @brief write the current configuration into the file system.
-///        a current config file will be loaded first to avoid loosing unknown config data...
-///        To get a clean config file, delete it first.
-/// @param pszConfigFileName The configuration FileName (Default is /config.json)
-/// @param nJsonDocSize      The size of the expected total size, othterwies JSON_CONFIG_DEFAULT_SIZE is used.
-/// @return true, if the file could be written...
-#if ARDUINOJSON_VERSION_MAJOR < 7
+#pragma region Configuration Handling
+/**
+ * @brief Read the configuration from a JsonObject
+ * @param oJsonObj The JsonObject to read the configuration from
+ * TODO: Implement the local var table (Config) reading also...
+ */
+void CAppl::readConfigFrom(JsonObject &oJsonObj) {
+	DEBUG_FUNC_START();
+	// Config.readConfigFrom(oJsonObj);
+	// Speed oper
+	LSC::setJsonValue(oJsonObj,"logToSerial",&m_oCfg.bLogToSerial);
+	LSC::setJsonValue(oJsonObj,"traceMode",&m_oCfg.bTraceMode);
+	LSC::setJsonValue(oJsonObj,"devicename",m_oCfg.strDeviceName);
+
+	// Set the device password only, it is NOT the hidden appl password
+	// If it is empty, keep the default passwort.
+	LSC::setJsonValueIfNot(oJsonObj,"devicepwd",m_oCfg.strDevicePwd,HIDDEN_PASSWORD_MASK);
+	if(m_oCfg.strDeviceName.isEmpty()) m_oCfg.strDeviceName = DEFAULT_DEVICE_PWD;
+	
+	DEBUG_INFOS(" -- Device Name: %s",m_oCfg.strDeviceName.c_str());
+	DEBUG_INFOS(" -- Device Pass: \"%s\"",m_oCfg.strDevicePwd.c_str());
+
+	// Iterate through registerd Config Handler
+	CConfigHandler::readConfigFrom(oJsonObj);
+	DEBUG_FUNC_END();
+}
+
+/**
+ * @brief Read the configuration from a JsonDocument
+ * @param oJsonDoc The JsonDocument to read the configuration from	
+ */
+void CAppl::readConfigFrom(JsonDocument &oJsonDoc) {
+	JsonObject oCfgData = GetJsonDocumentAsObject(oJsonDoc);
+	readConfigFrom(oCfgData);
+}
+
+
+/** 
+ * @brief read the configuration from the file system.
+ * @param pszConfigFileName The configuration FileName (Default is /config.json)
+ * @param nJsonDocSize      The size of the expected total size, othterwies JSON_CONFIG_DEFAULT_SIZE is used.
+ * 							(obsolet for ArduinoJson >= 7)
+ * @return true, if the file could be read...
+ * */
+bool CAppl::readConfigFrom(const char *pszConfigFileName, int nJsonDocSize) {
+	DEBUG_FUNC_START_PARMS("%s,%d",NULL_POINTER_STRING(pszConfigFileName),nJsonDocSize);
+	if(!pszConfigFileName) pszConfigFileName = JSON_CONFIG_DEFAULT_NAME;
+	JSON_DOC(oCfgDoc,nJsonDocSize);
+
+    bool bResult = false;
+	CFS oFS;
+    if(oFS.loadJsonContentFromFile(pszConfigFileName,oCfgDoc)) {
+		DEBUG_INFOS("Configuration loaded from file: %s",pszConfigFileName);
+		DEBUG_JSON_OBJ(oCfgDoc);
+        readConfigFrom(oCfgDoc);
+		bResult = true;
+    }
+	DEBUG_FUNC_END_PARMS("%d",bResult);
+    return(bResult);
+}
+
+
+/** 
+ * @brief write the current configuration into the file system.
+ *        a current config file will be loaded first to avoid loosing unknown config data...
+ *        To get a clean config file, delete it first.
+ * @param pszConfigFileName The configuration FileName (Default is /config.json)
+ * @param nJsonDocSize      The size of the expected total size, othterwies JSON_CONFIG_DEFAULT_SIZE is used.
+ * 							(obsolet for ArduinoJson >= 7)
+ * @return true, if the file could be written...
+ * */
 bool CAppl::saveConfig(const char *pszConfigFileName, int nJsonDocSize) {
 	DEBUG_FUNC_START_PARMS("%s,%d",NULL_POINTER_STRING(pszConfigFileName),nJsonDocSize);
-#else
-bool CAppl::saveConfig(const char *pszConfigFileName) {
-	DEBUG_FUNC_START_PARMS("%s,%d",NULL_POINTER_STRING(pszConfigFileName));
-#endif
 	if(!pszConfigFileName) pszConfigFileName = JSON_CONFIG_DEFAULT_NAME;
-	#if ARDUINOJSON_VERSION_MAJOR < 7
-		if(nJsonDocSize < 10)  nJsonDocSize 	 = JSON_CONFIG_DOC_DEFAULT_SIZE;
-		DynamicJsonDocument oCfgDoc(nJsonDocSize);
-	#else
-		JsonDocument oCfgDoc;
-	#endif
+	JSON_DOC(oCfgDoc,nJsonDocSize);
 	CFS oFS;
 	// load existing config file from the file system first, to keep unknown settings in place
+	// then write the current config into the loaded document...
 	oFS.loadJsonContentFromFile(pszConfigFileName,oCfgDoc);
-	JsonObject oCfgNode = oCfgDoc.to<JsonObject>();
+	// Add the current timestamp
+	oCfgDoc["TS"] = getISODateTime();
+	JsonObject oCfgNode = GetJsonDocumentAsObject(oCfgDoc);
 	writeConfigTo(oCfgNode,false);
+
 	bool bResult = oFS.saveJsonContentToFile(pszConfigFileName,oCfgDoc);
 	DEBUG_FUNC_END_PARMS("%s",bResult ? "OK" : "ERROR");
     return(bResult);
 }
 
+/**
+ * @brief Write the current configuration into a JsonObject
+ * @param oJsonObj      The JsonObject to write the configuration to
+ * @param bHideCritical If true, critical information like passwords will be hidden
+ */
 void CAppl::writeConfigTo(JsonObject &oJsonObj, bool bHideCritical) {
+	DEBUG_FUNC_START_PARMS("%p,%d",&oJsonObj,bHideCritical);
+	// Write all config values from the local var table first
+	// then your own config data (ensures that appl config wins)
 	Config.writeConfigTo(oJsonObj,bHideCritical);
 	oJsonObj["logToSerial"] = m_oCfg.bLogToSerial;
 	oJsonObj["traceMode"] 	= m_oCfg.bTraceMode;
 	oJsonObj["devicename"] 	= m_oCfg.strDeviceName;
-	oJsonObj["devicepwd"]  	= bHideCritical ? LSC_APPL_HIDDEN_PASSWORD : m_oCfg.strDevicePwd;
+	oJsonObj["devicepwd"]  	= bHideCritical ? HIDDEN_PASSWORD_MASK : m_oCfg.strDevicePwd;
 
 	// Iterate through registered Config Handler
 	CConfigHandler::writeConfigTo(oJsonObj,bHideCritical);
-	DEBUG_FUNC_END_PARMS("memory used : %d bytes", oJsonObj.memoryUsage());
-
+	DEBUG_JSON_OBJ(oJsonObj);
+	DEBUG_FUNC_END();
 }
+
+#pragma endregion Configuration Handling
+
+#pragma region Status Handling
 
 /**
  * @brief write the status into a JsonDocument...
@@ -158,10 +218,15 @@ void CAppl::writeConfigTo(JsonObject &oJsonObj, bool bHideCritical) {
  * write an entry first, and then convert it to an object... !
  */
 void CAppl::writeStatusTo(JsonDocument &oStatusDoc) {
-	oStatusDoc["now"] = millis();JsonObject oStatusObj = oStatusDoc.as<JsonObject>();
+	oStatusDoc["now"] = millis();
+	JsonObject oStatusObj = GetJsonDocumentAsObject(oStatusDoc);
 	writeStatusTo(oStatusObj);
 }
 
+/**
+ * @brief Write the current status into a JsonObject
+ * @param oStatusObj The JsonObject to write the status to
+ */
 void CAppl::writeStatusTo(JsonObject &oStatusObj) {
 	DEBUG_FUNC_START();
 	oStatusObj["now"] 			= millis();	
@@ -182,14 +247,22 @@ void CAppl::writeStatusTo(JsonObject &oStatusObj) {
 	DEBUG_FUNC_END();
 }
 
+/**
+ * @brief Write the system status into a JsonDocument
+ * @param oStatusDoc The JsonDocument to write the system status to
+ */
 void CAppl::writeSystemStatusTo(JsonDocument &oStatusDoc) {
 	DEBUG_FUNC_START();
 		oStatusDoc["now"] = millis();
-		JsonObject oStatus = oStatusDoc.as<JsonObject>();
+		JsonObject oStatus = GetJsonDocumentAsObject(oStatusDoc);
 		writeSystemStatusTo(oStatus);
 	DEBUG_FUNC_END();
 }
 
+/**
+ * @brief Write the system status into a JsonObject
+ * @param oStatusObj The JsonObject to write the system status to
+ */
 void CAppl::writeSystemStatusTo(JsonObject &oStatusObj) {
     DEBUG_FUNC_START();
 	if(!oStatusObj.isNull()) {
@@ -199,53 +272,38 @@ void CAppl::writeSystemStatusTo(JsonObject &oStatusObj) {
     DEBUG_FUNC_END();
 }
 
-void CAppl::readConfigFrom(JsonObject &oJsonObj) {
-	DEBUG_FUNC_START();
-	// Config.readConfigFrom(oJsonObj);
-	// Speed oper
-	LSC::setValue(&m_oCfg.bLogToSerial, oJsonObj["logToSerial"]);
-	LSC::setValue(&m_oCfg.bTraceMode,   oJsonObj["traceMode"]);
-	LSC::setValue(m_oCfg.strDeviceName, oJsonObj["devicename"]);
-	/** Passwort only, if it is NOT the hidden appl password */
-	String strPasswd = oJsonObj["devicepwd"];
-    if(!strPasswd.equals(LSC_APPL_HIDDEN_PASSWORD)) {
-       m_oCfg.strDevicePwd = strPasswd;
-    }
-	// Iterate through registerd Config Handler
-	CConfigHandler::readConfigFrom(oJsonObj);
-	DEBUG_FUNC_END();
+#pragma endregion Status Handling
+
+#pragma region Time and Date functions 
+
+/**
+ * @brief Get the Uptime of the System as String HH:MM:SS
+ * @return String with the Uptime
+ */
+String CAppl::getUpTime() {
+	unsigned long ulUpTime = millis() - this->StartTime;
+	// 3600000 milliseconds in an hour
+	long nHours   = ulUpTime / 3600000; 		// 1000 * 60 * 60
+	ulUpTime = ulUpTime - 3600000 * nHours;		// Remove hours
+
+	// 60000 milliseconds in a minute
+	long nMinutes = ulUpTime / 60000;			// 1000 * 60
+	ulUpTime = ulUpTime - 60000 * nMinutes;		// Remove minutes
+
+	// 1000 milliseconds in a second		
+	long nSeconds = ulUpTime / 1000;			// 1000 ms
+	
+	char tUpTimeBuffer[20];
+	sprintf(tUpTimeBuffer, "%02lu:%02lu:%02lu", nHours, nMinutes, nSeconds);
+	return(String(tUpTimeBuffer));
 }
 
-void CAppl::readConfigFrom(JsonDocument &oJsonDoc) {
-	JsonObject oCfgData = oJsonDoc.as<JsonObject>();
-	readConfigFrom(oCfgData);
-}
 
-#if ARDUINOJSON_VERSION_MAJOR < 7
-bool CAppl::readConfigFrom(const char *pszConfigFileName, int nJsonDocSize) {
-	DEBUG_FUNC_START_PARMS("%s,%d",NULL_POINTER_STRING(pszConfigFileName),nJsonDocSize);
-#else
-bool CAppl::readConfigFrom(const char *pszConfigFileName) {
-	DEBUG_FUNC_START_PARMS("%s",NULL_POINTER_STRING(pszConfigFileName));
-#endif
-	if(!pszConfigFileName) pszConfigFileName = JSON_CONFIG_DEFAULT_NAME;
-	#if ARDUINOJSON_VERSION_MAJOR < 7
-		if(nJsonDocSize < 10)  nJsonDocSize      = JSON_CONFIG_DOC_DEFAULT_SIZE;
-		DynamicJsonDocument oCfgDoc(nJsonDocSize);
-	#else
-		JsonDocument oCfgDoc;
-	#endif
-    bool bResult = false;
-	CFS oFS;
-    if(oFS.loadJsonContentFromFile(pszConfigFileName,oCfgDoc)) {
-		serializeJsonPretty(oCfgDoc,Serial);
-        readConfigFrom(oCfgDoc);
-		bResult = true;
-    }
-	DEBUG_FUNC_END_PARMS("%d",bResult);
-    return(bResult);
-}
 
+/**
+ * @brief Get the ISO Date (YYYY-MM-DD)
+ * @return The ISO Date as const char *
+ */
 const char * CAppl::getISODate() {
 	if(sizeof(m_szCurDate) > 10) {
 		getISODateTime();
@@ -255,6 +313,10 @@ const char * CAppl::getISODate() {
 	return(m_szCurDate);
 }
 
+/**
+ * @brief Get the ISO Time (HH:MM:SS)
+ * @return The ISO Time as const char *
+ */
 const char * CAppl::getISOTime() {
 	if(sizeof(m_szCurTime) > 8) {
 		getISODateTime();
@@ -264,11 +326,19 @@ const char * CAppl::getISOTime() {
 	return(m_szCurTime);
 }
 
+/**
+ * @brief Get the native time_t value of the system
+ * @return The native time_t value
+	 */
 time_t CAppl::getNativeTime() {
         time(&m_oRawTime);
         return(m_oRawTime);
 }
 
+/**
+ * @brief Get the ISO DateTime (YYYY-MM-DDTHH:MM:SS)
+ * @return The ISO DateTime as const char *
+ */
 const char * CAppl::getISODateTime() {
         time_t oNativeTime = getNativeTime();
         struct tm* oTimeInfo = localtime(&oNativeTime);
@@ -276,6 +346,24 @@ const char * CAppl::getISODateTime() {
         strftime(m_szISODateTime,sizeof(m_szISODateTime),"%FT%T",oTimeInfo);
         return(m_szISODateTime);
 }
+
+#pragma endregion Time and Date functions
+
+#pragma region Diagnostic and Display Functions
+
+/**
+ * @brief Print a Hello Message to the Serial Console
+ */
+void CAppl::sayHello() {
+	char strBuff[100];
+	sprintf(strBuff, "%s v%s", AppName.c_str(), AppVersion.c_str());
+	Serial.println("");
+	Serial.println(strBuff);
+	for(size_t i = 0; i < strlen(strBuff); i++) {
+		Serial.print("=");
+	}
+	Serial.println("");
+}   
 
 /// @brief print some diagnostic information
 /// https://42project.net/groesse-des-esp8266-flash-speicher-sowie-chip-id-ausgeben-und-mit-der-konfiguration-ueberpruefen/
@@ -306,6 +394,8 @@ void CAppl::printDiag() {
 		Serial.println("Flash Chip configuration ok.\n");
 	}
 }
+
+#pragma endregion Diagnostic and Display Functions
 
 /// @brief The global application object
 CAppl Appl;

@@ -2,33 +2,57 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include <ModuleInterface.h>
-#include <EventHandler.h>
-#include <StatusHandler.h>
 #include <Logging.h>
 #include <Vars.h>
-#include <Msgs.h>
 #include <DevelopmentHelper.h>
 #include <JsonHelper.h>
 
 
-
-#define ApplLogInfo(oData)          Appl.Log.log("I",oData)
-#define ApplLogWarn(oData)          Appl.Log.log("W",oData)
-#define ApplLogVerbose(oData)       Appl.Log.log("V",oData)
-#define ApplLogError(oData)         Appl.Log.log("E",oData)
-
-#define ApplLogInfoWithParms(str,...)     Appl.Log.log("I",str,__VA_ARGS__)
-#define ApplLogVerboseWithParms(str,...)  Appl.Log.log("V",str,__VA_ARGS__)
-#define ApplLogWarnWithParms(str,...)     Appl.Log.log("W",str,__VA_ARGS__)
-#define ApplLogErrorWithParms(str,...)    Appl.Log.log("E",str,__VA_ARGS__)
+/**
+ * @file Appl.h
+ * @author Peter L. (LSC Labs)
+ * @brief Application Main Class
+ * @version 1.0
+ */
 
 
+ /**
+  * Macros for Application Logging
+  * Use this macros, to log messages, so it is possible to undef them all at once,
+  * if needed (for example in production code)
+  */
+#ifdef NO_LOGGING
+    #define ApplLogInfo(oData)          NULL_FUNCTION
+    #define ApplLogWarn(oData)          NULL_FUNCTION
+    #define ApplLogVerbose(oData)       NULL_FUNCTION
+    #define ApplLogError(oData)         NULL_FUNCTION
+
+    #define ApplLogInfoWithParms(str,...)     NULL_FUNCTION
+    #define ApplLogVerboseWithParms(str,...)  NULL_FUNCTION
+    #define ApplLogWarnWithParms(str,...)     NULL_FUNCTION
+    #define ApplLogErrorWithParms(str,...)    NULL_FUNCTION
+
+    #define ApplLogTrace(oData)                 NULL_FUNCTION
+    #define ApplLogTraceWithParms(str,...)      NULL_FUNCTION
+#else
+    #define ApplLogInfo(oData)          Appl.Log.log("I",oData)
+    #define ApplLogWarn(oData)          Appl.Log.log("W",oData)
+    #define ApplLogVerbose(oData)       Appl.Log.log("V",oData)
+    #define ApplLogError(oData)         Appl.Log.log("E",oData)
+
+    #define ApplLogInfoWithParms(str,...)     Appl.Log.log("I",str,__VA_ARGS__)
+    #define ApplLogVerboseWithParms(str,...)  Appl.Log.log("V",str,__VA_ARGS__)
+    #define ApplLogWarnWithParms(str,...)     Appl.Log.log("W",str,__VA_ARGS__)
+    #define ApplLogErrorWithParms(str,...)    Appl.Log.log("E",str,__VA_ARGS__)
+#endif
+
+// Enable Trace Logging, if TRACE is defined - Default is NO trace...
 #ifdef TRACE
     #define ApplLogTrace(oData)                 Appl.Log.log("T",oData)
     #define ApplLogTraceWithParms(str,...)      Appl.Log.log("T",str,__VA_ARGS__)
 #else
-    #define ApplLogTraceWithParms(str,...)      ((void*)0)
-    #define ApplLogTrace(oData)                 ((void*)0)
+    #define ApplLogTraceWithParms(str,...)      NULL_FUNCTION
+    #define ApplLogTrace(oData)                 NULL_FUNCTION
 #endif
 
 // Default sizes for Json Status Documents (needed for JSON < 7)
@@ -40,7 +64,6 @@
     #define JSON_CONFIG_DOC_DEFAULT_SIZE  2048 
 #endif
 
-
 #ifndef JSON_CONFIG_DEFAULT_NAME
     #define JSON_CONFIG_DEFAULT_NAME        "/config.json"
 #endif
@@ -50,6 +73,9 @@
 #endif
 #ifndef DEFAULT_DEVICE_PWD
     #define DEFAULT_DEVICE_PWD              "admin"
+#endif
+#ifndef HIDDEN_PASSWORD_MASK
+    #define HIDDEN_PASSWORD_MASK            "********"
 #endif
 
 
@@ -97,13 +123,9 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
         void readConfigFrom(JsonDocument &oDoc);
         void readConfigFrom(JsonObject &oNode) override;
         // Flashstring is not supported by LittleFS !
-        #if ARDUINOJSON_VERSION_MAJOR < 7
-            bool readConfigFrom(const char *pszFileName,                int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
-            bool saveConfig(const char *pszFileName = JSON_CONFIG_DEFAULT_NAME,  int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
-        #else
-            bool readConfigFrom(const char *pszFileName = JSON_CONFIG_DEFAULT_NAME);   // Load config from Files
-            bool saveConfig(const char *pszFileName = JSON_CONFIG_DEFAULT_NAME);   // Load config from Files
-        #endif
+
+        bool readConfigFrom(const char *pszFileName, int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
+        bool saveConfig(const char *pszFileName = JSON_CONFIG_DEFAULT_NAME,  int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
        
         void writeStatusTo(JsonDocument &oDoc);
         void writeStatusTo(JsonObject &oNode) override;
