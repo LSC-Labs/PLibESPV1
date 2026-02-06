@@ -40,6 +40,7 @@
 #define MSG_OTA_ERROR               5093
 
 #define MSG_WEBSOCKET_SEND_JSON     5100
+#define MSG_WEBSOCKET_DATA_RECEIVED 5101
 
 #define MSG_MQTT_STARTING           5300
 #define MSG_MQTT_CONNECTED          5301
