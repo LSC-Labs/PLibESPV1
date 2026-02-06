@@ -10,6 +10,9 @@
  * 
  */
 
+ /**
+  * Configuration struct of the NTP Handler
+  */
  struct NTPConfig {
     bool isEnabled = true;
     String NTPServer = "pool.ntp.org";
@@ -17,6 +20,9 @@
     String TZ = "CET-1CEST,M3.5.0/02,M10.5.0/03";
  };
 
+ /**
+  * The NTP Handler class as a module
+  */
  class CNTPHandler : public IModule {
     protected:
         NTPConfig Config;
@@ -34,7 +40,6 @@
         bool hasValidTime();
         time_t getNativeTime();
         const char * getISODateTime();
-        // WiFiStatus getStatus() { return Status; }    
         void writeConfigTo( JsonObject &oCfgObj, bool bHideCritical) override;
         void readConfigFrom(JsonObject &oCfgObj) override;
         void writeStatusTo( JsonObject &oStatusObj) override;
