@@ -8,43 +8,47 @@
 #include <DevelopmentHelper.h>
 
 
+#define WEBSERVER_STATUS_DOC_SIZE  2048
+
 const char * WEBSERVER_AUTOREDIRECT_MODE       = "autoRedirectMode";
-/*
-#define WEBSERVER_HIDDEN_PASSWORD       "******"
-#define WEBSERVER_CONFIG_PASSWORD_KEY   "httpPasswd"
-*/
 
-namespace WebServer {
-    WebServerConfig Config;
-}
-
-/// @brief Constructor with route register callback
-/// Registers per default alos all well known routes
-/// @param nPortNumber 
-/// @param bRegisterRoutes true - default routes will be registered, otherwise do it by yourself.
-/// 
-CWebServer::CWebServer(int nPortNumber )
+#pragma region Constructor 
+/** 
+ * @brief Constructor 
+ * You have to register the module after creating the instance!
+ * @param nPortNumber 
+ */ 
+CWebServer::CWebServer(int nPortNumber)
 	: AsyncWebServer(nPortNumber) {}
 
+#pragma endregion
+
+#pragma region Module (Config / Status / MessageBus) Interface implementation
+
+/**
+ * @brief Read the configuration from a JSON object
+ */
 void CWebServer::readConfigFrom(JsonObject &oNode) {
-    WebServer::Config.AutoRedirectMode = oNode[WEBSERVER_AUTOREDIRECT_MODE] | false;
-    /* Currently no config - password is moved to appl - device password.
-    String strPasswd = oNode[WEBSERVER_CONFIG_PASSWORD_KEY];
-    if(!strPasswd.equals(WEBSERVER_HIDDEN_PASSWORD)) {
-        WebServer::Config.Passwd = strPasswd;
-    }
-    */
+    LSC::setJsonValue(oNode,WEBSERVER_AUTOREDIRECT_MODE,&Config.AutoRedirectMode);
 }
 
+/**
+ * @brief Write the configuration to a JSON object
+ */
 void CWebServer::writeConfigTo(JsonObject &oCfgNode,bool bHideCritical) {
-    oCfgNode[WEBSERVER_AUTOREDIRECT_MODE] = WebServer::Config.AutoRedirectMode;
+    oCfgNode[WEBSERVER_AUTOREDIRECT_MODE] = Config.AutoRedirectMode;
     // oCfgNode[WEBSERVER_CONFIG_PASSWORD_KEY] = bHideCritical ? WEBSERVER_HIDDEN_PASSWORD : WebServer::Config.Passwd;
 }
 
+/** 
+ * @brief Write the status information to a JSON object 
+ */
 void CWebServer::writeStatusTo(JsonObject &oStatusNode) {
     oStatusNode["started"] = Status.Started;
     oStatusNode[WEBSERVER_AUTOREDIRECT_MODE] = Status.AutoRedirectMode;
 }   
+
+
 
 int CWebServer::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
     int nResult = EVENT_MSG_RESULT_OK;
@@ -57,16 +61,35 @@ int CWebServer::receiveEvent(const void * pSender, int nMsg, const void * pMessa
     }
     return(nResult);
 }
+#pragma endregion
 
+#pragma region Registered File Access Routes
 
+void CWebServer::deliverFile(AsyncWebServerRequest *pRequest) { 
+        DEBUG_FUNC_START_PARMS("%s",pRequest->url().c_str());
+        if (!Config.authenticate(pRequest,"file",true)) {
+            return pRequest->requestAuthentication();
+		}
+        AsyncWebServerResponse *response = pRequest->beginResponse(200, "text/plain", "Success");
+        setNewAuthHeader(pRequest,response);
+        // TODO: implement proper file delivery with correct content-type
+		pRequest->send(response);
+        DEBUG_FUNC_END();
+    }
+/**
+ * @brief register the file access routes
+ * /files/list - list files
+ * /files/get/<filename> - get/download file
+ * /files/upload - upload a file
+ */
 void CWebServer::registerFileAccess() {
 
 	// Webserver - Startseite
-    on("/files/upload", HTTP_GET, [](AsyncWebServerRequest *request) {
-        if (!WebServer::Config.authenticate(request,"files/upload",true)) {
-            return request->requestAuthentication();
+    on("/files/upload", HTTP_GET, [this](AsyncWebServerRequest *pRequest) {
+        if (!Config.authenticate(pRequest,"files/upload",true)) {
+            return pRequest->requestAuthentication();
 		}
-        request->send(200, "text/html", "<form method='POST' action='/files/upload' enctype='multipart/form-data'>"
+        pRequest->send(200, "text/html", "<form method='POST' action='/files/upload' enctype='multipart/form-data'>"
                                         "<input type='file' name='file'>"
                                         "<input type='submit' value='Upload'>"
                                         "</form>");
@@ -74,123 +97,148 @@ void CWebServer::registerFileAccess() {
 
 	 // Upload-Handler
     on("/files/upload", HTTP_POST, 
-        [](AsyncWebServerRequest *request) {
-            if (!WebServer::Config.authenticate(request,"files/upload",true)) {
-                return request->requestAuthentication();
+        [this](AsyncWebServerRequest *pRequest) {
+            if (!Config.authenticate(pRequest,"files/upload",true)) {
+                return pRequest->requestAuthentication();
 		    }
-            request->send(200);
+            pRequest->send(200);
         }, 
-        [](AsyncWebServerRequest *request, const String& filename, size_t index, uint8_t *data, size_t len, bool final) {
-            static File file;
+        [this](AsyncWebServerRequest *pRequest, const String& strFilename, size_t index, uint8_t *pData, size_t nLen, bool bFinal) {
+            static File oFile;
             CFS oFS;
-            if (index == 0) {  // Neue Datei öffnen
-                Serial.printf("Saving File: %s\n", filename.c_str());
-                file =  oFS.getBaseFS().open("/" + filename, "w");
+            if (index == 0) {  // Open new file
+                ApplLogInfoWithParms(F("Saving File: %s"), strFilename.c_str());
+                oFile =  oFS.getBaseFS().open("/" + strFilename, "w");
             }
-            if (file) {
-                file.write(data, len);
+            if (oFile) {
+                oFile.write(pData, nLen);
             }
-            if (final) {  // Datei schließen
-                file.close();
-                Serial.printf("Upload finished: %s\n", filename.c_str());
+            if (bFinal) {  // Close file
+                oFile.close();
+                // TODO: check if duplicate route registration runs into problems...
+                std::function<void(	AsyncWebServerRequest *)> funcDeliverFile;
+                funcDeliverFile = std::bind(&CWebServer::deliverFile,this,std::placeholders::_1);
+                on("/files/get/" + strFilename, HTTP_GET, funcDeliverFile);
+                ApplLogInfoWithParms(F("Upload finished: %s"), strFilename.c_str());
             }
         }
     );
 	
-	// Liste der Dateien anzeigen
-    on("/files/list", HTTP_GET, [](AsyncWebServerRequest *request) {
+	// Show list of files
+    on("/files/list", HTTP_GET, [this](AsyncWebServerRequest *pRequest) {
         CFS oFS;        
-        if (!WebServer::Config.authenticate(request,"files/list",true)) {
-            return request->requestAuthentication();
+        if (!Config.authenticate(pRequest,"files/list",true)) {
+            return pRequest->requestAuthentication();
 		}
         String strFileList = oFS.getFileList("/");
-        request->send(200, "application/json", strFileList);
+        pRequest->send(200, "application/json", strFileList);
     });
+
+    // Register file download routes...
+    CFS oFS;
+    Dir oDirEntry = oFS.getBaseFS().openDir("/");
+    
+
+	// Prepare the bind of the own onWebSocketEvent Handler function
+	std::function<void(	AsyncWebServerRequest *)> funcDeliverFile;
+    funcDeliverFile = std::bind(&CWebServer::deliverFile,this,std::placeholders::_1);
+    
+    while (oDirEntry.next()) {    
+        if(oDirEntry.isFile()) {
+            on("/files/get/" + oDirEntry.fileName(), HTTP_GET, funcDeliverFile);
+        } 
+    }
 }
 
-/// @brief register the defaults:
-/// - rewrite "/" to "/index.html"
-/// - offer the "/login"
-/// - offer the OTA page "/update"
-/// - offer the default "/status" REST API
+#pragma endregion
+
+#pragma region Registered Default Routes (login, status, ota, notfound)
+/** 
+ * @brief register the defaults:
+ * - rewrite "/" to "/index.html"
+ * - offer the "/login"
+ * - offer the OTA page "/update"
+ * - offer the default "/status" REST API
+ * */
 void CWebServer::registerDefaults() {
     DEBUG_FUNC_START();
     rewrite("/", "/index.html");
 
-    // Not found handler - for captive portal support
-    // If not found and capture mode is active, redirect to "/", if a HTML page is requested
-    onNotFound([this](AsyncWebServerRequest *request) {
+    /** 
+     * Not found handler - for captive portal support
+     * If not found and capture mode is active, redirect to "/", if a HTML page is requested
+     */
+    onNotFound([this](AsyncWebServerRequest *pRequest) {
         bool bIsHtmlPage = true;
-        ApplLogErrorWithParms(F("WEB: 404 Not found: %s"),request->url().c_str());
-        if(request->url().indexOf(".") > -1) {
-            bIsHtmlPage = request->url().endsWith(".htm") || request->url().endsWith(".html");
+        if(pRequest->url().indexOf(".") > -1) {
+            bIsHtmlPage = pRequest->url().endsWith(".htm") || pRequest->url().endsWith(".html");
         }
-        DEBUG_INFOS("WEB: Requested URL: %s (CaptureMode=%d) (isHtmlPage=%s)",request->url().c_str(),Status.AutoRedirectMode, bIsHtmlPage ? "true" : "false");
+        DEBUG_INFOS("WEB: Requested URL: %s (CaptureMode=%d) (isHtmlPage=%s)",pRequest->url().c_str(),Status.AutoRedirectMode, bIsHtmlPage ? "true" : "false");
         if(Status.AutoRedirectMode && bIsHtmlPage) {
             DEBUG_INFO("WEB: Captive portal mode - redirect to /");
-            AsyncWebServerResponse *response = request->beginResponse(302, "text/plain", "Redirecting to captive portal");
-            response->addHeader("Location", "/");
-            request->send(response);
+            AsyncWebServerResponse *pResponse = pRequest->beginResponse(302, "text/plain", "Redirecting to captive portal");
+            pResponse->addHeader("Location", "/");
+            pRequest->send(pResponse);
         } else {
-            AsyncWebServerResponse *response = request->beginResponse(404, "text/plain", "Not found");
-            request->send(response);
+            ApplLogErrorWithParms(F("WEB: 404 Not found: %s"),pRequest->url().c_str());
+            AsyncWebServerResponse *pResponse = pRequest->beginResponse(404, "text/plain", "Not found");
+            pRequest->send(pResponse);
         }
 	});
 
-    on("/login", HTTP_GET, [](AsyncWebServerRequest *pRequest) {    
-        DEBUG_FUNC_START();
-        if (!WebServer::Config.authenticate(pRequest,"login",true)) {
+    on("/login", HTTP_GET, [this](AsyncWebServerRequest *pRequest) {    
+        DEBUG_INFO("WEB:/login (GET)");
+        if (!Config.authenticate(pRequest,"login",true)) {
             return pRequest->requestAuthentication();
 		}
-        AsyncWebServerResponse *response = pRequest->beginResponse(200, "text/plain", "Success");
-        setNewAuthHeader(pRequest,response);
+        AsyncWebServerResponse *pResponse = pRequest->beginResponse(200, "text/plain", "Success");
+        setNewAuthHeader(pRequest,pResponse);
         ApplLogInfoWithParms(F("Login from address %s"),pRequest->client()->remoteIP().toString().c_str());
-		pRequest->send(response);
+		pRequest->send(pResponse);
 	});
 
      on("/status", HTTP_GET, [](AsyncWebServerRequest *pRequest) {
-        ApplLogInfo(F("WEB:/status"));
-        DEBUG_INFO("/status route called...");
+        DEBUG_INFO("WEB:/status (GET)");
 
-        // DynamicJsonDocument oStatusDoc(2048);
-        // JsonObject oPayload = oStatusDoc.createNestedObject("payload");
-        JSON_DOC(oStatusDoc,2048);
+        JSON_DOC(oStatusDoc,WEBSERVER_STATUS_DOC_SIZE);
         JsonObject oPayload = CreateJsonObject(oStatusDoc,"payload");
-        
         Appl.writeStatusTo(oPayload);
+
         // Do it the old school way - do not use String here... Webserver destroys string info...
         int nSize = measureJson(oStatusDoc);
-        char tBuffer[nSize*2];
+        char tBuffer[nSize];
         memset(tBuffer,'\0',sizeof(tBuffer));
-        serializeJson(oPayload,&tBuffer,nSize*2);
+        serializeJson(oPayload,&tBuffer,nSize);
+
         DEBUG_INFOS("WEB:/status -> %s",tBuffer);
-        AsyncWebServerResponse *response = pRequest->beginResponse_P(200, "application/json",  tBuffer);
-        pRequest->send(response);
+        AsyncWebServerResponse *pResponse = pRequest->beginResponse_P(200, "application/json",  tBuffer);
+        pRequest->send(pResponse);
     });
 
     on("/update", HTTP_POST, 
-        [](AsyncWebServerRequest *request) {
-            ApplLogInfo(F("WEB:/update (POST)"));
-            AsyncWebServerResponse * response = request->beginResponse(200, "text/plain", "OK");
-            response->addHeader("Connection", "close");
-            request->send(response);
+        [](AsyncWebServerRequest *pRequest) {
+            DEBUG_INFO("WEB:/update (POST) - 1");
+            AsyncWebServerResponse * pResponse = pRequest->beginResponse(200, "text/plain", "OK");
+            pResponse->addHeader("Connection", "close");
+            pRequest->send(pResponse);
         },
-        [](AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
+        [this](AsyncWebServerRequest *pRequest, String strFilename, size_t index, uint8_t *data, size_t len, bool final) {
+            DEBUG_INFO("WEB:/update (POST) - 2");
             if (!index) {
-                ApplLogInfoWithParms(F("Firmware update started : %s"),filename.c_str());
-                Appl.MsgBus.sendEvent(nullptr,MSG_OTA_START,filename.c_str(),0);
+                ApplLogInfoWithParms(F("Firmware update started : %s"),strFilename.c_str());
+                Appl.MsgBus.sendEvent(this,MSG_OTA_START,strFilename.c_str(),0);
                 Update.runAsync(true);
                 if (!Update.begin((ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000)) {
                     ApplLogError(F("Not enough space..."));
-                    Appl.MsgBus.sendEvent(nullptr,MSG_OTA_ERROR,F("Not enough space"),0);
+                    Appl.MsgBus.sendEvent(this,MSG_OTA_ERROR,F("Not enough space"),0);
                 }
             }
             if (!Update.hasError()) {
-                Appl.MsgBus.sendEvent(nullptr,MSG_OTA_PROGRESS,nullptr,(index + len));
+                Appl.MsgBus.sendEvent(this,MSG_OTA_PROGRESS,nullptr,(index + len));
                 if (Update.write(data, len) != len) {
-                    ApplLogErrorWithParms(F("Writing to flash failed..."), filename.c_str());
+                    ApplLogErrorWithParms(F("Writing to flash failed..."), strFilename.c_str());
                     ApplLogErrorWithParms(F("%s"),Update.getErrorString().c_str());
-                    Appl.MsgBus.sendEvent(nullptr,MSG_OTA_ERROR,Update.getErrorString().c_str(),0);
+                    Appl.MsgBus.sendEvent(this,MSG_OTA_ERROR,Update.getErrorString().c_str(),0);
                 }
             }
             if (final) {
@@ -207,3 +255,4 @@ void CWebServer::registerDefaults() {
     
 }
 
+#pragma endregion
