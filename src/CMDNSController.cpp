@@ -6,12 +6,20 @@
 #include <MDNSController.h>
 #include <DevelopmentHelper.h>
 
+/** 
+ * @brief Constructor
+ * Registers the MDNSController to the Appl Message Bus
+ */
 CMDNSController::CMDNSController() {
-    Appl.MsgBus.registerEventReceiver(this);
+    Appl.MsgBus.registerEventReceiver(this,__FUNCTION__);
 }
 
 CMDNSController::~CMDNSController() {
     end();
+}
+
+CMDNSController::CMDNSController(const char *pszAutoregisterName) {
+    Appl.MsgBus.registerEventReceiver(this,pszAutoregisterName);
 }
 
 /**
