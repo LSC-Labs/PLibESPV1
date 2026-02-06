@@ -14,7 +14,7 @@ class ApplModule: public IModule {
          * Will bi called by default when Appl.dispatch() is used in main loop
          * Implement your logic by overwriting. 
          */
-        virtual void dispatch();
+        virtual void dispatch(){};
 
         /**
          * Default Event Receiver,

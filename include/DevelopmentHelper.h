@@ -26,24 +26,8 @@
     #define DEBUG_DELAY(ms)                 delay(ms)
 #else
     
-    #pragma GCC diagnostic ignored "-Wunused-value"
-    /*
-        using nullFunction - cause the compile for ESP32 throws a lot of warnings when using ((void*)0)
-    */
-   namespace LSC {
-        void nullFunction();
-    }
-    /*
-    #define DEBUG_FUNC_START()              LSC::nullFunction()
-    #define DEBUG_FUNC_END()                LSC::nullFunction()
-    #define DEBUG_FUNC_START_PARMS(str,...) LSC::nullFunction()
-    #define DEBUG_FUNC_END_PARMS(str,...)   LSC::nullFunction()
-    #define DEBUG_DELAY(ms)                 LSC::nullFunction()
-    #define DEBUG_INFOS(str,...)            LSC::nullFunction() 
-    #define DEBUG_INFO(str)                 LSC::nullFunction()
-    #define DEBUG_JSON_OBJ(oJsonObj)        LSC::nullFunction()
-    */
-    
+    // #pragma GCC diagnostic ignored "-Wunused-value"
+
     #define DEBUG_FUNC_START()              NULL_FUNCTION
     #define DEBUG_FUNC_END()                NULL_FUNCTION
     #define DEBUG_FUNC_START_PARMS(str,...) NULL_FUNCTION

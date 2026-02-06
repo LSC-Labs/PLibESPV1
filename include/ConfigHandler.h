@@ -4,12 +4,18 @@
 #include <ArduinoJson.h>
 #include <vector>
 
+/**
+ * Interface for configuration handlers
+ */
 class IConfigHandler {
     public:
         virtual void writeConfigTo(JsonObject &oCfgNode, bool bHideCritical) = 0;
         virtual void readConfigFrom(JsonObject &oCfgNode) = 0;
 };
 
+/**
+ * Configuration handler manager
+ */
 class CConfigHandler : public IConfigHandler {
     private:
         struct HandlerEntry {
@@ -31,5 +37,12 @@ class CConfigHandler : public IConfigHandler {
         /** Interface implementation */
         virtual void writeConfigTo(JsonObject &oNode, bool bHideCritical) override;          // Write your config into this Json Object
         virtual void readConfigFrom(JsonObject &oNode) override;         // Read your config from this Json Object
+        void dumpConfigHandler() {
+            for(HandlerEntry oEntry : m_tListOfConfigHandlers) {
+                Serial.printf("CFG: - registered config handler: %p - (%s)\n",
+                              oEntry.pHandler,
+                              oEntry.pszName ? oEntry.pszName : "-");
+            }
+        };
 };
 
