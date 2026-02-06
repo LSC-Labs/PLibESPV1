@@ -68,8 +68,4 @@ class CStreamLogWriter : public CLogWriter {
 class CSerialLogWriter : public CStreamLogWriter {
     public:
         CSerialLogWriter() : CStreamLogWriter(&Serial){}
-        /*
-        void writeLogEntry(const char *strType, const char *strMessage) override;
-        void writeLogEntry(const char *strType, JsonDocument *pDoc) override;
-        */
 };
