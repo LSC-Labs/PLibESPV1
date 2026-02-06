@@ -10,19 +10,30 @@
 #define EVENT_MSG_RESULT_STOP_PROCESSING 99
 
 
+/**
+ * Interface for Message Event Receivers
+ */
 class IMsgEventReceiver
 {
     public:
         virtual int receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) = 0;
 };  
 
+/**
+ * Event Handler Manager
+ */
 class CEventHandler
 {
     private:
-        std::vector<IMsgEventReceiver*> m_oEventReceivers;
+     private:
+        struct HandlerEntry {
+            const char         *pszName = nullptr;
+            IMsgEventReceiver  *pHandler = nullptr;
+        };
+        std::vector<HandlerEntry> m_oEventReceivers;
         
     public: 
-        void registerEventReceiver(IMsgEventReceiver * pEventReceiver);
+        void registerEventReceiver(IMsgEventReceiver * pEventReceiver, const char *pszReceiverName = nullptr);
        
         /// @brief Send the message to the Message Event Receivers
         ///        To avoid receiving your own message, specify the Sender (this).
@@ -34,8 +45,10 @@ class CEventHandler
         int sendEvent(void *pSender, int nMsg, const void *pMessage, int nClass);
        
         void dumpReceiver() {
-            for(IMsgEventReceiver *pEventReceiver : m_oEventReceivers) {
-                Serial.printf("EVH: - registered receiver address: %p\n",pEventReceiver);
+            for(HandlerEntry oEntry : m_oEventReceivers) {
+                Serial.printf("EVH: - registered event receiver: %p - (%s)\n",
+                              oEntry.pHandler,
+                              oEntry.pszName ? oEntry.pszName : "-");
             }
         }
 
