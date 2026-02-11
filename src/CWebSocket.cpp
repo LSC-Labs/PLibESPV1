@@ -114,7 +114,6 @@ void CWebSocket::onWebSocketEvent(AsyncWebSocket *pSocket, AsyncWebSocketClient 
 	
 		AwsFrameInfo *pFrameInfo = (AwsFrameInfo *)pArg;
 		// Notice until doc is validated (len in multi frames)....	
-		Serial.printf("============ New Socket Message =============\n");
 		DEBUG_INFOS("WS: - MESSAGE(final = %d, index = %lld, num = %d, total len = %lld (data len %d))",
 					pFrameInfo->final,
 					pFrameInfo->index,
@@ -126,6 +125,7 @@ void CWebSocket::onWebSocketEvent(AsyncWebSocket *pSocket, AsyncWebSocketClient 
 		// Is it a single frame message ?
 		if (pFrameInfo->final && pFrameInfo->index == 0 && pFrameInfo->len == nFrameDataLen)
 		{
+			DEBUG_INFO("============ New Single Socket Message received =============");
 			if(pFrameInfo->opcode == WS_TEXT) {
 				DEBUG_INFO("WS: - EVT_DATA : (Single Message Frame - TEXT)");
 			} else if(pFrameInfo->opcode == WS_BINARY) {
@@ -139,66 +139,23 @@ void CWebSocket::onWebSocketEvent(AsyncWebSocket *pSocket, AsyncWebSocketClient 
 		}
 		// Handle segmented messages
 		else {
-			/* Debug version from the source page (diag the bug in index counting)
-			// message is comprised of multiple frames or the frame is split into multiple packets
-			DEBUG_INFO("WS: - EVT_DATA : (Multiple Message Frames)");
-			if(pFrameInfo->index == 0){
-        		if(pFrameInfo->num == 0) {
-					
-					Serial.printf("ws[%s][%u] %s-message start\n", 
-									pSocket->url(), 
-									pClient->id(), 
-									(pFrameInfo->message_opcode == WS_TEXT)?"text":"binary");
-				}
-        		Serial.printf("ws[%s][%u] frame[%u] start(total len?)[%llu]\n", 
-								pSocket->url(), 
-								pClient->id(), 
-								pFrameInfo->num, 
-								pFrameInfo->len);
-      		}
-
-      		Serial.printf("ws[%s][%u] frame[%u] %s[%llu - %llu]: ", 
-							pSocket->url(), 
-							pClient->id(), 
-							pFrameInfo->num, 
-							(pFrameInfo->message_opcode == WS_TEXT)?"text":"binary",
-							 pFrameInfo->index, 
-							 pFrameInfo->index + nDataLen);
-
-      		if(pFrameInfo->message_opcode == WS_TEXT){
-        		pData[nDataLen] = 0;
-        		Serial.printf("%s\n", (char*)pData);
-      		} else {
-        		for(size_t i=0; i < nDataLen; i++){
-          			Serial.printf("%02x ", pData[i]);
-        		}
-        	Serial.print("\n");
-      		}
-
-			if((pFrameInfo->index + nDataLen) == pFrameInfo->len) {
-        		Serial.printf("ws[%s][%u] frame[%u] end[%llu]\n", pSocket->url(), pClient->id(), pFrameInfo->num, pFrameInfo->len);
-        		if(pFrameInfo->final){
-          			Serial.printf("ws[%s][%u] %s-message end\n", pSocket->url(), pClient->id(), (pFrameInfo->message_opcode == WS_TEXT)?"text":"binary");
-					if(pFrameInfo->message_opcode == WS_TEXT)
-						pClient->text("I got your text message");
-					else
-						pClient->binary("I got your binary message");
-				}
-      		}
-			*/
-			
+			DEBUG_INFO("============ New Multi Socket Message received =============");
 			// First frame ? allocate the WebSocket message object in temp of client
 			if(pFrameInfo->index == 0) {
+				DEBUG_INFO("WS:   - allocating new message object..");
 				pClient->_tempObject = new CWebSocketMessage(pSocket,pClient,pFrameInfo->len,pFrameInfo->opcode);
 			}
 			// Move date into WebSocket message object...
 			CWebSocketMessage * pMsgObj = (CWebSocketMessage *) pClient->_tempObject;
 			if(pMsgObj) {
+				DEBUG_INFOS("WS:   - storing data at %lld len = %d",pFrameInfo->index,nFrameDataLen);
 				pMsgObj->setMessageData(pData,pFrameInfo->index,nFrameDataLen);
+				DEBUG_INFOS("%s",pData);
 			}
 
 			// was it the final frame ? then store the data into the message queue...
 			if(pFrameInfo->final && (pFrameInfo->index + nFrameDataLen) == pFrameInfo->len) {
+				DEBUG_INFO("WS:   - pushing message to queue...");
 				addMessageToQueue(pMsgObj);
 			}
 		}
@@ -218,7 +175,7 @@ void CWebSocket::addMessageToQueue(CWebSocketMessage *pMsgObj)
 		m_tMsgQueue.push(pMsgObj);
 		#ifdef DEBUGINFOS
 			if(pMsgObj->MessageType == WS_TEXT) {
-				DEBUG_INFO("WS: message received:");
+				DEBUG_INFO("WS: message pushed to queue :");
 				DEBUG_INFOS("%s",pMsgObj->pSerializedMessage);
 			}
 		#endif
@@ -348,8 +305,7 @@ void CWebSocket::dispatchMessageQueue()
 	while(!m_tMsgQueue.empty()) {
 		CWebSocketMessage * pMessageToProcess = m_tMsgQueue.front();
 		dispatchMessage(pMessageToProcess);
-		free(pMessageToProcess->pSerializedMessage);
-		free(pMessageToProcess);
+		delete(pMessageToProcess);
 		m_tMsgQueue.pop();
 	}
 }
@@ -394,13 +350,16 @@ bool CWebSocket::dispatchJsonMessage(JsonDocument &oJsonRequest, CWebSocketMessa
 		}
 		else if (strCommand.equalsIgnoreCase(F("saveconfig")))
 		{
-			if(isAuthenticated) {
+			if(isAuthenticated && JsonKeyExists(oJsonRequest,"payload",JsonObject)) {
 				JsonObject oPayload = oJsonRequest["payload"];
 				// First load the config - to enable validation of settings (!)
 				// then write the new config file to the file system
 				// ... and ask for a reboot !
+				DEBUG_INFO(" - updating current config");
 				Appl.readConfigFrom(oPayload);
+				DEBUG_INFO(" - saving config...");
 				Appl.saveConfig();
+				DEBUG_INFO(" - requesting reboot...");
 				Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,nullptr,0);
 			}
 		} 
