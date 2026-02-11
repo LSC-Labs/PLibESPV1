@@ -119,6 +119,7 @@ def before_build(source, target, env):
 				oVersion["major"] 	= tVersion[0]
 				oVersion["minor"] 	= tVersion[1]
 				oVersion["patch"]	= tVersion[2]	
+				oVersion["build"]	= 0
 
 	if strEnv.endswith("_debug"):
 		print(' * - is debug version, no change in build... ')
