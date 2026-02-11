@@ -13,17 +13,24 @@
  *     DEBUG_FUNC_END       : Writes the end of the called function to serial port         
  */
 #ifdef DEBUGINFOS
-    #define DEBUG_TODO(str)                 Serial.printf("TODO in file %s (%d): " str,__file__,__LINE__)
-    #define DEBUG_FUNC_TODO(str)            Serial.printf("TODO in file %s (line %d) -> %s(): " str,__FILE__,__LINE__,__func__)
+    #ifdef DEBUG_SHORT_INFOS
+        #define DEBUG_INFOS(str,...)        Serial.printf( "[D] " str "\n",__VA_ARGS__)
+        #define DEBUG_INFO(str)             Serial.println("[D] " str) 
+    #else
+        #define DEBUG_INFOS(str,...)        Serial.printf( "[D] (%s #%d %s()): " str "\n",__FILE__,__LINE__,__FUNCTION__,__VA_ARGS__)
+        #define DEBUG_INFO(str)             Serial.printf( "[D] (%s #%d %s()): " str "\n",__FILE__,__LINE__,__FUNCTION__) 
+    #endif
+
     #define DEBUG_FUNC_START()              Serial.printf( "[D] Function start: %s\n",__PRETTY_FUNCTION__)
     #define DEBUG_FUNC_END()                Serial.printf( "[D] Function -end-: %s\n",__PRETTY_FUNCTION__)
     #define DEBUG_FUNC_START_PARMS(str,...) Serial.printf( "[D] Function start: %s - (" str ")\n",__PRETTY_FUNCTION__,__VA_ARGS__)
     #define DEBUG_FUNC_END_PARMS(str,...)   Serial.printf( "[D] Function -end-: %s - (" str ")\n",__PRETTY_FUNCTION__,__VA_ARGS__)
-    #define DEBUG_INFOS(str,...)            Serial.printf( "[D] " str "\n",__VA_ARGS__)
-    #define DEBUG_INFO(str)                 Serial.println("[D] " str) 
     #define DEBUG_JSON_OBJ(oJsonObj)        {serializeJson(oJsonObj,Serial);Serial.println();}    
+    #define DEBUG_TODO(str)                 Serial.printf("TODO - (%s - #%d): %s",__FILE__,__LINE__,str)
+    #define DEBUG_TODO_INFUNC(str)          Serial.printf("TODO - (%s - #%d %s()): %s",__FILE__,__LINE__,__func__,str)
     // (!) Be carefully, this delay can have side effects. (also in Async function callbacks !)
     #define DEBUG_DELAY(ms)                 delay(ms)
+
 #else
     
     // #pragma GCC diagnostic ignored "-Wunused-value"
@@ -32,10 +39,12 @@
     #define DEBUG_FUNC_END()                NULL_FUNCTION
     #define DEBUG_FUNC_START_PARMS(str,...) NULL_FUNCTION
     #define DEBUG_FUNC_END_PARMS(str,...)   NULL_FUNCTION
-    #define DEBUG_DELAY(ms)                 NULL_FUNCTION
     #define DEBUG_INFOS(str,...)            NULL_FUNCTION 
     #define DEBUG_INFO(str)                 NULL_FUNCTION
     #define DEBUG_JSON_OBJ(oJsonObj)        NULL_FUNCTION
+    #define DEBUG_DELAY(ms)                 NULL_FUNCTION
+    #define DEBUG_TODO(str)                 NULL_FUNCTION
+    #define DEBUG_TODO_INFUNC(str)          NULL_FUNCTION
 
     
 #endif
