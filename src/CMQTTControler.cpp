@@ -335,21 +335,22 @@ int CMQTTController::receiveEvent(const void * pSender, int nMsg, const void * p
             publishHeartBeat(false);
             break;
         */
-        case MSG_MQTT_SEND_JSONOBJ:
+        case MSG_MQTT_SEND_JSONDATA:
             {
                 String strTopic = "msg";
                 String strPayload;
                 // Extract parameters
-                JsonObject *pMsgDoc = (JsonObject *) pMessage;
-                if(pMsgDoc) {
+
+                JsonObject * pMsgObj = (JsonObject *) pMessage;
+                if(pMsgObj) {
                     // If the doc contains "payload" as Json Object and nClass == 1,
                     // send the payload only, with topic, if exist - otherwise topic is "msg"
-                    if(nClass == 1 && JsonKeyExists((*pMsgDoc),"payload",JsonObject)) {
-                        JsonObject oPayload = GetJsonObject((*pMsgDoc),"payload");
+                    if(nClass == MSG_JSON_PAYLOAD && JsonKeyExists((*pMsgObj),"payload",JsonObject)) {
+                        JsonObject oPayload = GetJsonObject((*pMsgObj),"payload");
                         serializeJson(oPayload,strPayload);
-                        LSC::setJsonValue(*pMsgDoc,"topic",strTopic);
+                        LSC::setJsonValue(*pMsgObj,"topic",strTopic);
                     } else {
-                        serializeJson(*pMsgDoc,strPayload);
+                        serializeJson(*pMsgObj,strPayload);
                     }
                 }
                 publishEvent(strTopic.c_str(),strPayload.c_str(),Config.useHA);

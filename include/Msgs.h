@@ -46,14 +46,13 @@
 #define MSG_MQTT_CONNECTED          5301
 #define MSG_MQTT_DISCONNECTED       5308
 #define MSG_MQTT_MSG_RECEIVED       5310
-#define MSG_MQTT_SEND_JSONOBJ       5320
-
-
+#define MSG_MQTT_SEND_JSONDATA      5320
 
 /**
- * Generic Payload Message, object is a JsonDocument in Message Payload strcuture
+ * Generic Payload Message, object is a JsonDocument in Message Payload structure
  */
-#define MSG_PAYLOAD                 9010   
+#define MSG_JSON_OBJECT                0
+#define MSG_JSON_PAYLOAD               9   
 
 /**
  * Base Value - User defined messages should start with this value
