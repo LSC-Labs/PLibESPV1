@@ -99,6 +99,16 @@ def after_build(source, target, env):
 	print(f' * -> storing final firmware bin to "{strTargetFile}"')
 	shutil.copy(FIRMWARE_SOURCE,strTargetFile)
 
+##################################################################
+# Function called, before build is started...
+# Checks package.json version against program version.
+# - if different versions, the program version will be justified,
+#	build version will be set to 0, as it is the first one...
+# - if the same version, build version will be incremented
+#
+# Ensure, the version string in package.json contains 3 digits
+# like 0.1.2
+##################################################################
 def before_build(source, target, env):
 	strEnv = env.subst("$PIOENV")
 	# build the web interface in any case 
@@ -121,12 +131,14 @@ def before_build(source, target, env):
 				oVersion["patch"]	= tVersion[2]	
 				oVersion["build"]	= 0
 
+	# Also Debug version will increment the build number
+	# When  
 	if strEnv.endswith("_debug"):
-		print(' * - is debug version, no change in build... ')
-	else:
-		print(' * > increasing build number...')
-		oVersion["build"] = oVersion["build"] + 1
-		bHasChanged = True
+		print(' * - debug version detected... ')
+
+	print(' * > incrementing build number...')
+	oVersion["build"] = oVersion["build"] + 1
+	bHasChanged = True
 	
 	if(bHasChanged):
 		print(" * > writing changes...")
@@ -138,6 +150,7 @@ def before_build(source, target, env):
 			json.dump(oVersion,oFP,indent=4)
 			oFP.close()
 			writeVersionIncludeFile(oVersion)
+			forceToCompileMain()
 
 	print(" **************************************************")
 	print(f' * Using application version: {getVersionStringOf(oVersion)}')
@@ -147,7 +160,6 @@ print("---------------------------------------------------------------")
 print("ESP build script for PlatformIO (c) LSC-Labs 2024 - P.Liebl" )
 print(" - increments the build number in version and include file")
 print(" - stores the firmware file after building the bin.")
-print(" - Incrementing will only executed if it is not a '*_debug' env")
 
 
 
