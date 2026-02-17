@@ -225,6 +225,7 @@ bool CFS::loadJsonContentFromFile(const char *strFileName,JsonDocument &oDoc) {
             DEBUG_INFOS(" --- deserializeJson() failed: %s", error.c_str());
         } 
     }
+    bool bResult = nSize > 0? true: false;
     DEBUG_FUNC_END_PARMS("%s",bResult ? "OK" : "NOT Loaded");
-    return(nSize > 0? true: false);
+    return(bResult);
 }
