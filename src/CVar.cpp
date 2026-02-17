@@ -7,18 +7,21 @@
 #include <LSCUtils.h>
 #include <DevelopmentHelper.h>
 
-
-
-
 #pragma region constructors
 
 CVar::~CVar() {
     if(pszName)  free((void *) pszName); 
     if(pszValue) free((void *) pszValue); 
+    if(pszKeyName) free((void *) pszKeyName); 
 }
+
 CVar::CVar() {
-    pszName = strdup("");
-    pszValue = strdup("");
+    setVarName("");
+}
+
+
+CVar::CVar(const char *pszName) {
+    setVarName(pszName);
 }
  
 CVar::CVar(const char *pszName, const char *pszValue) {
@@ -57,13 +60,19 @@ CVar::CVar(const __FlashStringHelper *pszName, const bool bValue) {
 
 #pragma region  internal helpers
 
+/**
+ * @brief set / change the name of this var.
+ * Releases the memory of the old name..
+ */
 void CVar::setVarName(const char *pszName) {
-    const char *pszVarName = pszName ? pszName : "";
-    if(this->pszName != nullptr) {
-        if(strcmp(this->pszName, pszVarName) == 0) return;
-        free((void *) this->pszName);
-    }
-    this->pszName = strdup(pszVarName);
+    // Has already a name ?
+    if(this->pszName) free((void *) this->pszName);
+    this->pszName = strdup(pszName ? pszName : "");
+
+    // Set also the KeyName...
+    if(pszKeyName) free(pszKeyName);
+    pszKeyName = strdup(pszName ? pszName : "");
+    strlwr(pszKeyName);
 }
 
 #pragma endregion
@@ -76,12 +85,8 @@ CVar * CVar::setCriticalVar(bool bIsCritical) {
 }
 
 CVar * CVar::setValue(const char *pszValue){
-    const char *pszVarValue = pszValue ? pszValue : "";
-    if(this->pszValue != nullptr) {
-        if(strcmp(this->pszValue, pszVarValue) == 0) return(this);
-        free((void *) this->pszValue);
-    }
-    this->pszValue = strdup(pszVarValue);
+    if(this->pszValue)  free((void *) this->pszValue);
+    this->pszValue = strdup(pszValue ? pszValue : "");
     return(this);
 }
 CVar * CVar::setValue(const __FlashStringHelper *pszValue){
@@ -111,6 +116,19 @@ CVar * CVar::setValue(const bool bValue) {
 #pragma endregion
 
 #pragma region getters
+
+/**
+ * Gets the key name, if set, otherwise an empty string.
+ * The key name is either the name fo the var (case sensitive)
+ * or the lowercase version of the name (caseinsensitive)
+ */
+const char * CVar::getKeyName(bool bCaseSensitive) {
+    if(bCaseSensitive) {
+        return(pszName ? pszName : "");
+    } else {
+        return(pszKeyName ? pszKeyName : "");
+    }
+}
 
 bool CVar::isCriticalVar() {
     return(isCritical);

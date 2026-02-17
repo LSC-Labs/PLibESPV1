@@ -38,33 +38,35 @@
 
 /**
  * @brief create a new VarTable Entry object...
+ *        The member pszKeyName, contains an empty string, or 
+ *        the name of the variable in lowercase, if isCaseSensitive is false,
+ *        or the name of the variable as is, if isCaseSensitive = true
  * @param pszVarName name of the var
- *  @param isCaseSensitive is the context case - sensitive ?
+ * @param isCaseSensitive is the context case - sensitive ?
  *
  *  */
- CVarTable::CVarTableEntry::CVarTableEntry(const char *pszVarName, bool isCaseSensitive) {
-    if(pszVarName == nullptr) pszVarName = "";
-    int nKeyNameLen = strlen(pszVarName) + 2;
-    this->pszKeyName = (char *) malloc(nKeyNameLen);
-    memset(this->pszKeyName,'\0',nKeyNameLen);
-    strncpy(this->pszKeyName,pszVarName,nKeyNameLen);
+/*
+ CVarTable::CVarTableEntry::CVarTableEntry(CVar * pVar, bool isCaseSensitive) {
+    this->pVar = pVar;
+    this->pszKeyName = strdup(pVar->getName());
     if(!isCaseSensitive) strlwr(this->pszKeyName);
-    this->oVar.setVarName(pszVarName);
-    this->pNextEntry = nullptr;
+    // this->pNextEntry = nullptr;
 }
+*/
 
-/// @brief free the allocated memory for the key name and call the destructor of the var object
-/// @details This destructor is called when the CVarTableEntry object is deleted.
-CVarTable::CVarTableEntry::~CVarTableEntry() {
-    if(this->pszKeyName != nullptr) {
-        free(this->pszKeyName);
-        this->pszKeyName = nullptr;
-    }
-    oVar.~CVar();
+/**
+ * @brief free the allocated memory for the key name and call the destructor of the var object
+ * @details This destructor is called when the CVarTableEntry object is deleted.
+ */
+/*
+ CVarTable::CVarTableEntry::~CVarTableEntry() {
+    if(pszKeyName)  free(this->pszKeyName);
+    if(pVar)        delete(pVar);
 }
+    */
 #pragma endregion
 
-#pragma region Constructor / destructor and helper...
+#pragma region CVarTable Constructor / destructor and helper...
 /** 
  * @brief constructor 
  * @param isCaseSensitive Set var names case sensitive == true  
@@ -75,13 +77,9 @@ CVarTable::CVarTableEntry::~CVarTableEntry() {
 
 CVarTable::~CVarTable() {
     DEBUG_FUNC_START();
-    CVarTableEntry * pEntry = this->pVarEntries;
-    while(pEntry != nullptr) {
-        CVarTableEntry * pNextEntry = pEntry->pNextEntry;
-        delete pEntry;
-        pEntry = pNextEntry;
+    for(CVar * pVar : this->tVarEntries) {
+        delete(pVar);
     }
-    this->pVarEntries = nullptr;
     DEBUG_FUNC_END();
 }
 
@@ -104,13 +102,11 @@ CVarTable::~CVarTable() {
  */
 bool CVarTable::hasCriticalVars() {
     bool bResult = false;
-    CVarTableEntry * pEntry = this->pVarEntries;
-    while(pEntry != nullptr) {
-        if(pEntry->oVar.isCriticalVar()) {
+    for(CVar * pVar : this->tVarEntries) {
+        if(pVar && pVar->isCriticalVar()) {
             bResult = true;
             break;
         }
-        pEntry = pEntry->pNextEntry;
     }
     return(bResult);
 }
@@ -126,33 +122,20 @@ bool CVarTable::hasCriticalVars() {
  * @return nullptr or the var object
  */
 CVar * CVarTable::find(const char * pszName) {
-    DEBUG_FUNC_START_PARMS("%s",NULL_POINTER_STRING(pszName));
     CVar *pResult = nullptr;
     if(pszName) {
         char tKeyName[strlen(pszName) + 2];
-        memset(tKeyName,'\0',sizeof(tKeyName));
-        strncpy(tKeyName,pszName,sizeof(tKeyName));
-        if(prepareKeyName(tKeyName)) {
-            DEBUG_INFOS(" - searching for key : '%s'", tKeyName);
-            CVarTableEntry * pEntry = this->pVarEntries;
-            while(pEntry != nullptr) {
-                DEBUG_INFOS(" -> iterating %p",pEntry);
-                if(pEntry->pszKeyName != nullptr) {
-                    DEBUG_INFOS(" -> comparing %s == %s",pEntry->pszKeyName,tKeyName);
-                    if(strcmp(pEntry->pszKeyName,tKeyName) == 0) {
-                        DEBUG_INFO(" -> is match...");
-                        pResult = &pEntry->oVar;
-                        break;
-                    }
-                } else {
-                    DEBUG_INFO("ERROR: -> NO VAR KEY IN PLACE !!!!");
-                }   
-                DEBUG_INFO(" -> moving to next entry");
-                pEntry = pEntry->pNextEntry;
+        strcpy(tKeyName,pszName);
+        if(!isCaseSensitive) strlwr(tKeyName);
+        for(CVar * pVar : this->tVarEntries) {
+            if(pVar) {
+                if(strcmp(pVar->getKeyName(isCaseSensitive),tKeyName) == 0) {
+                    pResult = pVar;
+                    break;
+                }
             }
         }
     }
-    DEBUG_FUNC_END_PARMS(" - found : %d",pResult != nullptr);
     return(pResult);
 }
 
@@ -170,29 +153,13 @@ CVar * CVarTable::find(String strName) {
  * @return pointer to the var or nullptr if it could not be created.
  *  */
 CVar * CVarTable::getOrCreateVarEntry(const char *pszName) {
-    DEBUG_FUNC_START_PARMS("%s",NULL_POINTER_STRING(pszName));
-    CVar * pResult = find(pszName);
+    CVar * pVar = find(pszName);
     // Insert a new entriy if it does not exist
-    if(pResult == nullptr) {
-        const char *pszVarName = (pszName != nullptr) ? pszName : "";
-        CVarTableEntry *pEntry = new CVarTableEntry(pszVarName,isCaseSensitive);
-        pResult = &pEntry->oVar;
-
-        // Insert into linked list...
-        if(this->pVarEntries == nullptr) {
-            this->pVarEntries = pEntry;
-        } else {
-            int nCount = 0;
-            CVarTableEntry *pLastEntry = this->pVarEntries;
-            while(pLastEntry->pNextEntry != nullptr) {
-                nCount++;
-                pLastEntry = pLastEntry->pNextEntry;
-            }
-            pLastEntry->pNextEntry = pEntry;
-        }
+    if(pVar == nullptr) {
+        pVar = new CVar(pszName);
+        tVarEntries.push_back(pVar);
     }
-    DEBUG_FUNC_END_PARMS("%d",pResult != nullptr);
-    return(pResult);
+    return(pVar);
 }
 
 #pragma endregion
@@ -270,11 +237,8 @@ CVar * CVarTable::set(const char * pszName, String strValue) {
 }
 
 CVar * CVarTable::set(const char * pszName, const char *pszValue) {
-    DEBUG_FUNC_START();
     CVar *pVar = getOrCreateVarEntry(pszName);
-    assert(pVar != nullptr);
-    pVar->setValue(pszValue);
-    DEBUG_FUNC_END();
+    if(pVar) pVar->setValue(pszValue);
     return(pVar);
 }
 CVar * CVarTable::set(const char * pszName, const int nValue) {
@@ -338,34 +302,34 @@ CVar * CVarTable::set(const __FlashStringHelper* strName, bool bValue) {
  */
 void CVarTable::writeConfigTo(JsonObject &oCfgObj, bool bHideCritical) {
     DEBUG_FUNC_START();
-    CVarTableEntry * pVarEntry = this->pVarEntries;
-    while(pVarEntry) {
+    for(CVar * pVar : this->tVarEntries) {
         bool showValue = true;
-        if(bHideCritical && pVarEntry->oVar.isCriticalVar()) showValue = false;
+        if(pVar) {
+            if(bHideCritical  && pVar->isCriticalVar()) showValue = false;
 
-        DEBUG_INFOS("Writing var '%s' value='%s' (critical=%d) (showValue=%d)",
-                    pVarEntry->oVar.getName(),
-                    showValue ? pVarEntry->oVar.getValue() : LSC_VARS_CRITICAL_ENTRY_MASK,
-                    pVarEntry->oVar.isCriticalVar() ? 1 : 0,
-                    showValue ? 1 : 0);
+            DEBUG_INFOS("Writing var '%s' value='%s' (critical=%d) (showValue=%d)",
+                        pVar->getName(),
+                        showValue ? pVar->getValue() : LSC_VARS_CRITICAL_ENTRY_MASK,
+                        pVar->isCriticalVar() ? 1 : 0,
+                        showValue ? 1 : 0);
 
-        oCfgObj[pVarEntry->oVar.getName()] = showValue ? 
-                                              pVarEntry->oVar.getValue() :
-                                              LSC_VARS_CRITICAL_ENTRY_MASK;
-        pVarEntry = pVarEntry->pNextEntry;
+            oCfgObj[pVar->getName()] =  showValue ? 
+                                        pVar->getValue() :
+                                        LSC_VARS_CRITICAL_ENTRY_MASK;
+            }
     }
     if(hasCriticalVars()) {
         JsonObject oCriticalNames = CreateJsonObject(oCfgObj,LSC_VARS_CRITICAL_NAMES_KEY);
-        pVarEntry = this->pVarEntries;
         int nCount = 0;
         char tCountBuffer[80];
-        while(pVarEntry) {
-            if(pVarEntry->oVar.isCriticalVar()) {
-                nCount++;
-                sprintf(tCountBuffer,"n.%d",nCount);
-                oCriticalNames[tCountBuffer] = pVarEntry->oVar.getName();
+        for(CVar * pVar : tVarEntries) {
+            if(pVar) {
+                if(pVar->isCriticalVar()) {
+                    nCount++;
+                    sprintf(tCountBuffer,"n.%d",nCount);
+                    oCriticalNames[tCountBuffer] = pVar->getName();
+                }
             }
-            pVarEntry = pVarEntry->pNextEntry;
         }
         oCriticalNames["n.0"] = nCount;
     }

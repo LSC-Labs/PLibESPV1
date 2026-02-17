@@ -1,31 +1,35 @@
 #pragma once
 #include <ConfigHandler.h>
+#include <vector>
 
-class CVarTable;
+// class CVarTable;
 /**
  * Represents a single Var entry
  */
 class CVar  {
-        friend class CVarTable;
-        const char * pszName;
-        const char * pszValue;
-        bool isCritical = false;
+        // friend class CVarTable;
+        char * pszKeyName = nullptr;    // Key name (Real name, not case sensitive)
+        char * pszName = nullptr;       // Real name, set by user
+        char * pszValue = nullptr;      // Value
+        bool isCritical = false;        // is a critical value, like a password
 
     protected:
-        void setVarName(const char * pszName);
+        
    
     public:
-        CVar();
         ~CVar();
-        CVar(const char *strName) : pszName(strName), pszValue("") {}
-        CVar(const char *strName, const char *strValue);
-        CVar(const char *strName, const int nValue);
-        CVar(const char *strName, const bool bValue);
+        CVar();
+        CVar(const char *pszName);
+        CVar(const char *pszName, const char *pszValue);
+        CVar(const char *pszName, const int   nValue);
+        CVar(const char *pszName, const bool  bValue);
         CVar(const __FlashStringHelper* pszName, const char * pszValue);
         CVar(const __FlashStringHelper* pszName, const __FlashStringHelper * pszValue);
         CVar(const __FlashStringHelper *strName, const int nValue);
         CVar(const __FlashStringHelper *strName, const bool bValue);
 
+        void setVarName(const char * pszName);
+        const char * getKeyName(bool bCaseSensitive = false);
         
         CVar * setCriticalVar(bool bIsCritical);
         CVar * setValue(const char * strValue);
@@ -47,16 +51,22 @@ class CVar  {
  */
 class CVarTable : public IConfigHandler {
     friend class CVar;
-    struct CVarTableEntry {
-        char *pszKeyName;
-        CVar oVar;
-        CVarTableEntry * pNextEntry;
-        CVarTableEntry(const char *pszVarName, bool bCaseSensitive = false);
-        ~CVarTableEntry();
+
+    /*
+    class CVarTableEntry {
+        public:
+            char * pszKeyName;
+            CVar * pVar;
+            // CVarTableEntry * pNextEntry;
+            CVarTableEntry(CVar * pVar, bool bCaseSensitive = false);
+            ~CVarTableEntry();
     };
+    */
+
+    std::vector<CVar *> tVarEntries;
     
-    CVarTableEntry *pVarEntries;
-    bool isCaseSensitive = false;
+    // CVarTableEntry *pVarEntries;
+        bool isCaseSensitive = false;
 
     protected:
         bool prepareKeyName(char * szKeyName);
