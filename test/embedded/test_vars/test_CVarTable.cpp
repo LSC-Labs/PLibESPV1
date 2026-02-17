@@ -15,6 +15,8 @@ TEST_F(CVarTableTest, findNonExistentVarReturnsNull) {
     EXPECT_EQ(result, nullptr);
 }
 
+
+
 TEST_F(CVarTableTest, createAndFindVar) {
     CVar* var = varTable.set("testVar","hello");
     EXPECT_NE(var, nullptr);
@@ -23,6 +25,11 @@ TEST_F(CVarTableTest, createAndFindVar) {
     EXPECT_EQ(var, foundVar);
 }
 
+TEST_F(CVarTableTest, testIfTableContainsConfigVars) {
+    EXPECT_FALSE(varTable.hasConfigValues())
+    varTable.set("testVar","1");
+    EXPECT_TRUE(varTable.hasConfigValues());
+}
 TEST_F(CVarTableTest, createVarWithNullptrName) {
     CVar* var = varTable.set(nullptr,"hello");
     EXPECT_NE(var, nullptr);
