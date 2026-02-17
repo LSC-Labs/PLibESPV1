@@ -45,6 +45,7 @@ def forceToCompileMain():
 
 
 def writeVersionIncludeFile(oVersion):
+	Path(INCLUDE_FILE).parent.mkdir(exist_ok=True, parents=True)
 	with open(INCLUDE_FILE,'w+') as oFP:
 		oFP.writelines([
 			'#pragma once' 
@@ -97,6 +98,7 @@ def after_build(source, target, env):
 #	shutil.copy(firmware_source, 'bin/d1_mini-firmware.bin')
 	strTargetFile = getTargetFirmwareName(env)
 	print(f' * -> storing final firmware bin to "{strTargetFile}"')
+	Path(strTargetFile).parent.mkdir(exist_ok=True, parents=True)
 	shutil.copy(FIRMWARE_SOURCE,strTargetFile)
 
 ##################################################################
@@ -131,14 +133,16 @@ def before_build(source, target, env):
 				oVersion["patch"]	= tVersion[2]	
 				oVersion["build"]	= 0
 
-	# Also Debug version will increment the build number
-	# When  
+	# Debug version will not increment the build number
+	# to avoid new compile if nothing changed...
 	if strEnv.endswith("_debug"):
 		print(' * - debug version detected... ')
+	else:
+		print(' * > incrementing build number...')
+		oVersion["build"] = oVersion["build"] + 1
+		bHasChanged = True
 
-	print(' * > incrementing build number...')
-	oVersion["build"] = oVersion["build"] + 1
-	bHasChanged = True
+
 	
 	if(bHasChanged):
 		print(" * > writing changes...")
@@ -165,14 +169,15 @@ print(" - stores the firmware file after building the bin.")
 
 # Default Version Object - if not exists
 if not os.path.exists(VERSION_FILE):
-	print(f' * - creating default json version file: "{VERSION_FILE}"')
+	print(f' A - creating default json version file: "{VERSION_FILE}"')
+	Path(VERSION_FILE).parent.mkdir(exist_ok=True, parents=True)
 	with open(VERSION_FILE, "w+") as oFP:
 		json.dump(oDefaultVersion,oFP,indent=4)
 		oFP.close()
 
 # Default Version Include File - if not exists
 if not os.path.exists(INCLUDE_FILE):
-	print(f' * - creating default version include file: "{INCLUDE_FILE}"')
+	print(f' A - creating default version include file: "{INCLUDE_FILE}"')
 	writeVersionIncludeFile(oDefaultVersion)
 
 if (os.path.exists(VERSION_FILE)):
