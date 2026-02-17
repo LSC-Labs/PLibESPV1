@@ -76,7 +76,7 @@ namespace LSC {
     /// @param nMaxBytes Max bytes available in pBytes Array
     /// @param nBase     Base to convert, like 10 - decimal
     /// @return 
-    int ICACHE_FLASH_ATTR parseBytesToArray(byte *pBytes, const char * pszInput, char cSep, int nMaxBytes, int nBase)
+    int ICACHE_FLASH_ATTR parseBytesToArray(uint8_t *pBytes, const char * pszInput, char cSep, int nMaxBytes, int nBase)
     {
         // set target to zero...
         memset(pBytes,'\0',nMaxBytes);
