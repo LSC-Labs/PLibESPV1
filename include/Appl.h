@@ -94,14 +94,14 @@ struct ApplConfig {
 };
 
 class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
-    ApplConfig m_oCfg;   
-    JsonDocument *m_pStatusDoc = nullptr;
+    ApplConfig      m_oCfg;   
+    JsonDocument *  m_pStatusDoc = nullptr;
     // JSON_DOC(m_oStatusDoc,JSON_STATUS_DOC_DEFAULT_SIZE);
     bool m_bStatusChanged = true;
     bool m_isRebootPending = false;
     // CSimpleDelay m_oRebootDelay;
-    unsigned long m_ulLastStatusUpdate = 0;
-    time_t  m_oRawTime;   
+    unsigned long   m_ulLastStatusUpdate = 0;
+    time_t          m_oRawTime;   
     char m_szISODateTime[32];   // Buffer for ISO - Time
     char m_szCurTime[16];       // Buffer for Time part of ISO
     char m_szCurDate[16];       // Buffer for Date part of ISO
