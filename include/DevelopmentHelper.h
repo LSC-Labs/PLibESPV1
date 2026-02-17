@@ -51,4 +51,6 @@
 
 #define NULL_POINTER_STRING(str)  (str == nullptr ? "-nullptr-" : str)
 
-
+#ifdef PIO_FRAMEWORK_ARDUINO_ENABLE_EXCEPTIONS
+    #define LSC_ENABLE_EXCEPTIONS
+#endif

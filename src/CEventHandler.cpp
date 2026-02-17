@@ -47,28 +47,36 @@ int CEventHandler::sendEvent(void *pSender, int nMsg, const void *pMessage, int 
     for(HandlerEntry oEntry : m_oEventReceivers) {
         IMsgEventReceiver *pEventReceiver = oEntry.pHandler;
         if(pEventReceiver && pSender != pEventReceiver) {
+            #ifdef LSC_ENABLE_EXCEPTIONS
             try {
+            #endif
                 int nResult = pEventReceiver->receiveEvent(pSender,nMsg,pMessage,nClass);
                 if(nResult == EVENT_MSG_CALL_AGAIN_WHEN_ALL_OK) {
                     tCallBackEventReceivers.push_back(pEventReceiver);
                 } else {
                     if(nResult > nTotalResult) nTotalResult = nResult;
                 }
+            #ifdef LSC_ENABLE_EXCEPTIONS
             } catch(...) {
                 Serial.println("[X] sending event..." );
             }
+            #endif
         }
         if(nTotalResult == EVENT_MSG_RESULT_STOP_PROCESSING) break;
     }
     // Call backs if all is ok..
     if(nTotalResult == EVENT_MSG_RESULT_OK) {
         for(IMsgEventReceiver *pEventReceiver : tCallBackEventReceivers) {
+            #ifdef LSC_ENABLE_EXCEPTIONS
             try {
+            #endif
                 int nResult = pEventReceiver->receiveEvent(pSender,nMsg,pMessage,nClass);
                 if(nResult > nTotalResult) nTotalResult = nResult;
+            #ifdef LSC_ENABLE_EXCEPTIONS
             } catch(...) {
                 Serial.println("[X] sending event..." );
             }
+            #endif
         }
     }
     return(nTotalResult);
