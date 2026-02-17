@@ -9,9 +9,14 @@
 
 #pragma region Constructor / init and Message Dispatching
 
+/**
+ * @brief constructor
+ * Register self as Eventhandler and the IConfigHandler of Chonfig as "cfg"
+ */
 CAppl::CAppl() {
     Log = CEventLogger(&MsgBus);
 	MsgBus.registerEventReceiver(this,__FUNCTION__);
+	addConfigHandler("cfg",&Config);
 }  
 
 /**
@@ -26,6 +31,7 @@ void CAppl::init(const char *strAppName, const char *strAppVersion) {
     if(m_oCfg.bLogToSerial) {
         MsgBus.registerEventReceiver(new CSerialLogWriter(),"CSerialLogWriter");
     }
+
 	MsgBus.sendEvent(this,MSG_APPL_STARTING,nullptr,0);
 	MsgBus.sendEvent(this,MSG_APPL_INITIALIZED,nullptr,0);
 }
@@ -120,7 +126,7 @@ void CAppl::readConfigFrom(JsonObject &oJsonObj) {
 	DEBUG_INFOS(" -- Device Name: %s",m_oCfg.strDeviceName.c_str());
 	DEBUG_INFOS(" -- Device Pass: \"%s\"",m_oCfg.strDevicePwd.c_str());
 
-	// Iterate through registerd Config Handler
+	// Then Iterate through registerd Config Handler
 	CConfigHandler::readConfigFrom(oJsonObj);
 	DEBUG_FUNC_END();
 }
@@ -203,6 +209,7 @@ void CAppl::writeConfigTo(JsonObject &oJsonObj, bool bHideCritical) {
 	oJsonObj["devicepwd"]  	= bHideCritical ? HIDDEN_PASSWORD_MASK : m_oCfg.strDevicePwd;
 
 	// Iterate through registered Config Handler
+	// This includes the own "cfg" form Config (IConfigHandler).
 	CConfigHandler::writeConfigTo(oJsonObj,bHideCritical);
 	DEBUG_JSON_OBJ(oJsonObj);
 	DEBUG_FUNC_END();
