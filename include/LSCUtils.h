@@ -18,7 +18,7 @@ namespace LSC {
     // String getAddressAsString(IPAddress ip);
     // String getAddressAsString(ip4_addr ip);
 
-    int ICACHE_FLASH_ATTR parseBytesToArray(byte *pBytes, const char * pszData, char cSep, int nMaxBytes, int nBase);
+    int ICACHE_FLASH_ATTR parseBytesToArray(uint8_t *pBytes, const char * pszData, char cSep, int nMaxBytes, int nBase);
 /*
     bool ICACHE_FLASH_ATTR setValue(float         *pTarget, String strValue, const float         *pDefault   = nullptr);
     bool ICACHE_FLASH_ATTR setValue(int           *pTarget, String strValue, const int           *pDefault   = nullptr);
