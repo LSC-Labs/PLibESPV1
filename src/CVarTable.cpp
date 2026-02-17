@@ -370,4 +370,12 @@ void CVarTable::readConfigFrom(JsonObject &oCfgObj) {
     DEBUG_FUNC_END();
 }
 
+/**
+ * Does the table contains vars or is it empty ?
+ * @returns true, if there are vars inside.
+ */
+bool CVarTable::hasConfigValues() {
+    return(!this->tVarEntries.empty());
+}
+
 #pragma endregion

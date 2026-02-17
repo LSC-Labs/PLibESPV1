@@ -11,6 +11,10 @@ class IConfigHandler {
     public:
         virtual void writeConfigTo(JsonObject &oCfgNode, bool bHideCritical) = 0;
         virtual void readConfigFrom(JsonObject &oCfgNode) = 0;
+
+        // Override, if you want the parent config handler not to create the subnode,
+        // if no values are available to be stored. Default is - has values.
+        virtual bool hasConfigValues() { return true; }
 };
 
 /**
@@ -29,10 +33,10 @@ class CConfigHandler : public IConfigHandler {
     public:
         CConfigHandler() {}
 
-        void addConfigHandler(String strName, IConfigHandler *pHandler);   // Register a config handler
-        void addConfigHandler(const char *pszName, IConfigHandler *pHandler);   // Register a config handler
-        IConfigHandler *getConfigHandler(String strName);  // Get a Config Handler by his name
-        IConfigHandler *getConfigHandler(const char *pszName);  // Get a Config Handler by his name
+        void addConfigHandler(String strName, IConfigHandler *pHandler, bool bForceInclude = false);   // Register a config handler
+        void addConfigHandler(const char *pszName, IConfigHandler *pHandler, bool bForceInclude = false);   // Register a config handler
+        IConfigHandler * getConfigHandler(String      strName,  int nIdx = 0);  // Get a Config Handler by his name
+        IConfigHandler * getConfigHandler(const char *pszName,  int nIdx = 0);  // Get a Config Handler by his name
 
         /** Interface implementation */
         virtual void writeConfigTo(JsonObject &oNode, bool bHideCritical) override;          // Write your config into this Json Object

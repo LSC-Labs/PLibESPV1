@@ -115,6 +115,7 @@ class CVarTable : public IConfigHandler {
         // Implement the IConfigHandler interface
         virtual void writeConfigTo(JsonObject &oCfgObj, bool bHideCritical) override;
         virtual void readConfigFrom(JsonObject &oCfgObj) override;
+        virtual bool hasConfigValues() override;
 };
 
 
