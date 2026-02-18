@@ -10,6 +10,24 @@
 namespace LSC {
 
     /**
+     * @brief a case insensitive string compare.
+     * As it is not part of the std c library - this implementation can help.
+     * Ensure, the pointers are valid
+     * @see : https://doxygen.reactos.org/d3/d11/stricmp_8c_source.html
+     */
+    int stricmp(const char *psz1, const char *psz2)
+    {
+        while (toupper(*psz1) == toupper(*psz2))
+        {
+            if (*psz1 == 0)
+            return 0;
+            psz1++;
+            psz2++;
+        }
+        return toupper(*(unsigned const char *)psz1) - toupper(*(unsigned const char *)(psz2));
+    }
+
+    /**
      * @brief Get the current ISO Time String representation.
      * @param pszBuffer The buffer to store the resulting ISO time string.
      * @param nBufferLen The length of the buffer.
