@@ -1,3 +1,30 @@
+/**
+ * @file CAppl.cpp
+ * @brief Application Framework Implementation
+ * 
+ * This file implements the core application framework for an ESP32-based smart device.
+ * It provides:
+ * - Application initialization and lifecycle management
+ * - Message/Event bus dispatching and handling
+ * - Module registration and management
+ * - Configuration file I/O (JSON-based)
+ * - Status reporting and monitoring
+ * - System time and date utilities
+ * - Diagnostic and system information functions
+ * 
+ * The CAppl class acts as the central hub for managing modules, handling configuration,
+ * coordinating message passing, and managing system reboot operations.
+ * 
+ * @dependencies
+ * - Appl.h (CAppl class definition)
+ * - FileSystem.h (CFS class for file operations)
+ * - SysStatus.h (CSysStatus class for system diagnostics)
+ * - LSCUtils.h (Utility functions)
+ * - Arduino JSON library
+ * 
+ * @note This implementation is designed for ESP32 microcontroller environments
+ * @see CAppl class for detailed API documentation
+ */
 #ifndef DEBUG_LSC_APPL
 	#undef DEBUGINFOS
 #endif
@@ -394,11 +421,11 @@ void CAppl::printDiag() {
 
 	if (ideSize != realSize)
 	{
-		Serial.println("Flash Chip configuration wrong!\n");
+		Serial.println("Flash Chip configuration wrong!");
 	}
 	else
 	{
-		Serial.println("Flash Chip configuration ok.\n");
+		Serial.println("Flash Chip configuration ok.");
 	}
 }
 
