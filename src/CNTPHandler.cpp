@@ -101,11 +101,12 @@ void CNTPHandler::timeUpdatedByService() {
 void CNTPHandler::setup(void) {
         DEBUG_FUNC_START();
         if(!m_bIsInitialized) {
-                std::function<void(void)> funcOnEvent;
+                // std::function<void(void)> funcOnEvent;
+                TrivialCB funcOnEvent;
                 // Prepare the bind of the own onWebSocketEvent Handler function
 	        funcOnEvent = std::bind(&CNTPHandler::timeUpdatedByService,this);
                 settimeofday_cb (funcOnEvent);
-                DEBUG_INFOS(" calling => configTime(%s,%s)",Config.TZ.c_str(),Config.NTPServer.c_str());
+                DEBUG_INFOS(" calling => configTime(\"%s\",\"%s\")",Config.TZ.c_str(),Config.NTPServer.c_str());
                 configTime(Config.TZ.c_str(), Config.NTPServer.c_str());
                 m_bIsInitialized = true;
         }

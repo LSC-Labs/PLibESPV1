@@ -13,7 +13,7 @@
 void CEventHandler::registerEventReceiver(IMsgEventReceiver *pEventReceiver, const char *pszReceiverName) {
     bool bAlreadyRegistered = false;
     DEBUG_FUNC_START_PARMS("%p,%s",pEventReceiver,NULL_POINTER_STRING(pszReceiverName)); 
-    for(HandlerEntry oEntry : m_oEventReceivers) {
+    for(HandlerEntry oEntry : m_tEventReceivers) {
         if(oEntry.pHandler == pEventReceiver) {
             DEBUG_INFOS("MsgBus: Receiver already registered... %p (%s)",pEventReceiver,pszReceiverName ? pszReceiverName : "-no name-");
             #if DEBUGINFOS
@@ -26,7 +26,7 @@ void CEventHandler::registerEventReceiver(IMsgEventReceiver *pEventReceiver, con
         HandlerEntry oNewEntry;
         oNewEntry.pHandler = pEventReceiver;
         oNewEntry.pszName = pszReceiverName;
-        m_oEventReceivers.push_back(oNewEntry);
+        m_tEventReceivers.push_back(oNewEntry);
         DEBUG_INFOS("MsgBus: Registered new receiver... %p (%s)",pEventReceiver,pszReceiverName ? pszReceiverName : "-no name-");
     }
     DEBUG_FUNC_END();
@@ -44,7 +44,7 @@ void CEventHandler::registerEventReceiver(IMsgEventReceiver *pEventReceiver, con
 int CEventHandler::sendEvent(void *pSender, int nMsg, const void *pMessage, int nClass) {
     int nTotalResult = EVENT_MSG_RESULT_OK;
     std::vector<IMsgEventReceiver*> tCallBackEventReceivers;
-    for(HandlerEntry oEntry : m_oEventReceivers) {
+    for(HandlerEntry oEntry : m_tEventReceivers) {
         IMsgEventReceiver *pEventReceiver = oEntry.pHandler;
         if(pEventReceiver && pSender != pEventReceiver) {
             #ifdef LSC_ENABLE_EXCEPTIONS

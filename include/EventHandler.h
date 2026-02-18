@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <functional>
 #include <vector>
+#include <queue>
 
 #define EVENT_MSG_CALL_AGAIN_WHEN_ALL_OK -9
 #define EVENT_MSG_RESULT_OK               0
@@ -30,22 +31,28 @@ class CEventHandler
             const char         *pszName = nullptr;
             IMsgEventReceiver  *pHandler = nullptr;
         };
-        std::vector<HandlerEntry> m_oEventReceivers;
+        std::vector<HandlerEntry> m_tEventReceivers;
         
     public: 
         void registerEventReceiver(IMsgEventReceiver * pEventReceiver, const char *pszReceiverName = nullptr);
        
-        /// @brief Send the message to the Message Event Receivers
-        ///        To avoid receiving your own message, specify the Sender (this).
-        ///        If you want to receive your onw message, specify nullptr here...
-        /// @param pSender nullptr (receive own messages) or the senders address to avoid receiving own messages
-        /// @param nMsgType use message number from msg.h - or specify owm message with MSG_USER_BASE + xxx
-        /// @param pMessage The message for the receiver, depending on nMsgType
-        /// @param nClass   Additional Flag for the receiving team
-        int sendEvent(void *pSender, int nMsg, const void *pMessage, int nClass);
-       
+        /**
+         * @brief Send the message to the Message Event Receivers
+         *        To avoid receiving your own message, specify the Sender (this).
+         *        If static, or you want to receive your onw message, specify nullptr here...
+         * 
+         *        Processing:
+         *        - The event message will be sent immediately to all recipients
+         *
+         * @param pSender nullptr (receive own messages) or the senders address to avoid receiving own messages
+         * @param nMsgID use message number from msg.h - or specify owm message with MSG_USER_BASE + xxx
+         * @param pMessage The message for the receiver, depending on nMsgType
+         * @param nMsgType   Additional Flag for the receiving team
+         */
+        int sendEvent(void *pSender, int nMsgID, const void *pMessage, int nMsgType);
+
         void dumpReceiver() {
-            for(HandlerEntry oEntry : m_oEventReceivers) {
+            for(HandlerEntry oEntry : m_tEventReceivers) {
                 Serial.printf("EVH: - registered event receiver: %p - (%s)\n",
                               oEntry.pHandler,
                               oEntry.pszName ? oEntry.pszName : "-");
