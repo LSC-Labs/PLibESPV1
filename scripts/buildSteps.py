@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 INCLUDE_FILE     = os.path.join(env.subst("$PROJECT_INCLUDE_DIR"),"ProgVersion.h")
-VERSION_FILE     = os.path.join(env.subst("$PROJECT_DATA_DIR"),"prog_ver.json")
+VERSION_FILE     = os.path.join(env.subst("$PROJECT_DATA_DIR"),"version.json")
 FIRMWARE_SOURCE  = os.path.join(env.subst("$BUILD_DIR"), "firmware.bin")
 FIRMWARE_PATH    = os.path.join("bin")
 PROJECT_DIR      = os.path.normpath(env.subst("$PROJECT_DIR"))
