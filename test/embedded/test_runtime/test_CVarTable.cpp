@@ -26,7 +26,7 @@ TEST_F(CVarTableTest, createAndFindVar) {
 }
 
 TEST_F(CVarTableTest, testIfTableContainsConfigVars) {
-    EXPECT_FALSE(varTable.hasConfigValues())
+    EXPECT_FALSE(varTable.hasConfigValues());
     varTable.set("testVar","1");
     EXPECT_TRUE(varTable.hasConfigValues());
 }
