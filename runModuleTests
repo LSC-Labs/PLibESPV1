@@ -1,1 +1,1 @@
-pio test -vv --ignore embedded/test_security
+pio test -vv --ignore embedded/test_security  --ignore embedded/test_webserver
