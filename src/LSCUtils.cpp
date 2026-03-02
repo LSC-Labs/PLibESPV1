@@ -87,13 +87,15 @@ namespace LSC {
         }
     }
 
-    /// @brief parse a string with delimited values into a byte array.
-    /// @param pBytes    Pointer to the byte Array to be filled in min length of nMaxBytes
-    /// @param pszInput  The string to be parsed like "xx:xx:xx:xx"
-    /// @param cSep      The separator like ':'
-    /// @param nMaxBytes Max bytes available in pBytes Array
-    /// @param nBase     Base to convert, like 10 - decimal
-    /// @return 
+    /**
+     * @brief parse a string with delimited values into a byte array.
+     * @param pBytes    Pointer to the byte Array to be filled in min length of nMaxBytes
+     * @param pszInput  The string to be parsed like "xx:xx:xx:xx"
+     * @param cSep      The separator like ':'
+     * @param nMaxBytes Max bytes available in pBytes Array
+     * @param nBase     Base to convert, like 10 - decimal
+     * @return 
+     *  */
     int ICACHE_FLASH_ATTR parseBytesToArray(uint8_t *pBytes, const char * pszInput, char cSep, int nMaxBytes, int nBase)
     {
         // set target to zero...
@@ -105,16 +107,16 @@ namespace LSC {
         strcpy(tBuffer,pszInput);
 
         // prepare the token
-        char tToken[2];
-        tToken[0] = cSep;
-        tToken[1] = '\0';
+        char szToken[2];
+        szToken[0] = cSep;
+        szToken[1] = '\0';
 
         // start tokenization
-        char * psz = strtok(tBuffer,tToken);
+        char * psz = strtok(tBuffer,szToken);
         int nIdx = 0;
         while(psz != NULL && nMaxBytes > nIdx) {
             pBytes[nIdx++] = strtol(psz,NULL,nBase);
-            psz = strtok(NULL, " ");
+            psz = strtok(NULL, szToken);
         }
         return(nIdx);
     }
