@@ -36,11 +36,12 @@ namespace LSC {
 
     bool ICACHE_FLASH_ATTR setJsonValueIfNot(JsonObject & oSource,const char* pszKey,  String & strTarget, const char  *pszHiddenValue);
 
-    bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const char* pszKey,  String    & strTarget);
-    bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const char* pszKey,  float     * pTarget);
-    bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const char* pszKey,  int       * pTarget);
-    bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const char* pszKey,  bool      * pTarget);
-    bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const char* pszKey,  IPAddress & pTarget);
+    bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const char* pszKey,  String        & strTarget);
+    bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const char* pszKey,  float         * pTarget);
+    bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const char* pszKey,  int           * pTarget);
+    bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const char* pszKey,  unsigned long * pTarget);
+    bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const char* pszKey,  bool          * pTarget);
+    bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const char* pszKey,  IPAddress     & pTarget);
 
     /*
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  String    & strTarget);

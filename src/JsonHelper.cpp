@@ -85,6 +85,23 @@ namespace LSC {
         return(bResult);
     } 
 
+    /**
+     * Set a float value, as stored in the json object.
+     * the float can be native (0.xxx)
+     * or as a string ("0.xx")
+     * both version are accepted
+     */
+    bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource, const char* pszKey, unsigned long * pTarget) {
+        bool bResult = false;
+
+        // Either 0.xxx or "0.xxx" first is float, second is string...
+        if(JsonKeyExists(oSource,pszKey,unsigned long) || JsonKeyExists(oSource,pszKey,String)) {
+            *pTarget = oSource[pszKey].as<unsigned long>();
+            bResult = true;
+        } 
+        return(bResult);
+    } 
+
      /**
      * Set a bool value, as stored in the json object.
      * the bool can be native (true)
@@ -114,20 +131,25 @@ namespace LSC {
      */
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource, const char* pszKey, int * pTarget) {
         bool bResult = false;
+        Serial.println(" - set int...");
         if(JsonKeyExists(oSource,pszKey,int) || JsonKeyExists(oSource,pszKey,String)) {
             *pTarget = oSource[pszKey].as<int>();
+            bResult = true;
         } 
         return(bResult);
     }
 
-    /*
+    
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  String    & strTarget) {
         
         return(setJsonValue(oSource,(const char *) pszKey,strTarget));
     }
+    
+   
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  float     * pTarget){
         return(setJsonValue(oSource,(const char *) pszKey,pTarget));
     }
+   
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  int       * pTarget){
         return(setJsonValue(oSource,(const char *) pszKey,pTarget));
     }
@@ -137,5 +159,5 @@ namespace LSC {
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  IPAddress & pTarget){
         return(setJsonValue(oSource,(const char *) pszKey,pTarget));
     }
-    */
+    
 }
