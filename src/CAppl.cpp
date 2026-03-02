@@ -47,7 +47,7 @@ CAppl::CAppl() {
 }  
 
 /**
- * @brief Initialize the Application Framework
+ * @brief Initialize the Application Framework and the random generatore
  * @param strAppName    The name of the Application
  * @param strAppVersion The Version of the Application
  */
@@ -60,6 +60,7 @@ void CAppl::init(const char *strAppName, const char *strAppVersion) {
     }
 
 	MsgBus.sendEvent(this,MSG_APPL_STARTING,nullptr,0);
+	randomSeed(millis());
 	MsgBus.sendEvent(this,MSG_APPL_INITIALIZED,nullptr,0);
 }
 
