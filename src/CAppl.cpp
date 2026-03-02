@@ -142,9 +142,9 @@ void CAppl::readConfigFrom(JsonObject &oJsonObj) {
 	DEBUG_FUNC_START();
 	// Config.readConfigFrom(oJsonObj);
 	// Speed oper
-	LSC::setJsonValue(oJsonObj,"logToSerial",&m_oCfg.bLogToSerial);
-	LSC::setJsonValue(oJsonObj,"traceMode",&m_oCfg.bTraceMode);
-	LSC::setJsonValue(oJsonObj,"devicename",m_oCfg.strDeviceName);
+	LSC::setJsonValue(oJsonObj,"logToSerial",	&m_oCfg.bLogToSerial);
+	LSC::setJsonValue(oJsonObj,"traceMode",		&m_oCfg.bTraceMode);
+	LSC::setJsonValue(oJsonObj,"devicename",	 m_oCfg.strDeviceName);
 
 	// Set the device password only, it is NOT the hidden appl password
 	// If it is empty, keep the default passwort.

@@ -43,12 +43,12 @@ namespace LSC {
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const char* pszKey,  bool          * pTarget);
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const char* pszKey,  IPAddress     & pTarget);
 
-    /*
+    
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  String    & strTarget);
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  float     * pTarget);
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  int       * pTarget);
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  bool      * pTarget);
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  IPAddress & pTarget);
-    */
+    
 }
 

@@ -141,23 +141,27 @@ namespace LSC {
 
     
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  String    & strTarget) {
-        
-        return(setJsonValue(oSource,(const char *) pszKey,strTarget));
+        String strKey(pszKey);
+        return(setJsonValue(oSource,strKey.c_str(),strTarget));
     }
     
    
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  float     * pTarget){
-        return(setJsonValue(oSource,(const char *) pszKey,pTarget));
+        String strKey(pszKey);
+        return(setJsonValue(oSource,strKey.c_str(),pTarget));
     }
    
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  int       * pTarget){
-        return(setJsonValue(oSource,(const char *) pszKey,pTarget));
+        String strKey(pszKey);
+        return(setJsonValue(oSource,strKey.c_str(),pTarget));
     }
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  bool      * pTarget){
-        return(setJsonValue(oSource,(const char *) pszKey,pTarget));
+        String strKey(pszKey);
+        return(setJsonValue(oSource,strKey.c_str(),pTarget));
     }
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  IPAddress & pTarget){
-        return(setJsonValue(oSource,(const char *) pszKey,pTarget));
+        String strKey(pszKey);
+        return(setJsonValue(oSource,strKey.c_str(),pTarget));
     }
     
 }
