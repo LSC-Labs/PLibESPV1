@@ -11,10 +11,12 @@
 
 // If compiled with MS - supress warnings...
 #define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
+
+#include <Arduino.h>
+// #include <stdio.h>
 #include <vector>
-#include <string>
-#include <iostream>
+// #include <string>
+// #include <iostream>
 
 
 class CSimpleJsonNode {
@@ -23,16 +25,16 @@ class CSimpleJsonNode {
      */
     class CElementEntry {
         public:
-            std::string Name;
-            std::string Value;
-            CElementEntry(std::string strName, std::string strValue) {
+            String Name;
+            String Value;
+            CElementEntry(String strName, String strValue) {
                 Name = strName;
                 Value = strValue;
             }
     };
 
     // Name of this node...
-    std::string Name;
+    String Name;
 
     // List of Object subnodes...
     std::vector<CSimpleJsonNode*> tSubNodes;

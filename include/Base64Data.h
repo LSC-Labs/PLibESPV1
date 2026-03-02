@@ -4,7 +4,7 @@
  *   as in the past, a lot of implementations had problems.  
  */
 #pragma once
-#include <string.h>
+// #include <string.h>
 #include <ext/base64.h>
 
 

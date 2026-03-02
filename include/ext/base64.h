@@ -29,10 +29,11 @@
 
 #ifndef BASE64_H
 #define BASE64_H
-
+#include <Arduino.h>
+/*
 #include <stdio.h>
 #include <stdlib.h>
-
+*/
 // The COMPILE-TIME SETTING SAFEBASE64 is really important.
 // You need to decide if PARANOIA is more important to you than speed.
 //

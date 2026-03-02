@@ -3,7 +3,7 @@
 
 void CSimpleJsonNode::clear() {
     for (CElementEntry* pEntry : tKeyValues) {
-        std::cout << "Removing : " << pEntry->Name << "\n";
+//        std::cout << "Removing : " << pEntry->Name << "\n";
         delete(pEntry);
     }
     for (CSimpleJsonNode* pNode : this->tSubNodes) {
@@ -13,7 +13,7 @@ void CSimpleJsonNode::clear() {
 
 void CSimpleJsonNode::dump() {
     for (CElementEntry* pEntry : tKeyValues) {
-        std::cout << pEntry->Name << " == " << pEntry->Value << "\n";
+        Serial.printf("%s == %s\n",pEntry->Name.c_str(),pEntry->Value.c_str());
     }
 }
 
@@ -97,9 +97,9 @@ const char* CSimpleJsonNode::parse(const char* pszJsonData) {
     // bool bScanName = true;
     bool bEscapeIsActive = false;
     bool bStringIsActive = false;
-    std::string strName;
-    std::string strValue;
-    std::string strData;
+    String strName;
+    String strValue;
+    String strData;
     strData.reserve(512);
     // char szData[512] = { 0 };
     // char szName[40] = { 0 };

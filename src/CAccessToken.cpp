@@ -136,7 +136,7 @@ const char * CAccessToken::getTokenAsBase64(bool bRandomIV) {
     return(m_szTokenAsBase64);
 }
 
-
+/*
 void CAccessToken::dump() {
     Serial.println("");
     Serial.println("Access Token:");
@@ -151,7 +151,7 @@ void CAccessToken::dump() {
     Serial.printf("Token (Base64) (%d/%d)>>%s<<\n",sizeof(m_szTokenAsBase64),strlen(m_szTokenAsBase64),m_szTokenAsBase64);
     Serial.println("---------------------------------------------------------------");
 }
-
+*/
 
 /**
  * @brief check if the current token is valid

@@ -74,12 +74,12 @@ char* base64( const void* binaryData, int len, int *flen )
   //printf("%d %% 3 = %d, %d bytes pad, +1 byte NULL, flen=%d\n", len, lenMod3, pad, *flen);
   
   // Allocate enough space for the base64 string result.
-  char* base64String = (char*)malloc( *flen + 1 ) ; // and one for the null,
+  char* base64String = (char*) malloc( *flen + 1 ) ; // and one for the null,
   // which is NOT counted in flen.
   if( !base64String )
   {
-    puts( "ERROR: base64 could not allocate enough memory." ) ;
-    puts( "I must stop because I could not get enough" ) ;
+//    puts( "ERROR: base64 could not allocate enough memory." ) ;
+//    puts( "I must stop because I could not get enough" ) ;
     return 0;
   }
   
@@ -258,8 +258,8 @@ unsigned char* unbase64( const char* ascii, int len, int *flen )
   unsigned char *bin = (unsigned char*)malloc( *flen );
   if( !bin )
   {
-    puts( "ERROR: unbase64 could not allocate enough memory." ) ;
-    puts( "I must stop because I could not get enough" ) ;
+//    puts( "ERROR: unbase64 could not allocate enough memory." ) ;
+//    puts( "I must stop because I could not get enough" ) ;
     return 0;
   }
   
@@ -370,7 +370,7 @@ int base64integrity( const char *ascii, int len )
   {
     if( !isbase64ValidChr( ascii[i] ) ) 
     {
-      printf( "ERROR in base64integrity at chr %d [%c]. String is NOT valid base64.\n", i, ascii[i] ) ;
+//      printf( "ERROR in base64integrity at chr %d [%c]. String is NOT valid base64.\n", i, ascii[i] ) ;
       return 0 ;
     }
   }
@@ -382,16 +382,16 @@ int base64integrity( const char *ascii, int len )
     // If the 2nd last is = the last MUST be = too
     if( ascii[i+1] != '=' )
     {
-      printf( "ERROR in base64integrity at chr %d.\n"
-      "If the 2nd last chr is '=' then the last chr must be '=' too.\n "
-      "String is NOT valid base64.", i ) ;
+//      printf( "ERROR in base64integrity at chr %d.\n"
+//      "If the 2nd last chr is '=' then the last chr must be '=' too.\n "
+//      "String is NOT valid base64.", i ) ;
       return 0 ;
     }
   }
   else if( !isbase64ValidChr( ascii[i] ) )  // not = or valid base64
   {
     // 2nd last was invalid and not '='
-    printf( "ERROR in base64integrity at chr %d (2nd last chr). String is NOT valid base64.\n", i ) ;
+//    printf( "ERROR in base64integrity at chr %d (2nd last chr). String is NOT valid base64.\n", i ) ;
     return 0 ;
   }
   
@@ -400,7 +400,7 @@ int base64integrity( const char *ascii, int len )
   i++ ;
   if( ascii[i]!='=' && !isbase64ValidChr( ascii[i] ) )
   {
-    printf( "ERROR in base64integrity at chr %d (last chr). String is NOT valid base64.\n", i ) ;
+//    printf( "ERROR in base64integrity at chr %d (last chr). String is NOT valid base64.\n", i ) ;
     return 0 ;    
   }
   
