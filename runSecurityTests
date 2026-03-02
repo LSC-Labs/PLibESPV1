@@ -1,0 +1,1 @@
+pio test -vv --ignore embedded/test_runtime
