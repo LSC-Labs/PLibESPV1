@@ -13,7 +13,7 @@ void CSimpleJsonNode::clear() {
 
 void CSimpleJsonNode::dump() {
     for (CElementEntry* pEntry : tKeyValues) {
-        Serial.printf("%s == %s\n",pEntry->Name.c_str(),pEntry->Value.c_str());
+        SerialPrintf("%s == %s\n",pEntry->Name.c_str(),pEntry->Value.c_str());
     }
 }
 

@@ -7,16 +7,14 @@
  * @copyright LSC-Labs - use without warranty..
  * 
  * 2026-02-28 : parse data and read values and objects...
+ * 2026-03-02 : using Runtime.h to enable testing and debugging in the host system.
  */
 
 // If compiled with MS - supress warnings...
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <Arduino.h>
-// #include <stdio.h>
-#include <vector>
-// #include <string>
-// #include <iostream>
+// Using the Runtime to enable native debugging and testing
+#include <Runtime.h>
 
 
 class CSimpleJsonNode {

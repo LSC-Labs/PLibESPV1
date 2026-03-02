@@ -29,7 +29,7 @@
 
 #ifndef BASE64_H
 #define BASE64_H
-#include <Arduino.h>
+#include <Runtime.h>
 /*
 #include <stdio.h>
 #include <stdlib.h>
