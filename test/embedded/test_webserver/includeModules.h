@@ -16,7 +16,7 @@
 #include <../src/CVarTable.cpp>
 
 #include <../src/JsonHelper.cpp>
-#include <../src/base64.cpp>
+#include <../src/ext/base64.cpp>
 #include <../src/CAESCryptor.cpp>
 #include <../src/CAccessToken.cpp>
 #include <../src/CWebServer.cpp>
