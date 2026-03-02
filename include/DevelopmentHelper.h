@@ -17,14 +17,16 @@
         #define DEBUG_INFOS(str,...)        Serial.printf( "[D] " str "\n",__VA_ARGS__)
         #define DEBUG_INFO(str)             Serial.println("[D] " str) 
     #else
-        #define DEBUG_INFOS(str,...)        Serial.printf( "[D] (%s #%d %s()): " str "\n",__FILE__,__LINE__,__FUNCTION__,__VA_ARGS__)
-        #define DEBUG_INFO(str)             Serial.printf( "[D] (%s #%d %s()): " str "\n",__FILE__,__LINE__,__FUNCTION__) 
+        #define DEBUG_INFOS(str,...)        Serial.printf( "[D] (%s #%03d): " str "\n",__FILE__,__LINE__,__VA_ARGS__)
+        #define DEBUG_INFO(str)             Serial.printf( "[D] (%s #%03d): " str "\n",__FILE__,__LINE__) 
     #endif
+    #define DEBUG_FUNC_INFOS(str,...)       Serial.printf( "[D] (%s #%03d %s()): " str "\n",__FILE__,__LINE__,__FUNCTION__,__VA_ARGS__)
+    #define DEBUG_FUNC_INFO(str)            Serial.printf( "[D] (%s #%03d %s()): " str "\n",__FILE__,__LINE__,__FUNCTION__) 
 
-    #define DEBUG_FUNC_START()              Serial.printf( "[D] Function start: %s\n",__PRETTY_FUNCTION__)
-    #define DEBUG_FUNC_END()                Serial.printf( "[D] Function -end-: %s\n",__PRETTY_FUNCTION__)
-    #define DEBUG_FUNC_START_PARMS(str,...) Serial.printf( "[D] Function start: %s - (" str ")\n",__PRETTY_FUNCTION__,__VA_ARGS__)
-    #define DEBUG_FUNC_END_PARMS(str,...)   Serial.printf( "[D] Function -end-: %s - (" str ")\n",__PRETTY_FUNCTION__,__VA_ARGS__)
+    #define DEBUG_FUNC_START()              Serial.printf( "[D] Function start >>>: %s\n",__PRETTY_FUNCTION__)
+    #define DEBUG_FUNC_END()                Serial.printf( "[D] Function end <<<<<: %s\n",__PRETTY_FUNCTION__)
+    #define DEBUG_FUNC_START_PARMS(str,...) Serial.printf( "[D] Function start >>>: %s - (" str ")\n",__PRETTY_FUNCTION__,__VA_ARGS__)
+    #define DEBUG_FUNC_END_PARMS(str,...)   Serial.printf( "[D] Function end <<<<<: %s - (" str ")\n",__PRETTY_FUNCTION__,__VA_ARGS__)
     #define DEBUG_JSON_OBJ(oJsonObj)        {serializeJson(oJsonObj,Serial);Serial.println();}    
     #define DEBUG_TODO(str)                 Serial.printf("TODO - (%s - #%d): %s",__FILE__,__LINE__,str)
     #define DEBUG_TODO_INFUNC(str)          Serial.printf("TODO - (%s - #%d %s()): %s",__FILE__,__LINE__,__func__,str)
@@ -41,6 +43,8 @@
     #define DEBUG_FUNC_END_PARMS(str,...)   NULL_FUNCTION
     #define DEBUG_INFOS(str,...)            NULL_FUNCTION 
     #define DEBUG_INFO(str)                 NULL_FUNCTION
+    #define DEBUG_FUNC_INFOS(str,...)       NULL_FUNCTION
+    #define DEBUG_FUNC_INFO(str)            NULL_FUNCTION
     #define DEBUG_JSON_OBJ(oJsonObj)        NULL_FUNCTION
     #define DEBUG_DELAY(ms)                 NULL_FUNCTION
     #define DEBUG_TODO(str)                 NULL_FUNCTION
