@@ -34,22 +34,19 @@ CAccessToken::CAccessToken(const char * pszIPAddress, const char * pszTokenKey, 
  * to be used to validate the token...
  */
 CAccessToken::CAccessToken(const char * pszBase64Data) {
-    DEBUG_FUNC_START_PARMS("%s",pszBase64Data);
     m_bStructureIsValid = false;
     if(pszBase64Data) {
         // Decode the Base 64 string to IV/Data elements
-        DEBUG_INFOS("-> decoding base64 string: (%d) %s",strlen(pszBase64Data), pszBase64Data);
         char szBuffer[strlen(pszBase64Data) * 2];
         CBase64Data::base64DecodeData(pszBase64Data,strlen(pszBase64Data),szBuffer,sizeof(szBuffer));
         // base64_decode_chars(pszBase64Data,strlen(pszBase64Data),szBuffer);
-        DEBUG_INFOS("--> decoded data: (%d/%d) %s",strlen(szBuffer),sizeof(szBuffer), szBuffer);
         CSimpleJsonNode oToken;
         oToken.parse(szBuffer);
         if(oToken.exists("IV") && oToken.exists("Data")) { 
             m_oAESCryptor.IV.loadFromBase64(oToken.getValue("IV"));
             loadBase64DataElement(oToken.getValue("Data"));
         } else {
-            DEBUG_INFO("## Error reading json, missing elements..");
+            DEBUG_INFO("## Error missing json elements..");
         }
     }
     DEBUG_FUNC_END();
@@ -63,7 +60,6 @@ CAccessToken::CAccessToken(const char * pszBase64Data) {
  * @returns true, if data is valid, the format is correct and all elements needed are inside.
  */
 bool CAccessToken::loadBase64DataElement(const char * pszBase64Data) {
-    DEBUG_FUNC_START_PARMS("\"%s\"",pszBase64Data);
     bool bSuccess = false;
     if(pszBase64Data) {
         // Decode the base64 string... and decrypt the block
@@ -86,7 +82,6 @@ bool CAccessToken::loadBase64DataElement(const char * pszBase64Data) {
             DEBUG_INFO("## Error reading json, missing elements..");
         }
     }
-    DEBUG_FUNC_END_PARMS("%d",bSuccess);
     return(bSuccess);       
 }
 
