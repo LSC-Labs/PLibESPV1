@@ -14,6 +14,7 @@
 #include <WebSocket.h>
 #include <Appl.h>
 #include <Security.h>
+#include <AccessToken.h>
 #include <FileSystem.h>
 #include <JsonHelper.h>
 
@@ -284,7 +285,9 @@ bool CWebSocket::checkAuth(JsonDocument &oJsonRequest, AsyncWebSocketClient *pCl
 	String strAuthToken = oJsonRequest["token"];
 	if(strAuthToken.length() > 10 && pClient) {
 		String strClientRemoteIP = pClient->remoteIP().toString();
-		isAuthenticated = isAuthTokenValid(strAuthToken, strClientRemoteIP);
+		CAccessToken oToken(strAuthToken.c_str());
+		
+		isAuthenticated = oToken.isAuthValid(strClientRemoteIP.c_str(),APPL_SECURITY_TOKEN_KEY);
 	}
 	DEBUG_FUNC_END_PARMS("%d",isAuthenticated);
 	return(isAuthenticated);

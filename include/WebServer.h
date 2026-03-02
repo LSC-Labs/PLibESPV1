@@ -47,6 +47,9 @@ class CWebServer : public AsyncWebServer, public IModule {
         const int Version = 1;
         WebServerConfig Config; // Configuration of the webserver
         WebServerStatus Status; // Status information about the webserver
+    protected:
+     
+
     public:
         CWebServer(int nPortNumber = 80);
 
@@ -58,4 +61,5 @@ class CWebServer : public AsyncWebServer, public IModule {
         void registerFileAccess();
         void deliverFile(AsyncWebServerRequest *pRequest);
         void registerDefaults();
+        virtual void setNewAuthHeader(AsyncWebServerRequest *pRequest, AsyncWebServerResponse *pResponse);
 };

@@ -391,11 +391,6 @@ String getNewAuthToken(String & strClientIPAddress) {
     return(getBase64EncodedString(strData));
 }
 */
-void setNewAuthHeader(AsyncWebServerRequest *pRequest, AsyncWebServerResponse *pResponse){
-    String strIPAddress;
-    if(pRequest) strIPAddress = pRequest->client()->remoteIP().toString();
-    if(pResponse) pResponse->addHeader("AUTHTOKEN",getNewAuthToken(strIPAddress));
-}
 
 /**
  * @brief Write the decrypted token into a json doc.

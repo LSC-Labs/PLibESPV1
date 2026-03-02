@@ -3,6 +3,7 @@
 #endif
 #include <WebServer.h>
 #include <Security.h>
+#include <AccessToken.h>
 #include <FileSystem.h>
 #include <JsonHelper.h>
 #include <DevelopmentHelper.h>
@@ -61,6 +62,18 @@ int CWebServer::receiveEvent(const void * pSender, int nMsg, const void * pMessa
     }
     return(nResult);
 }
+#pragma endregion
+
+#pragma region Securiy
+void CWebServer::setNewAuthHeader(AsyncWebServerRequest *pRequest, AsyncWebServerResponse *pResponse){
+    String strIPAddress;
+    if(pRequest) strIPAddress = pRequest->client()->remoteIP().toString();
+    if(pResponse) {
+        CAccessToken oToken(strIPAddress.c_str(),APPL_SECURITY_TOKEN_KEY);
+        pResponse->addHeader("AUTHTOKEN",oToken.getTokenAsBase64());
+    }
+}
+
 #pragma endregion
 
 #pragma region Registered File Access Routes
