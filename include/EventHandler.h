@@ -17,7 +17,7 @@
 class IMsgEventReceiver
 {
     public:
-        virtual int receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) = 0;
+        virtual int receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nMsgInfo) = 0;
 };  
 
 /**

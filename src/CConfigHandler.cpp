@@ -84,6 +84,24 @@ void CConfigHandler::writeConfigTo(JsonObject &oNode, bool bHideCritical){
     DEBUG_FUNC_END();
 }
 
+
+/**
+ * @brief Migrate the configuration of registered subhandlers
+ * Attention (!) call migrate after registering the handlers.
+ * @param oCfgDoc  The main configuration file with all module information inside
+ * @param oCfgNode The Node of this handler - root call: this node is the document as object
+ */
+void CConfigHandler::migrateConfig(JsonDocument & oCfgDoc, JsonObject & oCfgNode) {
+    DEBUG_FUNC_START();
+    for (const auto& oEntry : m_tListOfConfigHandlers) { 
+        if(oEntry.pHandler && oEntry.pszName) {
+            JsonObject oCfgHandlerNode = GetJsonObject(oCfgNode,oEntry.pszName);
+            oEntry.pHandler->migrateConfig(oCfgDoc,oCfgHandlerNode);
+        }
+    }
+    DEBUG_FUNC_END();
+}
+
 /**
  * Iterate all registered config handler and search their section
  * in the json node. If available, ask the handler to read their section.
