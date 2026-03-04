@@ -5,6 +5,7 @@ node_modules
 data/prog_ver.json
 include/ProgVersion.h
 bin
+.DS_STORE
 
 
 
