@@ -2,11 +2,13 @@
     "_language": "English",
 
     "menu" : {
+        "title": "$(prog_name)",
         "signin": "Sign in",
         "signout": "Sign out",
         "Support": "Feedback / Ticket",
         "Settings": "Settings",
         "Maintenance": "Maintenance"
+        
     },
 
     "main": {
