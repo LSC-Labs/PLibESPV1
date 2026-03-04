@@ -6,12 +6,18 @@
  * @file scripts/syncFiles.js
  * @author LSC Labs - Peter Liebl
  * @version 1.1.0
+ * 
+ * @param 1 == pages.json (or pages.json in cwd will be used)
  */
+
+
+const MODULE_NAME = "syncFiles";
+const MODULE_VERSION = "1.4.0";
+
 
 import fs from 'fs';
 import path from 'path';
-import gulp from 'gulp';
-import { CConfig } from './_common.js';
+import { CConfig, Utils } from './_common.js';
 
 const DEFAULTS = {
     
@@ -49,6 +55,19 @@ const Status = {
     "numErrors": 0,
     "numSyncFiles": 0,
     "bCreatePageRegistration": false
+}
+
+
+function loadPagesFile(strPages) {
+    if(!strPages) strPages = "pages.json";
+    if( fs.existsSync(strPages)) {
+        console.log("---> using pages definition: " + strPages)
+        let strData = fs.readFileSync(strPages);
+        let oPagesData = JSON.parse(strData);
+        Settings.addConfig(oPagesData);
+    } else {
+        console.log("[E] pages definition file not found : " + strPages)
+    }
 }
 // #region Sync functions
 
@@ -154,7 +173,7 @@ async function syncFileList(cb) {
             Status
         }
     });
-    cb()
+    if(Utils.isFunction(cb)) cb();
 }
 
 
@@ -163,17 +182,9 @@ async function syncFileList(cb) {
 
 // #endregion
 
-
-export async function runSyncFiles(cb, oSettings) {
-    console.log("---- syncFiles....");
-    if(oSettings && typeof oSettings === "object") {
-        if(oSettings.sync) {    
-            // to ensure, that only new settings are applied
-            if(oSettings.sync.locations) { Settings.setData("sync.locations", oSettings.sync.locations) }
-            if(oSettings.sync.files)     { Settings.setData("sync.files",oSettings.sync.files); }
-        }
-    }
-    Settings.addConfig(oSettings);
-    const runJob = gulp.series( syncFileList );
-    return await runJob();
-}
+console.log("********************************************");
+console.log("---- " + MODULE_NAME + " Version " + MODULE_VERSION);
+console.log("********************************************");
+loadPagesFile();
+syncFileList();
+console.log("==> " + MODULE_NAME + " Version " + MODULE_VERSION + "... done");

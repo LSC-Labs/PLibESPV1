@@ -1,6 +1,7 @@
 Import("env")
 import shutil
 import os
+import re
 import json
 from pathlib import Path
 
@@ -8,6 +9,8 @@ from pathlib import Path
 
 INCLUDE_FILE     = os.path.join(env.subst("$PROJECT_INCLUDE_DIR"),"ProgVersion.h")
 VERSION_FILE     = os.path.join(env.subst("$PROJECT_DATA_DIR"),"version.json")
+TEST_STATUS_FILE = os.path.join(env.subst("$PROJECT_DIR"),"test","data","status.json")
+SETTINGS_FILE 	 = os.path.join(env.subst("$PROJECT_DIR"),"src","web","js","settings.js")
 FIRMWARE_SOURCE  = os.path.join(env.subst("$BUILD_DIR"), "firmware.bin")
 FIRMWARE_PATH    = os.path.join("bin")
 PROJECT_DIR      = os.path.normpath(env.subst("$PROJECT_DIR"))
@@ -66,6 +69,43 @@ def writeVersionIncludeFile(oVersion):
 		
 		oFP.close()
 
+def updateJsonSettings(oVersion):
+	# Update the settings.js test file...
+	print("-> updating json settings")
+	strRegSearchProgName = "\"prog_name\"\s*:\s*\"([\-_A-Za-z0-9\s]*)\""
+	strRegSearchProgVer  = "\"prog_ver\"\s*:\s*\"([\.\-_A-Z0-9]*)\""
+	if os.path.exists(SETTINGS_FILE):
+		tLines = []
+		with open(SETTINGS_FILE, 'r') as oFP:
+			for strLine in oFP:
+				if re.search(strRegSearchProgName,strLine):
+					strLine = f'{strLine[:strLine.index(":")]}:"{oVersion["name"]}",\n'
+				if re.search(strRegSearchProgVer,strLine):
+					strLine = f'{strLine[:strLine.index(":")]}:"{oVersion["major"]}.{oVersion["minor"]}",\n'
+				tLines.append(strLine)
+			oFP.close()
+			
+		with open(SETTINGS_FILE, 'w') as oFP:
+			for strLine in tLines:
+				oFP.write(strLine)
+
+# Correct the testdata status file with the prog_name and version from version object
+def updateTestDataInfo(oVersion):
+	# Update the status.json test file...
+	print("-> updating test status")
+	if os.path.exists(TEST_STATUS_FILE):
+		with open(TEST_STATUS_FILE, 'r') as oFP:
+			oTestStatus = json.load(oFP)
+			oFP.close()
+			oTestStatus["prog_name"] = oVersion["name"]
+			oTestStatus["prog_version"] = f'{getVersionStringOf(oVersion)}-T'
+			print(f'writing version {oTestStatus["prog_version"]}')
+			with open(TEST_STATUS_FILE, 'w') as oFP:
+				# "Version: {oVersion['major']}.{oVersion['minor']}.{oVersion['patch']}.{oVersion['build'}")
+				json.dump(oTestStatus,oFP,indent=4)
+				oFP.close()
+			
+			
 def getVersionStringOf(oVersion):
 	strVersion = str(oVersion["major"]) + "." + str(oVersion["minor"]) + "." + str(oVersion["patch"]) + "." + str(oVersion["build"])
 	return(strVersion)
@@ -123,16 +163,6 @@ def before_build(source, target, env):
 	
 	bHasChanged = not doesVersionMatch()
 	
-	if(oPackageFile["version"]):
-		tVersion = oPackageFile["version"].split(".")
-		if(len(tVersion) == 3):
-			if(bHasChanged == True):
-				print(f' * > adjusting version info for env : {strEnv}')
-				oVersion["major"] 	= tVersion[0]
-				oVersion["minor"] 	= tVersion[1]
-				oVersion["patch"]	= tVersion[2]	
-				oVersion["build"]	= 0
-
 	# Debug version will not increment the build number
 	# to avoid new compile if nothing changed...
 	if strEnv.endswith("_debug"):
@@ -142,8 +172,6 @@ def before_build(source, target, env):
 		oVersion["build"] = oVersion["build"] + 1
 		bHasChanged = True
 
-
-	
 	if(bHasChanged):
 		print(" * > writing changes...")
 		# Write the version file out... either with new build number, or corrected major/minor/patch
