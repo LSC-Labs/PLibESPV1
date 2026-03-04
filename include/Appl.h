@@ -65,7 +65,11 @@
 #endif
 
 #ifndef JSON_CONFIG_DEFAULT_NAME
-    #define JSON_CONFIG_DEFAULT_NAME        "/config.json"
+    #define JSON_CONFIG_DEFAULT_FILE        "/default.json"
+#endif
+
+#ifndef JSON_APPL_CONFIG_FILE
+    #define JSON_APPL_CONFIG_FILE           "/config.json"
 #endif
 
 #ifndef DEFAULT_DEVICE_NAME
@@ -125,8 +129,9 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
         // Flashstring is not supported by LittleFS !
 
         bool readConfigFrom(const char *pszFileName, int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
-        bool saveConfig(const char *pszFileName = JSON_CONFIG_DEFAULT_NAME,  int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
-       
+        void migrateConfig(JsonDocument &oDoc);
+        bool saveConfig(const char *pszFileName = JSON_APPL_CONFIG_FILE,  int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
+
         void writeStatusTo(JsonDocument &oDoc);
         void writeStatusTo(JsonObject &oNode) override;
         void writeSystemStatusTo(JsonDocument &oDoc);

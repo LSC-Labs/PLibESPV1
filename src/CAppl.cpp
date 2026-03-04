@@ -171,6 +171,9 @@ void CAppl::readConfigFrom(JsonDocument &oJsonDoc) {
 
 /** 
  * @brief read the configuration from the file system.
+ * Read the config file from the file system and load all modules.
+ * - Use the pszConfigFileName, given by the user or use JSON_APPL_CONFIG_FILE (/config.json).
+ * - If this file is not in place, use JSON_CONFIG_DEFAULT_File (/default)
  * @param pszConfigFileName The configuration FileName (Default is /config.json)
  * @param nJsonDocSize      The size of the expected total size, othterwies JSON_CONFIG_DEFAULT_SIZE is used.
  * 							(obsolet for ArduinoJson >= 7)
@@ -178,19 +181,56 @@ void CAppl::readConfigFrom(JsonDocument &oJsonDoc) {
  * */
 bool CAppl::readConfigFrom(const char *pszConfigFileName, int nJsonDocSize) {
 	DEBUG_FUNC_START_PARMS("%s,%d",NULL_POINTER_STRING(pszConfigFileName),nJsonDocSize);
-	if(!pszConfigFileName) pszConfigFileName = JSON_CONFIG_DEFAULT_NAME;
+	CFS oFS;
+	if(!pszConfigFileName) 					pszConfigFileName = JSON_APPL_CONFIG_FILE;
+	if(!oFS.fileExists(pszConfigFileName))	pszConfigFileName = JSON_CONFIG_DEFAULT_FILE;
+	
 	JSON_DOC(oCfgDoc,nJsonDocSize);
 
     bool bResult = false;
-	CFS oFS;
+	
     if(oFS.loadJsonContentFromFile(pszConfigFileName,oCfgDoc)) {
 		DEBUG_INFOS("Configuration loaded from file: %s",pszConfigFileName);
 		DEBUG_JSON_OBJ(oCfgDoc);
+		migrateConfig(oCfgDoc);
         readConfigFrom(oCfgDoc);
 		bResult = true;
     }
 	DEBUG_FUNC_END_PARMS("%d",bResult);
     return(bResult);
+}
+
+/**
+ * Migrate the configuration if needed.
+ * Will be called after reading the config file from filesystem,
+ * or by user...
+ * 2026-03-02 : devicename and devicepwd get from old locations if in place.
+ */
+void CAppl::migrateConfig(JsonDocument & oCfgDoc) {
+	JsonObject oCfgData = GetJsonDocumentAsObject(oCfgDoc);
+
+	if(JsonKeyExists(oCfgData,"web",JsonObject)) {
+		// Old location of the device password in web - httpPasswd
+		JsonObject oCfgWeb = GetJsonObject(oCfgDoc,"web");
+		const char * pszHttpPasswd = "httpPasswd";
+		if(JsonKeyExists(oCfgWeb,pszHttpPasswd,String)) {
+			LSC::setJsonValue(oCfgWeb,pszHttpPasswd,m_oCfg.strDevicePwd);
+			oCfgWeb.remove(pszHttpPasswd);
+		}
+	}
+	if(JsonKeyExists(oCfgData,"wifi",JsonObject)) {
+		// Old location of the device name in wifi - hostname
+		JsonObject oCfgWiFi = GetJsonObject(oCfgDoc,"wifi");
+		const char * pszHostname = "hostname";
+		if(JsonKeyExists(oCfgWiFi,pszHostname,String)) {
+			LSC::setJsonValue(oCfgWiFi,pszHostname,m_oCfg.strDeviceName);
+			oCfgWiFi.remove(pszHostname);
+		}
+
+	}
+
+	// Now iterate through the handler...
+	CConfigHandler::migrateConfig(oCfgDoc,oCfgData);
 }
 
 
@@ -205,7 +245,7 @@ bool CAppl::readConfigFrom(const char *pszConfigFileName, int nJsonDocSize) {
  * */
 bool CAppl::saveConfig(const char *pszConfigFileName, int nJsonDocSize) {
 	DEBUG_FUNC_START_PARMS("%s,%d",NULL_POINTER_STRING(pszConfigFileName),nJsonDocSize);
-	if(!pszConfigFileName) pszConfigFileName = JSON_CONFIG_DEFAULT_NAME;
+	if(!pszConfigFileName) pszConfigFileName = JSON_APPL_CONFIG_FILE;
 	JSON_DOC(oCfgDoc,nJsonDocSize);
 	CFS oFS;
 	// load existing config file from the file system first, to keep unknown settings in place

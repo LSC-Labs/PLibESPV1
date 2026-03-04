@@ -385,17 +385,17 @@ bool CWebSocket::dispatchJsonMessage(JsonDocument &oJsonRequest, CWebSocketMessa
 		{
 			if(isAuthenticated) { // To ensure - only if authenticated...
 				// DynamicJsonDocument oResponseDoc(DEFAULT_RESPONSE_DOC_SIZE);
-				if(oFS.fileExists(JSON_CONFIG_DEFAULT_NAME)) {
+				if(oFS.fileExists(JSON_APPL_CONFIG_FILE)) {
 					// loadJsonContentFromFile(JSON_CONFIG_DEFAULT_NAME,oXChangeDoc);
 					String strData;
-					oFS.loadFileToString(JSON_CONFIG_DEFAULT_NAME,strData);
+					oFS.loadFileToString(JSON_APPL_CONFIG_FILE,strData);
 					// deserializeJson(oXChangeDoc,strData);
 					LSC::createPayloadStructure(F("backup"),F("config"),oJsonRequest,strData.c_str());
 					// Now enrich with the current configuration...
 					JsonObject oPayload = GetJsonObject(oJsonRequest,"payload");
 					Appl.writeConfigTo(oPayload,false);
 				} else {
-					ApplLogWarnWithParms(F("WS: Config file %s not found, using current config"),JSON_CONFIG_DEFAULT_NAME);
+					ApplLogWarnWithParms(F("WS: Config file %s not found, using current config"),JSON_APPL_CONFIG_FILE);
 					JsonObject oCfgNode = LSC::createPayloadStructure(F("backup"),F("config"),oJsonRequest);
 					Appl.writeConfigTo(oCfgNode,false);
 				} 
@@ -408,7 +408,7 @@ bool CWebSocket::dispatchJsonMessage(JsonDocument &oJsonRequest, CWebSocketMessa
 				JsonObject oCfgData = oJsonRequest["payload"];
 				ApplLogInfo("WS: Restoring config from backup...");
 				DEBUG_JSON_OBJ(oCfgData);
-				oFS.saveJsonContentToFile(JSON_CONFIG_DEFAULT_NAME,oCfgData);
+				oFS.saveJsonContentToFile(JSON_APPL_CONFIG_FILE,oCfgData);
 				Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,nullptr,0);
 			}
 		}
