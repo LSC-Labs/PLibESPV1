@@ -47,7 +47,7 @@ void CButton::stopMonitoring(){
 /// respects the debouncing time of the last pressed button
 void IRAM_ATTR CButton::interruptHandler() {
     m_nCurStatus = isPinLogicalOn() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
-    DEBUG_INFOS("BTN: pin %d is %d logical(%d) - operation mode(%d)",
+    DEBUG_INFOS("BTN: pin %d is %d (logicalOn == %d) - operation mode(%d)",
                 m_nPin,
                 digitalRead(m_nPin),
                 isPinLogicalOn(),

@@ -9,7 +9,7 @@
 /// Debouncing time of button... 
 /// Default is 100 ms
 #ifndef BUTTON_DEBOUNCING_TIME
-    #define BUTTON_DEBOUNCING_TIME 0
+    #define BUTTON_DEBOUNCING_TIME 30
 #endif
 
 class CButton : CInputPinController {
@@ -23,9 +23,9 @@ class CButton : CInputPinController {
         
     public:
         CButton();   
-        CButton(   int nPin, bool bLowLevelIsOn = false, bool bUsePullUpDown = true);
+        CButton(   int nPin, bool bLowLevelIsOn = true, bool bUsePullUpDown = true);
         ~CButton();
-        void setup(int nPin, bool bLowLevelIsOn = false, bool bUsePullUpDown = true);
+        void setup(int nPin, bool bLowLevelIsOn = true, bool bUsePullUpDown = true);
 
         void startMonitoring();
         void stopMonitoring();
