@@ -5,7 +5,7 @@ const APP_SETTINGS = {
     "DefaultPage" : "Support",
 
     "app": {
-        "prog_name": "Dew Point Monitor",
+        "prog_name": "PLibESPV1",
         "prog_ver": "0.1",
         "prog_copy": "(c) 2025 LSC-Labs",
         "logLevel": 5,
@@ -13,10 +13,11 @@ const APP_SETTINGS = {
             "recon": true, // Reconnect to the WebSocket if lost...
         },
         "latest": {
-            "url": "https://api.github.com/repos/LSC-Labs/OnAir-Light/releases/latest"
+            "url": "https://api.github.com/repos/LSC-Labs/PLibESPV1/releases/latest"
         },
+        "GitHubPage": "https://github.com/LSC-Labs/PLibESPV1",
         "homePage": "https://github.com/LSC-Labs",
-        "deployPage": "//lsc-labs.de/Software/OnAirNotifier/Publish",
+        "deployPage": "//lsc-labs.de/Software/PLibESP/Publish",
         "mailto":"office@lsc-labs.de?subject=$(prog_name) - v$(prog_ver)"
         
     },
