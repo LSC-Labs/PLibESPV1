@@ -3,7 +3,7 @@
 <head> 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LSC-Labs ESPRuntime</title>
+  <title>$(prog_name)</title>
 
   <!--
     Include the runtime stylesheets,
@@ -30,9 +30,9 @@
     <!-- contains the sidebar - normaly on the left -->
     <nav id="sidebar">
       <div class="nav-header">
-           <span class="logo">
+           <span class="logo" id="menuLogo">
+            <icon data-icon-attr="width=30px;height=30px" data-icon="MenuIcon"></icon>
             <span data-i18n="menu.title">LSC-Labs</span>
-            <icon data-icon="MenuIcon"></icon>
           </span>
           <button id="sidebarHide" data-icon="Arrows">
           </button>
@@ -135,7 +135,8 @@
             <input  autofocus class="form-control" 
                     placeholder="Password" name="password" type="password" 
                     value="" required 
-                    title="Please enter your password">
+                    data-i18n="@title:signin.title"
+                    >
           </div>
           <div class="inError" style="display:none">Error message comes here...</div>
         </div>

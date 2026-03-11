@@ -1381,6 +1381,10 @@ VarTable, PageVars, LocalVars {
 #sidebar .nav-header .logo {
   font-weight: bold;
 }
+#sidebar .nav-header .logo span {
+  font-size: 1.5em;
+  padding-left: 0.5em;
+}
 #sidebar .nav-header #sidebarHide {
   flex-grow: 1;
   text-align: right;
