@@ -39,6 +39,7 @@
 #define MSG_OTA_PROGRESS            5092
 #define MSG_OTA_ERROR               5093
 
+// Sends a JSON Document via the WebSocket
 #define MSG_WEBSOCKET_SEND_JSON     5100
 #define MSG_WEBSOCKET_DATA_RECEIVED 5101
 
