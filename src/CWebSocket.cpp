@@ -338,6 +338,12 @@ bool CWebSocket::dispatchJsonMessage(JsonDocument &oJsonRequest, CWebSocketMessa
 		sendAccessDeniedMessage(oJsonRequest,pMessage->pClient);
 	} else {
 		// bool isAuthenticated = bNeedsAuth ? isAuthTokenValid(strAuthToken, strClientRemoteIP) : true;
+		if (strCommand.equalsIgnoreCase(F("getsysstatus")))
+		{
+			JsonObject oStatusNode = LSC::createPayloadStructure(F("update"),F("sysstatus"),oJsonRequest);
+			Appl.writeSystemStatusTo(oStatusNode);
+			sendJsonDocMessage(oJsonRequest,pMessage->pSocket,pMessage->pClient);
+		}
 		if (strCommand.equalsIgnoreCase(F("getstatus")))
 		{
 			JsonObject oStatusNode = LSC::createPayloadStructure(F("update"),F("status"),oJsonRequest);
