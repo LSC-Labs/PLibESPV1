@@ -124,7 +124,8 @@ async function buildHeaderFiles(cb) {
                     if (i < tData.length - 1) oWS.write(',');
                 }
                 oWS.write("\n};");
-                oWS.write("\n// TS: " + new Date().toISOString()); 
+                // No timestamp to avoid github change...
+                // oWS.write("\n// TS: " + new Date().toISOString()); 
                 oWS.end();
                 fTotalSize += nPackedFileSize;
             }
