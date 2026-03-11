@@ -115,7 +115,7 @@ function joinScriptPage(strPagePath) {
     if(fs.existsSync(strInput)) {
         let strOut = getScriptTargetName();
         console.log("   -> appending Script to : " + strOut);
-        let strData = fs.readFileSync(strInput);
+        let strData = fs.readFileSync(strInput) + "\n";
         fs.appendFileSync(strOut,strData);
         Status.numScript++;
 
