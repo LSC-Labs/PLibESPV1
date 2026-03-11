@@ -583,8 +583,37 @@ class CElement extends Utils {
         return(oResult);
     }
 
+    /**
+     * if the base elements supports validation,
+     * it will be checked... if the element does not support (checkValidity()),
+     * the result is false...
+     * If you want to check if a valid base element is in place, use hasBase();
+     * @returns true or false
+     */
     isValid() {
-        return(this._oBE ? this._oBE.checkValidity() : false);
+        let bResult = false;
+        if(this._oBE && Utils.isFunction(this._oBE.checkValidity)) {
+            bResult = this._oBE.checkValidity();
+        }
+        return(bResult);
+    }
+
+    /**
+     * Enable / Disable this node
+     * @param {bool} bEnable (default = true)
+     */
+    enable(bEnable = true) {
+        if(this.hasBase()) {
+            this.getBase().disabled = !bEnable;
+        }
+        return(this);
+    }
+    /**
+     * Enable / Disable this node
+     * @param {bool} bDisable (default = true) 
+     */
+    disable(bDisable = true) {
+        return(enable(!bDisable));
     }
 
     /**
@@ -649,6 +678,7 @@ class CElement extends Utils {
         
         // this._oBE.parentNode(replaceChild(oNew,this._oBE))
         // this._oBE.outerHTML = strHTML;
+        return(this);
     }
 
     evtArgs(oArgs) {
@@ -806,7 +836,7 @@ class CElement extends Utils {
         let oE = this.getBase();
         if(strName && oE) {
             if(oValue === null) delete oE.dataset[strName];
-            else if (oValue) {
+            else if (oValue != undefined) {
                 if(Utils.isObj(oValue)) {
                     try {
                         oValue = JSON.stringify(oValue);
@@ -823,6 +853,14 @@ class CElement extends Utils {
             }
         }
         return(oResult);
+    }
+    /**
+     * set the i18n language attribute
+     * @param {string} strValue 
+     */
+    i18n(strValue) {
+        this.data("i18n",strValue);
+        return(this);
     }
 
     /**
@@ -1628,7 +1666,7 @@ class CTranslator {
     /**
      * Translate an (html) element into the requested language
      * and substitute it against the var table
-     * @param {HTMLElement} oElement         The element to be translated
+     * @param {HTMLElement|CElement} oElement         The element to be translated
      * @param {string|undefined} strLanguage Default is the userlanguage code
      * @param {CVarTable} oVars              The vars of the application
      * @param {boolean} bWithChilds false == only the element, true == also the child elements
@@ -1636,9 +1674,10 @@ class CTranslator {
     async translate(oElement, strLanguage, oVars, bWithChilds = true) {
         if(!strLanguage) strLanguage = this.getUserLanguage();
         let oSelf = this;
-        if(typeof oElement === 'object') {
-            let strI18n = oElement.dataset.i18n;
-
+        let oHTMLElement = EC(oElement).getBase();
+        if(Utils.isElement(oHTMLElement)) {
+            oElement = oHTMLElement;
+            let strI18n = oElement.dataset ? oElement.dataset.i18n : undefined;
             if(strI18n && typeof strLanguage === 'string') {
                 for(let strSelect of strI18n.split("|")) {
                     let strKey = strSelect;
@@ -1693,6 +1732,7 @@ class CTranslator {
 // #region (Partial) View class for end user
 class CView extends CElement {
     LocalVars = new CVarTable();
+    Transe = new CTranslator();
 
     constructor(oSel, oSettings) {
         super(oSel);
@@ -1818,6 +1858,10 @@ class CView extends CElement {
                 e.disabled = !bEnable;
             });
         }
+    }
+    translate(strLanguage = undefined, oVars = this.LocalVars) {
+        
+        this.Transe.translate(this.getBase(),strLanguage,oVars);
     }
 }
 // #endregion
