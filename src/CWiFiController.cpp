@@ -444,6 +444,7 @@ void CWiFiController::scanWiFi() {
     // Use Member function of this object - and broadcast to all...
     std::function<void(int)> printWiFiScanResult = std::bind(&CWiFiController::onWiFiScanResult,this,std::placeholders::_1);
     WiFi.scanNetworksAsync(printWiFiScanResult,true);
+    DEBUG_FUNC_END();
 }
 
 /**
