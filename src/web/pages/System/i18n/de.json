@@ -1,0 +1,20 @@
+{
+    "System": {
+        "title": "Neustart oder Reset",
+        "desc": "Starten des Gerätes oder zurücksetzen auf Werkseinstellungen",
+        "Restart" : {
+            "btn": "Neustart",
+            "title": "Neustart des Gerätes",
+            "desc": "Startet das Gerät neu. Nicht gespeicherte Änderungen werden verworfen.",
+            "confirm": "Jetzt neu starten? - alle nicht gespeicherten Änderungen gehen verloren!",
+            "waitmsg": "Bitte warten Sie, bis das Gerät neu gestartet ist..."
+        },
+        "Reset" : {
+            "btn": "Zurücksetzen",
+            "title": "Werkseinstellungen",
+            "desc": "Alle Einstellungen werden verworfen, das Gerät wird auf Werkseinstellungen zurück gesetzt.",
+            "confirm": "Das Gerät auf Werkseinstellungen zurück setzen?",
+            "waitmsg": "Bitte warten Sie bis das Gerät zurück gesetzt wurde und neu startet..."
+        }
+    }
+}
