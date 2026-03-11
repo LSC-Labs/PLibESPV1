@@ -11,7 +11,7 @@ class CBackupPage extends CPageHandler {
         this._oApp = oApp;
     }
 
-     /**
+    /**
      * catch the button click events.
      * @param {*} oContent 
      * @param {*} oElement 
