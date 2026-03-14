@@ -71,7 +71,7 @@ void CAppl::init(const char *strAppName, const char *strAppVersion) {
  * @param pMsg       Optional Message Pointer
  */
 void CAppl::dispatch(int nMsgType,const void *pMsg) {
-	this->MsgBus.sendEvent(this,MSG_APPL_LOOP,pMsg,nMsgClass);
+	this->MsgBus.sendEvent(this,MSG_APPL_LOOP,pMsg,nMsgType);
 }
 
 int CAppl::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
