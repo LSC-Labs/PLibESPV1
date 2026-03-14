@@ -56,9 +56,16 @@
 #endif
 
 // Default sizes for Json Status Documents (needed for JSON < 7)
-#ifndef JSON_STATUS_DOC_DEFAULT_SIZE
-    #define JSON_STATUS_DOC_DEFAULT_SIZE 2048
+#ifndef STATUS_DOC_SIZE
+    #define STATUS_DOC_SIZE 1024
 #endif
+
+#ifndef SYSSTATUS_DOC_SIZE
+    #define SYSSTATUS_DOC_SIZE 512
+#endif
+
+
+
 // Default sizes for Json Config Documents (needed for JSON < 7)
 #ifndef JSON_CONFIG_DOC_DEFAULT_SIZE
     #define JSON_CONFIG_DOC_DEFAULT_SIZE  2048 
@@ -99,7 +106,9 @@ struct ApplConfig {
 
 class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
     ApplConfig      m_oCfg;   
-    JsonDocument *  m_pStatusDoc = nullptr;
+    JSON_DOC(m_oStatus, STATUS_DOC_SIZE);
+    JSON_DOC(m_oSysStatus, SYSSTATUS_DOC_SIZE);
+ 
     // JSON_DOC(m_oStatusDoc,JSON_STATUS_DOC_DEFAULT_SIZE);
     bool m_bStatusChanged = true;
     bool m_isRebootPending = false;
