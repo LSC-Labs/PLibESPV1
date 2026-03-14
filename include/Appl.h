@@ -150,7 +150,7 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
 
     public:
         CAppl();
-        void dispatch(const void *pMsg = nullptr, int nMsgClass = 0);
+        void dispatch(int nMsgType = 0,const void *pMsg = nullptr);
         int receiveEvent(const void * pSender, int nMsgType, const void * pMessage, int nClass);
         void init(const char *strAppName, const char *strAppVersion);
         void sayHello();

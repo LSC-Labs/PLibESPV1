@@ -67,10 +67,10 @@ void CAppl::init(const char *strAppName, const char *strAppVersion) {
 
 /**
  * @brief Dispatch a periodic message to all registered Message Event Receivers
+ * @param nMsgType Optional Message Class
  * @param pMsg       Optional Message Pointer
- * @param nMsgClass Optional Message Class
  */
-void CAppl::dispatch(const void *pMsg, int nMsgClass) {
+void CAppl::dispatch(int nMsgType,const void *pMsg) {
 	this->MsgBus.sendEvent(this,MSG_APPL_LOOP,pMsg,nMsgClass);
 }
 
