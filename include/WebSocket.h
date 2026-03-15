@@ -99,5 +99,4 @@ class CWebSocket : public AsyncWebSocket, public IMsgEventReceiver {
         // void addMessageToQueue(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient, int nMessageSize);
         bool checkAuth(JsonDocument &oRequestDoc, AsyncWebSocketClient *pClient);
         void addMessageToQueue(CWebSocketMessage *pMsgObj);
-        void addMessageToQueue(AsyncWebSocket *pServer, AsyncWebSocketClient *pClient, uint8_t * pData, size_t nDataLen, int nDataType);
 };

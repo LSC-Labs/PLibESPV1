@@ -346,8 +346,10 @@ bool CWebSocket::dispatchJsonMessage(JsonDocument &oJsonRequest, CWebSocketMessa
 		}
 		if (strCommand.equalsIgnoreCase(F("getstatus")))
 		{
-			JsonObject oStatusNode = LSC::createPayloadStructure(F("update"),F("status"),oJsonRequest);
-			Appl.writeStatusTo(oStatusNode);
+			const char * pszStatus = Appl.getStatusAsText();
+			LSC::createPayloadStructure("update","status",oJsonRequest,pszStatus);
+			// JsonObject oStatusNode = LSC::createPayloadStructure(F("update"),F("status"),oJsonRequest);
+			// Appl.writeStatusTo(oStatusNode);
 			sendJsonDocMessage(oJsonRequest,pMessage->pSocket,pMessage->pClient);
 		}
 		else if (strCommand.equalsIgnoreCase(F("getconfig")))

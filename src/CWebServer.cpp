@@ -212,19 +212,9 @@ void CWebServer::registerDefaults() {
 
      on("/status", HTTP_GET, [](AsyncWebServerRequest *pRequest) {
         DEBUG_INFO("WEB:/status (GET)");
-
-        JSON_DOC(oStatusDoc,WEBSERVER_STATUS_DOC_SIZE);
-        JsonObject oPayload = CreateJsonObject(oStatusDoc,"payload");
-        Appl.writeStatusTo(oPayload);
-
-        // Do it the old school way - do not use String here... Webserver destroys string info...
-        int nSize = measureJson(oStatusDoc);
-        char tBuffer[nSize];
-        memset(tBuffer,'\0',sizeof(tBuffer));
-        serializeJson(oPayload,&tBuffer,nSize);
-
-        DEBUG_INFOS("WEB:/status -> %s",tBuffer);
-        AsyncWebServerResponse *pResponse = pRequest->beginResponse_P(200, "application/json",  tBuffer);
+        const char *pszActStatus = Appl.getStatusAsText();
+        DEBUG_INFOS("WEB:/status -> %s",pszActStatus);
+        AsyncWebServerResponse *pResponse = pRequest->beginResponse_P(200, "application/json",  pszActStatus);
         pRequest->send(pResponse);
     });
 
