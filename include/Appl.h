@@ -107,7 +107,9 @@ struct ApplConfig {
 class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
     ApplConfig      m_oCfg;   
     JSON_DOC(m_oStatus, STATUS_DOC_SIZE);
+    String m_strStatus;
     JSON_DOC(m_oSysStatus, SYSSTATUS_DOC_SIZE);
+    String m_strSysStatus;
  
     // JSON_DOC(m_oStatusDoc,JSON_STATUS_DOC_DEFAULT_SIZE);
     bool m_bStatusChanged = true;
@@ -140,6 +142,9 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
         bool readConfigFrom(const char *pszFileName, int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
         void migrateConfig(JsonDocument &oDoc);
         bool saveConfig(const char *pszFileName = JSON_APPL_CONFIG_FILE,  int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
+
+        JsonDocument * getStatus();
+        const char * getStatusAsText();
 
         void writeStatusTo(JsonDocument &oDoc);
         void writeStatusTo(JsonObject &oNode) override;

@@ -6,24 +6,31 @@
 
 namespace LSC {
 
-    JsonObject createPayloadStructure(const char* pszCommand, const char *pszDataType, JsonDocument &oPayloadDoc, const char *pszData) {
+    /**
+     * @brief create payload structure, with command, data and payload fields
+     * to be used in web socket and web rest api's
+     * Payload document content will be replaced
+     */
+    JsonObject createPayloadStructure(const char* pszCommand, const char *pszDataType, JsonDocument &oPayloadDoc, const char *pszPayload) {
         char pszBuffer[256];
         sprintf(pszBuffer,"{\"command\":\"%s\",\"data\":\"%s\"",pszCommand,pszDataType);
         String strData = pszBuffer;
-        if(pszData) {
+        if(pszPayload) {
             strData += ",\"payload\":";
-            strData += pszData;
+            strData += pszPayload;
         }
         strData += "}";
         DeserializationError error = deserializeJson(oPayloadDoc,strData);
         if(error) {
             ApplLogErrorWithParms("WS: Error creating payload structure : %s",error.c_str());
         } 
-        return(pszData == nullptr ? CreateJsonObject(oPayloadDoc,"payload") : oPayloadDoc["payload"]);
+        return(pszPayload == nullptr ? CreateJsonObject(oPayloadDoc,"payload") : oPayloadDoc["payload"]);
     }
 
     JsonObject createPayloadStructure(const __FlashStringHelper* pszCommand, const __FlashStringHelper* pszDataType, JsonDocument &oPayloadDoc, const char *pszPayload) {
-        return(createPayloadStructure((const char*) pszCommand,(const char*) pszDataType,oPayloadDoc,pszPayload));
+        String strCommand = pszCommand;
+        String strDataType = pszDataType;
+        return(createPayloadStructure(strCommand.c_str(), strDataType.c_str(),oPayloadDoc,pszPayload));
     }
 
 

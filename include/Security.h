@@ -16,12 +16,3 @@
 #ifndef APPL_SECURITY_TOKEN_KEY
     #define APPL_SECURITY_TOKEN_KEY "ds$woEir=ncn<jek"
 #endif
-
-/*
-String getBase64DecodedString(String &strBase64String);
-String getBase64EncodedString(String &strString);
-String getBase64EncodedString(const char *tArray, int nSizeOfArray);
-void setNewAuthHeader(AsyncWebServerRequest *pRequest, AsyncWebServerResponse *pResponse);
-String getNewAuthToken(String &strIPAddress);
-bool isAuthTokenValid(String &strEncBase64Token, String &strRemoteIPAddress);
-*/

@@ -38,7 +38,7 @@
 
 /**
  * @brief constructor
- * Register self as Eventhandler and the IConfigHandler of Chonfig as "cfg"
+ * Register self as Eventhandler and the IConfigHandler of Config as "cfg"
  */
 CAppl::CAppl() {
     Log = CEventLogger(&MsgBus);
@@ -286,6 +286,25 @@ void CAppl::writeConfigTo(JsonObject &oJsonObj, bool bHideCritical) {
 #pragma endregion Configuration Handling
 
 #pragma region Status Handling
+
+/**
+ * Return the current status
+ * Do not delete or free the pointer, it is handeld by the instance 
+ * and stays alive, as long this instance is living (!)
+ * This is needed to send async the status via web socket, web server and other async tasks !
+ */
+JsonDocument *  CAppl::getStatus() {
+	m_oStatus.clear();
+	writeStatusTo( m_oStatus);
+	return( & m_oStatus);
+}
+
+const char * CAppl::getStatusAsText() {
+    JsonDocument * pStatus = getStatus();
+    serializeJson(* pStatus,m_strStatus);
+    return(m_strStatus.c_str());
+}
+
 
 /**
  * @brief write the status into a JsonDocument...
