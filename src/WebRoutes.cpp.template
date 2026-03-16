@@ -22,6 +22,7 @@
 #include <web/_runtime.js.gz.h>
 #include <web/_pages.html.gz.h>
 #include <web/_pages.js.gz.h>
+#include <web/_pages.css.gz.h>
 #include <web/de.json.gz.h>
 #include <web/en.json.gz.h>
 
@@ -78,6 +79,16 @@ void registerWebRoutes(CWebServer &oWebServer) {
                             F("text/css"),
                             _runtime_css_gz, 
                             _runtime_css_gz_len)
+                        );
+	});
+
+     oWebServer.on("/css/_pages.css", HTTP_GET, [](AsyncWebServerRequest *request) {
+		sendGzipResponse(request,
+                         request->beginResponse_P(
+                            200,
+                            F("text/css"),
+                            _pages_css_gz, 
+                            _pages_css_gz_len)
                         );
 	});
 

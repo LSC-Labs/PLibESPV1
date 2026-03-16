@@ -26,7 +26,7 @@ const DEFAULTS = {
     "pageNames": {
         "htmlFile": "_pages.html",
         "scriptFile": "_pages.js",
-        "stylesheetFile": "_app.css"
+        "stylesheetFile": "_pages.css"
     },
     "writePageHandlerRegistration": true,
     "usePages": []
