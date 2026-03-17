@@ -3,8 +3,10 @@
  * This file contains common functions and settings used across the project.
  * It is part of the PLibESPV1 project.
  * 
+ * 2026-03-17 : Joining json with changing object types (from string to array).
+ * 
  * @author LSC Labs - Peter Liebl
- * @version 1.0.0
+ * @version 1.0.1
  */
 import fs from 'fs';
 import path from 'path';
@@ -320,12 +322,20 @@ export class CConfig {
         // console.log(oSection);
         for(let strName in oAddSection) {
             let oData = oAddSection[strName];
-            if(Utils.isObj(oData)) {
+            if(Array.isArray(oData)) {
+                delete oSection[strName];
+                oSection[strName] = [];
+                for(let strLine in oData) {
+                    oSection[strName].push(strLine);
+                }
+            }
+            else if(Utils.isObj(oData)) {
                 // merge a subobject...
                 this.mergeSection(strSectionName + "." + strName,oData);
             }
             else {
-                // set the value
+                // set the value (remove old first - if type of data has changed)
+                delete oSection[strName];
                 oSection[strName] = oData;
             }
         }
