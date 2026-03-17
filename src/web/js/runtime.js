@@ -1566,7 +1566,7 @@ class CTranslator {
         // If result is an array, it is an array of strings...
         // map all strings
         // in this array into one result.
-        if(Utils.isArray(oData)) {
+        if(Array.isArray(oData)) {
             let strResult = "";
             for(strLine of oData) {
                 if(Utils.isString(strLine)) strResult += strLine;
