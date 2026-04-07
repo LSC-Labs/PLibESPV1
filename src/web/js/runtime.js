@@ -1640,8 +1640,6 @@ class CTranslator {
      * @returns the Element processed
      */
     _setElementProps(oElement,oData, oVarTable) {
-        console.log("_setElementProps()");
-        console.log(oData);
         let bSubst = oVarTable && oVarTable.subst;
         if(Array.isArray(oData)) {
             oData = this.getAsString(oData)
@@ -1653,7 +1651,6 @@ class CTranslator {
             // If object, all "@..." elements are attribute information
             // The the target has this attribute, it will be replaced...
             for(let strKey in oData) {
-                console.log("- scanning key : " + strKey);
                 if(strKey.startsWith("@")) {
                     let strAttr = strKey.substring(1);
                     if(this._bForceAttributes || oElement.hasAttribute(strAttr)) {
