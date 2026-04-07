@@ -84,7 +84,7 @@ export class Utils {
     }
 
     static isObj(oData) {
-        return(oData != null && typeof oData === 'object');
+        return(oData != null && typeof oData === 'object' && !Array.isArray(oData));
     }
 
     static isString(oData) {
