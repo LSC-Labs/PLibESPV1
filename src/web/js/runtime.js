@@ -327,8 +327,14 @@ class Utils {
         return(bResult)
     }
 
+    /**
+     * Detect if the data is an json object "{...}".
+     * If data is an array, the result is false.
+     * @param {*} oData 
+     * @returns true if the oData is an object, but not an array and not null
+     */
     static isObj(oData) {
-        return(oData != null && typeof oData === 'object');
+        return(oData != null && typeof oData === 'object' && !Array.isArray(oData));
     }
 
     static isString(oData) {
@@ -1568,7 +1574,7 @@ class CTranslator {
         // in this array into one result.
         if(Array.isArray(oData)) {
             let strResult = "";
-            for(strLine of oData) {
+            for(let strLine of oData) {
                 if(Utils.isString(strLine)) strResult += strLine;
             }
             oData = strResult;
