@@ -98,6 +98,9 @@ function updateVersionFile() {
     if(!oVersionData.name) {
        oVersionData.name = path.basename(process.cwd());
     }
+    oVersionData.author = oPackageData.author;
+    oVersionData.homepage = oPackageData.homepage;
+    
     // User major/minor/patch from package file
     // and increment the build number...
     let tVersion = oPackageData.version.split('.');
