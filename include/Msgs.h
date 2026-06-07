@@ -49,6 +49,9 @@
 #define MSG_MQTT_MSG_RECEIVED       5310
 #define MSG_MQTT_SEND_JSONDATA      5320
 
+#define MSG_HA_FILL_DISCOVERY       5400   // Home Assistant discovery message, pMessage is a JSON document with the object to be sent - correct if needed
+#define MSG_HA_FILL_DISCOVERY_CMPS  5401   // Home Assistant discovery message, pMessage is a JSON object to fill with the components data
+
 /**
  * Generic Payload Message, object is a JsonDocument in Message Payload structure
  */

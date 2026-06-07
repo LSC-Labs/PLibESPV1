@@ -5,7 +5,7 @@
  * 
  * @file scripts/syncFiles.js
  * @author LSC Labs - Peter Liebl
- * @version 1.0.8
+ * @version 1.0.8.1
  */
 
 // const process = require('process');

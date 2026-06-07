@@ -5,7 +5,7 @@
  * 
  * @file scripts/syncFiles.js
  * @author LSC Labs - Peter Liebl
- * @version 1.1.0
+ * @version 1.4.1
  * 
  * @param 1 == pages.json (or pages.json in cwd will be used)
  */

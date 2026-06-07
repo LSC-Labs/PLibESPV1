@@ -17,13 +17,13 @@
 #else
     #define JSON_DOC(n,s)        JsonDocument n
     #define JSON_DOC_STATIC(n,s) JsonDocument n
-    #define JsonKeyExists(obj,key,type) obj[key].is<type>()
+    #define JsonKeyExists(obj,key,type)  obj[key].is<type>()
     #define CreateEmptyJsonArray(doc)    doc.add<JsonArray>()
     #define CreateJsonArray(doc,name)    doc[name].to<JsonArray>()
     #define CreateEmptyJsonObject(doc)   doc.add<JsonObject>()
     #define CreateJsonObject(doc,name)   doc[name].to<JsonObject>()
     #define GetJsonObject(doc,name)      doc[name].as<JsonObject>()
-    #define GetOrCreateJsonObject(doc,name) (JsonKeyExists(oNode,oEntry.pszName,JsonObject) ? GetJsonObject(oNode,oEntry.pszName) : CreateJsonObject(oNode,oEntry.pszName))
+    #define GetOrCreateJsonObject(oNode,name) (JsonKeyExists(oNode,name,JsonObject) ? GetJsonObject(oNode,name) : CreateJsonObject(oNode,name))
     
     // ;doc[name].is<JsonObject> ? doc[name].as<JsonObject>() : doc[name].to<JsonObject>()
     

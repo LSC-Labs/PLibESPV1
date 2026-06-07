@@ -26,8 +26,18 @@ class IMsgEventReceiver
 class CEventHandler
 {
     private:
-     private:
         struct HandlerEntry {
+            HandlerEntry() {}
+            HandlerEntry(const char *pszName, IMsgEventReceiver *pHandler) {
+                pszName = strdup(pszName);
+                pHandler = pHandler;
+            }
+            ~HandlerEntry() {
+                if(pszName) {
+                    free((void*)pszName);
+                    pszName = nullptr;
+                }
+            }   
             const char         *pszName = nullptr;
             IMsgEventReceiver  *pHandler = nullptr;
         };
