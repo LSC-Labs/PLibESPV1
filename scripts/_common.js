@@ -4,9 +4,10 @@
  * It is part of the PLibESPV1 project.
  * 
  * 2026-03-17 : Joining json with changing object types (from string to array).
+ * 2026-06-07 : mergeSection error corrected (for arrays)
  * 
  * @author LSC Labs - Peter Liebl
- * @version 1.0.1
+ * @version 1.1.1
  */
 import fs from 'fs';
 import path from 'path';
@@ -319,13 +320,13 @@ export class CConfig {
         // console.log("mergin section....:" + strSectionName);
         let oSection = this.getSection(strSectionName,true)
         // console.log(" --- org:");
-        // console.log(oSection);
         for(let strName in oAddSection) {
+            // console.log(" ---> merging:" + strName);
             let oData = oAddSection[strName];
             if(Array.isArray(oData)) {
                 delete oSection[strName];
                 oSection[strName] = [];
-                for(let strLine in oData) {
+                for(let strLine of oData) {
                     oSection[strName].push(strLine);
                 }
             }
