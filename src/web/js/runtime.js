@@ -2309,6 +2309,10 @@ class CPageHandler {
     onRadioClick(pView,oElement,str) {
         this.updateView(pView,oElement);
     }
+
+    onSelectChanged(pView,oElement,str) {
+        this.updateView(pView,oElement);
+    }
     
     /**
      * Default funktion to close a dialog.
