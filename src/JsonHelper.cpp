@@ -138,7 +138,6 @@ namespace LSC {
      */
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource, const char* pszKey, int * pTarget) {
         bool bResult = false;
-        Serial.println(" - set int...");
         if(JsonKeyExists(oSource,pszKey,int) || JsonKeyExists(oSource,pszKey,String)) {
             *pTarget = oSource[pszKey].as<int>();
             bResult = true;
