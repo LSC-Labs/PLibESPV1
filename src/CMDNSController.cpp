@@ -11,7 +11,7 @@
  * Registers the MDNSController to the Appl Message Bus
  */
 CMDNSController::CMDNSController() {
-    Appl.MsgBus.registerEventReceiver(this,__FUNCTION__);
+    Appl.MsgBus.registerEventReceiver(this,"MDNSController");
 }
 
 CMDNSController::~CMDNSController() {

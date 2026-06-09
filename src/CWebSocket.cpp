@@ -49,7 +49,7 @@ CWebSocket::CWebSocket(const char* strSocketName, bool bRegisterOnMsgBus) : Asyn
 	onEvent(funcOnEvent);
 
 	// Now listen on the message bus for incomming commands....
-	// if(bRegisterOnMsgBus) Appl.MsgBus.registerEventReceiver(this,__FUNCTION__);
+	// if(bRegisterOnMsgBus) Appl.MsgBus.registerEventReceiver(this,"WebSocket");
 	DEBUG_FUNC_END();
 }
 
