@@ -29,6 +29,10 @@
 	#undef DEBUGINFOS
 #endif
 
+#ifndef LSC_APPL_SERIAL_SPEED
+	#define LSC_APPL_SERIAL_SPEED 115200
+#endif
+
 #include <Appl.h>
 #include <FileSystem.h>
 #include <SysStatus.h>
@@ -41,8 +45,9 @@
  * Register self as Eventhandler and the IConfigHandler of Config as "cfg"
  */
 CAppl::CAppl() {
+	if(LSC_APPL_SERIAL_SPEED > 0) Serial.begin(LSC_APPL_SERIAL_SPEED);
     Log = CEventLogger(&MsgBus);
-	MsgBus.registerEventReceiver(this,__FUNCTION__);
+	MsgBus.registerEventReceiver(this,"Appl");
 	addConfigHandler("cfg",&Config);
 }  
 
@@ -56,7 +61,7 @@ void CAppl::init(const char *strAppName, const char *strAppVersion) {
     AppVersion  = strAppVersion;
 	
     if(m_oCfg.bLogToSerial) {
-        MsgBus.registerEventReceiver(new CSerialLogWriter(),"CSerialLogWriter");
+        MsgBus.registerEventReceiver(new CSerialLogWriter(),"SerialLogWriter");
     }
 
 	MsgBus.sendEvent(this,MSG_APPL_STARTING,nullptr,0);
