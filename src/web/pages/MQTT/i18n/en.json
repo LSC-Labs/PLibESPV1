@@ -8,7 +8,6 @@
         "enable": {
             "label": "MQTT Support",
             "info": "Enable or disable the MQTT support"
-            
         },
         
         "host": {
@@ -38,6 +37,14 @@
         "syncrate": {
             "label" : "Sync time (seconds)",
             "info": "Sync time to send a heartbeat message to the MQTT server"
+        },
+        "ha": {
+            "label" : "Home Assistant Support",
+            "info": "Enable or disable MQTT support for Home Assistant"
+        },
+        "hatopic": {
+            "label" : "Home Assistant Topic",
+            "info": "Topic prefix for Home Assistant integration (see your Home Assistant MQTT implementation)"
         }
     }
 }

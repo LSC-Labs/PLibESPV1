@@ -38,6 +38,14 @@
         "syncrate": {
             "label" : "Sync (Sekunden)",
             "info": "Synchronisations Zeit um einen Status an den MQTT Server zu schicken (Heartbeat)"
+        },
+        "ha": {
+            "label" : "Home Assistant Support",
+            "info": "Aktiviere oder deaktiviere die MQTT Unterstützung"
+        },
+        "hatopic": {
+            "label" : "Home Assistant Topic",
+            "info": "Der aktulle Topic prefix Wert aus der aktiven Home Assistant Integration."
         }
     }
 }

@@ -112,8 +112,8 @@
             <br>
         </div>
 
-        <!-- Future... -->
-        <div class="row form-group" style="display:none;" data-auth="RO">  
+        <!-- Home Assistant Support -->
+        <div class="row form-group" data-auth="RO">  
              <label class="$(col-label-class) info-icon" data-i18n="@title:MQTT.ha.info">
                 <span data-i18n="MQTT.ha.label"></span>
                 <icon data-icon="Info"></icon>
@@ -123,12 +123,30 @@
             -->
             <div class="$(col-input-class)" data-auth="RO">
                 <form>
-                    <label class="radio-inline"><input data-cfg="useha"    type="radio" value="1" name="useha">Enabled</label>
-                    <label class="radio-inline"><input type="radio"                     value="0" name="useha" checked>Disabled</label>
+                    <label class="radio-inline">
+                        <input type="radio" value="1" name="useha">
+                        <span data-i18n="main.enabled">E</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" value="0" name="useha" checked>
+                        <span data-i18n="main.disabled">E</span>
+                    </label>
                 </form>
             </div>
-            <br> 
         </div>
+        <div class="row form-group" data-auth="RO" data-viewon="useha=1">   
+            <label class="$(col-label-class) info-icon" data-i18n="@title:MQTT.hatopic.info">
+                <span data-i18n="MQTT.hatopic.label"></span>
+                <icon data-icon="Info"></icon>
+            </label>
+            <span class="$(col-input-class)">
+                <input  type="text" class="form-control input-sm" placeholder="/homeassistant" 
+                        data-cfg="hatopics" pattern="^\/[_\/\- a-zA-Z0-9]{*}[^\/]$">
+            </span>
+            <br>
+        </div>
+        <br> 
+        
     
     </div>
     <div class="row form-group" data-element-type="save-btn-row"></div>

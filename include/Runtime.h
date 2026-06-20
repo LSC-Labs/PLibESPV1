@@ -18,14 +18,16 @@
 #define JOIN_(X,Y) X##Y
 #define JOIN(X,Y) JOIN_(X,Y)
 
-#ifndef NATIVE_RUNTIME
-    #include <Arduino.h>
-    #define SerialPrintf Serial.printf
-    #define puts(s)      Serial.println(s)
-#else
+#ifdef NATIVE_RUNTIME
     #include <string.h>
     #include <iostream>
 
     #define String std::string
     #define SerialPrintf printf
+    #define ICACHE_FLASH_ATTR
+#else
+    #include <Arduino.h>
+    
+    #define SerialPrintf Serial.printf
+    #define puts(s)      Serial.println(s)
 #endif
