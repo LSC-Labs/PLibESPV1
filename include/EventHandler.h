@@ -3,6 +3,8 @@
 #include <functional>
 #include <vector>
 #include <queue>
+#include <NamedValueTable.h>
+#include <DevelopmentHelper.h>
 
 #define EVENT_MSG_CALL_AGAIN_WHEN_ALL_OK -9
 #define EVENT_MSG_RESULT_OK               0
@@ -26,24 +28,32 @@ class IMsgEventReceiver
 class CEventHandler
 {
     private:
+    /*
         struct HandlerEntry {
             HandlerEntry() {}
             HandlerEntry(const char *pszName, IMsgEventReceiver *pHandler) {
-                pszName = strdup(pszName);
-                pHandler = pHandler;
+                this->pszName  = pszName  ? strdup(pszName) : nullptr;
+                this->pHandler = pHandler;
             }
             ~HandlerEntry() {
                 if(pszName) {
-                    free((void*)pszName);
+                    DEBUG_INFOS("- releasing memory for name: %s",pszName);
+                    // free((void*)pszName);
                     pszName = nullptr;
                 }
             }   
-            const char         *pszName = nullptr;
+            const char         * pszName = nullptr;
             IMsgEventReceiver  *pHandler = nullptr;
         };
-        std::vector<HandlerEntry> m_tEventReceivers;
+        std::vector<HandlerEntry * > m_tEventReceivers;
+*/
+
+        CMultiNameUniqueValueTable<IMsgEventReceiver *> m_tReceiverTable;
         
     public: 
+        ~CEventHandler() {
+            // for(HandlerEntry * pEntry : m_tEventReceivers) delete(pEntry);
+        }
         void registerEventReceiver(IMsgEventReceiver * pEventReceiver, const char *pszReceiverName = nullptr);
        
         /**
@@ -62,14 +72,18 @@ class CEventHandler
         int sendEvent(void *pSender, int nMsgID, const void *pMessage, int nMsgType);
 
         void dumpReceiver() {
-            for(HandlerEntry oEntry : m_tEventReceivers) {
+            /*
+            for(HandlerEntry * pEntry : m_tEventReceivers) {
                 Serial.printf("EVH: - registered event receiver: %p - (%s)\n",
-                              oEntry.pHandler,
-                              oEntry.pszName ? oEntry.pszName : "-");
+                              pEntry->pHandler,
+                              pEntry->pszName ? pEntry->pszName : "-");
+            }
+            */
+            for(CNamedValueEntry<IMsgEventReceiver *> * pEntry : this->m_tReceiverTable.Entries) {
+                Serial.printf("EVH: - registered event receiver: %p - (%s)\n",
+                              pEntry->value,
+                              pEntry->getKey());
             }
         }
-
-
-    
     };
 
