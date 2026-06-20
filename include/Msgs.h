@@ -43,11 +43,13 @@
 #define MSG_WEBSOCKET_SEND_JSON     5100
 #define MSG_WEBSOCKET_DATA_RECEIVED 5101
 
-#define MSG_MQTT_STARTING           5300
-#define MSG_MQTT_CONNECTED          5301
-#define MSG_MQTT_DISCONNECTED       5308
-#define MSG_MQTT_MSG_RECEIVED       5310
-#define MSG_MQTT_SEND_JSONDATA      5320
+#define MSG_MQTT_STARTING           5300    // Negotiation to server started
+#define MSG_MQTT_CONNECTED          5301    // Connection to server is established
+#define MSG_MQTT_DISCONNECTED       5308    // Connection to server lost
+#define MSG_MQTT_MSG_RECEIVED       5310    // Set to receiver when a message was received, object is the native message
+#define MSG_MQTT_SEND_JSONDATA      5320    // object is a Json Object to be sent
+#define MSG_MQTT_SEND_TEXTSTATE     5321    // object is a char pointer, to be published as state
+#define MSG_MQTT_SEND_JSONSTATE     5322    // object is a Json Object, to be published as state
 
 #define MSG_HA_FILL_DISCOVERY       5400   // Home Assistant discovery message, pMessage is a JSON document with the object to be sent - correct if needed
 #define MSG_HA_FILL_DISCOVERY_CMPS  5401   // Home Assistant discovery message, pMessage is a JSON object to fill with the components data
@@ -55,21 +57,21 @@
 /**
  * Generic Payload Message, object is a JsonDocument in Message Payload structure
  */
-#define MSG_JSON_OBJECT                0
-#define MSG_JSON_PAYLOAD               9   
+#define MSG_JSON_OBJECT                0    // Object in message is a JSON object
+#define MSG_JSON_PAYLOAD               9    // Object in message is a JSON oject, element "payload" contains the message
 
 /**
  * Base Value - User defined messages should start with this value
  */
 const int MSG_USER_BASE = 10000;
 
-#define LOG_CLASS_INFO       1   // [I]
-#define LOG_CLASS_VERBOSE    2
-#define LOG_CLASS_WARN       3
-#define LOG_CLASS_ERROR      6
-#define LOG_CLASS_TRACE      7
-#define LOG_CLASS_DEBUG      8
-#define LOG_CLASS_EXCEPTION  9
+#define LOG_CLASS_INFO       1  // [I]
+#define LOG_CLASS_VERBOSE    2  // [V]
+#define LOG_CLASS_WARN       3  // [W]
+#define LOG_CLASS_ERROR      6  // [E]
+#define LOG_CLASS_TRACE      7  // [T]
+#define LOG_CLASS_DEBUG      8  // [D]
+#define LOG_CLASS_EXCEPTION  9  // [X]
 
 
 #define WIFI_ACCESS_POINT_MODE  0

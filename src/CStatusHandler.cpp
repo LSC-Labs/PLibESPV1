@@ -28,9 +28,10 @@ void CStatusHandler::addStatusHandler(const char *pszName, IStatusHandler *pHand
 }
 
 /**
- * Basic write operation of status
+ * @brief Basic write operation of status
  * Override and write your own settings, then call this base class
  * to iterate through all sub - status handler...
+ * @param oStatusNode JsonObject to store the status
  */
 void CStatusHandler::writeStatusTo(JsonObject &oStatusNode){
     DEBUG_FUNC_START();
