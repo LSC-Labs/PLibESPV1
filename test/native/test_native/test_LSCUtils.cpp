@@ -1,0 +1,147 @@
+
+#include <gtest/gtest.h>
+#include "LSCUtils.h"
+
+#pragma region String tests
+
+TEST(LSCUtils,testStringCompares) {
+    EXPECT_EQ(LSC::stricmp("This is Zulu","this is zulu"),0);
+    EXPECT_NE(LSC::stricmp("This is Zulu","this is zulu2"),0);
+}
+
+TEST(LSCUtils,testSpecialCompares) {
+    EXPECT_NE(LSC::stricmp("this is true","this no true"),0);
+}
+
+TEST(LSCUtils,testIsPositiveNumber) {
+    EXPECT_TRUE(LSC::isNumber("55"));
+    EXPECT_TRUE(LSC::isNumber("5.54"));
+    EXPECT_FALSE(LSC::isNumber("otto"));
+}
+
+TEST(LSCUtils,testIsNegativeNumber) {
+    EXPECT_TRUE(LSC::isNumber("-55"));
+    EXPECT_TRUE(LSC::isNumber("-5.6"));
+}
+
+TEST(LSCUtils,testIsNotValidNumber) {
+    EXPECT_FALSE(LSC::isNumber("otto"));
+    EXPECT_FALSE(LSC::isNumber("+#"));
+}
+#pragma endregion
+
+#pragma region True/False tests
+
+// Test: Test "true" 
+TEST(LSCUtils,testValueStringTrue) {
+    EXPECT_TRUE(LSC::isTrueValue("true"));
+    EXPECT_TRUE(LSC::isTrueValue("tRue"));
+    EXPECT_FALSE(LSC::isTrueValue("false"));
+}
+
+// Test: Test "true" 
+TEST(LSCUtils,testTrueValueSigns) {
+    EXPECT_TRUE(LSC::isTrueValue("1"));
+    EXPECT_TRUE(LSC::isTrueValue("+"));
+}
+
+// Test: Test "true" 
+TEST(LSCUtils,testTrueValueStringYes) {
+    EXPECT_TRUE(LSC::isTrueValue("yes"));
+    EXPECT_TRUE(LSC::isTrueValue("Y"));
+    EXPECT_TRUE(LSC::isTrueValue("yeS"));
+    EXPECT_TRUE(LSC::isTrueValue("On"));
+}
+
+TEST(LSCUtils,testTrueNotExplicit) {
+    EXPECT_TRUE(LSC::isTrueValue("yes", false));
+    EXPECT_TRUE(LSC::isTrueValue("otto",false));
+    EXPECT_FALSE(LSC::isTrueValue("Off",false));
+}
+
+// Test: Test "false" 
+TEST(LSCUtils,testFalseValueSigns) {
+    EXPECT_TRUE(LSC::isFalseValue("0"));
+    EXPECT_TRUE(LSC::isFalseValue("-"));
+}
+// Test: Test "false" 
+TEST(LSCUtils,testFalseValueStrings) {
+    EXPECT_TRUE(LSC::isFalseValue("false"));
+    EXPECT_TRUE(LSC::isFalseValue("No"));
+    EXPECT_TRUE(LSC::isFalseValue("n"));
+    EXPECT_TRUE(LSC::isFalseValue("Off"));
+}
+
+#pragma endregion
+
+#pragma region White space tests
+
+TEST(LSCUtils,testIsWhiteSpaceChar) {
+    EXPECT_TRUE(LSC::isWhite(' '));
+    EXPECT_TRUE(LSC::isWhite('\t'));
+    EXPECT_TRUE(LSC::isWhite('\v'));
+    EXPECT_TRUE(LSC::isWhite('\f'));
+    EXPECT_TRUE(LSC::isWhite('\r'));
+    EXPECT_TRUE(LSC::isWhite('\n'));
+}
+
+TEST(LSCUtils,testIsNotWhiteSpace) {
+    EXPECT_FALSE(LSC::isWhite('.'));
+    EXPECT_FALSE(LSC::isWhite('z'));
+    EXPECT_FALSE(LSC::isWhite('#'));
+}
+
+TEST(LSCUtils,testSkipWhiteSpaces) {
+    char szData[] = "\t \f\r #Data";
+    const char *psz = LSC::skipWhite(szData);
+    EXPECT_EQ(*psz,'#');
+}
+
+#pragma endregion
+
+#pragma region parse byte tests
+
+TEST(LSCUtils,testParseToByteArray) {
+    char szData[] = "127.128.99.5";
+    uint8_t bData[8];
+    int nSize = LSC::parseBytesToArray(bData,szData,'.',sizeof(bData),10);
+    EXPECT_EQ(nSize,4);
+    EXPECT_EQ(bData[0],127);
+    EXPECT_EQ(bData[1],128);
+    EXPECT_EQ(bData[2],99);
+    EXPECT_EQ(bData[3],5);
+}
+
+#pragma endregion
+
+#pragma region Date functions
+
+TEST(LSCUtils,testGetIsoDateFunction) {
+    char szTimeBuffer[256];
+    time_t oNativeTime;
+    time(&oNativeTime);    
+    LSC::getISODateTime(oNativeTime,szTimeBuffer,sizeof(szTimeBuffer));
+    
+    struct tm* oTimeInfo = localtime(&oNativeTime);
+    char szCheckBuffer[32];
+
+
+    EXPECT_EQ(szTimeBuffer[4], '-');
+    EXPECT_EQ(szTimeBuffer[7], '-');
+    EXPECT_EQ(szTimeBuffer[10],'T');
+    EXPECT_EQ(szTimeBuffer[13],':');
+    EXPECT_EQ(szTimeBuffer[16],':');
+
+    snprintf(   szCheckBuffer,
+                sizeof(szCheckBuffer),"%04d-%02d-%02dT%02d:%02d:",
+                oTimeInfo->tm_year + 1900,
+                oTimeInfo->tm_mon  + 1,
+                oTimeInfo->tm_mday,
+                oTimeInfo->tm_hour,
+                oTimeInfo->tm_min
+            );
+    EXPECT_EQ(strncmp(szCheckBuffer,szTimeBuffer,17),0);
+
+}
+
+#pragma endregion
