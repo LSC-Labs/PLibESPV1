@@ -11,10 +11,20 @@
  * @param pEventReceiver Pointer to the Event Receiver to register
  */
 void CEventHandler::registerEventReceiver(IMsgEventReceiver *pEventReceiver, const char *pszReceiverName) {
-    bool bAlreadyRegistered = false;
+    // bool bAlreadyRegistered = false;
     DEBUG_FUNC_START_PARMS("%p,%s",pEventReceiver,NULL_POINTER_STRING(pszReceiverName)); 
-    for(HandlerEntry oEntry : m_tEventReceivers) {
-        if(oEntry.pHandler == pEventReceiver) {
+    if(m_tReceiverTable.hasValueEntry(pEventReceiver)) {
+        DEBUG_INFOS("MsgBus: Receiver already registered... %p (%s)",pEventReceiver,pszReceiverName ? pszReceiverName : "-no name-");
+        #if DEBUGINFOS
+            dumpReceiver();
+        #endif
+    } else {
+        auto pEntry = m_tReceiverTable.set(pszReceiverName,pEventReceiver);
+        DEBUG_INFOS("MsgBus: Registered new receiver... %p (%s)",pEntry->value,pEntry->getKey());
+    }
+/*
+    for(HandlerEntry * pEntry : m_tEventReceivers) {
+        if(pEntry->pHandler == pEventReceiver) {
             DEBUG_INFOS("MsgBus: Receiver already registered... %p (%s)",pEventReceiver,pszReceiverName ? pszReceiverName : "-no name-");
             #if DEBUGINFOS
                 dumpReceiver();
@@ -23,12 +33,15 @@ void CEventHandler::registerEventReceiver(IMsgEventReceiver *pEventReceiver, con
         }
     }
     if(!bAlreadyRegistered) {
-        HandlerEntry oNewEntry;
-        oNewEntry.pHandler = pEventReceiver;
-        oNewEntry.pszName = pszReceiverName;
-        m_tEventReceivers.push_back(oNewEntry);
-        DEBUG_INFOS("MsgBus: Registered new receiver... %p (%s)",pEventReceiver,pszReceiverName ? pszReceiverName : "-no name-");
+        HandlerEntry * pNewEntry = new HandlerEntry(pszReceiverName,pEventReceiver);
+        m_tEventReceivers.push_back(pNewEntry);
+        DEBUG_INFOS("MsgBus: Registered new receiver... %p (%s)",pNewEntry->pHandler, pNewEntry->pszName ? pNewEntry->pszName : "-no name-");
+
+        m_tReceiverTable.set(pszReceiverName,pEventReceiver);
+        // DEBUG_INFOS("EvtBus: Registered new receiver... %p (%s)",pNewEntry->pHandler, pNewEntry->pszName ? pNewEntry->pszName : "-no name-");
+        dumpReceiver();
     }
+        */
     DEBUG_FUNC_END();
 }
 
@@ -44,8 +57,8 @@ void CEventHandler::registerEventReceiver(IMsgEventReceiver *pEventReceiver, con
 int CEventHandler::sendEvent(void *pSender, int nMsg, const void *pMessage, int nClass) {
     int nTotalResult = EVENT_MSG_RESULT_OK;
     std::vector<IMsgEventReceiver*> tCallBackEventReceivers;
-    for(HandlerEntry oEntry : m_tEventReceivers) {
-        IMsgEventReceiver *pEventReceiver = oEntry.pHandler;
+    for(auto pEntry : m_tReceiverTable.Entries) {
+        IMsgEventReceiver *pEventReceiver = pEntry->value;
         if(pEventReceiver && pSender != pEventReceiver) {
             #ifdef LSC_ENABLE_EXCEPTIONS
             try {
@@ -81,3 +94,44 @@ int CEventHandler::sendEvent(void *pSender, int nMsg, const void *pMessage, int 
     }
     return(nTotalResult);
 }
+
+/*int CEventHandler::sendEvent(void *pSender, int nMsg, const void *pMessage, int nClass) {
+    int nTotalResult = EVENT_MSG_RESULT_OK;
+    std::vector<IMsgEventReceiver*> tCallBackEventReceivers;
+    for(HandlerEntry * pEntry : m_tEventReceivers) {
+        IMsgEventReceiver *pEventReceiver = pEntry->pHandler;
+        if(pEventReceiver && pSender != pEventReceiver) {
+            #ifdef LSC_ENABLE_EXCEPTIONS
+            try {
+            #endif
+                int nResult = pEventReceiver->receiveEvent(pSender,nMsg,pMessage,nClass);
+                if(nResult == EVENT_MSG_CALL_AGAIN_WHEN_ALL_OK) {
+                    tCallBackEventReceivers.push_back(pEventReceiver);
+                } else {
+                    if(nResult > nTotalResult) nTotalResult = nResult;
+                }
+            #ifdef LSC_ENABLE_EXCEPTIONS
+            } catch(...) {
+                Serial.println("[X] sending event..." );
+            }
+            #endif
+        }
+        if(nTotalResult == EVENT_MSG_RESULT_STOP_PROCESSING) break;
+    }
+    // Call backs if all is ok..
+    if(nTotalResult == EVENT_MSG_RESULT_OK) {
+        for(IMsgEventReceiver *pEventReceiver : tCallBackEventReceivers) {
+            #ifdef LSC_ENABLE_EXCEPTIONS
+            try {
+            #endif
+                int nResult = pEventReceiver->receiveEvent(pSender,nMsg,pMessage,nClass);
+                if(nResult > nTotalResult) nTotalResult = nResult;
+            #ifdef LSC_ENABLE_EXCEPTIONS
+            } catch(...) {
+                Serial.println("[X] sending event..." );
+            }
+            #endif
+        }
+    }
+    return(nTotalResult);
+}*/

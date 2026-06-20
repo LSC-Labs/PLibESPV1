@@ -1,6 +1,6 @@
 #include <AccessToken.h>
 #include <DevelopmentHelper.h>
-#include <SimpleJsonNode.h>
+#include <JsonNode.h>
 #include <Base64Data.h>
 #ifndef DEBUG_LSC_SECURITY
     #undef DEBUGINFOS
@@ -40,7 +40,7 @@ CAccessToken::CAccessToken(const char * pszBase64Data) {
         char szBuffer[strlen(pszBase64Data) * 2];
         CBase64Data::base64DecodeData(pszBase64Data,strlen(pszBase64Data),szBuffer,sizeof(szBuffer));
         // base64_decode_chars(pszBase64Data,strlen(pszBase64Data),szBuffer);
-        CSimpleJsonNode oToken;
+        CJsonNode oToken;
         oToken.parse(szBuffer);
         if(oToken.exists("IV") && oToken.exists("Data")) { 
             m_oAESCryptor.IV.loadFromBase64(oToken.getValue("IV"));
@@ -70,7 +70,7 @@ bool CAccessToken::loadBase64DataElement(const char * pszBase64Data) {
         strncpy(m_szDataElementAsBase64,pszBase64Data,sizeof(m_szDataElementAsBase64));
         strncpy(m_szDataElement,szBuffer,sizeof(m_szDataElement));
         DEBUG_INFOS("--> parsing %s",m_szDataElement);
-        CSimpleJsonNode oToken;
+        CJsonNode oToken;
         oToken.parse(m_szDataElement);
         if( oToken.exists("TS") && oToken.exists("IP") && oToken.exists("T") ) {
             m_ulTimeStamp = strtoul(oToken.getValue("TS"),0,10);

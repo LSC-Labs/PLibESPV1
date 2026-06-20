@@ -2,6 +2,7 @@
 #include <ArduinoJson.h>
 #include <vector>
 
+
 /**
  * Interface for a status handler module
  */
@@ -24,8 +25,8 @@ class CStatusHandler : public IStatusHandler {
     public:
         void addStatusHandler(String strName, IStatusHandler *pHandler);
         void addStatusHandler(const char *pszName, IStatusHandler *pHandler);
-        IStatusHandler * getStatusHandler(String strName);        // Get a Config Handler by his name
-        IStatusHandler * getStatusHandler(const char * pszName);  // Get a Config Handler by his name
+        IStatusHandler * getStatusHandler(String strName);        // Get a Status Handler by his name
+        IStatusHandler * getStatusHandler(const char * pszName);  // Get a Status Handler by his name
 
         /** Interface implementation */
         void writeStatusTo(JsonObject &oStatusNode) override;
