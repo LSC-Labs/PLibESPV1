@@ -5,7 +5,7 @@
  * 
  * @file scripts/syncFiles.js
  * @author LSC Labs - Peter Liebl
- * @version 1.0.8.1
+ * @version 1.0.9.1
  */
 
 // const process = require('process');
@@ -17,11 +17,15 @@ import { CConfig, getProjectName,Utils } from './_common.js';
 const MODULE_NAME = "updateVersionInfos";
 const MODULE_VERSION = "1.0.7";
 
+const args = process.argv;
 
 var oLocations = {
     "appsetting": path.join("src","web","js","settings.js"),
     "versionfile": path.join("data","version.json"),
     "packagefile": "package.json",
+    "basebuildfolder": path.join(".pio","build"),
+    "buildfilefolder": "src",
+    "mainbuildfile": "main.cpp.o",
     "test": {
         statusFiles: 
         [
@@ -52,6 +56,26 @@ var oVersionData = {
 	"build": 0
 }
 
+function getDirectories(path) {
+  return fs.readdirSync(path).filter(function (file) {
+    return fs.statSync(path+'/'+file).isDirectory();
+  });
+}
+
+function forceCompileMain() {
+    for(let strName of getDirectories(oLocations.basebuildfolder)) {
+        
+        console.log("forcing on build : " + strName);
+        let strFileName = path.join(oLocations.basebuildfolder,strName,oLocations.buildfilefolder,oLocations.mainbuildfile);
+        if(fs.existsSync(strFileName)) {
+            fs.rmSync(strFileName);
+            console.log( "  --> unlinking " + strFileName);
+        }
+
+    }
+}
+
+
 function loadVersionFile() {
     let bResult = false;
     let strFile = oLocations.versionfile;
@@ -80,6 +104,32 @@ function loadProjectPackageFile() {
     return(bResult);
 }
 
+function updateProjectPackageFile() {
+    // load was already in place... oPackageData contains the needed infos.
+    let bModified = false;
+    let tVersion = oPackageData.version.split('.');
+    let nMajor = tVersion[0] ?? 0;
+    let nMinor = tVersion[1] ?? 0;
+    let nPatch = tVersion[2] ?? 1;
+
+    for(let strArg of args) {
+        switch(strArg) {
+            case "-major": bModified = true; nMajor++; nMinor = 0; nPatch = 0; break;
+            case "-minor": bModified = true; nMinor++; nPatch = 0; break;
+            case "-patch": bModified = true; nPatch++; break;
+        }
+    }
+
+    if(bModified) {
+        oVersionData.build = -1;
+        console.log("Updating package version info...");
+        oPackageData.version = nMajor + "." + nMinor + "." + nPatch;
+        // Write to filesystem - pretty print 
+        let strJson = JSON.stringify(oPackageData,null,4);
+        fs.writeFileSync(oLocations.packagefile, strJson);
+    }
+    return(bModified);
+}
 
 function getLongVersionString() {
     return(oVersionData.major + "." + oVersionData.minor + "." + oVersionData.patch + "." + oVersionData.build);
@@ -92,7 +142,7 @@ function showCurrentVersion() {
 
 
 
-function updateVersionFile() {
+function updateVersionFile(bResetBuild) {
     console.log("---> update version file...")
     // set name only, if not already in place...
     if(!oVersionData.name) {
@@ -102,12 +152,13 @@ function updateVersionFile() {
     oVersionData.homepage = oPackageData.homepage;
     
     // User major/minor/patch from package file
-    // and increment the build number...
+    // and increment the requested (build) number...
     let tVersion = oPackageData.version.split('.');
     oVersionData.major = tVersion[0];
     oVersionData.minor = tVersion[1];
     oVersionData.patch = tVersion[2];
     oVersionData.build++;
+    if(bResetBuild) oVersionData.build = 0;
 
     // Write to filesystem - pretty print 
     let strJson = JSON.stringify(oVersionData,null,4);
@@ -183,6 +234,7 @@ console.log("********************************************");
 console.log("---- " + MODULE_NAME + " Version " + MODULE_VERSION);
 console.log("********************************************");
 if(loadProjectPackageFile() && loadVersionFile()) {
+    let bPackageUpdate = updateProjectPackageFile();
     updateVersionFile();   
     updateSettingFile();
     oLocations.test.statusFiles.forEach(strFile => updateTestStatusFile(strFile));
@@ -191,3 +243,5 @@ console.log("==> udpated to Version:");
 console.log("--------------------------------------------");
 showCurrentVersion();
 console.log("--------------------------------------------");
+
+forceCompileMain();
