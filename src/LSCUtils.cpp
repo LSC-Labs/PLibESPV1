@@ -1,13 +1,58 @@
 #ifndef DEBUG_LSC_UTILS
     #undef DEBUGINFOS
 #endif
-#include <stdlib.h>
-#include <Appl.h>
 #include <LSCUtils.h>
-#include <JsonHelper.h>
-#include <DevelopmentHelper.h>
+#include <stdlib.h>
+
+// #include <DevelopmentHelper.h>
 
 namespace LSC {
+
+    /**
+     * @brief check if the chararcter is a "white" character
+     * Same as std::isspace() but does not throw an exception on "Umlaute" like "ä"
+     */
+    bool isWhite(const char c) {
+        return(
+            c == ' '  ||  // space
+            c == '\t' ||  // horizontal tab
+            c == '\n' ||  // newline
+            c == '\v' ||  // vertical tab
+            c == '\f' ||  // form feed
+            c == '\r'   // carriage return
+            );
+    }
+
+    bool isNumber(const char *pszString) {
+        bool bResult = false;
+        unsigned int nDotCounter = 0;
+        if (pszString && *pszString) {
+            // Allow optional '+' or '-' at the start (but still false if only char.
+            if (*pszString == '+' || *pszString == '-') pszString++;
+            while (*pszString) {
+                if ((*pszString >= '0' && *pszString <= '9') || *pszString == '.') {
+                    if (*pszString == '.') nDotCounter++;
+                    bResult = true;
+                }
+                else { bResult = false; break; }
+                pszString++;
+            }
+
+        }
+        return (bResult && nDotCounter < 2); // Must have at least one digit and only 0 or 1 dot inside.
+    }
+    /**
+     * @brief skipWhite skips the white characters.
+     *As ther could be also special chars like "Umlaute" in german,
+    * isspace() cannot handle this chars, so check step by step...
+    * </summary>
+    * @param psz pointer to the data to be skipped...
+    * @returns the new pointer to the first non white character (or end of string)
+    * */
+    const char* skipWhite(const char * psz) {
+        while (psz && isWhite(*psz)) psz++;
+        return(psz);
+    }
 
     /**
      * @brief a case insensitive string compare.
@@ -61,18 +106,13 @@ namespace LSC {
     float getCelsiusFromFarenheit(float fTemp) {
         return((fTemp - 32) * 1.8);
     }
-
+/*
     String getAddressAsString(IPAddress ip) {
         return String(ip[0]) + "." + String(ip[1]) + "." + String(ip[2]) + "." + String(ip[3]);
     }
-        /*
-        String getAddressAsString(ip4_addr ip) {
-            DEBUG_FUNC_START();
-            char tBuffer[20];
-            sprintf(tBuffer,IPSTR,IP2STR(&(ip)));
-            return(String(tBuffer));
-        }
-        */
+*/
+    /*
+        
     void ICACHE_FLASH_ATTR copyTo(char *pszTarget, const char *pszSource, int nMaxLen) {
         if(pszTarget && pszSource) {
             if(nMaxLen > 0) memset(pszTarget,0,nMaxLen);
@@ -86,7 +126,7 @@ namespace LSC {
             strncpy(&szTarget,&szSource,nMaxLen);
         }
     }
-
+*/
     /**
      * @brief parse a string with delimited values into a byte array.
      * @param pBytes    Pointer to the byte Array to be filled in min length of nMaxBytes
@@ -102,9 +142,10 @@ namespace LSC {
         memset(pBytes,'\0',nMaxBytes);
 
         // copy source into buffer
-        char tBuffer[strlen(pszInput) +2 ];
-        memset(tBuffer,'\0',sizeof(tBuffer));
-        strcpy(tBuffer,pszInput);
+        size_t nSizeOfBuffer = strlen(pszInput) + 5;
+        char *pszBuffer = (char *) malloc(nSizeOfBuffer);
+        memset(pszBuffer,'\0',nSizeOfBuffer);
+        strcpy(pszBuffer,pszInput);
 
         // prepare the token
         char szToken[2];
@@ -112,47 +153,63 @@ namespace LSC {
         szToken[1] = '\0';
 
         // start tokenization
-        char * psz = strtok(tBuffer,szToken);
+        char * psz = strtok(pszBuffer,szToken);
         int nIdx = 0;
         while(psz != NULL && nMaxBytes > nIdx) {
             pBytes[nIdx++] = strtol(psz,NULL,nBase);
             psz = strtok(NULL, szToken);
         }
+        free(pszBuffer);
         return(nIdx);
     }
 
-    /// @brief check if it is a "false" value string
-    /// @param pszData either nullptr, "0", "false", "off" or "-" will result in a false result
-    /// @return 
+    /**
+     * @brief check if it is a "false" value string
+     * - "0", "false", "-", "off", "n", "no"
+     * @param pszData data to be checked
+     * @returns true, if one of the valid false values are matiching the data (case insensitive) 
+     * */
     bool ICACHE_FLASH_ATTR isFalseValue(const char* pszData) {
         bool bResult = false;
         if(!pszData) bResult = true;
-        else if (0 == strcmp(pszData,"0")) bResult = true;
-        else if( 0 == strcmp(pszData,"false")) bResult = true;
-        else if( 0 == strcmp(pszData,"-")) bResult = true;
-        else if( 0 == strcmp(pszData,"off")) bResult = true;
+        else if (0 == stricmp(pszData,"0"))     bResult = true;
+        else if( 0 == stricmp(pszData,"false")) bResult = true;
+        else if( 0 == strcmp( pszData,"-"))     bResult = true;
+        else if( 0 == stricmp(pszData,"off"))   bResult = true;
+        else if( 0 == stricmp(pszData,"n"))     bResult = true;
+        else if( 0 == stricmp(pszData,"no"))    bResult = true;
         return(bResult);
     }
-
-    /// @brief Check if the value is a true value.
-    ///        checks if a string is NOT false, by using the isFalseValue() function.
-    ///        To check explicit if the values represents a true state, use bExplicit=true
-    /// @param strData either "1", "true" or "+" will result in a true value (if bExplicit == true)
-    /// @param bExplicit false == will use !isFalseValue(), otherwise a check of specific values
-    /// @return 
+    /** 
+     * @brief Check if the value contains a true expression
+     *  - "1", "true, "+", "on", "y" or "yes"
+     * In default the data will be checked explicit. If explicit is false,
+     * The data will be checked against isFalseValue().
+     * 
+     * --> Explicit mode    : Values must match
+     * --> Not Explict mode : Returns true, if it is NOT false ==> "otto" is not false ==> result is true,
+     *
+     * @param strData "1", "true", "+", "on", "y" or "yes" will result in a true value (if bExplicit == true)
+     * @param bExplicit false == will use !isFalseValue(), all values, not false will become true (!)
+     * @return true when the check results in a true value. If pszData is a nullptr, the result is false.
+     * */
     bool ICACHE_FLASH_ATTR isTrueValue(const char* pszData, bool bExplicit) {
         bool bResult = false;
         if(!bExplicit) bResult = !isFalseValue(pszData);
         else {
             if(pszData) {
                 if(0 == strcmp(pszData,"1")) bResult = true;
-                else if( 0 == strcmp(pszData,"true")) bResult = true;
-                else if( 0 == strcmp(pszData,"+")) bResult = true;
-                else if( 0 == strcmp(pszData,"on")) bResult = true;
+                else if( 0 == stricmp(pszData,  "true"))    bResult = true;
+                else if( 0 == strcmp( pszData,  "+"))       bResult = true;
+                else if( 0 == stricmp(pszData,  "on"))      bResult = true;
+                else if( 0 == stricmp(pszData,  "y"))       bResult = true;
+                else if( 0 == stricmp(pszData,  "yes"))     bResult = true;
             }
         }
         return(bResult);
     }
+
+/** 
 
     /// @brief Store a int value to the target (by pointer)
     /// @param pTarget pointer to store the value
@@ -221,11 +278,6 @@ namespace LSC {
        
 
 
-    /// @brief Store a bool value to the target (by pointer)
-    /// @param pTarget pointer to store the value
-    /// @param strValue the value to be stored. if null or empty, try to set the default
-    /// @param bDefault The default, if strValue can not be used. 
-    /// @return  true, if value or default could be set
     bool ICACHE_FLASH_ATTR setValue(bool *pTarget, String strValue, const bool *pDefault) {
         bool bResult = true;
         if(pTarget) {
@@ -240,11 +292,6 @@ namespace LSC {
         return(bResult);
     }
 
-    /// @brief Store a psz value to the target 
-    /// @param strTarget Target string object
-    /// @param pszValue the value to be stored. if null or empty, try to set the default
-    /// @param pszDefault The default, if pszValue can not be used.
-    /// @return  true, if value or default could be set
     bool ICACHE_FLASH_ATTR setValue(String &strTarget, const char* pszValue, const char* pszDefault) {
         DEBUG_FUNC_START();
         bool bResult = true;
@@ -273,5 +320,5 @@ namespace LSC {
         }
         return(bResult);
     }
-
+*/
 }

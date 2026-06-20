@@ -1,7 +1,5 @@
 #pragma once
-#include <Arduino.h>
-#include <ArduinoJson.h>
-#include <IPAddress.h>
+#include "Runtime.h"
 
 namespace LSC {
 
@@ -13,12 +11,11 @@ namespace LSC {
 
     int stricmp(const char *psz1, const char *psz2);
 
-    void ICACHE_FLASH_ATTR copyTo(char *pszTarget, const char *pszSource, int nMaxLen);
-    bool ICACHE_FLASH_ATTR isTrueValue(const char * pszData, bool bExplicit = false);
+    bool ICACHE_FLASH_ATTR isTrueValue(const char * pszData, bool bExplicit = true);
     bool ICACHE_FLASH_ATTR isFalseValue(const char * pszData);
-
-    // String getAddressAsString(IPAddress ip);
-    // String getAddressAsString(ip4_addr ip);
+    bool ICACHE_FLASH_ATTR isWhite(const char c);
+    bool ICACHE_FLASH_ATTR isNumber(const char *psz);
+    const char * ICACHE_FLASH_ATTR skipWhite(const char * psz);
 
     int ICACHE_FLASH_ATTR parseBytesToArray(uint8_t *pBytes, const char * pszData, char cSep, int nMaxBytes, int nBase);
 
