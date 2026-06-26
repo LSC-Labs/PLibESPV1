@@ -1,5 +1,5 @@
 #pragma once
-#include <Arduino.h>
+#include <Runtime.h>
 #include <AsyncMqttClient.h>
 #include <ApplModule.h>
 #include <NamedValueTable.h>
@@ -30,6 +30,8 @@ struct MQTTConfig {
     /************* Home Assistant Config Area *****************/
     bool    useHA             = false;              // Use of Home Asisst
     String  HADiscoveryPrefix = "/homeassistant";   // Home Assistant Discovery Prefix
+    String  HAOnlineMessage   = "online";           // message when going online
+    String  HAOfflineMessage  = "offline";          // message when ha is offline
 
 };
 
@@ -59,7 +61,7 @@ class IHomeAssistantComponent {
          * @param oComponentArea JSON object representing the component area "cmps" in the HA discovery information. Insert your component information here.
          * @param pController Pointer to the MQTT controller
          */
-        virtual void insertComponentDiscovery(const char * pszComponentName, JsonObject & oComponentArea, CMQTTController * pController) = 0;
+        virtual void insertComponentDiscovery(const char * pszComponentName, JsonNode & oComponentArea, CMQTTController * pController) = 0;
 };
 
 
@@ -90,9 +92,9 @@ class CMQTTController : public AsyncMqttClient, public ApplModule {
         ~CMQTTController();
         
         void setup(int nPublishInterval = 60);
-        void readConfigFrom(JsonObject &oCfg) override;
-        void writeConfigTo(JsonObject &oCfg, bool bHideCritical) override;
-        void writeStatusTo(JsonObject &oCfg) override;
+        void readConfigFrom(JsonNode &oCfg) override;
+        void writeConfigTo( JsonNode &oCfg, bool bHideCritical) override;
+        void writeStatusTo( JsonNode &oCfg, int nLevel) override;
         int  receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) override;
         void dispatch() override;
 
@@ -103,12 +105,10 @@ class CMQTTController : public AsyncMqttClient, public ApplModule {
 
         const char * getDeviceCommandBaseTopicPath();
         
-        void publishDeviceState(JsonObject & oStateData);
+        void publishDeviceState(JsonNode & oStateData);
         void publishDeviceState(const char * pszStateData);
-        void publishDeviceTopic(String strTopic,      JsonDocument &oDataDoc,    int nQOS = 0, bool bRetain = false);
-        void publishDeviceTopic(String strTopic,      JsonObject   &oDataNode,   int nQOS = 0, bool bRetain = false);
-        void publishDeviceTopic(const char *pszTopic, JsonDocument &oDataDoc,    int nQOS = 0, bool bRetain = false);
-        void publishDeviceTopic(const char *pszTopic, JsonObject   &oDataNode,   int nQOS = 0, bool bRetain = false);
+        void publishDeviceTopic(String strTopic,      JsonNode     &oDataNode,   int nQOS = 0, bool bRetain = false);
+        void publishDeviceTopic(const char *pszTopic, JsonNode     &oDataNode,   int nQOS = 0, bool bRetain = false);
         void publishDeviceTopic(const char *pszTopic, const char   *pszData,     int nQOS = 0, bool bRetain = false);
         virtual void publishHeartBeat(bool bForceSend = false);
     protected:

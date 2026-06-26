@@ -3,12 +3,13 @@
 #endif
 
 #include <Arduino.h>
-#include <ArduinoJson.h>
+#include <JsonNode.h>
 #include <Appl.h>
 #include <Network.h>
 #include <MQTTController.h>
 #include <LSCUtils.h>
 #include <Msgs.h>
+#include <SysStatus.h>
 
 #define MQTT_RECV_MESSAGE_BUFFER_SIZE 2048
 
@@ -106,50 +107,49 @@ const char * CMQTTController::getDeviceCommandBaseTopicPath(){
 
 #pragma region Application interface implementation
 
-void CMQTTController::readConfigFrom(JsonObject &oCfg) {
+void CMQTTController::readConfigFrom(JsonNode &oCfg) {
     DEBUG_FUNC_START();
     DEBUG_JSON_OBJ(oCfg);
+    oCfg.storeValueIf(MQTT_CONFIG_ENABLED,         &   Config.isEnabled);
+    oCfg.storeValueIf(MQTT_CONFIG_USEHA,           &   Config.useHA);;
 
-    LSC::setJsonValue(oCfg,MQTT_CONFIG_ENABLED,         &   Config.isEnabled);
-    LSC::setJsonValue(oCfg,MQTT_CONFIG_USEHA,           &   Config.useHA);;
+    oCfg.storeValueIf(MQTT_CONFIG_BROCKERPORT,     &   Config.BrokerPort);
+    oCfg.storeValueIf(MQTT_CONFIG_BROCKERADDRESS,      Config.BrokerAddress);
+    oCfg.storeValueIf(MQTT_CONFIG_USERNAME,            Config.UserName);
+    oCfg.storeValueIf(MQTT_CONFIG_PUBLISHTOPIC,        Config.PublishTopicPrefix);
+    oCfg.storeValueIf(MQTT_CONFIG_PUBLISHINTERVAL, &   Config.PublishInterval);
+    oCfg.storeValueIf(MQTT_CONFIG_USEAUTOTOPIC,    &   Config.useAutoTopic);
+    oCfg.storeValueIf(MQTT_CONFIG_HA_TOPICS,           Config.HADiscoveryPrefix);
 
-    LSC::setJsonValue(oCfg,MQTT_CONFIG_BROCKERPORT,     &   Config.BrokerPort);
-    LSC::setJsonValue(oCfg,MQTT_CONFIG_BROCKERADDRESS,      Config.BrokerAddress);
-    LSC::setJsonValue(oCfg,MQTT_CONFIG_USERNAME,            Config.UserName);
-    LSC::setJsonValue(oCfg,MQTT_CONFIG_PUBLISHTOPIC,        Config.PublishTopicPrefix);
-    LSC::setJsonValue(oCfg,MQTT_CONFIG_PUBLISHINTERVAL, &   Config.PublishInterval);
-    LSC::setJsonValue(oCfg,MQTT_CONFIG_USEAUTOTOPIC,    &   Config.useAutoTopic);
-    LSC::setJsonValue(oCfg,MQTT_CONFIG_HA_TOPICS,           Config.HADiscoveryPrefix);
-
-    LSC::setJsonValueIfNot(oCfg,MQTT_CONFIG_USERPASSWORD,Config.UserPassword, MQTT_HIDDEN_PASSWORD);
+    oCfg.storeValueIfNot(MQTT_CONFIG_USERPASSWORD,Config.UserPassword, MQTT_HIDDEN_PASSWORD);
     // Config.SubscribeTopic = Config.PublishTopicPrefix;
 }
 
-void CMQTTController::writeConfigTo(JsonObject &oCfg, bool bHideCritical) {
+void CMQTTController::writeConfigTo(JsonNode &oCfg, bool bHideCritical) {
     DEBUG_FUNC_START();
-    if(oCfg) {
-        oCfg[MQTT_CONFIG_ENABLED]           = Config.isEnabled;
-        oCfg[MQTT_CONFIG_BROCKERPORT]       = Config.BrokerPort;
-        oCfg[MQTT_CONFIG_BROCKERADDRESS]    = Config.BrokerAddress;
-        oCfg[MQTT_CONFIG_USERNAME]          = Config.UserName;
-        oCfg[MQTT_CONFIG_USERPASSWORD]      = bHideCritical ? MQTT_HIDDEN_PASSWORD : Config.UserPassword;
-        oCfg[MQTT_CONFIG_PUBLISHTOPIC]      = Config.PublishTopicPrefix;
-        oCfg[MQTT_CONFIG_USEAUTOTOPIC]      = Config.useAutoTopic;
-        oCfg[MQTT_CONFIG_PUBLISHINTERVAL]   = Config.PublishInterval;
-        oCfg[MQTT_CONFIG_USEHA]             = Config.useHA;
-        oCfg[MQTT_CONFIG_HA_TOPICS]         = Config.HADiscoveryPrefix;
-    }
+    oCfg[MQTT_CONFIG_ENABLED]           = Config.isEnabled;
+    oCfg[MQTT_CONFIG_BROCKERPORT]       = Config.BrokerPort;
+    oCfg[MQTT_CONFIG_BROCKERADDRESS]    = Config.BrokerAddress;
+    oCfg[MQTT_CONFIG_USERNAME]          = Config.UserName;
+    oCfg[MQTT_CONFIG_PUBLISHTOPIC]      = Config.PublishTopicPrefix;
+    oCfg[MQTT_CONFIG_USEAUTOTOPIC]      = Config.useAutoTopic;
+    oCfg[MQTT_CONFIG_PUBLISHINTERVAL]   = Config.PublishInterval;
+    oCfg[MQTT_CONFIG_USEHA]             = Config.useHA;
+    oCfg[MQTT_CONFIG_HA_TOPICS]         = Config.HADiscoveryPrefix;
+    oCfg[MQTT_CONFIG_USERPASSWORD]      = (const char *) (bHideCritical ? MQTT_HIDDEN_PASSWORD : Config.UserPassword.c_str());
     DEBUG_JSON_OBJ(oCfg);
     
 }
 
-void CMQTTController::writeStatusTo(JsonObject &oStatus) {
-    oStatus["isEnabled"]        = Config.isEnabled;
-    oStatus["isConnected"]      = connected();
-    oStatus["started"]          = Status.ConStart;
-    oStatus["disconTS"]         = Status.ConEnd;
-    oStatus["disconReasonRC"]   = (int) Status.DisConReason;
-    oStatus["disconReason"]     = Status.DisConReasonString;
+void CMQTTController::writeStatusTo(JsonNode &oStatus, int nLevel) {
+    if(nLevel >= STATUS_LEVEL_INFO) {
+        oStatus.setValue("isEnabled",       Config.isEnabled);
+        oStatus.setValue("isConnected",     connected());
+        oStatus.setValue("started",         Status.ConStart);
+        oStatus.setValue("disconTS",        Status.ConEnd);
+        oStatus.setValue("disconReasonRC",  (int) Status.DisConReason);
+        oStatus.setValue("disconReason",    Status.DisConReasonString);
+    }
 }
 
 int CMQTTController::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
@@ -164,8 +164,10 @@ int CMQTTController::receiveEvent(const void * pSender, int nMsg, const void * p
         // If a MQTT message is received, check if it is a Home Assistant status message to update the session status of Home Assistant
         case MSG_MQTT_MSG_RECEIVED:
             if(Config.useHA && m_pszHomeAssistantStatusTopic) {
+                DEBUG_INFOS("MQTT: HA status Topic Message received : %s", m_pszHomeAssistantStatusTopic);
                 MQTTMessage * pMsg = (MQTTMessage *) pMessage;
                 if(pMsg && pMsg->Topic && pMsg->Message ) {
+                    DEBUG_INFOS("MQTT:  ==>  [%s]", pMsg->Topic);
                     if(LSC::stricmp(pMsg->Topic,m_pszHomeAssistantStatusTopic) == 0) {
                         // If Home Assistant goes online, publish the auto discovery information.
                         // see : https://www.home-assistant.io/integrations/mqtt/#birth-and-last-will-messages
@@ -178,8 +180,14 @@ int CMQTTController::receiveEvent(const void * pSender, int nMsg, const void * p
             }
             break;
 
+        case MSG_APPL_STARTED:
+            publishHomeAssistantDiscovery();
+            break;
+
+            
+
         case MSG_MQTT_SEND_JSONSTATE: {
-                JsonObject * pMsgObj = (JsonObject * ) pMessage;
+                JsonNode * pMsgObj = (JsonNode * ) pMessage;
                 publishDeviceState(*pMsgObj);
             }
             break;
@@ -190,25 +198,33 @@ int CMQTTController::receiveEvent(const void * pSender, int nMsg, const void * p
             }
             break;
         
-        case MSG_MQTT_SEND_JSONDATA:
+        case MSG_MQTT_SEND_JSONNODE:
             {
                 String strTopic = "msg";
                 String strPayload;
+                int nQOS = 2;
+                bool bRetain = false;
                 // Extract parameters
 
-                JsonObject * pMsgObj = (JsonObject *) pMessage;
+                JsonNode * pMsgObj = (JsonNode *) pMessage;
                 if(pMsgObj) {
                     // If the doc contains "payload" as Json Object and nClass == 1,
                     // send the payload only, with topic, if exist - otherwise topic is "msg"
-                    if(nClass == MSG_JSON_PAYLOAD && JsonKeyExists((*pMsgObj),"payload",JsonObject)) {
-                        JsonObject oPayload = GetJsonObject((*pMsgObj),"payload");
-                        serializeJson(oPayload,strPayload);
-                        LSC::setJsonValue(*pMsgObj,"topic",strTopic);
+                    if(nClass == MSG_JSON_PAYLOAD) {
+                        JsonNode * pPayload = pMsgObj->getObject("payload");
+                        if(pPayload) {
+                            strPayload = pPayload->getAsJsonText();
+                            pMsgObj->storeValueIf("topic",    strTopic);
+                            pMsgObj->storeValueIf("qos",    & nQOS);
+                            pMsgObj->storeValueIf("retain", & bRetain);
+                        }
                     } else {
-                        serializeJson(*pMsgObj,strPayload);
+                        strPayload = pMsgObj->getAsJsonText();
                     }
                 }
-                publishDeviceTopic(strTopic.c_str(),strPayload.c_str(),Config.useHA);
+                if(strPayload.length() > 2) {
+                    publishDeviceTopic(strTopic.c_str(),strPayload.c_str(),nQOS,bRetain);
+                }
             }
             break;
 
@@ -233,7 +249,7 @@ void CMQTTController::setup(int nPublishInterval) {
         setCredentials(Config.UserName.c_str(), Config.UserPassword.c_str());
     
         // Set the publish state topic and the last will...
-        DEBUG_INFOS("- publishing state on topic : %s",(Config.PublishTopicPrefix + "/" + MQTT_MSG_TOPIC_STATE).c_str());
+        DEBUG_INFOS("- state topic name : %s",(Config.PublishTopicPrefix + "/" + MQTT_MSG_TOPIC_STATE).c_str());
         m_pszPublishStateTopic          = strdup((Config.PublishTopicPrefix + "/" + MQTT_MSG_TOPIC_STATE).c_str());
         m_pszPublishAvailabilityTopic   = strdup((Config.PublishTopicPrefix + "/" + MQTT_MSG_TOPIC_STATUS).c_str());
 
@@ -277,32 +293,13 @@ void CMQTTController::dispatch() {
 #pragma endregion
 
 #pragma region Publish functions like a JsonDocument to the Message Broker
-/**
- * @brief publish a json document on the message broker.
- */
-void CMQTTController::publishDeviceTopic(String strTopic, JsonDocument &oData, int nQOS, bool bRetain)
-{
-    // JsonObject oNode = oData.as<JsonObject>();
-    JsonObject oNode = GetJsonDocumentAsObject(oData);
-    publishDeviceTopic(strTopic, oNode,nQOS,bRetain);
-}
-
-/**
- * @brief publish a json document on the message broker.
- */
-void CMQTTController::publishDeviceTopic(const char *pszTopic, JsonDocument &oData, int nQOS, bool bRetain)
-{
-    // JsonObject oNode = oData.as<JsonObject>();
-    JsonObject oNode = GetJsonDocumentAsObject(oData);
-    publishDeviceTopic(pszTopic, oNode,nQOS,bRetain);
-}
 
 /**
  * @brief publish a json objecz on the Message Broker
  * @param strTopic Topic to be published for this device
  * @param oData data to be sent as JsonObject
  */
-void CMQTTController::publishDeviceTopic(String strTopic, JsonObject &oData,  int nQOS, bool bRetain)
+void CMQTTController::publishDeviceTopic(String strTopic, JsonNode &oData,  int nQOS, bool bRetain)
 {
     DEBUG_FUNC_START();
     publishDeviceTopic(strTopic.c_str(),oData,nQOS,bRetain);
@@ -315,13 +312,12 @@ void CMQTTController::publishDeviceTopic(String strTopic, JsonObject &oData,  in
  * @param pszTopic Topic to be published for this device as const pointer
  * @param oData data to be sent as JsonObject
  */
-void CMQTTController::publishDeviceTopic(const char *pszTopic, JsonObject &oData,  int nQOS, bool bRetain)
+void CMQTTController::publishDeviceTopic(const char *pszTopic, JsonNode &oData,  int nQOS, bool bRetain)
 {
     DEBUG_FUNC_START();
-	if (connected() && oData)
+	if (connected())
 	{
-		String mqttBuffer;
-		serializeJson(oData, mqttBuffer);
+		String mqttBuffer = oData.getAsJsonText();
         publishDeviceTopic(pszTopic, mqttBuffer.c_str(), nQOS,bRetain);
 	}
     DEBUG_FUNC_END();
@@ -350,7 +346,7 @@ void CMQTTController::publishDeviceTopic(const char *pszTopic, const char * pszD
  * @brief send the device state, stored in the json object to the device state topic
  * @param oStateData The device state object to be published on the message bus.
  */
-void CMQTTController::publishDeviceState(JsonObject & oStateData) {
+void CMQTTController::publishDeviceState(JsonNode & oStateData) {
     DEBUG_FUNC_START();
     publishDeviceTopic(MQTT_MSG_TOPIC_STATE,oStateData);
     DEBUG_FUNC_END();
@@ -398,51 +394,66 @@ void CMQTTController::registerHomeAssistantComponent(const char *pszComponentNam
 
 /**
  * @brief Publish the Home Assistant Auto Discovery information for all registered components.
+ * @see https://www.home-assistant.io/integrations/sensor.mqtt/
+ * 
  */
 void CMQTTController::publishHomeAssistantDiscovery() {
     DEBUG_FUNC_START();
     if(connected() && Config.useHA) {
-        JSON_DOC(oDiscovery,4096);
-        JsonObject oDevice = CreateJsonObject(oDiscovery,"dev");
+        JsonNode oDiscovery;
+        JsonNode *pDevice = oDiscovery.getObject("dev",true);
         const char * pszDeviceName = WiFi.getHostname();
+        String strCfgUrl = "http://";
+        strCfgUrl += pszDeviceName;
 
-        oDevice["id"]   = pszDeviceName;
-        oDevice["name"] = pszDeviceName;
-        oDevice["mf"]   = "LSC";
-        oDevice["mdl"]  = Appl.AppName;
-        oDevice["sw"]   = Appl.AppVersion;
+        (*pDevice)["ids"]   = pszDeviceName;
+        // (*pDevice)["id"]  ="ea334450945aff";
 
-        JsonObject oOrigin  = CreateJsonObject(oDiscovery,"o");
-        oOrigin["sw"]   = Appl.AppVersion;
-        oOrigin["name"] = Appl.AppName;
-        oOrigin["url"]  = "https://github.com/LSC-Labs";
+        (*pDevice)["name"] = pszDeviceName;
+        (*pDevice)["mf"]   = "LSC";
+        (*pDevice)["mdl"]  = Appl.AppName;
+        (*pDevice)["sw"]   = Appl.AppVersion;
+        // (*pDevice)["sn"]   =  "ea334450945aff";
+        (*pDevice)["configuration_url"] = strCfgUrl.c_str(); 
 
-        JsonObject oComponents = CreateJsonObject(oDiscovery,"cmps");
 
+        JsonNode *pOrigin  = oDiscovery.getObject("o",true);
+        (*pOrigin)["sw"]   = Appl.AppVersion;
+        (*pOrigin)["name"] = Appl.AppName;
+        (*pOrigin)["url"]  = "https://github.com/LSC-Labs";
+
+        JsonNode * pComponents  = oDiscovery.getObject("cmps",true);
         // Ask the components to insert their discovery data into the discovery document
         Appl.MsgBus.sendEvent(this, MSG_HA_FILL_DISCOVERY,      &oDiscovery,  0);
-        Appl.MsgBus.sendEvent(this, MSG_HA_FILL_DISCOVERY_CMPS, &oComponents, 0);
+        Appl.MsgBus.sendEvent(this, MSG_HA_FILL_DISCOVERY_CMPS, pComponents, 0);
 
          // Insert the component discovery data for each registered component handler
         for(const char *pszComponentName : m_tComponentHandlerByName.getKeys()) {
             IHomeAssistantComponent *pComponentHandler = m_tComponentHandlerByName.get(pszComponentName);
             if(pComponentHandler) {
-                pComponentHandler->insertComponentDiscovery(pszComponentName, oComponents, this);
+                pComponentHandler->insertComponentDiscovery(pszComponentName, *pComponents, this);
             }
         }
 
-        oDiscovery["qos"]         = "2";
-        oDiscovery["state_t"]     = this->m_pszPublishStateTopic;
-        oDiscovery["avty_t"]      = this->m_pszPublishAvailabilityTopic;
+        oDiscovery["qos"]         = 2;
 
+        // oDiscovery["state_topic"]= "/home/office/Sensor01/state",
+        oDiscovery["state_topic"]           = this->m_pszPublishStateTopic;
+        oDiscovery["availability_topic"]    = this->m_pszPublishAvailabilityTopic;
+
+        DEBUG_INFOS("Sending discovery info to %s",(Config.HADiscoveryPrefix + "/device/" + pszDeviceName + "/config").c_str());
+        DEBUG_JSON_OBJ(oDiscovery);
+    
+        const char * pszMsg = oDiscovery.getAsJsonText();
         // Now publish the discover information on the message broker with the topic: homeassistant/device/{device_name}/config
         publish(
                 (Config.HADiscoveryPrefix + "/device/" + pszDeviceName + "/config").c_str(), 
                 0,                              // QoS 0
-                true,                           // As retain message. 
-                oDiscovery.as<const char*>()    // Publish the document as string
+                false,                           // As retain message. 
+                pszMsg   // Publish the document as string
             );       
-        DEBUG_JSON_OBJ(oDiscovery);
+        DEBUG_INFOS("HA Discovery published: %s",pszMsg);
+    
         DEBUG_FUNC_END();
     }
 }
@@ -467,7 +478,8 @@ void CMQTTController::onMqttConnect(bool sessionPresent)
     // Listen on Home Assistant status topic to get the session status of Home Assistant
     if(Config.useHA && Config.HADiscoveryPrefix.length() > 0) {
         sprintf(szBuffer,"%s/%s",Config.HADiscoveryPrefix.c_str(),"status");
-        subscribe(szBuffer, 2);
+        DEBUG_INFOS("MQTT: subscribing to HA status message : %s",szBuffer);
+        subscribe(szBuffer, 0);
     }
     
     // Subscribe to your own command topic to receive commands.
@@ -547,7 +559,7 @@ void CMQTTController::onMqttMessage(char *pszTopic, char *pszPayload, AsyncMqttC
     }
     // Last Block received ? => store data in queue
     if(nIndex + nLen == nTotal) {
-        DEBUG_INFOS("MQTT final message received %s",m_pszMessageBuffer);
+        DEBUG_INFOS("MQTT status message received \"%s\"",m_pszMessageBuffer);
         MQTTMessage *pMessage = new MQTTMessage( pszTopic, m_pszMessageBuffer);
         m_tMessageQeue.push(pMessage);
         free(m_pszMessageBuffer);
