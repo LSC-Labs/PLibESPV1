@@ -28,6 +28,55 @@ TEST(LSCUtils,testIsNotValidNumber) {
     EXPECT_FALSE(LSC::isNumber("otto"));
     EXPECT_FALSE(LSC::isNumber("+#"));
 }
+
+TEST(LSCUtils,testIndexOfMiddle) {
+    const char *pszTest = "Sub.Data.1";
+    int nExpected = 3;
+    int nIdx = LSC::indexOf(pszTest,'.');
+    ASSERT_EQ(nIdx,nExpected);
+}
+
+TEST(LSCUtils,testIndexOfAtTheEnd) {
+    const char *pszTest = "Sub.Data.1";
+    int nExpected = 9;
+    int nIdx = LSC::indexOf(pszTest,'1');
+    ASSERT_EQ(nIdx,nExpected);
+}
+
+
+TEST(LSCUtils,testNotInIndexOf) {
+    const char *pszTest = "Sub.Data.1";
+    int nExpected = -1;
+    int nIdx = LSC::indexOf(pszTest,'F');
+    ASSERT_EQ(nIdx,nExpected);
+}
+
+TEST(LSCUtils,testLastIndexOfDeli) {
+    const char *pszTest = "Sub.Data.1";
+    int nExpected = 8;
+    int nIdx = LSC::lastIndexOf(pszTest,'.');
+    ASSERT_EQ(nIdx,nExpected);
+}
+TEST(LSCUtils,testLastIndexOfDouble) {
+    const char *pszTest = "Sub.Data.1";
+    int nExpected = 7;
+    int nIdx = LSC::lastIndexOf(pszTest,'a');
+    ASSERT_EQ(nIdx,nExpected);
+}
+TEST(LSCUtils,testLastIndexOfEnd) {
+    const char *pszTest = "Sub.Data.1";
+    int nExpected = 9;
+    int nIdx = LSC::lastIndexOf(pszTest,'1');
+    ASSERT_EQ(nIdx,nExpected);
+}
+TEST(LSCUtils,testLastIndexOfStart) {
+    const char *pszTest = "Sub.Data.1";
+    int nExpected = 0;
+    int nIdx = LSC::lastIndexOf(pszTest,'S');
+    ASSERT_EQ(nIdx,nExpected);
+}
+
+
 #pragma endregion
 
 #pragma region True/False tests
@@ -145,3 +194,14 @@ TEST(LSCUtils,testGetIsoDateFunction) {
 }
 
 #pragma endregion
+
+
+TEST(LSCUtils,testGetFarenheitFromCelsius) {
+    float fResult = LSC::getFarenheitFromCelsius(0);
+    ASSERT_EQ(32.0, fResult);
+}
+
+TEST(LSCUtils,testGetCelsiusFromFarenheit) {
+    float fResult = LSC::getCelsiusFromFarenheit(32);
+    ASSERT_EQ(0.0, fResult);
+}

@@ -1,6 +1,7 @@
 
 #include <gtest/gtest.h>
 #include "JsonNode.h"
+#include "LSCUtils.h"
 
 
 const char T1[] = "{\"IP\":\"192.154.22.1\",\"S\":{ \"Sub\":1,\"S2\":2},\"TS\":\"4456\", \"B1\":true, \"B2\":\"false\", \"T2\":\"T2Value\", \"Token\":\"das ist ein Token mit \\\"tütelchen\"}";
@@ -38,10 +39,16 @@ TEST(CJsonNode,testGetObject) {
     EXPECT_NE(oNode.getObject("TestNode"),nullptr);
 }
 
+
+TEST(CJsonNode,testGetExistingElement) {
+    CJsonNode oNode;
+    CJsonNode *pNode = oNode.getElement("NON");
+    EXPECT_EQ(pNode,nullptr);
+}
 // Test: getValue with default
 TEST(CJsonNode,testGetValueDefault) {
     CJsonNode node;
-    const char* result = node.getValueOrDefault("nonexistent", "default");
+    const char* result = node.getValue("nonexistent", "default");
     EXPECT_STREQ(result, "default");
 }
 
@@ -79,6 +86,16 @@ TEST(CJsonNode,testParseSimpleJson) {
     EXPECT_TRUE(node.exists("name"));
 }
 
+// Test: Simple JSON parse
+TEST(CJsonNode,testParseEmptyValueJson) {
+    CJsonNode node;
+    node.parse("{ \"wifi\":{\"key\":\"test\",\"name\":\"\"}}");
+    SerialPrintf(">> %s << ",node.getAsJsonText());
+    CJsonNode * pSub = node.getObject("wifi");
+    EXPECT_TRUE(pSub->exists("name"));
+    EXPECT_STREQ(pSub->getValue("name"),"");
+}
+
 // Test: Test Object
 TEST(CJsonNode,testIsTypeOfObject) {
     CJsonNode node;
@@ -103,13 +120,25 @@ TEST(CJsonNode,testIsTypeOfValue) {
 
 
 // Test: Destructor cleanup
-TEST(CJsonNode,textClear) {
-   
+TEST(CJsonNode,testToClearElementValueText) {
     CJsonNode* node = new CJsonNode();
     CJsonNode * pSubNode = node->getObject("child",true);
     EXPECT_TRUE(node->exists("child"));
     node->clear();
     EXPECT_FALSE(node->exists("child"));
+}
+
+// Test: Destructor cleanup
+TEST(CJsonNode,testClearAllObjectsInNodes) {
+    CJsonNode oNode;
+    oNode.parse("{ \"wifi\":{\"key\":\"test\",\"name\":\"\"}}");
+    EXPECT_EQ(oNode.Elements.size(),1);
+    CJsonNode *pNode = oNode.getObject("wifi");
+    EXPECT_EQ(pNode->Elements.size(),2);
+    pNode->clear();
+    EXPECT_EQ(pNode->Elements.size(),0);
+    oNode.clear();
+    EXPECT_EQ(oNode.Elements.size(),0);
 }
 
 #pragma endregion
@@ -123,6 +152,19 @@ TEST(CJsonNode,testGetValueFromObject) {
     const char* result = node.getValue("key");
     EXPECT_STREQ(result, "testvalue");
 }
+
+
+// Test: Parse get unsigned integer
+TEST(CJsonNode,testGetCharPointerExistingKey) {
+    CJsonNode node;
+    node.parse("{ \"X\": \"Teststring\" }");
+    const char *pszResult = node.getValue("X","DD");
+    SerialPrintf(">>> \"%s\" (%s) ### ",pszResult,node.getValue());
+    EXPECT_NE(pszResult,nullptr);
+    EXPECT_STREQ(pszResult,"Teststring");
+    EXPECT_TRUE(strlen(pszResult) > 0);
+}
+
 
 // Test: Parse get integer
 TEST(CJsonNode,testIntIsNumberValue) {
@@ -331,6 +373,23 @@ TEST(CJsonNode,testStoreBoolNonExistingKey) {
     EXPECT_FALSE(bResult);
 }
 
+// Test: Parse store boolean - key does not exist
+TEST(CJsonNode,testStoreNotIFMaskMatches) {
+    CJsonNode node;
+    const char *pszNot = "****";
+    const char *pszShould = "JoJoBa";
+
+    node.parse("{ \"X\": \"****\" }");
+
+    String strResult = node.getValue("X");
+    SerialPrintf(">>> NOT mask matches :%d ### ",strResult == pszNot);
+    strResult = pszShould;
+    node.storeValueIfNot("X",strResult,pszNot);
+    SerialPrintf("Result : %s - expected - %s ### ",strResult.c_str(), pszShould );
+    EXPECT_STREQ(strResult.c_str(),"JoJoBa");
+}
+
+
 #pragma endregion
 
 #pragma region set values
@@ -351,6 +410,14 @@ TEST(CJsonNode,testReplaceStringValue) {
     oNode.setValue("data","otto");
     EXPECT_NE(oNode.getValueAsInt("data"),3);
     EXPECT_STREQ(oNode.getValue("data"),"otto");
+}
+
+TEST(CJsonNode,testSetRealStringValue) {
+    CJsonNode oNode;
+    oNode.parse("{ \"data\": 3 }");
+    String strData = "Hello world";
+    oNode.setValue("test",strData);
+    EXPECT_STREQ(oNode.getValue("test"),"Hello world");
 }
 
 // test set bool value
@@ -392,6 +459,72 @@ TEST(CJsonNode,testSetSimpleIntValue) {
     SerialPrintf("INT::: %s %d == %d (%d) ### ",oNode.getValue("test"), nData,oNode.getValueAsInt("test",5),oNode.find("test")->isNumberValue());
     EXPECT_EQ(oNode.getValueAsInt("test"),nData);
 }
+
+
+// test set integer  value
+TEST(CJsonNode,testFindSubValue) {
+    CJsonNode oNode;
+    oNode.parse("{ \"data\": 3 }");
+    int nData = -555;
+    CJsonNode *pSubNode = oNode.getObject("sub",true);
+    (*pSubNode)["value"] = nData;
+    int nResult = pSubNode->getValueAsInt("value");
+    SerialPrintf(">>> result (%d) == value (%d)",nResult,nData);
+    EXPECT_EQ(nResult,nData);
+}
+
+
+// test set integer  value
+TEST(CJsonNode,testSetSubObjectValue) {
+    const char *pszSearchName = "S.Sub";
+    CJsonNode oNode;
+    oNode.parse(T1);
+    int nExpected   = 1;
+    CJsonNode *pSubNode = oNode.find(pszSearchName);
+    EXPECT_NE(pSubNode,nullptr);
+    int nData       = oNode.getValueAsInt(pszSearchName);
+    SerialPrintf(">>> expeted (%d) == value (%d) ###",nExpected,nData);
+    EXPECT_EQ(nExpected,nData);
+}
+
+// test set integer  value
+TEST(CJsonNode,testCreatePathToElement) {
+    const char *pszSearchName = "Test.const.Sub";
+    CJsonNode oNode;
+    CJsonNode *pSubNode = oNode.createJsonPathToElement(pszSearchName);
+    EXPECT_NE(pSubNode,nullptr);
+    EXPECT_FALSE(pSubNode->exists("Sub"));
+    EXPECT_TRUE(oNode.exists("Test.const"));
+    EXPECT_NE(oNode.getObject("Test.const"),nullptr);
+}
+
+TEST(CJsonNode,testGetAsObjectWithPath) {
+    const char *pszSearchName = "Test.const.Sub";
+    CJsonNode oNode;
+    CJsonNode *pSubNode = oNode.getObject(pszSearchName,true);
+    SerialPrintf(">>> %s ###",oNode.getAsJsonText());
+    EXPECT_FALSE(pSubNode->isJsonObject("Sub"));
+    EXPECT_TRUE(oNode.exists(pszSearchName));
+}
+
+TEST(CJsonNode,testGetAsArrayWithPath) {
+    const char *pszSearchName = "Test.const.Sub";
+    CJsonNode oNode;
+    CJsonNode *pSubNode = oNode.getArray(pszSearchName,true);
+    SerialPrintf(">>> %s ###",oNode.getAsJsonText());
+    EXPECT_FALSE(pSubNode->isJsonArray("Sub"));
+    EXPECT_TRUE(oNode.exists(pszSearchName));
+}
+
+TEST(CJsonNode,testGetAsElementWithPath) {
+    const char *pszSearchName = "Test.const.Sub";
+    CJsonNode oNode;
+    CJsonNode *pSubNode = oNode.getElement(pszSearchName,true);
+    SerialPrintf(">>> %s ###",oNode.getAsJsonText());
+    EXPECT_FALSE(pSubNode->isJsonArray("Sub"));
+    EXPECT_TRUE(oNode.exists(pszSearchName));
+}
+
 
 
 #pragma endregion
