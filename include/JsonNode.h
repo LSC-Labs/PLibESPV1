@@ -12,9 +12,11 @@
 
  // If compiled with MS - supress warnings...
 #define _CRT_SECURE_NO_WARNINGS
+#define JsonNode CJsonNode
 
 // Using the Runtime to enable native debugging and testing
 #include "Runtime.h"
+// #include "Network.h"
 #include <vector>
 
 #define SIMPLE_JSON_TYPE_VALUE  0
@@ -34,24 +36,22 @@ public:
     std::vector<CJsonNode*> Elements;
 
 protected:
-    ELEMENT_TYPE    m_nObjectType = ELEMENT_TYPE::OBJECT;
     bool            m_bWriteValueWithQuotes = true;
+    ELEMENT_TYPE    m_nObjectType = ELEMENT_TYPE::OBJECT;
 
     // List of Object subnodes...
 
-    String  m_strDataCache;
-
-    const   char* parseValue(const char* pszJsonData, String& strValueData, bool& bHasQuotes);
-
-    bool    isWhite(const char c);
-    const   char* skipWhite(const char* psz);
+    String  m_strSerializationCache;
     String  m_strValue;
+
+    const char*  parseValue(const char* pszJsonData, String& strValueData, bool& bHasQuotes);
+    const char * serializeNode(String & strResultString, int nIdentDeep = 0);
+    void         writeIdentPrefixString(String & strResultString, int nIdentDeep = 0);
+    void         setNodeValueType(bool bWriteWithQuotes = true);
+    bool         getNameFromJsonPath(const char *pszName, String & strName);
     
-
-
-
-
-public:
+    
+    public:
     bool isJsonObject();
     bool isJsonObject(const char *pszName);
     bool isJsonArray();
@@ -62,11 +62,11 @@ public:
     bool isNumberValue(const char *pszName);
     bool isBooleanValue();
     bool isBooleanValue(const char *pszName);
-
+    
     CJsonNode() {}
     CJsonNode(const char* pszName, const char* pszValue);
     CJsonNode(const char* pszName, ELEMENT_TYPE eType = ELEMENT_TYPE::OBJECT);
-
+    
     virtual ~CJsonNode() {
         clear();
     }
@@ -74,16 +74,19 @@ public:
     virtual bool        exists(const char* pszName);
     ELEMENT_TYPE        getType();
     CJsonNode*          find(const char* pszName);
+    CJsonNode*          createJsonPathToElement(const char *pszElement);
+    CJsonNode   &       operator[](const char *pszName);
+    CJsonNode   &       operator[](String & strName);
 
 
-    String & getValueAsString();
+    String & getValueAsString(String & strDefault);
     String & getValueAsString(const char *pszName, String & strDefault);
 
     const char* getValue();
-    const char* getValue(const char *pszName);
-    const char* getValueOrDefault(const char* pszDefault);
-    const char* getValueOrDefault(const char* pszName, const char* pszDefault);
+    const char* getValue(const char *pszName,const char *pszDefault = nullptr);
 
+    const char* getValueAsCharPointer(const char* pszDefault);
+    const char* getValueAsCharPointer(const char* pszName, const char* pszDefault);
 
     int getValueAsInt(const char *pszname, int nDefault = -1);
     int getValueAsInt(int nDefault = -1);
@@ -100,7 +103,11 @@ public:
     bool getValueAsBool(const char *pszname, bool bDefault = false);
     bool getValueAsBool(bool bDefault = false);
 
-
+    bool storeValueIf(String & strTarget);
+    bool storeValueIfNot(String & strTarget, const char *pszIfNot);
+    bool storeValueIf(const char *pszName, String & strTarget);
+    bool storeValueIfNot(const char *pszName, String & strTarget, const char *pszIfNot);
+    
     bool storeValueIf(int * pnTarget);
     bool storeValueIf(const char *pszName, int   * pnTarget);
 
@@ -125,22 +132,45 @@ public:
 
     void       remove(const char* pszName);
 
-    CJsonNode* setValue(const char* pszValue);
-    CJsonNode* setValue(bool        bValue);
-    CJsonNode* setValue(int         nValue);
-    CJsonNode* setValue(float       fValue);
-    CJsonNode* setValue(long        lValue);
+    CJsonNode* setValue(const char  *   pszValue);
+    CJsonNode* setValue(String      &   strValue);
+    CJsonNode* setValue(bool            bValue);
+    CJsonNode* setValue(int             nValue);
+    CJsonNode* setValue(unsigned int    unValue);
+    CJsonNode* setValue(float           fValue);
+    CJsonNode* setValue(long            lValue);
+    CJsonNode* setValue(unsigned long   ulValue);
 
-    CJsonNode* setValue(const char* pszName, const char *pszValue);
-    CJsonNode* setValue(const char* pszName, bool        bValue);
-    CJsonNode* setValue(const char* pszName, int         nValue);
-    CJsonNode* setValue(const char* pszName, float       fValue);
-    CJsonNode* setValue(const char* pszName, long        lValue);
+    CJsonNode* operator=(const char *   pszValue) { return(setValue(pszValue)); }
+    CJsonNode* operator=(String &       strValue) { return(setValue(strValue)); }
+    CJsonNode* operator=(bool           bValue)   { return(setValue(bValue)); }
+    CJsonNode* operator=(int            nValue)   { return(setValue(nValue)); }
+    CJsonNode* operator=(unsigned int   unValue)  { return(setValue(unValue)); }
+    CJsonNode* operator=(float          fValue)   { return(setValue(fValue)); }
+    CJsonNode* operator=(long           lValue)   { return(setValue(lValue)); }
+    CJsonNode* operator=(unsigned long  ulValue)  { return(setValue(ulValue)); }
+
+    CJsonNode* setValue(const char* pszName, const char *   pszValue);
+    CJsonNode* setValue(const char* pszName, String     &   strValue);
+    CJsonNode* setValue(const char* pszName, bool           bValue);
+    CJsonNode* setValue(const char* pszName, int            nValue);
+    CJsonNode* setValue(const char* pszName, float          fValue);
+    CJsonNode* setValue(const char* pszName, long           lValue);
+    CJsonNode* setValue(const char* pszName, unsigned long  ulValue);
 
     virtual void dump(const char *pszPrefix = "");
 
+    JsonNode * createPayloadStructure(const char* pszCommand, const char *pszDataType, const char *pszPayload = nullptr) {
+        setValue("command",pszCommand);
+        setValue("data",pszDataType);
+        JsonNode *pPayload = getObject("payload",true);
+        if(pszPayload) {
+            pPayload->setValue(pszPayload);
+        }
+        return(pPayload);
+    }
     const char* getAsJsonText();
-
+    const char* getAsJsonTextPretty();
 };
 
 

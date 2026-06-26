@@ -1,5 +1,9 @@
+#ifndef DEBUG_LSC_JSON
+    #undef DEBUGINFOS
+#endif
 #include "JsonNode.h"
 #include "LSCUtils.h"
+#include "DevelopmentHelper.h"
 
 CJsonNode::CJsonNode(const char* pszName, ELEMENT_TYPE eType) {
     Name = pszName;
@@ -16,17 +20,69 @@ void CJsonNode::clear() {
     for (CJsonNode* pEntry : Elements) {
         delete(pEntry);
     }
+    Elements.clear();
 }
 
+/**
+ * @brief Find a CJsonNode with the name
+ * The name is either a node name (unlimited size) or
+ * a path to the node name like "data.const.size".
+ * The path elements are limited to 256 bytes in length per element.
+ * In the sample "const" length may not exceed 256 bytes
+ * @retunrs the node or nullptr if not found.
+ */
 CJsonNode* CJsonNode::find(const char* pszName) {
     CJsonNode* pResult = nullptr;
-    for (CJsonNode* pEntry : Elements) {
-        if (pEntry->Name == pszName) {
-            pResult = pEntry;
-            break;
+    if(pszName) {
+        int nDeliIdx = LSC::indexOf(pszName,'.');
+        // If a '.' is in the name, scan for the first name and handover to the next
+        if(nDeliIdx > -1) {
+            char szBuffer[256];
+            strncpy(szBuffer,pszName,nDeliIdx);
+            szBuffer[nDeliIdx] = '\0';
+            CJsonNode *pSubNode = find(szBuffer);
+            if(pSubNode) {
+                pResult = pSubNode->find(&pszName[nDeliIdx + 1]);
+            }
+        } else {
+            for (CJsonNode* pEntry : Elements) {
+                if (pEntry->Name == pszName) {
+                    pResult = pEntry;
+                    break;
+                }
+            }
         }
     }
     return(pResult);
+}
+
+CJsonNode* CJsonNode::createJsonPathToElement(const char * pszName) {
+    CJsonNode *pResult = this;
+    int nDeliIdx = LSC::indexOf(pszName,'.');
+    if(nDeliIdx > -1) {
+        char szBuffer[256];
+        strncpy(szBuffer,pszName,nDeliIdx);
+        szBuffer[nDeliIdx] = '\0';
+        CJsonNode *pSubNode = getObject(szBuffer,true);
+        pResult = pSubNode->createJsonPathToElement(&pszName[nDeliIdx + 1]);
+    }
+    return(pResult);
+}
+
+bool CJsonNode::getNameFromJsonPath(const char * pszName, String & strName) {
+    strName = pszName;
+    int nLastIdx = LSC::lastIndexOf(pszName,'.');
+    if(nLastIdx > -1) strName = &pszName[nLastIdx + 1];
+    return(nLastIdx > -1);
+}
+
+
+CJsonNode & CJsonNode::operator[](const char *pszName) {
+    return(*getElement(pszName,true));
+}
+
+CJsonNode & CJsonNode::operator[](String & strName) {
+    return(*getElement(strName.c_str(),true));
 }
 
 /**
@@ -58,8 +114,6 @@ bool CJsonNode::isJsonValue(const char *pszName) {
     return(pNode ? pNode->isJsonValue(): false);
 }
 
-
-
 void CJsonNode::remove(const char* pszName) {
     size_t nCurIndex = 0;
     for (CJsonNode* pEntry : Elements) {
@@ -72,16 +126,33 @@ void CJsonNode::remove(const char* pszName) {
     }
 }
 
+#pragma region set the value
+
+void CJsonNode::setNodeValueType(bool bWriteWithQuotes) { 
+    clear();
+    m_nObjectType = ELEMENT_TYPE::VALUE; 
+    m_bWriteValueWithQuotes = bWriteWithQuotes; 
+}
 
 CJsonNode* CJsonNode::setValue(const char* pszValue) {
-    this->m_strValue = pszValue;
-    this->m_bWriteValueWithQuotes = true;
+    this->m_strValue = (char *) pszValue;
+    setNodeValueType(true);
+    DEBUG_INFOS("JSON: -> setting quoted:(%d): %s == %s",m_bWriteValueWithQuotes,Name.c_str(),m_strValue.c_str());
     return(this);
 }
 
+CJsonNode* CJsonNode::setValue(String & strValue) {
+    this->m_strValue = (char *) strValue.c_str();
+    setNodeValueType(true);
+    DEBUG_INFOS("JSON: -> setting quoted:(%d): %s == %s",m_bWriteValueWithQuotes,Name.c_str(),m_strValue.c_str());
+    return(this);
+}
+
+
 CJsonNode* CJsonNode::setValue(bool bValue) {
     this->m_strValue = bValue ? "true" : "false";
-    this->m_bWriteValueWithQuotes = false;
+    setNodeValueType(false);
+    DEBUG_INFOS("JSON: -> setting quoted:(%d): %s == %s",m_bWriteValueWithQuotes,Name.c_str(),m_strValue.c_str());
     return(this);
 }
 
@@ -90,21 +161,50 @@ CJsonNode* CJsonNode::setValue(int nValue) {
     char szBuffer[80];
     snprintf(szBuffer,sizeof(szBuffer),"%d",nValue);
     this->m_strValue = szBuffer;
-    this->m_bWriteValueWithQuotes = false;
+    setNodeValueType(false);
+    DEBUG_INFOS("JSON: -> setting quoted:(%d): %s == %s",m_bWriteValueWithQuotes,Name.c_str(),m_strValue.c_str());
+    return(this);
+}
+
+CJsonNode* CJsonNode::setValue(unsigned int unValue) {
+    // to avoid to be interpreted as character by string class, print to buffer first...
+    char szBuffer[80];
+    snprintf(szBuffer,sizeof(szBuffer),"%u",unValue);
+    this->m_strValue = szBuffer;
+    setNodeValueType(false);
+    DEBUG_INFOS("JSON: -> setting quoted:(%d): %s == %s",m_bWriteValueWithQuotes,Name.c_str(),m_strValue.c_str());
     return(this);
 }
 
 CJsonNode* CJsonNode::setValue(long lValue) {
-    this->m_strValue = lValue;
-    this->m_bWriteValueWithQuotes = false;
+    char szBuffer[80];
+    snprintf(szBuffer,sizeof(szBuffer),"%ld",lValue);
+    this->m_strValue = szBuffer;
+    setNodeValueType(false);
+    DEBUG_INFOS("JSON: -> setting quoted:(%d): %s == %s",m_bWriteValueWithQuotes,Name.c_str(),m_strValue.c_str());
     return(this);
 }
 
-CJsonNode* CJsonNode::setValue(float fValue) {
-    char szBuffer[256];
-    snprintf(szBuffer,sizeof(szBuffer),"%f",fValue);
+CJsonNode* CJsonNode::setValue(unsigned long ulValue) {
+    char szBuffer[80];
+    snprintf(szBuffer,sizeof(szBuffer),"%lu",ulValue);
     this->m_strValue = szBuffer;
-    this->m_bWriteValueWithQuotes = false;
+    setNodeValueType(false);
+    DEBUG_INFOS("JSON: -> setting quoted:(%d): %s == %s",m_bWriteValueWithQuotes,Name.c_str(),m_strValue.c_str());
+    return(this);
+}
+
+/**
+ * @brief set the value, but only if value is not NAN..
+ */
+CJsonNode* CJsonNode::setValue(float fValue) {
+    if(fValue != NAN) {
+        char szBuffer[256];
+        snprintf(szBuffer,sizeof(szBuffer),"%f",fValue);
+        this->m_strValue = szBuffer;
+        setNodeValueType(false);
+        DEBUG_INFOS("JSON: -> setting quoted:(%d): %s == %s",m_bWriteValueWithQuotes,Name.c_str(),m_strValue.c_str());
+    }
     return(this);
 }
 
@@ -112,6 +212,12 @@ CJsonNode* CJsonNode::setValue(const char* pszName, const char * pszValue) {
     CJsonNode * pNode = getElement(pszName,true);
     return(pNode->setValue(pszValue));
 }
+
+CJsonNode* CJsonNode::setValue(const char* pszName, String &  strValue) {
+    CJsonNode * pNode = getElement(pszName,true);
+    return(pNode->setValue(strValue));
+}
+
 
 CJsonNode* CJsonNode::setValue(const char* pszName, bool bValue) {
      CJsonNode * pNode = getElement(pszName,true);
@@ -125,7 +231,10 @@ CJsonNode* CJsonNode::setValue(const char* pszName, int nValue) {
 
 CJsonNode* CJsonNode::setValue(const char* pszName, float fValue) {
     CJsonNode * pNode = getElement(pszName,true);
-    return(pNode->setValue(fValue));
+    if(fValue != NAN) {
+        pNode->setValue(fValue);
+    }
+    return(pNode);
 }
 
 CJsonNode* CJsonNode::setValue(const char* pszName, long lValue) {
@@ -133,15 +242,22 @@ CJsonNode* CJsonNode::setValue(const char* pszName, long lValue) {
     return(pNode->setValue(lValue));
 }
 
+CJsonNode* CJsonNode::setValue(const char* pszName, unsigned long ulValue) {
+    CJsonNode * pNode = getElement(pszName,true);
+    return(pNode->setValue(ulValue));
+}
+
+#pragma endregion
+
 #pragma region get the value 
 
-String & CJsonNode::getValueAsString() {
-    return(m_strValue);
+String & CJsonNode::getValueAsString(String & strDefault) {
+    return(m_strValue.c_str() == nullptr ? strDefault : m_strValue);
 }
 
 String & CJsonNode::getValueAsString(const char *pszName, String & strDefault) {
     CJsonNode *pNode = find(pszName);
-    return(pNode ? pNode->getValueAsString(): strDefault);
+    return(pNode ? pNode->getValueAsString(strDefault): strDefault);
 }
 
 
@@ -149,18 +265,18 @@ const char* CJsonNode::getValue() {
     return(m_strValue.c_str());
 }
 
-const char* CJsonNode::getValueOrDefault(const char *pszDefault) {
+const char* CJsonNode::getValueAsCharPointer(const char *pszDefault) {
     const char *pszResult = m_strValue.c_str();
     return(pszResult ? pszResult : pszDefault);
 }
 
-const char* CJsonNode::getValueOrDefault(const char *pszName, const char *pszDefault) {
+const char* CJsonNode::getValueAsCharPointer(const char *pszName, const char *pszDefault) {
     CJsonNode *pNode = find(pszName);
-    return(pNode ? pNode->getValueOrDefault(pszDefault) : pszDefault );
+    return(pNode ? pNode->getValueAsCharPointer(pszDefault) : pszDefault );
 }
 
-const char* CJsonNode::getValue(const char* pszName) {
-    const char* pszResult = nullptr;
+const char* CJsonNode::getValue(const char* pszName, const char *pszDefault) {
+    const char* pszResult = pszDefault;
     CJsonNode* pNode;
     switch (m_nObjectType) {
     case ELEMENT_TYPE::OBJECT:
@@ -174,7 +290,7 @@ const char* CJsonNode::getValue(const char* pszName) {
     default:
         break;
     }
-    return(pszResult);
+    return(pszResult ? pszResult : pszDefault);
 }
 
 int CJsonNode::getValueAsInt(int nDefault) {
@@ -239,8 +355,7 @@ bool CJsonNode::getValueAsBool(const char* pszName, bool bDefault) {
 
 #pragma endregion
 
-
-#pragma region Store if functions
+#pragma region store value (if) functions
 
 /**
  * @brief Store the value, if it is a number value
@@ -265,6 +380,43 @@ bool CJsonNode::storeValueIf(const char* pszName, bool* pbTarget) {
     if (pNode) bResult = pNode->storeValueIf(pbTarget);
     return(bResult);
 }
+
+
+bool CJsonNode::storeValueIf(String & strTarget) {
+    bool bResult = false;
+    if(m_strValue.c_str() != nullptr) {
+        strTarget = m_strValue.c_str();
+        bResult = true;
+    }
+    return(bResult);
+}
+
+bool CJsonNode::storeValueIfNot(String & strTarget,const char *pszIfNot) {
+    bool bResult = false;
+    if(m_strValue.c_str() != nullptr && pszIfNot) {
+        if(m_strValue != pszIfNot) {
+            strTarget = m_strValue.c_str();
+            bResult = true;
+        }
+    }
+    return(bResult);
+}
+
+bool CJsonNode::storeValueIf(const char* pszName, String & strTarget) {
+    bool bResult = false;
+    CJsonNode* pNode = find(pszName);
+    if (pNode) bResult = pNode->storeValueIf(strTarget);
+    return(bResult);
+}
+
+bool CJsonNode::storeValueIfNot(const char* pszName, String & strTarget, const char *pszIfNot) {
+    bool bResult = false;
+    CJsonNode* pNode = find(pszName);
+    if (pNode) bResult = pNode->storeValueIfNot(strTarget,pszIfNot);
+    return(bResult);
+}
+
+
 
 /**
  * @brief Store the value, if it is a number value
@@ -370,6 +522,7 @@ bool CJsonNode::storeValueIf(const char* pszName, float* pfTarget) {
 
 #pragma endregion
 
+#pragma region get objects, arrays and element nodes
 
 /**
  * @brief get an element as object.
@@ -386,13 +539,17 @@ bool CJsonNode::storeValueIf(const char* pszName, float* pfTarget) {
  * @returns the Node or nullptr if no node is in place
  */
 CJsonNode* CJsonNode::getObject(const char* pszName, bool bCreateIfNotExist) {
-    CJsonNode* pNode = find(pszName);
+    CJsonNode* pPath = bCreateIfNotExist ? createJsonPathToElement(pszName) : this;
+    CJsonNode* pNode = pPath->find(pszName);
     if (pNode == nullptr && bCreateIfNotExist) {
-        pNode = new CJsonNode(pszName, ELEMENT_TYPE::OBJECT);
-        this->Elements.push_back(pNode);
-    }
+        String strName;
+        getNameFromJsonPath(pszName,strName);
+        pNode = new CJsonNode(strName.c_str(), ELEMENT_TYPE::OBJECT);
+        pPath->Elements.push_back(pNode);
+    } 
     // Clear and convert to object if wrong type when CreateIfNotExist is set to true
     if(pNode && pNode->m_nObjectType != ELEMENT_TYPE::OBJECT && bCreateIfNotExist) {
+        DEBUG_INFOS("JSON: -> converting %d > %d (to object)",pNode->m_nObjectType, ELEMENT_TYPE::OBJECT);
         pNode->clear();
         pNode->m_nObjectType = ELEMENT_TYPE::OBJECT;
     }
@@ -414,17 +571,20 @@ CJsonNode* CJsonNode::getObject(const char* pszName, bool bCreateIfNotExist) {
  * @returns the Node or nullptr if no node is in place
  */
 CJsonNode* CJsonNode::getArray(const char* pszName, bool bCreateIfNotExist) {
-    CJsonNode* pNode = find(pszName);
+    CJsonNode* pPath = bCreateIfNotExist ? createJsonPathToElement(pszName) : this;
+    CJsonNode* pNode = pPath->find(pszName);
     if (pNode == nullptr && bCreateIfNotExist) {
-        pNode = new CJsonNode(pszName, ELEMENT_TYPE::ARRAY);
-        this->Elements.push_back(pNode);
+        String strName;
+        getNameFromJsonPath(pszName,strName);
+        pNode = new CJsonNode(strName.c_str(), ELEMENT_TYPE::ARRAY);
+        pPath->Elements.push_back(pNode);
     }
     // Clear and convert to object if wrong type when CreateIfNotExist is set to true
     if(pNode && pNode->m_nObjectType != ELEMENT_TYPE::ARRAY && bCreateIfNotExist) {
         pNode->clear();
         pNode->m_nObjectType = ELEMENT_TYPE::ARRAY;
     }
-    return(pNode->getType() == ELEMENT_TYPE::ARRAY ? pNode : nullptr);
+    return(pNode && pNode->getType() == ELEMENT_TYPE::ARRAY ? pNode : nullptr);
 }
 
 /**
@@ -442,21 +602,31 @@ CJsonNode* CJsonNode::getArray(const char* pszName, bool bCreateIfNotExist) {
  * @returns the Node or nullptr if no node is in place
  */
 CJsonNode* CJsonNode::getElement(const char* pszName, bool bCreateIfNotExist) {
-    CJsonNode* pNode = find(pszName);
+    DEBUG_FUNC_START_PARMS("%s,%d",pszName,bCreateIfNotExist);
+    CJsonNode* pPath = bCreateIfNotExist ? createJsonPathToElement(pszName) : this;
+    CJsonNode* pNode = pPath->find(pszName);
     if (pNode == nullptr && bCreateIfNotExist) {
-        pNode = new CJsonNode(pszName, ELEMENT_TYPE::VALUE);
-        this->Elements.push_back(pNode);
+        String strName;
+        getNameFromJsonPath(pszName,strName);
+        pNode = new CJsonNode(strName.c_str(), ELEMENT_TYPE::VALUE);
+        pPath->Elements.push_back(pNode);
     }
+    
     // Clear and convert to object if wrong type when CreateIfNotExist is set to true
-    if(pNode && pNode->m_nObjectType != ELEMENT_TYPE::VALUE && bCreateIfNotExist) {
+    if(pNode && (pNode->m_nObjectType != ELEMENT_TYPE::VALUE) && bCreateIfNotExist) {
         pNode->clear();
         pNode->m_nObjectType = ELEMENT_TYPE::VALUE;
     }
-    return(pNode->getType() == ELEMENT_TYPE::VALUE ? pNode : nullptr);
+
+    DEBUG_FUNC_END();
+    return(pNode  && (pNode->getType() == ELEMENT_TYPE::VALUE) ? pNode : nullptr);
 }
+#pragma endregion
+
+#pragma information about this node 
 
 void CJsonNode::dump(const char* pszPrefixName) {
-    String strPrefix = pszPrefixName;
+    String strPrefix = pszPrefixName ? pszPrefixName : "";
     if (strPrefix.length() > 0) strPrefix += ".";
 
     for (CJsonNode* pEntry : Elements) {
@@ -476,6 +646,7 @@ void CJsonNode::dump(const char* pszPrefixName) {
 
     }
 }
+
 
 bool CJsonNode::isBooleanValue() {
     bool bIsBoolean = LSC::isTrueValue(m_strValue.c_str()) || LSC::isFalseValue(m_strValue.c_str());
@@ -509,65 +680,167 @@ bool CJsonNode::isNumberValue() {
     }
     return (bResult && nDotCounter < 2); // Must have at least one digit and only 0 or 1 dot inside.
 }
+#pragma endregion
+
+#pragma region node serialization
+
 
 const char* CJsonNode::getAsJsonText() {
-    bool bIsFirstElement = false;
-    m_strDataCache.clear();
+    String strData;
+    strData.reserve(1024);
+    m_strSerializationCache = serializeNode(strData,-1);
+    return(m_strSerializationCache.c_str());
+}
+
+const char* CJsonNode::getAsJsonTextPretty() {
+    String strData;
+    strData.reserve(1024 + 256);
+    m_strSerializationCache = serializeNode(strData,0);
+    return(m_strSerializationCache.c_str());
+}
+
+void CJsonNode::writeIdentPrefixString(String & strResultString, int nIdentDeep) {
+    while(nIdentDeep-- > 0) strResultString += "    ";
+}
+const char* CJsonNode::serializeNode(String & strResultString, int nIdentDeep) {
+    DEBUG_FUNC_START();
+    const char *pszKeyValDeli   = nIdentDeep > -1 ? ": " : ":";
+    const char *pszPost         = nIdentDeep > -1 ? "\n"  : "";
+    if(nIdentDeep > -1) nIdentDeep++;
+    switch(this->m_nObjectType) {
+        case ELEMENT_TYPE::VALUE:
+            {
+                // Element type value detected - write with or without quotes...
+                if (!m_bWriteValueWithQuotes) {
+                    strResultString += getValueAsCharPointer("");
+                }
+                else {
+                    strResultString += "\"";
+                    strResultString += getValueAsCharPointer("");
+                    strResultString += "\"";
+                }
+            }
+            break;
+
+        case ELEMENT_TYPE::OBJECT:
+        case ELEMENT_TYPE::ARRAY:
+            {
+                bool bFirstElement  = true;
+                // strResultString += strPrefix.c_str();
+                strResultString += m_nObjectType == ELEMENT_TYPE::OBJECT ? "{" : "[";
+                strResultString += pszPost; // New Line if necessary...
+                for(CJsonNode *pChildNode : this->Elements) {
+                    if (!bFirstElement) {
+                        strResultString += ",";
+                        strResultString += pszPost; // New Line if pretty mode
+                    }
+                    // If a name is in place, write the name an the key value delimiter...
+                    if (pChildNode->Name.length() > 0) {
+                        writeIdentPrefixString(strResultString,nIdentDeep);
+                        strResultString += "\"";
+                        strResultString += pChildNode->Name.c_str();
+                        strResultString += "\"";
+                        strResultString += pszKeyValDeli;
+                    }
+                    pChildNode->serializeNode(strResultString,nIdentDeep);
+                    bFirstElement  = false;
+                }
+                strResultString += pszPost; // New Line (if pretty mode)
+                writeIdentPrefixString(strResultString, nIdentDeep -1);
+                strResultString += m_nObjectType == ELEMENT_TYPE::OBJECT ? "}" : "]";
+            }
+            break;
+    
+        default:
+            {
+                DEBUG_INFO("JSON:: ####### unexpected data found #######");
+                DEBUG_INFOS("  --> Node Type  : %d",m_nObjectType);
+                DEBUG_INFOS("  --> Node Value : %s",m_strValue.c_str());
+                DEBUG_INFOS("  --> Current result:\n%s",strResultString.c_str());
+            }
+            break;
+    
+    }
+    DEBUG_FUNC_END();
+    return(strResultString.c_str());
+}
+/*
+const char* CJsonNode::serialize(String & strResultString, int nIdentDeep) {
+
+    String strPrefix = "";
+    const char *pszKeyValDeli   = nIdentDeep > -1 ? " : " : ":";
+    const char *pszPost         = nIdentDeep > -1 ? "\n"  : "";
+
+    // Output with indent requested
+    if(nIdentDeep > -1) {
+        for(int nDeep = 0; nDeep < nIdentDeep; nDeep++ ) {
+            strPrefix += "   ";
+        }
+        nIdentDeep++;
+    }
+    
+    // If a name is in place, write the name an the key value delimiter...
     if (Name.length() > 0) {
-        if (Name.length() > 0) m_strDataCache += "\"" + Name + "\":";
+        strResultString += strPrefix.c_str();
+        strResultString += "\"";
+        strResultString += Name.c_str();
+        strResultString += "\"";
+        strResultString += pszKeyValDeli;
     }
+    
     switch (this->m_nObjectType) {
-    case ELEMENT_TYPE::VALUE:
-        // if (isBooleanValue() || isNumberValue()) m_strDataCache += m_strValue;
-        if (!m_bWriteValueWithQuotes) m_strDataCache += m_strValue;
-        else m_strDataCache += "\"" + m_strValue + "\"";
-        break;
-    case ELEMENT_TYPE::OBJECT:
-        bIsFirstElement = true;
-        m_strDataCache += "{";
-        for (CJsonNode* pNode : this->Elements) {
-            if (!bIsFirstElement) m_strDataCache += ",";
-            m_strDataCache += pNode->getAsJsonText();
-            bIsFirstElement = false;
-        }
-        m_strDataCache += "}";
-        break;
 
-    case ELEMENT_TYPE::ARRAY:
-        bIsFirstElement = true;
-        m_strDataCache += "[";
-        for (CJsonNode* pNode : this->Elements) {
-            if (!bIsFirstElement) m_strDataCache += ",";
-            if (pNode->getType() == ELEMENT_TYPE::VALUE) m_strDataCache += pNode->getAsJsonText();
-            else m_strDataCache += pNode->getAsJsonText();
-            bIsFirstElement = false;
-        }
-        m_strDataCache += "]";
+        case ELEMENT_TYPE::VALUE:
+            {
+                // Element type value detected - write with or without quotes...
+                if (!m_bWriteValueWithQuotes) {
+                    strResultString += getValueAsCharPointer("");
+                }
+                else {
+                    strResultString += "\"";
+                    strResultString += getValueAsCharPointer("");
+                    strResultString += "\"";
+                }
+            }
+            break;
+            
+        case ELEMENT_TYPE::OBJECT:
+        case ELEMENT_TYPE::ARRAY: 
+            {
+                bool bFirstElement  = true;
+                strResultString += m_nObjectType == ELEMENT_TYPE::OBJECT ? "{" : "[";
+                strResultString += pszPost; // New Line if necessary...
+                for(CJsonNode *pChildNode : this->Elements) {
+                    if (!bFirstElement) {
+                        strResultString += ",";
+                        strResultString += pszPost; // New Line if pretty mode
+                    }
+                    pChildNode->serialize(strResultString,nIdentDeep);
+                    bFirstElement  = false;
+                }
+                strResultString += pszPost; // New Line (if pretty mode)
+                strResultString += strPrefix.c_str();
+                strResultString += m_nObjectType == ELEMENT_TYPE::OBJECT ? "}" : "]";
+            }
+            break;
+
+        default:
+            {
+                DEBUG_INFO("JSON:: ####### unexpected data found #######");
+                DEBUG_INFOS("  --> Node Type  : %d",m_nObjectType);
+                DEBUG_INFOS("  --> Node Value : %s",m_strValue.c_str());
+                DEBUG_INFOS("  --> Current result:\n%s",strResultString.c_str());
+            }
+            break;
     }
-    return(m_strDataCache.c_str());
-}
 
-inline bool CJsonNode::isWhite(const char c) {
-    return(
-        c == ' ' ||  // space
-        c == '\t' ||  // horizontal tab
-        c == '\n' ||  // newline
-        c == '\v' ||  // vertical tab
-        c == '\f' ||  // form feed
-        c == '\r'   // carriage return
-        );
+    return(strResultString.c_str());
 }
-/// <summary>
-/// skipWhite skips the white characters.
-/// As ther could be also special chars like "Umlaute" in german,
-/// isspace() cannot handle this chars, so check step by step...
-/// </summary>
-/// <param name="psz"></param>
-/// <returns></returns>
-inline const char* CJsonNode::skipWhite(const char* psz) {
-    while (psz && isWhite(*psz)) psz++;
-    return(psz);
-}
+*/
+
+#pragma endregion
+
+#pragma region parsing the input
 
 /// <summary>
 /// parse a value from input string
@@ -579,8 +852,9 @@ const char* CJsonNode::parseValue(const char* pszJsonData, String& strValueData,
     bool bEscapeIsActive = false;
     bool bStringIsActive = false;
     bool bStopParsing = false;
+    strValueData.clear();
     bHasQuotes = false;
-    pszJsonData = skipWhite(pszJsonData);
+    pszJsonData = LSC::skipWhite(pszJsonData);
     while (pszJsonData && *pszJsonData) {
         switch (*pszJsonData) {
         case '"':
@@ -609,7 +883,7 @@ const char* CJsonNode::parseValue(const char* pszJsonData, String& strValueData,
             // If a quoted string is active, insert data as is.
             // If it is non quoted, ignore all non white spaces
             // TODO: Optimize, cause only numbers and bools are outside a string.
-            if (isWhite(*pszJsonData)) {
+            if (LSC::isWhite(*pszJsonData)) {
                 if (bStringIsActive)    strValueData += *pszJsonData;
             }
             else                      strValueData += *pszJsonData;
@@ -621,114 +895,6 @@ const char* CJsonNode::parseValue(const char* pszJsonData, String& strValueData,
     }
     return(pszJsonData);
 }
-/*
-const char* CJsonNode::parseArray(const char* pszJsonData) {
-    String strData;
-    CJsonNode* pActiveNode;
-    pszJsonData = skipWhite(pszJsonData);
-    if (*pszJsonData == '[') {
-        this->m_nObjectType = ELEMENT_TYPE::ARRAY;
-        bool bParsing = true;
-        pszJsonData++;
-        while (*pszJsonData) {
-            pszJsonData = skipWhite(pszJsonData);
-            switch (*pszJsonData) {
-            case '{': // Sub Array detected ? or inside a string
-                pActiveNode = new CJsonNode(strData.c_str());
-                pszJsonData = pActiveNode->parseObject(pszJsonData);
-                m_tSubNodes.push_back(pActiveNode);
-                break;
-
-            case '[': // Sub Array detected ? or inside a string
-                pActiveNode = new CJsonNode(strData.c_str());
-                pszJsonData = pActiveNode->parseArray(pszJsonData);
-                m_tSubNodes.push_back(pActiveNode);
-                break;
-
-                // Following elements are not expected here 
-                // seems as json data is malformed...
-            case '}':
-            case ']':
-            case ',':
-            case ':':
-                bParsing = false;
-                break;
-
-            default:
-                // parse the data...
-                // If the result is a ':' it is an assignment, a key value entry.. store it.
-                bool bValueIsQuoted = true;
-                pszJsonData = parseValue(pszJsonData, strData, bValueIsQuoted);
-                if (*pszJsonData == ':') bParsing = false;
-                else {
-                    pActiveNode = new CJsonNode("", strData.c_str());
-                    pActiveNode->m_bWriteValueWithQuotes = bValueIsQuoted;
-                    m_tSubNodes.push_back(pActiveNode);
-                    strData.clear();
-                }
-                break;
-            }
-            if (!bParsing) break;
-            pszJsonData++;
-        }
-    }
-    return(pszJsonData);
-}
-
-const char* CJsonNode::parseObject(const char* pszJsonData) {
-    String strData;
-    String strKeyName;
-    CJsonNode* pActiveNode;
-    pszJsonData = skipWhite(pszJsonData);
-    if (*pszJsonData == '{') {
-        this->m_nObjectType = ELEMENT_TYPE::OBJECT;
-        bool bParsing = true;
-        pszJsonData++;
-        while (*pszJsonData) {
-            pszJsonData = skipWhite(pszJsonData);
-            switch (*pszJsonData) {
-            case '{': // Sub Object detected ?
-                pActiveNode = new CJsonNode(strKeyName.c_str());
-                pszJsonData = pActiveNode->parseObject(pszJsonData);
-                m_tSubNodes.push_back(pActiveNode);
-                break;
-
-            case '[': // Sub Array detected ? or inside a string
-                pActiveNode = new CJsonNode(strKeyName.c_str());
-                pszJsonData = pActiveNode->parseArray(pszJsonData);
-                m_tSubNodes.push_back(pActiveNode);
-                break;
-
-                // Following elements are not expected here 
-                // seems as json data is malformed...
-            case '}':
-            case ']':
-            case ',':
-                bParsing = false;
-                break;
-
-            default:
-                // parse the data...
-                // If the result is a ':' it is an assignment, a key value entry.. store it.
-                bool bValueIsQuoted;
-                pszJsonData = parseValue(pszJsonData, strData, bValueIsQuoted);
-                if (*pszJsonData == ':') { strKeyName = strData; }
-                else {
-                    pActiveNode = new CJsonNode(strKeyName.c_str(), strData.c_str());
-                    pActiveNode->m_bWriteValueWithQuotes = bValueIsQuoted;
-                    m_tSubNodes.push_back(pActiveNode);
-                    strKeyName.clear();
-                }
-                strData.clear();
-                break;
-            }
-            if (!bParsing) break;
-            pszJsonData++;
-        }
-    }
-    return(pszJsonData);
-}
-*/
 
 /**
  * @brief Parsing a Json text string
@@ -741,14 +907,14 @@ const char* CJsonNode::parse(const char* pszJsonData) {
         String strData;         // KeyValue - Data buffer
         String strKeyName;      // KeyValue - KeyName buffer
         CJsonNode* pActiveNode; // Used to create child elements
-        pszJsonData = skipWhite(pszJsonData);
+        pszJsonData = LSC::skipWhite(pszJsonData);
         switch (*pszJsonData) {
         case '{': pszJsonData++; m_nObjectType = ELEMENT_TYPE::OBJECT; break;
         case '[': pszJsonData++; m_nObjectType = ELEMENT_TYPE::ARRAY;  break;
         }
         bool bParsing = true;
         while (*pszJsonData) {
-            pszJsonData = skipWhite(pszJsonData);
+            pszJsonData = LSC::skipWhite(pszJsonData);
             switch (*pszJsonData) {
             case '{': // Sub Object detected ?
             case '[': // Sub Array detected ? or inside a string
@@ -767,6 +933,7 @@ const char* CJsonNode::parse(const char* pszJsonData) {
                 // Default is parsing a value (array) or a key:value (object)
             default:
                 bool bValueIsQuoted;
+                strData = "";
                 pszJsonData = parseValue(pszJsonData, strData, bValueIsQuoted);
                 if (*pszJsonData == ':') {
                     // If it is an array, the token ':' may not come in place => stop parsing
@@ -790,3 +957,6 @@ const char* CJsonNode::parse(const char* pszJsonData) {
     }
     return(pszJsonData);
 }
+
+
+#pragma #endregion
