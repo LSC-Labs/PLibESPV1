@@ -85,7 +85,7 @@ String CWiFiController::getStatusText(int nWiFiStatus) {
 /**
  * @brief Write your configuration into the json object
  */
-void CWiFiController::writeConfigTo(JsonObject &oCfgNode,bool bHideCritical) {
+void CWiFiController::writeConfigTo(JsonNode &oCfgNode,bool bHideCritical) {
     DEBUG_FUNC_START();
     // Hostname, Operation Mode and Fallback settings
     // oCfgNode["hostname"]        = Config.wifi_Hostname;
@@ -94,55 +94,69 @@ void CWiFiController::writeConfigTo(JsonObject &oCfgNode,bool bHideCritical) {
 
     // Access Point specific settings
     oCfgNode[WIFI_AP_SSID]          = Config.ap_ssid;
-    oCfgNode[WIFI_AP_PASSWORD]      = bHideCritical ? WIFI_HIDDEN_PASSWORD : Config.ap_Password;
+    oCfgNode[WIFI_AP_PASSWORD]      = (const char *) (bHideCritical ? WIFI_HIDDEN_PASSWORD : Config.ap_Password.c_str());
     oCfgNode[WIFI_AP_HIDDEN]        = Config.ap_hidden;
     oCfgNode[WIFI_AP_CHANNEL]       = Config.ap_channel;
-    if(Config.ap_ipAddress.isSet())   oCfgNode[WIFI_AP_IPADDRESS] = Config.ap_ipAddress.toString(); 
-    if(Config.ap_ipSubnetMask.isSet())oCfgNode[WIFI_AP_SUBNETMASK]= Config.ap_ipSubnetMask.toString();
+    if(Config.ap_ipAddress.isSet())   oCfgNode[WIFI_AP_IPADDRESS] = Config.ap_ipAddress.toString().c_str(); 
+    if(Config.ap_ipSubnetMask.isSet())oCfgNode[WIFI_AP_SUBNETMASK]= Config.ap_ipSubnetMask.toString().c_str();
     // WiFi specific settings
     oCfgNode[WIFI_SSID]            = Config.wifi_ssid;
-    oCfgNode[WIFI_BSSID]           = Config.wifi_bssid;
-    oCfgNode[WIFI_PASSWORD]        = bHideCritical ? WIFI_HIDDEN_PASSWORD : Config.wifi_Password;
+    oCfgNode[WIFI_BSSID]           = getConfigBSSIDAsString(); //  Config.wifi_bssid;
+    oCfgNode[WIFI_PASSWORD]        = (const char *) (bHideCritical ? WIFI_HIDDEN_PASSWORD : Config.wifi_Password.c_str());
     oCfgNode[WIFI_DHCP]            = Config.dhcpEnabled;
-    if(Config.ipAddress.isSet())     oCfgNode[WIFI_IPADDRESS] = Config.ipAddress.toString();
-    if(Config.ipSubnetMask.isSet())  oCfgNode[WIFI_SUBNETMASK]    = Config.ipSubnetMask.toString();
-    if(Config.ipDNS.isSet())         oCfgNode[WIFI_DNS]     = Config.ipDNS.toString();
-    if(Config.ipGateway.isSet())     oCfgNode[WIFI_GATEWAY]      = Config.ipGateway.toString();
+
+    if(Config.ipAddress.isSet())     oCfgNode[WIFI_IPADDRESS]   = Config.ipAddress.toString().c_str();
+    if(Config.ipSubnetMask.isSet())  oCfgNode[WIFI_SUBNETMASK]  = Config.ipSubnetMask.toString().c_str();
+    if(Config.ipDNS.isSet())         oCfgNode[WIFI_DNS]         = Config.ipDNS.toString().c_str();
+    if(Config.ipGateway.isSet())     oCfgNode[WIFI_GATEWAY]     = Config.ipGateway.toString().c_str();
     DEBUG_FUNC_END();
 }
 
 /**
  * @brief Read the configuration from the json object
  */
-void CWiFiController::readConfigFrom(JsonObject &oNode) {
+void CWiFiController::readConfigFrom(JsonNode &oCfgNode) {
     DEBUG_FUNC_START();
-    DEBUG_JSON_OBJ(oNode);
+    DEBUG_JSON_OBJ(oCfgNode);
     // LSC::setValue(Config.wifi_Hostname,     oNode["hostname"]);
-    LSC::setJsonValue(oNode,WIFI_FALLBACK_MODE, &  Config.autoFallbackMode);
-    LSC::setJsonValue(oNode,WIFI_AP_MODE,       &  (Config.accessPointMode));
-    LSC::setJsonValue(oNode,WIFI_AP_HIDDEN,     &  Config.ap_hidden);
-    LSC::setJsonValue(oNode,WIFI_AP_CHANNEL,    &  Config.ap_channel);
-    LSC::setJsonValue(oNode,WIFI_AP_IPADDRESS,     Config.ap_ipAddress);
-    LSC::setJsonValue(oNode,WIFI_AP_SUBNETMASK,    Config.ap_ipSubnetMask);
-    LSC::setJsonValue(oNode,WIFI_AP_SSID,          Config.ap_ssid);
-    LSC::setJsonValueIfNot(oNode,WIFI_AP_PASSWORD, Config.ap_Password, WIFI_HIDDEN_PASSWORD);
+    oCfgNode.storeValueIf(WIFI_FALLBACK_MODE,   &  Config.autoFallbackMode);
+    oCfgNode.storeValueIf(WIFI_AP_MODE,         &  Config.accessPointMode);
+    oCfgNode.storeValueIf(WIFI_AP_HIDDEN,       &  Config.ap_hidden);
+    oCfgNode.storeValueIf(WIFI_AP_CHANNEL,      &  Config.ap_channel);
+    oCfgNode.storeValueIf(WIFI_AP_SSID,            Config.ap_ssid);
+    oCfgNode.storeValueIfNot(WIFI_AP_PASSWORD,     Config.ap_Password, WIFI_HIDDEN_PASSWORD);
+    storeIPAddressIf(oCfgNode,WIFI_AP_IPADDRESS,   Config.ap_ipAddress);
+    storeIPAddressIf(oCfgNode,WIFI_AP_SUBNETMASK,  Config.ap_ipSubnetMask);
 
-    LSC::setJsonValue(oNode,WIFI_SSID,          Config.wifi_ssid);
-    LSC::setJsonValueIfNot(oNode,WIFI_PASSWORD, Config.wifi_Password, WIFI_HIDDEN_PASSWORD);
+    oCfgNode.storeValueIf(WIFI_SSID,               Config.wifi_ssid);
+    oCfgNode.storeValueIfNot(WIFI_PASSWORD,        Config.wifi_Password, WIFI_HIDDEN_PASSWORD);
 
-    if(oNode["bssid"]) LSC::parseBytesToArray(Config.wifi_bssid, oNode["bssid"],':',sizeof(Config.wifi_bssid),16);
-    LSC::setJsonValue(oNode,WIFI_DHCP,         &Config.dhcpEnabled);
-    LSC::setJsonValue(oNode,WIFI_IPADDRESS,     Config.ipAddress);
-    LSC::setJsonValue(oNode,WIFI_SUBNETMASK,    Config.ipSubnetMask);
-    LSC::setJsonValue(oNode,WIFI_GATEWAY,       Config.ipGateway);
-    LSC::setJsonValue(oNode,WIFI_DNS,           Config.ipDNS);
+    if(oCfgNode.exists("bssid")) {
+        DEBUG_INFOS("WiFi: ---> setting BSSID : %s",oCfgNode.getValue("bssid"));
+        LSC::parseBytesToArray(Config.wifi_bssid, oCfgNode.getValue("bssid"),':',sizeof(Config.wifi_bssid),16);
+    }
+    oCfgNode.storeValueIf(WIFI_DHCP,             & Config.dhcpEnabled);
+    storeIPAddressIf(oCfgNode,WIFI_IPADDRESS,      Config.ipAddress);
+    storeIPAddressIf(oCfgNode,WIFI_SUBNETMASK,     Config.ipSubnetMask);
+    storeIPAddressIf(oCfgNode,WIFI_GATEWAY,        Config.ipGateway);
+    storeIPAddressIf(oCfgNode,WIFI_DNS,            Config.ipDNS);
     DEBUG_FUNC_END();
 } 
 
+bool CWiFiController::storeIPAddressIf(JsonNode & oCfgNode,const char *pszKeyName, IPAddress & pTarget) {
+    DEBUG_FUNC_START_PARMS("-,%s,%p",pszKeyName,(void *) pTarget);
+    bool bResult = false;
+    JsonNode * pElement = oCfgNode.getElement(pszKeyName);
+    if(pElement) {
+        bResult = pTarget.fromString(pElement->getValue());
+    }
+    DEBUG_FUNC_END_PARMS("%d",bResult);
+    return(bResult);
+}
 /**
  * @brief Write the status information into the json object
  */
-void CWiFiController::writeStatusTo(JsonObject &oStatusNode) {
+void CWiFiController::writeStatusTo(JsonNode &oStatusNode, int nLevel) {
     DEBUG_FUNC_START();
     oStatusNode["accesspoint"] = Status.isInAccessPointMode;
     oStatusNode["stationmode"] = Status.isInStationMode,
@@ -157,26 +171,26 @@ void CWiFiController::writeStatusTo(JsonObject &oStatusNode) {
 		wifi_get_ip_info(SOFTAP_IF, &oIPInfo);
 		struct softap_config oConf;
 		wifi_softap_get_config(&oConf);
-		oStatusNode["ssid"]  = String(reinterpret_cast<char *>(oConf.ssid));
-		oStatusNode["mac"]   = WiFi.softAPmacAddress();
+		oStatusNode["ssid"]  = reinterpret_cast<const char *>(oConf.ssid);
+		oStatusNode["mac"]   = WiFi.softAPmacAddress().c_str();
 	}
 	else
 	{
 		wifi_get_ip_info(STATION_IF, &oIPInfo);
 		struct station_config oConf;
 		wifi_station_get_config(&oConf);
-		oStatusNode["ssid"] = String(reinterpret_cast<char *>(oConf.ssid));
-		oStatusNode["dns"] = WiFi.dnsIP().toString();
-		oStatusNode["mac"] = WiFi.macAddress();
+		oStatusNode["ssid"] = reinterpret_cast<const char *>(oConf.ssid);
+		oStatusNode["dns"] = WiFi.dnsIP().toString().c_str();
+		oStatusNode["mac"] = WiFi.macAddress().c_str();
 	}
 
     IPAddress ipaddr = IPAddress(oIPInfo.ip.addr);
 	IPAddress gwaddr = IPAddress(oIPInfo.gw.addr);
 	IPAddress nmaddr = IPAddress(oIPInfo.netmask.addr);
 
-    oStatusNode["ip"]       = ipaddr.toString(); // getAddressAsString(ipaddr);
-	oStatusNode["gateway"]  = gwaddr.toString(); // getAddressAsString(gwaddr);
-	oStatusNode["netmask"]  = nmaddr.toString(); //getAddressAsString(nmaddr);
+    oStatusNode["ip"]       = ipaddr.toString().c_str(); // getAddressAsString(ipaddr);
+	oStatusNode["gateway"]  = gwaddr.toString().c_str(); // getAddressAsString(gwaddr);
+	oStatusNode["netmask"]  = nmaddr.toString().c_str(); //getAddressAsString(nmaddr);
     oStatusNode["hostname"] = WiFi.getHostname();
     oStatusNode["rssi"] = WiFi.RSSI();
     DEBUG_FUNC_END();
@@ -186,12 +200,9 @@ void CWiFiController::writeStatusTo(JsonObject &oStatusNode) {
  * @brief Write the status information into the log
  */
 void CWiFiController::writeStatusToLog() {
-    JSON_DOC(oStatusDoc, 1024);
-    JsonObject oStatusObj = oStatusDoc.to<JsonObject>();
-    writeStatusTo(oStatusObj);
-    String strPretty;
-    serializeJsonPretty(oStatusDoc,strPretty);
-    ApplLogVerboseWithParms(F("WiFi Status:\n%s"),strPretty.c_str());
+    JsonNode oStatusObj;
+    writeStatusTo(oStatusObj,STATUS_LEVEL_INFO);    
+    ApplLogVerboseWithParms(F("WiFi Status:\n%s"),oStatusObj.getAsJsonText());
 }
 
 #pragma endregion

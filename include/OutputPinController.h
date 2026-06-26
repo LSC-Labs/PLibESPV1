@@ -14,7 +14,7 @@
  */
 
 
-#include <Arduino.h>
+#include <Runtime.h>
 #include <PinController.h>
 
 #define DEVICE_STATE_UNKNOWN -1

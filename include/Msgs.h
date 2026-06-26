@@ -9,7 +9,8 @@
 
 #define MSG_APPL_STARTING           100    // Application starts - prepare, if needed
 #define MSG_APPL_INITIALIZED        102    // Application has been initialized... let's start.
-#define MSG_APPL_STATUS_CHANGED     103    // Application notification, Status has changed
+#define MSG_APPL_STARTED            103    // Application setup (init) is finished
+#define MSG_APPL_STATUS_CHANGED     105    // Application notification, Status has changed
 #define MSG_APPL_LOOP               110    // Application loop message, pMessage and nClass are optional data   
 #define MSG_REBOOT_REQUEST          198    // Request a reboot, nClass = delay in ms
 #define MSG_RESTART_REQUEST         198    // Reqeust a restart/reboot - same as MSG_REBOOT_REQUEST
@@ -40,14 +41,14 @@
 #define MSG_OTA_ERROR               5093
 
 // Sends a JSON Document via the WebSocket
-#define MSG_WEBSOCKET_SEND_JSON     5100
+#define MSG_WEBSOCKET_SEND_JSONNODE     5100
 #define MSG_WEBSOCKET_DATA_RECEIVED 5101
 
 #define MSG_MQTT_STARTING           5300    // Negotiation to server started
 #define MSG_MQTT_CONNECTED          5301    // Connection to server is established
 #define MSG_MQTT_DISCONNECTED       5308    // Connection to server lost
 #define MSG_MQTT_MSG_RECEIVED       5310    // Set to receiver when a message was received, object is the native message
-#define MSG_MQTT_SEND_JSONDATA      5320    // object is a Json Object to be sent
+#define MSG_MQTT_SEND_JSONNODE      5320    // object is a Json Object to be sent
 #define MSG_MQTT_SEND_TEXTSTATE     5321    // object is a char pointer, to be published as state
 #define MSG_MQTT_SEND_JSONSTATE     5322    // object is a Json Object, to be published as state
 

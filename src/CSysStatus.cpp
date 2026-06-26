@@ -22,7 +22,7 @@ const char * CSysStatus::getSdkVersion() {
     return(ESP.getSdkVersion());
 }
 
-const char * CSysStatus::getChipModel() {
+const char * CSysStatus::getChipID() {
     #if defined(ARDUINO_ARCH_ESP32)
         return(ESP.getChipModel());
     #else
@@ -87,7 +87,7 @@ uint32_t CSysStatus::getCpuFrequencyMhz() {
     return(ESP.getCpuFreqMHz());
 }
 
-void CSysStatus::writeStatusTo(JsonObject &oStatusObj) {
+void CSysStatus::writeStatusTo(JsonNode &oStatusObj,int nLevel) {
     DEBUG_FUNC_START_PARMS("%s",oStatusObj ? "OK" : "-null-");
     
     CFS oFS;   
@@ -98,7 +98,7 @@ void CSysStatus::writeStatusTo(JsonObject &oStatusObj) {
     // ESP.getHeapStats(&nFreeHeap,&nMaxHeap,&nFragHeap);
 
     oStatusObj["full_ver"]          = getSdkVersion();
-    oStatusObj["chip_id"]           = getChipModel();
+    oStatusObj["chip_id"]           = getChipID();
     oStatusObj["cpu_clock"]         = ESP.getCpuFreqMHz();
     // oStatusObj["core_ver"]          = ESP.getCoreVersion();
     oStatusObj["flash_size"]        = getFlashChipSize();

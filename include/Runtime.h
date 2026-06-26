@@ -21,10 +21,12 @@
 #ifdef NATIVE_RUNTIME
     #include <string.h>
     #include <iostream>
+    
 
     #define String std::string
     #define SerialPrintf printf
     #define ICACHE_FLASH_ATTR
+    char* strlwr(char* s);
 #else
     #include <Arduino.h>
     

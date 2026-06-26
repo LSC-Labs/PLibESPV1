@@ -1,5 +1,5 @@
 #pragma once
-#include <Arduino.h>
+#include <Runtime.h>
 #include <LightSwitch.h>
 
 // Names of colors to be used with the COLOR_* Bitmasks

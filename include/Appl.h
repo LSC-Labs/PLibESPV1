@@ -1,11 +1,12 @@
 #pragma once
-#include <Arduino.h>
-#include <ArduinoJson.h>
+#include <Runtime.h>
+#include <SysStatus.h>
+#include <JsonNode.h>
 #include <ModuleInterface.h>
 #include <Logging.h>
 #include <Vars.h>
 #include <DevelopmentHelper.h>
-#include <JsonHelper.h>
+
 
 
 /**
@@ -92,10 +93,10 @@
 
 /// @brief Configuration structure of CAppl object
 struct ApplConfig {
-    bool bLogToSerial       = true;             // Log to serial port
-    bool bTraceMode         = false;            // Trace Mode on / off
-    String strDeviceName    = DEFAULT_DEVICE_NAME;     // Devicename (hostname) of the device
-    String strDevicePwd     = DEFAULT_DEVICE_PWD;      // Default device password
+    bool    bLogToSerial     = true;                    // Log to serial port
+    bool    bTraceMode       = false;                   // Trace Mode on / off
+    String  strDeviceName    = DEFAULT_DEVICE_NAME;     // Devicename (hostname) of the device
+    String  strDevicePwd     = DEFAULT_DEVICE_PWD;      // Default device password
 
 #ifdef DEBUG_LSC_FRONTEND
     bool bDebugFrontend     = true;    // Debug Mode for the HTML Frontend
@@ -105,21 +106,25 @@ struct ApplConfig {
 };
 
 class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
-    ApplConfig      m_oCfg;   
-    JSON_DOC(m_oStatus, STATUS_DOC_SIZE);
-    String m_strStatus;
-    JSON_DOC(m_oSysStatus, SYSSTATUS_DOC_SIZE);
-    String m_strSysStatus;
- 
+    ApplConfig  m_oCfg;   
+    CSysStatus  m_oSystemStatus;
+    JsonNode    m_oStatus;
+    JsonNode    m_oSysStatus;
+    String      m_strStatus;
+    String      m_strSysStatus;
+    String      m_strIsoDateTime;
+
+    
     // JSON_DOC(m_oStatusDoc,JSON_STATUS_DOC_DEFAULT_SIZE);
-    bool m_bStatusChanged = true;
-    bool m_isRebootPending = false;
+    bool m_bStatusChanged   = true;
+    bool m_isRebootPending  = false;
     // CSimpleDelay m_oRebootDelay;
     unsigned long   m_ulLastStatusUpdate = 0;
     time_t          m_oRawTime;   
-    char m_szISODateTime[32];   // Buffer for ISO - Time
-    char m_szCurTime[16];       // Buffer for Time part of ISO
-    char m_szCurDate[16];       // Buffer for Date part of ISO
+    char m_szISODateTime[64]  = {0};    // Buffer for ISO - Time
+    char m_szCurTime[16]      = {0};    // Buffer for Time part of ISO
+    char m_szCurDate[16]      = {0};    // Buffer for Date part of ISO
+    char m_szUptimeBuffer[20] = {0};    // Buffer for Uptime Status
 
     public:
         String AppName;
@@ -133,28 +138,27 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
         CEventHandler  MsgBus;
         CEventLogger   Log;
         void registerModule(const char *pszModuleName, IModule * pModule);
-        void writeConfigTo(JsonObject &oNode,bool bHideCritical) override;
-
-        void readConfigFrom(JsonDocument &oDoc);
-        void readConfigFrom(JsonObject &oNode) override;
+        void writeConfigTo(JsonNode &oNode,bool bHideCritical) override;
+        void readConfigFrom(JsonNode &oNode) override;
         // Flashstring is not supported by LittleFS !
 
         bool readConfigFrom(const char *pszFileName, int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
-        void migrateConfig(JsonDocument &oDoc);
+        void migrateConfig(JsonNode &oDoc);
         bool saveConfig(const char *pszFileName = JSON_APPL_CONFIG_FILE,  int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
 
-        JsonDocument * getStatus();
-        const char * getStatusAsText();
+        JsonNode    * getStatus(int nLevel = STATUS_LEVEL_INFO);
+        JsonNode    * getState();
+        const char  * getStatusAsText();
+        const char  * getStateAsText();
 
-        void writeStatusTo(JsonDocument &oDoc);
-        void writeStatusTo(JsonObject &oNode) override;
-        void writeSystemStatusTo(JsonDocument &oDoc);
-        void writeSystemStatusTo(JsonObject &oNode);
-        String getUpTime();
+        void writeStatusTo(JsonNode & oNode, int nStatusLevel) override;
+        void writeSystemStatusTo(JsonNode &oNode);
         time_t getNativeTime();
+        const char * getUpTime();
         const char * getISODateTime();
         const char * getISODate();
         const char * getISOTime();
+        const char * getDeviceID();
         String getDeviceName() { return(m_oCfg.strDeviceName);}
         void setDeviceName(const char *pszName) { m_oCfg.strDeviceName = String(pszName); }  
         void setDeviceName(String strName) { m_oCfg.strDeviceName = strName; } 
@@ -167,6 +171,7 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
         void dispatch(int nMsgType = 0,const void *pMsg = nullptr);
         int receiveEvent(const void * pSender, int nMsgType, const void * pMessage, int nClass);
         void init(const char *strAppName, const char *strAppVersion);
+        void start(void * pData = nullptr, int nType = 0 );
         void sayHello();
         void printDiag();
         void reboot(int nDelayMillis = 2000, bool bForce = false);

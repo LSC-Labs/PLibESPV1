@@ -1,5 +1,5 @@
 #pragma once
-#include <Arduino.h>
+#include <Runtime.h>
 
 /**
  * @brief Simple delay class to avoid DOS calls to functions.
