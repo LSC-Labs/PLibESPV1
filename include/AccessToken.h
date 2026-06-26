@@ -35,7 +35,5 @@ class CAccessToken {
 
         const char * getTokenAsBase64(bool bRandomIV = true);
         bool isAuthValid(const char * pszIPAddress, const char * pszTokenKey);
-        void dump();
-
 };
 

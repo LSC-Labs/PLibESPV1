@@ -72,6 +72,32 @@ namespace LSC {
         return toupper(*(unsigned const char *)psz1) - toupper(*(unsigned const char *)(psz2));
     }
 
+    int indexOf(const char *psz, const char cToken) {
+        int nResult = -1;
+        if(psz) {
+            int nCurPos = -1;
+            while(*psz) {
+                nCurPos++;
+                if(*psz == cToken) { nResult = nCurPos; break; }
+                psz++;
+            }
+        }
+        return(nResult);
+    }
+
+    int lastIndexOf(const char *psz, const char cToken) {
+        int nResult = -1;
+        if(psz) {
+            int nCurPos = -1;
+            while(*psz) {
+                nCurPos++;
+                if(*psz == cToken) nResult = nCurPos;
+                psz++;
+            }
+        }
+        return(nResult);
+    }
+    
     /**
      * @brief Get the current ISO Time String representation.
      * @param pszBuffer The buffer to store the resulting ISO time string.

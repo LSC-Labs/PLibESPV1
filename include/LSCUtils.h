@@ -10,6 +10,8 @@ namespace LSC {
     float getCelsiusFromFarenheit(float fTemp);
 
     int stricmp(const char *psz1, const char *psz2);
+    int indexOf(const char *psz, const char cToken);
+    int lastIndexOf(const char *psz, const char cToken);
 
     bool ICACHE_FLASH_ATTR isTrueValue(const char * pszData, bool bExplicit = true);
     bool ICACHE_FLASH_ATTR isFalseValue(const char * pszData);
