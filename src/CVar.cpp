@@ -39,6 +39,8 @@ CVar::CVar(const char *pszName, const bool bValue) {
     setValue(bValue);
 }
 
+#ifndef NATIVE_RUNTIME
+
 CVar::CVar(const __FlashStringHelper *pszName, const char *pszValue) {
     setVarName((const char *) pszName);
     setValue(pszValue);
@@ -56,6 +58,9 @@ CVar::CVar(const __FlashStringHelper *pszName, const bool bValue) {
     setVarName((const char *)pszName);
     setValue(bValue);
 }
+#endif
+
+
 #pragma endregion
 
 #pragma region  internal helpers
@@ -89,21 +94,24 @@ CVar * CVar::setValue(const char *pszValue){
     this->pszValue = strdup(pszValue ? pszValue : "");
     return(this);
 }
+
+#ifndef NATIVE_RUNTIME
 CVar * CVar::setValue(const __FlashStringHelper *pszValue){
     const char *pszVarValue = (const char *) pszValue ? (const char *) pszValue : "";
     setValue((const char *) pszVarValue);
     return(this);
 }
+#endif
 
 CVar * CVar::setValue(const int nValue) {
     char szValue[80];
-    sprintf(szValue, "%d", nValue);
+    snprintf(szValue,sizeof(szValue), "%d", nValue);
     setValue(szValue);
     return(this);
 }
 CVar * CVar::setValue(const unsigned long ulValue) {
     char szValue[80];
-    sprintf(szValue, "%lu", ulValue);
+    snprintf(szValue,sizeof(szValue), "%lu", ulValue);
     setValue(szValue);
     return(this);
 }

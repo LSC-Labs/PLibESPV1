@@ -33,18 +33,13 @@ void CStatusHandler::addStatusHandler(const char *pszName, IStatusHandler *pHand
  * to iterate through all sub - status handler...
  * @param oStatusNode JsonObject to store the status
  */
-void CStatusHandler::writeStatusTo(JsonObject &oStatusNode){
+void CStatusHandler::writeStatusTo(JsonNode &oStatusNode, int nLevel){
     DEBUG_FUNC_START();
     for (const auto& oEntry : m_tListOfStatusHandler) { 
-        #if ARDUINOJSON_VERSION_MAJOR < 7
-            JsonObject oSubNode = oStatusNode[oEntry.pszName];
-            if(!oSubNode) oSubNode = oStatusNode.createNestedObject(oEntry.pszName);
-        #else
-            JsonObject oSubNode = oStatusNode[oEntry.pszName].to<JsonObject>();
-        #endif
+        JsonNode * pSubNode = oStatusNode.getObject(oEntry.pszName,true);
         if(oEntry.pHandler) {
             DEBUG_INFOS(" - writing status of handler : %s",oEntry.pszName);
-            oEntry.pHandler->writeStatusTo(oSubNode);
+            oEntry.pHandler->writeStatusTo(*pSubNode,nLevel);
         }
     }
     DEBUG_FUNC_END();

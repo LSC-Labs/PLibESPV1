@@ -1,5 +1,5 @@
 #pragma once
-#include <Arduino.h>
+#include <Runtime.h>
 #include <time.h>
 #include <Appl.h>
 /**
@@ -40,8 +40,8 @@
         bool hasValidTime();
         time_t getNativeTime();
         const char * getISODateTime();
-        void writeConfigTo( JsonObject &oCfgObj, bool bHideCritical) override;
-        void readConfigFrom(JsonObject &oCfgObj) override;
-        void writeStatusTo( JsonObject &oStatusObj) override;
+        void writeConfigTo( JsonNode &oCfgObj, bool bHideCritical) override;
+        void readConfigFrom(JsonNode &oCfgObj) override;
+        void writeStatusTo( JsonNode &oStatusObj, int nLevel = STATUS_LEVEL_INFO) override;
         int receiveEvent(const void * pSender, int nMsgType, const void * pMessage, int nClass) override;
  };

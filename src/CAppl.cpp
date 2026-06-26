@@ -69,6 +69,10 @@ void CAppl::init(const char *strAppName, const char *strAppVersion) {
 	MsgBus.sendEvent(this,MSG_APPL_INITIALIZED,nullptr,0);
 }
 
+void CAppl::start(void * pMsg, int nType) {
+	MsgBus.sendEvent(this,MSG_APPL_STARTED,pMsg,nType);
+}
+
 
 /**
  * @brief Dispatch a periodic message to all registered Message Event Receivers
@@ -143,18 +147,18 @@ void CAppl::reboot(int nDelay, bool bForce) {
  * @param oJsonObj The JsonObject to read the configuration from
  * TODO: Implement the local var table (Config) reading also...
  */
-void CAppl::readConfigFrom(JsonObject &oJsonObj) {
+void CAppl::readConfigFrom(JsonNode &oJsonObj) {
 	DEBUG_FUNC_START();
 	// Config.readConfigFrom(oJsonObj);
 	// Speed oper
-	LSC::setJsonValue(oJsonObj,"logToSerial",	&m_oCfg.bLogToSerial);
-	LSC::setJsonValue(oJsonObj,"traceMode",		&m_oCfg.bTraceMode);
-	LSC::setJsonValue(oJsonObj,"devicename",	 m_oCfg.strDeviceName);
+	oJsonObj.storeValueIf("logToSerial",&m_oCfg.bLogToSerial);
+	oJsonObj.storeValueIf("traceMode",	&m_oCfg.bTraceMode);
+	oJsonObj.storeValueIf("devicename",	 m_oCfg.strDeviceName);
 
 	// Set the device password only, it is NOT the hidden appl password
 	// If it is empty, keep the default passwort.
-	LSC::setJsonValueIfNot(oJsonObj,"devicepwd",m_oCfg.strDevicePwd,HIDDEN_PASSWORD_MASK);
-	if(m_oCfg.strDeviceName.isEmpty()) m_oCfg.strDeviceName = DEFAULT_DEVICE_PWD;
+	oJsonObj.storeValueIfNot("devicepwd",m_oCfg.strDevicePwd,HIDDEN_PASSWORD_MASK);
+	if(m_oCfg.strDeviceName.isEmpty()) 	 m_oCfg.strDeviceName = DEFAULT_DEVICE_PWD;
 	
 	DEBUG_INFOS(" -- Device Name: %s",m_oCfg.strDeviceName.c_str());
 	DEBUG_INFOS(" -- Device Pass: \"%s\"",m_oCfg.strDevicePwd.c_str());
@@ -163,16 +167,6 @@ void CAppl::readConfigFrom(JsonObject &oJsonObj) {
 	CConfigHandler::readConfigFrom(oJsonObj);
 	DEBUG_FUNC_END();
 }
-
-/**
- * @brief Read the configuration from a JsonDocument
- * @param oJsonDoc The JsonDocument to read the configuration from	
- */
-void CAppl::readConfigFrom(JsonDocument &oJsonDoc) {
-	JsonObject oCfgData = GetJsonDocumentAsObject(oJsonDoc);
-	readConfigFrom(oCfgData);
-}
-
 
 /** 
  * @brief read the configuration from the file system.
@@ -190,15 +184,15 @@ bool CAppl::readConfigFrom(const char *pszConfigFileName, int nJsonDocSize) {
 	if(!pszConfigFileName) 					pszConfigFileName = JSON_APPL_CONFIG_FILE;
 	if(!oFS.fileExists(pszConfigFileName))	pszConfigFileName = JSON_CONFIG_DEFAULT_FILE;
 	
-	JSON_DOC(oCfgDoc,nJsonDocSize);
+	JsonNode oCfgData;
 
     bool bResult = false;
 	
-    if(oFS.loadJsonContentFromFile(pszConfigFileName,oCfgDoc)) {
+    if(oFS.loadJsonContentFromFile(pszConfigFileName,oCfgData)) {
 		DEBUG_INFOS("Configuration loaded from file: %s",pszConfigFileName);
-		DEBUG_JSON_OBJ(oCfgDoc);
-		migrateConfig(oCfgDoc);
-        readConfigFrom(oCfgDoc);
+		DEBUG_JSON_OBJ(oCfgData);
+		migrateConfig(oCfgData);
+        readConfigFrom(oCfgData);
 		bResult = true;
     }
 	DEBUG_FUNC_END_PARMS("%d",bResult);
@@ -211,31 +205,29 @@ bool CAppl::readConfigFrom(const char *pszConfigFileName, int nJsonDocSize) {
  * or by user...
  * 2026-03-02 : devicename and devicepwd get from old locations if in place.
  */
-void CAppl::migrateConfig(JsonDocument & oCfgDoc) {
-	JsonObject oCfgData = GetJsonDocumentAsObject(oCfgDoc);
+void CAppl::migrateConfig(JsonNode & oCfgData) {
 
-	if(JsonKeyExists(oCfgData,"web",JsonObject)) {
+	JsonNode * pCfgWeb = oCfgData.getObject("web");
+	if( pCfgWeb ) {
 		// Old location of the device password in web - httpPasswd
-		JsonObject oCfgWeb = GetJsonObject(oCfgDoc,"web");
-		const char * pszHttpPasswd = "httpPasswd";
-		if(JsonKeyExists(oCfgWeb,pszHttpPasswd,String)) {
-			LSC::setJsonValue(oCfgWeb,pszHttpPasswd,m_oCfg.strDevicePwd);
-			oCfgWeb.remove(pszHttpPasswd);
+		const char * pszPasswdKeyName = "httpPasswd";
+		if(pCfgWeb->exists(pszPasswdKeyName)) {
+			m_oCfg.strDevicePwd = pCfgWeb->getValue(pszPasswdKeyName);
+			pCfgWeb->remove(pszPasswdKeyName);
 		}
 	}
-	if(JsonKeyExists(oCfgData,"wifi",JsonObject)) {
-		// Old location of the device name in wifi - hostname
-		JsonObject oCfgWiFi = GetJsonObject(oCfgDoc,"wifi");
-		const char * pszHostname = "hostname";
-		if(JsonKeyExists(oCfgWiFi,pszHostname,String)) {
-			LSC::setJsonValue(oCfgWiFi,pszHostname,m_oCfg.strDeviceName);
-			oCfgWiFi.remove(pszHostname);
+	JsonNode * pCfgWiFi = oCfgData.getObject("wifi");
+	if(pCfgWiFi) {
+		const char * pszHostnameKey = "hostname";
+		if(pCfgWiFi->exists(pszHostnameKey)) {
+			m_oCfg.strDeviceName = pCfgWiFi->getValue(pszHostnameKey);
+			pCfgWiFi->remove(pszHostnameKey);
 		}
 
 	}
 
 	// Now iterate through the handler...
-	CConfigHandler::migrateConfig(oCfgDoc,oCfgData);
+	CConfigHandler::migrateConfig(oCfgData,oCfgData);
 }
 
 
@@ -251,15 +243,14 @@ void CAppl::migrateConfig(JsonDocument & oCfgDoc) {
 bool CAppl::saveConfig(const char *pszConfigFileName, int nJsonDocSize) {
 	DEBUG_FUNC_START_PARMS("%s,%d",NULL_POINTER_STRING(pszConfigFileName),nJsonDocSize);
 	if(!pszConfigFileName) pszConfigFileName = JSON_APPL_CONFIG_FILE;
-	JSON_DOC(oCfgDoc,nJsonDocSize);
+	JsonNode oCfgDoc;
 	CFS oFS;
 	// load existing config file from the file system first, to keep unknown settings in place
 	// then write the current config into the loaded document...
 	oFS.loadJsonContentFromFile(pszConfigFileName,oCfgDoc);
 	// Add the current timestamp
 	oCfgDoc["TS"] = getISODateTime();
-	JsonObject oCfgNode = GetJsonDocumentAsObject(oCfgDoc);
-	writeConfigTo(oCfgNode,false);
+	writeConfigTo(oCfgDoc,false);
 
 	bool bResult = oFS.saveJsonContentToFile(pszConfigFileName,oCfgDoc);
 	DEBUG_FUNC_END_PARMS("%s",bResult ? "OK" : "ERROR");
@@ -271,7 +262,7 @@ bool CAppl::saveConfig(const char *pszConfigFileName, int nJsonDocSize) {
  * @param oJsonObj      The JsonObject to write the configuration to
  * @param bHideCritical If true, critical information like passwords will be hidden
  */
-void CAppl::writeConfigTo(JsonObject &oJsonObj, bool bHideCritical) {
+void CAppl::writeConfigTo(JsonNode &oJsonObj, bool bHideCritical) {
 	DEBUG_FUNC_START_PARMS("%p,%d",&oJsonObj,bHideCritical);
 	// Write all config values from the local var table first
 	// then your own config data (ensures that appl config wins)
@@ -279,7 +270,7 @@ void CAppl::writeConfigTo(JsonObject &oJsonObj, bool bHideCritical) {
 	oJsonObj["logToSerial"] = m_oCfg.bLogToSerial;
 	oJsonObj["traceMode"] 	= m_oCfg.bTraceMode;
 	oJsonObj["devicename"] 	= m_oCfg.strDeviceName;
-	oJsonObj["devicepwd"]  	= bHideCritical ? HIDDEN_PASSWORD_MASK : m_oCfg.strDevicePwd;
+	oJsonObj["devicepwd"]  	= (const char*) (bHideCritical ? HIDDEN_PASSWORD_MASK : m_oCfg.strDevicePwd.c_str());
 
 	// Iterate through registered Config Handler
 	// This includes the own "cfg" form Config (IConfigHandler).
@@ -298,44 +289,45 @@ void CAppl::writeConfigTo(JsonObject &oJsonObj, bool bHideCritical) {
  * and stays alive, as long this instance is living (!)
  * This is needed to send async the status via web socket, web server and other async tasks !
  */
-JsonDocument *  CAppl::getStatus() {
+JsonNode *  CAppl::getStatus(int nLevel) {
 	m_oStatus.clear();
-	writeStatusTo( m_oStatus);
+	writeStatusTo( m_oStatus,nLevel);
 	return( & m_oStatus);
 }
 
 const char * CAppl::getStatusAsText() {
-    JsonDocument * pStatus = getStatus();
-    serializeJson(* pStatus,m_strStatus);
-    return(m_strStatus.c_str());
+    JsonNode * pStatus = getStatus();
+    return(pStatus->getAsJsonText());
 }
-
 
 /**
- * @brief write the status into a JsonDocument...
- * As the document cannot be converted to a JsonObject, when it is empty,
- * write an entry first, and then convert it to an object... !
+ * @brief Get the state of this device..
+ * is using getStatus with STATUS_LEVEL_STATE as level param
+ * @returns a CJsonNode pointer (do not delete, it is managed by this instance)
  */
-void CAppl::writeStatusTo(JsonDocument &oStatusDoc) {
-	oStatusDoc["now"] = millis();
-	JsonObject oStatusObj = GetJsonDocumentAsObject(oStatusDoc);
-	writeStatusTo(oStatusObj);
-}
+JsonNode * CAppl::getState() { return(getStatus(STATUS_LEVEL_STATE)); }
 
+/**
+ * @brief Get the device state as Json string 
+ * @returns pointer to a json formated state string (do not delete or free this pointer !)
+ */
+const char * CAppl::getStateAsText() { 
+	return(getStatus(STATUS_LEVEL_STATE)->getAsJsonText()); 
+}
 /**
  * @brief Write the current status into a JsonObject
  * @param oStatusObj The JsonObject to write the status to
  */
-void CAppl::writeStatusTo(JsonObject &oStatusObj) {
+void CAppl::writeStatusTo(JsonNode &oStatusObj, int nLevel = STATUS_LEVEL_INFO) {
 	DEBUG_FUNC_START();
-	oStatusObj["now"] 			= millis();	
-	oStatusObj["prog_name"] 	= AppName;
-	oStatusObj["prog_version"] 	= AppVersion;
-	oStatusObj["uptime"] 		= getUpTime();
-	oStatusObj["starttime"]     = StartTime;
-	oStatusObj["datetime"]		= getISODateTime();
+	oStatusObj.setValue("now",			millis());
+	oStatusObj.setValue("prog_name",	AppName);
+	oStatusObj.setValue("prog_version",	AppVersion);
+	oStatusObj.setValue("uptime",		getUpTime());
+	oStatusObj.setValue("starttime",	StartTime);
+	oStatusObj.setValue("datetime",		getISODateTime());
 	if(m_oCfg.bDebugFrontend) {
-		oStatusObj["DebugMode"]     = "1";
+		oStatusObj.setValue("DebugMode",true);
 	}
 	// Systemstatus becomes a own function call, to avoid
 	// system operations on a high frequence...
@@ -346,28 +338,16 @@ void CAppl::writeStatusTo(JsonObject &oStatusObj) {
 	DEBUG_FUNC_END();
 }
 
-/**
- * @brief Write the system status into a JsonDocument
- * @param oStatusDoc The JsonDocument to write the system status to
- */
-void CAppl::writeSystemStatusTo(JsonDocument &oStatusDoc) {
-	DEBUG_FUNC_START();
-		oStatusDoc["now"] = millis();
-		JsonObject oStatus = GetJsonDocumentAsObject(oStatusDoc);
-		writeSystemStatusTo(oStatus);
-	DEBUG_FUNC_END();
-}
 
 /**
  * @brief Write the system status into a JsonObject
  * @param oStatusObj The JsonObject to write the system status to
  */
-void CAppl::writeSystemStatusTo(JsonObject &oStatusObj) {
-    DEBUG_FUNC_START();
-	if(!oStatusObj.isNull()) {
-		CSysStatus oSysStatus;
-		oSysStatus.writeStatusTo(oStatusObj);
-	}
+void CAppl::writeSystemStatusTo(JsonNode &oStatusNode) {
+	DEBUG_FUNC_START();
+	oStatusNode.setValue("now",millis());
+	// CSysStatus oSysStatus;
+	m_oSystemStatus.writeStatusTo(oStatusNode,STATUS_LEVEL_INFO);
     DEBUG_FUNC_END();
 }
 
@@ -379,7 +359,7 @@ void CAppl::writeSystemStatusTo(JsonObject &oStatusObj) {
  * @brief Get the Uptime of the System as String HH:MM:SS
  * @return String with the Uptime
  */
-String CAppl::getUpTime() {
+const char * CAppl::getUpTime() {
 	unsigned long ulUpTime = millis() - this->StartTime;
 	// 3600000 milliseconds in an hour
 	long nHours   = ulUpTime / 3600000; 		// 1000 * 60 * 60
@@ -392,11 +372,10 @@ String CAppl::getUpTime() {
 	// 1000 milliseconds in a second		
 	long nSeconds = ulUpTime / 1000;			// 1000 ms
 	
-	char tUpTimeBuffer[20];
-	sprintf(tUpTimeBuffer, "%02lu:%02lu:%02lu", nHours, nMinutes, nSeconds);
-	return(String(tUpTimeBuffer));
-}
 
+	snprintf(m_szUptimeBuffer,sizeof(m_szUptimeBuffer), "%02lu:%02lu:%02lu", nHours, nMinutes, nSeconds);
+	return(m_szUptimeBuffer);
+}
 
 
 /**
@@ -446,6 +425,10 @@ const char * CAppl::getISODateTime() {
         return(m_szISODateTime);
 }
 
+
+const char * CAppl::getDeviceID() {
+	return(m_oSystemStatus.getChipID());
+}
 #pragma endregion Time and Date functions
 
 #pragma region Diagnostic and Display Functions
@@ -454,11 +437,11 @@ const char * CAppl::getISODateTime() {
  * @brief Print a Hello Message to the Serial Console
  */
 void CAppl::sayHello() {
-	char strBuff[100];
-	sprintf(strBuff, "%s v%s", AppName.c_str(), AppVersion.c_str());
+	char szBuff[100];
+	snprintf(szBuff,sizeof(szBuff), "%s v%s", AppName.c_str(), AppVersion.c_str());
 	Serial.println("");
-	Serial.println(strBuff);
-	for(size_t i = 0; i < strlen(strBuff); i++) {
+	Serial.println(szBuff);
+	for(size_t i = 0; i < strlen(szBuff); i++) {
 		Serial.print("=");
 	}
 	Serial.println("");
@@ -468,8 +451,8 @@ void CAppl::sayHello() {
 /// https://42project.net/groesse-des-esp8266-flash-speicher-sowie-chip-id-ausgeben-und-mit-der-konfiguration-ueberpruefen/
 void CAppl::printDiag() {
 
-	CSysStatus oSysStatus;
-    uint32_t    realSize = oSysStatus.getFlashChipRealSize(); // ESP.getFlashChipRealSize();
+	// CSysStatus oSysStatus;
+    uint32_t    realSize = m_oSystemStatus.getFlashChipRealSize(); // ESP.getFlashChipRealSize();
 	uint32_t    ideSize  = ESP.getFlashChipSize();
 	FlashMode_t ideMode  = ESP.getFlashChipMode();
 	// Serial.printf("Flash real id     : %08X\n", ESP.getFlashChipId());

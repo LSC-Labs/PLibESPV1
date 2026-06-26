@@ -6,7 +6,7 @@
 #include <Msgs.h>
 #include <coredecls.h>
 #include <DevelopmentHelper.h>
-#include <JsonHelper.h>
+// #include <JsonHelper.h>
 
 
 // WiFiStatus getStatus() { return Status; }    
@@ -16,7 +16,7 @@
 /**
  * write the config to Json Object
  */
-void CNTPHandler::writeConfigTo( JsonObject &oCfgNode, bool bHideCritical) {
+void CNTPHandler::writeConfigTo( JsonNode &oCfgNode, bool bHideCritical) {
     oCfgNode["enabled"]        = Config.isEnabled;
     oCfgNode["server"]         = Config.NTPServer;
 }
@@ -24,15 +24,15 @@ void CNTPHandler::writeConfigTo( JsonObject &oCfgNode, bool bHideCritical) {
 /**
  * read the config from the Json Object
  */
-void CNTPHandler::readConfigFrom(JsonObject &oCfgNode) {
-    LSC::setJsonValue(oCfgNode,"enabled", & Config.isEnabled);
-    LSC::setJsonValue(oCfgNode,"server",    Config.NTPServer );
+void CNTPHandler::readConfigFrom(JsonNode &oCfgNode) {
+    oCfgNode.storeValueIf("enabled", & Config.isEnabled);
+    oCfgNode.storeValueIf("server",    Config.NTPServer );
 }
 
 /**
  * write the status to the Json Object
  */
-void CNTPHandler::writeStatusTo( JsonObject &oStatusObj) {
+void CNTPHandler::writeStatusTo( JsonNode &oStatusObj, int nLevel) {
     oStatusObj["enabled"] = Config.isEnabled;
     time(&m_oRawTime);
     struct tm* oTimeInfo;

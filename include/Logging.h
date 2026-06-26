@@ -30,7 +30,7 @@ class CEventLogger {
 
         void log(const char* pszType, const __FlashStringHelper* pszMessage, ...);
         void log(const char* pszType, const char *pszMessage, ...);
-        void log(const char* strType, JsonDocument *pDoc);
+        void log(const char* strType, JsonNode *pDoc);
 };
 
 
@@ -52,7 +52,7 @@ class CLogWriter : public IMsgEventReceiver {
         virtual int  receiveEvent(const void * pSender, int nMsgType, const void * pMessage, int nClass) override;   
 
         virtual void writeLogEntry(const char *strType, const char *strMessage);
-        virtual void writeLogEntry(const char *strType, JsonDocument *oDoc);
+        virtual void writeLogEntry(const char *strType, JsonNode *oDoc);
 };
 
 class CStreamLogWriter : public CLogWriter {
@@ -61,7 +61,7 @@ class CStreamLogWriter : public CLogWriter {
     public:
         CStreamLogWriter(Stream *pStream);
         void writeLogEntry(const char *strType, const char *strMessage) override;
-        void writeLogEntry(const char *strType, JsonDocument *pDoc) override;
+        void writeLogEntry(const char *strType, JsonNode *pDoc) override;
 };
 
 

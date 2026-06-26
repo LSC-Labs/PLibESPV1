@@ -3,8 +3,7 @@
 #endif
 #include <ConfigHandler.h>
 #include <DevelopmentHelper.h>
-#include <ArduinoJson.h>
-#include <JsonHelper.h>
+#include <JsonNode.h>
 #include <map>
 
 using namespace std;
@@ -69,15 +68,15 @@ IConfigHandler * CConfigHandler::getConfigHandler(const char* pszName, int nIdx)
  * @param oNode The Json node, the data should be written into.
  * @param bHideCritical if true, don't show critical values, they will be exposed!
  *  */
-void CConfigHandler::writeConfigTo(JsonObject &oNode, bool bHideCritical){
+void CConfigHandler::writeConfigTo(JsonNode &oNode, bool bHideCritical){
     DEBUG_FUNC_START_PARMS("oNode=%p,bHideCritical=%d", &oNode, bHideCritical);
     for (const auto& oEntry : m_tListOfConfigHandlers) { 
         if(oEntry.pHandler) {
             // Write the node only, if there are config values to be written,
             // If the Handler says yes, create the JSON node and give it the config handler..
             if(oEntry.pHandler->hasConfigValues()) {
-                JsonObject oSubNode = GetOrCreateJsonObject(oNode,oEntry.pszName);
-                oEntry.pHandler->writeConfigTo(oSubNode,bHideCritical);
+                JsonNode * pSubNode = oNode.getObject(oEntry.pszName,true);
+                oEntry.pHandler->writeConfigTo(*pSubNode,bHideCritical);
             }
         }
     }
@@ -91,12 +90,12 @@ void CConfigHandler::writeConfigTo(JsonObject &oNode, bool bHideCritical){
  * @param oCfgDoc  The main configuration file with all module information inside
  * @param oCfgNode The Node of this handler - root call: this node is the document as object
  */
-void CConfigHandler::migrateConfig(JsonDocument & oCfgDoc, JsonObject & oCfgNode) {
+void CConfigHandler::migrateConfig(JsonNode & oCfgDoc, JsonNode & oCfgNode) {
     DEBUG_FUNC_START();
     for (const auto& oEntry : m_tListOfConfigHandlers) { 
         if(oEntry.pHandler && oEntry.pszName) {
-            JsonObject oCfgHandlerNode = GetJsonObject(oCfgNode,oEntry.pszName);
-            oEntry.pHandler->migrateConfig(oCfgDoc,oCfgHandlerNode);
+            JsonNode * pCfgHandlerNode = oCfgNode.getObject(oEntry.pszName,true);
+            oEntry.pHandler->migrateConfig(oCfgDoc,*pCfgHandlerNode);
         }
     }
     DEBUG_FUNC_END();
@@ -107,18 +106,16 @@ void CConfigHandler::migrateConfig(JsonDocument & oCfgDoc, JsonObject & oCfgNode
  * in the json node. If available, ask the handler to read their section.
  * @param oNode A JSON Object as base to iterate.
  */
-void CConfigHandler::readConfigFrom(JsonObject &oNode) {
+void CConfigHandler::readConfigFrom(JsonNode &oNode) {
     DEBUG_FUNC_START();
     DEBUG_JSON_OBJ(oNode);
     // Iterate through known Handler... maybe duplicate names of node !
     for (const auto& oEntry : m_tListOfConfigHandlers) { 
         if(oEntry.pHandler && oEntry.pszName) {
-            if(JsonKeyExists(oNode,oEntry.pszName,JsonObject)) {
+            JsonNode * pSubNode = oNode.getObject(oEntry.pszName);
+            if(pSubNode) {
                 DEBUG_INFOS(" -- Reading subnode '%s'", oEntry.pszName);
-                JsonObject oSubNode = GetJsonObject(oNode,oEntry.pszName);
-                if(oSubNode) {
-                    oEntry.pHandler->readConfigFrom(oSubNode);
-                } 
+                oEntry.pHandler->readConfigFrom(*pSubNode);
             } else {
                 DEBUG_INFOS("---- Subnode '%s' not found in config - skipping", oEntry.pszName);
             }

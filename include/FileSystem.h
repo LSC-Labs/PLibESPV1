@@ -1,6 +1,6 @@
 #pragma once
 #include <FS.h>
-#include <Arduino.h>
+#include <Runtime.h>
 #include <StatusHandler.h>
 /**
  * FileSystem helper functions
@@ -23,28 +23,27 @@ struct LSC_FS {
     public:
         CFS();
 
-        bool fileExists(const char *pszFileName);
-        bool fileExists(String &strFileName);
-        void deleteFile(const char *pszFileName);
-        void deleteFile(String &strFileName);
-        void deleteAllFilesOnPath(const char *pszPath);
-        size_t getFileSize(const char *pszFileName);
-        size_t getFileSize(String &strFileName);
-        FS getBaseFS();
+        bool    fileExists(const char *pszFileName);
+        bool    fileExists(String &strFileName);
+        void    deleteFile(const char *pszFileName);
+        void    deleteFile(String &strFileName);
+        void    deleteAllFilesOnPath(const char *pszPath);
+        size_t  getFileSize(const char *pszFileName);
+        size_t  getFileSize(String &strFileName);
+        FS      getBaseFS();
     
     
-        size_t loadFileToBuffer(const char* strFileName, std::unique_ptr<char[]> &pData);
-        bool loadFileToString(const char* strFileName, String &strResult);
-        bool loadJsonContentFromFile(const char *strFileName,   JsonDocument &oDoc);
-        bool saveJsonContentToFile(const char* strFileName,     JsonDocument &oDoc);
-        bool saveJsonContentToFile(const char* strFileName,     JsonObject   &oNode);
+        size_t  loadFileToBuffer(const char* strFileName, std::unique_ptr<char[]> &pData);
+        bool    loadFileToString(const char* strFileName, String &strResult);
+        bool    loadJsonContentFromFile(const char *strFileName,   JsonNode &oDoc);
+        bool    saveJsonContentToFile(const char* strFileName,     JsonNode &oDoc);
         
-        size_t getTotalBytes();
-        size_t getUsedBytes();
-        bool    getFileList(JsonDocument &oDirDoc, const char *pszPath = "/");
+        size_t  getTotalBytes();
+        size_t  getUsedBytes();
+        bool    getFileList(JsonNode &oDirDoc, const char *pszPath = "/");
         String  getFileList(const char* pszPath = "/");
 
-        void writeStatusTo(JsonObject &oStatus) override;
+        void writeStatusTo(JsonNode &oStatus, int nLevel = STATUS_LEVEL_INFO) override;
     
  };
 

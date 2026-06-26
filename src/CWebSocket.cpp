@@ -16,7 +16,7 @@
 #include <Security.h>
 #include <AccessToken.h>
 #include <FileSystem.h>
-#include <JsonHelper.h>
+// #include <JsonHelper.h>
 
 #define DEFAULT_REQUEST_DOC_SIZE  2048
 #define DEFAULT_RESPONSE_DOC_SIZE 2048
@@ -70,9 +70,9 @@ int CWebSocket::receiveEvent(const void * pSender, int nMsgId, const void * pMes
 			}
 			break;
 
-		case MSG_WEBSOCKET_SEND_JSON :
+		case MSG_WEBSOCKET_SEND_JSONNODE :
         case MSG_WIFI_SCAN_RESULT : if(pMessage != nullptr) {
-										JsonDocument *pDoc = ( JsonDocument *) pMessage;
+										JsonNode *pDoc = ( JsonNode *) pMessage;
 										sendJsonDocMessage(*pDoc);
 									}
 									break;
@@ -196,19 +196,21 @@ void CWebSocket::addMessageToQueue(CWebSocketMessage *pMsgObj)
  * @param pClient Specific client to talk to. (if set, the message will be sent only to this client)
  * @see  https://github.com/ESP32Async/ESPAsyncWebServer/wiki#asyncwebsocketmessagebuffer-and-makebuffer
  */
- void ICACHE_FLASH_ATTR CWebSocket::sendJsonDocMessage(JsonDocument &oDoc, AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient) {
+ void ICACHE_FLASH_ATTR CWebSocket::sendJsonDocMessage(JsonNode &oDoc, AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient) {
 	DEBUG_FUNC_START();
 	// If no socket is in place, use your own socket...
 	if(!pSocket) pSocket = this;
 
     // Serialize the message to be sent...
-	size_t nSize = measureJson(oDoc);
+	String strData = oDoc.getAsJsonText();
+	size_t nSize = strData.length();
 	DEBUG_INFOS("WS: - allocating buffer(%u bytes)",nSize);
 	AsyncWebSocketMessageBuffer* pBuffer = pSocket->makeBuffer(nSize);
 	#ifdef DEBUG_LSC_WEBSOCKET
 		assert(pBuffer);
 	#endif
-	serializeJson(oDoc,pBuffer->get(),nSize);
+	strncpy((char *) pBuffer->get(),strData.c_str(),nSize);
+	// serializeJson(oDoc,pBuffer->get(),nSize);
 	#ifdef DEBUGINFOS
 		DEBUG_INFOS("WS: - sending message (%u bytes)\n",nSize);
 		for(size_t nIdx = 0; nIdx < nSize; nIdx++) Serial.printf("%c",pBuffer->get()[nIdx]);
@@ -224,18 +226,19 @@ void CWebSocket::addMessageToQueue(CWebSocketMessage *pMsgObj)
  * @param oDoc Container will be filled with the message
  * @param pClient Client to send to...
  * */
-void ICACHE_FLASH_ATTR CWebSocket::sendAccessDeniedMessage(JsonDocument &oRequestDoc,AsyncWebSocketClient *pClient) {
+void ICACHE_FLASH_ATTR CWebSocket::sendAccessDeniedMessage(JsonNode &oRequestDoc,AsyncWebSocketClient *pClient) {
 	if(pClient) {
 		// Remember the requested command / type so it can be inserted in the message again.
-		String strCommand = oRequestDoc["command"];
-        String strType    = oRequestDoc["type"];
+		String strCommand = oRequestDoc.getValue("command");
+        String strType    = oRequestDoc.getValue("type");
 
 		oRequestDoc.clear();
-		JsonObject oPayload = LSC::createPayloadStructure(F("error"),F("401"),oRequestDoc);
-		oRequestDoc["AccessToken"] 	= F("notValid");		// destroy an existing access token
-		oPayload["msg"] 			= F("access denied");	// set message for user...
-		oPayload["command"] 		= strCommand;			// command that is not allowed
-		oPayload["type"]    		= strType;				// type that is not allowed 
+		
+		JsonNode * pPayload = oRequestDoc.createPayloadStructure("error","401");
+		oRequestDoc["AccessToken"] 	= "notValid";		// destroy an existing access token
+		(* pPayload)["msg"] 			= "access denied";	// set message for user...
+		(* pPayload)["command"] 		= strCommand;			// command that is not allowed
+		(* pPayload)["type"]    		= strType;				// type that is not allowed 
 		sendJsonDocMessage(oRequestDoc,nullptr,pClient);
 	}
 }
@@ -279,10 +282,13 @@ bool inline CWebSocket::needsAuth(String &strCommand) {
  * @param pClient The WebSocket Client requesting the command (needed to get the remote IP)
  * @return true if the token is valid, false otherwise
  */
-bool CWebSocket::checkAuth(JsonDocument &oJsonRequest, AsyncWebSocketClient *pClient) {
+bool CWebSocket::checkAuth(JsonNode &oJsonRequest, AsyncWebSocketClient *pClient) {
 	DEBUG_FUNC_START();
+	DEBUG_JSON_OBJ(oJsonRequest);
 	bool isAuthenticated = false;
-	String strAuthToken = oJsonRequest["token"];
+	String strAuthToken = oJsonRequest.getValue("token");
+	DEBUG_INFOS("Auth Token : %s",strAuthToken.c_str());
+	DEBUG_INFOS(" - Length check %d && Client Check (%d)",strAuthToken.length() > 10, pClient ? 1 : 0);
 	if(strAuthToken.length() > 10 && pClient) {
 		String strClientRemoteIP = pClient->remoteIP().toString();
 		CAccessToken oToken(strAuthToken.c_str());
@@ -321,13 +327,13 @@ void CWebSocket::dispatchMessageQueue()
  * @param pMessage the message to be processed
  * @return true if message command was recognized processed, false otherwise
  */
-bool CWebSocket::dispatchJsonMessage(JsonDocument &oJsonRequest, CWebSocketMessage *pMessage) {
+bool CWebSocket::dispatchJsonMessage(JsonNode & oJsonRequest, CWebSocketMessage *pMessage) {
 	DEBUG_FUNC_START();
 	bool bResult = true;
 	CFS oFS;
 	// Json Document is ready...
 	// Web Browser sends some commands, check which command is given
-	String strCommand = oJsonRequest["command"];
+	String strCommand = oJsonRequest.getValue("command");
 	strCommand.toLowerCase();
 	DEBUG_INFOS("WS: dispatching command \"%s\"",strCommand.c_str());
 	bool isAuthNeeded = needsAuth(strCommand);
@@ -340,14 +346,14 @@ bool CWebSocket::dispatchJsonMessage(JsonDocument &oJsonRequest, CWebSocketMessa
 		// bool isAuthenticated = bNeedsAuth ? isAuthTokenValid(strAuthToken, strClientRemoteIP) : true;
 		if (strCommand.equalsIgnoreCase(F("getsysstatus")))
 		{
-			JsonObject oStatusNode = LSC::createPayloadStructure(F("update"),F("sysstatus"),oJsonRequest);
-			Appl.writeSystemStatusTo(oStatusNode);
+			JsonNode * pPayloadNode = oJsonRequest.createPayloadStructure("update","sysstatus");
+			Appl.writeSystemStatusTo(*pPayloadNode);
 			sendJsonDocMessage(oJsonRequest,pMessage->pSocket,pMessage->pClient);
 		}
 		if (strCommand.equalsIgnoreCase(F("getstatus")))
 		{
 			const char * pszStatus = Appl.getStatusAsText();
-			LSC::createPayloadStructure("update","status",oJsonRequest,pszStatus);
+			oJsonRequest.createPayloadStructure("update","status",pszStatus);
 			// JsonObject oStatusNode = LSC::createPayloadStructure(F("update"),F("status"),oJsonRequest);
 			// Appl.writeStatusTo(oStatusNode);
 			sendJsonDocMessage(oJsonRequest,pMessage->pSocket,pMessage->pClient);
@@ -355,19 +361,20 @@ bool CWebSocket::dispatchJsonMessage(JsonDocument &oJsonRequest, CWebSocketMessa
 		else if (strCommand.equalsIgnoreCase(F("getconfig")))
 		{
 			// NO authentication needed, cause critical informations are hidde (!)
-			JsonObject oCfgNode = LSC::createPayloadStructure(F("update"),F("config"),oJsonRequest);
-			Appl.writeConfigTo(oCfgNode,true);
+			JsonNode * pCfgNode = oJsonRequest.createPayloadStructure("update","config");
+			Appl.writeConfigTo(*pCfgNode,true);
 			sendJsonDocMessage(oJsonRequest,pMessage->pSocket,pMessage->pClient);
 		}
 		else if (strCommand.equalsIgnoreCase(F("saveconfig")))
 		{
-			if(isAuthenticated && JsonKeyExists(oJsonRequest,"payload",JsonObject)) {
-				JsonObject oPayload = oJsonRequest["payload"];
+			JsonNode * pPayload = oJsonRequest.getObject("payload");
+			if(isAuthenticated && pPayload) {
+				
 				// First load the config - to enable validation of settings (!)
 				// then write the new config file to the file system
 				// ... and ask for a reboot !
 				DEBUG_INFO(" - updating current config");
-				Appl.readConfigFrom(oPayload);
+				Appl.readConfigFrom(*pPayload);
 				DEBUG_INFO(" - saving config...");
 				Appl.saveConfig();
 				DEBUG_INFO(" - requesting reboot...");
@@ -393,30 +400,26 @@ bool CWebSocket::dispatchJsonMessage(JsonDocument &oJsonRequest, CWebSocketMessa
 		{
 			if(isAuthenticated) { // To ensure - only if authenticated...
 				// DynamicJsonDocument oResponseDoc(DEFAULT_RESPONSE_DOC_SIZE);
+				JsonNode * pPayload = oJsonRequest.createPayloadStructure("backup","config");
 				if(oFS.fileExists(JSON_APPL_CONFIG_FILE)) {
 					// loadJsonContentFromFile(JSON_CONFIG_DEFAULT_NAME,oXChangeDoc);
 					String strData;
 					oFS.loadFileToString(JSON_APPL_CONFIG_FILE,strData);
-					// deserializeJson(oXChangeDoc,strData);
-					LSC::createPayloadStructure(F("backup"),F("config"),oJsonRequest,strData.c_str());
-					// Now enrich with the current configuration...
-					JsonObject oPayload = GetJsonObject(oJsonRequest,"payload");
-					Appl.writeConfigTo(oPayload,false);
+					pPayload->parse(strData.c_str());
 				} else {
 					ApplLogWarnWithParms(F("WS: Config file %s not found, using current config"),JSON_APPL_CONFIG_FILE);
-					JsonObject oCfgNode = LSC::createPayloadStructure(F("backup"),F("config"),oJsonRequest);
-					Appl.writeConfigTo(oCfgNode,false);
 				} 
+				Appl.writeConfigTo(*pPayload,false);
 				sendJsonDocMessage(oJsonRequest,pMessage->pSocket,pMessage->pClient);
 			} 
 		}
 		else if (strCommand.equalsIgnoreCase(F("restorebackup"))) 
 		{
 			if(isAuthenticated) { // To ensure - only if authenticated...
-				JsonObject oCfgData = oJsonRequest["payload"];
+				JsonNode * pCfgData = oJsonRequest.getObject("payload");
 				ApplLogInfo("WS: Restoring config from backup...");
-				DEBUG_JSON_OBJ(oCfgData);
-				oFS.saveJsonContentToFile(JSON_APPL_CONFIG_FILE,oCfgData);
+				DEBUG_JSON_OBJ((*pCfgData));
+				oFS.saveJsonContentToFile(JSON_APPL_CONFIG_FILE,*pCfgData);
 				Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,nullptr,0);
 			}
 		}
@@ -446,14 +449,17 @@ bool CWebSocket::dispatchMessage( CWebSocketMessage *pMessage) {
 	bool bResult = true;
     
     // We should always get a JSON object (stringfied) from browser, so parse it
-	JSON_DOC(oXChangeDoc,DEFAULT_REQUEST_DOC_SIZE);
+	// JSON_DOC(oXChangeDoc,DEFAULT_REQUEST_DOC_SIZE);
+
+	JsonNode oXChangeDoc;
 	// DynamicJsonDocument oXChangeDoc(DEFAULT_REQUEST_DOC_SIZE);
 	// AsyncWebSocket       *pSocket = pMessage->pSocket;
 	// AsyncWebSocketClient *pClient = pMessage->pClient;
 	// cast to const char * to avoid in-place editing of serializedMessage
-	auto error = deserializeJson(oXChangeDoc, (const char *)pMessage->pSerializedMessage);
-    if(error) {
-        ApplLogErrorWithParms(F("WS: Parse message : %s"),error.c_str());
+	// auto error = deserializeJson(oXChangeDoc, (const char *)pMessage->pSerializedMessage);
+	const char *psz = oXChangeDoc.parse((const char *)pMessage->pSerializedMessage);
+    if(*psz != '\0') {
+        ApplLogError(F("WS: Parse message error"));
 		Appl.MsgBus.sendEvent(this,MSG_WEBSOCKET_DATA_RECEIVED,pMessage,0);
 		bResult = false;
     } else {

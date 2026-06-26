@@ -3,7 +3,7 @@
     #undef DEBUGINFOS
 #endif
 #pragma GCC diagnostic ignored "-Wunknown-pragmas"
-#include <ArduinoJson.h>
+#include <JsonNode.h>
 #include <FileSystem.h>
 #include <LittleFS.h>
 #include <DevelopmentHelper.h>
@@ -27,10 +27,12 @@ CFS::CFS() {
 
 FS CFS::getBaseFS() { return(LittleFS); }
 
-void CFS::writeStatusTo(JsonObject &oStatus) {
+void CFS::writeStatusTo(JsonNode &oStatus, int nLevel) {
     if(LSC::FS::isInitializedAndOpen) {
-        oStatus["fs_total"]          = getTotalBytes();
-        oStatus["fs_used"]           = getUsedBytes();
+        if(nLevel >= STATUS_LEVEL_INFO) {
+            oStatus["fs_total"]          = getTotalBytes();
+            oStatus["fs_used"]           = getUsedBytes();
+        }
     }
 }
 
@@ -118,8 +120,8 @@ size_t CFS::getFileSize(String &strFileName) {
     return(getFileSize(strFileName.c_str()));
 }
 
-bool CFS::getFileList(JsonDocument &oDirDoc, const char *pszPath) {
-    return(oDirDoc.set(getFileList(pszPath)));
+bool CFS::getFileList(JsonNode &oDirDoc, const char *pszPath) {
+    return(oDirDoc.parse(getFileList(pszPath).c_str()));
 }
 
 String CFS::getFileList(const char* pszPath) {
@@ -188,31 +190,20 @@ bool CFS::loadFileToString(const char* strFileName, String &strResult) {
     return(bResult);
 }
 
-bool CFS::saveJsonContentToFile(const char* strFileName, JsonDocument &oDoc) {
+bool CFS::saveJsonContentToFile(const char* strFileName, JsonNode &oDoc) {
     bool bResult = false;
     File oFile = LittleFS.open(strFileName, "w");
     if (oFile)
     {
-        serializeJson(oDoc,oFile);
+        oFile.write(oDoc.getAsJsonText());
+        // serializeJson(oDoc,oFile);
         oFile.close();
         bResult = true;
     }
     return(bResult);
 }
 
-bool CFS::saveJsonContentToFile(const char* pszFileName, JsonObject &oNode) {
-    bool bResult = false;
-    File oFile = LittleFS.open(pszFileName, "w");
-    if (oFile)
-    {
-        serializeJson(oNode,oFile);
-        oFile.close();
-        bResult = true;
-    }
-    return(bResult);
-}
-
-bool CFS::loadJsonContentFromFile(const char *strFileName,JsonDocument &oDoc) {
+bool CFS::loadJsonContentFromFile(const char *strFileName,JsonNode &oDoc) {
     DEBUG_FUNC_START_PARMS("%s,...",strFileName);
     int nSize = -1;
     std::unique_ptr<char[]> ptrBuffer;
@@ -220,10 +211,13 @@ bool CFS::loadJsonContentFromFile(const char *strFileName,JsonDocument &oDoc) {
     // (void) nSize;
     DEBUG_INFOS(" --- loaded %d bytes %s",nSize,ptrBuffer ? ptrBuffer.get() : "-nullptr-");
     if(ptrBuffer) {
+        oDoc.parse(ptrBuffer.get());
+        /*
 	    auto error = deserializeJson(oDoc, ptrBuffer.get());
         if (error) {
             DEBUG_INFOS(" --- deserializeJson() failed: %s", error.c_str());
         } 
+            */
     }
     bool bResult = nSize > 0? true: false;
     DEBUG_FUNC_END_PARMS("%s",bResult ? "OK" : "NOT Loaded");

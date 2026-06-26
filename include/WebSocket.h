@@ -1,10 +1,11 @@
 #pragma once
 
-#include <Network.h>
-#include <DevelopmentHelper.h>
-#include <ArduinoJson.h>
-#include <EventHandler.h>
-#include <SimpleDelay.h>
+#include "Runtime.h"
+#include "EventHandler.h"
+#include "SimpleDelay.h"
+#include "JsonNode.h"
+#include "Network.h"
+#include "DevelopmentHelper.h"
 #include <queue>
 
 /**
@@ -85,18 +86,18 @@ class CWebSocket : public AsyncWebSocket, public IMsgEventReceiver {
         CWebSocket(const char *pszSocketName, bool bRegisterOnMsgBus = true);
 		void dispatchMessageQueue();
 		virtual bool dispatchMessage(CWebSocketMessage *pMessage);
-        virtual bool dispatchJsonMessage(JsonDocument &oJsonRequest, CWebSocketMessage *pMessage);   
+        virtual bool dispatchJsonMessage(JsonNode &oJsonRequest, CWebSocketMessage *pMessage);   
 		virtual String setNeedsAuth(const String &strCommands);
         virtual String getNeedsAuth();
         virtual bool inline needsAuth(String &strCommand);
         int receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType);
         virtual void onWebSocketEvent(AsyncWebSocket *pServer, AsyncWebSocketClient *pClient, AwsEventType eType, void *arg, uint8_t *pData, size_t nLen);
 		
-        void ICACHE_FLASH_ATTR sendAccessDeniedMessage(JsonDocument &oDoc,AsyncWebSocketClient *pClient);
-		void ICACHE_FLASH_ATTR sendJsonDocMessage(JsonDocument &oDoc, AsyncWebSocket *pSocket = nullptr, AsyncWebSocketClient *pClient = nullptr);
+        void ICACHE_FLASH_ATTR sendAccessDeniedMessage(JsonNode &oDoc,AsyncWebSocketClient *pClient);
+		void ICACHE_FLASH_ATTR sendJsonDocMessage(JsonNode &oDoc, AsyncWebSocket *pSocket = nullptr, AsyncWebSocketClient *pClient = nullptr);
 	
     private:
         // void addMessageToQueue(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient, int nMessageSize);
-        bool checkAuth(JsonDocument &oRequestDoc, AsyncWebSocketClient *pClient);
+        bool checkAuth(JsonNode &oRequestDoc, AsyncWebSocketClient *pClient);
         void addMessageToQueue(CWebSocketMessage *pMsgObj);
 };

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Arduino.h>
-#include <ArduinoJson.h>
+#include <Runtime.h>
+#include <JsonNode.h>
 #include <vector>
 
 /**
@@ -9,8 +9,8 @@
  */
 class IConfigHandler {
     public:
-        virtual void writeConfigTo(JsonObject &oCfgNode, bool bHideCritical) = 0;
-        virtual void readConfigFrom(JsonObject &oCfgNode) = 0;
+        virtual void writeConfigTo( JsonNode &oCfgNode, bool bHideCritical) = 0;
+        virtual void readConfigFrom(JsonNode &oCfgNode) = 0;
 
         // Override, if you want the parent config handler not to create the subnode,
         // if no values are available to be stored. Default is - has values.
@@ -24,7 +24,7 @@ class IConfigHandler {
         // and before readConfigFrom() is called.
         // @param oCfgDoc The main configuration root node
         // @param oCfgNode If already available, the config section of this handler.
-        virtual void migrateConfig(JsonDocument &oCfgDoc, JsonObject &oCfgNode) {}
+        virtual void migrateConfig(JsonNode &oCfgDoc, JsonNode &oCfgNode) {}
 };
 
 
@@ -58,12 +58,12 @@ class CConfigHandler : public IConfigHandler {
         IConfigHandler * getConfigHandler(const char *pszName,  int nIdx = 0);  // Get a Config Handler by his name
 
         /** Interface implementation */
-        virtual void writeConfigTo(JsonObject &oNode, bool bHideCritical) override;          // Write your config into this Json Object
-        virtual void readConfigFrom(JsonObject &oNode) override;         // Read your config from this Json Object
-        void migrateConfig(JsonDocument & oCfgDoc, JsonObject & oCfgNode ) override;
+        virtual void writeConfigTo(JsonNode &oNode, bool bHideCritical) override;          // Write your config into this Json Object
+        virtual void readConfigFrom(JsonNode &oNode) override;         // Read your config from this Json Object
+        void migrateConfig(JsonNode & oCfgDoc, JsonNode & oCfgNode ) override;
         void dumpConfigHandler() {
             for(HandlerEntry oEntry : m_tListOfConfigHandlers) {
-                Serial.printf("CFG: - registered config handler: %p - (%s)\n",
+                SerialPrintf("CFG: - registered config handler: %p - (%s)\n",
                               oEntry.pHandler,
                               oEntry.pszName ? oEntry.pszName : "-");
             }

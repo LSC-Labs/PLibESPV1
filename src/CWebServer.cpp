@@ -5,7 +5,7 @@
 #include <Security.h>
 #include <AccessToken.h>
 #include <FileSystem.h>
-#include <JsonHelper.h>
+// #include <JsonHelper.h>
 #include <DevelopmentHelper.h>
 
 
@@ -29,14 +29,14 @@ CWebServer::CWebServer(int nPortNumber)
 /**
  * @brief Read the configuration from a JSON object
  */
-void CWebServer::readConfigFrom(JsonObject &oNode) {
-    LSC::setJsonValue(oNode,WEBSERVER_AUTOREDIRECT_MODE,&Config.AutoRedirectMode);
+void CWebServer::readConfigFrom(JsonNode &oNode) {
+    oNode.storeValueIf(WEBSERVER_AUTOREDIRECT_MODE,&Config.AutoRedirectMode);
 }
 
 /**
  * @brief Write the configuration to a JSON object
  */
-void CWebServer::writeConfigTo(JsonObject &oCfgNode,bool bHideCritical) {
+void CWebServer::writeConfigTo(JsonNode &oCfgNode,bool bHideCritical) {
     oCfgNode[WEBSERVER_AUTOREDIRECT_MODE] = Config.AutoRedirectMode;
     // oCfgNode[WEBSERVER_CONFIG_PASSWORD_KEY] = bHideCritical ? WEBSERVER_HIDDEN_PASSWORD : WebServer::Config.Passwd;
 }
@@ -44,7 +44,7 @@ void CWebServer::writeConfigTo(JsonObject &oCfgNode,bool bHideCritical) {
 /** 
  * @brief Write the status information to a JSON object 
  */
-void CWebServer::writeStatusTo(JsonObject &oStatusNode) {
+void CWebServer::writeStatusTo(JsonNode &oStatusNode, int nLevel) {
     oStatusNode["started"] = Status.Started;
     oStatusNode[WEBSERVER_AUTOREDIRECT_MODE] = Status.AutoRedirectMode;
 }   

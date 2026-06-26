@@ -40,17 +40,19 @@ float CBatteryMeasure::getVoltage(int nDigits) {
 
 #pragma region Interfaces
 
-void CBatteryMeasure::writeStatusTo(JsonObject &oStatusObj) {
+void CBatteryMeasure::writeStatusTo(JsonNode &oStatusObj, int nLevel) {
     oStatusObj["volt"]      = getVoltage(2);
     oStatusObj["available"] = isBatteryAvailable();
-    oStatusObj["raw"]       = getRawMeasureData();
+    if(nLevel >= STATUS_LEVEL_INFO) {
+        oStatusObj["raw"]       = getRawMeasureData();
+    }
 }
 
-void CBatteryMeasure::writeConfigTo(JsonObject &oConfigData, bool bHideCritical) {
+void CBatteryMeasure::writeConfigTo(JsonNode &oConfigData, bool bHideCritical) {
     oConfigData["calcFactor"] = this->m_fBatteryCalcFactor;
 }
-void CBatteryMeasure::readConfigFrom(JsonObject &oConfigData) {
-    LSC::setJsonValue( oConfigData,"calcFactor", &m_fBatteryCalcFactor);
+void CBatteryMeasure::readConfigFrom(JsonNode &oConfigData) {
+    oConfigData.storeValueIf("calcFactor", &m_fBatteryCalcFactor);
 }
 
 #pragma endregion

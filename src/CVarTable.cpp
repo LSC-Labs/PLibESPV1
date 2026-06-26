@@ -24,7 +24,7 @@
 
 #include <DevelopmentHelper.h>
 #include <Vars.h>
-#include <JsonHelper.h>
+// #include <JsonHelper.h>
 
 
 #ifndef LSC_VARS_CRITICAL_ENTRY_MASK
@@ -124,12 +124,12 @@ bool CVarTable::hasCriticalVars() {
 CVar * CVarTable::find(const char * pszName) {
     CVar *pResult = nullptr;
     if(pszName) {
-        char tKeyName[strlen(pszName) + 2];
-        strcpy(tKeyName,pszName);
-        if(!isCaseSensitive) strlwr(tKeyName);
+        char szKeyName[80];
+        strncpy(szKeyName,pszName,sizeof(szKeyName));
+        if(!isCaseSensitive) strlwr(szKeyName);
         for(CVar * pVar : this->tVarEntries) {
             if(pVar) {
-                if(strcmp(pVar->getKeyName(isCaseSensitive),tKeyName) == 0) {
+                if(strcmp(pVar->getKeyName(isCaseSensitive),szKeyName) == 0) {
                     pResult = pVar;
                     break;
                 }
@@ -139,9 +139,11 @@ CVar * CVarTable::find(const char * pszName) {
     return(pResult);
 }
 
+#ifndef NATIVE_RUNTIME
 CVar * CVarTable::find(const __FlashStringHelper* pszName) {
     return(find((const char*) pszName));
 }
+#endif
 
 CVar * CVarTable::find(String strName) {
     return(find(strName.c_str()));
@@ -204,7 +206,7 @@ bool CVarTable::getBoolValue(const char * pszName, bool bDefault) {
     return(pVar ? pVar->getBoolValue() : bDefault );
 }
 
-
+#ifndef NATIVE_RUNTIME
 const char * CVarTable::getValue(const __FlashStringHelper *pszName, const char *pszDefault) {
     CVar *pVar = find(pszName);
     return(pVar ? pVar->getValue() : pszDefault );
@@ -224,7 +226,7 @@ bool CVarTable::getBoolValue(const __FlashStringHelper * pszName, bool bDefault)
     CVar *pVar = find(pszName);
     return(pVar ? pVar->getBoolValue() : bDefault );
 }
-
+#endif
 #pragma endregion
 
 #pragma region setVar overlays
@@ -274,7 +276,7 @@ CVar * CVarTable::set(String strName, const unsigned long ulValue) {
 CVar * CVarTable::set(String strName, bool bValue) {
     return(set(strName.c_str(),bValue));
 }
-
+#ifndef NATIVE_RUNTIME
 CVar * CVarTable::set(const __FlashStringHelper* strName, String strValue) {
     return(set((const char*) strName,strValue));
 }
@@ -289,7 +291,7 @@ CVar * CVarTable::set(const __FlashStringHelper* strName, const unsigned long ul
 CVar * CVarTable::set(const __FlashStringHelper* strName, bool bValue) {
     return(set((const char* ) strName,bValue));
 }
-
+#endif
 #pragma endregion
 
 #pragma region IConfigHandler Interface
@@ -300,7 +302,7 @@ CVar * CVarTable::set(const __FlashStringHelper* strName, bool bValue) {
  * @param bHideCritical true - hide critical vars values
  * Critical var names will be written in the JSON object with name defined in LSC_VARS_CRITICAL_NAMES_KEY.
  */
-void CVarTable::writeConfigTo(JsonObject &oCfgObj, bool bHideCritical) {
+void CVarTable::writeConfigTo(JsonNode &oCfgObj, bool bHideCritical) {
     DEBUG_FUNC_START();
     for(CVar * pVar : this->tVarEntries) {
         bool showValue = true;
@@ -319,14 +321,15 @@ void CVarTable::writeConfigTo(JsonObject &oCfgObj, bool bHideCritical) {
             }
     }
     if(hasCriticalVars()) {
-        JsonObject oCriticalNames = CreateJsonObject(oCfgObj,LSC_VARS_CRITICAL_NAMES_KEY);
+        JsonNode  * pCriticalNames = oCfgObj.getObject(LSC_VARS_CRITICAL_NAMES_KEY,true);
+        JsonNode oCriticalNames = *pCriticalNames;
         int nCount = 0;
         char tCountBuffer[80];
         for(CVar * pVar : tVarEntries) {
             if(pVar) {
                 if(pVar->isCriticalVar()) {
                     nCount++;
-                    sprintf(tCountBuffer,"n.%d",nCount);
+                    snprintf(tCountBuffer,sizeof(tCountBuffer),"n.%d",nCount);
                     oCriticalNames[tCountBuffer] = pVar->getName();
                 }
             }
@@ -340,27 +343,28 @@ void CVarTable::writeConfigTo(JsonObject &oCfgObj, bool bHideCritical) {
  * @brief read the config from a JSON object
  * @param oCfgObj JSON object to read the config from
  */
-void CVarTable::readConfigFrom(JsonObject &oCfgObj) {
+void CVarTable::readConfigFrom(JsonNode &oCfgObj) {
     DEBUG_FUNC_START();
-    for(JsonPair oElement : oCfgObj) {
+    for(JsonNode * pElement : oCfgObj.Elements) {
         // If it is the special key name for critical name, skip it.
-        if(oElement.key() != LSC_VARS_CRITICAL_NAMES_KEY) {
-            String strValue = oElement.value().as<String>();;
+        if(pElement->Name != LSC_VARS_CRITICAL_NAMES_KEY) {
+            String strValue = pElement->getValue();
             // Set only if it is NOT a CRITICAL VALUE that is HIDDEN, to avoid loosing the original data.
             // You have to use setVar() explicit for this value...
-            if(!strValue.equals(LSC_VARS_CRITICAL_ENTRY_MASK)) {
-                set(oElement.key().c_str(),strValue.c_str());
+            if(strValue != LSC_VARS_CRITICAL_ENTRY_MASK) {
+                set(pElement->Name,strValue.c_str());
             }
         }
     }   
+
     // Now correct the critical vars setting...
-    if(JsonKeyExists(oCfgObj,LSC_VARS_CRITICAL_NAMES_KEY,JsonObject)) {
-        JsonObject oCriticalNames = GetJsonObject(oCfgObj,LSC_VARS_CRITICAL_NAMES_KEY);
-        int nCount = oCriticalNames["n.0"];
+    JsonNode * pCriticalNames = oCfgObj.getObject(LSC_VARS_CRITICAL_NAMES_KEY);
+    if(pCriticalNames) {
+        int nCount = pCriticalNames->getValueAsInt("n.0");
         for(int i = 1; i <= nCount; i++) {
-            char tCountBuffer[80];
-            sprintf(tCountBuffer,"n.%d",i);
-            const char *pszName = oCriticalNames[tCountBuffer];
+            char szCountBuffer[80];
+            snprintf(szCountBuffer,sizeof(szCountBuffer), "n.%d",i);
+            const char *pszName = pCriticalNames->getValue(szCountBuffer);
             CVar *pVar = find(pszName);
             if(pVar != nullptr) {
                 pVar->setCriticalVar(true);

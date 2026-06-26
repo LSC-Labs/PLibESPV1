@@ -28,7 +28,7 @@
  */
 #include <Appl.h>
 #include <Network.h>
-#include <ArduinoJson.h>
+#include <JsonNode.h>
 
 #ifndef WIFI_MODULE_DEFAULT_AP_IP
     #define WIFI_MODULE_DEFAULT_AP_IP     IPAddress(192,168,4,1)
@@ -122,7 +122,21 @@ struct WiFiStatus {
  *  */
 class CWiFiController : public IModule { 
     private:
+        String m_strBuffer;
         WiFiConfig    Config;   // Configuration of the WiFi module
+        const char *getConfigBSSIDAsString() {
+            char szTemp[4];
+            bool bHasValues = false;
+            bool bIsFirst = true;
+            m_strBuffer = "";
+            for(size_t nIdx = 0; nIdx < sizeof(Config.wifi_bssid); nIdx++) {
+                if(Config.wifi_bssid[nIdx] != 0) bHasValues = true;
+                snprintf(szTemp,sizeof(szTemp),"%02x",Config.wifi_bssid[nIdx]);
+                if(!bIsFirst) m_strBuffer += ":";
+                m_strBuffer += szTemp;
+            }
+            return(bHasValues ? m_strBuffer.c_str() : "");
+        }
 
     public:
         WiFiStatus  Status;     // Status of the WiFi module
@@ -131,9 +145,9 @@ class CWiFiController : public IModule {
     public:
         CWiFiController();
  
-        void writeConfigTo( JsonObject &oCfgObj, bool bHideCritical) override;
-        void readConfigFrom(JsonObject &oCfgObj) override;
-        void writeStatusTo( JsonObject &oStatusObj) override;
+        void writeConfigTo( JsonNode &oCfgObj, bool bHideCritical) override;
+        void readConfigFrom(JsonNode &oCfgObj) override;
+        void writeStatusTo( JsonNode &oStatusObj, int nLevel = STATUS_LEVEL_INFO) override;
         void writeStatusToLog();
     
         /**
@@ -167,6 +181,8 @@ class CWiFiController : public IModule {
                             byte bSSID[6]);
 
             void onWiFiScanResult(int nNumber);
+
+            bool storeIPAddressIf(JsonNode & oCfgData,const char *pszKeyName, IPAddress & pTarget);
 };
 
 

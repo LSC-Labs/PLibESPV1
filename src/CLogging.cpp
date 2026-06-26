@@ -3,7 +3,7 @@
 #endif
 
 #include <Arduino.h>
-#include <ArduinoJson.h>
+#include <JsonNode.h>
 #include <Logging.h>
 #include <Msgs.h>
 #include <DevelopmentHelper.h>
@@ -48,7 +48,7 @@ void CEventLogger::log(const char * pszType, const char *pszMessage, ...) {
     pEventHandler->sendEvent(this, MSG_LOG_ENTRY, tBuffer, cType );
 }
 
-void CEventLogger::log(const char * pszType, JsonDocument *pDoc) {
+void CEventLogger::log(const char * pszType, JsonNode *pDoc) {
     char cType = pszType == nullptr ? 'I' : pszType[0];
     pEventHandler->sendEvent(this, MSG_LOG_ENTRY_JSON,pDoc, cType );
 }
@@ -84,7 +84,7 @@ bool CLogWriter::isLogLevelToWrite(const char cType) {
     }
     return(bResult);
 }
-void CLogWriter::writeLogEntry(const char *pszType, JsonDocument *pDoc) {
+void CLogWriter::writeLogEntry(const char *pszType, JsonNode *pDoc) {
 }
 
 /// @brief Class to handle the logging for a module
@@ -108,7 +108,7 @@ int CLogWriter::receiveEvent(const void *pSender, int nMsgType, const void *pMes
                 writeLogEntry(strType.c_str(),(const char *) pMessage);
             } 
             else if (nMsgType == MSG_LOG_ENTRY_JSON) {
-                writeLogEntry(strType.c_str(),(JsonDocument *)(pMessage));
+                writeLogEntry(strType.c_str(),(JsonNode *)(pMessage));
             }
         }
     }
@@ -127,9 +127,9 @@ void CStreamLogWriter::writeLogEntry(const char *pszType, const char *pszMessage
     }
 }
 
-void CStreamLogWriter::writeLogEntry(const char *pszType, JsonDocument *pDoc) {
+void CStreamLogWriter::writeLogEntry(const char *pszType, JsonNode *pDoc) {
     if(pStream) {
-        serializeJsonPretty(*pDoc,*pStream);
+        pStream->write(pDoc->getAsJsonText());
         pStream->println();
     }
 }

@@ -13,8 +13,8 @@
  * @see https://github.com/Jason2866/ESP32_Show_Info/blob/main/src/Chip_info.ino#L68
  * 
  */
+#include "Runtime.h"
 #include <StatusHandler.h>
-#include "Arduino.h"
 #include "Esp.h"
 #include <memory>
 
@@ -100,7 +100,7 @@ class CSysStatus : public IStatusHandler {
       CSysStatus();
       ~CSysStatus();
         const char * getSdkVersion();
-        const char * getChipModel();
+        const char * getChipID();
         uint32_t getFlashChipId();
         uint32_t getFlashChipRealSize();
         uint32_t getFlashChipSize();
@@ -112,6 +112,6 @@ class CSysStatus : public IStatusHandler {
         uint32_t getFreePsram();
         uint32_t getCpuFrequencyMhz();
 
-        void writeStatusTo(JsonObject &oStatusObj) override;
+        void writeStatusTo(JsonNode &oStatusObj, int nLevel = STATUS_LEVEL_INFO) override;
 
 };

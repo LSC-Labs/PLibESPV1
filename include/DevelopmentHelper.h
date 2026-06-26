@@ -27,7 +27,7 @@
     #define DEBUG_FUNC_END()                Serial.printf( "[D] Function end <<<<<: %s\n",__PRETTY_FUNCTION__)
     #define DEBUG_FUNC_START_PARMS(str,...) Serial.printf( "[D] Function start >>>: %s - (" str ")\n",__PRETTY_FUNCTION__,__VA_ARGS__)
     #define DEBUG_FUNC_END_PARMS(str,...)   Serial.printf( "[D] Function end <<<<<: %s - (" str ")\n",__PRETTY_FUNCTION__,__VA_ARGS__)
-    #define DEBUG_JSON_OBJ(oJsonObj)        {serializeJson(oJsonObj,Serial);Serial.println();}    
+    #define DEBUG_JSON_OBJ(oJsonObj)        {Serial.println(oJsonObj.getAsJsonTextPretty());}    
     #define DEBUG_TODO(str)                 Serial.printf("TODO - (%s - #%d): %s",__FILE__,__LINE__,str)
     #define DEBUG_TODO_INFUNC(str)          Serial.printf("TODO - (%s - #%d %s()): %s",__FILE__,__LINE__,__func__,str)
     // (!) Be carefully, this delay can have side effects. (also in Async function callbacks !)

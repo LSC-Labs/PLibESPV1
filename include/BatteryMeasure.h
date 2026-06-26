@@ -20,8 +20,8 @@ class CBatteryMeasure : public ApplModule {
         float getVoltage(int nDigits = -1);
         
         // Implementation of the Interfaces
-        void  writeStatusTo( JsonObject &oStatusObj)                     override;
-        void  writeConfigTo( JsonObject &oConfigObj, bool bHideCritical) override;
-        void  readConfigFrom(JsonObject &oConfigObj)                     override;
+        void  writeStatusTo( JsonNode &oStatusObj, int nLevel)         override;
+        void  writeConfigTo( JsonNode &oConfigObj, bool bHideCritical) override;
+        void  readConfigFrom(JsonNode &oConfigObj)                     override;
 };
 

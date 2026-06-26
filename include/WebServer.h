@@ -53,9 +53,9 @@ class CWebServer : public AsyncWebServer, public IModule {
     public:
         CWebServer(int nPortNumber = 80);
 
-        void writeStatusTo(JsonObject &oStatusNode) override;
-        void writeConfigTo(JsonObject &oNode, bool bHideCritical)  override; 
-        void readConfigFrom(JsonObject &oNode) override;
+        void writeStatusTo(JsonNode &oStatusNode, int nLevel = STATUS_LEVEL_INFO) override;
+        void writeConfigTo(JsonNode &oNode, bool bHideCritical)  override; 
+        void readConfigFrom(JsonNode &oNode) override;
         int receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) override;
     
         void registerFileAccess();
