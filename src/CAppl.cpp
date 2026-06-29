@@ -295,8 +295,8 @@ JsonNode *  CAppl::getStatus(int nLevel) {
 	return( & m_oStatus);
 }
 
-const char * CAppl::getStatusAsText() {
-    JsonNode * pStatus = getStatus();
+const char * CAppl::getStatusAsText(int nLevel) {
+    JsonNode * pStatus = getStatus(nLevel);
     return(pStatus->getAsJsonText());
 }
 

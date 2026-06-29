@@ -147,8 +147,8 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
         bool saveConfig(const char *pszFileName = JSON_APPL_CONFIG_FILE,  int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
 
         JsonNode    * getStatus(int nLevel = STATUS_LEVEL_INFO);
+        const char  * getStatusAsText(int nLevel = STATUS_LEVEL_INFO);
         JsonNode    * getState();
-        const char  * getStatusAsText();
         const char  * getStateAsText();
 
         void writeStatusTo(JsonNode & oNode, int nStatusLevel) override;
