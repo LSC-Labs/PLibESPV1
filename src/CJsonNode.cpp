@@ -326,7 +326,16 @@ long CJsonNode::getValueAsLong(const char* pszName, long lDefault) {
     return(nResult);
 }
 
-
+unsigned long CJsonNode::getValueAsUnsignedLong( unsigned long ulDefault) {
+    unsigned long nResult = ulDefault;
+    if (isNumberValue()) nResult = atol(m_strValue.c_str());
+    return(nResult);
+}
+unsigned long CJsonNode::getValueAsUnsignedLong(const char* pszName, unsigned long ulDefault) {
+    CJsonNode* pNode = find(pszName);
+    unsigned long nResult = pNode ? pNode->getValueAsUnsignedLong(ulDefault) : ulDefault;
+    return(nResult);
+}
 
 float CJsonNode::getValueAsFloat(float fDefault) {
     double fResult = fDefault;
@@ -554,6 +563,19 @@ CJsonNode* CJsonNode::getObject(const char* pszName, bool bCreateIfNotExist) {
         pNode->m_nObjectType = ELEMENT_TYPE::OBJECT;
     }
     return((pNode && pNode->getType() == ELEMENT_TYPE::OBJECT) ? pNode : nullptr);
+}
+
+/**
+ * Create an empty object (makes only sense in arrays !)
+ */
+CJsonNode* CJsonNode::createEmptyObject() {
+    CJsonNode *pNode = nullptr;
+    if(m_nObjectType == ELEMENT_TYPE::ARRAY) {
+        *pNode = new CJsonNode();
+        pNode->m_nObjectType = ELEMENT_TYPE::OBJECT;
+        Elements.push_back(pNode);
+    }
+    return(pNode);
 }
 
 /**

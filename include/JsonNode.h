@@ -75,6 +75,7 @@ protected:
     ELEMENT_TYPE        getType();
     CJsonNode*          find(const char* pszName);
     CJsonNode*          createJsonPathToElement(const char *pszElement);
+    CJsonNode*          createEmptyObject();
     CJsonNode   &       operator[](const char *pszName);
     CJsonNode   &       operator[](String & strName);
 
@@ -97,8 +98,11 @@ protected:
     float getValueAsFloat(const char *pszname, float fDefault = -999.0);
     float getValueAsFloat(float fDefault = -999.0);
 
-    long getValueAsLong(const char *pszname, long lDefault = -999.0);
-    long getValueAsLong(long lDefault = -999.0);
+    long getValueAsLong(const char *pszname, long lDefault = 0);
+    long getValueAsLong(long lDefault = 0);
+
+    unsigned long getValueAsUnsignedLong(const char *pszname, unsigned long ulDefault = 0);
+    unsigned long getValueAsUnsignedLong(unsigned long ulDefault = 0);
 
     bool getValueAsBool(const char *pszname, bool bDefault = false);
     bool getValueAsBool(bool bDefault = false);
