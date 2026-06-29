@@ -19,7 +19,7 @@ void CEventHandler::registerEventReceiver(IMsgEventReceiver *pEventReceiver, con
             dumpReceiver();
         #endif
     } else {
-        auto pEntry = m_tReceiverTable.set(pszReceiverName,pEventReceiver);
+        auto pEntry = m_tReceiverTable.set(pszReceiverName ? pszReceiverName : "-",pEventReceiver);
         DEBUG_INFOS("MsgBus: Registered new receiver... %p (%s)",pEntry->value,pEntry->getKey());
     }
 /*
