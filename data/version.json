@@ -1,7 +1,9 @@
 {
     "name": "PLibESPV1",
-    "major": 0,
-    "minor": 1,
-    "patch": 0,
-    "build": 0
+    "major": "1",
+    "minor": "2",
+    "patch": "0",
+    "build": 0,
+    "author": "LSC Labs - P.Liebl",
+    "homepage": "https://github.com/lsc-labs/PLibESPV1#readme"
 }
