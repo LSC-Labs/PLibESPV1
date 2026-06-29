@@ -566,15 +566,39 @@ CJsonNode* CJsonNode::getObject(const char* pszName, bool bCreateIfNotExist) {
 }
 
 /**
- * Create an empty object (makes only sense in arrays !)
+ * @brief Create an (empty) element
+ * Will not guarantee valid JSON structure - use only at right place
+ * - if a node exists with this name, it will be cleared()
  */
-CJsonNode* CJsonNode::createEmptyObject() {
+CJsonNode* CJsonNode::createElement(const char *pszName) {
     CJsonNode *pNode = nullptr;
-    if(m_nObjectType == ELEMENT_TYPE::ARRAY) {
-        *pNode = new CJsonNode();
-        pNode->m_nObjectType = ELEMENT_TYPE::OBJECT;
-        Elements.push_back(pNode);
-    }
+    if(pszName) pNode = find(pszName);
+    if(!pNode) pNode = new CJsonNode();
+    else pNode->clear();
+    pNode->m_nObjectType = ELEMENT_TYPE::VALUE;
+    Elements.push_back(pNode);
+    return(pNode);
+}
+
+/**
+ * @brief Create an empty object 
+ * Will not guarantee valid JSON structure - use only at right place
+ * - if a node exists with this name, it will be cleared()
+ */
+CJsonNode* CJsonNode::createObject(const char *pszName) {
+    CJsonNode *pNode = createElement(pszName);
+    pNode->m_nObjectType = ELEMENT_TYPE::OBJECT;
+    return(pNode);
+}
+
+/**
+ * @brief Create an empty array 
+ * Will not guarantee valid JSON structure - use only at right place
+ * - if a node exists with this name, it will be cleared()
+ */
+CJsonNode* CJsonNode::createArray(const char *pszName) {
+    CJsonNode *pNode = createElement(pszName);
+    pNode->m_nObjectType = ELEMENT_TYPE::ARRAY;
     return(pNode);
 }
 

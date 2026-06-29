@@ -75,7 +75,9 @@ protected:
     ELEMENT_TYPE        getType();
     CJsonNode*          find(const char* pszName);
     CJsonNode*          createJsonPathToElement(const char *pszElement);
-    CJsonNode*          createEmptyObject();
+    CJsonNode*          createElement(const char *pszName = nullptr);
+    CJsonNode*          createObject(const char *pszName = nullptr);
+    CJsonNode*          createArray(const char *pszName = nullptr);
     CJsonNode   &       operator[](const char *pszName);
     CJsonNode   &       operator[](String & strName);
 
