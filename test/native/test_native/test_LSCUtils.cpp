@@ -29,6 +29,20 @@ TEST(LSCUtils,testIsNotValidNumber) {
     EXPECT_FALSE(LSC::isNumber("+#"));
 }
 
+TEST(LSCUtils,testIsNotValidNumberWithoutDigits) {
+    EXPECT_FALSE(LSC::isNumber(""));
+    EXPECT_FALSE(LSC::isNumber("+"));
+    EXPECT_FALSE(LSC::isNumber("-"));
+    EXPECT_FALSE(LSC::isNumber("."));
+    EXPECT_FALSE(LSC::isNumber("+."));
+    EXPECT_FALSE(LSC::isNumber("-."));
+}
+
+TEST(LSCUtils,testIsNotValidNumberWithMultipleDecimalPoints) {
+    EXPECT_FALSE(LSC::isNumber("5.5.5"));
+    EXPECT_FALSE(LSC::isNumber("..5"));
+}
+
 TEST(LSCUtils,testIndexOfMiddle) {
     const char *pszTest = "Sub.Data.1";
     int nExpected = 3;
@@ -49,6 +63,11 @@ TEST(LSCUtils,testNotInIndexOf) {
     int nExpected = -1;
     int nIdx = LSC::indexOf(pszTest,'F');
     ASSERT_EQ(nIdx,nExpected);
+}
+
+TEST(LSCUtils,testIndexOfNullAndEmptyString) {
+    EXPECT_EQ(LSC::indexOf(nullptr,'F'),-1);
+    EXPECT_EQ(LSC::indexOf("",'F'),-1);
 }
 
 TEST(LSCUtils,testLastIndexOfDeli) {
@@ -74,6 +93,11 @@ TEST(LSCUtils,testLastIndexOfStart) {
     int nExpected = 0;
     int nIdx = LSC::lastIndexOf(pszTest,'S');
     ASSERT_EQ(nIdx,nExpected);
+}
+
+TEST(LSCUtils,testLastIndexOfNullAndEmptyString) {
+    EXPECT_EQ(LSC::lastIndexOf(nullptr,'F'),-1);
+    EXPECT_EQ(LSC::lastIndexOf("",'F'),-1);
 }
 
 
@@ -146,6 +170,16 @@ TEST(LSCUtils,testSkipWhiteSpaces) {
     EXPECT_EQ(*psz,'#');
 }
 
+TEST(LSCUtils,testSkipWhiteNullPointer) {
+    EXPECT_EQ(LSC::skipWhite(nullptr),nullptr);
+}
+
+TEST(LSCUtils,testSkipWhiteOnlyWhiteSpaces) {
+    char szData[] = " \t\r\n";
+    const char *psz = LSC::skipWhite(szData);
+    EXPECT_EQ(*psz,'\0');
+}
+
 #pragma endregion
 
 #pragma region parse byte tests
@@ -159,6 +193,25 @@ TEST(LSCUtils,testParseToByteArray) {
     EXPECT_EQ(bData[1],128);
     EXPECT_EQ(bData[2],99);
     EXPECT_EQ(bData[3],5);
+}
+
+TEST(LSCUtils,testParseToByteArrayStopsAtMaxBytes) {
+    char szData[] = "1.2.3.4";
+    uint8_t bData[2];
+    int nSize = LSC::parseBytesToArray(bData,szData,'.',sizeof(bData),10);
+    EXPECT_EQ(nSize,2);
+    EXPECT_EQ(bData[0],1);
+    EXPECT_EQ(bData[1],2);
+}
+
+TEST(LSCUtils,testParseHexToByteArray) {
+    char szData[] = "0A:ff:10";
+    uint8_t bData[4];
+    int nSize = LSC::parseBytesToArray(bData,szData,':',sizeof(bData),16);
+    EXPECT_EQ(nSize,3);
+    EXPECT_EQ(bData[0],10);
+    EXPECT_EQ(bData[1],255);
+    EXPECT_EQ(bData[2],16);
 }
 
 #pragma endregion
@@ -201,7 +254,27 @@ TEST(LSCUtils,testGetFarenheitFromCelsius) {
     ASSERT_EQ(32.0, fResult);
 }
 
+TEST(LSCUtils,testGetFarenheitFromCelsiusBoilingPoint) {
+    float fResult = LSC::getFarenheitFromCelsius(100);
+    ASSERT_FLOAT_EQ(212.0, fResult);
+}
+
+TEST(LSCUtils,testGetFarenheitFromCelsiusNegativeForty) {
+    float fResult = LSC::getFarenheitFromCelsius(-40);
+    ASSERT_FLOAT_EQ(-40.0, fResult);
+}
+
 TEST(LSCUtils,testGetCelsiusFromFarenheit) {
     float fResult = LSC::getCelsiusFromFarenheit(32);
     ASSERT_EQ(0.0, fResult);
+}
+
+TEST(LSCUtils,testGetCelsiusFromFarenheitBoilingPoint) {
+    float fResult = LSC::getCelsiusFromFarenheit(212);
+    ASSERT_FLOAT_EQ(100.0, fResult);
+}
+
+TEST(LSCUtils,testGetCelsiusFromFarenheitNegativeForty) {
+    float fResult = LSC::getCelsiusFromFarenheit(-40);
+    ASSERT_FLOAT_EQ(-40.0, fResult);
 }
