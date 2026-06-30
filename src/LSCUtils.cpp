@@ -25,6 +25,7 @@ namespace LSC {
 
     bool isNumber(const char *pszString) {
         bool bResult = false;
+        bool bHasDigit = false;
         unsigned int nDotCounter = 0;
         if (pszString && *pszString) {
             // Allow optional '+' or '-' at the start (but still false if only char.
@@ -32,6 +33,7 @@ namespace LSC {
             while (*pszString) {
                 if ((*pszString >= '0' && *pszString <= '9') || *pszString == '.') {
                     if (*pszString == '.') nDotCounter++;
+                    else bHasDigit = true;
                     bResult = true;
                 }
                 else { bResult = false; break; }
@@ -39,7 +41,7 @@ namespace LSC {
             }
 
         }
-        return (bResult && nDotCounter < 2); // Must have at least one digit and only 0 or 1 dot inside.
+        return (bResult && bHasDigit && nDotCounter < 2); // Must have at least one digit and only 0 or 1 dot inside.
     }
     /**
      * @brief skipWhite skips the white characters.
@@ -130,7 +132,7 @@ namespace LSC {
         return((fTemp * 1.8) + 32);
     }
     float getCelsiusFromFarenheit(float fTemp) {
-        return((fTemp - 32) * 1.8);
+        return((fTemp - 32) / 1.8);
     }
 /*
     String getAddressAsString(IPAddress ip) {
