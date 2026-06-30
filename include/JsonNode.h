@@ -36,6 +36,7 @@ public:
     std::vector<CJsonNode*> Elements;
 
 protected:
+    JsonNode      * m_pParentNode = nullptr;
     bool            m_bWriteValueWithQuotes = true;
     ELEMENT_TYPE    m_nObjectType = ELEMENT_TYPE::OBJECT;
 
@@ -44,6 +45,7 @@ protected:
     String  m_strSerializationCache;
     String  m_strValue;
 
+    void         setParentNode(JsonNode * pParentNode);
     const char*  parseValue(const char* pszJsonData, String& strValueData, bool& bHasQuotes);
     const char * serializeNode(String & strResultString, int nIdentDeep = 0);
     void         writeIdentPrefixString(String & strResultString, int nIdentDeep = 0);
@@ -51,7 +53,20 @@ protected:
     bool         getNameFromJsonPath(const char *pszName, String & strName);
     
     
-    public:
+public:
+
+    CJsonNode() {}
+    CJsonNode(const char* pszName, const char* pszValue);
+    CJsonNode(const char* pszName, ELEMENT_TYPE eType = ELEMENT_TYPE::OBJECT);
+
+    virtual ~CJsonNode() {
+        clear();
+    }
+    virtual void        clear();
+    virtual bool        exists(const char* pszName);
+    ELEMENT_TYPE        getType();
+    JsonNode *          getParentNode();
+
     bool isJsonObject();
     bool isJsonObject(const char *pszName);
     bool isJsonArray();
@@ -62,17 +77,6 @@ protected:
     bool isNumberValue(const char *pszName);
     bool isBooleanValue();
     bool isBooleanValue(const char *pszName);
-    
-    CJsonNode() {}
-    CJsonNode(const char* pszName, const char* pszValue);
-    CJsonNode(const char* pszName, ELEMENT_TYPE eType = ELEMENT_TYPE::OBJECT);
-    
-    virtual ~CJsonNode() {
-        clear();
-    }
-    virtual void        clear();
-    virtual bool        exists(const char* pszName);
-    ELEMENT_TYPE        getType();
     CJsonNode*          find(const char* pszName);
     CJsonNode*          createJsonPathToElement(const char *pszElement);
     CJsonNode*          createElement(const char *pszName = nullptr);

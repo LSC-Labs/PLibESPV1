@@ -23,6 +23,14 @@ void CJsonNode::clear() {
     Elements.clear();
 }
 
+JsonNode * CJsonNode::getParentNode() {
+    return(m_pParentNode);
+}
+
+void CJsonNode::setParentNode(JsonNode * pParentNode) {
+    m_pParentNode = pParentNode;
+}
+
 /**
  * @brief Find a CJsonNode with the name
  * The name is either a node name (unlimited size) or
@@ -554,6 +562,7 @@ CJsonNode* CJsonNode::getObject(const char* pszName, bool bCreateIfNotExist) {
         String strName;
         getNameFromJsonPath(pszName,strName);
         pNode = new CJsonNode(strName.c_str(), ELEMENT_TYPE::OBJECT);
+        pNode->setParentNode(this);
         pPath->Elements.push_back(pNode);
     } 
     // Clear and convert to object if wrong type when CreateIfNotExist is set to true
@@ -573,7 +582,10 @@ CJsonNode* CJsonNode::getObject(const char* pszName, bool bCreateIfNotExist) {
 CJsonNode* CJsonNode::createElement(const char *pszName) {
     CJsonNode *pNode = nullptr;
     if(pszName) pNode = find(pszName);
-    if(!pNode) pNode = new CJsonNode();
+    if(!pNode) {
+        pNode = new CJsonNode();
+        pNode->setParentNode(this);
+    }
     else pNode->clear();
     pNode->m_nObjectType = ELEMENT_TYPE::VALUE;
     Elements.push_back(pNode);
@@ -623,6 +635,7 @@ CJsonNode* CJsonNode::getArray(const char* pszName, bool bCreateIfNotExist) {
         String strName;
         getNameFromJsonPath(pszName,strName);
         pNode = new CJsonNode(strName.c_str(), ELEMENT_TYPE::ARRAY);
+        pNode->setParentNode(this);
         pPath->Elements.push_back(pNode);
     }
     // Clear and convert to object if wrong type when CreateIfNotExist is set to true
@@ -655,6 +668,7 @@ CJsonNode* CJsonNode::getElement(const char* pszName, bool bCreateIfNotExist) {
         String strName;
         getNameFromJsonPath(pszName,strName);
         pNode = new CJsonNode(strName.c_str(), ELEMENT_TYPE::VALUE);
+        pNode->setParentNode(this);
         pPath->Elements.push_back(pNode);
     }
     
@@ -965,6 +979,7 @@ const char* CJsonNode::parse(const char* pszJsonData) {
             case '{': // Sub Object detected ?
             case '[': // Sub Array detected ? or inside a string
                 pActiveNode = new CJsonNode(strKeyName.c_str());
+                pActiveNode->setParentNode(this);
                 pszJsonData = pActiveNode->parse(pszJsonData);
                 Elements.push_back(pActiveNode);
                 break;
@@ -990,6 +1005,7 @@ const char* CJsonNode::parse(const char* pszJsonData) {
                 }
                 else {
                     pActiveNode = new CJsonNode(m_nObjectType == ELEMENT_TYPE::ARRAY ? "" : strKeyName.c_str(), strData.c_str());
+                    pActiveNode->setParentNode(this);
                     pActiveNode->m_bWriteValueWithQuotes = bValueIsQuoted;
                     Elements.push_back(pActiveNode);
                     strKeyName.clear();

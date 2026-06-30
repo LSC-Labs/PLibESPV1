@@ -11,7 +11,7 @@ class CNamedValueEntry {
 
     public:
         CNamedValueEntry(const char *pszKey, TValue value) {
-            this->m_pszKey = strdup(pszKey);
+            this->m_pszKey = pszKey ? strdup(pszKey) : nullptr;
             this->value = value;
         }
 
