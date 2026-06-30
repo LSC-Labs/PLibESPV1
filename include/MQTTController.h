@@ -1,6 +1,28 @@
 #pragma once
 #include <Runtime.h>
-#include <AsyncMqttClient.h>
+#ifdef NATIVE_RUNTIME
+    #include <JsonNode.h>
+
+    enum class AsyncMqttClientDisconnectReason {
+        TCP_DISCONNECTED,
+        MQTT_UNACCEPTABLE_PROTOCOL_VERSION,
+        MQTT_IDENTIFIER_REJECTED,
+        MQTT_SERVER_UNAVAILABLE,
+        MQTT_MALFORMED_CREDENTIALS,
+        MQTT_NOT_AUTHORIZED,
+        ESP8266_NOT_ENOUGH_SPACE
+    };
+
+    struct AsyncMqttClientMessageProperties {};
+
+    class AsyncMqttClient {
+        public:
+            bool connected() { return(false); }
+            void connect() {}
+    };
+#else
+    #include <AsyncMqttClient.h>
+#endif
 #include <ApplModule.h>
 #include <NamedValueTable.h>
 #include <SimpleDelay.h>
@@ -157,3 +179,27 @@ class MQTTMessage {
         return pController ? pController->isDeviceCommandTopic(Topic) : false;
     }
 };
+
+#ifdef NATIVE_RUNTIME
+inline bool CMQTTController::isDeviceTopic(const char *pszTopic) {
+    bool bIsDeviceTopic = false;
+    if(pszTopic) {
+        size_t nPublishTopicLength = Config.PublishTopicPrefix.length();
+        if(strlen(pszTopic) > nPublishTopicLength && pszTopic[nPublishTopicLength] == '/') {
+            String strTopicPrefix(pszTopic,nPublishTopicLength);
+            bIsDeviceTopic = LSC::stricmp(strTopicPrefix.c_str(),Config.PublishTopicPrefix.c_str()) == 0;
+        }
+    }
+    return(bIsDeviceTopic);
+}
+
+inline bool CMQTTController::isDeviceCommandTopic(const char *pszTopic) {
+    bool bIsCommandTopic = false;
+    if(isDeviceTopic(pszTopic)) {
+        size_t nPublishTopicLength = Config.PublishTopicPrefix.length();
+        bIsCommandTopic = LSC::stricmp(&pszTopic[nPublishTopicLength],"/cmd") == 0 ||
+                          strncmp(&pszTopic[nPublishTopicLength],"/cmd/",5) == 0;
+    }
+    return(bIsCommandTopic);
+}
+#endif

@@ -1,5 +1,9 @@
 #pragma once
-#include <Appl.h>
+#ifdef NATIVE_RUNTIME
+    #include <ModuleInterface.h>
+#else
+    #include <Appl.h>
+#endif
 
 /**
  * @brief Abstract Basic Module Implementation

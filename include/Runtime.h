@@ -20,13 +20,27 @@
 
 #ifdef NATIVE_RUNTIME
     #include <string.h>
+    #include <chrono>
     #include <iostream>
     
 
     #define String std::string
     #define SerialPrintf printf
     #define ICACHE_FLASH_ATTR
+    #define F(value) value
+
+    class NativeSerial {
+        public:
+            template<typename... Args>
+            void printf(const char *pszFormat, Args... args) { ::printf(pszFormat,args...); }
+            void print(const char *pszValue) { ::printf("%s",pszValue); }
+            void println(const char *pszValue) { ::printf("%s\n",pszValue); }
+    };
+
+    extern NativeSerial Serial;
+
     char* strlwr(char* s);
+    unsigned long millis();
 #else
     #include <Arduino.h>
     
