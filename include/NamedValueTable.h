@@ -170,8 +170,12 @@ class CNamedValueTable {
             bool bHasValueEntry = hasValueEntry(value);
 
             bool doInsert = true;
-            if(m_bOnlyUniqueKeys)   doInsert = !bHasKeyEntry;
-            if(m_bOnlyUniqueValues) doInsert = !bHasValueEntry;
+            if(m_bOnlyUniqueKeys && bHasKeyEntry) {
+                doInsert = true;
+            } else {
+                if(m_bOnlyUniqueKeys)   doInsert = !bHasKeyEntry;
+                if(m_bOnlyUniqueValues) doInsert = !bHasValueEntry;
+            }
 
             if(doInsert) {
                 if(m_bOnlyUniqueKeys)   pEntry = findFirstByKey(pszKey);
@@ -251,4 +255,3 @@ class CUniqueNameMultiValueTable : public CNamedValueTable<TValue> {
             this->m_bOnlyUniqueValues = false;
         }
 };
-
