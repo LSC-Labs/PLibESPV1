@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_json_helper_8h" kind="file" language="C++">
+    <compoundname>JsonHelper.h</compoundname>
+    <includes local="no">ArduinoJson.h</includes>
+    <includes local="no">IPAddress.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>include/JsonHelper.h</label>
+        <link refid="_json_helper_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ArduinoJson.h</label>
+      </node>
+      <node id="3">
+        <label>IPAddress.h</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespace_l_s_c">LSC</innernamespace>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_json_helper_8h_1aecc027364a26483c119b47449d161149" prot="public" static="no">
+        <name>GetJsonDocumentAsObject</name>
+        <param><defname>oDoc</defname></param>
+        <initializer>oDoc.as&lt;JsonObject&gt;()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonHelper.h" line="5" column="9" bodyfile="include/JsonHelper.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_json_helper_8h_1a4f2afeaa5d20d3fe713606877c0ec78d" prot="public" static="no">
+        <name>JSON_DOC</name>
+        <param><defname>n</defname></param>
+        <param><defname>s</defname></param>
+        <initializer>n = DynamicJsonDocument(s)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonHelper.h" line="8" column="13" bodyfile="include/JsonHelper.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_json_helper_8h_1aaaa81ffc810e356d8045be8911374343" prot="public" static="no">
+        <name>JSON_DOC_STATIC</name>
+        <param><defname>n</defname></param>
+        <param><defname>s</defname></param>
+        <initializer>StaticJsonDocument&lt;s&gt; n</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonHelper.h" line="9" column="13" bodyfile="include/JsonHelper.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_json_helper_8h_1a1be822833f8e654b85919cebacff3041" prot="public" static="no">
+        <name>CreateJsonArray</name>
+        <param><defname>doc</defname></param>
+        <param><defname>name</defname></param>
+        <initializer>doc.createNestedArray(name)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonHelper.h" line="10" column="13" bodyfile="include/JsonHelper.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_json_helper_8h_1ae002f6d7b2189a442e84ff7b9942abb2" prot="public" static="no">
+        <name>CreateEmptyJsonArray</name>
+        <param><defname>doc</defname></param>
+        <param><defname>name</defname></param>
+        <initializer>doc.createNestedArray()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonHelper.h" line="11" column="13" bodyfile="include/JsonHelper.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_json_helper_8h_1a3e11defa707fafd30cc8690fedf52282" prot="public" static="no">
+        <name>CreateJsonObject</name>
+        <param><defname>doc</defname></param>
+        <param><defname>name</defname></param>
+        <initializer>doc.createNestedObject(name)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonHelper.h" line="12" column="13" bodyfile="include/JsonHelper.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_json_helper_8h_1ac2b8ead46b96ffef119387b57a527e09" prot="public" static="no">
+        <name>CreateEmptyJsonObject</name>
+        <param><defname>doc</defname></param>
+        <initializer>doc.createNestedObject()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonHelper.h" line="13" column="13" bodyfile="include/JsonHelper.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_json_helper_8h_1afa0f49bdbe8be961f1adda460c76fd3e" prot="public" static="no">
+        <name>GetJsonObject</name>
+        <param><defname>doc</defname></param>
+        <param><defname>name</defname></param>
+        <initializer>doc[name]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonHelper.h" line="14" column="13" bodyfile="include/JsonHelper.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_json_helper_8h_1a074c82d88cc28caf1d5c38e9cdb1d1c0" prot="public" static="no">
+        <name>GetOrCreateJsonObject</name>
+        <param><defname>doc</defname></param>
+        <param><defname>name</defname></param>
+        <initializer>(doc[name] ? doc[name] : doc.createNestedObject(name))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonHelper.h" line="15" column="13" bodyfile="include/JsonHelper.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_json_helper_8h_1abb43f25d1916d2b646e0b0c466297669" prot="public" static="no">
+        <name>JsonKeyExists</name>
+        <param><defname>obj</defname></param>
+        <param><defname>key</defname></param>
+        <param><defname>type</defname></param>
+        <initializer>obj.containsKey(ke)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonHelper.h" line="16" column="13" bodyfile="include/JsonHelper.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/JsonHelper.h"/>
+  </compounddef>
+</doxygen>

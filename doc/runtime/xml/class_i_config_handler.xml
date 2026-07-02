@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_i_config_handler" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>IConfigHandler</compoundname>
+    <derivedcompoundref refid="class_c_config_handler" prot="public" virt="non-virtual">CConfigHandler</derivedcompoundref>
+    <derivedcompoundref refid="class_c_var_table" prot="public" virt="non-virtual">CVarTable</derivedcompoundref>
+    <derivedcompoundref refid="class_i_module" prot="public" virt="non-virtual">IModule</derivedcompoundref>
+    <includes refid="_config_handler_8h" local="no">ConfigHandler.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_i_config_handler_1a3507b2ec7bef0a1ec0a7f90da0ec32f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void IConfigHandler::writeConfigTo</definition>
+        <argsstring>(JsonNode &amp;oCfgNode, bool bHideCritical)=0</argsstring>
+        <name>writeConfigTo</name>
+        <qualifiedname>IConfigHandler::writeConfigTo</qualifiedname>
+        <reimplementedby refid="class_c_appl_1a4fa9227e0a357b170dfc1e19de6c0f62">writeConfigTo</reimplementedby>
+        <reimplementedby refid="class_c_battery_measure_1ac7061f042630d9b6843ee1cda2f9c0a8">writeConfigTo</reimplementedby>
+        <reimplementedby refid="class_c_config_handler_1ace2c447f63de669086fcfbc414997c36">writeConfigTo</reimplementedby>
+        <reimplementedby refid="class_c_m_q_t_t_controller_1a4b51ae16b986cddf624d8e94c5bef1fe">writeConfigTo</reimplementedby>
+        <reimplementedby refid="class_c_n_t_p_handler_1a380ba014d81f4c3bd3d30a4ef19297d0">writeConfigTo</reimplementedby>
+        <reimplementedby refid="class_c_var_table_1ac4e51df043bd8798c8f0e9f0d00841c9">writeConfigTo</reimplementedby>
+        <reimplementedby refid="class_c_web_server_1a53e90a7c5bc2dc0af7f48580d9ed6656">writeConfigTo</reimplementedby>
+        <reimplementedby refid="class_c_wi_fi_controller_1adbe12703563fd35189de9b9ca455fb78">writeConfigTo</reimplementedby>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfgNode</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bHideCritical</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ConfigHandler.h" line="12" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_i_config_handler_1a4c43c53522b0408972d6573e91d1e63e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void IConfigHandler::readConfigFrom</definition>
+        <argsstring>(JsonNode &amp;oCfgNode)=0</argsstring>
+        <name>readConfigFrom</name>
+        <qualifiedname>IConfigHandler::readConfigFrom</qualifiedname>
+        <reimplementedby refid="class_c_appl_1a840f1e43e442a31daef9070d1e9747ad">readConfigFrom</reimplementedby>
+        <reimplementedby refid="class_c_battery_measure_1a79e98625f77a2eba67ff65342c152429">readConfigFrom</reimplementedby>
+        <reimplementedby refid="class_c_config_handler_1ac3a494e31e48d06f6ac74a3edff6cc7a">readConfigFrom</reimplementedby>
+        <reimplementedby refid="class_c_m_q_t_t_controller_1ac9c74a493bcf2f4f863023f9bfd93fee">readConfigFrom</reimplementedby>
+        <reimplementedby refid="class_c_n_t_p_handler_1ae02956df1241ff0686dd3678d8d07499">readConfigFrom</reimplementedby>
+        <reimplementedby refid="class_c_var_table_1a3aa034f6f7c46125f2c3d7640ae434db">readConfigFrom</reimplementedby>
+        <reimplementedby refid="class_c_web_server_1a1a01f3cb7de446aa89b032cb6f3eb28f">readConfigFrom</reimplementedby>
+        <reimplementedby refid="class_c_wi_fi_controller_1aeb2a0f93c114722c9fdda0d4a7460363">readConfigFrom</reimplementedby>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfgNode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ConfigHandler.h" line="13" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_i_config_handler_1a6011c82a3fe9d10ef0ea54d848557f4c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool IConfigHandler::hasConfigValues</definition>
+        <argsstring>()</argsstring>
+        <name>hasConfigValues</name>
+        <qualifiedname>IConfigHandler::hasConfigValues</qualifiedname>
+        <reimplementedby refid="class_c_var_table_1a2e95f97f9da8d6653599a8af8b118bdf">hasConfigValues</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ConfigHandler.h" line="17" column="22" bodyfile="include/ConfigHandler.h" bodystart="17" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_i_config_handler_1a8a92be059bfaca6c233419763865a5f4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void IConfigHandler::migrateConfig</definition>
+        <argsstring>(JsonNode &amp;oCfgDoc, JsonNode &amp;oCfgNode)</argsstring>
+        <name>migrateConfig</name>
+        <qualifiedname>IConfigHandler::migrateConfig</qualifiedname>
+        <reimplementedby refid="class_c_config_handler_1a609ed7c35f650b0f29de42db93d17615">migrateConfig</reimplementedby>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfgDoc</declname>
+        </param>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfgNode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ConfigHandler.h" line="27" column="22" bodyfile="include/ConfigHandler.h" bodystart="27" bodyend="27"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Interface for configuration handlers. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="6">
+        <label>ApplModule</label>
+        <link refid="class_appl_module"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CAppl</label>
+        <link refid="class_c_appl"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>CBatteryMeasure</label>
+        <link refid="class_c_battery_measure"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CConfigHandler</label>
+        <link refid="class_c_config_handler"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>CMQTTController</label>
+        <link refid="class_c_m_q_t_t_controller"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>CNTPHandler</label>
+        <link refid="class_c_n_t_p_handler"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>CVarTable</label>
+        <link refid="class_c_var_table"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>CWebServer</label>
+        <link refid="class_c_web_server"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>CWiFiController</label>
+        <link refid="class_c_wi_fi_controller"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="5">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="include/ConfigHandler.h" line="10" column="1" bodyfile="include/ConfigHandler.h" bodystart="10" bodyend="28"/>
+    <listofallmembers>
+      <member refid="class_i_config_handler_1a6011c82a3fe9d10ef0ea54d848557f4c" prot="public" virt="virtual"><scope>IConfigHandler</scope><name>hasConfigValues</name></member>
+      <member refid="class_i_config_handler_1a8a92be059bfaca6c233419763865a5f4" prot="public" virt="virtual"><scope>IConfigHandler</scope><name>migrateConfig</name></member>
+      <member refid="class_i_config_handler_1a4c43c53522b0408972d6573e91d1e63e" prot="public" virt="pure-virtual"><scope>IConfigHandler</scope><name>readConfigFrom</name></member>
+      <member refid="class_i_config_handler_1a3507b2ec7bef0a1ec0a7f90da0ec32f2" prot="public" virt="pure-virtual"><scope>IConfigHandler</scope><name>writeConfigTo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

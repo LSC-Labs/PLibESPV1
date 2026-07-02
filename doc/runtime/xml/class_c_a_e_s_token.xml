@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_a_e_s_token" kind="class" language="C++" prot="public">
+    <compoundname>CAESToken</compoundname>
+    <includes refid="_a_e_s_cryptor_8h" local="no">AESCryptor.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_a_e_s_token_1a46131a38d4d8508fd7284635d308596f" prot="private" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char CAESToken::m_copyOf[AES_CRYPTOR_BLOCK_SIZE]</definition>
+        <argsstring>[AES_CRYPTOR_BLOCK_SIZE]</argsstring>
+        <name>m_copyOf</name>
+        <qualifiedname>CAESToken::m_copyOf</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="25" column="20" bodyfile="include/AESCryptor.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_a_e_s_token_1a5cd0c172fbe64e23e1783b6477180484" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CAESToken::m_szAsString[AES_CRYPTOR_BLOCK_SIZE+2]</definition>
+        <argsstring>[AES_CRYPTOR_BLOCK_SIZE+2]</argsstring>
+        <name>m_szAsString</name>
+        <qualifiedname>CAESToken::m_szAsString</qualifiedname>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="26" column="10" bodyfile="include/AESCryptor.h" bodystart="26" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_a_e_s_token_1aa0deb248e9fb59ff72da5ef383e61ae3" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CAESToken::m_szAsBase64[AES_CRYPTOR_BLOCK_SIZE *4]</definition>
+        <argsstring>[AES_CRYPTOR_BLOCK_SIZE *4]</argsstring>
+        <name>m_szAsBase64</name>
+        <qualifiedname>CAESToken::m_szAsBase64</qualifiedname>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="27" column="10" bodyfile="include/AESCryptor.h" bodystart="27" bodyend="27"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_c_a_e_s_token_1afbe5f7d8d8189d75d60c65470390ca63" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char CAESToken::Data[AES_CRYPTOR_BLOCK_SIZE]</definition>
+        <argsstring>[AES_CRYPTOR_BLOCK_SIZE]</argsstring>
+        <name>Data</name>
+        <qualifiedname>CAESToken::Data</qualifiedname>
+        <briefdescription>
+<para>Raw 16-byte token data used as AES IV/passphrase material. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="31" column="24" bodyfile="include/AESCryptor.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_a_e_s_token_1a0cca5548d268b6567a4f322106595f34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CAESToken::CAESToken</definition>
+        <argsstring>()</argsstring>
+        <name>CAESToken</name>
+        <qualifiedname>CAESToken::CAESToken</qualifiedname>
+        <briefdescription>
+<para>Create a token initialized with empty/default data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="34" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_a_e_s_token_1af6e55ff3d4776c7031047c01f73586d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CAESToken::CAESToken</definition>
+        <argsstring>(const char *pszTokenString)</argsstring>
+        <name>CAESToken</name>
+        <qualifiedname>CAESToken::CAESToken</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszTokenString</declname>
+        </param>
+        <briefdescription>
+<para>Create a token from a plain string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="37" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_a_e_s_token_1a9fac56a5e886875b507a4784dc5796a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAESToken::loadFromString</definition>
+        <argsstring>(const char *pszTokenString)</argsstring>
+        <name>loadFromString</name>
+        <qualifiedname>CAESToken::loadFromString</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszTokenString</declname>
+        </param>
+        <briefdescription>
+<para>Load token data from a plain string, truncated/padded to block size. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="40" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_a_e_s_token_1aa1ad706e2c99d92adcf859722ddcbf97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAESToken::loadFromBase64</definition>
+        <argsstring>(const char *pszBase64String)</argsstring>
+        <name>loadFromBase64</name>
+        <qualifiedname>CAESToken::loadFromBase64</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszBase64String</declname>
+        </param>
+        <briefdescription>
+<para>Load token data from a base64-encoded string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="42" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_a_e_s_token_1a22ae2179cc631b4da8ccbdcc52218420" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CAESToken::getAsBase64</definition>
+        <argsstring>()</argsstring>
+        <name>getAsBase64</name>
+        <qualifiedname>CAESToken::getAsBase64</qualifiedname>
+        <briefdescription>
+<para>Return token data encoded as base64. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="44" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_a_e_s_token_1a4237774da71a926b4e470af680c33d86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CAESToken::getAsString</definition>
+        <argsstring>()</argsstring>
+        <name>getAsString</name>
+        <qualifiedname>CAESToken::getAsString</qualifiedname>
+        <briefdescription>
+<para>Return token data as a zero-terminated string buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="46" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_a_e_s_token_1a74cbe27e4b9296678d087c76e58852c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * CAESToken::copyOf</definition>
+        <argsstring>()</argsstring>
+        <name>copyOf</name>
+        <qualifiedname>CAESToken::copyOf</qualifiedname>
+        <briefdescription>
+<para>Return a stable copy of the raw token data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="48" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_a_e_s_token_1ad8ad7ec7760ce1db1afc0188b2e94be5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAESToken::createRandom</definition>
+        <argsstring>()</argsstring>
+        <name>createRandom</name>
+        <qualifiedname>CAESToken::createRandom</qualifiedname>
+        <briefdescription>
+<para>Fill the token with random bytes. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="50" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>AES Token for IV and Passphrase, used by <ref refid="class_c_a_e_s_cryptor" kindref="compound">CAESCryptor</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/AESCryptor.h" line="22" column="1" bodyfile="include/AESCryptor.h" bodystart="22" bodyend="51"/>
+    <listofallmembers>
+      <member refid="class_c_a_e_s_token_1a0cca5548d268b6567a4f322106595f34" prot="public" virt="non-virtual"><scope>CAESToken</scope><name>CAESToken</name></member>
+      <member refid="class_c_a_e_s_token_1af6e55ff3d4776c7031047c01f73586d6" prot="public" virt="non-virtual"><scope>CAESToken</scope><name>CAESToken</name></member>
+      <member refid="class_c_a_e_s_token_1a74cbe27e4b9296678d087c76e58852c7" prot="public" virt="non-virtual"><scope>CAESToken</scope><name>copyOf</name></member>
+      <member refid="class_c_a_e_s_token_1ad8ad7ec7760ce1db1afc0188b2e94be5" prot="public" virt="non-virtual"><scope>CAESToken</scope><name>createRandom</name></member>
+      <member refid="class_c_a_e_s_token_1afbe5f7d8d8189d75d60c65470390ca63" prot="public" virt="non-virtual"><scope>CAESToken</scope><name>Data</name></member>
+      <member refid="class_c_a_e_s_token_1a22ae2179cc631b4da8ccbdcc52218420" prot="public" virt="non-virtual"><scope>CAESToken</scope><name>getAsBase64</name></member>
+      <member refid="class_c_a_e_s_token_1a4237774da71a926b4e470af680c33d86" prot="public" virt="non-virtual"><scope>CAESToken</scope><name>getAsString</name></member>
+      <member refid="class_c_a_e_s_token_1aa1ad706e2c99d92adcf859722ddcbf97" prot="public" virt="non-virtual"><scope>CAESToken</scope><name>loadFromBase64</name></member>
+      <member refid="class_c_a_e_s_token_1a9fac56a5e886875b507a4784dc5796a2" prot="public" virt="non-virtual"><scope>CAESToken</scope><name>loadFromString</name></member>
+      <member refid="class_c_a_e_s_token_1a46131a38d4d8508fd7284635d308596f" prot="private" virt="non-virtual"><scope>CAESToken</scope><name>m_copyOf</name></member>
+      <member refid="class_c_a_e_s_token_1aa0deb248e9fb59ff72da5ef383e61ae3" prot="private" virt="non-virtual"><scope>CAESToken</scope><name>m_szAsBase64</name></member>
+      <member refid="class_c_a_e_s_token_1a5cd0c172fbe64e23e1783b6477180484" prot="private" virt="non-virtual"><scope>CAESToken</scope><name>m_szAsString</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

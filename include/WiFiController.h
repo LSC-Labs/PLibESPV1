@@ -61,65 +61,91 @@
 
 
 namespace LSC_WIFI {
+    /**
+     * @brief Create the fallback SSID used by the device access point.
+     *
+     * The SSID is built from the configured prefix and the last four bytes of
+     * the soft AP MAC address so multiple devices remain distinguishable.
+     */
     String getDefaultSSIDofAP();
 }
 
 class CWiFiController;
 
-/**
- *  @brief WiFi Configuration structure
- */
+/// @brief Runtime configuration for access point and station mode.
 struct WiFiConfig {
-    // Is in access point (true) or in station mode
+    /// @brief true for access point mode, false for station mode.
     bool accessPointMode   = true;
 
-    // Access Point (AP) Settings
+    /// @brief Access point SSID used when this device creates its own network.
     String    ap_ssid           = LSC_WIFI::getDefaultSSIDofAP();
+    /// @brief Access point password.
     String    ap_Password       = WIFI_AP_DEFAULT_PASSWORD;
+    /// @brief Access point WiFi channel.
     int       ap_channel        = 6;
+    /// @brief true to hide the AP SSID from normal scans.
     bool      ap_hidden         = false;
+    /// @brief Static IP address of the access point interface.
     IPAddress ap_ipAddress      = WIFI_MODULE_DEFAULT_AP_IP;
+    /// @brief Subnet mask of the access point interface.
     IPAddress ap_ipSubnetMask   = WIFI_MODULE_DEFAULT_AP_SUBNET;
 
-    // Wifi Station (STA) settings
+    /// @brief SSID to join in station mode.
     String    wifi_ssid;                          // SSID to join
+    /// @brief Optional fixed BSSID to join; all zero means "do not pin BSSID".
     byte      wifi_bssid[6]     = {0, 0, 0, 0, 0, 0};
+    /// @brief Password used when joining the configured station network.
     String    wifi_Password;                      // WiFi join Password
 
-    bool      dhcpEnabled = true;   // Use DHCP or not 
+    /// @brief true to use DHCP in station mode.
+    bool      dhcpEnabled = true;
 
-    // Fix IP Address setttings - if dhcpEnabled is false
+    /// @brief Static station IP address used when DHCP is disabled.
     IPAddress ipAddress;
+    /// @brief Static station subnet mask used when DHCP is disabled.
     IPAddress ipSubnetMask;
+    /// @brief Static station gateway used when DHCP is disabled.
     IPAddress ipGateway;
+    /// @brief Static station DNS server used when DHCP is disabled.
     IPAddress ipDNS;
 
-    // If join to network does not work, fallback to access point mode...
+    /// @brief true to fall back to AP mode when station mode cannot connect.
     bool autoFallbackMode = false;  // Fallback to AP Mode when STA (normal access) fails
 
-    // Retries to connect to the WiFi network Default 10 Days every 20 seconds
+    /// @brief Delay between station reconnect attempts in seconds.
     int  retryTimeoutSeconds = 20;
+    /// @brief Maximum number of reconnect attempts before WiFi is disabled.
     int  retryCount = 3*60*24*10;   
 };
 
 /// @brief WiFi Status structure
 struct WiFiStatus {
-    unsigned long startTimeInMillis = 0;  // When started...
-    unsigned long stopTimeInMillis  = 0;  // When stopped...
-    unsigned long restartTimeInMillis = -1; // When to restart the WiFi...
+    /// @brief millis() value when WiFi/AP mode was started.
+    unsigned long startTimeInMillis = 0;
+    /// @brief millis() value when WiFi was stopped.
+    unsigned long stopTimeInMillis  = 0;
+    /// @brief millis() value for the next scheduled reconnect, or -1 if none.
+    unsigned long restartTimeInMillis = -1;
 
+    /// @brief true when the active WiFi mode is connected/started.
     bool isWiFiConnected = false;
+    /// @brief true when the controller currently runs in AP mode.
     bool isInAccessPointMode = false;
+    /// @brief true when the controller currently runs in station mode.
     bool isInStationMode = false;
-    // contains error code, if connection to WLAN fails
+    /// @brief Last Arduino WiFi status, including station connection errors.
     wl_status_t wifiStatus = WL_DISCONNECTED;
+    /// @brief Number of reconnect attempts already performed.
     int nRetryConnectCounter = 0;
 };
 
 /**
- * @brief WiFi Controller class to handle the WiFi connection.
- * Is implemented as a module.
- *  */
+ * @brief Application module that controls WiFi AP/station mode.
+ *
+ * The controller reads/writes its configuration through IConfigHandler, publishes
+ * status through IStatusHandler and reacts to WiFi scan requests from the
+ * application message bus.
+ */
 class CWiFiController : public IModule { 
     private:
         String m_strBuffer;
@@ -140,49 +166,109 @@ class CWiFiController : public IModule {
 
     public:
         WiFiStatus  Status;     // Status of the WiFi module
+
+        /**
+         * @brief Return the default access point SSID generated for this device.
+         */
         static String getDefaultSSIDofAP();
 
     public:
+        /**
+         * @brief Create a WiFi controller instance with default configuration/status.
+         */
         CWiFiController();
  
+        /**
+         * @brief Write the current WiFi configuration into a JSON node.
+         * @param oCfgObj Target config node.
+         * @param bHideCritical true to mask passwords.
+         */
         void writeConfigTo( JsonNode &oCfgObj, bool bHideCritical) override;
+
+        /**
+         * @brief Read WiFi configuration values from a JSON node.
+         * @param oCfgObj Source config node.
+         */
         void readConfigFrom(JsonNode &oCfgObj) override;
+
+        /**
+         * @brief Write the currently active WiFi state into a JSON status node.
+         * @param oStatusObj Target status node.
+         * @param nLevel Requested status detail level.
+         */
         void writeStatusTo( JsonNode &oStatusObj, int nLevel = STATUS_LEVEL_INFO) override;
+
+        /**
+         * @brief Serialize the current WiFi status and write it to the application log.
+         */
         void writeStatusToLog();
     
         /**
-         * @brief setup the WiFi
-         * @param bUseConfigData - use current Config Data ,
-         *                         if false, open an default Access Point.
-         *                         if true, load the configuration before using this call.
+         * @brief Start WiFi using either default AP mode or loaded configuration.
+         * @param bUseConfigData false to start the default AP, true to use current config.
          */
         void startWiFi(bool bUseConfigData); 
 
+        /**
+         * @brief Start access point mode.
+         * @param bUseConfigData true to use configured AP settings first.
+         * @return true if AP mode is active.
+         */
         bool startAccessPoint(bool bUseConfigData);
 
+        /**
+         * @brief Retry or disable WiFi when a scheduled reconnect is pending.
+         * @return true if WiFi is connected after the check.
+         */
         bool restartIfNeeded();
 
+        /**
+         * @brief Start an asynchronous WiFi scan.
+         */
         void scanWiFi();
+
+        /**
+         * @brief Listen to the application message bus and react to WiFi commands.
+         * @return EVENT_MSG_RESULT_OK to continue event processing.
+         */
         int receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType);
 
 
         private:
+            /**
+             * @brief Convert an Arduino WiFi status code into readable text.
+             */
             String getStatusText(int nWiFiStatus);
+
+            /**
+             * @brief Disconnect station/AP mode and publish the corresponding bus events.
+             */
             void disableWiFi();
             
+            /**
+             * @brief Start access point mode with explicit network settings.
+             */
             bool  startAccessPoint( const char * pszSSID,
                                     IPAddress apip, 
                                     IPAddress apsubnet, 
                                     bool bHidden, 
                                     const char * pszPassword = NULL);
 
+            /**
+             * @brief Join an existing WiFi network in station mode.
+             */
             bool joinNetwork(const char * pszSSID, 
                             const char * pszPassword, 
                             byte bSSID[6]);
 
+            /**
+             * @brief Build and send the JSON payload for an asynchronous scan result.
+             */
             void onWiFiScanResult(int nNumber);
 
+            /**
+             * @brief Read an IP address from a JSON node when the key exists.
+             */
             bool storeIPAddressIf(JsonNode & oCfgData,const char *pszKeyName, IPAddress & pTarget);
 };
-
 

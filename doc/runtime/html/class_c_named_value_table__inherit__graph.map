@@ -1,0 +1,7 @@
+<map id="CNamedValueTable&lt; TValue &gt;" name="CNamedValueTable&lt; TValue &gt;">
+<area shape="rect" id="Node000001" title="Lightweight ordered table for named values." alt="" coords="115,5,315,31"/>
+<area shape="rect" id="Node000002" href="$class_c_multi_name_unique_value_table.html" title="Named&#45;value table that allows many names but only unique values." alt="" coords="5,79,204,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,39,133,81,130,76,183,41"/>
+<area shape="rect" id="Node000003" href="$class_c_unique_name_multi_value_table.html" title="Named&#45;value table that allows unique names and repeated values." alt="" coords="228,79,426,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="246,38,302,79,297,79,244,43"/>
+</map>

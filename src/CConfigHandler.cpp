@@ -8,20 +8,28 @@
 
 using namespace std;
 
+/**
+ * @brief Registers a configuration handler using a String name.
+ * @param strName Section name used in the JSON configuration tree.
+ * @param pHandler Handler that reads and writes this section.
+ * @param bForceInclude Reserved compatibility flag; duplicate names are still
+ *        ignored by the current implementation.
+ */
 void CConfigHandler::addConfigHandler(String strName, IConfigHandler *pHandler, bool bForceInclude){
     addConfigHandler(strName.c_str(),pHandler,bForceInclude);
 }
 
 /**
- * @brief Add a ConfigHandler into the knowd ConfigHandler list...
- * Per default, ignore, if the handler already exists with the same name.
- * If you set bForceInclude to true, the handler will be inserted anyway,
- * => the config section can be shared between modules.
+ * @brief Adds a configuration handler to the registry.
+ *
+ * The handler is stored under pszName and later receives the JSON subnode with
+ * the same name. Duplicate names are ignored by the current implementation, so
+ * one section is owned by one handler.
  * 
- * @param strName           Name of the handler like "wifi"
- * @param pHandler          The handler that can read/write the data
- * @param bForceInclude     if true, the handler will be inserted, even if the name already exists.
- *  */
+ * @param pszName Name of the handler section, for example "wifi".
+ * @param pHandler Handler that can read/write the section data.
+ * @param bForceInclude Reserved compatibility flag.
+ */
 void CConfigHandler::addConfigHandler(const char* pszName, IConfigHandler *pHandler, bool bForceInclude){
     DEBUG_FUNC_START_PARMS("%s,%p",NULL_POINTER_STRING(pszName),pHandler);
     if(pHandler && pszName) {
@@ -35,20 +43,20 @@ void CConfigHandler::addConfigHandler(const char* pszName, IConfigHandler *pHand
 }
 
 /**
- * Get a config handler by it's name.
- * If there are multiple handler with the same names, use the nIdx (zero based) counter.
- * @param strName   The registered name of the config handler
- * @param nIdx      The index of the config handler (zero based)
+ * @brief Gets a registered configuration handler by String name.
+ * @param strName Registered section name.
+ * @param nIdx Zero-based index when multiple handlers with the same name exist.
+ * @return Matching handler pointer, or nullptr.
  */
 IConfigHandler * CConfigHandler::getConfigHandler(String strName, int nIdx) {
     return(getConfigHandler(strName.c_str(),nIdx));
 }
 
 /**
- * Get a config handler by it's name.
- * If there are multiple handler with the same names, use the nIdx (zero based) counter.
- * @param pszName   The registered name of the config handler
- * @param nIdx      The index of the config handler (zero based)
+ * @brief Gets a registered configuration handler by C string name.
+ * @param pszName Registered section name.
+ * @param nIdx Zero-based index when multiple handlers with the same name exist.
+ * @return Matching handler pointer, or nullptr.
  */
 IConfigHandler * CConfigHandler::getConfigHandler(const char* pszName, int nIdx) {
     IConfigHandler *pHandler = nullptr;
@@ -62,12 +70,14 @@ IConfigHandler * CConfigHandler::getConfigHandler(const char* pszName, int nIdx)
 
 
 /**
- * @brief  If you have sub configs, call this handler to operate them
- *         For each registered handler, a subnode with the name of the handler
- *         will be created, so the sub handler can store it's information inside.
- * @param oNode The Json node, the data should be written into.
- * @param bHideCritical if true, don't show critical values, they will be exposed!
- *  */
+ * @brief Writes all registered child configurations into a parent node.
+ *
+ * For each registered handler with config values, a child object named after the
+ * handler is created and passed to that handler.
+ *
+ * @param oNode Parent JSON node receiving all child config sections.
+ * @param bHideCritical true when sensitive values should be masked by handlers.
+ */
 void CConfigHandler::writeConfigTo(JsonNode &oNode, bool bHideCritical){
     DEBUG_FUNC_START_PARMS("oNode=%p,bHideCritical=%d", &oNode, bHideCritical);
     for (const auto& oEntry : m_tListOfConfigHandlers) { 
@@ -85,10 +95,13 @@ void CConfigHandler::writeConfigTo(JsonNode &oNode, bool bHideCritical){
 
 
 /**
- * @brief Migrate the configuration of registered subhandlers
- * Attention (!) call migrate after registering the handlers.
- * @param oCfgDoc  The main configuration file with all module information inside
- * @param oCfgNode The Node of this handler - root call: this node is the document as object
+ * @brief Runs migration hooks for all registered child handlers.
+ *
+ * Call this after all handlers have been registered, otherwise unregistered
+ * modules cannot migrate their sections.
+ *
+ * @param oCfgDoc Root configuration document.
+ * @param oCfgNode Node that contains this handler's child sections.
  */
 void CConfigHandler::migrateConfig(JsonNode & oCfgDoc, JsonNode & oCfgNode) {
     DEBUG_FUNC_START();
@@ -102,9 +115,12 @@ void CConfigHandler::migrateConfig(JsonNode & oCfgDoc, JsonNode & oCfgNode) {
 }
 
 /**
- * Iterate all registered config handler and search their section
- * in the json node. If available, ask the handler to read their section.
- * @param oNode A JSON Object as base to iterate.
+ * @brief Reads all registered child configurations from a parent node.
+ *
+ * Missing child sections are skipped, leaving the corresponding handler defaults
+ * untouched.
+ *
+ * @param oNode Parent JSON node containing child config sections.
  */
 void CConfigHandler::readConfigFrom(JsonNode &oNode) {
     DEBUG_FUNC_START();

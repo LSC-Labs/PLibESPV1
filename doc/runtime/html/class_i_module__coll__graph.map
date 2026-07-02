@@ -1,0 +1,9 @@
+<map id="IModule" name="IModule">
+<area shape="rect" id="Node000001" title="Full Interface for modules." alt="" coords="158,79,225,105"/>
+<area shape="rect" id="Node000002" href="$class_i_config_handler.html" title="Interface for configuration handlers." alt="" coords="5,5,114,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,36,171,77,167,80,94,41"/>
+<area shape="rect" id="Node000003" href="$class_i_status_handler.html" title="Interface for a status handler module." alt="" coords="137,5,246,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="193,45,194,80,189,77,190,48"/>
+<area shape="rect" id="Node000004" href="$class_i_msg_event_receiver.html" title="Interface for Message Event Receivers." alt="" coords="270,5,406,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="302,38,217,81,216,76,297,39"/>
+</map>

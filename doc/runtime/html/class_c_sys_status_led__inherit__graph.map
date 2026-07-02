@@ -1,0 +1,7 @@
+<map id="CSysStatusLed" name="CSysStatusLed">
+<area shape="rect" id="Node000001" title=" " alt="" coords="56,79,169,105"/>
+<area shape="rect" id="Node000002" href="$class_c_r_g_b_led.html" title="Class to handle the RGB LED Initialize the RGB LED with the pins for the colors and with the Informat..." alt="" coords="5,5,87,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,40,104,78,99,79,66,45"/>
+<area shape="rect" id="Node000003" href="$class_i_msg_event_receiver.html" title="Interface for Message Event Receivers." alt="" coords="111,5,248,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="160,41,126,81,122,76,155,43"/>
+</map>

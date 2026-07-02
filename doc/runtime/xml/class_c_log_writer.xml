@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_log_writer" kind="class" language="C++" prot="public">
+    <compoundname>CLogWriter</compoundname>
+    <basecompoundref refid="class_i_msg_event_receiver" prot="public" virt="non-virtual">IMsgEventReceiver</basecompoundref>
+    <derivedcompoundref refid="class_c_stream_log_writer" prot="public" virt="non-virtual">CStreamLogWriter</derivedcompoundref>
+    <includes refid="_logging_8h" local="no">Logging.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_log_writer_1ada116e3ac3e9e203af5211904fa54752" prot="private" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* CLogWriter::pSender</definition>
+        <argsstring></argsstring>
+        <name>pSender</name>
+        <qualifiedname>CLogWriter::pSender</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="50" column="14" bodyfile="include/Logging.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_log_writer_1a31a5700ca8543fec690a493899aad727" prot="private" static="no" mutable="no">
+        <type><ref refid="class_c_event_handler" kindref="compound">CEventHandler</ref> *</type>
+        <definition>CEventHandler* CLogWriter::pEventHandler</definition>
+        <argsstring></argsstring>
+        <name>pEventHandler</name>
+        <qualifiedname>CLogWriter::pEventHandler</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="51" column="23" bodyfile="include/Logging.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_log_writer_1ad09ea43b6ceaadb78e4344f6cb78fc37" prot="private" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* CLogWriter::m_strModuleName</definition>
+        <argsstring></argsstring>
+        <name>m_strModuleName</name>
+        <qualifiedname>CLogWriter::m_strModuleName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="52" column="20" bodyfile="include/Logging.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_log_writer_1ae913c46cf3e0a93ec5f3aeb1149e8c76" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CLogWriter::m_nLogLevel</definition>
+        <argsstring></argsstring>
+        <name>m_nLogLevel</name>
+        <qualifiedname>CLogWriter::m_nLogLevel</qualifiedname>
+        <initializer>= 3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="53" column="14" bodyfile="include/Logging.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_c_log_writer_1a4c599fb4d4a8990ac374a148d98a53ec" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CLogWriter::isTypeToWriteAlways</definition>
+        <argsstring>(const char cType)</argsstring>
+        <name>isTypeToWriteAlways</name>
+        <qualifiedname>CLogWriter::isTypeToWriteAlways</qualifiedname>
+        <param>
+          <type>const char</type>
+          <declname>cType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="54" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_log_writer_1ab9460894fb21e3aa5a963e0737c713ab" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CLogWriter::isLogLevelToWrite</definition>
+        <argsstring>(const char cType)</argsstring>
+        <name>isLogLevelToWrite</name>
+        <qualifiedname>CLogWriter::isLogLevelToWrite</qualifiedname>
+        <param>
+          <type>const char</type>
+          <declname>cType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="55" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_log_writer_1ae3bf4c4e462598f1972f5940d38968f5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CLogWriter::CLogWriter</definition>
+        <argsstring>()</argsstring>
+        <name>CLogWriter</name>
+        <qualifiedname>CLogWriter::CLogWriter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="57" column="9" bodyfile="include/Logging.h" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_log_writer_1a0ea27d180c430dfe1bd960a762a2d8b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int CLogWriter::setLogLevel</definition>
+        <argsstring>(int nLogLevel)</argsstring>
+        <name>setLogLevel</name>
+        <qualifiedname>CLogWriter::setLogLevel</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nLogLevel</declname>
+        </param>
+        <briefdescription>
+<para>Set the maximum log level written by this writer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="59" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_log_writer_1a967eae24276cda109664ba872021fc0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int CLogWriter::getLogLevel</definition>
+        <argsstring>()</argsstring>
+        <name>getLogLevel</name>
+        <qualifiedname>CLogWriter::getLogLevel</qualifiedname>
+        <briefdescription>
+<para>Return the currently configured maximum log level. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="61" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_log_writer_1aa13c895523c82960e8e8d060dfb3b167" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>virtual int CLogWriter::receiveEvent</definition>
+        <argsstring>(const void *pSender, int nMsgType, const void *pMessage, int nClass) override</argsstring>
+        <name>receiveEvent</name>
+        <qualifiedname>CLogWriter::receiveEvent</qualifiedname>
+        <reimplements refid="class_i_msg_event_receiver_1a3345710906f9a16c4dca5b7ce2da39d7">receiveEvent</reimplements>
+        <param>
+          <type>const void *</type>
+          <declname>pSender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsgType</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>pMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nClass</declname>
+        </param>
+        <briefdescription>
+<para>Receive log events from the message bus and write matching entries. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="63" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_log_writer_1a0fa34d87b1165f905c0fd58f81b7c2ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CLogWriter::writeLogEntry</definition>
+        <argsstring>(const char *strType, const char *strMessage)</argsstring>
+        <name>writeLogEntry</name>
+        <qualifiedname>CLogWriter::writeLogEntry</qualifiedname>
+        <reimplementedby refid="class_c_stream_log_writer_1a357c77fa843d0719b24c74bd6251602b">writeLogEntry</reimplementedby>
+        <param>
+          <type>const char *</type>
+          <declname>strType</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>strMessage</declname>
+        </param>
+        <briefdescription>
+<para>Write a text log entry to the concrete output. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="66" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_log_writer_1a1d777d54df9ae6f59bc7e3ed8a0e0289" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CLogWriter::writeLogEntry</definition>
+        <argsstring>(const char *strType, JsonNode *oDoc)</argsstring>
+        <name>writeLogEntry</name>
+        <qualifiedname>CLogWriter::writeLogEntry</qualifiedname>
+        <reimplementedby refid="class_c_stream_log_writer_1a61fef1c30329e670466e044dd6046b3a">writeLogEntry</reimplementedby>
+        <param>
+          <type>const char *</type>
+          <declname>strType</declname>
+        </param>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> *</type>
+          <declname>oDoc</declname>
+        </param>
+        <briefdescription>
+<para>Write a JSON log entry to the concrete output. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="68" column="22"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Class to handle the logging for a module This class is used to write log entries for a specific module. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>CLogWriter</label>
+        <link refid="class_c_log_writer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>CSerialLogWriter</label>
+        <link refid="class_c_serial_log_writer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CStreamLogWriter</label>
+        <link refid="class_c_stream_log_writer"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>CLogWriter</label>
+        <link refid="class_c_log_writer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/Logging.h" line="47" column="1" bodyfile="include/Logging.h" bodystart="47" bodyend="69"/>
+    <listofallmembers>
+      <member refid="class_c_log_writer_1ae3bf4c4e462598f1972f5940d38968f5" prot="public" virt="non-virtual"><scope>CLogWriter</scope><name>CLogWriter</name></member>
+      <member refid="class_c_log_writer_1a967eae24276cda109664ba872021fc0c" prot="public" virt="non-virtual"><scope>CLogWriter</scope><name>getLogLevel</name></member>
+      <member refid="class_c_log_writer_1ab9460894fb21e3aa5a963e0737c713ab" prot="private" virt="non-virtual"><scope>CLogWriter</scope><name>isLogLevelToWrite</name></member>
+      <member refid="class_c_log_writer_1a4c599fb4d4a8990ac374a148d98a53ec" prot="private" virt="non-virtual"><scope>CLogWriter</scope><name>isTypeToWriteAlways</name></member>
+      <member refid="class_c_log_writer_1ae913c46cf3e0a93ec5f3aeb1149e8c76" prot="private" virt="non-virtual"><scope>CLogWriter</scope><name>m_nLogLevel</name></member>
+      <member refid="class_c_log_writer_1ad09ea43b6ceaadb78e4344f6cb78fc37" prot="private" virt="non-virtual"><scope>CLogWriter</scope><name>m_strModuleName</name></member>
+      <member refid="class_c_log_writer_1a31a5700ca8543fec690a493899aad727" prot="private" virt="non-virtual"><scope>CLogWriter</scope><name>pEventHandler</name></member>
+      <member refid="class_c_log_writer_1ada116e3ac3e9e203af5211904fa54752" prot="private" virt="non-virtual"><scope>CLogWriter</scope><name>pSender</name></member>
+      <member refid="class_c_log_writer_1aa13c895523c82960e8e8d060dfb3b167" prot="public" virt="virtual"><scope>CLogWriter</scope><name>receiveEvent</name></member>
+      <member refid="class_c_log_writer_1a0ea27d180c430dfe1bd960a762a2d8b8" prot="public" virt="non-virtual"><scope>CLogWriter</scope><name>setLogLevel</name></member>
+      <member refid="class_c_log_writer_1a0fa34d87b1165f905c0fd58f81b7c2ac" prot="public" virt="virtual"><scope>CLogWriter</scope><name>writeLogEntry</name></member>
+      <member refid="class_c_log_writer_1a1d777d54df9ae6f59bc7e3ed8a0e0289" prot="public" virt="virtual"><scope>CLogWriter</scope><name>writeLogEntry</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,284 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_wi_fi_controller_8h" kind="file" language="C++">
+    <compoundname>WiFiController.h</compoundname>
+    <includes refid="_appl_8h" local="no">Appl.h</includes>
+    <includes refid="_network_8h" local="no">Network.h</includes>
+    <includes refid="_json_node_8h" local="no">JsonNode.h</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>Appl.h</label>
+        <link refid="_appl_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>ConfigHandler.h</label>
+        <link refid="_config_handler_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>DevelopmentHelper.h</label>
+        <link refid="_development_helper_8h"/>
+      </node>
+      <node id="15">
+        <label>EventHandler.h</label>
+        <link refid="_event_handler_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>JsonNode.h</label>
+        <link refid="_json_node_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>LSCUtils.h</label>
+        <link refid="_l_s_c_utils_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>Logging.h</label>
+        <link refid="_logging_8h"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>ModuleInterface.h</label>
+        <link refid="_module_interface_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>Msgs.h</label>
+        <link refid="_msgs_8h"/>
+      </node>
+      <node id="18">
+        <label>NamedValueTable.h</label>
+        <link refid="_named_value_table_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>Network.h</label>
+        <link refid="_network_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>StatusHandler.h</label>
+        <link refid="_status_handler_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>SysStatus.h</label>
+        <link refid="_sys_status_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>Vars.h</label>
+        <link refid="_vars_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/WiFiController.h</label>
+        <link refid="_wi_fi_controller_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>Esp.h</label>
+      </node>
+      <node id="5">
+        <label>chrono</label>
+      </node>
+      <node id="16">
+        <label>functional</label>
+      </node>
+      <node id="6">
+        <label>iostream</label>
+      </node>
+      <node id="12">
+        <label>memory</label>
+      </node>
+      <node id="17">
+        <label>queue</label>
+      </node>
+      <node id="23">
+        <label>stdarg.h</label>
+      </node>
+      <node id="4">
+        <label>string.h</label>
+      </node>
+      <node id="10">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_wi_fi_config" prot="public">WiFiConfig</innerclass>
+    <innerclass refid="struct_wi_fi_status" prot="public">WiFiStatus</innerclass>
+    <innerclass refid="class_c_wi_fi_controller" prot="public">CWiFiController</innerclass>
+    <innernamespace refid="namespace_l_s_c___w_i_f_i">LSC_WIFI</innernamespace>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_wi_fi_controller_8h_1af6e13ca017c4f5e5408efa5362ec17b1" prot="public" static="no">
+        <name>WIFI_MODULE_DEFAULT_AP_IP</name>
+        <initializer><ref refid="class_i_p_address" kindref="compound">IPAddress</ref>(192,168,4,1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="34" column="13" bodyfile="include/WiFiController.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_wi_fi_controller_8h_1a1bff4e0600e86e55857179e084a899a4" prot="public" static="no">
+        <name>WIFI_MODULE_DEFAULT_AP_SUBNET</name>
+        <initializer><ref refid="class_i_p_address" kindref="compound">IPAddress</ref>(255,255,255,0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="37" column="13" bodyfile="include/WiFiController.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_wi_fi_controller_8h_1a975c202172ddc47d9e9f60efd9ba1460" prot="public" static="no">
+        <name>WIFI_DEFAULT_AP_SSID_PREFIX</name>
+        <initializer>&quot;LSCLabs&quot;</initializer>
+        <briefdescription>
+<para>Defines the default SSID prefix for the access point Default &quot;Smart Device&quot; Don&apos;t use too long prefixes, because the SSID is limited to 32 characters and the addes unique MAC info is 8 characters long. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="46" column="13" bodyfile="include/WiFiController.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_wi_fi_controller_8h_1a580fda34d1f3c1a90a3924a4f0761fac" prot="public" static="no">
+        <name>WIFI_DEFAULT_AP_SSID</name>
+        <initializer><ref refid="class_c_wi_fi_controller_1aaef53e48ea0f5ca336e4718359799386" kindref="member">CWiFiController::getDefaultSSIDofAP</ref>()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="50" column="13" bodyfile="include/WiFiController.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_wi_fi_controller_8h_1aae398ed68ab4de673a8bb17721bd744c" prot="public" static="no">
+        <name>WIFI_HIDDEN_PASSWORD</name>
+        <initializer><ref refid="_appl_8h_1a0d66abe33132833f21a6f38a9f5b64cb" kindref="member">HIDDEN_PASSWORD_MASK</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="54" column="13" bodyfile="include/WiFiController.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_wi_fi_controller_8h_1ade206efd0f079b0dbf30f1d7a10928b4" prot="public" static="no">
+        <name>WIFI_AP_DEFAULT_PASSWORD</name>
+        <initializer>&quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="58" column="13" bodyfile="include/WiFiController.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>WiFi Controller to handle Access Point and Station Mode. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Peter L. (<ref refid="namespace_l_s_c" kindref="compound">LSC</ref> Labs) </para>
+</simplesect>
+<simplesect kind="version"><para>1.0 How to use:<itemizedlist>
+<listitem><para>Instantiate the WiFi Controller &quot;CWiFiController oWiFi&quot; in the global scope</para>
+</listitem><listitem><para>Register the controller as a module to the application message bus, and the configuration / status handling:</para>
+<para>=&gt; <ref refid="class_c_wi_fi_controller" kindref="compound">CWiFiController</ref> oWiFi(&quot;wifi&quot;);</para>
+<para>-or- =&gt; <ref refid="class_c_wi_fi_controller" kindref="compound">CWiFiController</ref> oWiFi; =&gt; Appl.registerModule(&quot;wifi&quot;,&amp;oWiFi);</para>
+<para>-or- =&gt; <ref refid="class_c_wi_fi_controller" kindref="compound">CWiFiController</ref> oWiFi; =&gt; Appl.MsgBus.registerEventReceiver(&amp;oWiFi); =&gt; Appl.addConfigHandler(&quot;wifi&quot;,&amp;oWiFi); =&gt; Appl.addStatusHandler(&quot;wifi&quot;,&amp;oWiFi);</para>
+</listitem><listitem><para>Call startWiFi(true) to start the WiFi with the configuration data, this will enable the WiFi in Station mode, or in Access Point mode. or startWiFi(false) to start a default Access Point </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="include/WiFiController.h"/>
+  </compounddef>
+</doxygen>

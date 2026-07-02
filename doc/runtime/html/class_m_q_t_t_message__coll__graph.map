@@ -1,0 +1,21 @@
+<map id="MQTTMessage" name="MQTTMessage">
+<area shape="rect" id="Node000001" title="Owns one received MQTT topic/payload pair until dispatch." alt="" coords="225,349,336,374"/>
+<area shape="rect" id="Node000002" href="$class_c_m_q_t_t_controller.html" title="MQTT message broker module with heartbeat and HA discovery support." alt="" coords="218,252,343,278"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="282,291,283,349,278,347,279,295"/>
+<area shape="rect" id="Node000003" href="$class_async_mqtt_client.html" title=" " alt="" coords="5,155,124,181"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="106,185,255,250,251,253,106,190"/>
+<area shape="rect" id="Node000004" href="$class_appl_module.html" title="Abstract Basic Module Implementation You have to implement the dispatch method to reflect your module..." alt="" coords="148,155,237,181"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="215,190,272,251,267,252,213,195"/>
+<area shape="rect" id="Node000005" href="$class_i_module.html" title="Full Interface for modules." alt="" coords="159,80,226,106"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="194,119,195,156,190,154,191,124"/>
+<area shape="rect" id="Node000006" href="$class_i_config_handler.html" title="Interface for configuration handlers." alt="" coords="6,5,115,31"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="95,36,173,79,168,81,96,41"/>
+<area shape="rect" id="Node000007" href="$class_i_status_handler.html" title="Interface for a status handler module." alt="" coords="138,5,247,31"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="193,44,195,81,190,79,192,49"/>
+<area shape="rect" id="Node000008" href="$class_i_msg_event_receiver.html" title="Interface for Message Event Receivers." alt="" coords="271,5,407,31"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="300,40,218,82,215,78,303,36"/>
+<area shape="rect" id="Node000009" href="$struct_m_q_t_t_config.html" title="Runtime configuration for the MQTT broker connection and topics." alt="" coords="262,155,358,181"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="304,194,286,253,282,250,300,198"/>
+<area shape="rect" id="Node000010" href="$struct_m_q_t_t_status.html" title="Runtime status of the MQTT connection." alt="" coords="382,155,478,181"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="405,190,351,230,307,254,305,249,348,226,401,192"/>
+</map>

@@ -1,0 +1,363 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_n_t_p_handler" kind="class" language="C++" prot="public">
+    <compoundname>CNTPHandler</compoundname>
+    <basecompoundref refid="class_i_module" prot="public" virt="non-virtual">IModule</basecompoundref>
+    <includes refid="_n_t_p_handler_8h" local="no">NTPHandler.h</includes>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_c_n_t_p_handler_1aaa779a8186fee9a2c799a43cbd5d6e8c" prot="protected" static="no" mutable="no">
+        <type><ref refid="struct_n_t_p_config" kindref="compound">NTPConfig</ref></type>
+        <definition>NTPConfig CNTPHandler::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <qualifiedname>CNTPHandler::Config</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="28" column="19" bodyfile="include/NTPHandler.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_n_t_p_handler_1a810979542369a17b9173af0623cf2594" prot="protected" static="no" mutable="no">
+        <type>time_t</type>
+        <definition>time_t CNTPHandler::m_oRawTime</definition>
+        <argsstring></argsstring>
+        <name>m_oRawTime</name>
+        <qualifiedname>CNTPHandler::m_oRawTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="29" column="17" bodyfile="include/NTPHandler.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_n_t_p_handler_1a2aebecee655a11587a9846b8e6e78d5b" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CNTPHandler::m_bIsInitialized</definition>
+        <argsstring></argsstring>
+        <name>m_bIsInitialized</name>
+        <qualifiedname>CNTPHandler::m_bIsInitialized</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="30" column="17" bodyfile="include/NTPHandler.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_n_t_p_handler_1aa7facc38bad0898569688039b6ce38a1" prot="protected" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long CNTPHandler::m_uLastUpdate</definition>
+        <argsstring></argsstring>
+        <name>m_uLastUpdate</name>
+        <qualifiedname>CNTPHandler::m_uLastUpdate</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="31" column="23" bodyfile="include/NTPHandler.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_n_t_p_handler_1af5385fe79f99640f659c08b0ca58ef31" prot="protected" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CNTPHandler::m_szISODateTime[40]</definition>
+        <argsstring>[40]</argsstring>
+        <name>m_szISODateTime</name>
+        <qualifiedname>CNTPHandler::m_szISODateTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="32" column="14" bodyfile="include/NTPHandler.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_n_t_p_handler_1a4a611ca57a4ad7a09ae93888a6931bcf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CNTPHandler::CNTPHandler</definition>
+        <argsstring>(const char *pszAutoRegisterName=nullptr)</argsstring>
+        <name>CNTPHandler</name>
+        <qualifiedname>CNTPHandler::CNTPHandler</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszAutoRegisterName</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="35" column="9" bodyfile="include/NTPHandler.h" bodystart="35" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_n_t_p_handler_1a67b2ef6ae86225ed9f27802e4535a483" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CNTPHandler::setup</definition>
+        <argsstring>()</argsstring>
+        <name>setup</name>
+        <qualifiedname>CNTPHandler::setup</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="38" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_n_t_p_handler_1a433bb61ea932ab4507bf8442cb393b99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CNTPHandler::timeUpdatedByService</definition>
+        <argsstring>()</argsstring>
+        <name>timeUpdatedByService</name>
+        <qualifiedname>CNTPHandler::timeUpdatedByService</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="39" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_n_t_p_handler_1a568f6a619d94ca4416fddceec8c1291c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CNTPHandler::hasValidTime</definition>
+        <argsstring>()</argsstring>
+        <name>hasValidTime</name>
+        <qualifiedname>CNTPHandler::hasValidTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="40" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_n_t_p_handler_1a8ecaea5b338eef8b2d05e2ab72e583ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>time_t</type>
+        <definition>time_t CNTPHandler::getNativeTime</definition>
+        <argsstring>()</argsstring>
+        <name>getNativeTime</name>
+        <qualifiedname>CNTPHandler::getNativeTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="41" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_n_t_p_handler_1af246ea3f74bc0e4b49025f5011e87873" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CNTPHandler::getISODateTime</definition>
+        <argsstring>()</argsstring>
+        <name>getISODateTime</name>
+        <qualifiedname>CNTPHandler::getISODateTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="42" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_n_t_p_handler_1a380ba014d81f4c3bd3d30a4ef19297d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CNTPHandler::writeConfigTo</definition>
+        <argsstring>(JsonNode &amp;oCfgObj, bool bHideCritical) override</argsstring>
+        <name>writeConfigTo</name>
+        <qualifiedname>CNTPHandler::writeConfigTo</qualifiedname>
+        <reimplements refid="class_i_config_handler_1a3507b2ec7bef0a1ec0a7f90da0ec32f2">writeConfigTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfgObj</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bHideCritical</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="43" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_n_t_p_handler_1ae02956df1241ff0686dd3678d8d07499" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CNTPHandler::readConfigFrom</definition>
+        <argsstring>(JsonNode &amp;oCfgObj) override</argsstring>
+        <name>readConfigFrom</name>
+        <qualifiedname>CNTPHandler::readConfigFrom</qualifiedname>
+        <reimplements refid="class_i_config_handler_1a4c43c53522b0408972d6573e91d1e63e">readConfigFrom</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfgObj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="44" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_n_t_p_handler_1a85709408d316075a1b58d6694925483a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CNTPHandler::writeStatusTo</definition>
+        <argsstring>(JsonNode &amp;oStatusObj, int nLevel=STATUS_LEVEL_INFO) override</argsstring>
+        <name>writeStatusTo</name>
+        <qualifiedname>CNTPHandler::writeStatusTo</qualifiedname>
+        <reimplements refid="class_i_status_handler_1a159576674bba670032ae23b647db1dec">writeStatusTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oStatusObj</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nLevel</declname>
+          <defval><ref refid="_status_handler_8h_1ad33eab0de4e088931d94b504679013e4" kindref="member">STATUS_LEVEL_INFO</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="45" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_n_t_p_handler_1a77da60d5cc0263f5b66c9653eb6009df" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>int CNTPHandler::receiveEvent</definition>
+        <argsstring>(const void *pSender, int nMsgType, const void *pMessage, int nClass) override</argsstring>
+        <name>receiveEvent</name>
+        <qualifiedname>CNTPHandler::receiveEvent</qualifiedname>
+        <reimplements refid="class_i_msg_event_receiver_1a3345710906f9a16c4dca5b7ce2da39d7">receiveEvent</reimplements>
+        <param>
+          <type>const void *</type>
+          <declname>pSender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsgType</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>pMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nClass</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="46" column="13"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>The NTP Handler class as a module. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>CNTPHandler</label>
+        <link refid="class_c_n_t_p_handler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="2">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="4">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>CNTPHandler</label>
+        <link refid="class_c_n_t_p_handler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="2">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="4">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+      <node id="6">
+        <label>NTPConfig</label>
+        <link refid="struct_n_t_p_config"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/NTPHandler.h" line="26" column="2" bodyfile="include/NTPHandler.h" bodystart="26" bodyend="47"/>
+    <listofallmembers>
+      <member refid="class_c_n_t_p_handler_1a4a611ca57a4ad7a09ae93888a6931bcf" prot="public" virt="non-virtual"><scope>CNTPHandler</scope><name>CNTPHandler</name></member>
+      <member refid="class_c_n_t_p_handler_1aaa779a8186fee9a2c799a43cbd5d6e8c" prot="protected" virt="non-virtual"><scope>CNTPHandler</scope><name>Config</name></member>
+      <member refid="class_c_n_t_p_handler_1af246ea3f74bc0e4b49025f5011e87873" prot="public" virt="non-virtual"><scope>CNTPHandler</scope><name>getISODateTime</name></member>
+      <member refid="class_c_n_t_p_handler_1a8ecaea5b338eef8b2d05e2ab72e583ba" prot="public" virt="non-virtual"><scope>CNTPHandler</scope><name>getNativeTime</name></member>
+      <member refid="class_i_config_handler_1a6011c82a3fe9d10ef0ea54d848557f4c" prot="public" virt="virtual"><scope>CNTPHandler</scope><name>hasConfigValues</name></member>
+      <member refid="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" prot="public" virt="virtual"><scope>CNTPHandler</scope><name>hasStatusValues</name></member>
+      <member refid="class_c_n_t_p_handler_1a568f6a619d94ca4416fddceec8c1291c" prot="public" virt="non-virtual"><scope>CNTPHandler</scope><name>hasValidTime</name></member>
+      <member refid="class_c_n_t_p_handler_1a2aebecee655a11587a9846b8e6e78d5b" prot="protected" virt="non-virtual"><scope>CNTPHandler</scope><name>m_bIsInitialized</name></member>
+      <member refid="class_c_n_t_p_handler_1a810979542369a17b9173af0623cf2594" prot="protected" virt="non-virtual"><scope>CNTPHandler</scope><name>m_oRawTime</name></member>
+      <member refid="class_c_n_t_p_handler_1af5385fe79f99640f659c08b0ca58ef31" prot="protected" virt="non-virtual"><scope>CNTPHandler</scope><name>m_szISODateTime</name></member>
+      <member refid="class_c_n_t_p_handler_1aa7facc38bad0898569688039b6ce38a1" prot="protected" virt="non-virtual"><scope>CNTPHandler</scope><name>m_uLastUpdate</name></member>
+      <member refid="class_i_config_handler_1a8a92be059bfaca6c233419763865a5f4" prot="public" virt="virtual"><scope>CNTPHandler</scope><name>migrateConfig</name></member>
+      <member refid="class_c_n_t_p_handler_1ae02956df1241ff0686dd3678d8d07499" prot="public" virt="virtual"><scope>CNTPHandler</scope><name>readConfigFrom</name></member>
+      <member refid="class_c_n_t_p_handler_1a77da60d5cc0263f5b66c9653eb6009df" prot="public" virt="virtual"><scope>CNTPHandler</scope><name>receiveEvent</name></member>
+      <member refid="class_c_n_t_p_handler_1a67b2ef6ae86225ed9f27802e4535a483" prot="public" virt="non-virtual"><scope>CNTPHandler</scope><name>setup</name></member>
+      <member refid="class_c_n_t_p_handler_1a433bb61ea932ab4507bf8442cb393b99" prot="public" virt="non-virtual"><scope>CNTPHandler</scope><name>timeUpdatedByService</name></member>
+      <member refid="class_c_n_t_p_handler_1a380ba014d81f4c3bd3d30a4ef19297d0" prot="public" virt="virtual"><scope>CNTPHandler</scope><name>writeConfigTo</name></member>
+      <member refid="class_c_n_t_p_handler_1a85709408d316075a1b58d6694925483a" prot="public" virt="virtual"><scope>CNTPHandler</scope><name>writeStatusTo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

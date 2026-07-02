@@ -1,0 +1,446 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_runtime_8h" kind="file" language="C++">
+    <compoundname>Runtime.h</compoundname>
+    <includes local="no">string.h</includes>
+    <includes local="no">chrono</includes>
+    <includes local="no">iostream</includes>
+    <includedby refid="_appl_8h" local="no">include/Appl.h</includedby>
+    <includedby refid="_config_handler_8h" local="no">include/ConfigHandler.h</includedby>
+    <includedby refid="_event_handler_8h" local="no">include/EventHandler.h</includedby>
+    <includedby refid="_file_system_8h" local="no">include/FileSystem.h</includedby>
+    <includedby refid="_input_pin_controller_8h" local="no">include/InputPinController.h</includedby>
+    <includedby refid="_json_node_8h" local="yes">include/JsonNode.h</includedby>
+    <includedby refid="_l_s_c_utils_8h" local="yes">include/LSCUtils.h</includedby>
+    <includedby refid="_light_switch_8h" local="no">include/LightSwitch.h</includedby>
+    <includedby refid="_m_q_t_t_controller_8h" local="no">include/MQTTController.h</includedby>
+    <includedby refid="_n_t_p_handler_8h" local="no">include/NTPHandler.h</includedby>
+    <includedby refid="_network_8h" local="no">include/Network.h</includedby>
+    <includedby refid="_output_pin_controller_8h" local="no">include/OutputPinController.h</includedby>
+    <includedby refid="_r_g_b_led_8h" local="no">include/RGBLed.h</includedby>
+    <includedby refid="_security_8h" local="no">include/Security.h</includedby>
+    <includedby refid="_simple_delay_8h" local="no">include/SimpleDelay.h</includedby>
+    <includedby refid="_status_handler_8h" local="yes">include/StatusHandler.h</includedby>
+    <includedby refid="_sys_status_8h" local="yes">include/SysStatus.h</includedby>
+    <includedby refid="_web_socket_8h" local="yes">include/WebSocket.h</includedby>
+    <includedby refid="base64_8h" local="no">include/ext/base64.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>include/Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>chrono</label>
+      </node>
+      <node id="4">
+        <label>iostream</label>
+      </node>
+      <node id="2">
+        <label>string.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="28">
+        <label>include/AESCryptor.h</label>
+        <link refid="_a_e_s_cryptor_8h"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>include/AccessToken.h</label>
+        <link refid="_access_token_8h"/>
+      </node>
+      <node id="2">
+        <label>include/Appl.h</label>
+        <link refid="_appl_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>include/ApplModule.h</label>
+        <link refid="_appl_module_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>include/Base64Data.h</label>
+        <link refid="_base64_data_8h"/>
+      </node>
+      <node id="8">
+        <label>include/BatteryMeasure.h</label>
+        <link refid="_battery_measure_8h"/>
+      </node>
+      <node id="19">
+        <label>include/Button.h</label>
+        <link refid="_button_8h"/>
+      </node>
+      <node id="7">
+        <label>include/ConfigHandler.h</label>
+        <link refid="_config_handler_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>include/EventHandler.h</label>
+        <link refid="_event_handler_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>include/FileSystem.h</label>
+        <link refid="_file_system_8h"/>
+      </node>
+      <node id="18">
+        <label>include/InputPinController.h</label>
+        <link refid="_input_pin_controller_8h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>include/JsonNode.h</label>
+        <link refid="_json_node_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>include/LSCUtils.h</label>
+        <link refid="_l_s_c_utils_8h"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>include/LightSwitch.h</label>
+        <link refid="_light_switch_8h"/>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>include/Logging.h</label>
+        <link refid="_logging_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>include/MDNSController.h</label>
+        <link refid="_m_d_n_s_controller_8h"/>
+      </node>
+      <node id="11">
+        <label>include/MQTTController.h</label>
+        <link refid="_m_q_t_t_controller_8h"/>
+      </node>
+      <node id="9">
+        <label>include/ModuleInterface.h</label>
+        <link refid="_module_interface_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>include/NTPHandler.h</label>
+        <link refid="_n_t_p_handler_8h"/>
+      </node>
+      <node id="24">
+        <label>include/NamedValueTable.h</label>
+        <link refid="_named_value_table_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>include/Network.h</label>
+        <link refid="_network_8h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>include/OutputPinController.h</label>
+        <link refid="_output_pin_controller_8h"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>include/RGBLed.h</label>
+        <link refid="_r_g_b_led_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>include/Security.h</label>
+        <link refid="_security_8h"/>
+      </node>
+      <node id="32">
+        <label>include/SimpleDelay.h</label>
+        <link refid="_simple_delay_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>include/StatusHandler.h</label>
+        <link refid="_status_handler_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>include/SysStatus.h</label>
+        <link refid="_sys_status_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>include/SysStatusLed.h</label>
+        <link refid="_sys_status_led_8h"/>
+      </node>
+      <node id="12">
+        <label>include/Vars.h</label>
+        <link refid="_vars_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>include/WebServer.h</label>
+        <link refid="_web_server_8h"/>
+      </node>
+      <node id="16">
+        <label>include/WebSocket.h</label>
+        <link refid="_web_socket_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>include/WiFiController.h</label>
+        <link refid="_wi_fi_controller_8h"/>
+      </node>
+      <node id="33">
+        <label>include/ext/base64.h</label>
+        <link refid="base64_8h"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_native_serial" prot="public">NativeSerial</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_runtime_8h_1aa02526b896b908725e0737fd11363def" prot="public" static="no">
+        <name>JOIN_</name>
+        <param><defname>X</defname></param>
+        <param><defname>Y</defname></param>
+        <initializer>X##Y</initializer>
+        <briefdescription>
+<para><ref refid="_runtime_8h" kindref="compound">Runtime.h</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Runtime includes per Default &quot;Arduino.h&quot;</para>
+<para>But, as this runtime is not available in native mode, this runtime inlcudes is also a helper to test a lot of Arduino functions in native mode. This reduces the build/upload/run tests for the module, by using the native OS as runtime. But for this it is necessary to map several parts from Arduino to standard libraries, cause Arduino runtime is not available in native environments.</para>
+<para>Base definition to enable the mapping is &quot;NATIVE_RUNTIME&quot;. If not defined, Arduino. stays in place. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Runtime.h" line="18" column="9" bodyfile="include/Runtime.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_runtime_8h_1a6d739e525c41fd6bc0a89df808890ee9" prot="public" static="no">
+        <name>JOIN</name>
+        <param><defname>X</defname></param>
+        <param><defname>Y</defname></param>
+        <initializer><ref refid="_runtime_8h_1aa02526b896b908725e0737fd11363def" kindref="member">JOIN_</ref>(X,Y)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Runtime.h" line="19" column="9" bodyfile="include/Runtime.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" prot="public" static="no">
+        <name>String</name>
+        <initializer>std::string</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Runtime.h" line="27" column="13" bodyfile="include/Runtime.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_runtime_8h_1a291d286e486250d6ae9ab1d1869d94c8" prot="public" static="no">
+        <name>SerialPrintf</name>
+        <initializer>printf</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Runtime.h" line="28" column="13" bodyfile="include/Runtime.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_runtime_8h_1afebd45c0d36db732504450393777ce5c" prot="public" static="no">
+        <name>ICACHE_FLASH_ATTR</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Runtime.h" line="29" column="13" bodyfile="include/Runtime.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_runtime_8h_1a1c93649e353f05880dde3ea240eb235d" prot="public" static="no">
+        <name>F</name>
+        <param><defname>value</defname></param>
+        <initializer>value</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Runtime.h" line="30" column="13" bodyfile="include/Runtime.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="_runtime_8h_1a25b4929f49db860a9acae9b76710e165" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="class_native_serial" kindref="compound">NativeSerial</ref></type>
+        <definition>NativeSerial Serial</definition>
+        <argsstring></argsstring>
+        <name>Serial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Runtime.h" line="40" column="25" declfile="include/Runtime.h" declline="40" declcolumn="25"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="_runtime_8h_1a4f1b1d27c79f52f8e9d2df4877c4ff7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char * strlwr</definition>
+        <argsstring>(char *s)</argsstring>
+        <name>strlwr</name>
+        <param>
+          <type>char *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Runtime.h" line="42" column="10" declfile="include/Runtime.h" declline="42" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="_runtime_8h_1a6ff7f2532a22366f0013bc41397129fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long millis</definition>
+        <argsstring>()</argsstring>
+        <name>millis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Runtime.h" line="43" column="19" declfile="include/Runtime.h" declline="43" declcolumn="19"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/Runtime.h"/>
+  </compounddef>
+</doxygen>

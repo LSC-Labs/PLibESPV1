@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_a_e_s_cryptor" kind="class" language="C++" prot="public">
+    <compoundname>CAESCryptor</compoundname>
+    <includes refid="_a_e_s_cryptor_8h" local="no">AESCryptor.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_c_a_e_s_cryptor_1a21d00ef9592cd8973040984d4a1202d4" prot="public" static="no" mutable="no">
+        <type><ref refid="class_c_a_e_s_token" kindref="compound">CAESToken</ref></type>
+        <definition>CAESToken CAESCryptor::IV</definition>
+        <argsstring></argsstring>
+        <name>IV</name>
+        <qualifiedname>CAESCryptor::IV</qualifiedname>
+        <briefdescription>
+<para>Initialization vector used by encrypt/decrypt. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="59" column="15" bodyfile="include/AESCryptor.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_a_e_s_cryptor_1ac079aa804b925b5b7d3e77918847ead1" prot="public" static="no" mutable="no">
+        <type><ref refid="class_c_a_e_s_token" kindref="compound">CAESToken</ref></type>
+        <definition>CAESToken CAESCryptor::Passphrase</definition>
+        <argsstring></argsstring>
+        <name>Passphrase</name>
+        <qualifiedname>CAESCryptor::Passphrase</qualifiedname>
+        <briefdescription>
+<para>Default passphrase used when no explicit passphrase is supplied. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="61" column="15" bodyfile="include/AESCryptor.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_a_e_s_cryptor_1afc464f922c887c0d726b0c5c833b8571" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CAESCryptor::CAESCryptor</definition>
+        <argsstring>()</argsstring>
+        <name>CAESCryptor</name>
+        <qualifiedname>CAESCryptor::CAESCryptor</qualifiedname>
+        <briefdescription>
+<para>Create a cryptor with default IV/passphrase tokens. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="64" column="5" bodyfile="include/AESCryptor.h" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_a_e_s_cryptor_1a69cbaa97b5937b3d54075d829c877661" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t CAESCryptor::decrypt</definition>
+        <argsstring>(void *pData, size_t nDataLen, const char *pszPassphrase=nullptr)</argsstring>
+        <name>decrypt</name>
+        <qualifiedname>CAESCryptor::decrypt</qualifiedname>
+        <param>
+          <type>void *</type>
+          <declname>pData</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nDataLen</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszPassphrase</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Decrypt data in place and return the resulting data length. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="67" column="12"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_a_e_s_cryptor_1aee3924c3ae828697b68b300aa66522a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t CAESCryptor::encrypt</definition>
+        <argsstring>(void *pData, size_t nDataLen, const char *pszPassphrase=nullptr)</argsstring>
+        <name>encrypt</name>
+        <qualifiedname>CAESCryptor::encrypt</qualifiedname>
+        <param>
+          <type>void *</type>
+          <declname>pData</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nDataLen</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszPassphrase</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Encrypt data in place and return the padded/encrypted length. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="69" column="12"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_a_e_s_cryptor_1a9b3661c35f1cef39d5d88284a30ba647" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t CAESCryptor::insertPkcs7Padding</definition>
+        <argsstring>(unsigned char *pData, size_t nDataLength, size_t nBlockSize=AES_CRYPTOR_BLOCK_SIZE)</argsstring>
+        <name>insertPkcs7Padding</name>
+        <qualifiedname>CAESCryptor::insertPkcs7Padding</qualifiedname>
+        <param>
+          <type>unsigned char *</type>
+          <declname>pData</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nDataLength</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nBlockSize</declname>
+          <defval><ref refid="_a_e_s_cryptor_8h_1acaf38455390ea02d9e6d59d7aabd06ac" kindref="member">AES_CRYPTOR_BLOCK_SIZE</ref></defval>
+        </param>
+        <briefdescription>
+<para>Add PKCS#7 padding to a buffer and return the padded length. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="72" column="12"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_a_e_s_cryptor_1a176dd535453dbe204ba44c9d303dd1e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAESCryptor::removePkcs7Padding</definition>
+        <argsstring>(unsigned char *pData, size_t &amp;nDataLength, size_t nBlockSize=AES_CRYPTOR_BLOCK_SIZE)</argsstring>
+        <name>removePkcs7Padding</name>
+        <qualifiedname>CAESCryptor::removePkcs7Padding</qualifiedname>
+        <param>
+          <type>unsigned char *</type>
+          <declname>pData</declname>
+        </param>
+        <param>
+          <type>size_t &amp;</type>
+          <declname>nDataLength</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nBlockSize</declname>
+          <defval><ref refid="_a_e_s_cryptor_8h_1acaf38455390ea02d9e6d59d7aabd06ac" kindref="member">AES_CRYPTOR_BLOCK_SIZE</ref></defval>
+        </param>
+        <briefdescription>
+<para>Remove PKCS#7 padding and update the data length in place. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="75" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Helper class for AES encryption/decryption with PKCS#7 padding. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>CAESCryptor</label>
+        <link refid="class_c_a_e_s_cryptor"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>IV</edgelabel>
+          <edgelabel>Passphrase</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CAESToken</label>
+        <link refid="class_c_a_e_s_token"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/AESCryptor.h" line="56" column="1" bodyfile="include/AESCryptor.h" bodystart="56" bodyend="77"/>
+    <listofallmembers>
+      <member refid="class_c_a_e_s_cryptor_1afc464f922c887c0d726b0c5c833b8571" prot="public" virt="non-virtual"><scope>CAESCryptor</scope><name>CAESCryptor</name></member>
+      <member refid="class_c_a_e_s_cryptor_1a69cbaa97b5937b3d54075d829c877661" prot="public" virt="non-virtual"><scope>CAESCryptor</scope><name>decrypt</name></member>
+      <member refid="class_c_a_e_s_cryptor_1aee3924c3ae828697b68b300aa66522a1" prot="public" virt="non-virtual"><scope>CAESCryptor</scope><name>encrypt</name></member>
+      <member refid="class_c_a_e_s_cryptor_1a9b3661c35f1cef39d5d88284a30ba647" prot="public" virt="non-virtual"><scope>CAESCryptor</scope><name>insertPkcs7Padding</name></member>
+      <member refid="class_c_a_e_s_cryptor_1a21d00ef9592cd8973040984d4a1202d4" prot="public" virt="non-virtual"><scope>CAESCryptor</scope><name>IV</name></member>
+      <member refid="class_c_a_e_s_cryptor_1ac079aa804b925b5b7d3e77918847ead1" prot="public" virt="non-virtual"><scope>CAESCryptor</scope><name>Passphrase</name></member>
+      <member refid="class_c_a_e_s_cryptor_1a176dd535453dbe204ba44c9d303dd1e3" prot="public" virt="non-virtual"><scope>CAESCryptor</scope><name>removePkcs7Padding</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

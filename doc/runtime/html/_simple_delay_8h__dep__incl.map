@@ -1,0 +1,9 @@
+<map id="include/SimpleDelay.h" name="include/SimpleDelay.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="106,5,255,31"/>
+<area shape="rect" id="Node000002" href="$_m_q_t_t_controller_8h.html" title=" " alt="" coords="5,79,175,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,43,107,81,103,77,155,39"/>
+<area shape="rect" id="Node000003" href="$_web_socket_8h.html" title=" " alt="" coords="199,79,344,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="208,38,259,78,254,79,207,43"/>
+<area shape="rect" id="Node000004" href="$_web_server_8h.html" title=" " alt="" coords="201,153,342,178"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="273,118,274,154,269,151,269,122"/>
+</map>

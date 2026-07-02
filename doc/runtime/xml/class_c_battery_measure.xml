@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_battery_measure" kind="class" language="C++" prot="public">
+    <compoundname>CBatteryMeasure</compoundname>
+    <basecompoundref refid="class_appl_module" prot="public" virt="non-virtual">ApplModule</basecompoundref>
+    <includes refid="_battery_measure_8h" local="no">BatteryMeasure.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_battery_measure_1a1989ea65a2eebadf2de0355687018ac7" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CBatteryMeasure::m_nPin</definition>
+        <argsstring></argsstring>
+        <name>m_nPin</name>
+        <qualifiedname>CBatteryMeasure::m_nPin</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/BatteryMeasure.h" line="8" column="15" bodyfile="include/BatteryMeasure.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_battery_measure_1a2791d009b08cb22ad7344d5c6abd750e" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CBatteryMeasure::m_nBatteryAvailableThreshold</definition>
+        <argsstring></argsstring>
+        <name>m_nBatteryAvailableThreshold</name>
+        <qualifiedname>CBatteryMeasure::m_nBatteryAvailableThreshold</qualifiedname>
+        <initializer>= 100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/BatteryMeasure.h" line="9" column="15" bodyfile="include/BatteryMeasure.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_battery_measure_1a7a01208c090325b7b1368ad40343b07a" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CBatteryMeasure::m_fBatteryCalcFactor</definition>
+        <argsstring></argsstring>
+        <name>m_fBatteryCalcFactor</name>
+        <qualifiedname>CBatteryMeasure::m_fBatteryCalcFactor</qualifiedname>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/BatteryMeasure.h" line="10" column="15" bodyfile="include/BatteryMeasure.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_battery_measure_1a2f2382b30ca42df36583f501bbc1b557" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CBatteryMeasure::CBatteryMeasure</definition>
+        <argsstring>(int nPin, float fCalcFactor=4.2)</argsstring>
+        <name>CBatteryMeasure</name>
+        <qualifiedname>CBatteryMeasure::CBatteryMeasure</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nPin</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>fCalcFactor</declname>
+          <defval>4.2</defval>
+        </param>
+        <briefdescription>
+<para>Battery measure constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nPin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin to monitor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fCalcFactor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>factor to calculate the battery voltage (i.E. 4.4 for 3.7 LiOn) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/BatteryMeasure.h" line="16" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_battery_measure_1adf5b31c901e75d0527fb7078394eec9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CBatteryMeasure::isBatteryAvailable</definition>
+        <argsstring>()</argsstring>
+        <name>isBatteryAvailable</name>
+        <qualifiedname>CBatteryMeasure::isBatteryAvailable</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/BatteryMeasure.h" line="18" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_battery_measure_1a52d707d81910849d2b9342af40462be3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int CBatteryMeasure::getRawMeasureData</definition>
+        <argsstring>()</argsstring>
+        <name>getRawMeasureData</name>
+        <qualifiedname>CBatteryMeasure::getRawMeasureData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/BatteryMeasure.h" line="19" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_battery_measure_1a27edf46f8149bca683734353c535307a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float CBatteryMeasure::getVoltage</definition>
+        <argsstring>(int nDigits=-1)</argsstring>
+        <name>getVoltage</name>
+        <qualifiedname>CBatteryMeasure::getVoltage</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nDigits</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/BatteryMeasure.h" line="20" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_battery_measure_1a261bf9656c961acb558919ddf2af582d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CBatteryMeasure::writeStatusTo</definition>
+        <argsstring>(JsonNode &amp;oStatusObj, int nLevel) override</argsstring>
+        <name>writeStatusTo</name>
+        <qualifiedname>CBatteryMeasure::writeStatusTo</qualifiedname>
+        <reimplements refid="class_i_status_handler_1a159576674bba670032ae23b647db1dec">writeStatusTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oStatusObj</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nLevel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/BatteryMeasure.h" line="23" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_battery_measure_1ac7061f042630d9b6843ee1cda2f9c0a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CBatteryMeasure::writeConfigTo</definition>
+        <argsstring>(JsonNode &amp;oConfigObj, bool bHideCritical) override</argsstring>
+        <name>writeConfigTo</name>
+        <qualifiedname>CBatteryMeasure::writeConfigTo</qualifiedname>
+        <reimplements refid="class_i_config_handler_1a3507b2ec7bef0a1ec0a7f90da0ec32f2">writeConfigTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oConfigObj</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bHideCritical</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/BatteryMeasure.h" line="24" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_battery_measure_1a79e98625f77a2eba67ff65342c152429" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CBatteryMeasure::readConfigFrom</definition>
+        <argsstring>(JsonNode &amp;oConfigObj) override</argsstring>
+        <name>readConfigFrom</name>
+        <qualifiedname>CBatteryMeasure::readConfigFrom</qualifiedname>
+        <reimplements refid="class_i_config_handler_1a4c43c53522b0408972d6573e91d1e63e">readConfigFrom</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oConfigObj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/BatteryMeasure.h" line="25" column="15"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ApplModule</label>
+        <link refid="class_appl_module"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CBatteryMeasure</label>
+        <link refid="class_c_battery_measure"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="3">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="5">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>ApplModule</label>
+        <link refid="class_appl_module"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CBatteryMeasure</label>
+        <link refid="class_c_battery_measure"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="3">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="5">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/BatteryMeasure.h" line="6" column="1" bodyfile="include/BatteryMeasure.h" bodystart="6" bodyend="26"/>
+    <listofallmembers>
+      <member refid="class_c_battery_measure_1a2f2382b30ca42df36583f501bbc1b557" prot="public" virt="non-virtual"><scope>CBatteryMeasure</scope><name>CBatteryMeasure</name></member>
+      <member refid="class_appl_module_1a13c5086d4c9162d1a96b1234f76932e4" prot="public" virt="virtual"><scope>CBatteryMeasure</scope><name>dispatch</name></member>
+      <member refid="class_c_battery_measure_1a52d707d81910849d2b9342af40462be3" prot="public" virt="non-virtual"><scope>CBatteryMeasure</scope><name>getRawMeasureData</name></member>
+      <member refid="class_c_battery_measure_1a27edf46f8149bca683734353c535307a" prot="public" virt="non-virtual"><scope>CBatteryMeasure</scope><name>getVoltage</name></member>
+      <member refid="class_i_config_handler_1a6011c82a3fe9d10ef0ea54d848557f4c" prot="public" virt="virtual"><scope>CBatteryMeasure</scope><name>hasConfigValues</name></member>
+      <member refid="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" prot="public" virt="virtual"><scope>CBatteryMeasure</scope><name>hasStatusValues</name></member>
+      <member refid="class_c_battery_measure_1adf5b31c901e75d0527fb7078394eec9d" prot="public" virt="non-virtual"><scope>CBatteryMeasure</scope><name>isBatteryAvailable</name></member>
+      <member refid="class_c_battery_measure_1a7a01208c090325b7b1368ad40343b07a" prot="private" virt="non-virtual"><scope>CBatteryMeasure</scope><name>m_fBatteryCalcFactor</name></member>
+      <member refid="class_c_battery_measure_1a2791d009b08cb22ad7344d5c6abd750e" prot="private" virt="non-virtual"><scope>CBatteryMeasure</scope><name>m_nBatteryAvailableThreshold</name></member>
+      <member refid="class_c_battery_measure_1a1989ea65a2eebadf2de0355687018ac7" prot="private" virt="non-virtual"><scope>CBatteryMeasure</scope><name>m_nPin</name></member>
+      <member refid="class_i_config_handler_1a8a92be059bfaca6c233419763865a5f4" prot="public" virt="virtual"><scope>CBatteryMeasure</scope><name>migrateConfig</name></member>
+      <member refid="class_c_battery_measure_1a79e98625f77a2eba67ff65342c152429" prot="public" virt="virtual"><scope>CBatteryMeasure</scope><name>readConfigFrom</name></member>
+      <member refid="class_appl_module_1a6f93571379fa6aa97dc07d2fadc56774" prot="public" virt="virtual"><scope>CBatteryMeasure</scope><name>receiveEvent</name></member>
+      <member refid="class_c_battery_measure_1ac7061f042630d9b6843ee1cda2f9c0a8" prot="public" virt="virtual"><scope>CBatteryMeasure</scope><name>writeConfigTo</name></member>
+      <member refid="class_c_battery_measure_1a261bf9656c961acb558919ddf2af582d" prot="public" virt="virtual"><scope>CBatteryMeasure</scope><name>writeStatusTo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

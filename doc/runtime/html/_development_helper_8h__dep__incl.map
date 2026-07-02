@@ -1,0 +1,38 @@
+<map id="include/DevelopmentHelper.h" name="include/DevelopmentHelper.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="548,5,739,31"/>
+<area shape="rect" id="Node000002" href="$_appl_8h.html" title="Application Main Class." alt="" coords="246,300,350,326"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="553,36,472,61,381,98,336,123,294,153,258,188,227,228,223,237,224,247,235,266,254,283,277,300,272,299,251,288,231,269,219,248,218,237,223,225,254,184,291,149,333,119,378,93,471,56,558,34"/>
+<area shape="rect" id="Node000007" href="$_event_handler_8h.html" title=" " alt="" coords="480,153,636,178"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="631,43,567,154,563,150,627,46"/>
+<area shape="rect" id="Node000014" href="$_web_socket_8h.html" title=" " alt="" coords="762,226,906,252"/>
+<area shape="poly" id="edge21_Node000001_Node000014" title=" " alt="" coords="659,42,700,103,766,173,823,226,817,225,762,177,696,106,657,47"/>
+<area shape="rect" id="Node000015" href="$_named_value_table_8h.html" title=" " alt="" coords="710,79,892,105"/>
+<area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="684,35,777,78,771,79,684,40"/>
+<area shape="rect" id="Node000003" href="$_m_d_n_s_controller_8h.html" title="MDNS Controller class definition ESP MDNS controller to handle mDNS responder start/stop on WiFi even..." alt="" coords="5,374,178,399"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="251,333,128,376,126,371,247,329"/>
+<area shape="rect" id="Node000004" href="$_n_t_p_handler_8h.html" title=" " alt="" coords="384,374,532,399"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="340,330,434,373,428,373,338,335"/>
+<area shape="rect" id="Node000005" href="$_web_server_8h.html" title=" " alt="" coords="556,374,696,399"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="365,326,573,372,567,374,365,331"/>
+<area shape="rect" id="Node000006" href="$_wi_fi_controller_8h.html" title="WiFi Controller to handle Access Point and Station Mode." alt="" coords="201,374,360,399"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="294,339,286,375,282,371,290,342"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="463,177,329,199,268,213,226,229,182,263,145,304,118,344,100,375,96,371,113,341,141,301,178,259,224,224,267,208,328,194,468,175"/>
+<area shape="rect" id="Node000008" href="$_logging_8h.html" title=" " alt="" coords="237,226,359,252"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="497,184,343,228,342,223,502,182"/>
+<area shape="rect" id="Node000009" href="$_module_interface_8h.html" title="Full Interface for a module and an abstract basic module implementation." alt="" coords="568,226,738,252"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="587,185,640,226,634,226,586,191"/>
+<area shape="rect" id="Node000013" href="$_sys_status_led_8h.html" title=" " alt="" coords="384,226,543,252"/>
+<area shape="poly" id="edge15_Node000007_Node000013" title=" " alt="" coords="532,187,481,228,478,224,527,189"/>
+<area shape="poly" id="edge16_Node000007_Node000014" title=" " alt="" coords="619,180,790,225,784,226,619,185"/>
+<area shape="poly" id="edge8_Node000008_Node000002" title=" " alt="" coords="300,265,300,301,296,298,297,270"/>
+<area shape="poly" id="edge11_Node000009_Node000002" title=" " alt="" coords="575,256,351,304,350,298,580,255"/>
+<area shape="rect" id="Node000010" href="$_appl_module_8h.html" title=" " alt="" coords="732,300,878,326"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="693,256,782,300,776,299,692,262"/>
+<area shape="rect" id="Node000011" href="$_battery_measure_8h.html" title=" " alt="" coords="720,374,890,399"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="807,339,807,375,803,371,803,343"/>
+<area shape="rect" id="Node000012" href="$_m_q_t_t_controller_8h.html" title=" " alt="" coords="914,374,1083,399"/>
+<area shape="poly" id="edge14_Node000010_Node000012" title=" " alt="" coords="852,329,968,373,963,373,851,334"/>
+<area shape="poly" id="edge17_Node000014_Node000005" title=" " alt="" coords="795,258,722,302,675,341,639,376,636,371,672,337,719,298,790,260"/>
+<area shape="poly" id="edge19_Node000015_Node000007" title=" " alt="" coords="743,110,600,155,599,150,748,108"/>
+<area shape="poly" id="edge20_Node000015_Node000012" title=" " alt="" coords="825,113,872,163,920,225,967,307,996,374,991,372,962,310,916,228,868,167,823,118"/>
+</map>

@@ -1,0 +1,444 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_var" kind="class" language="C++" prot="public">
+    <compoundname>CVar</compoundname>
+    <includes refid="_vars_8h" local="no">Vars.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_var_1a242ad65a64e92dd4470fc8ebd4369a06" prot="private" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* CVar::pszKeyName</definition>
+        <argsstring></argsstring>
+        <name>pszKeyName</name>
+        <qualifiedname>CVar::pszKeyName</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="9" column="15" bodyfile="include/Vars.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_var_1ab9d1c698d9cf2e698598cb8b283146fb" prot="private" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* CVar::pszName</definition>
+        <argsstring></argsstring>
+        <name>pszName</name>
+        <qualifiedname>CVar::pszName</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="10" column="15" bodyfile="include/Vars.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_var_1af32a15b9d4f0db9505af9b45b39859f3" prot="private" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* CVar::pszValue</definition>
+        <argsstring></argsstring>
+        <name>pszValue</name>
+        <qualifiedname>CVar::pszValue</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="11" column="15" bodyfile="include/Vars.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_var_1a24dd43300b19955d474b775b4b0389cb" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CVar::isCritical</definition>
+        <argsstring></argsstring>
+        <name>isCritical</name>
+        <qualifiedname>CVar::isCritical</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="12" column="14" bodyfile="include/Vars.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_var_1a6b8058971f4f178bae3dddefebca9b87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CVar::~CVar</definition>
+        <argsstring>()</argsstring>
+        <name>~CVar</name>
+        <qualifiedname>CVar::~CVar</qualifiedname>
+        <briefdescription>
+<para>Release owned name/key/value buffers. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="19" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1ad8392b840a782ef2fe9eeb05c2faa240" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CVar::CVar</definition>
+        <argsstring>()</argsstring>
+        <name>CVar</name>
+        <qualifiedname>CVar::CVar</qualifiedname>
+        <briefdescription>
+<para>Create an empty variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="21" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1a2877a00833f843de64e5070f9d10156e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CVar::CVar</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>CVar</name>
+        <qualifiedname>CVar::CVar</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+<para>Create a variable with a name and empty value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="23" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1aa72e253b6e73a765ff3f14c5582e9c21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CVar::CVar</definition>
+        <argsstring>(const char *pszName, const char *pszValue)</argsstring>
+        <name>CVar</name>
+        <qualifiedname>CVar::CVar</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszValue</declname>
+        </param>
+        <briefdescription>
+<para>Create a string variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="25" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1aadc75b10062262c1897f8c19ffc09503" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CVar::CVar</definition>
+        <argsstring>(const char *pszName, const int nValue)</argsstring>
+        <name>CVar</name>
+        <qualifiedname>CVar::CVar</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>nValue</declname>
+        </param>
+        <briefdescription>
+<para>Create an integer variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="27" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1a4b642ba48bfe4aaa344b22b15d7f0746" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CVar::CVar</definition>
+        <argsstring>(const char *pszName, const bool bValue)</argsstring>
+        <name>CVar</name>
+        <qualifiedname>CVar::CVar</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>bValue</declname>
+        </param>
+        <briefdescription>
+<para>Create a boolean variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="29" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1a1716f913f77d338f7dda34ed25a26987" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CVar::setVarName</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>setVarName</name>
+        <qualifiedname>CVar::setVarName</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+<para>Set or replace the variable name and derived lookup key. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="45" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1a81e9abe2ae1d883c6a7ca3122829d178" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CVar::getKeyName</definition>
+        <argsstring>(bool bCaseSensitive=false)</argsstring>
+        <name>getKeyName</name>
+        <qualifiedname>CVar::getKeyName</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bCaseSensitive</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Return the lookup key; original case can be requested. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="47" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1a6d11ece8bb0ddafb9ab86972a108f578" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVar::setCriticalVar</definition>
+        <argsstring>(bool bIsCritical)</argsstring>
+        <name>setCriticalVar</name>
+        <qualifiedname>CVar::setCriticalVar</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bIsCritical</declname>
+        </param>
+        <briefdescription>
+<para>Mark whether this variable contains critical/secret data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="50" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1aa6ecff428224bc72a50fd8e80b2a193c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVar::setValue</definition>
+        <argsstring>(const char *strValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CVar::setValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>strValue</declname>
+        </param>
+        <briefdescription>
+<para>Set the variable value from text. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="52" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1a654c15b9b28edc0af9bf4399c111cb6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVar::setValue</definition>
+        <argsstring>(const int nValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CVar::setValue</qualifiedname>
+        <param>
+          <type>const int</type>
+          <declname>nValue</declname>
+        </param>
+        <briefdescription>
+<para>Set the variable value from an integer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="54" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1add35ff7a9b9a90c75af32c07c820bc47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVar::setValue</definition>
+        <argsstring>(const bool bValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CVar::setValue</qualifiedname>
+        <param>
+          <type>const bool</type>
+          <declname>bValue</declname>
+        </param>
+        <briefdescription>
+<para>Set the variable value from a boolean. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="56" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1a08303d54568516950a3219ee013fd3dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVar::setValue</definition>
+        <argsstring>(const unsigned long ulValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CVar::setValue</qualifiedname>
+        <param>
+          <type>const unsigned long</type>
+          <declname>ulValue</declname>
+        </param>
+        <briefdescription>
+<para>Set the variable value from an unsigned long. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="58" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1a1c7c3e1af25a3bf1e26a1fb62265601e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CVar::isCriticalVar</definition>
+        <argsstring>()</argsstring>
+        <name>isCriticalVar</name>
+        <qualifiedname>CVar::isCriticalVar</qualifiedname>
+        <briefdescription>
+<para>Return true if this variable should be masked in public config. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="61" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1a9b09346b0f0fa6e2d010da6d8847f2d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CVar::getName</definition>
+        <argsstring>()</argsstring>
+        <name>getName</name>
+        <qualifiedname>CVar::getName</qualifiedname>
+        <briefdescription>
+<para>Return the original variable name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="63" column="32"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1a3e79bfc4c6528d46b9db403b57fe9a2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CVar::getValue</definition>
+        <argsstring>()</argsstring>
+        <name>getValue</name>
+        <qualifiedname>CVar::getValue</qualifiedname>
+        <briefdescription>
+<para>Return the value as text. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="65" column="32"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1ae95b2c0f586ae280ac2ced40fea206a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const int</type>
+        <definition>const int CVar::getIntValue</definition>
+        <argsstring>()</argsstring>
+        <name>getIntValue</name>
+        <qualifiedname>CVar::getIntValue</qualifiedname>
+        <briefdescription>
+<para>Return the value converted to int. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="67" column="33"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1a0ba6ef0d4675955995e27086ac6644d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const unsigned long</type>
+        <definition>const unsigned long CVar::getUnsignedLongValue</definition>
+        <argsstring>()</argsstring>
+        <name>getUnsignedLongValue</name>
+        <qualifiedname>CVar::getUnsignedLongValue</qualifiedname>
+        <briefdescription>
+<para>Return the value converted to unsigned long. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="69" column="33"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_1a35c55f510b20afb5c4d7d8670ae8f06a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const bool</type>
+        <definition>const bool CVar::getBoolValue</definition>
+        <argsstring>()</argsstring>
+        <name>getBoolValue</name>
+        <qualifiedname>CVar::getBoolValue</qualifiedname>
+        <briefdescription>
+<para>Return the value converted to bool. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="71" column="33"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Represents one named configuration variable. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/Vars.h" line="7" column="1" bodyfile="include/Vars.h" bodystart="7" bodyend="72"/>
+    <listofallmembers>
+      <member refid="class_c_var_1ad8392b840a782ef2fe9eeb05c2faa240" prot="public" virt="non-virtual"><scope>CVar</scope><name>CVar</name></member>
+      <member refid="class_c_var_1a2877a00833f843de64e5070f9d10156e" prot="public" virt="non-virtual"><scope>CVar</scope><name>CVar</name></member>
+      <member refid="class_c_var_1aa72e253b6e73a765ff3f14c5582e9c21" prot="public" virt="non-virtual"><scope>CVar</scope><name>CVar</name></member>
+      <member refid="class_c_var_1aadc75b10062262c1897f8c19ffc09503" prot="public" virt="non-virtual"><scope>CVar</scope><name>CVar</name></member>
+      <member refid="class_c_var_1a4b642ba48bfe4aaa344b22b15d7f0746" prot="public" virt="non-virtual"><scope>CVar</scope><name>CVar</name></member>
+      <member refid="class_c_var_1a35c55f510b20afb5c4d7d8670ae8f06a" prot="public" virt="non-virtual"><scope>CVar</scope><name>getBoolValue</name></member>
+      <member refid="class_c_var_1ae95b2c0f586ae280ac2ced40fea206a2" prot="public" virt="non-virtual"><scope>CVar</scope><name>getIntValue</name></member>
+      <member refid="class_c_var_1a81e9abe2ae1d883c6a7ca3122829d178" prot="public" virt="non-virtual"><scope>CVar</scope><name>getKeyName</name></member>
+      <member refid="class_c_var_1a9b09346b0f0fa6e2d010da6d8847f2d7" prot="public" virt="non-virtual"><scope>CVar</scope><name>getName</name></member>
+      <member refid="class_c_var_1a0ba6ef0d4675955995e27086ac6644d0" prot="public" virt="non-virtual"><scope>CVar</scope><name>getUnsignedLongValue</name></member>
+      <member refid="class_c_var_1a3e79bfc4c6528d46b9db403b57fe9a2e" prot="public" virt="non-virtual"><scope>CVar</scope><name>getValue</name></member>
+      <member refid="class_c_var_1a24dd43300b19955d474b775b4b0389cb" prot="private" virt="non-virtual"><scope>CVar</scope><name>isCritical</name></member>
+      <member refid="class_c_var_1a1c7c3e1af25a3bf1e26a1fb62265601e" prot="public" virt="non-virtual"><scope>CVar</scope><name>isCriticalVar</name></member>
+      <member refid="class_c_var_1a242ad65a64e92dd4470fc8ebd4369a06" prot="private" virt="non-virtual"><scope>CVar</scope><name>pszKeyName</name></member>
+      <member refid="class_c_var_1ab9d1c698d9cf2e698598cb8b283146fb" prot="private" virt="non-virtual"><scope>CVar</scope><name>pszName</name></member>
+      <member refid="class_c_var_1af32a15b9d4f0db9505af9b45b39859f3" prot="private" virt="non-virtual"><scope>CVar</scope><name>pszValue</name></member>
+      <member refid="class_c_var_1a6d11ece8bb0ddafb9ab86972a108f578" prot="public" virt="non-virtual"><scope>CVar</scope><name>setCriticalVar</name></member>
+      <member refid="class_c_var_1aa6ecff428224bc72a50fd8e80b2a193c" prot="public" virt="non-virtual"><scope>CVar</scope><name>setValue</name></member>
+      <member refid="class_c_var_1a654c15b9b28edc0af9bf4399c111cb6c" prot="public" virt="non-virtual"><scope>CVar</scope><name>setValue</name></member>
+      <member refid="class_c_var_1add35ff7a9b9a90c75af32c07c820bc47" prot="public" virt="non-virtual"><scope>CVar</scope><name>setValue</name></member>
+      <member refid="class_c_var_1a08303d54568516950a3219ee013fd3dd" prot="public" virt="non-virtual"><scope>CVar</scope><name>setValue</name></member>
+      <member refid="class_c_var_1a1716f913f77d338f7dda34ed25a26987" prot="public" virt="non-virtual"><scope>CVar</scope><name>setVarName</name></member>
+      <member refid="class_c_var_1a6b8058971f4f178bae3dddefebca9b87" prot="public" virt="non-virtual"><scope>CVar</scope><name>~CVar</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

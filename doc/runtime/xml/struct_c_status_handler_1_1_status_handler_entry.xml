@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="struct_c_status_handler_1_1_status_handler_entry" kind="struct" language="C++" prot="private">
+    <compoundname>CStatusHandler::StatusHandlerEntry</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_c_status_handler_1_1_status_handler_entry_1a41ebdf4bcf956aa2172b8093ac075958" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* CStatusHandler::StatusHandlerEntry::pszName</definition>
+        <argsstring></argsstring>
+        <name>pszName</name>
+        <qualifiedname>CStatusHandler::StatusHandlerEntry::pszName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/StatusHandler.h" line="30" column="21" bodyfile="include/StatusHandler.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_c_status_handler_1_1_status_handler_entry_1aba28323bc2f6d0874e215c70e1c9a610" prot="public" static="no" mutable="no">
+        <type><ref refid="class_i_status_handler" kindref="compound">IStatusHandler</ref> *</type>
+        <definition>IStatusHandler* CStatusHandler::StatusHandlerEntry::pHandler</definition>
+        <argsstring></argsstring>
+        <name>pHandler</name>
+        <qualifiedname>CStatusHandler::StatusHandlerEntry::pHandler</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/StatusHandler.h" line="31" column="24" bodyfile="include/StatusHandler.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>CStatusHandler::StatusHandlerEntry</label>
+        <childnode refid="2" relation="usage">
+          <edgelabel>pHandler</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/StatusHandler.h" line="29" column="5" bodyfile="include/StatusHandler.h" bodystart="29" bodyend="32"/>
+    <listofallmembers>
+      <member refid="struct_c_status_handler_1_1_status_handler_entry_1aba28323bc2f6d0874e215c70e1c9a610" prot="public" virt="non-virtual"><scope>CStatusHandler::StatusHandlerEntry</scope><name>pHandler</name></member>
+      <member refid="struct_c_status_handler_1_1_status_handler_entry_1a41ebdf4bcf956aa2172b8093ac075958" prot="public" virt="non-virtual"><scope>CStatusHandler::StatusHandlerEntry</scope><name>pszName</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="struct_m_q_t_t_status" kind="struct" language="C++" prot="public">
+    <compoundname>MQTTStatus</compoundname>
+    <includes refid="_m_q_t_t_controller_8h" local="no">MQTTController.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_m_q_t_t_status_1ac6c0f031c15183e9bf4f93b5f48b3392" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long MQTTStatus::ConStart</definition>
+        <argsstring></argsstring>
+        <name>ConStart</name>
+        <qualifiedname>MQTTStatus::ConStart</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para><ref refid="_runtime_8h_1a6ff7f2532a22366f0013bc41397129fd" kindref="member">millis()</ref> value when connection started. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="77" column="19" bodyfile="include/MQTTController.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_status_1af2ed2e838f2fdf2f1ec05b39662cbc35" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long MQTTStatus::ConEnd</definition>
+        <argsstring></argsstring>
+        <name>ConEnd</name>
+        <qualifiedname>MQTTStatus::ConEnd</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para><ref refid="_runtime_8h_1a6ff7f2532a22366f0013bc41397129fd" kindref="member">millis()</ref> value when connection ended. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="79" column="19" bodyfile="include/MQTTController.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_status_1a87dc771b7980a0e576c8aca303651db0" prot="public" static="no" mutable="no">
+        <type><ref refid="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbf" kindref="member">AsyncMqttClientDisconnectReason</ref></type>
+        <definition>AsyncMqttClientDisconnectReason MQTTStatus::DisConReason</definition>
+        <argsstring></argsstring>
+        <name>DisConReason</name>
+        <qualifiedname>MQTTStatus::DisConReason</qualifiedname>
+        <initializer>= <ref refid="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfa848e89ec27e775fab0350b25da931038" kindref="member">AsyncMqttClientDisconnectReason::TCP_DISCONNECTED</ref></initializer>
+        <briefdescription>
+<para>Last disconnect reason reported by <ref refid="class_async_mqtt_client" kindref="compound">AsyncMqttClient</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="81" column="38" bodyfile="include/MQTTController.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_status_1abea80e618904bbddd02b161f0432de5a" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String MQTTStatus::DisConReasonString</definition>
+        <argsstring></argsstring>
+        <name>DisConReasonString</name>
+        <qualifiedname>MQTTStatus::DisConReasonString</qualifiedname>
+        <briefdescription>
+<para>Text representation of the last disconnect reason. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="83" column="38" bodyfile="include/MQTTController.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Runtime status of the MQTT connection. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/MQTTController.h" line="75" column="1" bodyfile="include/MQTTController.h" bodystart="75" bodyend="84"/>
+    <listofallmembers>
+      <member refid="struct_m_q_t_t_status_1af2ed2e838f2fdf2f1ec05b39662cbc35" prot="public" virt="non-virtual"><scope>MQTTStatus</scope><name>ConEnd</name></member>
+      <member refid="struct_m_q_t_t_status_1ac6c0f031c15183e9bf4f93b5f48b3392" prot="public" virt="non-virtual"><scope>MQTTStatus</scope><name>ConStart</name></member>
+      <member refid="struct_m_q_t_t_status_1a87dc771b7980a0e576c8aca303651db0" prot="public" virt="non-virtual"><scope>MQTTStatus</scope><name>DisConReason</name></member>
+      <member refid="struct_m_q_t_t_status_1abea80e618904bbddd02b161f0432de5a" prot="public" virt="non-virtual"><scope>MQTTStatus</scope><name>DisConReasonString</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

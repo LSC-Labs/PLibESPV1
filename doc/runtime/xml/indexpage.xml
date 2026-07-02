@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>PLibESPV1 Runtime Library</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="index_1md_doc_2runtime_2mainpage"/></para>
+<para>PLibESPV1 stellt wiederverwendbare Runtime-Bausteine fuer ESP-basierte Anwendungen bereit. Die Library buendelt Konfiguration, Statusausgabe, Event-Bus, Logging, Netzwerkdienste, WebSocket/WebServer, MQTT, einfache JSON-Verarbeitung, Security-Helfer und Hardware-nahe Controller.</para>
+<sect1 id="index_1autotoc_md20">
+<title>Einstiegspunkte</title><para><itemizedlist>
+<listitem><para><computeroutput><ref refid="class_c_appl" kindref="compound">CAppl</ref></computeroutput> ist der zentrale Anwendungshub fuer Module, Konfiguration, Status, Logging und den Message-Bus.</para>
+</listitem><listitem><para><computeroutput><ref refid="class_i_module" kindref="compound">IModule</ref></computeroutput>, <computeroutput><ref refid="class_i_config_handler" kindref="compound">IConfigHandler</ref></computeroutput>, <computeroutput><ref refid="class_i_status_handler" kindref="compound">IStatusHandler</ref></computeroutput> und <computeroutput><ref refid="class_i_msg_event_receiver" kindref="compound">IMsgEventReceiver</ref></computeroutput> beschreiben die wichtigsten Erweiterungspunkte.</para>
+</listitem><listitem><para><computeroutput><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref></computeroutput>, <computeroutput><ref refid="class_c_var_table" kindref="compound">CVarTable</ref></computeroutput>, <computeroutput><ref refid="class_c_named_value_table" kindref="compound">CNamedValueTable</ref></computeroutput> und <computeroutput>LSCUtils</computeroutput> bilden die allgemeinen Utility-Bausteine.</para>
+</listitem><listitem><para><computeroutput><ref refid="class_c_wi_fi_controller" kindref="compound">CWiFiController</ref></computeroutput>, <computeroutput><ref refid="class_c_web_server" kindref="compound">CWebServer</ref></computeroutput>, <computeroutput><ref refid="class_c_web_socket" kindref="compound">CWebSocket</ref></computeroutput>, <computeroutput><ref refid="class_c_m_q_t_t_controller" kindref="compound">CMQTTController</ref></computeroutput>, <computeroutput><ref refid="class_c_n_t_p_handler" kindref="compound">CNTPHandler</ref></computeroutput> und <computeroutput><ref refid="class_c_m_d_n_s_controller" kindref="compound">CMDNSController</ref></computeroutput> kapseln Netzwerkfunktionen.</para>
+</listitem><listitem><para><computeroutput><ref refid="class_c_output_pin_controller" kindref="compound">COutputPinController</ref></computeroutput>, <computeroutput><ref refid="class_c_input_pin_controller" kindref="compound">CInputPinController</ref></computeroutput>, <computeroutput><ref refid="class_c_light_switch" kindref="compound">CLightSwitch</ref></computeroutput>, <computeroutput><ref refid="class_c_r_g_b_led" kindref="compound">CRGBLed</ref></computeroutput>, <computeroutput><ref refid="class_c_button" kindref="compound">CButton</ref></computeroutput> und <computeroutput><ref refid="class_c_battery_measure" kindref="compound">CBatteryMeasure</ref></computeroutput> decken typische Hardware-Interaktionen ab.</para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+<sect1 id="index_1autotoc_md21">
+<title>Generierte Formate</title><para>Diese Runtime-Dokumentation wird aus Headern, Source-Dateien und vorhandenen Markdown-Seiten erzeugt:</para>
+<para><itemizedlist>
+<listitem><para>HTML: <computeroutput>doc/runtime/html/index.html</computeroutput></para>
+</listitem><listitem><para>Markdown: <computeroutput>doc/runtime/markdown/PLibESPV1_Runtime_Library.md</computeroutput></para>
+</listitem><listitem><para>PDF: <computeroutput>doc/runtime/pdf/PLibESPV1_Runtime_Library.pdf</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+<para>Die Markdown- und PDF-Dateien werden aus der Doxygen-XML-Ausgabe abgeleitet, damit alle Formate auf derselben API-Basis beruhen. </para>
+</sect1>
+    </detaileddescription>
+    <location file="doc/runtime/mainpage.md"/>
+  </compounddef>
+</doxygen>

@@ -6,17 +6,20 @@
     #undef DEBUGINFOS
 #endif
     
+/**
+ * @brief Creates an empty, invalid access token.
+ */
 CAccessToken::CAccessToken() {}
 
 /**
- * @brief constructor to create an access token structure
- * - Load the IV
- * - copy the token key,
- * - copy the ip Address
- * - create a timestamp in milliseconds
- * @param pszIPAddress the ip address of the client
- * @param pszTokenKey the token key of this application
- * @param pszIV a initial vector for de/encryption (optional)
+ * @brief Creates a token structure from client data.
+ *
+ * The constructor copies IP address and token key into fixed buffers, optionally
+ * loads an IV, and stamps the token with the current millis() value.
+ *
+ * @param pszIPAddress Client IP address to bind the token to.
+ * @param pszTokenKey Application token key to bind the token to.
+ * @param pszIV Optional initialization vector for encryption/decryption.
  */
 CAccessToken::CAccessToken(const char * pszIPAddress, const char * pszTokenKey, const char * pszIV) {
     if(pszIV) m_oAESCryptor.IV.loadFromString(pszIV);
@@ -30,8 +33,12 @@ CAccessToken::CAccessToken(const char * pszIPAddress, const char * pszTokenKey, 
 }
 
 /**
- * @brief constructor with a base64 encoded string, containing the token structure
- * to be used to validate the token...
+ * @brief Decodes a serialized base64 token.
+ *
+ * The decoded token must contain JSON fields "IV" and "Data". The IV is loaded
+ * first, then the encrypted data element is decoded and decrypted.
+ *
+ * @param pszBase64Data Base64-encoded token JSON wrapper.
  */
 CAccessToken::CAccessToken(const char * pszBase64Data) {
     m_bStructureIsValid = false;
@@ -53,11 +60,13 @@ CAccessToken::CAccessToken(const char * pszBase64Data) {
 }
 
 /**
- * @brief read the data element (content)
- * Data will be decoded from base64 and decrypted.
- * The elements will be filled. If there is a structure error, or some elements are missing, the result is false
- * @param pszBase64Data The base64 encoded data with the encrypted content
- * @returns true, if data is valid, the format is correct and all elements needed are inside.
+ * @brief Loads and decrypts the token data element.
+ *
+ * The data element is base64-decoded, decrypted with APPL_SECURITY_TOKEN_PASS,
+ * parsed as JSON, and expected to contain timestamp, IP address and token key.
+ *
+ * @param pszBase64Data Base64-encoded encrypted data element.
+ * @return true when all required fields were decoded and parsed.
  */
 bool CAccessToken::loadBase64DataElement(const char * pszBase64Data) {
     bool bSuccess = false;
@@ -86,9 +95,9 @@ bool CAccessToken::loadBase64DataElement(const char * pszBase64Data) {
 }
 
 /**
- * @brief get the token data encrypted and in base64 format to be used as data element
- *        
- * @param bRefreshTimeStamp if true, a new timestamp will be generated for the token.
+ * @brief Builds the encrypted data element and returns it as base64.
+ * @param bRefreshTimeStamp true to update the token timestamp before encoding.
+ * @return Pointer to the internal base64 data-element buffer.
  */
 const char * CAccessToken::getBase64DataElement(bool bRefreshTimeStamp) {
     // Build the json structure by string...   
@@ -111,9 +120,13 @@ const char * CAccessToken::getBase64DataElement(bool bRefreshTimeStamp) {
 }
 
 /**
- * @brief get the access token, ready as base64 string
- * @param bRandomIV if true, a new IV will be created for this token.
- * @returns a string pointer with the base64 data, ready to be delivered
+ * @brief Builds the full access token as a base64 string.
+ *
+ * The full token is a JSON wrapper containing the IV and encrypted data element,
+ * then encoded as base64 for transport.
+ *
+ * @param bRandomIV true to create a new IV before encoding.
+ * @return Pointer to the internal base64 token buffer.
  */
 const char * CAccessToken::getTokenAsBase64(bool bRandomIV) {
     DEBUG_FUNC_START_PARMS("%d",bRandomIV);
@@ -154,13 +167,15 @@ void CAccessToken::dump() {
 */
 
 /**
- * @brief check if the current token is valid
- * - IP Address matches
- * - Appl Token matches
- * - Token is still valid and Timestamp is not expired
- * @param pszIPAddress Client IP Address to be validated with the token
- * @param pszTokenKey the application token key, has to match
- * @return true, if the structure of the token and the values are correct.
+ * @brief Checks whether this token is valid for a client and token key.
+ *
+ * A token is valid only when its structure decoded successfully, the IP address
+ * matches, the token key matches, and the timestamp is still within
+ * TOKEN_TIME_ALIVE.
+ *
+ * @param pszIPAddress Client IP address to validate.
+ * @param pszTokenKey Application token key to validate.
+ * @return true when all checks pass.
  */
 bool CAccessToken::isAuthValid(const char * pszIPAddress, const char * pszTokenKey) {
     DEBUG_FUNC_START_PARMS("\"%s\",\"%s\"",NULL_POINTER_STRING(pszIPAddress),NULL_POINTER_STRING(pszTokenKey));

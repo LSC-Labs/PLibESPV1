@@ -26,6 +26,7 @@
     "test": "test"
   },
   "scripts": {
+    "build-doc": "bash scripts/build-doc.sh",
     "css-compile": "sass         --style expanded --source-map --embed-sources --no-error-css scss/:src/web/css/",
     "css-watch":   "sass --watch --style expanded --source-map --embed-sources --no-error-css scss/:src/web/css/"
   },

@@ -1,0 +1,676 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_r_g_b_led" kind="class" language="C++" prot="public">
+    <compoundname>CRGBLed</compoundname>
+    <derivedcompoundref refid="class_c_sys_status_led" prot="public" virt="non-virtual">CSysStatusLed</derivedcompoundref>
+    <includes refid="_r_g_b_led_8h" local="no">RGBLed.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_r_g_b_led_1ab85aef5c48cc6adfb4065f2a3fe5aebe" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CRGBLed::m_nCurrentColor</definition>
+        <argsstring></argsstring>
+        <name>m_nCurrentColor</name>
+        <qualifiedname>CRGBLed::m_nCurrentColor</qualifiedname>
+        <initializer>= <ref refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52af77fb67151d0c18d397069ad8c271ba3" kindref="member">RGB_COLOR::BLACK</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="37" column="14" bodyfile="include/RGBLed.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_r_g_b_led_1a7ea758b9e25b078e211e880eb9e81216" prot="private" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int CRGBLed::COLOR_RED_BIT_MASK</definition>
+        <argsstring></argsstring>
+        <name>COLOR_RED_BIT_MASK</name>
+        <qualifiedname>CRGBLed::COLOR_RED_BIT_MASK</qualifiedname>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="40" column="19" bodyfile="include/RGBLed.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_r_g_b_led_1a758895c8295f147d0447a52e582f6ec1" prot="private" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int CRGBLed::COLOR_GREEN_BIT_MASK</definition>
+        <argsstring></argsstring>
+        <name>COLOR_GREEN_BIT_MASK</name>
+        <qualifiedname>CRGBLed::COLOR_GREEN_BIT_MASK</qualifiedname>
+        <initializer>= 2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="41" column="19" bodyfile="include/RGBLed.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_r_g_b_led_1ab3d0ec5a1ed9d677292edfacc4362425" prot="private" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int CRGBLed::COLOR_BLUE_BIT_MASK</definition>
+        <argsstring></argsstring>
+        <name>COLOR_BLUE_BIT_MASK</name>
+        <qualifiedname>CRGBLed::COLOR_BLUE_BIT_MASK</qualifiedname>
+        <initializer>= 4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="42" column="19" bodyfile="include/RGBLed.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_c_r_g_b_led_1ad636507f68ca82715afed260bfcefa6b" prot="public" static="no" mutable="no">
+        <type><ref refid="class_c_light_switch" kindref="compound">CLightSwitch</ref></type>
+        <definition>CLightSwitch CRGBLed::RedLED</definition>
+        <argsstring></argsstring>
+        <name>RedLED</name>
+        <qualifiedname>CRGBLed::RedLED</qualifiedname>
+        <briefdescription>
+<para>Red channel light switch. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="46" column="22" bodyfile="include/RGBLed.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_r_g_b_led_1a713bc55abd226e4c284ab0fd6bb62953" prot="public" static="no" mutable="no">
+        <type><ref refid="class_c_light_switch" kindref="compound">CLightSwitch</ref></type>
+        <definition>CLightSwitch CRGBLed::GreenLED</definition>
+        <argsstring></argsstring>
+        <name>GreenLED</name>
+        <qualifiedname>CRGBLed::GreenLED</qualifiedname>
+        <briefdescription>
+<para>Green channel light switch. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="48" column="22" bodyfile="include/RGBLed.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_r_g_b_led_1a4376063e15be6240b97134d8e84c70da" prot="public" static="no" mutable="no">
+        <type><ref refid="class_c_light_switch" kindref="compound">CLightSwitch</ref></type>
+        <definition>CLightSwitch CRGBLed::BlueLED</definition>
+        <argsstring></argsstring>
+        <name>BlueLED</name>
+        <qualifiedname>CRGBLed::BlueLED</qualifiedname>
+        <briefdescription>
+<para>Blue channel light switch. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="50" column="22" bodyfile="include/RGBLed.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_r_g_b_led_1a6da9e5bdd7ba146a27563f4646f2dadd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CRGBLed::CRGBLed</definition>
+        <argsstring>()</argsstring>
+        <name>CRGBLed</name>
+        <qualifiedname>CRGBLed::CRGBLed</qualifiedname>
+        <briefdescription>
+<para>Create an unconfigured RGB LED. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="54" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1a3e1a5b40a76001b7413e1ff276dd42c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CRGBLed::CRGBLed</definition>
+        <argsstring>(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow=true)</argsstring>
+        <name>CRGBLed</name>
+        <qualifiedname>CRGBLed::CRGBLed</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nRedPin</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nGreenPin</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nBluePin</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bActiveLow</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nRedPin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin number for the red LED </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nGreenPin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin number for the green LED </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nBluePin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin number for the blue LED </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bActiveLow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, the LED is active low (Common Cathode) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="62" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1a52b8488f2cf416cb54340c44ae020a57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::setup</definition>
+        <argsstring>(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow=true)</argsstring>
+        <name>setup</name>
+        <qualifiedname>CRGBLed::setup</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nRedPin</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nGreenPin</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nBluePin</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bActiveLow</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Configure the RGB LED pins and active-level mode. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="66" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1a896d7bbc1fe44ca274ab39e1113d706c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::switchOn</definition>
+        <argsstring>()</argsstring>
+        <name>switchOn</name>
+        <qualifiedname>CRGBLed::switchOn</qualifiedname>
+        <briefdescription>
+<para>Switch all active color channels on. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="69" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1acaf7aa8df1994c384eb983a6be3d49c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::switchOff</definition>
+        <argsstring>()</argsstring>
+        <name>switchOff</name>
+        <qualifiedname>CRGBLed::switchOff</qualifiedname>
+        <briefdescription>
+<para>Switch off the RGB LED. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="74" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1aaa844ed7ffafc84d8ae1bc5071ab3f49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::setColor</definition>
+        <argsstring>(RGB_COLOR eColor, bool bSwitchLeds=true)</argsstring>
+        <name>setColor</name>
+        <qualifiedname>CRGBLed::setColor</qualifiedname>
+        <param>
+          <type><ref refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52" kindref="member">RGB_COLOR</ref></type>
+          <declname>eColor</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bSwitchLeds</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Set the color of the RGB LED. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>eColor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Color to be set </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bSwitchLeds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, the leds will be switched to the desired states (brightness &amp; on/off) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="81" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1acd5c67890ece04f5cfa6e46fcef9f1ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::setColor</definition>
+        <argsstring>(int nColorBits, bool bSwitchLeds=true)</argsstring>
+        <name>setColor</name>
+        <qualifiedname>CRGBLed::setColor</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nColorBits</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bSwitchLeds</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Set the color of the RGB LED - follow the Bitmasks in <ref refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52" kindref="member">RGB_COLOR</ref> ! </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nColorBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>(0x1 = RED, 0x2 = GREEN, 0x4 = BLUE / Color to be set </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bSwitchLeds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, the leds will be switched to the desired states (brightness &amp; on/off) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="88" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1a6e2b0eb26a4e774d77dba37377aa54b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::blink</definition>
+        <argsstring>(RGB_COLOR eColor, unsigned long nOnMillis=500, unsigned long nOffMillis=500)</argsstring>
+        <name>blink</name>
+        <qualifiedname>CRGBLed::blink</qualifiedname>
+        <param>
+          <type><ref refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52" kindref="member">RGB_COLOR</ref></type>
+          <declname>eColor</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>nOnMillis</declname>
+          <defval>500</defval>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>nOffMillis</declname>
+          <defval>500</defval>
+        </param>
+        <briefdescription>
+<para>Blink the given named color. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="91" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1a8f471e51aff167211dfa094e3339dd83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::blink</definition>
+        <argsstring>(int nColorBits, unsigned long nOnMillis=500, unsigned long nOffMillis=500)</argsstring>
+        <name>blink</name>
+        <qualifiedname>CRGBLed::blink</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nColorBits</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>nOnMillis</declname>
+          <defval>500</defval>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>nOffMillis</declname>
+          <defval>500</defval>
+        </param>
+        <briefdescription>
+<para>Blink the given color bitmask. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="93" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1ab661984d1ff14883669c00504438d3e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::wave</definition>
+        <argsstring>(RGB_COLOR eColor, unsigned long ulFadeInMillis=500, unsigned long ulFadeOutMillis=500, unsigned long ulOnTime=1000, unsigned long ulOffTime=2000, int nMaxLevelInPercent=-1)</argsstring>
+        <name>wave</name>
+        <qualifiedname>CRGBLed::wave</qualifiedname>
+        <param>
+          <type><ref refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52" kindref="member">RGB_COLOR</ref></type>
+          <declname>eColor</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulFadeInMillis</declname>
+          <defval>500</defval>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulFadeOutMillis</declname>
+          <defval>500</defval>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulOnTime</declname>
+          <defval>1000</defval>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulOffTime</declname>
+          <defval>2000</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMaxLevelInPercent</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+<para>Fade the given named color in/out repeatedly. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="96" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1af233373fed81654c63629550b18e8abc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::wave</definition>
+        <argsstring>(int nColorBits, unsigned long ulFadeInMillis=500, unsigned long ulFadeOutMillis=500, unsigned long ulOnTime=1000, unsigned long ulOffTime=2000, int nMaxLevelInPercent=-1)</argsstring>
+        <name>wave</name>
+        <qualifiedname>CRGBLed::wave</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nColorBits</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulFadeInMillis</declname>
+          <defval>500</defval>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulFadeOutMillis</declname>
+          <defval>500</defval>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulOnTime</declname>
+          <defval>1000</defval>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulOffTime</declname>
+          <defval>2000</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMaxLevelInPercent</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+<para>Fade the given color bitmask in/out repeatedly. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="98" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1adf3b9cb1e3d57fba64b017408b60e789" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::setBrightnessInPercent</definition>
+        <argsstring>(RGB_COLOR eColor, int nBrightnessPercent)</argsstring>
+        <name>setBrightnessInPercent</name>
+        <qualifiedname>CRGBLed::setBrightnessInPercent</qualifiedname>
+        <param>
+          <type><ref refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52" kindref="member">RGB_COLOR</ref></type>
+          <declname>eColor</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nBrightnessPercent</declname>
+        </param>
+        <briefdescription>
+<para>Set brightness for one named color channel/group. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="101" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1a4df77898e3a63a1e070a3091c00f52ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::setBrightnessInPercent</definition>
+        <argsstring>(int nColorBits, int nBrightnessPercent)</argsstring>
+        <name>setBrightnessInPercent</name>
+        <qualifiedname>CRGBLed::setBrightnessInPercent</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nColorBits</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nBrightnessPercent</declname>
+        </param>
+        <briefdescription>
+<para>Set brightness for one color bitmask channel/group. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="103" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1a8406f3825e86bba05a5be171b7560184" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::runTests</definition>
+        <argsstring>()</argsstring>
+        <name>runTests</name>
+        <qualifiedname>CRGBLed::runTests</qualifiedname>
+        <briefdescription>
+<para>Run the tests for the RGB LED. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="107" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1ad702e69cd52c512513ecb25c9eac28e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::showStartupFlashLight</definition>
+        <argsstring>(int nDelayBetweenFlashes)</argsstring>
+        <name>showStartupFlashLight</name>
+        <qualifiedname>CRGBLed::showStartupFlashLight</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nDelayBetweenFlashes</declname>
+        </param>
+        <briefdescription>
+<para>Show a short startup flash sequence. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="109" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_c_r_g_b_led_1ae95e05a6cc65db1fff30f17640fb2c38" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::runSingleColorTests</definition>
+        <argsstring>()</argsstring>
+        <name>runSingleColorTests</name>
+        <qualifiedname>CRGBLed::runSingleColorTests</qualifiedname>
+        <briefdescription>
+<para>Run single-color diagnostics. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="112" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_r_g_b_led_1ab36729bd2ce04ecdf76405e3b8f137c7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CRGBLed::runColorBrightnessTest</definition>
+        <argsstring>()</argsstring>
+        <name>runColorBrightnessTest</name>
+        <qualifiedname>CRGBLed::runColorBrightnessTest</qualifiedname>
+        <briefdescription>
+<para>Run color brightness diagnostics. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/RGBLed.h" line="114" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Class to handle the RGB LED Initialize the RGB LED with the pins for the colors and with the Information COMMON_ANODE (Active Low) or COMMON_CATHODE (Active High). </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The Setup function must be called to initialize the pins </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>CRGBLed</label>
+        <link refid="class_c_r_g_b_led"/>
+      </node>
+      <node id="2">
+        <label>CSysStatusLed</label>
+        <link refid="class_c_sys_status_led"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>CLightSwitch</label>
+        <link refid="class_c_light_switch"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>COutputPinController</label>
+        <link refid="class_c_output_pin_controller"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>CPinController</label>
+        <link refid="class_c_pin_controller"/>
+      </node>
+      <node id="1">
+        <label>CRGBLed</label>
+        <link refid="class_c_r_g_b_led"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>BlueLED</edgelabel>
+          <edgelabel>GreenLED</edgelabel>
+          <edgelabel>RedLED</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/RGBLed.h" line="25" column="1" bodyfile="include/RGBLed.h" bodystart="26" bodyend="116"/>
+    <listofallmembers>
+      <member refid="class_c_r_g_b_led_1a6e2b0eb26a4e774d77dba37377aa54b7" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>blink</name></member>
+      <member refid="class_c_r_g_b_led_1a8f471e51aff167211dfa094e3339dd83" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>blink</name></member>
+      <member refid="class_c_r_g_b_led_1a4376063e15be6240b97134d8e84c70da" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>BlueLED</name></member>
+      <member refid="class_c_r_g_b_led_1ab3d0ec5a1ed9d677292edfacc4362425" prot="private" virt="non-virtual"><scope>CRGBLed</scope><name>COLOR_BLUE_BIT_MASK</name></member>
+      <member refid="class_c_r_g_b_led_1a758895c8295f147d0447a52e582f6ec1" prot="private" virt="non-virtual"><scope>CRGBLed</scope><name>COLOR_GREEN_BIT_MASK</name></member>
+      <member refid="class_c_r_g_b_led_1a7ea758b9e25b078e211e880eb9e81216" prot="private" virt="non-virtual"><scope>CRGBLed</scope><name>COLOR_RED_BIT_MASK</name></member>
+      <member refid="class_c_r_g_b_led_1a6da9e5bdd7ba146a27563f4646f2dadd" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>CRGBLed</name></member>
+      <member refid="class_c_r_g_b_led_1a3e1a5b40a76001b7413e1ff276dd42c9" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>CRGBLed</name></member>
+      <member refid="class_c_r_g_b_led_1a713bc55abd226e4c284ab0fd6bb62953" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>GreenLED</name></member>
+      <member refid="class_c_r_g_b_led_1ab85aef5c48cc6adfb4065f2a3fe5aebe" prot="private" virt="non-virtual"><scope>CRGBLed</scope><name>m_nCurrentColor</name></member>
+      <member refid="class_c_r_g_b_led_1ad636507f68ca82715afed260bfcefa6b" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>RedLED</name></member>
+      <member refid="class_c_r_g_b_led_1ab36729bd2ce04ecdf76405e3b8f137c7" prot="private" virt="non-virtual"><scope>CRGBLed</scope><name>runColorBrightnessTest</name></member>
+      <member refid="class_c_r_g_b_led_1ae95e05a6cc65db1fff30f17640fb2c38" prot="private" virt="non-virtual"><scope>CRGBLed</scope><name>runSingleColorTests</name></member>
+      <member refid="class_c_r_g_b_led_1a8406f3825e86bba05a5be171b7560184" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>runTests</name></member>
+      <member refid="class_c_r_g_b_led_1adf3b9cb1e3d57fba64b017408b60e789" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>setBrightnessInPercent</name></member>
+      <member refid="class_c_r_g_b_led_1a4df77898e3a63a1e070a3091c00f52ba" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>setBrightnessInPercent</name></member>
+      <member refid="class_c_r_g_b_led_1aaa844ed7ffafc84d8ae1bc5071ab3f49" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>setColor</name></member>
+      <member refid="class_c_r_g_b_led_1acd5c67890ece04f5cfa6e46fcef9f1ee" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>setColor</name></member>
+      <member refid="class_c_r_g_b_led_1a52b8488f2cf416cb54340c44ae020a57" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>setup</name></member>
+      <member refid="class_c_r_g_b_led_1ad702e69cd52c512513ecb25c9eac28e7" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>showStartupFlashLight</name></member>
+      <member refid="class_c_r_g_b_led_1acaf7aa8df1994c384eb983a6be3d49c3" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>switchOff</name></member>
+      <member refid="class_c_r_g_b_led_1a896d7bbc1fe44ca274ab39e1113d706c" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>switchOn</name></member>
+      <member refid="class_c_r_g_b_led_1ab661984d1ff14883669c00504438d3e4" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>wave</name></member>
+      <member refid="class_c_r_g_b_led_1af233373fed81654c63629550b18e8abc" prot="public" virt="non-virtual"><scope>CRGBLed</scope><name>wave</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

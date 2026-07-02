@@ -15,9 +15,12 @@ const char * WEBSERVER_AUTOREDIRECT_MODE       = "autoRedirectMode";
 
 #pragma region Constructor 
 /** 
- * @brief Constructor 
- * You have to register the module after creating the instance!
- * @param nPortNumber 
+ * @brief Creates the async web server on the selected port.
+ *
+ * The instance still has to be registered with the application/module system by
+ * the caller.
+ *
+ * @param nPortNumber TCP port to listen on.
  */ 
 CWebServer::CWebServer(int nPortNumber)
 	: AsyncWebServer(nPortNumber) {}
@@ -27,14 +30,17 @@ CWebServer::CWebServer(int nPortNumber)
 #pragma region Module (Config / Status / MessageBus) Interface implementation
 
 /**
- * @brief Read the configuration from a JSON object
+ * @brief Reads web server configuration from JSON.
+ * @param oNode Source configuration node.
  */
 void CWebServer::readConfigFrom(JsonNode &oNode) {
     oNode.storeValueIf(WEBSERVER_AUTOREDIRECT_MODE,&Config.AutoRedirectMode);
 }
 
 /**
- * @brief Write the configuration to a JSON object
+ * @brief Writes web server configuration to JSON.
+ * @param oCfgNode Target configuration node.
+ * @param bHideCritical Unused here; no web server value is critical.
  */
 void CWebServer::writeConfigTo(JsonNode &oCfgNode,bool bHideCritical) {
     oCfgNode[WEBSERVER_AUTOREDIRECT_MODE] = Config.AutoRedirectMode;
@@ -42,7 +48,9 @@ void CWebServer::writeConfigTo(JsonNode &oCfgNode,bool bHideCritical) {
 }
 
 /** 
- * @brief Write the status information to a JSON object 
+ * @brief Writes web server runtime status to JSON.
+ * @param oStatusNode Target status node.
+ * @param nLevel Status verbosity, currently unused.
  */
 void CWebServer::writeStatusTo(JsonNode &oStatusNode, int nLevel) {
     oStatusNode["started"] = Status.Started;
@@ -51,6 +59,10 @@ void CWebServer::writeStatusTo(JsonNode &oStatusNode, int nLevel) {
 
 
 
+/**
+ * @brief Receives application events that affect web server state.
+ * @return EVENT_MSG_RESULT_OK after processing.
+ */
 int CWebServer::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
     int nResult = EVENT_MSG_RESULT_OK;
     switch(nMsg) {
@@ -65,6 +77,12 @@ int CWebServer::receiveEvent(const void * pSender, int nMsg, const void * pMessa
 #pragma endregion
 
 #pragma region Securiy
+/**
+ * @brief Adds a freshly generated authentication token to a response.
+ *
+ * The token is bound to the remote client IP address and is returned in the
+ * AUTHTOKEN header after successful authentication.
+ */
 void CWebServer::setNewAuthHeader(AsyncWebServerRequest *pRequest, AsyncWebServerResponse *pResponse){
     String strIPAddress;
     if(pRequest) strIPAddress = pRequest->client()->remoteIP().toString();
@@ -78,6 +96,12 @@ void CWebServer::setNewAuthHeader(AsyncWebServerRequest *pRequest, AsyncWebServe
 
 #pragma region Registered File Access Routes
 
+/**
+ * @brief Handles an authenticated file delivery request.
+ *
+ * The current implementation returns a success response with a refreshed auth
+ * token. Actual file streaming and content-type handling are still TODO.
+ */
 void CWebServer::deliverFile(AsyncWebServerRequest *pRequest) { 
         DEBUG_FUNC_START_PARMS("%s",pRequest->url().c_str());
         if (!Config.authenticate(pRequest,"file",true)) {
@@ -90,10 +114,12 @@ void CWebServer::deliverFile(AsyncWebServerRequest *pRequest) {
         DEBUG_FUNC_END();
     }
 /**
- * @brief register the file access routes
- * /files/list - list files
- * /files/get/<filename> - get/download file
- * /files/upload - upload a file
+ * @brief Registers authenticated file management routes.
+ *
+ * Routes:
+ * - /files/list lists LittleFS files.
+ * - /files/get/<filename> delivers a registered file route.
+ * - /files/upload serves and handles a simple upload form.
  */
 void CWebServer::registerFileAccess() {
 
@@ -167,12 +193,11 @@ void CWebServer::registerFileAccess() {
 
 #pragma region Registered Default Routes (login, status, ota, notfound)
 /** 
- * @brief register the defaults:
- * - rewrite "/" to "/index.html"
- * - offer the "/login"
- * - offer the OTA page "/update"
- * - offer the default "/status" REST API
- * */
+ * @brief Registers default runtime routes.
+ *
+ * The defaults include root rewrite, captive-portal-aware not-found handling,
+ * login/auth-token refresh, status JSON and firmware OTA update.
+ */
 void CWebServer::registerDefaults() {
     DEBUG_FUNC_START();
     rewrite("/", "/index.html");

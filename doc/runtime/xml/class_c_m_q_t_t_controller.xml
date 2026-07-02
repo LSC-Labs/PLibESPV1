@@ -1,0 +1,848 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_m_q_t_t_controller" kind="class" language="C++" prot="public">
+    <compoundname>CMQTTController</compoundname>
+    <basecompoundref refid="class_async_mqtt_client" prot="public" virt="non-virtual">AsyncMqttClient</basecompoundref>
+    <basecompoundref refid="class_appl_module" prot="public" virt="non-virtual">ApplModule</basecompoundref>
+    <includes refid="_m_q_t_t_controller_8h" local="no">MQTTController.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_m_q_t_t_controller_1a71d788b230f85352445657c651b6983c" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t CMQTTController::m_nMessageBufferSize</definition>
+        <argsstring></argsstring>
+        <name>m_nMessageBufferSize</name>
+        <qualifiedname>CMQTTController::m_nMessageBufferSize</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="113" column="16" bodyfile="include/MQTTController.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_m_q_t_t_controller_1afc4def6c88ee2c635c6356eb7b2fe0de" prot="private" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* CMQTTController::m_pszMessageBuffer</definition>
+        <argsstring></argsstring>
+        <name>m_pszMessageBuffer</name>
+        <qualifiedname>CMQTTController::m_pszMessageBuffer</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="114" column="15" bodyfile="include/MQTTController.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_m_q_t_t_controller_1a695345aa025d392640a9f819abedc649" prot="private" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* CMQTTController::m_pszPublishStateTopic</definition>
+        <argsstring></argsstring>
+        <name>m_pszPublishStateTopic</name>
+        <qualifiedname>CMQTTController::m_pszPublishStateTopic</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="115" column="15" bodyfile="include/MQTTController.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_m_q_t_t_controller_1a9796524af7ca7fb9c9b1eb59f2b8df55" prot="private" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* CMQTTController::m_pszDeviceCommandTopics</definition>
+        <argsstring></argsstring>
+        <name>m_pszDeviceCommandTopics</name>
+        <qualifiedname>CMQTTController::m_pszDeviceCommandTopics</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="116" column="15" bodyfile="include/MQTTController.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_m_q_t_t_controller_1a0af9a23b5cac8e776a4bbc0d700973fb" prot="private" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* CMQTTController::m_pszPublishAvailabilityTopic</definition>
+        <argsstring></argsstring>
+        <name>m_pszPublishAvailabilityTopic</name>
+        <qualifiedname>CMQTTController::m_pszPublishAvailabilityTopic</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="117" column="15" bodyfile="include/MQTTController.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_m_q_t_t_controller_1af8096a16c4e4b6ac6d9c4ccc4364c031" prot="private" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long CMQTTController::m_ulLastHeartBeat</definition>
+        <argsstring></argsstring>
+        <name>m_ulLastHeartBeat</name>
+        <qualifiedname>CMQTTController::m_ulLastHeartBeat</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="119" column="23" bodyfile="include/MQTTController.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_m_q_t_t_controller_1a08bc63792d9d23453344e25a76ea9056" prot="private" static="no" mutable="no">
+        <type>std::queue&lt; <ref refid="class_m_q_t_t_message" kindref="compound">MQTTMessage</ref> * &gt;</type>
+        <definition>std::queue&lt;MQTTMessage * &gt; CMQTTController::m_tMessageQeue</definition>
+        <argsstring></argsstring>
+        <name>m_tMessageQeue</name>
+        <qualifiedname>CMQTTController::m_tMessageQeue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="120" column="20" bodyfile="include/MQTTController.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_m_q_t_t_controller_1a1e81c93df65d5fc017ed36a3067ff01e" prot="private" static="no" mutable="no">
+        <type><ref refid="class_c_named_value_table" kindref="compound">CNamedValueTable</ref>&lt; <ref refid="class_i_home_assistant_component" kindref="compound">IHomeAssistantComponent</ref> * &gt;</type>
+        <definition>CNamedValueTable&lt;IHomeAssistantComponent *&gt; CMQTTController::m_tComponentHandlerByName</definition>
+        <argsstring></argsstring>
+        <name>m_tComponentHandlerByName</name>
+        <qualifiedname>CMQTTController::m_tComponentHandlerByName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="121" column="26" bodyfile="include/MQTTController.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_m_q_t_t_controller_1ab2b1f6bc98fc46bb7d2817ec130b4df7" prot="private" static="no" mutable="no">
+        <type><ref refid="class_c_simple_delay" kindref="compound">CSimpleDelay</ref></type>
+        <definition>CSimpleDelay CMQTTController::m_oTryConnectDelay</definition>
+        <argsstring></argsstring>
+        <name>m_oTryConnectDelay</name>
+        <qualifiedname>CMQTTController::m_oTryConnectDelay</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="122" column="22" bodyfile="include/MQTTController.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_c_m_q_t_t_controller_1a7f2085a5ced881aa9f65140c198117c1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_m_q_t_t_config" kindref="compound">MQTTConfig</ref></type>
+        <definition>MQTTConfig CMQTTController::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <qualifiedname>CMQTTController::Config</qualifiedname>
+        <briefdescription>
+<para>MQTT connection and topic configuration. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="127" column="20" bodyfile="include/MQTTController.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_m_q_t_t_controller_1ac74b04a6e49d62197d795aecc15f097f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_m_q_t_t_status" kindref="compound">MQTTStatus</ref></type>
+        <definition>MQTTStatus CMQTTController::Status</definition>
+        <argsstring></argsstring>
+        <name>Status</name>
+        <qualifiedname>CMQTTController::Status</qualifiedname>
+        <briefdescription>
+<para>Current MQTT connection status. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="129" column="20" bodyfile="include/MQTTController.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_c_m_q_t_t_controller_1ae7f9c8e0756d2d6e54394b3c86305931" prot="protected" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* CMQTTController::m_pszHomeAssistantStatusTopic</definition>
+        <argsstring></argsstring>
+        <name>m_pszHomeAssistantStatusTopic</name>
+        <qualifiedname>CMQTTController::m_pszHomeAssistantStatusTopic</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="182" column="15" bodyfile="include/MQTTController.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1acaa493e3d92fef082da6f2c2e537a7da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CMQTTController::CMQTTController</definition>
+        <argsstring>()</argsstring>
+        <name>CMQTTController</name>
+        <qualifiedname>CMQTTController::CMQTTController</qualifiedname>
+        <briefdescription>
+<para>Create the MQTT controller with default config/status. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="132" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1af75bc1d7cbd4c90471fd2a4e594da4d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CMQTTController::~CMQTTController</definition>
+        <argsstring>()</argsstring>
+        <name>~CMQTTController</name>
+        <qualifiedname>CMQTTController::~CMQTTController</qualifiedname>
+        <briefdescription>
+<para>Release owned topic/message buffers. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="134" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a405131afde7200709ccdc2dc0a802194" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CMQTTController::setup</definition>
+        <argsstring>(int nPublishInterval=60)</argsstring>
+        <name>setup</name>
+        <qualifiedname>CMQTTController::setup</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nPublishInterval</declname>
+          <defval>60</defval>
+        </param>
+        <briefdescription>
+<para>Configure MQTT callbacks and heartbeat interval. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="137" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1ac9c74a493bcf2f4f863023f9bfd93fee" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CMQTTController::readConfigFrom</definition>
+        <argsstring>(JsonNode &amp;oCfg) override</argsstring>
+        <name>readConfigFrom</name>
+        <qualifiedname>CMQTTController::readConfigFrom</qualifiedname>
+        <reimplements refid="class_i_config_handler_1a4c43c53522b0408972d6573e91d1e63e">readConfigFrom</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfg</declname>
+        </param>
+        <briefdescription>
+<para>Read MQTT configuration from a JSON node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="139" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a4b51ae16b986cddf624d8e94c5bef1fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CMQTTController::writeConfigTo</definition>
+        <argsstring>(JsonNode &amp;oCfg, bool bHideCritical) override</argsstring>
+        <name>writeConfigTo</name>
+        <qualifiedname>CMQTTController::writeConfigTo</qualifiedname>
+        <reimplements refid="class_i_config_handler_1a3507b2ec7bef0a1ec0a7f90da0ec32f2">writeConfigTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfg</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bHideCritical</declname>
+        </param>
+        <briefdescription>
+<para>Write MQTT configuration into a JSON node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="141" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1aca08c94fb9ec821805e26444cafdec2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CMQTTController::writeStatusTo</definition>
+        <argsstring>(JsonNode &amp;oCfg, int nLevel) override</argsstring>
+        <name>writeStatusTo</name>
+        <qualifiedname>CMQTTController::writeStatusTo</qualifiedname>
+        <reimplements refid="class_i_status_handler_1a159576674bba670032ae23b647db1dec">writeStatusTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nLevel</declname>
+        </param>
+        <briefdescription>
+<para>Write MQTT connection status into a JSON node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="143" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a745afbf82929c952cc4a7869c19a424e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>int CMQTTController::receiveEvent</definition>
+        <argsstring>(const void *pSender, int nMsg, const void *pMessage, int nClass) override</argsstring>
+        <name>receiveEvent</name>
+        <qualifiedname>CMQTTController::receiveEvent</qualifiedname>
+        <reimplements refid="class_appl_module_1a6f93571379fa6aa97dc07d2fadc56774">receiveEvent</reimplements>
+        <param>
+          <type>const void *</type>
+          <declname>pSender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsg</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>pMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nClass</declname>
+        </param>
+        <briefdescription>
+<para>React to application/network lifecycle events. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="145" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a4d2cd700d573f1658cdbf392aba1e6a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CMQTTController::dispatch</definition>
+        <argsstring>() override</argsstring>
+        <name>dispatch</name>
+        <qualifiedname>CMQTTController::dispatch</qualifiedname>
+        <reimplements refid="class_appl_module_1a13c5086d4c9162d1a96b1234f76932e4">dispatch</reimplements>
+        <briefdescription>
+<para>Dispatch queued MQTT messages and heartbeat work. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="147" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a382b1fefcedda68ad101e8059c41e8b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CMQTTController::enableConnection</definition>
+        <argsstring>()</argsstring>
+        <name>enableConnection</name>
+        <qualifiedname>CMQTTController::enableConnection</qualifiedname>
+        <briefdescription>
+<para>Return true if MQTT is enabled and has enough config to connect. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="150" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a6cacb0d25125c4291abcb19f43451681" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CMQTTController::isDeviceTopic</definition>
+        <argsstring>(const char *pszTopic)</argsstring>
+        <name>isDeviceTopic</name>
+        <qualifiedname>CMQTTController::isDeviceTopic</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszTopic</declname>
+        </param>
+        <briefdescription>
+<para>Return true if the topic belongs to this device topic prefix. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="153" column="14" bodyfile="include/MQTTController.h" bodystart="230" bodyend="240"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1ab74ddadf0cf0e502c07fee6b35ea8552" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CMQTTController::isDeviceCommandTopic</definition>
+        <argsstring>(const char *pszTopic)</argsstring>
+        <name>isDeviceCommandTopic</name>
+        <qualifiedname>CMQTTController::isDeviceCommandTopic</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszTopic</declname>
+        </param>
+        <briefdescription>
+<para>Return true if the topic is a command topic for this device. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="155" column="14" bodyfile="include/MQTTController.h" bodystart="242" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a769936939c5b70399d99739073765b12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CMQTTController::getDeviceCommandBaseTopicPath</definition>
+        <argsstring>()</argsstring>
+        <name>getDeviceCommandBaseTopicPath</name>
+        <qualifiedname>CMQTTController::getDeviceCommandBaseTopicPath</qualifiedname>
+        <briefdescription>
+<para>Return the base topic path used for device commands. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="158" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a8ba55f68062af1962103b80ccda6aa59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CMQTTController::publishDeviceState</definition>
+        <argsstring>(JsonNode &amp;oStateData)</argsstring>
+        <name>publishDeviceState</name>
+        <qualifiedname>CMQTTController::publishDeviceState</qualifiedname>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oStateData</declname>
+        </param>
+        <briefdescription>
+<para>Publish the current device state from a JSON node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="161" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a3a14cf1980635fe69b29c30597fd1371" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CMQTTController::publishDeviceState</definition>
+        <argsstring>(const char *pszStateData)</argsstring>
+        <name>publishDeviceState</name>
+        <qualifiedname>CMQTTController::publishDeviceState</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszStateData</declname>
+        </param>
+        <briefdescription>
+<para>Publish the current device state from serialized JSON/text. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="163" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a6dd0250ff054508e9c3117e236235e24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CMQTTController::publishDeviceTopic</definition>
+        <argsstring>(String strTopic, JsonNode &amp;oDataNode, int nQOS=0, bool bRetain=false)</argsstring>
+        <name>publishDeviceTopic</name>
+        <qualifiedname>CMQTTController::publishDeviceTopic</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+          <declname>strTopic</declname>
+        </param>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oDataNode</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nQOS</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bRetain</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Publish a JSON node below the device topic prefix. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="165" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1ad61b6e55973d37e4ad5ccdbdcde1beb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CMQTTController::publishDeviceTopic</definition>
+        <argsstring>(const char *pszTopic, JsonNode &amp;oDataNode, int nQOS=0, bool bRetain=false)</argsstring>
+        <name>publishDeviceTopic</name>
+        <qualifiedname>CMQTTController::publishDeviceTopic</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszTopic</declname>
+        </param>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oDataNode</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nQOS</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bRetain</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Publish a JSON node below the device topic prefix. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="167" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1acc799efe0206718b0edae2ab0bd7f00d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CMQTTController::publishDeviceTopic</definition>
+        <argsstring>(const char *pszTopic, const char *pszData, int nQOS=0, bool bRetain=false)</argsstring>
+        <name>publishDeviceTopic</name>
+        <qualifiedname>CMQTTController::publishDeviceTopic</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszTopic</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszData</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nQOS</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bRetain</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Publish text below the device topic prefix. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="169" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a3e14bc4b81800a097d906d59235ad495" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CMQTTController::publishHeartBeat</definition>
+        <argsstring>(bool bForceSend=false)</argsstring>
+        <name>publishHeartBeat</name>
+        <qualifiedname>CMQTTController::publishHeartBeat</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bForceSend</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Publish availability/heartbeat messages when due or forced. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="171" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a9419766c46e7215044ba6624750713f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CMQTTController::registerHomeAssistantComponent</definition>
+        <argsstring>(const char *pszName, IHomeAssistantComponent *pHandler)</argsstring>
+        <name>registerHomeAssistantComponent</name>
+        <qualifiedname>CMQTTController::registerHomeAssistantComponent</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type><ref refid="class_i_home_assistant_component" kindref="compound">IHomeAssistantComponent</ref> *</type>
+          <declname>pHandler</declname>
+        </param>
+        <briefdescription>
+<para>Register a component handler for Home Assistant discovery. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="188" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1af8a775477dab592477831272cd12e146" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CMQTTController::onMqttConnect</definition>
+        <argsstring>(bool sessionPresent)</argsstring>
+        <name>onMqttConnect</name>
+        <qualifiedname>CMQTTController::onMqttConnect</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>sessionPresent</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="class_async_mqtt_client" kindref="compound">AsyncMqttClient</ref> connect callback. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="174" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a5e677895116b03c2b99607c13d33d6f3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CMQTTController::onMqttDisconnect</definition>
+        <argsstring>(AsyncMqttClientDisconnectReason reason)</argsstring>
+        <name>onMqttDisconnect</name>
+        <qualifiedname>CMQTTController::onMqttDisconnect</qualifiedname>
+        <param>
+          <type><ref refid="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbf" kindref="member">AsyncMqttClientDisconnectReason</ref></type>
+          <declname>reason</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="class_async_mqtt_client" kindref="compound">AsyncMqttClient</ref> disconnect callback. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="176" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a0d58b249278d1568ad3ed484bd327567" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CMQTTController::onMqttMessage</definition>
+        <argsstring>(char *topic, char *payload, AsyncMqttClientMessageProperties properties, size_t len, size_t index, size_t total)</argsstring>
+        <name>onMqttMessage</name>
+        <qualifiedname>CMQTTController::onMqttMessage</qualifiedname>
+        <param>
+          <type>char *</type>
+          <declname>topic</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>payload</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_async_mqtt_client_message_properties" kindref="compound">AsyncMqttClientMessageProperties</ref></type>
+          <declname>properties</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>total</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="class_async_mqtt_client" kindref="compound">AsyncMqttClient</ref> message callback. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="178" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_q_t_t_controller_1a31fba60f3878697f7032ec2e7aa0a935" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CMQTTController::publishHomeAssistantDiscovery</definition>
+        <argsstring>()</argsstring>
+        <name>publishHomeAssistantDiscovery</name>
+        <qualifiedname>CMQTTController::publishHomeAssistantDiscovery</qualifiedname>
+        <briefdescription>
+<para>Publish Home Assistant discovery information for registered components. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="184" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>MQTT message broker module with heartbeat and HA discovery support. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>ApplModule</label>
+        <link refid="class_appl_module"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>AsyncMqttClient</label>
+        <link refid="class_async_mqtt_client"/>
+      </node>
+      <node id="1">
+        <label>CMQTTController</label>
+        <link refid="class_c_m_q_t_t_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="4">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="6">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>ApplModule</label>
+        <link refid="class_appl_module"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>AsyncMqttClient</label>
+        <link refid="class_async_mqtt_client"/>
+      </node>
+      <node id="1">
+        <label>CMQTTController</label>
+        <link refid="class_c_m_q_t_t_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>Status</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="4">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="6">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+      <node id="8">
+        <label>MQTTConfig</label>
+        <link refid="struct_m_q_t_t_config"/>
+      </node>
+      <node id="9">
+        <label>MQTTStatus</label>
+        <link refid="struct_m_q_t_t_status"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/MQTTController.h" line="111" column="1" bodyfile="include/MQTTController.h" bodystart="111" bodyend="189"/>
+    <listofallmembers>
+      <member refid="class_c_m_q_t_t_controller_1acaa493e3d92fef082da6f2c2e537a7da" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>CMQTTController</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a7f2085a5ced881aa9f65140c198117c1" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>Config</name></member>
+      <member refid="class_async_mqtt_client_1aef8a53f05ea5f1cd39bea2210a631b7f" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>connect</name></member>
+      <member refid="class_async_mqtt_client_1a596f3fbd302edd381a24a267bb120978" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>connected</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a4d2cd700d573f1658cdbf392aba1e6a9" prot="public" virt="virtual"><scope>CMQTTController</scope><name>dispatch</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a382b1fefcedda68ad101e8059c41e8b4" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>enableConnection</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a769936939c5b70399d99739073765b12" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>getDeviceCommandBaseTopicPath</name></member>
+      <member refid="class_i_config_handler_1a6011c82a3fe9d10ef0ea54d848557f4c" prot="public" virt="virtual"><scope>CMQTTController</scope><name>hasConfigValues</name></member>
+      <member refid="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" prot="public" virt="virtual"><scope>CMQTTController</scope><name>hasStatusValues</name></member>
+      <member refid="class_c_m_q_t_t_controller_1ab74ddadf0cf0e502c07fee6b35ea8552" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>isDeviceCommandTopic</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a6cacb0d25125c4291abcb19f43451681" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>isDeviceTopic</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a71d788b230f85352445657c651b6983c" prot="private" virt="non-virtual"><scope>CMQTTController</scope><name>m_nMessageBufferSize</name></member>
+      <member refid="class_c_m_q_t_t_controller_1ab2b1f6bc98fc46bb7d2817ec130b4df7" prot="private" virt="non-virtual"><scope>CMQTTController</scope><name>m_oTryConnectDelay</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a9796524af7ca7fb9c9b1eb59f2b8df55" prot="private" virt="non-virtual"><scope>CMQTTController</scope><name>m_pszDeviceCommandTopics</name></member>
+      <member refid="class_c_m_q_t_t_controller_1ae7f9c8e0756d2d6e54394b3c86305931" prot="protected" virt="non-virtual"><scope>CMQTTController</scope><name>m_pszHomeAssistantStatusTopic</name></member>
+      <member refid="class_c_m_q_t_t_controller_1afc4def6c88ee2c635c6356eb7b2fe0de" prot="private" virt="non-virtual"><scope>CMQTTController</scope><name>m_pszMessageBuffer</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a0af9a23b5cac8e776a4bbc0d700973fb" prot="private" virt="non-virtual"><scope>CMQTTController</scope><name>m_pszPublishAvailabilityTopic</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a695345aa025d392640a9f819abedc649" prot="private" virt="non-virtual"><scope>CMQTTController</scope><name>m_pszPublishStateTopic</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a1e81c93df65d5fc017ed36a3067ff01e" prot="private" virt="non-virtual"><scope>CMQTTController</scope><name>m_tComponentHandlerByName</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a08bc63792d9d23453344e25a76ea9056" prot="private" virt="non-virtual"><scope>CMQTTController</scope><name>m_tMessageQeue</name></member>
+      <member refid="class_c_m_q_t_t_controller_1af8096a16c4e4b6ac6d9c4ccc4364c031" prot="private" virt="non-virtual"><scope>CMQTTController</scope><name>m_ulLastHeartBeat</name></member>
+      <member refid="class_i_config_handler_1a8a92be059bfaca6c233419763865a5f4" prot="public" virt="virtual"><scope>CMQTTController</scope><name>migrateConfig</name></member>
+      <member refid="class_c_m_q_t_t_controller_1af8a775477dab592477831272cd12e146" prot="protected" virt="non-virtual"><scope>CMQTTController</scope><name>onMqttConnect</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a5e677895116b03c2b99607c13d33d6f3" prot="protected" virt="non-virtual"><scope>CMQTTController</scope><name>onMqttDisconnect</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a0d58b249278d1568ad3ed484bd327567" prot="protected" virt="non-virtual"><scope>CMQTTController</scope><name>onMqttMessage</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a8ba55f68062af1962103b80ccda6aa59" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>publishDeviceState</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a3a14cf1980635fe69b29c30597fd1371" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>publishDeviceState</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a6dd0250ff054508e9c3117e236235e24" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>publishDeviceTopic</name></member>
+      <member refid="class_c_m_q_t_t_controller_1ad61b6e55973d37e4ad5ccdbdcde1beb6" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>publishDeviceTopic</name></member>
+      <member refid="class_c_m_q_t_t_controller_1acc799efe0206718b0edae2ab0bd7f00d" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>publishDeviceTopic</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a3e14bc4b81800a097d906d59235ad495" prot="public" virt="virtual"><scope>CMQTTController</scope><name>publishHeartBeat</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a31fba60f3878697f7032ec2e7aa0a935" prot="protected" virt="non-virtual"><scope>CMQTTController</scope><name>publishHomeAssistantDiscovery</name></member>
+      <member refid="class_c_m_q_t_t_controller_1ac9c74a493bcf2f4f863023f9bfd93fee" prot="public" virt="virtual"><scope>CMQTTController</scope><name>readConfigFrom</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a745afbf82929c952cc4a7869c19a424e" prot="public" virt="virtual"><scope>CMQTTController</scope><name>receiveEvent</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a9419766c46e7215044ba6624750713f2" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>registerHomeAssistantComponent</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a405131afde7200709ccdc2dc0a802194" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>setup</name></member>
+      <member refid="class_c_m_q_t_t_controller_1ac74b04a6e49d62197d795aecc15f097f" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>Status</name></member>
+      <member refid="class_c_m_q_t_t_controller_1a4b51ae16b986cddf624d8e94c5bef1fe" prot="public" virt="virtual"><scope>CMQTTController</scope><name>writeConfigTo</name></member>
+      <member refid="class_c_m_q_t_t_controller_1aca08c94fb9ec821805e26444cafdec2d" prot="public" virt="virtual"><scope>CMQTTController</scope><name>writeStatusTo</name></member>
+      <member refid="class_c_m_q_t_t_controller_1af75bc1d7cbd4c90471fd2a4e594da4d1" prot="public" virt="non-virtual"><scope>CMQTTController</scope><name>~CMQTTController</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

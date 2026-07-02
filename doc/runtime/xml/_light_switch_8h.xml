@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_light_switch_8h" kind="file" language="C++">
+    <compoundname>LightSwitch.h</compoundname>
+    <includes refid="_runtime_8h" local="no">Runtime.h</includes>
+    <includes refid="_output_pin_controller_8h" local="no">OutputPinController.h</includes>
+    <includedby refid="_r_g_b_led_8h" local="no">include/RGBLed.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>include/LightSwitch.h</label>
+        <link refid="_light_switch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>OutputPinController.h</label>
+        <link refid="_output_pin_controller_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>PinController.h</label>
+        <link refid="_pin_controller_8h"/>
+      </node>
+      <node id="2">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>chrono</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="3">
+        <label>string.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>include/LightSwitch.h</label>
+        <link refid="_light_switch_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>include/RGBLed.h</label>
+        <link refid="_r_g_b_led_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>include/SysStatusLed.h</label>
+        <link refid="_sys_status_led_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_c_light_switch" prot="public">CLightSwitch</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_light_switch_8h_1acf42c74d18e23f72a7dfcdae76b6282a" prot="public" static="no">
+        <name>LIGHT_STATE_ON</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="6" column="9" bodyfile="include/LightSwitch.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_light_switch_8h_1adcdd0340a34345c6fabbdf4dee62e945" prot="public" static="no">
+        <name>LIGHT_STATE_OFF</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="7" column="9" bodyfile="include/LightSwitch.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/LightSwitch.h"/>
+  </compounddef>
+</doxygen>

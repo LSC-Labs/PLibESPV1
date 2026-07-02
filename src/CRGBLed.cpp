@@ -7,14 +7,20 @@
 #include <Appl.h>
 #include <LightSwitch.h>
 
-/// @brief Empty constructor - use setup is mandatory !
+/**
+ * @brief Creates an unconfigured RGB LED.
+ *
+ * Call setup() before using the LED channels.
+ */
 CRGBLed::CRGBLed() {}
 
-/// @brief Constructor
-/// @param nRedPin   Pin number for the red LED
-/// @param nGreenPin Pin number for the green LED
-/// @param nBluePin  Pin number for the blue LED
-/// @param bActiveLow If true, the LED is active low (Common Cathode)
+/**
+ * @brief Creates and configures all three color channels.
+ * @param nRedPin GPIO pin for the red channel.
+ * @param nGreenPin GPIO pin for the green channel.
+ * @param nBluePin GPIO pin for the blue channel.
+ * @param bActiveLow true when the LED channels are active-low.
+ */
 CRGBLed::CRGBLed(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow) :
     RedLED(nRedPin, bActiveLow),
     GreenLED(nGreenPin,bActiveLow),
@@ -22,6 +28,9 @@ CRGBLed::CRGBLed(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow) :
         switchOff();
 }
 
+/**
+ * @brief Configures all three color channels after default construction.
+ */
 void CRGBLed::setup(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow) {
     RedLED.setup(nRedPin,bActiveLow);
     GreenLED.setup(nGreenPin,bActiveLow);
@@ -29,26 +38,39 @@ void CRGBLed::setup(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow) {
     switchOff();
 }
 
+/**
+ * @brief Switches on the channels represented by the current color bit mask.
+ */
 void CRGBLed::switchOn() {
     (m_nCurrentColor & COLOR_RED_BIT_MASK)   ? RedLED.switchOn()   : RedLED.switchOff();
     (m_nCurrentColor & COLOR_GREEN_BIT_MASK) ? GreenLED.switchOn() : GreenLED.switchOff();
     (m_nCurrentColor & COLOR_BLUE_BIT_MASK)  ? BlueLED.switchOn()  : BlueLED.switchOff();
 }
 
+/**
+ * @brief Switches all color channels off.
+ */
 void CRGBLed::switchOff() {
     RedLED.switchOff();
     GreenLED.switchOff();
     BlueLED.switchOff();
 }
 
-/// @brief set the color by using the Color Table with masks
-/// @param eColor 
+/**
+ * @brief Sets the current color using the RGB_COLOR enum.
+ * @param eColor Color enum value.
+ * @param bSwitchLeds true to apply the color immediately.
+ */
 void CRGBLed::setColor(RGB_COLOR eColor, bool bSwitchLeds) 
 {
     this->setColor(eColor & 7,bSwitchLeds);
 }
 
-/// @brief set the RGB LED with a bit mask, where RGB is coded as 3 bits
+/**
+ * @brief Sets the current color using a three-bit RGB mask.
+ * @param nColorBits Bit mask using COLOR_RED/GREEN/BLUE bits.
+ * @param bSwitchLeds true to apply the color immediately.
+ */
 void CRGBLed::setColor(int nColorBits, bool bSwitchLeds) 
 {
     m_nCurrentColor = nColorBits;
@@ -60,10 +82,18 @@ void CRGBLed::setColor(int nColorBits, bool bSwitchLeds)
     */
 }
 
+/**
+ * @brief Sets brightness for a color selected by RGB_COLOR.
+ */
 void CRGBLed::setBrightnessInPercent(RGB_COLOR eColor, int nBrightnessPercent) {
      this->setBrightnessInPercent(eColor & 7,nBrightnessPercent);
 }
 
+/**
+ * @brief Sets PWM brightness for all channels present in the color mask.
+ * @param nColorBits Three-bit RGB channel mask.
+ * @param nBrightnessPercent Brightness level in percent.
+ */
 void CRGBLed::setBrightnessInPercent(int nColorBits, int nBrightnessPercent) {
     /*
     if(nBrightnessPercent < 0) nBrightnessPercent = 0;
@@ -83,16 +113,25 @@ void CRGBLed::setBrightnessInPercent(int nColorBits, int nBrightnessPercent) {
 }
 
 
+/**
+ * @brief Blinks a color selected by RGB_COLOR.
+ */
 void CRGBLed::blink(RGB_COLOR eColor, unsigned long nOnMillis,unsigned long nOffMillis) {
     blink(eColor & 0x7,nOnMillis,nOffMillis);
 }
 
+/**
+ * @brief Blinks all channels present in the color mask.
+ */
 void CRGBLed::blink(int nColorBits, unsigned long nOnMillis,unsigned long nOffMillis) {
     (nColorBits & COLOR_RED_BIT_MASK)   ? RedLED.blink(nOnMillis,nOffMillis)    : RedLED.switchOff();
     (nColorBits & COLOR_GREEN_BIT_MASK) ? GreenLED.blink(nOnMillis,nOffMillis)  : GreenLED.switchOff();
     (nColorBits & COLOR_BLUE_BIT_MASK)  ? BlueLED.blink(nOnMillis,nOffMillis)   : BlueLED.switchOff();
 }
 
+/**
+ * @brief Runs a wave/fade pattern for a color selected by RGB_COLOR.
+ */
 void CRGBLed::wave(RGB_COLOR eColor, unsigned long ulFadeInMillis, 
                                      unsigned long ulFadeOutMillis,
                                      unsigned long ulOnMillis,
@@ -101,12 +140,18 @@ void CRGBLed::wave(RGB_COLOR eColor, unsigned long ulFadeInMillis,
     wave(eColor & 0x7,ulFadeInMillis,ulFadeOutMillis,ulOnMillis,ulOffMillis,nMaxLevelInPercent);
 }
 
+/**
+ * @brief Runs a wave/fade pattern for all channels in the color mask.
+ */
 void CRGBLed::wave(int nColorBits, unsigned long ulFadeInMillis, unsigned long ulFadeOutMillis, unsigned long ulOnTime, unsigned long ulOffTime, int nMaxLevelInPercent) {
     (nColorBits & COLOR_RED_BIT_MASK)   ? RedLED.wave(ulFadeInMillis,ulFadeOutMillis,ulOnTime,ulOffTime,nMaxLevelInPercent)   : RedLED.switchOff();
     (nColorBits & COLOR_GREEN_BIT_MASK) ? GreenLED.wave(ulFadeInMillis,ulFadeOutMillis,ulOnTime,ulOffTime,nMaxLevelInPercent) : GreenLED.switchOff();
     (nColorBits & COLOR_BLUE_BIT_MASK)  ? BlueLED.wave(ulFadeInMillis,ulFadeOutMillis,ulOnTime,ulOffTime,nMaxLevelInPercent)  : BlueLED.switchOff();
 }
 
+/**
+ * @brief Runs the built-in test pattern for each single channel.
+ */
 void CRGBLed::runSingleColorTests() 
 {
     Serial.printf(" - color red...");
@@ -117,6 +162,10 @@ void CRGBLed::runSingleColorTests()
     BlueLED.runTests();
 }
 
+/**
+ * @brief Shows a startup sequence through all non-zero RGB masks.
+ * @param nDelayBetweenFlashes Delay between colors in milliseconds.
+ */
 void CRGBLed::showStartupFlashLight(int nDelayBetweenFlashes) {
     for(int nColorIdx = 0; nColorIdx < 7; nColorIdx++) {
         setColor(nColorIdx);
@@ -125,10 +174,11 @@ void CRGBLed::showStartupFlashLight(int nDelayBetweenFlashes) {
     switchOff();
 }
 
-/// @brief Run the tests for the RGB LED
+/**
+ * @brief Runs all RGB LED diagnostic patterns.
+ */
 void CRGBLed::runTests() {
     runSingleColorTests();
     showStartupFlashLight(250);
     switchOff();
 }
-

@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_prog_version_8h" kind="file" language="C++">
+    <compoundname>ProgVersion.h</compoundname>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_prog_version_8h_1ac11f4f94d23dabb8fad0050ea3a0733a" prot="public" static="no">
+        <name>PROG_VERSION_NAME</name>
+        <initializer>&quot;PLibESPV1&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ProgVersion.h" line="7" column="9" bodyfile="include/ProgVersion.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_prog_version_8h_1a9c5ab28e89c35a122205556228ab6fda" prot="public" static="no">
+        <name>PROG_VERSION_MAJOR</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ProgVersion.h" line="9" column="9" bodyfile="include/ProgVersion.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_prog_version_8h_1ab8c84b6482365f1462a66337b5629163" prot="public" static="no">
+        <name>PROG_VERSION_MINOR</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ProgVersion.h" line="10" column="9" bodyfile="include/ProgVersion.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_prog_version_8h_1ad92cb1084aeb33568251c1c1afe94d23" prot="public" static="no">
+        <name>PROG_VERSION_PATCH</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ProgVersion.h" line="11" column="9" bodyfile="include/ProgVersion.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_prog_version_8h_1ae0bd6f0d7a6f6ea1e4741768e51453dd" prot="public" static="no">
+        <name>PROG_VERSION_BUILD</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ProgVersion.h" line="12" column="9" bodyfile="include/ProgVersion.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_prog_version_8h_1a50ef2e611dcbc13c41a2bb2556009c61" prot="public" static="no">
+        <name>PROG_VERSION</name>
+        <initializer>&quot;0.1.0&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ProgVersion.h" line="13" column="9" bodyfile="include/ProgVersion.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_prog_version_8h_1a6a95481d5ad566954a0377a9e260f324" prot="public" static="no">
+        <name>PROG_VERSION_SHORT</name>
+        <initializer>&quot;0.1&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ProgVersion.h" line="14" column="9" bodyfile="include/ProgVersion.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_prog_version_8h_1a1ecc90da53b90068bece2e15d50a07f6" prot="public" static="no">
+        <name>PROG_VERSION_LONG</name>
+        <initializer>&quot;0.1.0.0&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ProgVersion.h" line="15" column="9" bodyfile="include/ProgVersion.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/ProgVersion.h"/>
+  </compounddef>
+</doxygen>

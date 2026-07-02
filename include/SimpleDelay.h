@@ -23,8 +23,8 @@ class CSimpleDelay {
         ~CSimpleDelay() {};   
 
         /**
-         * @brief Starts the delay countdown. If nDelayMillis is 0, the previous value is used.
-         * @param nDelayMillis New delay time in milliseconds (if 0, the previous value is used).
+         * @brief Starts the delay countdown. If ulDelayMillis is 0, the previous value is used.
+         * @param ulDelayMillis New delay time in milliseconds (if 0, the previous value is used).
          * @param bStartNow If true, the delay starts immediately. If false, the delay starts after nDelayMillis (default: true). 
          *                  This is useful to avoid immediate calls after start.
          */

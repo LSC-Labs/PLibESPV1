@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="namespace_l_s_c___w_i_f_i" kind="namespace" language="C++">
+    <compoundname>LSC_WIFI</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespace_l_s_c___w_i_f_i_1afe64b5863b02138db4569d19db241e62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String LSC_WIFI::getDefaultSSIDofAP</definition>
+        <argsstring>()</argsstring>
+        <name>getDefaultSSIDofAP</name>
+        <qualifiedname>LSC_WIFI::getDefaultSSIDofAP</qualifiedname>
+        <briefdescription>
+<para>Create the fallback SSID used by the device access point. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The SSID is built from the configured prefix and the last four bytes of the soft AP MAC address so multiple devices remain distinguishable. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="70" column="12" declfile="include/WiFiController.h" declline="70" declcolumn="12"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/WiFiController.h" line="63" column="1"/>
+  </compounddef>
+</doxygen>

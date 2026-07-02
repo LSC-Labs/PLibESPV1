@@ -7,9 +7,16 @@
 namespace LSC {
 
     /**
-     * @brief create payload structure, with command, data and payload fields
-     * to be used in web socket and web rest api's
-     * Payload document content will be replaced
+     * @brief Creates a standard command/data/payload JSON structure.
+     *
+     * The target document is replaced. If pszPayload is nullptr, an empty
+     * payload object is created and returned so callers can fill it.
+     *
+     * @param pszCommand Command name.
+     * @param pszDataType Logical data type of the payload.
+     * @param oPayloadDoc Target ArduinoJson document.
+     * @param pszPayload Optional serialized JSON payload.
+     * @return Payload object inside oPayloadDoc.
      */
     JsonObject createPayloadStructure(const char* pszCommand, const char *pszDataType, JsonDocument &oPayloadDoc, const char *pszPayload) {
         char pszBuffer[256];
@@ -27,6 +34,9 @@ namespace LSC {
         return(pszPayload == nullptr ? CreateJsonObject(oPayloadDoc,"payload") : oPayloadDoc["payload"]);
     }
 
+    /**
+     * @brief Flash-string overload for createPayloadStructure().
+     */
     JsonObject createPayloadStructure(const __FlashStringHelper* pszCommand, const __FlashStringHelper* pszDataType, JsonDocument &oPayloadDoc, const char *pszPayload) {
         String strCommand = pszCommand;
         String strDataType = pszDataType;
@@ -35,8 +45,10 @@ namespace LSC {
 
 
     /**
-     * Special version to store a string value, if it does not match the HiddenValue.
-     * Use this to set your password - if it is not the hidden password
+     * @brief Stores a string value unless it equals the hidden-value mask.
+     *
+     * Use this for passwords or tokens in configuration forms: masked values do
+     * not overwrite the existing stored secret.
      */
     bool ICACHE_FLASH_ATTR setJsonValueIfNot(JsonObject & oSource, const char* pszKey, String & strTarget, const char *pszHiddenValue) {
         bool bResult = false;
@@ -51,7 +63,7 @@ namespace LSC {
     }
 
     /**
-     * Set an ipaddress stored in the json object
+     * @brief Reads an IPAddress value from a JSON string field.
      */
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource, const char* pszKey, IPAddress & oTarget) {
         bool bResult = false;
@@ -64,7 +76,7 @@ namespace LSC {
     }
 
     /**
-     * Set a String to the value found in the json object
+     * @brief Reads a String value from a JSON field.
      */
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource, const char* pszKey, String & strTarget) {
         bool bResult = false;
@@ -76,10 +88,7 @@ namespace LSC {
     }
 
     /**
-     * Set a float value, as stored in the json object.
-     * the float can be native (0.xxx)
-     * or as a string ("0.xx")
-     * both version are accepted
+     * @brief Reads a float from a JSON numeric or string field.
      */
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource, const char* pszKey, float * pTarget) {
         bool bResult = false;
@@ -93,10 +102,7 @@ namespace LSC {
     } 
 
     /**
-     * Set a float value, as stored in the json object.
-     * the float can be native (0.xxx)
-     * or as a string ("0.xx")
-     * both version are accepted
+     * @brief Reads an unsigned long from a JSON numeric or string field.
      */
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource, const char* pszKey, unsigned long * pTarget) {
         bool bResult = false;
@@ -110,12 +116,10 @@ namespace LSC {
     } 
 
      /**
-     * Set a bool value, as stored in the json object.
-     * the bool can be native (true)
-     * or as a string ("true")
-     * also as "0", "-", "off", "false"... will become false (case insensitive)
-     * 
-     * It will be checked against false values... all other values are true (!)
+     * @brief Reads a bool from a JSON bool or string field.
+     *
+     * String values are interpreted by checking known false values. Unknown
+     * strings become true.
      */
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource, const char* pszKey, bool * pTarget) {
         bool bResult = false;
@@ -132,9 +136,7 @@ namespace LSC {
     }
 
     /**
-     * Set a int value, as stored in the json object
-     * either as int value (nnn)
-     * or as string ("nnn")
+     * @brief Reads an int from a JSON numeric or string field.
      */
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource, const char* pszKey, int * pTarget) {
         bool bResult = false;
@@ -145,26 +147,41 @@ namespace LSC {
         return(bResult);
     }
 
-    
+    /**
+     * @brief Flash-string key overload for reading a String.
+     */
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  String    & strTarget) {
         String strKey(pszKey);
         return(setJsonValue(oSource,strKey.c_str(),strTarget));
     }
     
-   
+    /**
+     * @brief Flash-string key overload for reading a float.
+     */
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  float     * pTarget){
         String strKey(pszKey);
         return(setJsonValue(oSource,strKey.c_str(),pTarget));
     }
    
+    /**
+     * @brief Flash-string key overload for reading an int.
+     */
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  int       * pTarget){
         String strKey(pszKey);
         return(setJsonValue(oSource,strKey.c_str(),pTarget));
     }
+
+    /**
+     * @brief Flash-string key overload for reading a bool.
+     */
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  bool      * pTarget){
         String strKey(pszKey);
         return(setJsonValue(oSource,strKey.c_str(),pTarget));
     }
+
+    /**
+     * @brief Flash-string key overload for reading an IPAddress.
+     */
     bool ICACHE_FLASH_ATTR setJsonValue(JsonObject & oSource,const __FlashStringHelper* pszKey,  IPAddress & pTarget){
         String strKey(pszKey);
         return(setJsonValue(oSource,strKey.c_str(),pTarget));

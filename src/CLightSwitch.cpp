@@ -5,16 +5,28 @@
 #include <Appl.h>
 
 
-/// @brief Use this constructor if you want to setup later
+/**
+ * @brief Creates an unconfigured light switch.
+ *
+ * Call setup() before using the output.
+ */
 CLightSwitch::CLightSwitch() {}
 
-/// @brief Constructor of the class to handle the OnAir Light
-/// use this constructor if you want to handel the setup immediatly.
+/**
+ * @brief Creates and configures a light switch output.
+ * @param nSwitchPin GPIO output pin.
+ * @param bLowLevelIsOn true when LOW means logical ON.
+ */
 CLightSwitch::CLightSwitch(int nSwitchPin, bool bLowLevelIsOn){
     setup(nSwitchPin,bLowLevelIsOn); 
 }
 
-
+/**
+ * @brief Toggles the output with the requested on/off timing.
+ *
+ * Changing the timing resets the blink sequence so the new cadence starts
+ * immediately.
+ */
 void CLightSwitch::blink(unsigned long ulOnMillis,unsigned long ulOffMillis) {
     // static unsigned long _ulNextChange = 0;
     // static unsigned long _ulOnMillis = 0;
@@ -39,6 +51,13 @@ void CLightSwitch::blink(unsigned long ulOnMillis,unsigned long ulOffMillis) {
 }
 
 
+/**
+ * @brief Runs a fade-in/fade-out wave pattern on the output.
+ *
+ * The method is intended to be called repeatedly from a loop. It advances the
+ * current brightness based on elapsed time and compensates for slow loop calls
+ * by stepping until the next scheduled update lies in the future.
+ */
 void CLightSwitch::wave(unsigned long ulFadeInMillis, 
                         unsigned long ulFadeOutMillis, 
                         unsigned long ulOnMillis, 
@@ -91,14 +110,23 @@ void CLightSwitch::wave(unsigned long ulFadeInMillis,
     }
 }
 
+/**
+ * @brief Sets the output brightness in percent.
+ */
 void CLightSwitch::setBrightness(int nPercent) {
     setOutputLevelInPercent(nPercent);
 }
 
+/**
+ * @brief Gets the output brightness in percent.
+ */
 int CLightSwitch::getBrightness() {
     return(getOutputLevelInPercent());
 }
 
+/**
+ * @brief Runs a simple on/off diagnostic pattern on the configured pin.
+ */
 void CLightSwitch::runTests() {
     Serial.printf(" - testing pin : %2d  - (Light Switch)",m_nPin);
     Serial.print(" -> ");
@@ -112,4 +140,3 @@ void CLightSwitch::runTests() {
     }
     Serial.println(" ...done");
 }
-

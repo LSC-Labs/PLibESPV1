@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="struct_m_q_t_t_config" kind="struct" language="C++" prot="public">
+    <compoundname>MQTTConfig</compoundname>
+    <includes refid="_m_q_t_t_controller_8h" local="no">MQTTController.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_m_q_t_t_config_1ac0687eb5d52c542d8ba0ae9233534eec" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MQTTConfig::isEnabled</definition>
+        <argsstring></argsstring>
+        <name>isEnabled</name>
+        <qualifiedname>MQTTConfig::isEnabled</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+<para>true when MQTT should connect/publish. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="44" column="13" bodyfile="include/MQTTController.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_config_1a401c1e8a0014f441a6150b5614f98ef6" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MQTTConfig::useAutoTopic</definition>
+        <argsstring></argsstring>
+        <name>useAutoTopic</name>
+        <qualifiedname>MQTTConfig::useAutoTopic</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+<para>true to generate the publish topic from device data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="46" column="13" bodyfile="include/MQTTController.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_config_1a73e0b3ce22dce6c8fe7bfcf6ec8aef24" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String MQTTConfig::BrokerAddress</definition>
+        <argsstring></argsstring>
+        <name>BrokerAddress</name>
+        <qualifiedname>MQTTConfig::BrokerAddress</qualifiedname>
+        <briefdescription>
+<para>Hostname or IP address of the MQTT broker. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="48" column="13" bodyfile="include/MQTTController.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_config_1a546eff5cd4b01da4a690661bb67ea8c2" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MQTTConfig::BrokerPort</definition>
+        <argsstring></argsstring>
+        <name>BrokerPort</name>
+        <qualifiedname>MQTTConfig::BrokerPort</qualifiedname>
+        <initializer>= 1883</initializer>
+        <briefdescription>
+<para>TCP port of the MQTT broker. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="50" column="13" bodyfile="include/MQTTController.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_config_1ac52d496544cbdac0291db0da76fea11e" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String MQTTConfig::ClientID</definition>
+        <argsstring></argsstring>
+        <name>ClientID</name>
+        <qualifiedname>MQTTConfig::ClientID</qualifiedname>
+        <briefdescription>
+<para>MQTT client id used by this device. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="52" column="13" bodyfile="include/MQTTController.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_config_1a8446f174513eaa0bd83299506bb46bd0" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String MQTTConfig::UserName</definition>
+        <argsstring></argsstring>
+        <name>UserName</name>
+        <qualifiedname>MQTTConfig::UserName</qualifiedname>
+        <briefdescription>
+<para>MQTT broker username. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="54" column="13" bodyfile="include/MQTTController.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_config_1a709b3261964483355a0d738e5cae4fff" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String MQTTConfig::UserPassword</definition>
+        <argsstring></argsstring>
+        <name>UserPassword</name>
+        <qualifiedname>MQTTConfig::UserPassword</qualifiedname>
+        <briefdescription>
+<para>MQTT broker password. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="56" column="13" bodyfile="include/MQTTController.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_config_1acbc0fa3342ea34378484d761ea8aafec" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String MQTTConfig::PublishTopicPrefix</definition>
+        <argsstring></argsstring>
+        <name>PublishTopicPrefix</name>
+        <qualifiedname>MQTTConfig::PublishTopicPrefix</qualifiedname>
+        <briefdescription>
+<para>Base topic used for device state/command topics. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="58" column="13" bodyfile="include/MQTTController.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_config_1a6efef8a3d27650afb5529c3023153840" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MQTTConfig::PublishInterval</definition>
+        <argsstring></argsstring>
+        <name>PublishInterval</name>
+        <qualifiedname>MQTTConfig::PublishInterval</qualifiedname>
+        <initializer>= 60</initializer>
+        <briefdescription>
+<para>Heartbeat interval in seconds; 0 disables periodic heartbeat. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="60" column="13" bodyfile="include/MQTTController.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_config_1a5ad981a4d9c571332ba92668325a13ee" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MQTTConfig::useHA</definition>
+        <argsstring></argsstring>
+        <name>useHA</name>
+        <qualifiedname>MQTTConfig::useHA</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+<para>true to publish Home Assistant MQTT discovery data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="64" column="13" bodyfile="include/MQTTController.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_config_1a7fe30c35e390613dc72aa3518f310d26" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String MQTTConfig::HADiscoveryPrefix</definition>
+        <argsstring></argsstring>
+        <name>HADiscoveryPrefix</name>
+        <qualifiedname>MQTTConfig::HADiscoveryPrefix</qualifiedname>
+        <initializer>= &quot;/homeassistant&quot;</initializer>
+        <briefdescription>
+<para>MQTT discovery prefix used by Home Assistant. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="66" column="13" bodyfile="include/MQTTController.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_config_1a1e424a0d7a0c674efa1f55050abeeb1d" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String MQTTConfig::HAOnlineMessage</definition>
+        <argsstring></argsstring>
+        <name>HAOnlineMessage</name>
+        <qualifiedname>MQTTConfig::HAOnlineMessage</qualifiedname>
+        <initializer>= &quot;online&quot;</initializer>
+        <briefdescription>
+<para>Home Assistant availability message for online. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="68" column="13" bodyfile="include/MQTTController.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_q_t_t_config_1aa59a2860692f5da99856c4b3730b7d50" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String MQTTConfig::HAOfflineMessage</definition>
+        <argsstring></argsstring>
+        <name>HAOfflineMessage</name>
+        <qualifiedname>MQTTConfig::HAOfflineMessage</qualifiedname>
+        <initializer>= &quot;offline&quot;</initializer>
+        <briefdescription>
+<para>Home Assistant availability message for offline. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="70" column="13" bodyfile="include/MQTTController.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Runtime configuration for the MQTT broker connection and topics. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/MQTTController.h" line="42" column="1" bodyfile="include/MQTTController.h" bodystart="42" bodyend="72"/>
+    <listofallmembers>
+      <member refid="struct_m_q_t_t_config_1a73e0b3ce22dce6c8fe7bfcf6ec8aef24" prot="public" virt="non-virtual"><scope>MQTTConfig</scope><name>BrokerAddress</name></member>
+      <member refid="struct_m_q_t_t_config_1a546eff5cd4b01da4a690661bb67ea8c2" prot="public" virt="non-virtual"><scope>MQTTConfig</scope><name>BrokerPort</name></member>
+      <member refid="struct_m_q_t_t_config_1ac52d496544cbdac0291db0da76fea11e" prot="public" virt="non-virtual"><scope>MQTTConfig</scope><name>ClientID</name></member>
+      <member refid="struct_m_q_t_t_config_1a7fe30c35e390613dc72aa3518f310d26" prot="public" virt="non-virtual"><scope>MQTTConfig</scope><name>HADiscoveryPrefix</name></member>
+      <member refid="struct_m_q_t_t_config_1aa59a2860692f5da99856c4b3730b7d50" prot="public" virt="non-virtual"><scope>MQTTConfig</scope><name>HAOfflineMessage</name></member>
+      <member refid="struct_m_q_t_t_config_1a1e424a0d7a0c674efa1f55050abeeb1d" prot="public" virt="non-virtual"><scope>MQTTConfig</scope><name>HAOnlineMessage</name></member>
+      <member refid="struct_m_q_t_t_config_1ac0687eb5d52c542d8ba0ae9233534eec" prot="public" virt="non-virtual"><scope>MQTTConfig</scope><name>isEnabled</name></member>
+      <member refid="struct_m_q_t_t_config_1a6efef8a3d27650afb5529c3023153840" prot="public" virt="non-virtual"><scope>MQTTConfig</scope><name>PublishInterval</name></member>
+      <member refid="struct_m_q_t_t_config_1acbc0fa3342ea34378484d761ea8aafec" prot="public" virt="non-virtual"><scope>MQTTConfig</scope><name>PublishTopicPrefix</name></member>
+      <member refid="struct_m_q_t_t_config_1a401c1e8a0014f441a6150b5614f98ef6" prot="public" virt="non-virtual"><scope>MQTTConfig</scope><name>useAutoTopic</name></member>
+      <member refid="struct_m_q_t_t_config_1a5ad981a4d9c571332ba92668325a13ee" prot="public" virt="non-virtual"><scope>MQTTConfig</scope><name>useHA</name></member>
+      <member refid="struct_m_q_t_t_config_1a8446f174513eaa0bd83299506bb46bd0" prot="public" virt="non-virtual"><scope>MQTTConfig</scope><name>UserName</name></member>
+      <member refid="struct_m_q_t_t_config_1a709b3261964483355a0d738e5cae4fff" prot="public" virt="non-virtual"><scope>MQTTConfig</scope><name>UserPassword</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

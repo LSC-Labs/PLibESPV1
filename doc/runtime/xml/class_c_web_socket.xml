@@ -1,0 +1,450 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_web_socket" kind="class" language="C++" prot="public">
+    <compoundname>CWebSocket</compoundname>
+    <basecompoundref refid="class_async_web_socket" prot="public" virt="non-virtual">AsyncWebSocket</basecompoundref>
+    <basecompoundref refid="class_i_msg_event_receiver" prot="public" virt="non-virtual">IMsgEventReceiver</basecompoundref>
+    <includes refid="_web_socket_8h" local="no">WebSocket.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_web_socket_1ae3911784c3d8fbc12ad2b98931e50367" prot="private" static="no" mutable="no">
+        <type>std::queue&lt; <ref refid="class_c_web_socket_message" kindref="compound">CWebSocketMessage</ref> * &gt;</type>
+        <definition>std::queue&lt;CWebSocketMessage *&gt; CWebSocket::m_tMsgQueue</definition>
+        <argsstring></argsstring>
+        <name>m_tMsgQueue</name>
+        <qualifiedname>CWebSocket::m_tMsgQueue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="90" column="20" bodyfile="include/WebSocket.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_web_socket_1a87d877197dd021bf7fdec9f50a70c600" prot="private" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CWebSocket::m_strNeedsAuth</definition>
+        <argsstring></argsstring>
+        <name>m_strNeedsAuth</name>
+        <qualifiedname>CWebSocket::m_strNeedsAuth</qualifiedname>
+        <initializer>= <ref refid="_web_socket_8h_1ad079a90262b62965b88fd6a7cab3c8f6" kindref="member">WS_NEEDS_AUTH</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="92" column="29" bodyfile="include/WebSocket.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_web_socket_1a68c307e5aa40def12e6499ab17c05042" prot="private" static="no" mutable="no">
+        <type><ref refid="class_c_simple_delay" kindref="compound">CSimpleDelay</ref></type>
+        <definition>CSimpleDelay CWebSocket::m_oClientCleanupDelay</definition>
+        <argsstring></argsstring>
+        <name>m_oClientCleanupDelay</name>
+        <qualifiedname>CWebSocket::m_oClientCleanupDelay</qualifiedname>
+        <initializer>= <ref refid="class_c_simple_delay" kindref="compound">CSimpleDelay</ref>(60000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="93" column="29" bodyfile="include/WebSocket.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_c_web_socket_1a09f2ec58b5fae0aa2ddb3be354b552ec" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_web_socket_status" kindref="compound">WebSocketStatus</ref></type>
+        <definition>WebSocketStatus CWebSocket::Status</definition>
+        <argsstring></argsstring>
+        <name>Status</name>
+        <qualifiedname>CWebSocket::Status</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="96" column="25" bodyfile="include/WebSocket.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_web_socket_1a71672caf00ecf8d10404da47c71cb456" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CWebSocket::CWebSocket</definition>
+        <argsstring>(const char *pszSocketName, bool bRegisterOnMsgBus=true)</argsstring>
+        <name>CWebSocket</name>
+        <qualifiedname>CWebSocket::CWebSocket</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszSocketName</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bRegisterOnMsgBus</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Create a WebSocket endpoint and optionally register on the message bus. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="100" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_socket_1a13d4065502a387950ed54ba94e871ede" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CWebSocket::dispatchMessageQueue</definition>
+        <argsstring>()</argsstring>
+        <name>dispatchMessageQueue</name>
+        <qualifiedname>CWebSocket::dispatchMessageQueue</qualifiedname>
+        <briefdescription>
+<para>Dispatch all queued WebSocket messages. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="102" column="6"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_socket_1a4540167fb2c1bc0e64e0be5869ed122f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool CWebSocket::dispatchMessage</definition>
+        <argsstring>(CWebSocketMessage *pMessage)</argsstring>
+        <name>dispatchMessage</name>
+        <qualifiedname>CWebSocket::dispatchMessage</qualifiedname>
+        <param>
+          <type><ref refid="class_c_web_socket_message" kindref="compound">CWebSocketMessage</ref> *</type>
+          <declname>pMessage</declname>
+        </param>
+        <briefdescription>
+<para>Dispatch one assembled WebSocket message. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="104" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_socket_1a6c8a9a295d6ad9786abeb53f4abd9b52" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool CWebSocket::dispatchJsonMessage</definition>
+        <argsstring>(JsonNode &amp;oJsonRequest, CWebSocketMessage *pMessage)</argsstring>
+        <name>dispatchJsonMessage</name>
+        <qualifiedname>CWebSocket::dispatchJsonMessage</qualifiedname>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oJsonRequest</declname>
+        </param>
+        <param>
+          <type><ref refid="class_c_web_socket_message" kindref="compound">CWebSocketMessage</ref> *</type>
+          <declname>pMessage</declname>
+        </param>
+        <briefdescription>
+<para>Dispatch one parsed JSON WebSocket request. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="106" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_socket_1acdb14e80acd1088e71f574d61d616165" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>virtual String CWebSocket::setNeedsAuth</definition>
+        <argsstring>(const String &amp;strCommands)</argsstring>
+        <name>setNeedsAuth</name>
+        <qualifiedname>CWebSocket::setNeedsAuth</qualifiedname>
+        <param>
+          <type>const <ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strCommands</declname>
+        </param>
+        <briefdescription>
+<para>Replace the comma-separated list of commands that require auth. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="108" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_socket_1a1f859ab48ed436b66466c39c20740286" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>virtual String CWebSocket::getNeedsAuth</definition>
+        <argsstring>()</argsstring>
+        <name>getNeedsAuth</name>
+        <qualifiedname>CWebSocket::getNeedsAuth</qualifiedname>
+        <briefdescription>
+<para>Return the comma-separated list of commands that require auth. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="110" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_socket_1a9cb753c240ffb08c7cff1102380a9140" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool CWebSocket::needsAuth</definition>
+        <argsstring>(String &amp;strCommand)</argsstring>
+        <name>needsAuth</name>
+        <qualifiedname>CWebSocket::needsAuth</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strCommand</declname>
+        </param>
+        <briefdescription>
+<para>Return true if the command requires authentication. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="112" column="29"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_socket_1a26d97d77fa8e4172a69efc9ee844bf02" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>int CWebSocket::receiveEvent</definition>
+        <argsstring>(const void *pSender, int nMsgId, const void *pMessage, int nType)</argsstring>
+        <name>receiveEvent</name>
+        <qualifiedname>CWebSocket::receiveEvent</qualifiedname>
+        <reimplements refid="class_i_msg_event_receiver_1a3345710906f9a16c4dca5b7ce2da39d7">receiveEvent</reimplements>
+        <param>
+          <type>const void *</type>
+          <declname>pSender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsgId</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>pMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nType</declname>
+        </param>
+        <briefdescription>
+<para>React to application loop/status events. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="114" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_socket_1a8287548f105685ada47c7bb4d47c8e06" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CWebSocket::onWebSocketEvent</definition>
+        <argsstring>(AsyncWebSocket *pServer, AsyncWebSocketClient *pClient, AwsEventType eType, void *arg, uint8_t *pData, size_t nLen)</argsstring>
+        <name>onWebSocketEvent</name>
+        <qualifiedname>CWebSocket::onWebSocketEvent</qualifiedname>
+        <param>
+          <type><ref refid="class_async_web_socket" kindref="compound">AsyncWebSocket</ref> *</type>
+          <declname>pServer</declname>
+        </param>
+        <param>
+          <type><ref refid="class_async_web_socket_client" kindref="compound">AsyncWebSocketClient</ref> *</type>
+          <declname>pClient</declname>
+        </param>
+        <param>
+          <type><ref refid="_network_8h_1a3c33b5e64d6635e10f74e3577e642293" kindref="member">AwsEventType</ref></type>
+          <declname>eType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>arg</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>pData</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nLen</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="class_async_web_socket" kindref="compound">AsyncWebSocket</ref> callback used to capture incoming frames/events. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="116" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_socket_1a6430c32aac3891c87bdfad22789972dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void <ref refid="_runtime_8h_1afebd45c0d36db732504450393777ce5c" kindref="member">ICACHE_FLASH_ATTR</ref></type>
+        <definition>void ICACHE_FLASH_ATTR CWebSocket::sendAccessDeniedMessage</definition>
+        <argsstring>(JsonNode &amp;oDoc, AsyncWebSocketClient *pClient)</argsstring>
+        <name>sendAccessDeniedMessage</name>
+        <qualifiedname>CWebSocket::sendAccessDeniedMessage</qualifiedname>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oDoc</declname>
+        </param>
+        <param>
+          <type><ref refid="class_async_web_socket_client" kindref="compound">AsyncWebSocketClient</ref> *</type>
+          <declname>pClient</declname>
+        </param>
+        <briefdescription>
+<para>Send a JSON access-denied response to a client. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="119" column="32"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_socket_1a8de81b52168634da37e833e0c0007e76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void <ref refid="_runtime_8h_1afebd45c0d36db732504450393777ce5c" kindref="member">ICACHE_FLASH_ATTR</ref></type>
+        <definition>void ICACHE_FLASH_ATTR CWebSocket::sendJsonDocMessage</definition>
+        <argsstring>(JsonNode &amp;oDoc, AsyncWebSocket *pSocket=nullptr, AsyncWebSocketClient *pClient=nullptr)</argsstring>
+        <name>sendJsonDocMessage</name>
+        <qualifiedname>CWebSocket::sendJsonDocMessage</qualifiedname>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oDoc</declname>
+        </param>
+        <param>
+          <type><ref refid="class_async_web_socket" kindref="compound">AsyncWebSocket</ref> *</type>
+          <declname>pSocket</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="class_async_web_socket_client" kindref="compound">AsyncWebSocketClient</ref> *</type>
+          <declname>pClient</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Serialize and send a JSON document to one client or all clients. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="121" column="24"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_c_web_socket_1a829953f41e68047bf8dcffc45ffa3a8b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CWebSocket::checkAuth</definition>
+        <argsstring>(JsonNode &amp;oRequestDoc, AsyncWebSocketClient *pClient)</argsstring>
+        <name>checkAuth</name>
+        <qualifiedname>CWebSocket::checkAuth</qualifiedname>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oRequestDoc</declname>
+        </param>
+        <param>
+          <type><ref refid="class_async_web_socket_client" kindref="compound">AsyncWebSocketClient</ref> *</type>
+          <declname>pClient</declname>
+        </param>
+        <briefdescription>
+<para>Validate request credentials for authenticated commands. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="126" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_socket_1aad8bae1620e9f7582798705aec9408aa" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CWebSocket::addMessageToQueue</definition>
+        <argsstring>(CWebSocketMessage *pMsgObj)</argsstring>
+        <name>addMessageToQueue</name>
+        <qualifiedname>CWebSocket::addMessageToQueue</qualifiedname>
+        <param>
+          <type><ref refid="class_c_web_socket_message" kindref="compound">CWebSocketMessage</ref> *</type>
+          <declname>pMsgObj</declname>
+        </param>
+        <briefdescription>
+<para>Add an assembled message object to the dispatch queue. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="128" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Function pointer to register the routes. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>WebSocket endpoint that queues messages and dispatches JSON commands.</para>
+<para>Incoming multi-frame messages are captured as <ref refid="class_c_web_socket_message" kindref="compound">CWebSocketMessage</ref> objects, queued, and later dispatched from the application loop. Selected commands can require authentication before they are processed. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>AsyncWebSocket</label>
+        <link refid="class_async_web_socket"/>
+      </node>
+      <node id="1">
+        <label>CWebSocket</label>
+        <link refid="class_c_web_socket"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>AsyncWebSocket</label>
+        <link refid="class_async_web_socket"/>
+      </node>
+      <node id="1">
+        <label>CWebSocket</label>
+        <link refid="class_c_web_socket"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Status</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="4">
+        <label>WebSocketStatus</label>
+        <link refid="struct_web_socket_status"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/WebSocket.h" line="88" column="1" bodyfile="include/WebSocket.h" bodystart="88" bodyend="129"/>
+    <listofallmembers>
+      <member refid="class_c_web_socket_1aad8bae1620e9f7582798705aec9408aa" prot="private" virt="non-virtual"><scope>CWebSocket</scope><name>addMessageToQueue</name></member>
+      <member refid="class_async_web_socket_1a652e225f06c344fcd107267e823dce1b" prot="public" virt="non-virtual"><scope>CWebSocket</scope><name>AsyncWebSocket</name></member>
+      <member refid="class_c_web_socket_1a829953f41e68047bf8dcffc45ffa3a8b" prot="private" virt="non-virtual"><scope>CWebSocket</scope><name>checkAuth</name></member>
+      <member refid="class_async_web_socket_1a35418e21e7be57bf7f5b5aa009eb265b" prot="public" virt="non-virtual"><scope>CWebSocket</scope><name>cleanupClients</name></member>
+      <member refid="class_c_web_socket_1a71672caf00ecf8d10404da47c71cb456" prot="public" virt="non-virtual"><scope>CWebSocket</scope><name>CWebSocket</name></member>
+      <member refid="class_c_web_socket_1a6c8a9a295d6ad9786abeb53f4abd9b52" prot="public" virt="virtual"><scope>CWebSocket</scope><name>dispatchJsonMessage</name></member>
+      <member refid="class_c_web_socket_1a4540167fb2c1bc0e64e0be5869ed122f" prot="public" virt="virtual"><scope>CWebSocket</scope><name>dispatchMessage</name></member>
+      <member refid="class_c_web_socket_1a13d4065502a387950ed54ba94e871ede" prot="public" virt="non-virtual"><scope>CWebSocket</scope><name>dispatchMessageQueue</name></member>
+      <member refid="class_c_web_socket_1a1f859ab48ed436b66466c39c20740286" prot="public" virt="virtual"><scope>CWebSocket</scope><name>getNeedsAuth</name></member>
+      <member refid="class_c_web_socket_1a68c307e5aa40def12e6499ab17c05042" prot="private" virt="non-virtual"><scope>CWebSocket</scope><name>m_oClientCleanupDelay</name></member>
+      <member refid="class_c_web_socket_1a87d877197dd021bf7fdec9f50a70c600" prot="private" virt="non-virtual"><scope>CWebSocket</scope><name>m_strNeedsAuth</name></member>
+      <member refid="class_c_web_socket_1ae3911784c3d8fbc12ad2b98931e50367" prot="private" virt="non-virtual"><scope>CWebSocket</scope><name>m_tMsgQueue</name></member>
+      <member refid="class_async_web_socket_1a3e745a4a1b0c7a73d1234a7624a288a0" prot="public" virt="non-virtual"><scope>CWebSocket</scope><name>makeBuffer</name></member>
+      <member refid="class_c_web_socket_1a9cb753c240ffb08c7cff1102380a9140" prot="public" virt="virtual"><scope>CWebSocket</scope><name>needsAuth</name></member>
+      <member refid="class_async_web_socket_1a9e0ba3575505eff5a6df6a4c039348ad" prot="public" virt="non-virtual"><scope>CWebSocket</scope><name>onEvent</name></member>
+      <member refid="class_c_web_socket_1a8287548f105685ada47c7bb4d47c8e06" prot="public" virt="virtual"><scope>CWebSocket</scope><name>onWebSocketEvent</name></member>
+      <member refid="class_c_web_socket_1a26d97d77fa8e4172a69efc9ee844bf02" prot="public" virt="virtual"><scope>CWebSocket</scope><name>receiveEvent</name></member>
+      <member refid="class_c_web_socket_1a6430c32aac3891c87bdfad22789972dc" prot="public" virt="non-virtual"><scope>CWebSocket</scope><name>sendAccessDeniedMessage</name></member>
+      <member refid="class_c_web_socket_1a8de81b52168634da37e833e0c0007e76" prot="public" virt="non-virtual"><scope>CWebSocket</scope><name>sendJsonDocMessage</name></member>
+      <member refid="class_c_web_socket_1acdb14e80acd1088e71f574d61d616165" prot="public" virt="virtual"><scope>CWebSocket</scope><name>setNeedsAuth</name></member>
+      <member refid="class_c_web_socket_1a09f2ec58b5fae0aa2ddb3be354b552ec" prot="public" virt="non-virtual"><scope>CWebSocket</scope><name>Status</name></member>
+      <member refid="class_async_web_socket_1a2976831d74578e7a41f4a5d89ac31842" prot="public" virt="non-virtual"><scope>CWebSocket</scope><name>textAll</name></member>
+      <member refid="class_async_web_socket_1afc1cff088d709f9d08ffcfbc791c802a" prot="public" virt="non-virtual"><scope>CWebSocket</scope><name>url</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_event_handler_8h" kind="file" language="C++">
+    <compoundname>EventHandler.h</compoundname>
+    <includes refid="_runtime_8h" local="no">Runtime.h</includes>
+    <includes local="no">functional</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">queue</includes>
+    <includes refid="_named_value_table_8h" local="no">NamedValueTable.h</includes>
+    <includes refid="_development_helper_8h" local="no">DevelopmentHelper.h</includes>
+    <includedby refid="_logging_8h" local="no">include/Logging.h</includedby>
+    <includedby refid="_m_d_n_s_controller_8h" local="no">include/MDNSController.h</includedby>
+    <includedby refid="_module_interface_8h" local="no">include/ModuleInterface.h</includedby>
+    <includedby refid="_sys_status_led_8h" local="no">include/SysStatusLed.h</includedby>
+    <includedby refid="_web_socket_8h" local="yes">include/WebSocket.h</includedby>
+    <incdepgraph>
+      <node id="11">
+        <label>DevelopmentHelper.h</label>
+        <link refid="_development_helper_8h"/>
+      </node>
+      <node id="1">
+        <label>include/EventHandler.h</label>
+        <link refid="_event_handler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>LSCUtils.h</label>
+        <link refid="_l_s_c_utils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>NamedValueTable.h</label>
+        <link refid="_named_value_table_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>chrono</label>
+      </node>
+      <node id="6">
+        <label>functional</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="8">
+        <label>queue</label>
+      </node>
+      <node id="3">
+        <label>string.h</label>
+      </node>
+      <node id="7">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>include/Appl.h</label>
+        <link refid="_appl_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>include/ApplModule.h</label>
+        <link refid="_appl_module_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>include/BatteryMeasure.h</label>
+        <link refid="_battery_measure_8h"/>
+      </node>
+      <node id="1">
+        <label>include/EventHandler.h</label>
+        <link refid="_event_handler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>include/Logging.h</label>
+        <link refid="_logging_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>include/MDNSController.h</label>
+        <link refid="_m_d_n_s_controller_8h"/>
+      </node>
+      <node id="11">
+        <label>include/MQTTController.h</label>
+        <link refid="_m_q_t_t_controller_8h"/>
+      </node>
+      <node id="8">
+        <label>include/ModuleInterface.h</label>
+        <link refid="_module_interface_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>include/NTPHandler.h</label>
+        <link refid="_n_t_p_handler_8h"/>
+      </node>
+      <node id="12">
+        <label>include/SysStatusLed.h</label>
+        <link refid="_sys_status_led_8h"/>
+      </node>
+      <node id="6">
+        <label>include/WebServer.h</label>
+        <link refid="_web_server_8h"/>
+      </node>
+      <node id="13">
+        <label>include/WebSocket.h</label>
+        <link refid="_web_socket_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>include/WiFiController.h</label>
+        <link refid="_wi_fi_controller_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_i_msg_event_receiver" prot="public">IMsgEventReceiver</innerclass>
+    <innerclass refid="class_c_event_handler" prot="public">CEventHandler</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_event_handler_8h_1af74d24c95b451d1f064aed0c32680db5" prot="public" static="no">
+        <name>EVENT_MSG_CALL_AGAIN_WHEN_ALL_OK</name>
+        <initializer>-9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/EventHandler.h" line="9" column="9" bodyfile="include/EventHandler.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_event_handler_8h_1a6c29847fd5f21592f8f691560736ef82" prot="public" static="no">
+        <name>EVENT_MSG_RESULT_OK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/EventHandler.h" line="10" column="9" bodyfile="include/EventHandler.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_event_handler_8h_1add272e1b0f1a76b2548ca11189b2d5b3" prot="public" static="no">
+        <name>EVENT_MSG_RESULT_WARN</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/EventHandler.h" line="11" column="9" bodyfile="include/EventHandler.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_event_handler_8h_1a9231afb65cb3de3b48234902eda3db44" prot="public" static="no">
+        <name>EVENT_MSG_RESULT_ERROR</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/EventHandler.h" line="12" column="9" bodyfile="include/EventHandler.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_event_handler_8h_1a6ae4b8e784653317186e3962dd3a4575" prot="public" static="no">
+        <name>EVENT_MSG_RESULT_STOP_PROCESSING</name>
+        <initializer>99</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/EventHandler.h" line="13" column="9" bodyfile="include/EventHandler.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/EventHandler.h"/>
+  </compounddef>
+</doxygen>

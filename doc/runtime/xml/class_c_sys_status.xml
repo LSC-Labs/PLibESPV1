@@ -1,0 +1,301 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_sys_status" kind="class" language="C++" prot="public">
+    <compoundname>CSysStatus</compoundname>
+    <basecompoundref refid="class_i_status_handler" prot="public" virt="non-virtual">IStatusHandler</basecompoundref>
+    <includes refid="_sys_status_8h" local="no">SysStatus.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_sys_status_1a76df2a31909b07d1f9cdc872cf2dc9f5" prot="private" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* CSysStatus::m_pszChipID</definition>
+        <argsstring></argsstring>
+        <name>m_pszChipID</name>
+        <qualifiedname>CSysStatus::m_pszChipID</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="97" column="20" bodyfile="include/SysStatus.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_sys_status_1a9e0822ad31ab349e25ffc467293424bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CSysStatus::CSysStatus</definition>
+        <argsstring>()</argsstring>
+        <name>CSysStatus</name>
+        <qualifiedname>CSysStatus::CSysStatus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="100" column="7"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1a044c34fe2a9c6b0ae4e60e37c1d0a815" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CSysStatus::~CSysStatus</definition>
+        <argsstring>()</argsstring>
+        <name>~CSysStatus</name>
+        <qualifiedname>CSysStatus::~CSysStatus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="101" column="7"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1a06272765f97e2d634484d0cc7d43d5b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CSysStatus::getSdkVersion</definition>
+        <argsstring>()</argsstring>
+        <name>getSdkVersion</name>
+        <qualifiedname>CSysStatus::getSdkVersion</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="102" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1a0d5b4eb8a0901516d3e104bd910fc5d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CSysStatus::getChipID</definition>
+        <argsstring>()</argsstring>
+        <name>getChipID</name>
+        <qualifiedname>CSysStatus::getChipID</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="103" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1a9f1ae212f90f0a420d0a58c7d2ea0733" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t CSysStatus::getFlashChipId</definition>
+        <argsstring>()</argsstring>
+        <name>getFlashChipId</name>
+        <qualifiedname>CSysStatus::getFlashChipId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="104" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1ad0c26c5803e51ffcb551f165aeef3a71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t CSysStatus::getFlashChipRealSize</definition>
+        <argsstring>()</argsstring>
+        <name>getFlashChipRealSize</name>
+        <qualifiedname>CSysStatus::getFlashChipRealSize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="105" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1a30f825c8b0fdb66b0790e52db44138f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t CSysStatus::getFlashChipSize</definition>
+        <argsstring>()</argsstring>
+        <name>getFlashChipSize</name>
+        <qualifiedname>CSysStatus::getFlashChipSize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="106" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1a478c15efae3196a5898a45c75ffbe085" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t CSysStatus::getSketchSize</definition>
+        <argsstring>()</argsstring>
+        <name>getSketchSize</name>
+        <qualifiedname>CSysStatus::getSketchSize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="107" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1a51782bb5750dc86fc2b864345857cc1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t CSysStatus::getFreeSketchSpace</definition>
+        <argsstring>()</argsstring>
+        <name>getFreeSketchSpace</name>
+        <qualifiedname>CSysStatus::getFreeSketchSpace</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="108" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1ae7d413e89a43c31ec1d7cc8f589fb0c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t CSysStatus::getHeapSize</definition>
+        <argsstring>()</argsstring>
+        <name>getHeapSize</name>
+        <qualifiedname>CSysStatus::getHeapSize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="109" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1ab2968ab0c731b93befd6d9324513773e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t CSysStatus::getFreeHeap</definition>
+        <argsstring>()</argsstring>
+        <name>getFreeHeap</name>
+        <qualifiedname>CSysStatus::getFreeHeap</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="110" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1a9e730081f29b5cceb3bcc459a970bf92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t CSysStatus::getMaxAllocHeap</definition>
+        <argsstring>()</argsstring>
+        <name>getMaxAllocHeap</name>
+        <qualifiedname>CSysStatus::getMaxAllocHeap</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="111" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1a7929eae35326079fa42ee66b5fbec9f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t CSysStatus::getFreePsram</definition>
+        <argsstring>()</argsstring>
+        <name>getFreePsram</name>
+        <qualifiedname>CSysStatus::getFreePsram</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="112" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1a966f5cc982407221aa68f977dea826b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t CSysStatus::getCpuFrequencyMhz</definition>
+        <argsstring>()</argsstring>
+        <name>getCpuFrequencyMhz</name>
+        <qualifiedname>CSysStatus::getCpuFrequencyMhz</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="113" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_1a9841efdc1d6dbda0247499adc65464a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CSysStatus::writeStatusTo</definition>
+        <argsstring>(JsonNode &amp;oStatusObj, int nLevel=STATUS_LEVEL_INFO) override</argsstring>
+        <name>writeStatusTo</name>
+        <qualifiedname>CSysStatus::writeStatusTo</qualifiedname>
+        <reimplements refid="class_i_status_handler_1a159576674bba670032ae23b647db1dec">writeStatusTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oStatusObj</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nLevel</declname>
+          <defval><ref refid="_status_handler_8h_1ad33eab0de4e088931d94b504679013e4" kindref="member">STATUS_LEVEL_INFO</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatus.h" line="115" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para><ref refid="_sys_status_8h" kindref="compound">SysStatus.h</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>(c) 2025 <ref refid="namespace_l_s_c" kindref="compound">LSC</ref> Labs</para>
+<para>Aliases functions to sys information Helps to port information between devices and implements the ISatusHandler interface Not all information are available - still porting...</para>
+<para>Thanks to the implementation of Jason2866 which gives a lot of basic ideas.</para>
+<para><simplesect kind="see"><para><ulink url="https://github.com/Jason2866/ESP32_Show_Info/blob/main/src/Chip_info.ino#L68">https://github.com/Jason2866/ESP32_Show_Info/blob/main/src/Chip_info.ino#L68</ulink> </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>CSysStatus</label>
+        <link refid="class_c_sys_status"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>CSysStatus</label>
+        <link refid="class_c_sys_status"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/SysStatus.h" line="95" column="1" bodyfile="include/SysStatus.h" bodystart="95" bodyend="117"/>
+    <listofallmembers>
+      <member refid="class_c_sys_status_1a9e0822ad31ab349e25ffc467293424bd" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>CSysStatus</name></member>
+      <member refid="class_c_sys_status_1a0d5b4eb8a0901516d3e104bd910fc5d6" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>getChipID</name></member>
+      <member refid="class_c_sys_status_1a966f5cc982407221aa68f977dea826b6" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>getCpuFrequencyMhz</name></member>
+      <member refid="class_c_sys_status_1a9f1ae212f90f0a420d0a58c7d2ea0733" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>getFlashChipId</name></member>
+      <member refid="class_c_sys_status_1ad0c26c5803e51ffcb551f165aeef3a71" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>getFlashChipRealSize</name></member>
+      <member refid="class_c_sys_status_1a30f825c8b0fdb66b0790e52db44138f7" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>getFlashChipSize</name></member>
+      <member refid="class_c_sys_status_1ab2968ab0c731b93befd6d9324513773e" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>getFreeHeap</name></member>
+      <member refid="class_c_sys_status_1a7929eae35326079fa42ee66b5fbec9f1" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>getFreePsram</name></member>
+      <member refid="class_c_sys_status_1a51782bb5750dc86fc2b864345857cc1a" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>getFreeSketchSpace</name></member>
+      <member refid="class_c_sys_status_1ae7d413e89a43c31ec1d7cc8f589fb0c4" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>getHeapSize</name></member>
+      <member refid="class_c_sys_status_1a9e730081f29b5cceb3bcc459a970bf92" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>getMaxAllocHeap</name></member>
+      <member refid="class_c_sys_status_1a06272765f97e2d634484d0cc7d43d5b2" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>getSdkVersion</name></member>
+      <member refid="class_c_sys_status_1a478c15efae3196a5898a45c75ffbe085" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>getSketchSize</name></member>
+      <member refid="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" prot="public" virt="virtual"><scope>CSysStatus</scope><name>hasStatusValues</name></member>
+      <member refid="class_c_sys_status_1a76df2a31909b07d1f9cdc872cf2dc9f5" prot="private" virt="non-virtual"><scope>CSysStatus</scope><name>m_pszChipID</name></member>
+      <member refid="class_c_sys_status_1a9841efdc1d6dbda0247499adc65464a8" prot="public" virt="virtual"><scope>CSysStatus</scope><name>writeStatusTo</name></member>
+      <member refid="class_c_sys_status_1a044c34fe2a9c6b0ae4e60e37c1d0a815" prot="public" virt="non-virtual"><scope>CSysStatus</scope><name>~CSysStatus</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

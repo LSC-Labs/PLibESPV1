@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_button" kind="class" language="C++" prot="public">
+    <compoundname>CButton</compoundname>
+    <basecompoundref refid="class_c_input_pin_controller" prot="private" virt="non-virtual">CInputPinController</basecompoundref>
+    <includes refid="_button_8h" local="no">Button.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_button_1a05fc99089aa41435d9c05eaf5a0411f2" prot="private" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long CButton::m_ulDebouncingTime</definition>
+        <argsstring></argsstring>
+        <name>m_ulDebouncingTime</name>
+        <qualifiedname>CButton::m_ulDebouncingTime</qualifiedname>
+        <initializer>= <ref refid="_button_8h_1a20b056cdc3e863c26f39824eb3106c45" kindref="member">BUTTON_DEBOUNCING_TIME</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="17" column="23" bodyfile="include/Button.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_button_1a2a77f5d5c313d181dff1eb63e57e7844" prot="private" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long CButton::m_ulLastCheckTime</definition>
+        <argsstring></argsstring>
+        <name>m_ulLastCheckTime</name>
+        <qualifiedname>CButton::m_ulLastCheckTime</qualifiedname>
+        <initializer>= 0L</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="18" column="23" bodyfile="include/Button.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_button_1a0057265983f23c5c63eba2e634cbc431" prot="private" static="no" mutable="no">
+        <type>volatile int</type>
+        <definition>volatile int CButton::m_nCurStatus</definition>
+        <argsstring></argsstring>
+        <name>m_nCurStatus</name>
+        <qualifiedname>CButton::m_nCurStatus</qualifiedname>
+        <initializer>= <ref refid="_button_8h_1a5c1b32c980f7c1e925ddbf7d73464089" kindref="member">BUTTON_STATUS_OFF</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="19" column="22" bodyfile="include/Button.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_c_button_1abb5fc10197c734fc776cc7b2aeab792c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void IRAM_ATTR</type>
+        <definition>void IRAM_ATTR CButton::interruptHandler</definition>
+        <argsstring>()</argsstring>
+        <name>interruptHandler</name>
+        <qualifiedname>CButton::interruptHandler</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="21" column="24"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_button_1aa83d990df1c958fb874b9f9440f9b98e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CButton::CButton</definition>
+        <argsstring>()</argsstring>
+        <name>CButton</name>
+        <qualifiedname>CButton::CButton</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="25" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_button_1a7738202d8f7c67fea07a05b59531822e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CButton::CButton</definition>
+        <argsstring>(int nPin, bool bLowLevelIsOn=true, bool bUsePullUpDown=true)</argsstring>
+        <name>CButton</name>
+        <qualifiedname>CButton::CButton</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nPin</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bLowLevelIsOn</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bUsePullUpDown</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="26" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_button_1a3d99e84962ec5626f6d4863acf4f5dbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CButton::~CButton</definition>
+        <argsstring>()</argsstring>
+        <name>~CButton</name>
+        <qualifiedname>CButton::~CButton</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="27" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_button_1a52304325294f6218a0c20d7b4ab12152" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CButton::setup</definition>
+        <argsstring>(int nPin, bool bLowLevelIsOn=true, bool bUsePullUpDown=true)</argsstring>
+        <name>setup</name>
+        <qualifiedname>CButton::setup</qualifiedname>
+        <reimplements refid="class_c_input_pin_controller_1a136964c5322041ee2562312883efe69d">setup</reimplements>
+        <param>
+          <type>int</type>
+          <declname>nPin</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bLowLevelIsOn</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bUsePullUpDown</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="28" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_button_1a6f6c64a270d2395fff0d69234737c790" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CButton::startMonitoring</definition>
+        <argsstring>()</argsstring>
+        <name>startMonitoring</name>
+        <qualifiedname>CButton::startMonitoring</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="30" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_button_1aa8aa5c9037062dc2141822aed3f6209a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CButton::stopMonitoring</definition>
+        <argsstring>()</argsstring>
+        <name>stopMonitoring</name>
+        <qualifiedname>CButton::stopMonitoring</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="31" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_button_1a1e42a6d458c4890ddca8266c51b0f1f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CButton::isPressed</definition>
+        <argsstring>()</argsstring>
+        <name>isPressed</name>
+        <qualifiedname>CButton::isPressed</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="33" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>CButton</label>
+        <link refid="class_c_button"/>
+        <childnode refid="2" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CInputPinController</label>
+        <link refid="class_c_input_pin_controller"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CPinController</label>
+        <link refid="class_c_pin_controller"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>CButton</label>
+        <link refid="class_c_button"/>
+        <childnode refid="2" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CInputPinController</label>
+        <link refid="class_c_input_pin_controller"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CPinController</label>
+        <link refid="class_c_pin_controller"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/Button.h" line="15" column="1" bodyfile="include/Button.h" bodystart="15" bodyend="34"/>
+    <listofallmembers>
+      <member refid="class_c_button_1aa83d990df1c958fb874b9f9440f9b98e" prot="public" virt="non-virtual"><scope>CButton</scope><name>CButton</name></member>
+      <member refid="class_c_button_1a7738202d8f7c67fea07a05b59531822e" prot="public" virt="non-virtual"><scope>CButton</scope><name>CButton</name></member>
+      <member refid="class_c_button_1abb5fc10197c734fc776cc7b2aeab792c" prot="private" virt="non-virtual"><scope>CButton</scope><name>interruptHandler</name></member>
+      <member refid="class_c_button_1a1e42a6d458c4890ddca8266c51b0f1f6" prot="public" virt="non-virtual"><scope>CButton</scope><name>isPressed</name></member>
+      <member refid="class_c_button_1a0057265983f23c5c63eba2e634cbc431" prot="private" virt="non-virtual"><scope>CButton</scope><name>m_nCurStatus</name></member>
+      <member refid="class_c_button_1a05fc99089aa41435d9c05eaf5a0411f2" prot="private" virt="non-virtual"><scope>CButton</scope><name>m_ulDebouncingTime</name></member>
+      <member refid="class_c_button_1a2a77f5d5c313d181dff1eb63e57e7844" prot="private" virt="non-virtual"><scope>CButton</scope><name>m_ulLastCheckTime</name></member>
+      <member refid="class_c_button_1a52304325294f6218a0c20d7b4ab12152" prot="public" virt="virtual"><scope>CButton</scope><name>setup</name></member>
+      <member refid="class_c_button_1a6f6c64a270d2395fff0d69234737c790" prot="public" virt="non-virtual"><scope>CButton</scope><name>startMonitoring</name></member>
+      <member refid="class_c_button_1aa8aa5c9037062dc2141822aed3f6209a" prot="public" virt="non-virtual"><scope>CButton</scope><name>stopMonitoring</name></member>
+      <member refid="class_c_button_1a3d99e84962ec5626f6d4863acf4f5dbb" prot="public" virt="non-virtual"><scope>CButton</scope><name>~CButton</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

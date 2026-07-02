@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_event_logger" kind="class" language="C++" prot="public">
+    <compoundname>CEventLogger</compoundname>
+    <includes refid="_logging_8h" local="no">Logging.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_event_logger_1a7d77eb54eb2710936fce50e6eb42d938" prot="private" static="no" mutable="no">
+        <type><ref refid="class_c_event_handler" kindref="compound">CEventHandler</ref> *</type>
+        <definition>CEventHandler* CEventLogger::pEventHandler</definition>
+        <argsstring></argsstring>
+        <name>pEventHandler</name>
+        <qualifiedname>CEventLogger::pEventHandler</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="24" column="24" bodyfile="include/Logging.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_event_logger_1adb289eeb4d68a4a56dc1222da9e22315" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CEventLogger::CEventLogger</definition>
+        <argsstring>()</argsstring>
+        <name>CEventLogger</name>
+        <qualifiedname>CEventLogger::CEventLogger</qualifiedname>
+        <briefdescription>
+<para>Create a logger without an attached event handler. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="27" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_event_logger_1ad71ef2dd3bee3a8534ff3ef700aa336f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CEventLogger::CEventLogger</definition>
+        <argsstring>(CEventHandler *pEventHandler)</argsstring>
+        <name>CEventLogger</name>
+        <qualifiedname>CEventLogger::CEventLogger</qualifiedname>
+        <param>
+          <type><ref refid="class_c_event_handler" kindref="compound">CEventHandler</ref> *</type>
+          <declname>pEventHandler</declname>
+        </param>
+        <briefdescription>
+<para>Create a logger that publishes to the given event handler. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="29" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_event_logger_1a144476f5ac6d1c872805a57f7b3e43a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CEventLogger::log</definition>
+        <argsstring>(const char *pszType, const __FlashStringHelper *pszMessage,...)</argsstring>
+        <name>log</name>
+        <qualifiedname>CEventLogger::log</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszType</declname>
+        </param>
+        <param>
+          <type>const __FlashStringHelper *</type>
+          <declname>pszMessage</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>Format and publish a flash-string log message. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="37" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_event_logger_1aa9ac34ea143d3117d0599d4c3223a125" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CEventLogger::log</definition>
+        <argsstring>(const char *pszType, const char *pszMessage,...)</argsstring>
+        <name>log</name>
+        <qualifiedname>CEventLogger::log</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszType</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszMessage</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>Format and publish a C-string log message. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="39" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_event_logger_1aadcf29d801f19e75b98676b74b68e140" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CEventLogger::log</definition>
+        <argsstring>(const char *strType, JsonNode *pDoc)</argsstring>
+        <name>log</name>
+        <qualifiedname>CEventLogger::log</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>strType</declname>
+        </param>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> *</type>
+          <declname>pDoc</declname>
+        </param>
+        <briefdescription>
+<para>Publish a JSON document as log payload. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="41" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_c_event_logger_1a58cbc8156a1565c1ed80e3e14c0e4bd1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int CEventLogger::getLogClassNumberFrom</definition>
+        <argsstring>(const char cClass)</argsstring>
+        <name>getLogClassNumberFrom</name>
+        <qualifiedname>CEventLogger::getLogClassNumberFrom</qualifiedname>
+        <param>
+          <type>const char</type>
+          <declname>cClass</declname>
+        </param>
+        <briefdescription>
+<para>Convert a log class character into its numeric message class. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="32" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_event_logger_1a2d8a92376346f7228ac7c1e89f2dec29" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char</type>
+        <definition>static char CEventLogger::getClassCharFromLogClass</definition>
+        <argsstring>(int nClassNo)</argsstring>
+        <name>getClassCharFromLogClass</name>
+        <qualifiedname>CEventLogger::getClassCharFromLogClass</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nClassNo</declname>
+        </param>
+        <briefdescription>
+<para>Convert a numeric message class back to its log class character. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="34" column="21"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Logger facade that sends formatted log events through <ref refid="class_c_event_handler" kindref="compound">CEventHandler</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/Logging.h" line="22" column="1" bodyfile="include/Logging.h" bodystart="22" bodyend="42"/>
+    <listofallmembers>
+      <member refid="class_c_event_logger_1adb289eeb4d68a4a56dc1222da9e22315" prot="public" virt="non-virtual"><scope>CEventLogger</scope><name>CEventLogger</name></member>
+      <member refid="class_c_event_logger_1ad71ef2dd3bee3a8534ff3ef700aa336f" prot="public" virt="non-virtual"><scope>CEventLogger</scope><name>CEventLogger</name></member>
+      <member refid="class_c_event_logger_1a2d8a92376346f7228ac7c1e89f2dec29" prot="public" virt="non-virtual"><scope>CEventLogger</scope><name>getClassCharFromLogClass</name></member>
+      <member refid="class_c_event_logger_1a58cbc8156a1565c1ed80e3e14c0e4bd1" prot="public" virt="non-virtual"><scope>CEventLogger</scope><name>getLogClassNumberFrom</name></member>
+      <member refid="class_c_event_logger_1a144476f5ac6d1c872805a57f7b3e43a7" prot="public" virt="non-virtual"><scope>CEventLogger</scope><name>log</name></member>
+      <member refid="class_c_event_logger_1aa9ac34ea143d3117d0599d4c3223a125" prot="public" virt="non-virtual"><scope>CEventLogger</scope><name>log</name></member>
+      <member refid="class_c_event_logger_1aadcf29d801f19e75b98676b74b68e140" prot="public" virt="non-virtual"><scope>CEventLogger</scope><name>log</name></member>
+      <member refid="class_c_event_logger_1a7d77eb54eb2710936fce50e6eb42d938" prot="private" virt="non-virtual"><scope>CEventLogger</scope><name>pEventHandler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,459 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_appl_8h" kind="file" language="C++">
+    <compoundname>Appl.h</compoundname>
+    <includes refid="_runtime_8h" local="no">Runtime.h</includes>
+    <includes refid="_sys_status_8h" local="no">SysStatus.h</includes>
+    <includes refid="_json_node_8h" local="no">JsonNode.h</includes>
+    <includes refid="_module_interface_8h" local="no">ModuleInterface.h</includes>
+    <includes refid="_logging_8h" local="no">Logging.h</includes>
+    <includes refid="_vars_8h" local="no">Vars.h</includes>
+    <includes refid="_development_helper_8h" local="no">DevelopmentHelper.h</includes>
+    <includedby refid="_m_d_n_s_controller_8h" local="no">include/MDNSController.h</includedby>
+    <includedby refid="_n_t_p_handler_8h" local="no">include/NTPHandler.h</includedby>
+    <includedby refid="_web_server_8h" local="no">include/WebServer.h</includedby>
+    <includedby refid="_wi_fi_controller_8h" local="no">include/WiFiController.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>include/Appl.h</label>
+        <link refid="_appl_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>ConfigHandler.h</label>
+        <link refid="_config_handler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>DevelopmentHelper.h</label>
+        <link refid="_development_helper_8h"/>
+      </node>
+      <node id="14">
+        <label>EventHandler.h</label>
+        <link refid="_event_handler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>JsonNode.h</label>
+        <link refid="_json_node_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>LSCUtils.h</label>
+        <link refid="_l_s_c_utils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>Logging.h</label>
+        <link refid="_logging_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ModuleInterface.h</label>
+        <link refid="_module_interface_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>Msgs.h</label>
+        <link refid="_msgs_8h"/>
+      </node>
+      <node id="17">
+        <label>NamedValueTable.h</label>
+        <link refid="_named_value_table_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>StatusHandler.h</label>
+        <link refid="_status_handler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>SysStatus.h</label>
+        <link refid="_sys_status_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>Vars.h</label>
+        <link refid="_vars_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>Esp.h</label>
+      </node>
+      <node id="4">
+        <label>chrono</label>
+      </node>
+      <node id="15">
+        <label>functional</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="11">
+        <label>memory</label>
+      </node>
+      <node id="16">
+        <label>queue</label>
+      </node>
+      <node id="22">
+        <label>stdarg.h</label>
+      </node>
+      <node id="3">
+        <label>string.h</label>
+      </node>
+      <node id="9">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>include/Appl.h</label>
+        <link refid="_appl_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>include/MDNSController.h</label>
+        <link refid="_m_d_n_s_controller_8h"/>
+      </node>
+      <node id="3">
+        <label>include/NTPHandler.h</label>
+        <link refid="_n_t_p_handler_8h"/>
+      </node>
+      <node id="4">
+        <label>include/WebServer.h</label>
+        <link refid="_web_server_8h"/>
+      </node>
+      <node id="5">
+        <label>include/WiFiController.h</label>
+        <link refid="_wi_fi_controller_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_appl_config" prot="public">ApplConfig</innerclass>
+    <innerclass refid="class_c_appl" prot="public">CAppl</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_appl_8h_1aad1075ee7a34d865f9534733f9bf1938" prot="public" static="no">
+        <name>ApplLogInfo</name>
+        <param><defname>oData</defname></param>
+        <initializer>Appl.Log.log(&quot;I&quot;,oData)</initializer>
+        <briefdescription>
+<para>Macros for Application Logging Use this macros, to log messages, so it is possible to undef them all at once, if needed (for example in production code). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="39" column="14" bodyfile="include/Appl.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1aa59a37b68d6088e4ec03e93abbbf0b54" prot="public" static="no">
+        <name>ApplLogWarn</name>
+        <param><defname>oData</defname></param>
+        <initializer>Appl.Log.log(&quot;W&quot;,oData)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="40" column="13" bodyfile="include/Appl.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1a5074798b5c7409e63f84e8d83b302abb" prot="public" static="no">
+        <name>ApplLogVerbose</name>
+        <param><defname>oData</defname></param>
+        <initializer>Appl.Log.log(&quot;V&quot;,oData)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="41" column="13" bodyfile="include/Appl.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1abc5b15e3206e3777f7f36023c6a590dd" prot="public" static="no">
+        <name>ApplLogError</name>
+        <param><defname>oData</defname></param>
+        <initializer>Appl.Log.log(&quot;E&quot;,oData)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="42" column="13" bodyfile="include/Appl.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1a724663d1e7accdd9b641cf6d7f510984" prot="public" static="no">
+        <name>ApplLogInfoWithParms</name>
+        <param><defname>str</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>Appl.Log.log(&quot;I&quot;,str,__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="44" column="13" bodyfile="include/Appl.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1abd8649676c85ad43266b7bee8558bb48" prot="public" static="no">
+        <name>ApplLogVerboseWithParms</name>
+        <param><defname>str</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>Appl.Log.log(&quot;V&quot;,str,__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="45" column="13" bodyfile="include/Appl.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1a4e23b9cbf04612bf394508ff798fcb0b" prot="public" static="no">
+        <name>ApplLogWarnWithParms</name>
+        <param><defname>str</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>Appl.Log.log(&quot;W&quot;,str,__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="46" column="13" bodyfile="include/Appl.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1ac89597319f632f3becaf2067b240b083" prot="public" static="no">
+        <name>ApplLogErrorWithParms</name>
+        <param><defname>str</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>Appl.Log.log(&quot;E&quot;,str,__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="47" column="13" bodyfile="include/Appl.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1a37ee06d775f8906f126b87bce113a5cd" prot="public" static="no">
+        <name>ApplLogTraceWithParms</name>
+        <param><defname>str</defname></param>
+        <param><defname>...</defname></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="55" column="14" bodyfile="include/Appl.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1a557e280f2825f6879598b5a9a430804b" prot="public" static="no">
+        <name>ApplLogTrace</name>
+        <param><defname>oData</defname></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="56" column="13" bodyfile="include/Appl.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1a061febd0dccc042bdc16cee44909f888" prot="public" static="no">
+        <name>STATUS_DOC_SIZE</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="61" column="13" bodyfile="include/Appl.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1a4cd75d92fd7b4fbf56390b328310fb30" prot="public" static="no">
+        <name>SYSSTATUS_DOC_SIZE</name>
+        <initializer>512</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="65" column="13" bodyfile="include/Appl.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1ae3a4e4d31f3573ef99e3da21c412edfc" prot="public" static="no">
+        <name>JSON_CONFIG_DOC_DEFAULT_SIZE</name>
+        <initializer>2048</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="72" column="13" bodyfile="include/Appl.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1a8defbbb2fc3ea9a6f82d1f14276a8ac1" prot="public" static="no">
+        <name>JSON_CONFIG_DEFAULT_FILE</name>
+        <initializer>&quot;/default.json&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="76" column="13" bodyfile="include/Appl.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1a87a9b12e37196ba08400eb3fc3291965" prot="public" static="no">
+        <name>JSON_APPL_CONFIG_FILE</name>
+        <initializer>&quot;/config.json&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="80" column="13" bodyfile="include/Appl.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1a9dae37b6b57e30542ac5d55a27d6e46c" prot="public" static="no">
+        <name>DEFAULT_DEVICE_NAME</name>
+        <initializer>&quot;LSC-Device&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="84" column="13" bodyfile="include/Appl.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1aa628533c2b6a4d3c62abe45cdd6a0248" prot="public" static="no">
+        <name>DEFAULT_DEVICE_PWD</name>
+        <initializer>&quot;admin&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="87" column="13" bodyfile="include/Appl.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_appl_8h_1a0d66abe33132833f21a6f38a9f5b64cb" prot="public" static="no">
+        <name>HIDDEN_PASSWORD_MASK</name>
+        <initializer>&quot;********&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="90" column="13" bodyfile="include/Appl.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="_appl_8h_1a6b50235193982e2e0881b445d021e26f" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="class_c_appl" kindref="compound">CAppl</ref></type>
+        <definition>CAppl Appl</definition>
+        <argsstring></argsstring>
+        <name>Appl</name>
+        <briefdescription>
+<para>Global application instance used by modules and logging macros. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="322" column="14" declfile="include/Appl.h" declline="322" declcolumn="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Application Main Class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Peter L. (<ref refid="namespace_l_s_c" kindref="compound">LSC</ref> Labs) </para>
+</simplesect>
+<simplesect kind="version"><para>1.0 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="include/Appl.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_stream_log_writer" kind="class" language="C++" prot="public">
+    <compoundname>CStreamLogWriter</compoundname>
+    <basecompoundref refid="class_c_log_writer" prot="public" virt="non-virtual">CLogWriter</basecompoundref>
+    <derivedcompoundref refid="class_c_serial_log_writer" prot="public" virt="non-virtual">CSerialLogWriter</derivedcompoundref>
+    <includes refid="_logging_8h" local="no">Logging.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_stream_log_writer_1a3730bcd21ca75ccdba9697641e50c67a" prot="private" static="no" mutable="no">
+        <type>Stream *</type>
+        <definition>Stream* CStreamLogWriter::pStream</definition>
+        <argsstring></argsstring>
+        <name>pStream</name>
+        <qualifiedname>CStreamLogWriter::pStream</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="74" column="16" bodyfile="include/Logging.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_stream_log_writer_1ae118e6f07d8c1d90626bff2b76b5f8e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CStreamLogWriter::CStreamLogWriter</definition>
+        <argsstring>(Stream *pStream)</argsstring>
+        <name>CStreamLogWriter</name>
+        <qualifiedname>CStreamLogWriter::CStreamLogWriter</qualifiedname>
+        <param>
+          <type>Stream *</type>
+          <declname>pStream</declname>
+        </param>
+        <briefdescription>
+<para>Create a log writer for the given stream. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="77" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_stream_log_writer_1a357c77fa843d0719b24c74bd6251602b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CStreamLogWriter::writeLogEntry</definition>
+        <argsstring>(const char *strType, const char *strMessage) override</argsstring>
+        <name>writeLogEntry</name>
+        <qualifiedname>CStreamLogWriter::writeLogEntry</qualifiedname>
+        <reimplements refid="class_c_log_writer_1a0fa34d87b1165f905c0fd58f81b7c2ac">writeLogEntry</reimplements>
+        <param>
+          <type>const char *</type>
+          <declname>strType</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>strMessage</declname>
+        </param>
+        <briefdescription>
+<para>Write a text log entry to the configured stream. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="79" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_stream_log_writer_1a61fef1c30329e670466e044dd6046b3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CStreamLogWriter::writeLogEntry</definition>
+        <argsstring>(const char *strType, JsonNode *pDoc) override</argsstring>
+        <name>writeLogEntry</name>
+        <qualifiedname>CStreamLogWriter::writeLogEntry</qualifiedname>
+        <reimplements refid="class_c_log_writer_1a1d777d54df9ae6f59bc7e3ed8a0e0289">writeLogEntry</reimplements>
+        <param>
+          <type>const char *</type>
+          <declname>strType</declname>
+        </param>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> *</type>
+          <declname>pDoc</declname>
+        </param>
+        <briefdescription>
+<para>Write a JSON log entry to the configured stream. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="81" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Log writer that prints log entries to an Arduino Stream. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>CLogWriter</label>
+        <link refid="class_c_log_writer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>CSerialLogWriter</label>
+        <link refid="class_c_serial_log_writer"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CStreamLogWriter</label>
+        <link refid="class_c_stream_log_writer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>CLogWriter</label>
+        <link refid="class_c_log_writer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CStreamLogWriter</label>
+        <link refid="class_c_stream_log_writer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/Logging.h" line="72" column="1" bodyfile="include/Logging.h" bodystart="72" bodyend="82"/>
+    <listofallmembers>
+      <member refid="class_c_log_writer_1ae3bf4c4e462598f1972f5940d38968f5" prot="public" virt="non-virtual"><scope>CStreamLogWriter</scope><name>CLogWriter</name></member>
+      <member refid="class_c_stream_log_writer_1ae118e6f07d8c1d90626bff2b76b5f8e8" prot="public" virt="non-virtual"><scope>CStreamLogWriter</scope><name>CStreamLogWriter</name></member>
+      <member refid="class_c_log_writer_1a967eae24276cda109664ba872021fc0c" prot="public" virt="non-virtual"><scope>CStreamLogWriter</scope><name>getLogLevel</name></member>
+      <member refid="class_c_stream_log_writer_1a3730bcd21ca75ccdba9697641e50c67a" prot="private" virt="non-virtual"><scope>CStreamLogWriter</scope><name>pStream</name></member>
+      <member refid="class_c_log_writer_1aa13c895523c82960e8e8d060dfb3b167" prot="public" virt="virtual"><scope>CStreamLogWriter</scope><name>receiveEvent</name></member>
+      <member refid="class_c_log_writer_1a0ea27d180c430dfe1bd960a762a2d8b8" prot="public" virt="non-virtual"><scope>CStreamLogWriter</scope><name>setLogLevel</name></member>
+      <member refid="class_c_stream_log_writer_1a357c77fa843d0719b24c74bd6251602b" prot="public" virt="virtual"><scope>CStreamLogWriter</scope><name>writeLogEntry</name></member>
+      <member refid="class_c_stream_log_writer_1a61fef1c30329e670466e044dd6046b3a" prot="public" virt="virtual"><scope>CStreamLogWriter</scope><name>writeLogEntry</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,13 @@
+<map id="include/SysStatus.h" name="include/SysStatus.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="290,5,429,31"/>
+<area shape="rect" id="Node000002" href="$_appl_8h.html" title="Application Main Class." alt="" coords="308,79,411,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="361,44,362,80,357,77,358,49"/>
+<area shape="rect" id="Node000003" href="$_m_d_n_s_controller_8h.html" title="MDNS Controller class definition ESP MDNS controller to handle mDNS responder start/stop on WiFi even..." alt="" coords="5,153,178,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="300,112,138,155,137,149,298,107"/>
+<area shape="rect" id="Node000004" href="$_n_t_p_handler_8h.html" title=" " alt="" coords="201,153,350,178"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="336,114,291,155,288,150,331,116"/>
+<area shape="rect" id="Node000005" href="$_web_server_8h.html" title=" " alt="" coords="373,153,514,178"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="386,112,432,153,427,152,384,117"/>
+<area shape="rect" id="Node000006" href="$_wi_fi_controller_8h.html" title="WiFi Controller to handle Access Point and Station Mode." alt="" coords="537,153,696,178"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="418,107,576,152,570,152,417,112"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="CNTPHandler" name="CNTPHandler">
+<area shape="rect" id="Node000001" title="The NTP Handler class as a module." alt="" coords="190,177,294,203"/>
+<area shape="rect" id="Node000002" href="$class_i_module.html" title="Full Interface for modules." alt="" coords="158,80,225,106"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="207,117,238,177,233,176,204,122"/>
+<area shape="rect" id="Node000003" href="$class_i_config_handler.html" title="Interface for configuration handlers." alt="" coords="5,5,114,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="95,36,172,79,167,81,95,41"/>
+<area shape="rect" id="Node000004" href="$class_i_status_handler.html" title="Interface for a status handler module." alt="" coords="137,5,246,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="193,44,194,81,189,79,190,49"/>
+<area shape="rect" id="Node000005" href="$class_i_msg_event_receiver.html" title="Interface for Message Event Receivers." alt="" coords="270,5,406,31"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="298,39,217,82,215,78,303,37"/>
+<area shape="rect" id="Node000006" href="$struct_n_t_p_config.html" title="NTP Service for ESP Devices Setup when a internet connection (WiFi) becomes available...." alt="" coords="250,80,336,106"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="282,118,251,178,247,174,277,121"/>
+</map>

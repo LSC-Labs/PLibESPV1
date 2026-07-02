@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_i_p_address" kind="class" language="C++" prot="public">
+    <compoundname>IPAddress</compoundname>
+    <includes refid="_network_8h" local="no">Network.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_i_p_address_1a4e41eaaeb1ea26782b4871ae10abb4cc" prot="private" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String IPAddress::m_strAddress</definition>
+        <argsstring></argsstring>
+        <name>m_strAddress</name>
+        <qualifiedname>IPAddress::m_strAddress</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="7" column="12" bodyfile="include/Network.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_i_p_address_1a6089825af3b03060f80282d0dcca1582" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>IPAddress::IPAddress</definition>
+        <argsstring>()</argsstring>
+        <name>IPAddress</name>
+        <qualifiedname>IPAddress::IPAddress</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="10" column="9" bodyfile="include/Network.h" bodystart="10" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_i_p_address_1a939d190c2b2eace1efd6952ab3e06367" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>IPAddress::IPAddress</definition>
+        <argsstring>(uint8_t n1, uint8_t n2, uint8_t n3, uint8_t n4)</argsstring>
+        <name>IPAddress</name>
+        <qualifiedname>IPAddress::IPAddress</qualifiedname>
+        <param>
+          <type>uint8_t</type>
+          <declname>n1</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>n2</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>n3</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>n4</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="11" column="9" bodyfile="include/Network.h" bodystart="11" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_i_p_address_1ae2c097655d3e148321f8a68d2f3e9e1a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void IPAddress::fromString</definition>
+        <argsstring>(const char *pszSource)</argsstring>
+        <name>fromString</name>
+        <qualifiedname>IPAddress::fromString</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszSource</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="17" column="14" bodyfile="include/Network.h" bodystart="17" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_i_p_address_1a42c3ea343bc00b7fc7ec6b49ceb19f6e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String IPAddress::toString</definition>
+        <argsstring>() const</argsstring>
+        <name>toString</name>
+        <qualifiedname>IPAddress::toString</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="21" column="16" bodyfile="include/Network.h" bodystart="21" bodyend="23"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/Network.h" line="6" column="1" bodyfile="include/Network.h" bodystart="6" bodyend="25"/>
+    <listofallmembers>
+      <member refid="class_i_p_address_1ae2c097655d3e148321f8a68d2f3e9e1a" prot="public" virt="non-virtual"><scope>IPAddress</scope><name>fromString</name></member>
+      <member refid="class_i_p_address_1a6089825af3b03060f80282d0dcca1582" prot="public" virt="non-virtual"><scope>IPAddress</scope><name>IPAddress</name></member>
+      <member refid="class_i_p_address_1a939d190c2b2eace1efd6952ab3e06367" prot="public" virt="non-virtual"><scope>IPAddress</scope><name>IPAddress</name></member>
+      <member refid="class_i_p_address_1a4e41eaaeb1ea26782b4871ae10abb4cc" prot="private" virt="non-virtual"><scope>IPAddress</scope><name>m_strAddress</name></member>
+      <member refid="class_i_p_address_1a42c3ea343bc00b7fc7ec6b49ceb19f6e" prot="public" virt="non-virtual"><scope>IPAddress</scope><name>toString</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_input_pin_controller_8h" kind="file" language="C++">
+    <compoundname>InputPinController.h</compoundname>
+    <includes refid="_runtime_8h" local="no">Runtime.h</includes>
+    <includes refid="_pin_controller_8h" local="no">PinController.h</includes>
+    <includedby refid="_button_8h" local="no">include/Button.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>include/InputPinController.h</label>
+        <link refid="_input_pin_controller_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>PinController.h</label>
+        <link refid="_pin_controller_8h"/>
+      </node>
+      <node id="2">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>chrono</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="3">
+        <label>string.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>include/Button.h</label>
+        <link refid="_button_8h"/>
+      </node>
+      <node id="1">
+        <label>include/InputPinController.h</label>
+        <link refid="_input_pin_controller_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_c_input_pin_controller" prot="public">CInputPinController</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/InputPinController.h"/>
+  </compounddef>
+</doxygen>

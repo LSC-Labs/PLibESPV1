@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_input_pin_controller" kind="class" language="C++" prot="public">
+    <compoundname>CInputPinController</compoundname>
+    <basecompoundref refid="class_c_pin_controller" prot="public" virt="non-virtual">CPinController</basecompoundref>
+    <derivedcompoundref refid="class_c_button" prot="private" virt="non-virtual">CButton</derivedcompoundref>
+    <includes refid="_input_pin_controller_8h" local="no">InputPinController.h</includes>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_c_input_pin_controller_1a793c547e4667f99e567fc689be7c1d73" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CInputPinController::m_bWithPullUpDown</definition>
+        <argsstring></argsstring>
+        <name>m_bWithPullUpDown</name>
+        <qualifiedname>CInputPinController::m_bWithPullUpDown</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/InputPinController.h" line="26" column="14" bodyfile="include/InputPinController.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_input_pin_controller_1ad9d0b2a6b20c81aa4b3fff6773e554e0" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CInputPinController::m_nMode</definition>
+        <argsstring></argsstring>
+        <name>m_nMode</name>
+        <qualifiedname>CInputPinController::m_nMode</qualifiedname>
+        <initializer>= INPUT</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/InputPinController.h" line="27" column="14" bodyfile="include/InputPinController.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_input_pin_controller_1a646bc0609efbcb3343536cfe5dbbbbfa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CInputPinController::CInputPinController</definition>
+        <argsstring>()</argsstring>
+        <name>CInputPinController</name>
+        <qualifiedname>CInputPinController::CInputPinController</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/InputPinController.h" line="30" column="9" bodyfile="include/InputPinController.h" bodystart="30" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_input_pin_controller_1adad6c52a3037a2d8249f6c90ac356a5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CInputPinController::CInputPinController</definition>
+        <argsstring>(int nPin, bool bLowLevelIsOn=true, bool bWithPullUpOrDown=false)</argsstring>
+        <name>CInputPinController</name>
+        <qualifiedname>CInputPinController::CInputPinController</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nPin</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bLowLevelIsOn</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bWithPullUpOrDown</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/InputPinController.h" line="31" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_input_pin_controller_1a136964c5322041ee2562312883efe69d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CInputPinController::setup</definition>
+        <argsstring>(int SwitchPin, bool bLowLevelIsOn=true, bool bWithPullUpOrDown=false)</argsstring>
+        <name>setup</name>
+        <qualifiedname>CInputPinController::setup</qualifiedname>
+        <reimplementedby refid="class_c_button_1a52304325294f6218a0c20d7b4ab12152">setup</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>SwitchPin</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bLowLevelIsOn</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bWithPullUpOrDown</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/InputPinController.h" line="33" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_input_pin_controller_1aba95d213005da0490df9fafabc7b76ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool CInputPinController::isPinLogicalOn</definition>
+        <argsstring>()</argsstring>
+        <name>isPinLogicalOn</name>
+        <qualifiedname>CInputPinController::isPinLogicalOn</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/InputPinController.h" line="34" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_input_pin_controller_1a27a31fcd32f3436797c1261a1ea35dff" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool CInputPinController::isPinLogicalOff</definition>
+        <argsstring>()</argsstring>
+        <name>isPinLogicalOff</name>
+        <qualifiedname>CInputPinController::isPinLogicalOff</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/InputPinController.h" line="35" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_input_pin_controller_1ac2670e1210117c01cc994298b25e57e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool CInputPinController::canSendInterrupts</definition>
+        <argsstring>()</argsstring>
+        <name>canSendInterrupts</name>
+        <qualifiedname>CInputPinController::canSendInterrupts</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/InputPinController.h" line="36" column="22"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para><ref refid="_input_pin_controller_8h" kindref="compound">InputPinController.h</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>(c) 2024 <ref refid="namespace_l_s_c" kindref="compound">LSC</ref> labs</para>
+<para>InputPinController class</para>
+<para>Can be initiated with the correkt pin, level and pullup/down in the constructor or via the setup phase of the project.</para>
+<para>Respecting the pin logic (logic high = on or off) when asking for the pin status. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>CButton</label>
+        <link refid="class_c_button"/>
+        <childnode refid="1" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CInputPinController</label>
+        <link refid="class_c_input_pin_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CPinController</label>
+        <link refid="class_c_pin_controller"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>CInputPinController</label>
+        <link refid="class_c_input_pin_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CPinController</label>
+        <link refid="class_c_pin_controller"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/InputPinController.h" line="23" column="1" bodyfile="include/InputPinController.h" bodystart="23" bodyend="37"/>
+    <listofallmembers>
+      <member refid="class_c_input_pin_controller_1ac2670e1210117c01cc994298b25e57e7" prot="public" virt="virtual"><scope>CInputPinController</scope><name>canSendInterrupts</name></member>
+      <member refid="class_c_input_pin_controller_1a646bc0609efbcb3343536cfe5dbbbbfa" prot="public" virt="non-virtual"><scope>CInputPinController</scope><name>CInputPinController</name></member>
+      <member refid="class_c_input_pin_controller_1adad6c52a3037a2d8249f6c90ac356a5a" prot="public" virt="non-virtual"><scope>CInputPinController</scope><name>CInputPinController</name></member>
+      <member refid="class_c_input_pin_controller_1a27a31fcd32f3436797c1261a1ea35dff" prot="public" virt="virtual"><scope>CInputPinController</scope><name>isPinLogicalOff</name></member>
+      <member refid="class_c_input_pin_controller_1aba95d213005da0490df9fafabc7b76ef" prot="public" virt="virtual"><scope>CInputPinController</scope><name>isPinLogicalOn</name></member>
+      <member refid="class_c_pin_controller_1aaf9483e2f918e46c7c120f5a8d5c3b35" prot="protected" virt="non-virtual"><scope>CInputPinController</scope><name>m_bLowLevelIsOn</name></member>
+      <member refid="class_c_input_pin_controller_1a793c547e4667f99e567fc689be7c1d73" prot="protected" virt="non-virtual"><scope>CInputPinController</scope><name>m_bWithPullUpDown</name></member>
+      <member refid="class_c_input_pin_controller_1ad9d0b2a6b20c81aa4b3fff6773e554e0" prot="protected" virt="non-virtual"><scope>CInputPinController</scope><name>m_nMode</name></member>
+      <member refid="class_c_pin_controller_1a01332f330cfaba9977464cfe0fdd909a" prot="protected" virt="non-virtual"><scope>CInputPinController</scope><name>m_nPin</name></member>
+      <member refid="class_c_input_pin_controller_1a136964c5322041ee2562312883efe69d" prot="public" virt="virtual"><scope>CInputPinController</scope><name>setup</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

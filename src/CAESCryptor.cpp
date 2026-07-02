@@ -17,24 +17,43 @@
 
 #pragma region AES Token
 
+    /**
+     * @brief Creates a random 16-byte AES token.
+     */
     CAESToken::CAESToken() {
             createRandom();
         }
+
+    /**
+     * @brief Creates a token from a string, padded or truncated to block size.
+     */
     CAESToken::CAESToken(const char * pszTokenString) {
             loadFromString(pszTokenString);
         }
 
+    /**
+     * @brief Gets the token bytes as a null-terminated string buffer.
+     * @return Pointer to an internal buffer.
+     */
     const char * CAESToken::getAsString() {
             memset(m_szAsString,'\0',sizeof(m_szAsString));
             memcpy(m_szAsString,(const char *) Data,AES_CRYPTOR_BLOCK_SIZE);
             return(m_szAsString);
         }
 
+    /**
+     * @brief Gets the token bytes encoded as base64.
+     * @return Pointer to an internal base64 buffer.
+     */
     const char * CAESToken::getAsBase64() {
         CBase64Data::base64EncodeData((const char *) Data,16,m_szAsBase64,sizeof(m_szAsBase64),true);
         return(m_szAsBase64);
     }
 
+    /**
+     * @brief Loads token bytes from a base64 string.
+     * @param pszBase64String Base64 data representing exactly one AES block.
+     */
     void CAESToken::loadFromBase64(const char * pszBase64String) {
         if(pszBase64String) {
             char szBuffer[strlen(pszBase64String) + 40];
@@ -48,6 +67,12 @@
         }
     }
 
+    /**
+     * @brief Loads token bytes from a plain string.
+     *
+     * Short strings are padded with zero bytes. Long strings are truncated to
+     * AES_CRYPTOR_BLOCK_SIZE.
+     */
     void CAESToken::loadFromString(const char * pszTokenString) {
         unsigned int nIdx = 0;
         while(pszTokenString && *pszTokenString && nIdx < sizeof(Data)) {
@@ -59,10 +84,20 @@
         }
     }
 
+    /**
+     * @brief Gets a mutable copy of the token bytes.
+     *
+     * BearSSL CBC functions modify the IV buffer, so encryption/decryption uses
+     * this copy to keep the stored token unchanged.
+     */
     void * CAESToken::copyOf() {
             memcpy(m_copyOf,Data,AES_CRYPTOR_BLOCK_SIZE);
             return(m_copyOf);
         }
+
+    /**
+     * @brief Fills the token with random printable-ish bytes.
+     */
     void CAESToken::createRandom() {
             // The initialization should be done in the main object
             // normaly this is done already in the Appl instance
@@ -77,18 +112,17 @@
 
 #pragma region AES Cryptor
 /**
-     * @brief decryption of data - with IV and Passphrase already in place
-     * Padding will be removed, so the final data size is smaller than the input size.
-     * In addition, the padding location will be replaced will '\0', 
-     * IV will NOT be modified !
-     * 
-     * - You have to set IV and Passphrase before calling !
-     * 
-     * @param pData Pointer to the data to be decrypted
-     * @param nDataLen Len of the data to be encrypted
-     * @param pszPassphrase pointer to a passphrase to be used (will be aligned to AES_BLOCKSIZE)
-     * @return the final data len, without padding structure.
-     */
+ * @brief Decrypts AES-CBC data in place.
+ *
+ * The IV is copied before the BearSSL call, so the stored IV remains reusable.
+ * PKCS#7 padding bytes are replaced with '\0' and nDataLen is reduced to the
+ * clear-text length.
+ *
+ * @param pData Buffer containing encrypted data. It is replaced with clear text.
+ * @param nDataLen Encrypted data length. Must be aligned to AES block size.
+ * @param pszPassphrase Optional passphrase to load before decrypting.
+ * @return Clear-text length after padding removal.
+ */
 size_t CAESCryptor::decrypt(void * pData, size_t nDataLen, const char * pszPassphrase ) {
         if(pszPassphrase) Passphrase.loadFromString(pszPassphrase);
 
@@ -101,20 +135,17 @@ size_t CAESCryptor::decrypt(void * pData, size_t nDataLen, const char * pszPassp
     }
 
 /**
-     * @brief encryption of data - with IV and Passphrase already in place
-     * Padding will be inserted, so ensure, pData has enouth size (!)
-     * If data is exactly a multiple of block size (16) insert extra 16 bytes,
-     * this is needed to insert the padding.
-     * 
-     * IV will NOT be modified !
-     * 
-     * - You have to set IV and Passphrase before calling !
-     * 
-     * @param pData Pointer to the data to be decrypted (data size needs to be a multiple of 16)
-     * @param nDataLen Len of the data to be encrypted
-     * @param pszPassphrase pointer to a passphrase to be used (will be aligned to AES_BLOCKSIZE)
-     * @return the final data len, with padding structure ( aligned to block size).
-     */
+ * @brief Encrypts AES-CBC data in place.
+ *
+ * PKCS#7 padding is inserted before encryption. The caller must allocate enough
+ * space for at least one additional block because exact block-size input still
+ * receives a full padding block.
+ *
+ * @param pData Buffer containing clear text. It is replaced with encrypted data.
+ * @param nDataLen Clear-text length before padding.
+ * @param pszPassphrase Optional passphrase to load before encrypting.
+ * @return Encrypted length including padding.
+ */
     size_t CAESCryptor::encrypt(void * pData, size_t nDataLen, const char * pszPassphrase) {
 
         if(pszPassphrase) Passphrase.loadFromString(pszPassphrase);
@@ -128,15 +159,12 @@ size_t CAESCryptor::decrypt(void * pData, size_t nDataLen, const char * pszPassp
     }
 
 
-         /**
-     * @brief Insert the PKCS7 Padding 
-     * - to fill up data until the block end
-     * Ensure, enough memory is allocated (!)
-     * -> if the datalength hits exact the boundary of the block, an extra block is needed (!)
-     * Best is always to allocate one block extra to ensure (!)
-     * @param pData Pointer to the data
-     * @param nDataLength Length of the data.
-     * @param nBlockSize Size of a block (default = 16)
+    /**
+     * @brief Inserts PKCS#7 padding into a buffer.
+     * @param pData Buffer with enough free space for padding.
+     * @param nDataLength Current data length.
+     * @param nBlockSize AES block size, normally 16.
+     * @return New length including padding.
      */
     size_t CAESCryptor::insertPkcs7Padding(unsigned char * pData, size_t nDataLength, size_t nBlockSize) {
         size_t nPaddingLen = nBlockSize - (nDataLength % nBlockSize);
@@ -146,9 +174,15 @@ size_t CAESCryptor::decrypt(void * pData, size_t nDataLen, const char * pszPassp
         return(nDataLength + nPaddingLen);
     }
 
-        /**
-     * @brief remove the PKCS7 Padding and fill the padding with '\0'
-     * @return the data len, without padding structure.
+    /**
+     * @brief Removes PKCS#7 padding from a decrypted buffer.
+     *
+     * Padding bytes are overwritten with '\0' to make decrypted text buffers
+     * usable as C strings when the original payload was textual.
+     *
+     * @param pData Decrypted data buffer.
+     * @param nDataLength In/out length. Reduced by the padding length.
+     * @param nBlockSize AES block size, normally 16.
      */
     void CAESCryptor::removePkcs7Padding(unsigned char * pData, size_t& nDataLength, size_t nBlockSize) {
         size_t nPaddingLen = pData[nDataLength - 1];
@@ -166,4 +200,3 @@ size_t CAESCryptor::decrypt(void * pData, size_t nDataLen, const char * pszPassp
 
 
 #pragma endregion
-

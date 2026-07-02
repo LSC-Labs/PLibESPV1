@@ -1,0 +1,439 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_f_s" kind="class" language="C++" prot="public">
+    <compoundname>CFS</compoundname>
+    <basecompoundref refid="class_i_status_handler" prot="public" virt="non-virtual">IStatusHandler</basecompoundref>
+    <includes refid="_file_system_8h" local="no">FileSystem.h</includes>
+    <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="class_c_f_s_1a5799abe7f16c73fad33d9155c99da21a" prot="protected" static="yes" mutable="no">
+        <type><ref refid="struct_l_s_c___f_s" kindref="compound">LSC_FS</ref></type>
+        <definition>LSC_FS CFS::m_oFS</definition>
+        <argsstring></argsstring>
+        <name>m_oFS</name>
+        <qualifiedname>CFS::m_oFS</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="27" column="23" bodyfile="include/FileSystem.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_f_s_1a69d07c242a357c2d98c61a776653a65c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CFS::CFS</definition>
+        <argsstring>()</argsstring>
+        <name>CFS</name>
+        <qualifiedname>CFS::CFS</qualifiedname>
+        <briefdescription>
+<para>Create a filesystem helper and initialize the base filesystem if needed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="30" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a71d49329dd8ec5fadfd193cf760cb2c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CFS::fileExists</definition>
+        <argsstring>(const char *pszFileName)</argsstring>
+        <name>fileExists</name>
+        <qualifiedname>CFS::fileExists</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszFileName</declname>
+        </param>
+        <briefdescription>
+<para>Return true if the file exists. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="33" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1aa70531d86686322ae7d85c0ea27f2ccb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CFS::fileExists</definition>
+        <argsstring>(String &amp;strFileName)</argsstring>
+        <name>fileExists</name>
+        <qualifiedname>CFS::fileExists</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strFileName</declname>
+        </param>
+        <briefdescription>
+<para>String overload for file existence checks. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="35" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a08e698e3c3f164caada031f054465b9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CFS::deleteFile</definition>
+        <argsstring>(const char *pszFileName)</argsstring>
+        <name>deleteFile</name>
+        <qualifiedname>CFS::deleteFile</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszFileName</declname>
+        </param>
+        <briefdescription>
+<para>Delete a file when it exists. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="37" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a5cf05b4918bc8cc32b6a94cb64beb24c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CFS::deleteFile</definition>
+        <argsstring>(String &amp;strFileName)</argsstring>
+        <name>deleteFile</name>
+        <qualifiedname>CFS::deleteFile</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strFileName</declname>
+        </param>
+        <briefdescription>
+<para>String overload for deleting a file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="39" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a7fd95ab6e4b86e81c922d3ef3cedd1dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CFS::deleteAllFilesOnPath</definition>
+        <argsstring>(const char *pszPath)</argsstring>
+        <name>deleteAllFilesOnPath</name>
+        <qualifiedname>CFS::deleteAllFilesOnPath</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszPath</declname>
+        </param>
+        <briefdescription>
+<para>Delete all files below the given path. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="41" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a905a7c14fd30b24e60f0c7d0e2a155a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t CFS::getFileSize</definition>
+        <argsstring>(const char *pszFileName)</argsstring>
+        <name>getFileSize</name>
+        <qualifiedname>CFS::getFileSize</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszFileName</declname>
+        </param>
+        <briefdescription>
+<para>Return the file size in bytes, or 0 if it cannot be read. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="43" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a58b1f271df82f37e119f4ee47027ca51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t CFS::getFileSize</definition>
+        <argsstring>(String &amp;strFileName)</argsstring>
+        <name>getFileSize</name>
+        <qualifiedname>CFS::getFileSize</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strFileName</declname>
+        </param>
+        <briefdescription>
+<para>String overload for file size lookup. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="45" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a6eda9f046ced360eae5b9d4fa5eba9a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>FS</type>
+        <definition>FS CFS::getBaseFS</definition>
+        <argsstring>()</argsstring>
+        <name>getBaseFS</name>
+        <qualifiedname>CFS::getBaseFS</qualifiedname>
+        <briefdescription>
+<para>Return the configured base filesystem object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="47" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a69726859ce28eed2de5bbba2f6ebfd87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t CFS::loadFileToBuffer</definition>
+        <argsstring>(const char *strFileName, std::unique_ptr&lt; char[]&gt; &amp;pData)</argsstring>
+        <name>loadFileToBuffer</name>
+        <qualifiedname>CFS::loadFileToBuffer</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>strFileName</declname>
+        </param>
+        <param>
+          <type>std::unique_ptr&lt; char[]&gt; &amp;</type>
+          <declname>pData</declname>
+        </param>
+        <briefdescription>
+<para>Load a file into an owned zero-terminated buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="51" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a46cdace6f2ae3ce6c78f7e1f2236abf0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CFS::loadFileToString</definition>
+        <argsstring>(const char *strFileName, String &amp;strResult)</argsstring>
+        <name>loadFileToString</name>
+        <qualifiedname>CFS::loadFileToString</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>strFileName</declname>
+        </param>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strResult</declname>
+        </param>
+        <briefdescription>
+<para>Load a file into a String. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="53" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1ae258cf3a878372903f0edf4fcb8b20cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CFS::loadJsonContentFromFile</definition>
+        <argsstring>(const char *strFileName, JsonNode &amp;oDoc)</argsstring>
+        <name>loadJsonContentFromFile</name>
+        <qualifiedname>CFS::loadJsonContentFromFile</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>strFileName</declname>
+        </param>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oDoc</declname>
+        </param>
+        <briefdescription>
+<para>Parse JSON content from a file into a JsonNode. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="55" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a065f19c9f110260985ad33cdc279c078" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CFS::saveJsonContentToFile</definition>
+        <argsstring>(const char *strFileName, JsonNode &amp;oDoc)</argsstring>
+        <name>saveJsonContentToFile</name>
+        <qualifiedname>CFS::saveJsonContentToFile</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>strFileName</declname>
+        </param>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oDoc</declname>
+        </param>
+        <briefdescription>
+<para>Serialize and save a JsonNode to a file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="57" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a6a4ec378d2776088e7305b35e3959b50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t CFS::getTotalBytes</definition>
+        <argsstring>()</argsstring>
+        <name>getTotalBytes</name>
+        <qualifiedname>CFS::getTotalBytes</qualifiedname>
+        <briefdescription>
+<para>Return total bytes of the mounted filesystem. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="60" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a01963d98920526953032607bad224a69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t CFS::getUsedBytes</definition>
+        <argsstring>()</argsstring>
+        <name>getUsedBytes</name>
+        <qualifiedname>CFS::getUsedBytes</qualifiedname>
+        <briefdescription>
+<para>Return used bytes of the mounted filesystem. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="62" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a6c30b872b118c5042cf434601bcb69c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CFS::getFileList</definition>
+        <argsstring>(JsonNode &amp;oDirDoc, const char *pszPath=&quot;/&quot;)</argsstring>
+        <name>getFileList</name>
+        <qualifiedname>CFS::getFileList</qualifiedname>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oDirDoc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszPath</declname>
+          <defval>&quot;/&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Write a directory listing into a JSON node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="64" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1a78e8f0c7c0fda64a1a4d665daf22d409" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CFS::getFileList</definition>
+        <argsstring>(const char *pszPath=&quot;/&quot;)</argsstring>
+        <name>getFileList</name>
+        <qualifiedname>CFS::getFileList</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszPath</declname>
+          <defval>&quot;/&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Return a directory listing serialized as text. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="66" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_f_s_1abc29b89ee482ab37400610f73eecfc98" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CFS::writeStatusTo</definition>
+        <argsstring>(JsonNode &amp;oStatus, int nLevel=STATUS_LEVEL_INFO) override</argsstring>
+        <name>writeStatusTo</name>
+        <qualifiedname>CFS::writeStatusTo</qualifiedname>
+        <reimplements refid="class_i_status_handler_1a159576674bba670032ae23b647db1dec">writeStatusTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oStatus</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nLevel</declname>
+          <defval><ref refid="_status_handler_8h_1ad33eab0de4e088931d94b504679013e4" kindref="member">STATUS_LEVEL_INFO</ref></defval>
+        </param>
+        <briefdescription>
+<para>Write filesystem capacity/status into a JSON node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="69" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Filesystem facade used by modules to avoid direct LittleFS/SPIFFS use. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>CFS</label>
+        <link refid="class_c_f_s"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>CFS</label>
+        <link refid="class_c_f_s"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>m_oFS</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+      <node id="3">
+        <label>LSC_FS</label>
+        <link refid="struct_l_s_c___f_s"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/FileSystem.h" line="25" column="2" bodyfile="include/FileSystem.h" bodystart="25" bodyend="71"/>
+    <listofallmembers>
+      <member refid="class_c_f_s_1a69d07c242a357c2d98c61a776653a65c" prot="public" virt="non-virtual"><scope>CFS</scope><name>CFS</name></member>
+      <member refid="class_c_f_s_1a7fd95ab6e4b86e81c922d3ef3cedd1dd" prot="public" virt="non-virtual"><scope>CFS</scope><name>deleteAllFilesOnPath</name></member>
+      <member refid="class_c_f_s_1a08e698e3c3f164caada031f054465b9c" prot="public" virt="non-virtual"><scope>CFS</scope><name>deleteFile</name></member>
+      <member refid="class_c_f_s_1a5cf05b4918bc8cc32b6a94cb64beb24c" prot="public" virt="non-virtual"><scope>CFS</scope><name>deleteFile</name></member>
+      <member refid="class_c_f_s_1a71d49329dd8ec5fadfd193cf760cb2c8" prot="public" virt="non-virtual"><scope>CFS</scope><name>fileExists</name></member>
+      <member refid="class_c_f_s_1aa70531d86686322ae7d85c0ea27f2ccb" prot="public" virt="non-virtual"><scope>CFS</scope><name>fileExists</name></member>
+      <member refid="class_c_f_s_1a6eda9f046ced360eae5b9d4fa5eba9a8" prot="public" virt="non-virtual"><scope>CFS</scope><name>getBaseFS</name></member>
+      <member refid="class_c_f_s_1a6c30b872b118c5042cf434601bcb69c1" prot="public" virt="non-virtual"><scope>CFS</scope><name>getFileList</name></member>
+      <member refid="class_c_f_s_1a78e8f0c7c0fda64a1a4d665daf22d409" prot="public" virt="non-virtual"><scope>CFS</scope><name>getFileList</name></member>
+      <member refid="class_c_f_s_1a905a7c14fd30b24e60f0c7d0e2a155a6" prot="public" virt="non-virtual"><scope>CFS</scope><name>getFileSize</name></member>
+      <member refid="class_c_f_s_1a58b1f271df82f37e119f4ee47027ca51" prot="public" virt="non-virtual"><scope>CFS</scope><name>getFileSize</name></member>
+      <member refid="class_c_f_s_1a6a4ec378d2776088e7305b35e3959b50" prot="public" virt="non-virtual"><scope>CFS</scope><name>getTotalBytes</name></member>
+      <member refid="class_c_f_s_1a01963d98920526953032607bad224a69" prot="public" virt="non-virtual"><scope>CFS</scope><name>getUsedBytes</name></member>
+      <member refid="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" prot="public" virt="virtual"><scope>CFS</scope><name>hasStatusValues</name></member>
+      <member refid="class_c_f_s_1a69726859ce28eed2de5bbba2f6ebfd87" prot="public" virt="non-virtual"><scope>CFS</scope><name>loadFileToBuffer</name></member>
+      <member refid="class_c_f_s_1a46cdace6f2ae3ce6c78f7e1f2236abf0" prot="public" virt="non-virtual"><scope>CFS</scope><name>loadFileToString</name></member>
+      <member refid="class_c_f_s_1ae258cf3a878372903f0edf4fcb8b20cc" prot="public" virt="non-virtual"><scope>CFS</scope><name>loadJsonContentFromFile</name></member>
+      <member refid="class_c_f_s_1a5799abe7f16c73fad33d9155c99da21a" prot="protected" virt="non-virtual"><scope>CFS</scope><name>m_oFS</name></member>
+      <member refid="class_c_f_s_1a065f19c9f110260985ad33cdc279c078" prot="public" virt="non-virtual"><scope>CFS</scope><name>saveJsonContentToFile</name></member>
+      <member refid="class_c_f_s_1abc29b89ee482ab37400610f73eecfc98" prot="public" virt="virtual"><scope>CFS</scope><name>writeStatusTo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

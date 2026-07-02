@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="md_doc_2page_builder" kind="page">
+    <compoundname>md_doc_2page_builder</compoundname>
+    <title>Page Builder</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md_doc_2page_builder_1autotoc_md14"/></para>
+<para>The script helps you to manage your web pages and to keep standard files in sync with your project.</para>
+<sect1 id="md_doc_2page_builder_1autotoc_md15_1s1"><sect2 id="md_doc_2page_builder_1autotoc_md15">
+<title>Web Page</title><para>A web page consists of several parts that will be joined and inserted in your project with this script.</para>
+<para><itemizedlist>
+<listitem><para>The html description</para>
+</listitem><listitem><para>An optional java script for the page</para>
+</listitem><listitem><para>Language definitions</para>
+</listitem></itemizedlist>
+</para>
+<para>You include this pages by inserting a pages.json file in the root of your directory.</para>
+<para>Properties of pages.json</para>
+<para>&quot;locations&quot;: { &quot;webSource&quot;: &quot;src/web&quot;, &quot;webDist&quot; : &quot;dist/web&quot;, &quot;webPacked&quot;: &quot;dist/tmp&quot;, &quot;includes&quot; : &quot;include/web&quot; },</para>
+<para><table rows="9" cols="4"><row>
+<entry thead="yes"><para>Section  </para>
+</entry><entry thead="yes"><para>Property  </para>
+</entry><entry thead="yes"><para>Type  </para>
+</entry><entry thead="yes"><para>Description  </para>
+</entry></row>
+<row>
+<entry thead="no" colspan="2"><para>usePages  </para>
+</entry><entry thead="no"><para>Array[string]  </para>
+</entry><entry thead="no"><para>Define here, which page definitions/functionalities should be available in your application front end.  </para>
+</entry></row>
+<row>
+<entry thead="no" colspan="2"><para>sync  </para>
+</entry><entry thead="no"><para>object  </para>
+</entry><entry thead="no"><para>Elements to be synced  </para>
+</entry></row>
+<row>
+<entry thead="no"><para></para>
+</entry><entry thead="no"><para>files  </para>
+</entry><entry thead="no"><para>Array[string]  </para>
+</entry><entry thead="no"><para>Array with sync commands like &quot;source &gt; dest&quot;  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>locations  </para>
+</entry><entry thead="no"><para></para>
+</entry><entry thead="no"><para>object  </para>
+</entry><entry thead="no"><para>Defines locations of elements  </para>
+</entry></row>
+<row>
+<entry thead="no"><para></para>
+</entry><entry thead="no"><para>webSource  </para>
+</entry><entry thead="no"><para>string  </para>
+</entry><entry thead="no"><para>Base directory, where the web elements are stored.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para></para>
+</entry><entry thead="no"><para>webDist  </para>
+</entry><entry thead="no"><para>string  </para>
+</entry><entry thead="no"><para>Web server area. Generated files will be stored here, so they can be distributed to a web server.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para></para>
+</entry><entry thead="no"><para>webPacked  </para>
+</entry><entry thead="no"><para>string  </para>
+</entry><entry thead="no"><para>The generated web files in a compressed form (gzip).  </para>
+</entry></row>
+<row>
+<entry thead="no"><para></para>
+</entry><entry thead="no"><para>includes  </para>
+</entry><entry thead="no"><para>string  </para>
+</entry><entry thead="no"><para>c++ include directory, to be used to include the compiled files into the source code.  </para>
+</entry></row>
+</table>
+</para>
+</sect2></sect1>
+    </detaileddescription>
+    <location file="doc/pageBuilder.md"/>
+  </compounddef>
+</doxygen>

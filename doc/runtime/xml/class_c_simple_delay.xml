@@ -1,0 +1,338 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_simple_delay" kind="class" language="C++" prot="public">
+    <compoundname>CSimpleDelay</compoundname>
+    <includes refid="_simple_delay_8h" local="no">SimpleDelay.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_simple_delay_1a9f0e062e042f916730b700ed8f643d22" prot="private" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long CSimpleDelay::m_ulStartMillis</definition>
+        <argsstring></argsstring>
+        <name>m_ulStartMillis</name>
+        <qualifiedname>CSimpleDelay::m_ulStartMillis</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="17" column="23" bodyfile="include/SimpleDelay.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_simple_delay_1a36dfd54bb3725660158b2973b0123ade" prot="private" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long CSimpleDelay::m_ulDelayMillis</definition>
+        <argsstring></argsstring>
+        <name>m_ulDelayMillis</name>
+        <qualifiedname>CSimpleDelay::m_ulDelayMillis</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="18" column="23" bodyfile="include/SimpleDelay.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_simple_delay_1ad340f02003446151a4e16d634b8e0706" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CSimpleDelay::m_bIsExpired</definition>
+        <argsstring></argsstring>
+        <name>m_bIsExpired</name>
+        <qualifiedname>CSimpleDelay::m_bIsExpired</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="19" column="14" bodyfile="include/SimpleDelay.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_simple_delay_1ae0f17ea8df8ebd1006a0d761ca7f5eff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CSimpleDelay::CSimpleDelay</definition>
+        <argsstring>()</argsstring>
+        <name>CSimpleDelay</name>
+        <qualifiedname>CSimpleDelay::CSimpleDelay</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="21" column="9" bodyfile="include/SimpleDelay.h" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1a0416b48be131201e97fc1c4b01a1578a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CSimpleDelay::CSimpleDelay</definition>
+        <argsstring>(unsigned long nDelayMillis)</argsstring>
+        <name>CSimpleDelay</name>
+        <qualifiedname>CSimpleDelay::CSimpleDelay</qualifiedname>
+        <param>
+          <type>unsigned long</type>
+          <declname>nDelayMillis</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="22" column="9" bodyfile="include/SimpleDelay.h" bodystart="22" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1a57d846ab0986bcf4e6419008329d5200" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CSimpleDelay::~CSimpleDelay</definition>
+        <argsstring>()</argsstring>
+        <name>~CSimpleDelay</name>
+        <qualifiedname>CSimpleDelay::~CSimpleDelay</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="23" column="9" bodyfile="include/SimpleDelay.h" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1a16038179a931fa0da52403c751e92d30" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_c_simple_delay" kindref="compound">CSimpleDelay</ref> *</type>
+        <definition>CSimpleDelay * CSimpleDelay::start</definition>
+        <argsstring>(unsigned long ulDelayMillis, bool bStartNow=true)</argsstring>
+        <name>start</name>
+        <qualifiedname>CSimpleDelay::start</qualifiedname>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulDelayMillis</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bStartNow</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Starts the delay countdown. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If ulDelayMillis is 0, the previous value is used. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ulDelayMillis</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New delay time in milliseconds (if 0, the previous value is used). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bStartNow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, the delay starts immediately. If false, the delay starts after nDelayMillis (default: true). This is useful to avoid immediate calls after start. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="31" column="23" bodyfile="include/SimpleDelay.h" bodystart="31" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1ae4635bd9d770fbb8f0885ebb59002622" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSimpleDelay::stop</definition>
+        <argsstring>()</argsstring>
+        <name>stop</name>
+        <qualifiedname>CSimpleDelay::stop</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="37" column="14" bodyfile="include/SimpleDelay.h" bodystart="37" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1addd5489d09b5303a9503f236aa09d126" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSimpleDelay::reset</definition>
+        <argsstring>()</argsstring>
+        <name>reset</name>
+        <qualifiedname>CSimpleDelay::reset</qualifiedname>
+        <briefdescription>
+<para>Resets the delay (stops it). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="44" column="14" bodyfile="include/SimpleDelay.h" bodystart="44" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1a7003889a67f422e95075ffe5b31572d7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CSimpleDelay::isActive</definition>
+        <argsstring>()</argsstring>
+        <name>isActive</name>
+        <qualifiedname>CSimpleDelay::isActive</qualifiedname>
+        <briefdescription>
+<para>checks if the delay is activ (running) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="49" column="14" bodyfile="include/SimpleDelay.h" bodystart="49" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1a7486dbc63e97f11f94ada1781ca4b7fc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long CSimpleDelay::restart</definition>
+        <argsstring>()</argsstring>
+        <name>restart</name>
+        <qualifiedname>CSimpleDelay::restart</qualifiedname>
+        <briefdescription>
+<para>Restarts the delay with the previous set delay time. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="54" column="23" bodyfile="include/SimpleDelay.h" bodystart="54" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1ade6bc009742cb398dae993560dc002fe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long CSimpleDelay::next</definition>
+        <argsstring>()</argsstring>
+        <name>next</name>
+        <qualifiedname>CSimpleDelay::next</qualifiedname>
+        <briefdescription>
+<para>Advances to the next delay period without resetting the start time. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is useful to maintain a consistent interval even if the check is delayed. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="64" column="23" bodyfile="include/SimpleDelay.h" bodystart="64" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1a31baea4964b5bfe89aaa3ee86bffadee" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSimpleDelay::setExpired</definition>
+        <argsstring>()</argsstring>
+        <name>setExpired</name>
+        <qualifiedname>CSimpleDelay::setExpired</qualifiedname>
+        <briefdescription>
+<para>Set the delay to expired (stop the timer, without reseting the start time). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This enables to <ref refid="class_c_simple_delay_1a3d685a59ebece6db574bf59781127eec" kindref="member">getRemaining()</ref> and other time dependend infos </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="79" column="14" bodyfile="include/SimpleDelay.h" bodystart="79" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1a292a196102ca651e81a1a261ffb45859" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CSimpleDelay::isExpired</definition>
+        <argsstring>()</argsstring>
+        <name>isExpired</name>
+        <qualifiedname>CSimpleDelay::isExpired</qualifiedname>
+        <briefdescription>
+<para>checks if the delay is expired (stopped by an explicit <ref refid="class_c_simple_delay_1a31baea4964b5bfe89aaa3ee86bffadee" kindref="member">setExpired()</ref> - not, if the delay <ref refid="class_c_simple_delay_1a99946f9d482585f5f975335c219ad9bb" kindref="member">isDone()</ref>) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="87" column="14" bodyfile="include/SimpleDelay.h" bodystart="87" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1a99946f9d482585f5f975335c219ad9bb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CSimpleDelay::isDone</definition>
+        <argsstring>()</argsstring>
+        <name>isDone</name>
+        <qualifiedname>CSimpleDelay::isDone</qualifiedname>
+        <briefdescription>
+<para>Checks if the delay time has elapsed, or the user has stopped the delay with <ref refid="class_c_simple_delay_1a31baea4964b5bfe89aaa3ee86bffadee" kindref="member">setExpired()</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="93" column="14" bodyfile="include/SimpleDelay.h" bodystart="93" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1ab4e388a6f0f32ec564d126676b837eea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long CSimpleDelay::getElapsed</definition>
+        <argsstring>()</argsstring>
+        <name>getElapsed</name>
+        <qualifiedname>CSimpleDelay::getElapsed</qualifiedname>
+        <briefdescription>
+<para>Get the Elapsed time since start in milliseconds. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="103" column="23" bodyfile="include/SimpleDelay.h" bodystart="103" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1a3d685a59ebece6db574bf59781127eec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long CSimpleDelay::getRemaining</definition>
+        <argsstring>()</argsstring>
+        <name>getRemaining</name>
+        <qualifiedname>CSimpleDelay::getRemaining</qualifiedname>
+        <briefdescription>
+<para>Get the Remaining time until the delay is done in milliseconds. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="108" column="23" bodyfile="include/SimpleDelay.h" bodystart="108" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_simple_delay_1a572ecf8e619b1f49cca8fdb4a8506e0c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CSimpleDelay::printDiag</definition>
+        <argsstring>()</argsstring>
+        <name>printDiag</name>
+        <qualifiedname>CSimpleDelay::printDiag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SimpleDelay.h" line="115" column="14" bodyfile="include/SimpleDelay.h" bodystart="115" bodyend="118"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Simple delay class to avoid DOS calls to functions. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Should avoid to cal services too often (e.g. web requests).</para>
+<para>Usage: CDelay oDelay(5000); // 5 seconds delay if(oDelay.isDone()) { ... ; oDelay.restart(); }</para>
+<para>As an alternative, you can use start(nDelayMillis) to set a new delay time. Use <ref refid="class_c_simple_delay_1addd5489d09b5303a9503f236aa09d126" kindref="member">reset()</ref> to stop the delay. </para>
+    </detaileddescription>
+    <location file="include/SimpleDelay.h" line="16" column="1" bodyfile="include/SimpleDelay.h" bodystart="16" bodyend="119"/>
+    <listofallmembers>
+      <member refid="class_c_simple_delay_1ae0f17ea8df8ebd1006a0d761ca7f5eff" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>CSimpleDelay</name></member>
+      <member refid="class_c_simple_delay_1a0416b48be131201e97fc1c4b01a1578a" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>CSimpleDelay</name></member>
+      <member refid="class_c_simple_delay_1ab4e388a6f0f32ec564d126676b837eea" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>getElapsed</name></member>
+      <member refid="class_c_simple_delay_1a3d685a59ebece6db574bf59781127eec" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>getRemaining</name></member>
+      <member refid="class_c_simple_delay_1a7003889a67f422e95075ffe5b31572d7" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>isActive</name></member>
+      <member refid="class_c_simple_delay_1a99946f9d482585f5f975335c219ad9bb" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>isDone</name></member>
+      <member refid="class_c_simple_delay_1a292a196102ca651e81a1a261ffb45859" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>isExpired</name></member>
+      <member refid="class_c_simple_delay_1ad340f02003446151a4e16d634b8e0706" prot="private" virt="non-virtual"><scope>CSimpleDelay</scope><name>m_bIsExpired</name></member>
+      <member refid="class_c_simple_delay_1a36dfd54bb3725660158b2973b0123ade" prot="private" virt="non-virtual"><scope>CSimpleDelay</scope><name>m_ulDelayMillis</name></member>
+      <member refid="class_c_simple_delay_1a9f0e062e042f916730b700ed8f643d22" prot="private" virt="non-virtual"><scope>CSimpleDelay</scope><name>m_ulStartMillis</name></member>
+      <member refid="class_c_simple_delay_1ade6bc009742cb398dae993560dc002fe" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>next</name></member>
+      <member refid="class_c_simple_delay_1a572ecf8e619b1f49cca8fdb4a8506e0c" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>printDiag</name></member>
+      <member refid="class_c_simple_delay_1addd5489d09b5303a9503f236aa09d126" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>reset</name></member>
+      <member refid="class_c_simple_delay_1a7486dbc63e97f11f94ada1781ca4b7fc" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>restart</name></member>
+      <member refid="class_c_simple_delay_1a31baea4964b5bfe89aaa3ee86bffadee" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>setExpired</name></member>
+      <member refid="class_c_simple_delay_1a16038179a931fa0da52403c751e92d30" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>start</name></member>
+      <member refid="class_c_simple_delay_1ae4635bd9d770fbb8f0885ebb59002622" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>stop</name></member>
+      <member refid="class_c_simple_delay_1a57d846ab0986bcf4e6419008329d5200" prot="public" virt="non-virtual"><scope>CSimpleDelay</scope><name>~CSimpleDelay</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

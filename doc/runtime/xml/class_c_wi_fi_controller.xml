@@ -1,0 +1,606 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_wi_fi_controller" kind="class" language="C++" prot="public">
+    <compoundname>CWiFiController</compoundname>
+    <basecompoundref refid="class_i_module" prot="public" virt="non-virtual">IModule</basecompoundref>
+    <includes refid="_wi_fi_controller_8h" local="no">WiFiController.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_wi_fi_controller_1a459171b6cf678744520a6d7fcd6d3732" prot="private" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CWiFiController::m_strBuffer</definition>
+        <argsstring></argsstring>
+        <name>m_strBuffer</name>
+        <qualifiedname>CWiFiController::m_strBuffer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="151" column="16" bodyfile="include/WiFiController.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_wi_fi_controller_1abddb8e479a6c76c65bf9a7dbf66f0a01" prot="private" static="no" mutable="no">
+        <type><ref refid="struct_wi_fi_config" kindref="compound">WiFiConfig</ref></type>
+        <definition>WiFiConfig CWiFiController::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <qualifiedname>CWiFiController::Config</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="152" column="23" bodyfile="include/WiFiController.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_c_wi_fi_controller_1af54703cf3b85325819d4538d62ea847d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_wi_fi_status" kindref="compound">WiFiStatus</ref></type>
+        <definition>WiFiStatus CWiFiController::Status</definition>
+        <argsstring></argsstring>
+        <name>Status</name>
+        <qualifiedname>CWiFiController::Status</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="168" column="21" bodyfile="include/WiFiController.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_c_wi_fi_controller_1aa09b05329bd45298940dfd8561cb6670" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CWiFiController::getConfigBSSIDAsString</definition>
+        <argsstring>()</argsstring>
+        <name>getConfigBSSIDAsString</name>
+        <qualifiedname>CWiFiController::getConfigBSSIDAsString</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="153" column="20" bodyfile="include/WiFiController.h" bodystart="153" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1aade77682c0601b48b9f0512621e95c0e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CWiFiController::getStatusText</definition>
+        <argsstring>(int nWiFiStatus)</argsstring>
+        <name>getStatusText</name>
+        <qualifiedname>CWiFiController::getStatusText</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nWiFiStatus</declname>
+        </param>
+        <briefdescription>
+<para>Convert an Arduino WiFi status code into readable text. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="241" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1a89345d14a59db398fed0ba34108ec9d0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CWiFiController::disableWiFi</definition>
+        <argsstring>()</argsstring>
+        <name>disableWiFi</name>
+        <qualifiedname>CWiFiController::disableWiFi</qualifiedname>
+        <briefdescription>
+<para>Disconnect station/AP mode and publish the corresponding bus events. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="246" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1ae53e4f3d634017e9216a08962cc1ebb1" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CWiFiController::startAccessPoint</definition>
+        <argsstring>(const char *pszSSID, IPAddress apip, IPAddress apsubnet, bool bHidden, const char *pszPassword=NULL)</argsstring>
+        <name>startAccessPoint</name>
+        <qualifiedname>CWiFiController::startAccessPoint</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszSSID</declname>
+        </param>
+        <param>
+          <type><ref refid="class_i_p_address" kindref="compound">IPAddress</ref></type>
+          <declname>apip</declname>
+        </param>
+        <param>
+          <type><ref refid="class_i_p_address" kindref="compound">IPAddress</ref></type>
+          <declname>apsubnet</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bHidden</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszPassword</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+<para>Start access point mode with explicit network settings. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="251" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1a22cce10fdb6b124c546d698bd4fdef79" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CWiFiController::joinNetwork</definition>
+        <argsstring>(const char *pszSSID, const char *pszPassword, byte bSSID[6])</argsstring>
+        <name>joinNetwork</name>
+        <qualifiedname>CWiFiController::joinNetwork</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszSSID</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszPassword</declname>
+        </param>
+        <param>
+          <type>byte</type>
+          <declname>bSSID</declname>
+          <array>[6]</array>
+        </param>
+        <briefdescription>
+<para>Join an existing WiFi network in station mode. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="260" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1aa9167f9605f845ff730e331e2586408e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CWiFiController::onWiFiScanResult</definition>
+        <argsstring>(int nNumber)</argsstring>
+        <name>onWiFiScanResult</name>
+        <qualifiedname>CWiFiController::onWiFiScanResult</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nNumber</declname>
+        </param>
+        <briefdescription>
+<para>Build and send the JSON payload for an asynchronous scan result. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="267" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1ad438de08c7d71e3f81b858c9c3c23587" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CWiFiController::storeIPAddressIf</definition>
+        <argsstring>(JsonNode &amp;oCfgData, const char *pszKeyName, IPAddress &amp;pTarget)</argsstring>
+        <name>storeIPAddressIf</name>
+        <qualifiedname>CWiFiController::storeIPAddressIf</qualifiedname>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfgData</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszKeyName</declname>
+        </param>
+        <param>
+          <type><ref refid="class_i_p_address" kindref="compound">IPAddress</ref> &amp;</type>
+          <declname>pTarget</declname>
+        </param>
+        <briefdescription>
+<para>Read an IP address from a JSON node when the key exists. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="272" column="18"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_c_wi_fi_controller_1aaef53e48ea0f5ca336e4718359799386" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>static String CWiFiController::getDefaultSSIDofAP</definition>
+        <argsstring>()</argsstring>
+        <name>getDefaultSSIDofAP</name>
+        <qualifiedname>CWiFiController::getDefaultSSIDofAP</qualifiedname>
+        <briefdescription>
+<para>Return the default access point SSID generated for this device. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="173" column="23"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_wi_fi_controller_1a3973e2913377be3d57b4982687c9b480" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CWiFiController::CWiFiController</definition>
+        <argsstring>()</argsstring>
+        <name>CWiFiController</name>
+        <qualifiedname>CWiFiController::CWiFiController</qualifiedname>
+        <briefdescription>
+<para>Create a WiFi controller instance with default configuration/status. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="179" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1adbe12703563fd35189de9b9ca455fb78" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CWiFiController::writeConfigTo</definition>
+        <argsstring>(JsonNode &amp;oCfgObj, bool bHideCritical) override</argsstring>
+        <name>writeConfigTo</name>
+        <qualifiedname>CWiFiController::writeConfigTo</qualifiedname>
+        <reimplements refid="class_i_config_handler_1a3507b2ec7bef0a1ec0a7f90da0ec32f2">writeConfigTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfgObj</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bHideCritical</declname>
+        </param>
+        <briefdescription>
+<para>Write the current WiFi configuration into a JSON node. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>oCfgObj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target config node. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bHideCritical</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>true to mask passwords. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="186" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1aeb2a0f93c114722c9fdda0d4a7460363" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CWiFiController::readConfigFrom</definition>
+        <argsstring>(JsonNode &amp;oCfgObj) override</argsstring>
+        <name>readConfigFrom</name>
+        <qualifiedname>CWiFiController::readConfigFrom</qualifiedname>
+        <reimplements refid="class_i_config_handler_1a4c43c53522b0408972d6573e91d1e63e">readConfigFrom</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfgObj</declname>
+        </param>
+        <briefdescription>
+<para>Read WiFi configuration values from a JSON node. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>oCfgObj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source config node. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="192" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1a8b4957d794b69deddc3eb1e87a4ea635" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CWiFiController::writeStatusTo</definition>
+        <argsstring>(JsonNode &amp;oStatusObj, int nLevel=STATUS_LEVEL_INFO) override</argsstring>
+        <name>writeStatusTo</name>
+        <qualifiedname>CWiFiController::writeStatusTo</qualifiedname>
+        <reimplements refid="class_i_status_handler_1a159576674bba670032ae23b647db1dec">writeStatusTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oStatusObj</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nLevel</declname>
+          <defval><ref refid="_status_handler_8h_1ad33eab0de4e088931d94b504679013e4" kindref="member">STATUS_LEVEL_INFO</ref></defval>
+        </param>
+        <briefdescription>
+<para>Write the currently active WiFi state into a JSON status node. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>oStatusObj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target status node. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nLevel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested status detail level. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="199" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1ad0121819a5969b8289fb3dca2881b5d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CWiFiController::writeStatusToLog</definition>
+        <argsstring>()</argsstring>
+        <name>writeStatusToLog</name>
+        <qualifiedname>CWiFiController::writeStatusToLog</qualifiedname>
+        <briefdescription>
+<para>Serialize the current WiFi status and write it to the application log. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="204" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1a495ef23b4abd8ad201094eefe3972fec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CWiFiController::startWiFi</definition>
+        <argsstring>(bool bUseConfigData)</argsstring>
+        <name>startWiFi</name>
+        <qualifiedname>CWiFiController::startWiFi</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bUseConfigData</declname>
+        </param>
+        <briefdescription>
+<para>Start WiFi using either default AP mode or loaded configuration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bUseConfigData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>false to start the default AP, true to use current config. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="210" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1a26a884dce9553903dbb27275e831e1eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CWiFiController::startAccessPoint</definition>
+        <argsstring>(bool bUseConfigData)</argsstring>
+        <name>startAccessPoint</name>
+        <qualifiedname>CWiFiController::startAccessPoint</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bUseConfigData</declname>
+        </param>
+        <briefdescription>
+<para>Start access point mode. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bUseConfigData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>true to use configured AP settings first. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if AP mode is active. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="217" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1a382d9dc194c0ac84479379b91bad41d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CWiFiController::restartIfNeeded</definition>
+        <argsstring>()</argsstring>
+        <name>restartIfNeeded</name>
+        <qualifiedname>CWiFiController::restartIfNeeded</qualifiedname>
+        <briefdescription>
+<para>Retry or disable WiFi when a scheduled reconnect is pending. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if WiFi is connected after the check. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="223" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1a34577a13c5bdf7a3d206a38da6af4fa6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CWiFiController::scanWiFi</definition>
+        <argsstring>()</argsstring>
+        <name>scanWiFi</name>
+        <qualifiedname>CWiFiController::scanWiFi</qualifiedname>
+        <briefdescription>
+<para>Start an asynchronous WiFi scan. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="228" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_wi_fi_controller_1a19e1797900735d44355ffd825d7d8c0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>int CWiFiController::receiveEvent</definition>
+        <argsstring>(const void *pSender, int nMsgId, const void *pMessage, int nType)</argsstring>
+        <name>receiveEvent</name>
+        <qualifiedname>CWiFiController::receiveEvent</qualifiedname>
+        <reimplements refid="class_i_msg_event_receiver_1a3345710906f9a16c4dca5b7ce2da39d7">receiveEvent</reimplements>
+        <param>
+          <type>const void *</type>
+          <declname>pSender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsgId</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>pMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nType</declname>
+        </param>
+        <briefdescription>
+<para>Listen to the application message bus and react to WiFi commands. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>EVENT_MSG_RESULT_OK to continue event processing. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="234" column="13"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Application module that controls WiFi AP/station mode. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The controller reads/writes its configuration through <ref refid="class_i_config_handler" kindref="compound">IConfigHandler</ref>, publishes status through <ref refid="class_i_status_handler" kindref="compound">IStatusHandler</ref> and reacts to WiFi scan requests from the application message bus. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>CWiFiController</label>
+        <link refid="class_c_wi_fi_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="2">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="4">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>CWiFiController</label>
+        <link refid="class_c_wi_fi_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Status</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="2">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="4">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+      <node id="6">
+        <label>WiFiStatus</label>
+        <link refid="struct_wi_fi_status"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/WiFiController.h" line="149" column="1" bodyfile="include/WiFiController.h" bodystart="149" bodyend="273"/>
+    <listofallmembers>
+      <member refid="class_c_wi_fi_controller_1abddb8e479a6c76c65bf9a7dbf66f0a01" prot="private" virt="non-virtual"><scope>CWiFiController</scope><name>Config</name></member>
+      <member refid="class_c_wi_fi_controller_1a3973e2913377be3d57b4982687c9b480" prot="public" virt="non-virtual"><scope>CWiFiController</scope><name>CWiFiController</name></member>
+      <member refid="class_c_wi_fi_controller_1a89345d14a59db398fed0ba34108ec9d0" prot="private" virt="non-virtual"><scope>CWiFiController</scope><name>disableWiFi</name></member>
+      <member refid="class_c_wi_fi_controller_1aa09b05329bd45298940dfd8561cb6670" prot="private" virt="non-virtual"><scope>CWiFiController</scope><name>getConfigBSSIDAsString</name></member>
+      <member refid="class_c_wi_fi_controller_1aaef53e48ea0f5ca336e4718359799386" prot="public" virt="non-virtual"><scope>CWiFiController</scope><name>getDefaultSSIDofAP</name></member>
+      <member refid="class_c_wi_fi_controller_1aade77682c0601b48b9f0512621e95c0e" prot="private" virt="non-virtual"><scope>CWiFiController</scope><name>getStatusText</name></member>
+      <member refid="class_i_config_handler_1a6011c82a3fe9d10ef0ea54d848557f4c" prot="public" virt="virtual"><scope>CWiFiController</scope><name>hasConfigValues</name></member>
+      <member refid="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" prot="public" virt="virtual"><scope>CWiFiController</scope><name>hasStatusValues</name></member>
+      <member refid="class_c_wi_fi_controller_1a22cce10fdb6b124c546d698bd4fdef79" prot="private" virt="non-virtual"><scope>CWiFiController</scope><name>joinNetwork</name></member>
+      <member refid="class_c_wi_fi_controller_1a459171b6cf678744520a6d7fcd6d3732" prot="private" virt="non-virtual"><scope>CWiFiController</scope><name>m_strBuffer</name></member>
+      <member refid="class_i_config_handler_1a8a92be059bfaca6c233419763865a5f4" prot="public" virt="virtual"><scope>CWiFiController</scope><name>migrateConfig</name></member>
+      <member refid="class_c_wi_fi_controller_1aa9167f9605f845ff730e331e2586408e" prot="private" virt="non-virtual"><scope>CWiFiController</scope><name>onWiFiScanResult</name></member>
+      <member refid="class_c_wi_fi_controller_1aeb2a0f93c114722c9fdda0d4a7460363" prot="public" virt="virtual"><scope>CWiFiController</scope><name>readConfigFrom</name></member>
+      <member refid="class_c_wi_fi_controller_1a19e1797900735d44355ffd825d7d8c0d" prot="public" virt="virtual"><scope>CWiFiController</scope><name>receiveEvent</name></member>
+      <member refid="class_c_wi_fi_controller_1a382d9dc194c0ac84479379b91bad41d6" prot="public" virt="non-virtual"><scope>CWiFiController</scope><name>restartIfNeeded</name></member>
+      <member refid="class_c_wi_fi_controller_1a34577a13c5bdf7a3d206a38da6af4fa6" prot="public" virt="non-virtual"><scope>CWiFiController</scope><name>scanWiFi</name></member>
+      <member refid="class_c_wi_fi_controller_1a26a884dce9553903dbb27275e831e1eb" prot="public" virt="non-virtual"><scope>CWiFiController</scope><name>startAccessPoint</name></member>
+      <member refid="class_c_wi_fi_controller_1ae53e4f3d634017e9216a08962cc1ebb1" prot="private" virt="non-virtual"><scope>CWiFiController</scope><name>startAccessPoint</name></member>
+      <member refid="class_c_wi_fi_controller_1a495ef23b4abd8ad201094eefe3972fec" prot="public" virt="non-virtual"><scope>CWiFiController</scope><name>startWiFi</name></member>
+      <member refid="class_c_wi_fi_controller_1af54703cf3b85325819d4538d62ea847d" prot="public" virt="non-virtual"><scope>CWiFiController</scope><name>Status</name></member>
+      <member refid="class_c_wi_fi_controller_1ad438de08c7d71e3f81b858c9c3c23587" prot="private" virt="non-virtual"><scope>CWiFiController</scope><name>storeIPAddressIf</name></member>
+      <member refid="class_c_wi_fi_controller_1adbe12703563fd35189de9b9ca455fb78" prot="public" virt="virtual"><scope>CWiFiController</scope><name>writeConfigTo</name></member>
+      <member refid="class_c_wi_fi_controller_1a8b4957d794b69deddc3eb1e87a4ea635" prot="public" virt="virtual"><scope>CWiFiController</scope><name>writeStatusTo</name></member>
+      <member refid="class_c_wi_fi_controller_1ad0121819a5969b8289fb3dca2881b5d0" prot="public" virt="non-virtual"><scope>CWiFiController</scope><name>writeStatusToLog</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_web_socket_8h" kind="file" language="C++">
+    <compoundname>WebSocket.h</compoundname>
+    <includes refid="_runtime_8h" local="yes">Runtime.h</includes>
+    <includes refid="_event_handler_8h" local="yes">EventHandler.h</includes>
+    <includes refid="_simple_delay_8h" local="yes">SimpleDelay.h</includes>
+    <includes refid="_json_node_8h" local="yes">JsonNode.h</includes>
+    <includes refid="_network_8h" local="yes">Network.h</includes>
+    <includes refid="_development_helper_8h" local="yes">DevelopmentHelper.h</includes>
+    <includes local="no">queue</includes>
+    <includedby refid="_web_server_8h" local="no">include/WebServer.h</includedby>
+    <incdepgraph>
+      <node id="12">
+        <label>DevelopmentHelper.h</label>
+        <link refid="_development_helper_8h"/>
+      </node>
+      <node id="6">
+        <label>EventHandler.h</label>
+        <link refid="_event_handler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>JsonNode.h</label>
+        <link refid="_json_node_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>LSCUtils.h</label>
+        <link refid="_l_s_c_utils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>NamedValueTable.h</label>
+        <link refid="_named_value_table_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>Network.h</label>
+        <link refid="_network_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>SimpleDelay.h</label>
+        <link refid="_simple_delay_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/WebSocket.h</label>
+        <link refid="_web_socket_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>chrono</label>
+      </node>
+      <node id="7">
+        <label>functional</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="9">
+        <label>queue</label>
+      </node>
+      <node id="3">
+        <label>string.h</label>
+      </node>
+      <node id="8">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>include/WebServer.h</label>
+        <link refid="_web_server_8h"/>
+      </node>
+      <node id="1">
+        <label>include/WebSocket.h</label>
+        <link refid="_web_socket_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_c_web_socket_message" prot="public">CWebSocketMessage</innerclass>
+    <innerclass refid="struct_web_socket_status" prot="public">WebSocketStatus</innerclass>
+    <innerclass refid="class_c_web_socket" prot="public">CWebSocket</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_web_socket_8h_1ad079a90262b62965b88fd6a7cab3c8f6" prot="public" static="no">
+        <name>WS_NEEDS_AUTH</name>
+        <initializer>&quot;saveconfig,getbackup,restorebackup,restart,factoryreset&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="75" column="13" bodyfile="include/WebSocket.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/WebSocket.h"/>
+  </compounddef>
+</doxygen>

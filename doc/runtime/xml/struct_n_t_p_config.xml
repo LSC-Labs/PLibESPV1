@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="struct_n_t_p_config" kind="struct" language="C++" prot="public">
+    <compoundname>NTPConfig</compoundname>
+    <includes refid="_n_t_p_handler_8h" local="no">NTPHandler.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_n_t_p_config_1adc903c890cc34a9cd7021761457641c8" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool NTPConfig::isEnabled</definition>
+        <argsstring></argsstring>
+        <name>isEnabled</name>
+        <qualifiedname>NTPConfig::isEnabled</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="17" column="10" bodyfile="include/NTPHandler.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_n_t_p_config_1a2e57d03c5fafa7ea384b93e4d2609c45" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String NTPConfig::NTPServer</definition>
+        <argsstring></argsstring>
+        <name>NTPServer</name>
+        <qualifiedname>NTPConfig::NTPServer</qualifiedname>
+        <initializer>= &quot;pool.ntp.org&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="18" column="12" bodyfile="include/NTPHandler.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_n_t_p_config_1aab8e15173582f5dee65484b9b3022f92" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String NTPConfig::TZ</definition>
+        <argsstring></argsstring>
+        <name>TZ</name>
+        <qualifiedname>NTPConfig::TZ</qualifiedname>
+        <initializer>= &quot;CET-1CEST,M3.5.0/02,M10.5.0/03&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NTPHandler.h" line="20" column="12" bodyfile="include/NTPHandler.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>NTP Service for ESP Devices Setup when a internet connection (WiFi) becomes available... </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="see"><para>: <ulink url="https://randomnerdtutorials.com/esp32-date-time-ntp-client-server-arduino/">https://randomnerdtutorials.com/esp32-date-time-ntp-client-server-arduino/</ulink> </para>
+</simplesect>
+<simplesect kind="see"><para>: <ulink url="https://forum.arduino.cc/t/getting-time-from-ntp-service-using-nodemcu-1-0-esp-12e/702333/12">https://forum.arduino.cc/t/getting-time-from-ntp-service-using-nodemcu-1-0-esp-12e/702333/12</ulink> Configuration struct of the NTP Handler </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="include/NTPHandler.h" line="16" column="2" bodyfile="include/NTPHandler.h" bodystart="16" bodyend="21"/>
+    <listofallmembers>
+      <member refid="struct_n_t_p_config_1adc903c890cc34a9cd7021761457641c8" prot="public" virt="non-virtual"><scope>NTPConfig</scope><name>isEnabled</name></member>
+      <member refid="struct_n_t_p_config_1a2e57d03c5fafa7ea384b93e4d2609c45" prot="public" virt="non-virtual"><scope>NTPConfig</scope><name>NTPServer</name></member>
+      <member refid="struct_n_t_p_config_1aab8e15173582f5dee65484b9b3022f92" prot="public" virt="non-virtual"><scope>NTPConfig</scope><name>TZ</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

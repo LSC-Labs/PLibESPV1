@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_i_home_assistant_component" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>IHomeAssistantComponent</compoundname>
+    <includes refid="_m_q_t_t_controller_8h" local="no">MQTTController.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_i_home_assistant_component_1afd27eb0ce1e31cd34bb9eb79f3dffd4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void IHomeAssistantComponent::insertComponentDiscovery</definition>
+        <argsstring>(const char *pszComponentName, JsonNode &amp;oComponentArea, CMQTTController *pController)=0</argsstring>
+        <name>insertComponentDiscovery</name>
+        <qualifiedname>IHomeAssistantComponent::insertComponentDiscovery</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszComponentName</declname>
+        </param>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oComponentArea</declname>
+        </param>
+        <param>
+          <type><ref refid="class_c_m_q_t_t_controller" kindref="compound">CMQTTController</ref> *</type>
+          <declname>pController</declname>
+        </param>
+        <briefdescription>
+<para>insert your component registration data of HA AutoDiscovery (device). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>When called, the component area is already created and you can insert your component data here. ToDo: If your component has a discovery information, create a json object with the component name and insert the discovery information there. <simplesect kind="see"><para><ulink url="https://www.home-assistant.io/integrations/mqtt/#mqtt-discovery">https://www.home-assistant.io/integrations/mqtt/#mqtt-discovery</ulink></para>
+</simplesect>
+This function enables you to access the full device discovery information and the active message broker controller. Use the Message Broker controller to get further information like the command topic path... <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pszComponentName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the component - same as registering this interface </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>oComponentArea</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>JSON object representing the component area &quot;cmps&quot; in the HA discovery information. Insert your component information here. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pController</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the MQTT controller </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="105" column="22"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Implement if needed. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/MQTTController.h" line="90" column="1" bodyfile="include/MQTTController.h" bodystart="90" bodyend="106"/>
+    <listofallmembers>
+      <member refid="class_i_home_assistant_component_1afd27eb0ce1e31cd34bb9eb79f3dffd4e" prot="public" virt="pure-virtual"><scope>IHomeAssistantComponent</scope><name>insertComponentDiscovery</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

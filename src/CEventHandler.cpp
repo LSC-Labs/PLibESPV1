@@ -6,9 +6,13 @@
 #include <DevelopmentHelper.h>
 
 /**
- * @brief Register an Event Receiver to the Event Handler
- * If a receiver is already registered, it will not be added again.
- * @param pEventReceiver Pointer to the Event Receiver to register
+ * @brief Registers an event receiver on the message bus.
+ *
+ * Receivers are unique by pointer. Registering the same receiver again is
+ * ignored, even if another name is supplied.
+ *
+ * @param pEventReceiver Receiver object to notify on sendEvent().
+ * @param pszReceiverName Optional diagnostic name for dumps and debug output.
  */
 void CEventHandler::registerEventReceiver(IMsgEventReceiver *pEventReceiver, const char *pszReceiverName) {
     // bool bAlreadyRegistered = false;
@@ -46,13 +50,18 @@ void CEventHandler::registerEventReceiver(IMsgEventReceiver *pEventReceiver, con
 }
 
 /**
- * send an event on the message bus 
- * 
- * @param pSender The address of the sender (will not receive the message) or nullptr, if it is a static method
- * @param nMsg The message number - use Msgs.h for default messages
- * @param pMessage The message as a pointer to the message to be sent
- * @param nClass A specialized instruction to process the message by receiver.
- * @returns EVENT_MSG_RESULT_OK, EVENT_MSG_RESULT_STOP_PROCESSING...
+ * @brief Sends an event to all registered receivers.
+ *
+ * The sender does not receive its own event. Receivers can return
+ * EVENT_MSG_CALL_AGAIN_WHEN_ALL_OK to request a second callback only if the
+ * first pass completes without warnings or errors.
+ *
+ * @param pSender Sender address, or nullptr for static/global events.
+ * @param nMsg Message number, usually one of Msgs.h.
+ * @param pMessage Optional message payload pointer.
+ * @param nClass Additional message class or processing hint.
+ * @return Highest receiver result, or EVENT_MSG_RESULT_STOP_PROCESSING if a
+ *         receiver aborts processing.
  */
 int CEventHandler::sendEvent(void *pSender, int nMsg, const void *pMessage, int nClass) {
     int nTotalResult = EVENT_MSG_RESULT_OK;

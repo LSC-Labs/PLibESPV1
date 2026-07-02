@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_event_handler" kind="class" language="C++" prot="public">
+    <compoundname>CEventHandler</compoundname>
+    <includes refid="_event_handler_8h" local="no">EventHandler.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_event_handler_1a174ae318edfd31e990f12a7c64d5d9fe" prot="private" static="no" mutable="no">
+        <type><ref refid="class_c_multi_name_unique_value_table" kindref="compound">CMultiNameUniqueValueTable</ref>&lt; <ref refid="class_i_msg_event_receiver" kindref="compound">IMsgEventReceiver</ref> * &gt;</type>
+        <definition>CMultiNameUniqueValueTable&lt;IMsgEventReceiver *&gt; CEventHandler::m_tReceiverTable</definition>
+        <argsstring></argsstring>
+        <name>m_tReceiverTable</name>
+        <qualifiedname>CEventHandler::m_tReceiverTable</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/EventHandler.h" line="51" column="36" bodyfile="include/EventHandler.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_event_handler_1a41b6924a33472d04cee2fe3e90cc6acc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CEventHandler::~CEventHandler</definition>
+        <argsstring>()</argsstring>
+        <name>~CEventHandler</name>
+        <qualifiedname>CEventHandler::~CEventHandler</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/EventHandler.h" line="54" column="9" bodyfile="include/EventHandler.h" bodystart="54" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_event_handler_1a00ead2883340bacefe21f4f270b0e510" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CEventHandler::registerEventReceiver</definition>
+        <argsstring>(IMsgEventReceiver *pEventReceiver, const char *pszReceiverName=nullptr)</argsstring>
+        <name>registerEventReceiver</name>
+        <qualifiedname>CEventHandler::registerEventReceiver</qualifiedname>
+        <param>
+          <type><ref refid="class_i_msg_event_receiver" kindref="compound">IMsgEventReceiver</ref> *</type>
+          <declname>pEventReceiver</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszReceiverName</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/EventHandler.h" line="57" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_event_handler_1a8c59bbe44422335e9a4443a964554337" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int CEventHandler::sendEvent</definition>
+        <argsstring>(void *pSender, int nMsgID, const void *pMessage, int nMsgType)</argsstring>
+        <name>sendEvent</name>
+        <qualifiedname>CEventHandler::sendEvent</qualifiedname>
+        <param>
+          <type>void *</type>
+          <declname>pSender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsgID</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>pMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsgType</declname>
+        </param>
+        <briefdescription>
+<para>Send the message to the Message Event Receivers To avoid receiving your own message, specify the Sender (this). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If static, or you want to receive your onw message, specify nullptr here...</para>
+<para>Processing:<itemizedlist>
+<listitem><para>The event message will be sent immediately to all recipients</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pSender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>nullptr (receive own messages) or the senders address to avoid receiving own messages </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nMsgID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>use message number from msg.h - or specify owm message with MSG_USER_BASE + xxx </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pMessage</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The message for the receiver, depending on nMsgType </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nMsgType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Additional Flag for the receiving team </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/EventHandler.h" line="72" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_event_handler_1a712521554583b0d34496c2e376f779e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CEventHandler::dumpReceiver</definition>
+        <argsstring>()</argsstring>
+        <name>dumpReceiver</name>
+        <qualifiedname>CEventHandler::dumpReceiver</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/EventHandler.h" line="74" column="14" bodyfile="include/EventHandler.h" bodystart="74" bodyend="87"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Event Handler Manager. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/EventHandler.h" line="28" column="1" bodyfile="include/EventHandler.h" bodystart="29" bodyend="88"/>
+    <listofallmembers>
+      <member refid="class_c_event_handler_1a712521554583b0d34496c2e376f779e4" prot="public" virt="non-virtual"><scope>CEventHandler</scope><name>dumpReceiver</name></member>
+      <member refid="class_c_event_handler_1a174ae318edfd31e990f12a7c64d5d9fe" prot="private" virt="non-virtual"><scope>CEventHandler</scope><name>m_tReceiverTable</name></member>
+      <member refid="class_c_event_handler_1a00ead2883340bacefe21f4f270b0e510" prot="public" virt="non-virtual"><scope>CEventHandler</scope><name>registerEventReceiver</name></member>
+      <member refid="class_c_event_handler_1a8c59bbe44422335e9a4443a964554337" prot="public" virt="non-virtual"><scope>CEventHandler</scope><name>sendEvent</name></member>
+      <member refid="class_c_event_handler_1a41b6924a33472d04cee2fe3e90cc6acc" prot="public" virt="non-virtual"><scope>CEventHandler</scope><name>~CEventHandler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

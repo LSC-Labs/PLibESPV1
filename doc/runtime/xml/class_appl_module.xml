@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_appl_module" kind="class" language="C++" prot="public">
+    <compoundname>ApplModule</compoundname>
+    <basecompoundref refid="class_i_module" prot="public" virt="non-virtual">IModule</basecompoundref>
+    <derivedcompoundref refid="class_c_battery_measure" prot="public" virt="non-virtual">CBatteryMeasure</derivedcompoundref>
+    <derivedcompoundref refid="class_c_m_q_t_t_controller" prot="public" virt="non-virtual">CMQTTController</derivedcompoundref>
+    <includes refid="_appl_module_8h" local="no">ApplModule.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_appl_module_1a13c5086d4c9162d1a96b1234f76932e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void ApplModule::dispatch</definition>
+        <argsstring>()</argsstring>
+        <name>dispatch</name>
+        <qualifiedname>ApplModule::dispatch</qualifiedname>
+        <reimplementedby refid="class_c_m_q_t_t_controller_1a4d2cd700d573f1658cdbf392aba1e6a9">dispatch</reimplementedby>
+        <briefdescription>
+<para>Default dispatch function by doing nothing. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Will bi called by default when Appl.dispatch() is used in main loop Implement your logic by overwriting. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ApplModule.h" line="21" column="22" bodyfile="include/ApplModule.h" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_appl_module_1a6f93571379fa6aa97dc07d2fadc56774" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>int</type>
+        <definition>virtual int ApplModule::receiveEvent</definition>
+        <argsstring>(const void *pSender, int nMsg, const void *pMessage, int nClass) override</argsstring>
+        <name>receiveEvent</name>
+        <qualifiedname>ApplModule::receiveEvent</qualifiedname>
+        <reimplements refid="class_i_msg_event_receiver_1a3345710906f9a16c4dca5b7ce2da39d7">receiveEvent</reimplements>
+        <reimplementedby refid="class_c_m_q_t_t_controller_1a745afbf82929c952cc4a7869c19a424e">receiveEvent</reimplementedby>
+        <param>
+          <type>const void *</type>
+          <declname>pSender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsg</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>pMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nClass</declname>
+        </param>
+        <briefdescription>
+<para>Default Event Receiver, is calling the dispatch function on Application loop. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ApplModule.h" line="27" column="21" bodyfile="include/ApplModule.h" bodystart="27" bodyend="32"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Abstract Basic Module Implementation You have to implement the dispatch method to reflect your module logic Implement the configuration and status handling. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>ApplModule</label>
+        <link refid="class_appl_module"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>CBatteryMeasure</label>
+        <link refid="class_c_battery_measure"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>CMQTTController</label>
+        <link refid="class_c_m_q_t_t_controller"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="2">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="4">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>ApplModule</label>
+        <link refid="class_appl_module"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="2">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="4">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/ApplModule.h" line="13" column="1" bodyfile="include/ApplModule.h" bodystart="13" bodyend="34"/>
+    <listofallmembers>
+      <member refid="class_appl_module_1a13c5086d4c9162d1a96b1234f76932e4" prot="public" virt="virtual"><scope>ApplModule</scope><name>dispatch</name></member>
+      <member refid="class_i_config_handler_1a6011c82a3fe9d10ef0ea54d848557f4c" prot="public" virt="virtual"><scope>ApplModule</scope><name>hasConfigValues</name></member>
+      <member refid="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" prot="public" virt="virtual"><scope>ApplModule</scope><name>hasStatusValues</name></member>
+      <member refid="class_i_config_handler_1a8a92be059bfaca6c233419763865a5f4" prot="public" virt="virtual"><scope>ApplModule</scope><name>migrateConfig</name></member>
+      <member refid="class_i_config_handler_1a4c43c53522b0408972d6573e91d1e63e" prot="public" virt="pure-virtual"><scope>ApplModule</scope><name>readConfigFrom</name></member>
+      <member refid="class_appl_module_1a6f93571379fa6aa97dc07d2fadc56774" prot="public" virt="virtual"><scope>ApplModule</scope><name>receiveEvent</name></member>
+      <member refid="class_i_config_handler_1a3507b2ec7bef0a1ec0a7f90da0ec32f2" prot="public" virt="pure-virtual"><scope>ApplModule</scope><name>writeConfigTo</name></member>
+      <member refid="class_i_status_handler_1a159576674bba670032ae23b647db1dec" prot="public" virt="pure-virtual"><scope>ApplModule</scope><name>writeStatusTo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

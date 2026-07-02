@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="md__r_e_a_d_m_e" kind="page">
+    <compoundname>md__r_e_a_d_m_e</compoundname>
+    <title>PLibESPV1</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md__r_e_a_d_m_e_1autotoc_md0"/></para>
+<para>ESP Runtime library</para>
+<para>As the smart devices need to be initialized and to be configured, some solutions are available in the net that are more or less without an interface. So you have to insert the configuration in an arduino sketch or use automatic systems to deploy images with the configuration hardcoded in the source.</para>
+<para>If a web interface should come in place, things become complicated, cause you have to build the webservice, the sockets and the intial configuration of your wifi - and you have to take care about the credentials you are using.</para>
+<para>This library tries to simplify this basic coding, so you can concentrate on building your service.</para>
+<sect1 id="md__r_e_a_d_m_e_1autotoc_md1">
+<title>Functionality</title><para>The library offers you:</para>
+<para><itemizedlist>
+<listitem><para>Wifi access point with a web gui, so you can initialize the device with the wifi credentials, without coding it into the source code.</para>
+</listitem><listitem><para>An admin web interface, so you can configure your device with all needed settings.</para>
+</listitem><listitem><para>Web GUI with user/public functionality.</para>
+</listitem><listitem><para>Multi language support.</para>
+</listitem><listitem><para>Authentication (basic) functions.</para>
+</listitem><listitem><para>Security functions like en/decryption.</para>
+</listitem><listitem><para>Authentication and authorization on REST, Socket or web GUI.</para>
+</listitem><listitem><para>Backup and Restore the settings</para>
+</listitem><listitem><para>Over the air update for your device.</para>
+</listitem><listitem><para>Modulare Plugable architecture, so you can select which modules you want to use and insert your own modules.</para>
+</listitem><listitem><para>Basic services like buttons and LED&apos;s</para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+<sect1 id="md__r_e_a_d_m_e_1autotoc_md2">
+<title>Default Modules</title><para><itemizedlist>
+<listitem><para>WiFi with Access Point and Station Mode for initial configuration or Stand Alone operating.</para>
+</listitem><listitem><para>Multicast DNS service (Apple Bonjour) to simple publish your service.</para>
+</listitem><listitem><para>MQTT service to connect to an existing message broker service, to be able to send and receive heartbeats or commands.</para>
+</listitem><listitem><para>HTTP Web service to handle the admin web pages and to offer a REST api.</para>
+</listitem><listitem><para>Websocket service for realtime communication with your device</para>
+</listitem><listitem><para>REST API to setup and update the device.</para>
+</listitem><listitem><para>RF433 remote controls (simple commands)</para>
+</listitem><listitem><para>LED module, to control a simple (RGB) LED&apos;s with PWM, wave or blink commands.</para>
+</listitem><listitem><para>Button module with enhanced functions like interrupt triggers.</para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+<sect1 id="md__r_e_a_d_m_e_1autotoc_md3">
+<title>Architecture</title><para>All communication between the modules is done by a message bus system. In addition there are some interfaces to follow for configuration and statis in place, the modules will follow.</para>
+<sect2 id="md__r_e_a_d_m_e_1autotoc_md4">
+<title>The Application</title><para>The Application coordinates the communication and does the most work for you.</para>
+<para>To plug into the application you have to write a &quot;Module&quot; and register the available interface in the application object.</para>
+<sect3 id="md__r_e_a_d_m_e_1autotoc_md5">
+<title>On the device</title><para>The Application is the global object &quot;App&quot; as in instance of <ref refid="class_c_appl" kindref="compound">CAppl</ref>.</para>
+<para>It offers a message bus, an interface for configuration and an interface for status information.</para>
+<sect4 id="md__r_e_a_d_m_e_1autotoc_md6">
+<title>Message Bus</title><para>Every module or component can use the Message Bus to send or receive messages as events.</para>
+<para>If a module needs to be informed about these events, it has to register on the Applications Message Bus.<itemizedlist>
+<listitem><para>Send and receive messages from Websocket</para>
+</listitem><listitem><para>Status changes from other modules</para>
+</listitem><listitem><para>Own module message</para>
+</listitem></itemizedlist>
+</para>
+<para>The messages will be sent synchron, and each module has the chance to stop the further processing and send a &quot;feedback&quot;. So a module can stop a reboot if it is currently not the best time to do so.</para>
+</sect4>
+<sect4 id="md__r_e_a_d_m_e_1autotoc_md7">
+<title>Config Interface</title><para>When a module registers itself with a (unique) key, the key will be used to build a separate area in the main configuration object and the module will be inserted into the config file processing (readConfig()/writeConfig()).</para>
+<para>Everytime, when the application is asked to load or to save the device configuration, the registered modules interface is called to fill in or to read the configuration by handling the interface this area (JSON Object)</para>
+</sect4>
+<sect4 id="md__r_e_a_d_m_e_1autotoc_md8">
+<title>Status Interface</title><para>The key, that is used on registration of the module is used to build a separate area in the main status object.</para>
+<para>When the application needs the current status of the module (i.E. when the GUI as asking for), the module will be asked to fill in it&apos;s status.</para>
+</sect4>
+</sect3>
+<sect3 id="md__r_e_a_d_m_e_1autotoc_md9">
+<title>Web GUI</title><para>In the GUI, the Application is an instance of <ref refid="class_c_appl" kindref="compound">CAppl</ref> and coordinates the configuration and status pages and offers a websocket communication with the device.</para>
+</sect3>
+</sect2>
+<sect2 id="md__r_e_a_d_m_e_1autotoc_md10">
+<title>Writing a Module</title><para>A module consists of the runtime and Config/ Status Web Pages.</para>
+<para>Each module uses a unique key to exchange status und config information.</para>
+<sect3 id="md__r_e_a_d_m_e_1autotoc_md11">
+<title>Runtime</title><para>At the device, write your logic and support the interfaces<itemizedlist>
+<listitem><para><ref refid="class_i_config_handler" kindref="compound">IConfigHandler</ref> for configuration</para>
+</listitem><listitem><para><ref refid="class_i_status_handler" kindref="compound">IStatusHandler</ref> for status information</para>
+</listitem><listitem><para>IMessageEventReceiver to participate from system messages</para>
+</listitem><listitem><para>and send messages if needed, via the Application Message Bus</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="md__r_e_a_d_m_e_1autotoc_md12">
+<title>Web Page / User Frontend</title><para>The Web Page can have the following components:<itemizedlist>
+<listitem><para>The HTML description of the Web.</para>
+</listitem><listitem><para>Menu entries for the navigation bar.</para>
+</listitem><listitem><para>Java script to enhance the HTML page.</para>
+</listitem><listitem><para>Language files for multi language support.</para>
+</listitem></itemizedlist>
+</para>
+<para>A Module registers itself on a main object, called &quot;Appl&quot; with an id that should be unique. The WiFi module i.E. is using the id &quot;wifi&quot;. This id is used by the applicationto reserve this area for the module. All config, statis and other infos are stored in this &quot;area&quot;.</para>
+<para>The id will become also the key to the web GUI, as the settings and the statis for this module will be sent to the GUI within this areas.</para>
+</sect3>
+</sect2>
+</sect1>
+<sect1 id="md__r_e_a_d_m_e_1autotoc_md13">
+<title>Where to go from here...</title><para>If you like, you can use the <ulink url="https://github.com/LSC-Labs/ESP-ProjectTemplate">ESP-ProjectTemplate</ulink> template.</para>
+<para>This is a template that is using this library and supports you with additional scripts in context to develop and prepares most of the environmet for you:<itemizedlist>
+<listitem><para>Visiual Studio Code</para>
+</listitem><listitem><para>PlatformIO Development Environment</para>
+</listitem><listitem><para>This library as a runtime lib </para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+    </detaileddescription>
+    <location file="README.md"/>
+  </compounddef>
+</doxygen>

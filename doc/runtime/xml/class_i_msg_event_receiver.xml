@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_i_msg_event_receiver" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>IMsgEventReceiver</compoundname>
+    <derivedcompoundref refid="class_c_appl" prot="private" virt="non-virtual">CAppl</derivedcompoundref>
+    <derivedcompoundref refid="class_c_log_writer" prot="public" virt="non-virtual">CLogWriter</derivedcompoundref>
+    <derivedcompoundref refid="class_c_m_d_n_s_controller" prot="public" virt="non-virtual">CMDNSController</derivedcompoundref>
+    <derivedcompoundref refid="class_c_sys_status_led" prot="public" virt="non-virtual">CSysStatusLed</derivedcompoundref>
+    <derivedcompoundref refid="class_c_web_socket" prot="public" virt="non-virtual">CWebSocket</derivedcompoundref>
+    <derivedcompoundref refid="class_i_module" prot="public" virt="non-virtual">IModule</derivedcompoundref>
+    <includes refid="_event_handler_8h" local="no">EventHandler.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_i_msg_event_receiver_1a3345710906f9a16c4dca5b7ce2da39d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int IMsgEventReceiver::receiveEvent</definition>
+        <argsstring>(const void *pSender, int nMsg, const void *pMessage, int nMsgInfo)=0</argsstring>
+        <name>receiveEvent</name>
+        <qualifiedname>IMsgEventReceiver::receiveEvent</qualifiedname>
+        <reimplementedby refid="class_appl_module_1a6f93571379fa6aa97dc07d2fadc56774">receiveEvent</reimplementedby>
+        <reimplementedby refid="class_c_appl_1aedcd69ac05303845c2dccce89d26ef7f">receiveEvent</reimplementedby>
+        <reimplementedby refid="class_c_log_writer_1aa13c895523c82960e8e8d060dfb3b167">receiveEvent</reimplementedby>
+        <reimplementedby refid="class_c_m_d_n_s_controller_1af458ffa765c455b48dae74b15d7165d3">receiveEvent</reimplementedby>
+        <reimplementedby refid="class_c_m_q_t_t_controller_1a745afbf82929c952cc4a7869c19a424e">receiveEvent</reimplementedby>
+        <reimplementedby refid="class_c_n_t_p_handler_1a77da60d5cc0263f5b66c9653eb6009df">receiveEvent</reimplementedby>
+        <reimplementedby refid="class_c_sys_status_led_1ada23102aaea47d32b19882018d2d426d">receiveEvent</reimplementedby>
+        <reimplementedby refid="class_c_web_server_1a34b921fb662cd2d27a069252ba0aba23">receiveEvent</reimplementedby>
+        <reimplementedby refid="class_c_web_socket_1a26d97d77fa8e4172a69efc9ee844bf02">receiveEvent</reimplementedby>
+        <reimplementedby refid="class_c_wi_fi_controller_1a19e1797900735d44355ffd825d7d8c0d">receiveEvent</reimplementedby>
+        <param>
+          <type>const void *</type>
+          <declname>pSender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsg</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>pMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsgInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/EventHandler.h" line="22" column="21"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Interface for Message Event Receivers. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="10">
+        <label>ApplModule</label>
+        <link refid="class_appl_module"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CAppl</label>
+        <link refid="class_c_appl"/>
+        <childnode refid="1" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>CBatteryMeasure</label>
+        <link refid="class_c_battery_measure"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CLogWriter</label>
+        <link refid="class_c_log_writer"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>CMDNSController</label>
+        <link refid="class_c_m_d_n_s_controller"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>CMQTTController</label>
+        <link refid="class_c_m_q_t_t_controller"/>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>CNTPHandler</label>
+        <link refid="class_c_n_t_p_handler"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>CSerialLogWriter</label>
+        <link refid="class_c_serial_log_writer"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>CStreamLogWriter</label>
+        <link refid="class_c_stream_log_writer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>CSysStatusLed</label>
+        <link refid="class_c_sys_status_led"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>CWebServer</label>
+        <link refid="class_c_web_server"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>CWebSocket</label>
+        <link refid="class_c_web_socket"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>CWiFiController</label>
+        <link refid="class_c_wi_fi_controller"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+    </inheritancegraph>
+    <location file="include/EventHandler.h" line="19" column="1" bodyfile="include/EventHandler.h" bodystart="20" bodyend="23"/>
+    <listofallmembers>
+      <member refid="class_i_msg_event_receiver_1a3345710906f9a16c4dca5b7ce2da39d7" prot="public" virt="pure-virtual"><scope>IMsgEventReceiver</scope><name>receiveEvent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

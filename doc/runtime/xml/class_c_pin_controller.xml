@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_pin_controller" kind="class" language="C++" prot="public">
+    <compoundname>CPinController</compoundname>
+    <derivedcompoundref refid="class_c_input_pin_controller" prot="public" virt="non-virtual">CInputPinController</derivedcompoundref>
+    <derivedcompoundref refid="class_c_output_pin_controller" prot="public" virt="non-virtual">COutputPinController</derivedcompoundref>
+    <includes refid="_pin_controller_8h" local="no">PinController.h</includes>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_c_pin_controller_1a01332f330cfaba9977464cfe0fdd909a" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CPinController::m_nPin</definition>
+        <argsstring></argsstring>
+        <name>m_nPin</name>
+        <qualifiedname>CPinController::m_nPin</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/PinController.h" line="14" column="13" bodyfile="include/PinController.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_pin_controller_1aaf9483e2f918e46c7c120f5a8d5c3b35" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CPinController::m_bLowLevelIsOn</definition>
+        <argsstring></argsstring>
+        <name>m_bLowLevelIsOn</name>
+        <qualifiedname>CPinController::m_bLowLevelIsOn</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/PinController.h" line="15" column="13" bodyfile="include/PinController.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para><ref refid="_pin_controller_8h" kindref="compound">PinController.h</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>(c) 2024 <ref refid="namespace_l_s_c" kindref="compound">LSC</ref> Labs</para>
+<para>Base class for Input / Output pins. Defines the pin and if it is activ low or activ high. Input and Output Controllers should reflect this bas information. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>CButton</label>
+        <link refid="class_c_button"/>
+        <childnode refid="2" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CInputPinController</label>
+        <link refid="class_c_input_pin_controller"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>CLightSwitch</label>
+        <link refid="class_c_light_switch"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>COutputPinController</label>
+        <link refid="class_c_output_pin_controller"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CPinController</label>
+        <link refid="class_c_pin_controller"/>
+      </node>
+    </inheritancegraph>
+    <location file="include/PinController.h" line="12" column="1" bodyfile="include/PinController.h" bodystart="12" bodyend="16"/>
+    <listofallmembers>
+      <member refid="class_c_pin_controller_1aaf9483e2f918e46c7c120f5a8d5c3b35" prot="protected" virt="non-virtual"><scope>CPinController</scope><name>m_bLowLevelIsOn</name></member>
+      <member refid="class_c_pin_controller_1a01332f330cfaba9977464cfe0fdd909a" prot="protected" virt="non-virtual"><scope>CPinController</scope><name>m_nPin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

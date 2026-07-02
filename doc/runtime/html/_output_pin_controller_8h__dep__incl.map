@@ -1,0 +1,9 @@
+<map id="include/OutputPinController.h" name="include/OutputPinController.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,196,31"/>
+<area shape="rect" id="Node000002" href="$_light_switch_8h.html" title=" " alt="" coords="28,79,173,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,44,103,79,98,78,100,49"/>
+<area shape="rect" id="Node000003" href="$_r_g_b_led_8h.html" title=" " alt="" coords="37,153,164,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="102,118,103,153,98,151,99,123"/>
+<area shape="rect" id="Node000004" href="$_sys_status_led_8h.html" title=" " alt="" coords="21,226,180,252"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="102,192,103,227,98,225,99,196"/>
+</map>

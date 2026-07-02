@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="base64_8cpp" kind="file" language="C++">
+    <compoundname>base64.cpp</compoundname>
+    <includes refid="base64_8h" local="yes">ext/base64.h</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ext/base64.h</label>
+        <link refid="base64_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/ext/base64.cpp</label>
+        <link refid="base64_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>chrono</label>
+      </node>
+      <node id="6">
+        <label>iostream</label>
+      </node>
+      <node id="4">
+        <label>string.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="base64_8cpp_1a138334b45447503fcbfc63928fb87194" prot="public" static="no">
+        <name>SEXTET_A</name>
+        <param><defname>byte0</defname></param>
+        <initializer>(byte0 &gt;&gt; 2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ext/base64.cpp" line="129" column="11"/>
+      </memberdef>
+      <memberdef kind="define" id="base64_8cpp_1ab504d4f23f6e8b88b5eef82d9192a280" prot="public" static="no">
+        <name>SEXTET_B</name>
+        <param><defname>byte0</defname></param>
+        <param><defname>byte1</defname></param>
+        <initializer>(((0x3&amp;byte0) &lt;&lt; 4) | (byte1 &gt;&gt; 4))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ext/base64.cpp" line="139" column="11"/>
+      </memberdef>
+      <memberdef kind="define" id="base64_8cpp_1ab893b1ec131ff5a1de6b360fad8b85b3" prot="public" static="no">
+        <name>SEXTET_C</name>
+        <param><defname>byte1</defname></param>
+        <param><defname>byte2</defname></param>
+        <initializer>(((0xf&amp;byte1) &lt;&lt; 2) | (byte2 &gt;&gt; 6))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ext/base64.cpp" line="149" column="11"/>
+      </memberdef>
+      <memberdef kind="define" id="base64_8cpp_1a5164ccd83d912e2bbdc4af304ae48b54" prot="public" static="no">
+        <name>SEXTET_D</name>
+        <param><defname>byte2</defname></param>
+        <initializer>(0x3f&amp;byte2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ext/base64.cpp" line="156" column="11"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="base64_8cpp_1aca8584553aa2f611155a6cb90feeba78" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* b64</definition>
+        <argsstring></argsstring>
+        <name>b64</name>
+        <initializer>=&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ext/base64.cpp" line="7" column="19" bodyfile="src/ext/base64.cpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="base64_8cpp_1add723c96dfb00e8d53d12f2d8076e714" prot="public" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char unb64[]</definition>
+        <argsstring>[]</argsstring>
+        <name>unb64</name>
+        <initializer>                                ={
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,  62,   0,   0,   0,  63,  52,  53, 
+ 54,  55,  56,  57,  58,  59,  60,  61,   0,   0, 
+  0,   0,   0,   0,   0,   0,   1,   2,   3,   4, 
+  5,   6,   7,   8,   9,  10,  11,  12,  13,  14, 
+ 15,  16,  17,  18,  19,  20,  21,  22,  23,  24, 
+ 25,   0,   0,   0,   0,   0,   0,  26,  27,  28, 
+ 29,  30,  31,  32,  33,  34,  35,  36,  37,  38, 
+ 39,  40,  41,  42,  43,  44,  45,  46,  47,  48, 
+ 49,  50,  51,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 
+  0,   0,   0,   0,   0,   0, 
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ext/base64.cpp" line="14" column="28" bodyfile="src/ext/base64.cpp" bodystart="14" bodyend="41"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="base64_8cpp_1aa15ae22fcaa94b4f1086253d39837d45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char * base64</definition>
+        <argsstring>(const void *binaryData, int len, int *flen)</argsstring>
+        <name>base64</name>
+        <param>
+          <type>const void *</type>
+          <declname>binaryData</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>flen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ext/base64.cpp" line="51" column="6" bodyfile="src/ext/base64.cpp" bodystart="51" bodyend="228"/>
+      </memberdef>
+      <memberdef kind="function" id="base64_8cpp_1a25eb9f32b4d3312b287a2017ab38adff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char *</type>
+        <definition>unsigned char * unbase64</definition>
+        <argsstring>(const char *ascii, int len, int *flen)</argsstring>
+        <name>unbase64</name>
+        <param>
+          <type>const char *</type>
+          <declname>ascii</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>flen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ext/base64.cpp" line="230" column="15" bodyfile="src/ext/base64.cpp" bodystart="230" bodyend="340"/>
+      </memberdef>
+      <memberdef kind="function" id="base64_8cpp_1afb531a3a8ea720741996706766a63031" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int base64integrity</definition>
+        <argsstring>(const char *ascii, int len)</argsstring>
+        <name>base64integrity</name>
+        <param>
+          <type>const char *</type>
+          <declname>ascii</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ext/base64.cpp" line="347" column="5" bodyfile="src/ext/base64.cpp" bodystart="347" bodyend="410"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/ext/base64.cpp"/>
+  </compounddef>
+</doxygen>

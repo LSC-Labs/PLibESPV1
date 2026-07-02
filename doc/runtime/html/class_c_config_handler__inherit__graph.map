@@ -1,0 +1,7 @@
+<map id="CConfigHandler" name="CConfigHandler">
+<area shape="rect" id="Node000001" title="Configuration handler manager." alt="" coords="5,79,120,105"/>
+<area shape="rect" id="Node000003" href="$class_c_appl.html" title="Central application hub for modules, configuration, status and events." alt="" coords="34,153,91,178"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="64,118,65,153,60,151,61,122"/>
+<area shape="rect" id="Node000002" href="$class_i_config_handler.html" title="Interface for configuration handlers." alt="" coords="8,5,117,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,44,65,79,60,78,62,49"/>
+</map>

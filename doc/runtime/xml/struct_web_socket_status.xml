@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="struct_web_socket_status" kind="struct" language="C++" prot="public">
+    <compoundname>WebSocketStatus</compoundname>
+    <includes refid="_web_socket_8h" local="no">WebSocket.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_web_socket_status_1a6476ab63541c7865d4f6b1e3fba6a83a" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long WebSocketStatus::uptime</definition>
+        <argsstring></argsstring>
+        <name>uptime</name>
+        <qualifiedname>WebSocketStatus::uptime</qualifiedname>
+        <initializer>= <ref refid="_runtime_8h_1a6ff7f2532a22366f0013bc41397129fd" kindref="member">millis</ref>()</initializer>
+        <briefdescription>
+<para><ref refid="_runtime_8h_1a6ff7f2532a22366f0013bc41397129fd" kindref="member">millis()</ref> snapshot used as simple uptime/status marker. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="71" column="10" bodyfile="include/WebSocket.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Runtime status of the WebSocket module. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/WebSocket.h" line="69" column="1" bodyfile="include/WebSocket.h" bodystart="69" bodyend="72"/>
+    <listofallmembers>
+      <member refid="struct_web_socket_status_1a6476ab63541c7865d4f6b1e3fba6a83a" prot="public" virt="non-virtual"><scope>WebSocketStatus</scope><name>uptime</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_async_web_socket" kind="class" language="C++" prot="public">
+    <compoundname>AsyncWebSocket</compoundname>
+    <derivedcompoundref refid="class_c_web_socket" prot="public" virt="non-virtual">CWebSocket</derivedcompoundref>
+    <includes refid="_network_8h" local="no">Network.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_async_web_socket_1a52a86af620b43bd21d70c446aec2509d" prot="private" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String AsyncWebSocket::m_strUrl</definition>
+        <argsstring></argsstring>
+        <name>m_strUrl</name>
+        <qualifiedname>AsyncWebSocket::m_strUrl</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="60" column="16" bodyfile="include/Network.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_async_web_socket_1a652e225f06c344fcd107267e823dce1b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AsyncWebSocket::AsyncWebSocket</definition>
+        <argsstring>(const char *pszUrl=&quot;&quot;)</argsstring>
+        <name>AsyncWebSocket</name>
+        <qualifiedname>AsyncWebSocket::AsyncWebSocket</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszUrl</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="63" column="9" bodyfile="include/Network.h" bodystart="63" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="class_async_web_socket_1afc1cff088d709f9d08ffcfbc791c802a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * AsyncWebSocket::url</definition>
+        <argsstring>()</argsstring>
+        <name>url</name>
+        <qualifiedname>AsyncWebSocket::url</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="64" column="20" bodyfile="include/Network.h" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="class_async_web_socket_1a9e0ba3575505eff5a6df6a4c039348ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void AsyncWebSocket::onEvent</definition>
+        <argsstring>(...)</argsstring>
+        <name>onEvent</name>
+        <qualifiedname>AsyncWebSocket::onEvent</qualifiedname>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="65" column="14" bodyfile="include/Network.h" bodystart="65" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="class_async_web_socket_1a35418e21e7be57bf7f5b5aa009eb265b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void AsyncWebSocket::cleanupClients</definition>
+        <argsstring>()</argsstring>
+        <name>cleanupClients</name>
+        <qualifiedname>AsyncWebSocket::cleanupClients</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="66" column="14" bodyfile="include/Network.h" bodystart="66" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="class_async_web_socket_1a3e745a4a1b0c7a73d1234a7624a288a0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_async_web_socket_message_buffer" kindref="compound">AsyncWebSocketMessageBuffer</ref> *</type>
+        <definition>AsyncWebSocketMessageBuffer * AsyncWebSocket::makeBuffer</definition>
+        <argsstring>(size_t nSize)</argsstring>
+        <name>makeBuffer</name>
+        <qualifiedname>AsyncWebSocket::makeBuffer</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>nSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="67" column="37" bodyfile="include/Network.h" bodystart="67" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="class_async_web_socket_1a2976831d74578e7a41f4a5d89ac31842" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void AsyncWebSocket::textAll</definition>
+        <argsstring>(AsyncWebSocketMessageBuffer *pBuffer)</argsstring>
+        <name>textAll</name>
+        <qualifiedname>AsyncWebSocket::textAll</qualifiedname>
+        <param>
+          <type><ref refid="class_async_web_socket_message_buffer" kindref="compound">AsyncWebSocketMessageBuffer</ref> *</type>
+          <declname>pBuffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="68" column="14" bodyfile="include/Network.h" bodystart="68" bodyend="68"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>AsyncWebSocket</label>
+        <link refid="class_async_web_socket"/>
+      </node>
+      <node id="2">
+        <label>CWebSocket</label>
+        <link refid="class_c_web_socket"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="include/Network.h" line="58" column="1" bodyfile="include/Network.h" bodystart="58" bodyend="69"/>
+    <listofallmembers>
+      <member refid="class_async_web_socket_1a652e225f06c344fcd107267e823dce1b" prot="public" virt="non-virtual"><scope>AsyncWebSocket</scope><name>AsyncWebSocket</name></member>
+      <member refid="class_async_web_socket_1a35418e21e7be57bf7f5b5aa009eb265b" prot="public" virt="non-virtual"><scope>AsyncWebSocket</scope><name>cleanupClients</name></member>
+      <member refid="class_async_web_socket_1a52a86af620b43bd21d70c446aec2509d" prot="private" virt="non-virtual"><scope>AsyncWebSocket</scope><name>m_strUrl</name></member>
+      <member refid="class_async_web_socket_1a3e745a4a1b0c7a73d1234a7624a288a0" prot="public" virt="non-virtual"><scope>AsyncWebSocket</scope><name>makeBuffer</name></member>
+      <member refid="class_async_web_socket_1a9e0ba3575505eff5a6df6a4c039348ad" prot="public" virt="non-virtual"><scope>AsyncWebSocket</scope><name>onEvent</name></member>
+      <member refid="class_async_web_socket_1a2976831d74578e7a41f4a5d89ac31842" prot="public" virt="non-virtual"><scope>AsyncWebSocket</scope><name>textAll</name></member>
+      <member refid="class_async_web_socket_1afc1cff088d709f9d08ffcfbc791c802a" prot="public" virt="non-virtual"><scope>AsyncWebSocket</scope><name>url</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

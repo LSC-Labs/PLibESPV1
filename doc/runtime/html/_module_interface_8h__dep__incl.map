@@ -1,0 +1,19 @@
+<map id="include/ModuleInterface.h" name="include/ModuleInterface.h">
+<area shape="rect" id="Node000001" title="Full Interface for a module and an abstract basic module implementation." alt="" coords="538,5,709,31"/>
+<area shape="rect" id="Node000002" href="$_appl_8h.html" title="Application Main Class." alt="" coords="392,79,495,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="581,36,475,81,473,76,576,38"/>
+<area shape="rect" id="Node000007" href="$_appl_module_8h.html" title=" " alt="" coords="732,79,878,105"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="669,34,777,78,771,78,668,40"/>
+<area shape="rect" id="Node000003" href="$_m_d_n_s_controller_8h.html" title="MDNS Controller class definition ESP MDNS controller to handle mDNS responder start/stop on WiFi even..." alt="" coords="5,153,178,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="377,109,152,155,151,149,376,104"/>
+<area shape="rect" id="Node000004" href="$_n_t_p_handler_8h.html" title=" " alt="" coords="201,153,350,178"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="404,111,305,155,303,150,398,112"/>
+<area shape="rect" id="Node000005" href="$_web_server_8h.html" title=" " alt="" coords="373,153,514,178"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="445,118,446,154,441,151,442,122"/>
+<area shape="rect" id="Node000006" href="$_wi_fi_controller_8h.html" title="WiFi Controller to handle Access Point and Station Mode." alt="" coords="537,153,696,178"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="487,108,590,152,585,152,486,114"/>
+<area shape="rect" id="Node000008" href="$_battery_measure_8h.html" title=" " alt="" coords="720,153,890,178"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="807,118,807,154,803,150,803,122"/>
+<area shape="rect" id="Node000009" href="$_m_q_t_t_controller_8h.html" title=" " alt="" coords="914,153,1083,178"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="852,108,968,152,963,152,851,113"/>
+</map>

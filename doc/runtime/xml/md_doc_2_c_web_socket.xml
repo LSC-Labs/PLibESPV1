@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="md_doc_2_c_web_socket" kind="page">
+    <compoundname>md_doc_2_c_web_socket</compoundname>
+    <title>CWebSocket</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md_doc_2_c_web_socket_1autotoc_md16"/></para>
+<para>The Websocket is a subset of the Webserver.</para>
+<para>If you want to use Websocket communication, you have to instanciate the class <ref refid="class_c_web_socket" kindref="compound">CWebSocket</ref>, register it at the WebSever object and call dispatch() in the loop.</para>
+<para>As the Websocket runs async, an incomming message will be stored in the message queue of the <ref refid="class_c_web_socket" kindref="compound">CWebSocket</ref> object, to avoid timeouts in the interrupt. <simplesect kind="see"><para>also documentation of the AsyncWebserver documentation.</para>
+</simplesect>
+Per default, there are already some functionalities implemented in the dispatch() function that will be processed by default. The expected message is a json message in the format: <programlisting><codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;command&quot;<sp/>:<sp/>&quot;&lt;command&gt;&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;token&quot;<sp/><sp/><sp/>:<sp/>&quot;&lt;AccessToken&gt;&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;payload&quot;<sp/>:<sp/>{<sp/>&lt;The<sp/>payload<sp/>of<sp/>the<sp/>command&gt;<sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+<para>The command is not case sensitive. If an authentication is neede, the call needs a valid access token, which is generated due the signin phase. If a function is called without an authentication token, the command will be revoced with an access denied message.</para>
+<para><table rows="8" cols="4"><row>
+<entry thead="yes"><para>Command  </para>
+</entry><entry thead="yes"><para>Auth  </para>
+</entry><entry thead="yes"><para>Functionality  </para>
+</entry><entry thead="yes"><para>Payload  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>getstatus  </para>
+</entry><entry thead="no"><para>no  </para>
+</entry><entry thead="no"><para>the status of the device (without sys information) as a json object. All your modules will have their own section inside this status data  </para>
+</entry><entry thead="no"><para>the status as a json object  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>getconfig  </para>
+</entry><entry thead="no"><para>no  </para>
+</entry><entry thead="no"><para>the device will send its configuration data, passwords are not shown (!)  </para>
+</entry><entry thead="no"><para>the current configuration as a json object  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>getbackup  </para>
+</entry><entry thead="no"><para>yes  </para>
+</entry><entry thead="no"><para>sends the configuration file with passwords in clear text (!). Be aware to keep this file on a save place to ensure your credentials (access, wifi, ...).  </para>
+</entry><entry thead="no"><para>the config of the device with passwords  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>saveconfig  </para>
+</entry><entry thead="no"><para>yes  </para>
+</entry><entry thead="no"><para>Known configuration values will be stored persistent in the device. The device will reboot after the data is persistent. Visible passwords are only inside, if the user (admin) changed the password to a new value  </para>
+</entry><entry thead="no"><para>the changed configuration as a json object.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>restorebackup  </para>
+</entry><entry thead="no"><para>yes  </para>
+</entry><entry thead="no"><para>the payload will be the new configuration file. If passwords are inside, they have to be either in the hidden or in cleartext form.  </para>
+</entry><entry thead="no"><para>the new configuration file.  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>restart  </para>
+</entry><entry thead="no"><para>yes  </para>
+</entry><entry thead="no"><para>restarts the device  </para>
+</entry><entry thead="no"><para>- none -  </para>
+</entry></row>
+<row>
+<entry thead="no"><para>factoryreset  </para>
+</entry><entry thead="no"><para>yes  </para>
+</entry><entry thead="no"><para>deletes the configuration file and starts, as it was in initial state (an access point will be opened)  </para>
+</entry><entry thead="no"><para>- none -  </para>
+</entry></row>
+</table>
+|scanwifi|no|Sends &quot;MSG_WIFI_SCAN&quot; on the application message bus. The WiFi module recognizes this command on the message bus. As soon as the scan is finished, a new message will be sent on the message bus (async). |scanrf433|no|Sends &quot;MSG_RF433_SCAN&quot; on the application message bus. The RF433 module recognizes this command on the message bus. As soon as the scan is finished, a new message will be sent on the message bus (async).</para>
+<sect1 id="md_doc_2_c_web_socket_1autotoc_md17_1s1"><sect2 id="md_doc_2_c_web_socket_1autotoc_md17">
+<title>Access control</title><para>Per default, there are 2 states, authenticated (administrator) or not to get access to a function.</para>
+<para>To set which function is allowed to access, there are the following possibilities:<itemizedlist>
+<listitem><para>define at compile time &quot;WS_NEEDS_AUTH&quot; with the string that contains the command names</para>
+</listitem><listitem><para>set the allowed commands at runtime via the function <computeroutput>setNeedsAuth(strFunctionNames)</computeroutput>. To see which commands needs an authenticated user, use the <computeroutput>getNeedsAuth()</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+</sect2></sect1>
+<sect1 id="md_doc_2_c_web_socket_1autotoc_md18_1s1"><sect2 id="md_doc_2_c_web_socket_1autotoc_md18">
+<title>Own commands</title><para>To implement or enhance the existing commands, override the function <computeroutput>dispatchMessage(WebSocketMessage *pMessage)</computeroutput> </para>
+</sect2></sect1>
+    </detaileddescription>
+    <location file="doc/CWebSocket.md"/>
+  </compounddef>
+</doxygen>

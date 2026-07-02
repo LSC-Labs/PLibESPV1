@@ -42,11 +42,20 @@ const char * MQTT_HA_MSG_OFFLINE        = "offline";
 
 #pragma region Constructor, configuration, status and message receiving
 
+/**
+ * @brief Creates an MQTT controller with an expired reconnect delay.
+ *
+ * Marking the delay as expired allows the first connection attempt as soon as
+ * MQTT is enabled and dispatch/enableConnection runs.
+ */
 CMQTTController::CMQTTController() {
     m_oTryConnectDelay.start(5000,false);
     m_oTryConnectDelay.setExpired();
 }
 
+/**
+ * @brief Releases dynamically generated topic strings.
+ */
 CMQTTController::~CMQTTController() {
     if(m_pszPublishStateTopic)        free(m_pszPublishStateTopic);
     if(m_pszPublishAvailabilityTopic) free(m_pszPublishAvailabilityTopic);
@@ -54,11 +63,12 @@ CMQTTController::~CMQTTController() {
     if(m_pszDeviceCommandTopics)      free(m_pszDeviceCommandTopics);
 }
 /**
- * The session is activ, if MQTT is enabled by user settings
- * and the session is established and connected..
- * If it is not connected but enabled, the session will be started.
- * If a error occured, try to reconnect, if the last error is not critical for 
- * the connection.
+ * @brief Ensures an enabled MQTT connection is running.
+ *
+ * If MQTT is enabled but disconnected and the retry delay has elapsed, this
+ * starts a new connection attempt and notifies the application bus.
+ *
+ * @return true when MQTT is enabled and currently connected.
  */
 bool CMQTTController::enableConnection() {
     if(Config.isEnabled && !connected()) {
@@ -72,6 +82,11 @@ bool CMQTTController::enableConnection() {
     return(Config.isEnabled && connected());
 }
 
+/**
+ * @brief Checks whether a topic belongs to this device topic prefix.
+ * @param pszTopic MQTT topic to inspect.
+ * @return true when the topic starts with PublishTopicPrefix followed by '/'.
+ */
 bool CMQTTController::isDeviceTopic(const char *pszTopic) {
     bool bIsDeviceTopic = false;
     if(pszTopic ) {
@@ -85,6 +100,11 @@ bool CMQTTController::isDeviceTopic(const char *pszTopic) {
     return(bIsDeviceTopic);
 }
 
+/**
+ * @brief Checks whether a topic is below this device's command topic path.
+ * @param pszTopic MQTT topic to inspect.
+ * @return true for topics under PublishTopicPrefix + "/cmd/".
+ */
 bool CMQTTController::isDeviceCommandTopic(const char *pszTopic) {
     bool bIsCommandTopic = false;
     if(isDeviceTopic(pszTopic)) {
@@ -96,6 +116,10 @@ bool CMQTTController::isDeviceCommandTopic(const char *pszTopic) {
 }
 
 
+/**
+ * @brief Gets the cached base topic for device commands.
+ * @return PublishTopicPrefix + "/cmd".
+ */
 const char * CMQTTController::getDeviceCommandBaseTopicPath(){
     if(m_pszDeviceCommandTopics == nullptr) {
         m_pszDeviceCommandTopics = strdup((Config.PublishTopicPrefix + "/cmd").c_str());
@@ -107,6 +131,9 @@ const char * CMQTTController::getDeviceCommandBaseTopicPath(){
 
 #pragma region Application interface implementation
 
+/**
+ * @brief Reads MQTT configuration from JSON.
+ */
 void CMQTTController::readConfigFrom(JsonNode &oCfg) {
     DEBUG_FUNC_START();
     DEBUG_JSON_OBJ(oCfg);
@@ -125,6 +152,9 @@ void CMQTTController::readConfigFrom(JsonNode &oCfg) {
     // Config.SubscribeTopic = Config.PublishTopicPrefix;
 }
 
+/**
+ * @brief Writes MQTT configuration to JSON.
+ */
 void CMQTTController::writeConfigTo(JsonNode &oCfg, bool bHideCritical) {
     DEBUG_FUNC_START();
     oCfg[MQTT_CONFIG_ENABLED]           = Config.isEnabled;
@@ -141,6 +171,9 @@ void CMQTTController::writeConfigTo(JsonNode &oCfg, bool bHideCritical) {
     
 }
 
+/**
+ * @brief Writes MQTT runtime status to JSON.
+ */
 void CMQTTController::writeStatusTo(JsonNode &oStatus, int nLevel) {
     if(nLevel >= STATUS_LEVEL_INFO) {
         oStatus.setValue("isEnabled",       Config.isEnabled);
@@ -152,6 +185,13 @@ void CMQTTController::writeStatusTo(JsonNode &oStatus, int nLevel) {
     }
 }
 
+/**
+ * @brief Handles application events that publish or react to MQTT data.
+ *
+ * Loop events trigger heartbeat publishing. Received MQTT messages can trigger
+ * Home Assistant rediscovery. JSON/text send events are published to configured
+ * device topics.
+ */
 int CMQTTController::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
     // Call the base class receiver first (calls dispatch on MSG_APPL_LOOP)
     int nResult = ApplModule::receiveEvent(pSender,nMsg,pMessage,nClass);
@@ -238,7 +278,7 @@ int CMQTTController::receiveEvent(const void * pSender, int nMsg, const void * p
 
 #pragma region Setup and dispatching for Arduino framework...
 /**
- * @brief set Last Will and register needed handlers
+ * @brief Configures MQTT server, callbacks, last will and starts connecting.
  */
 void CMQTTController::setup(int nPublishInterval) {
     DEBUG_FUNC_START_PARMS("%d",nPublishInterval);
@@ -276,8 +316,10 @@ void CMQTTController::setup(int nPublishInterval) {
 }
 
 /**
- * Main dispatching function,
- * call in main or use Appl.dispatch() in main loop to trigger the dispatching of received messages.
+ * @brief Main MQTT loop hook.
+ *
+ * Keeps the connection alive, publishes heartbeat data and forwards queued
+ * inbound MQTT messages to the application bus.
  */
 void CMQTTController::dispatch() {
     enableConnection();
@@ -295,9 +337,7 @@ void CMQTTController::dispatch() {
 #pragma region Publish functions like a JsonDocument to the Message Broker
 
 /**
- * @brief publish a json objecz on the Message Broker
- * @param strTopic Topic to be published for this device
- * @param oData data to be sent as JsonObject
+ * @brief Publishes a JsonNode on a device-relative topic.
  */
 void CMQTTController::publishDeviceTopic(String strTopic, JsonNode &oData,  int nQOS, bool bRetain)
 {
@@ -307,10 +347,7 @@ void CMQTTController::publishDeviceTopic(String strTopic, JsonNode &oData,  int 
 }
 
 /**
- * @brief publish an JsonObject on the Message Broker
- * unwrappes the JSON object to be sent as char pointer.
- * @param pszTopic Topic to be published for this device as const pointer
- * @param oData data to be sent as JsonObject
+ * @brief Serializes a JsonNode and publishes it on a device-relative topic.
  */
 void CMQTTController::publishDeviceTopic(const char *pszTopic, JsonNode &oData,  int nQOS, bool bRetain)
 {
@@ -324,9 +361,11 @@ void CMQTTController::publishDeviceTopic(const char *pszTopic, JsonNode &oData, 
 }
 
 /**
- * @brief Publish a char pointer on the Message Broker (Workhorse)
- * @param pszTopic pointer to the topic to be sent (required to be valid)
- * @param pszData pointer to the data to be sent (required to be valid)
+ * @brief Publishes text data on a device-relative topic.
+ * @param pszTopic Topic suffix below PublishTopicPrefix.
+ * @param pszData Payload to publish.
+ * @param nQOS MQTT QoS.
+ * @param bRetain Retain flag.
  */
 void CMQTTController::publishDeviceTopic(const char *pszTopic, const char * pszData, int nQOS, bool bRetain)
 {
@@ -343,8 +382,7 @@ void CMQTTController::publishDeviceTopic(const char *pszTopic, const char * pszD
 }
 
 /**
- * @brief send the device state, stored in the json object to the device state topic
- * @param oStateData The device state object to be published on the message bus.
+ * @brief Publishes device state JSON to the state topic.
  */
 void CMQTTController::publishDeviceState(JsonNode & oStateData) {
     DEBUG_FUNC_START();
@@ -352,6 +390,9 @@ void CMQTTController::publishDeviceState(JsonNode & oStateData) {
     DEBUG_FUNC_END();
 }
 
+/**
+ * @brief Publishes device state text to the state topic.
+ */
 void CMQTTController::publishDeviceState(const char * pszStateData) {
     DEBUG_FUNC_START();
     publishDeviceTopic(MQTT_MSG_TOPIC_STATE,pszStateData);
@@ -360,7 +401,8 @@ void CMQTTController::publishDeviceState(const char * pszStateData) {
 
 
 /**
- * Publish a heart beat, when publish interval is set
+ * @brief Publishes a periodic heartbeat/status message.
+ * @param bForceSend true to send regardless of the configured interval.
  */
 void CMQTTController::publishHeartBeat(bool bForceSend) {
     if(connected() && Config.PublishInterval > 0) {
@@ -384,18 +426,21 @@ void CMQTTController::publishHeartBeat(bool bForceSend) {
 // - https://www.home-assistant.io/integrations/mqtt/#discovery-messages-and-availability
 
 /**
- * @brief Register an Component Handler for Home Assistant.
- * If a receiver is already registered with his name, it will be updated.
- * @param pEventReceiver Pointer to the Event Receiver to register
+ * @brief Registers a component hook for Home Assistant discovery.
+ * @param pszComponentName Component name inside the discovery document.
+ * @param pComponentHandler Handler that writes component discovery data.
  */
 void CMQTTController::registerHomeAssistantComponent(const char *pszComponentName, IHomeAssistantComponent *pComponentHandler) {
     m_tComponentHandlerByName.set(pszComponentName,pComponentHandler);
 }
 
 /**
- * @brief Publish the Home Assistant Auto Discovery information for all registered components.
+ * @brief Publishes Home Assistant device discovery information.
+ *
+ * Discovery data is assembled from device metadata, application bus hooks and
+ * registered component handlers.
+ *
  * @see https://www.home-assistant.io/integrations/sensor.mqtt/
- * 
  */
 void CMQTTController::publishHomeAssistantDiscovery() {
     DEBUG_FUNC_START();
@@ -463,7 +508,10 @@ void CMQTTController::publishHomeAssistantDiscovery() {
 
 #pragma region MQTT onEvent handlers
 /**
- * Trigger, when message broker connected
+ * @brief Callback invoked after the broker connection was established.
+ *
+ * Subscribes to Home Assistant status and device command topics, publishes
+ * availability, and notifies the application bus.
  */
 void CMQTTController::onMqttConnect(bool sessionPresent)
 {
@@ -495,7 +543,9 @@ void CMQTTController::onMqttConnect(bool sessionPresent)
 }
 
 /**
- * Trigger, when message broker disconnected
+ * @brief Callback invoked after the broker connection was lost.
+ *
+ * Stores the disconnect reason in Status and emits MSG_MQTT_DISCONNECTED.
  */
 void CMQTTController::onMqttDisconnect(AsyncMqttClientDisconnectReason oReason)
 {
@@ -535,9 +585,10 @@ void CMQTTController::onMqttDisconnect(AsyncMqttClientDisconnectReason oReason)
 }
 
 /**
- * A message received from the message broker... push the message into a queue and process
- * the main loop with dispatch() or Appl.dispatch() to process the received messages.
- * - remember, you are in an interrupt - so hurry up!
+ * @brief Callback for inbound MQTT payload fragments.
+ *
+ * The callback assembles fragmented payloads in a temporary buffer and queues a
+ * complete MQTTMessage for later dispatch in the main loop.
  */
 void CMQTTController::onMqttMessage(char *pszTopic, char *pszPayload, AsyncMqttClientMessageProperties properties, size_t nLen, size_t nIndex, size_t nTotal)
 {

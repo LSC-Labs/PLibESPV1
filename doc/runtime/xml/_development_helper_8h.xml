@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_development_helper_8h" kind="file" language="C++">
+    <compoundname>DevelopmentHelper.h</compoundname>
+    <includedby refid="_appl_8h" local="no">include/Appl.h</includedby>
+    <includedby refid="_event_handler_8h" local="no">include/EventHandler.h</includedby>
+    <includedby refid="_named_value_table_8h" local="no">include/NamedValueTable.h</includedby>
+    <includedby refid="_web_socket_8h" local="yes">include/WebSocket.h</includedby>
+    <invincdepgraph>
+      <node id="2">
+        <label>include/Appl.h</label>
+        <link refid="_appl_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>include/ApplModule.h</label>
+        <link refid="_appl_module_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>include/BatteryMeasure.h</label>
+        <link refid="_battery_measure_8h"/>
+      </node>
+      <node id="1">
+        <label>include/DevelopmentHelper.h</label>
+        <link refid="_development_helper_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>include/EventHandler.h</label>
+        <link refid="_event_handler_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>include/Logging.h</label>
+        <link refid="_logging_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>include/MDNSController.h</label>
+        <link refid="_m_d_n_s_controller_8h"/>
+      </node>
+      <node id="12">
+        <label>include/MQTTController.h</label>
+        <link refid="_m_q_t_t_controller_8h"/>
+      </node>
+      <node id="9">
+        <label>include/ModuleInterface.h</label>
+        <link refid="_module_interface_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>include/NTPHandler.h</label>
+        <link refid="_n_t_p_handler_8h"/>
+      </node>
+      <node id="15">
+        <label>include/NamedValueTable.h</label>
+        <link refid="_named_value_table_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>include/SysStatusLed.h</label>
+        <link refid="_sys_status_led_8h"/>
+      </node>
+      <node id="5">
+        <label>include/WebServer.h</label>
+        <link refid="_web_server_8h"/>
+      </node>
+      <node id="14">
+        <label>include/WebSocket.h</label>
+        <link refid="_web_socket_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>include/WiFiController.h</label>
+        <link refid="_wi_fi_controller_8h"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" prot="public" static="no">
+        <name>NULL_FUNCTION</name>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="4" column="9" bodyfile="include/DevelopmentHelper.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_development_helper_8h_1aefc1f6292c639e5c379c699dcfc57865" prot="public" static="no">
+        <name>DEBUG_FUNC_START</name>
+        <param></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+<para>Development Helpers. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Modules only available in Developemnet mode, controlled by preprocessor directives</para>
+<para>-D DEBUGINFOS: Insert Debug Infos into the prog, which are removed in final version. DEBUG_FUNC_START : Writes the called function name to serial port DEBUG_FUNC_END : Writes the end of the called function to serial port </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="40" column="13" bodyfile="include/DevelopmentHelper.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_development_helper_8h_1a2834f44be39598b030a616ea1d632657" prot="public" static="no">
+        <name>DEBUG_FUNC_END</name>
+        <param></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="41" column="13" bodyfile="include/DevelopmentHelper.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_development_helper_8h_1adeec7a073c63ec42f7b8d5b172beb24f" prot="public" static="no">
+        <name>DEBUG_FUNC_START_PARMS</name>
+        <param><defname>str</defname></param>
+        <param><defname>...</defname></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="42" column="13" bodyfile="include/DevelopmentHelper.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_development_helper_8h_1ab346c70d02a2b89b268fc717a2e73f84" prot="public" static="no">
+        <name>DEBUG_FUNC_END_PARMS</name>
+        <param><defname>str</defname></param>
+        <param><defname>...</defname></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="43" column="13" bodyfile="include/DevelopmentHelper.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_development_helper_8h_1ac3b786cc5c37142cca3992333737de61" prot="public" static="no">
+        <name>DEBUG_INFOS</name>
+        <param><defname>str</defname></param>
+        <param><defname>...</defname></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="44" column="13" bodyfile="include/DevelopmentHelper.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_development_helper_8h_1a5e6a59bd575ddf0f39e834507fa20474" prot="public" static="no">
+        <name>DEBUG_INFO</name>
+        <param><defname>str</defname></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="45" column="13" bodyfile="include/DevelopmentHelper.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_development_helper_8h_1a70f9e69ad3c7fab3e3326a6940ef265f" prot="public" static="no">
+        <name>DEBUG_FUNC_INFOS</name>
+        <param><defname>str</defname></param>
+        <param><defname>...</defname></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="46" column="13" bodyfile="include/DevelopmentHelper.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_development_helper_8h_1a3b6e064c68de900ce65523b12f79c248" prot="public" static="no">
+        <name>DEBUG_FUNC_INFO</name>
+        <param><defname>str</defname></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="47" column="13" bodyfile="include/DevelopmentHelper.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_development_helper_8h_1aaafa95ee185d4dc6a9c2e860da0036b8" prot="public" static="no">
+        <name>DEBUG_JSON_OBJ</name>
+        <param><defname>oJsonObj</defname></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="48" column="13" bodyfile="include/DevelopmentHelper.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_development_helper_8h_1a61f41e17e8e936b83d9eaef0b9f57394" prot="public" static="no">
+        <name>DEBUG_DELAY</name>
+        <param><defname>ms</defname></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="49" column="13" bodyfile="include/DevelopmentHelper.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_development_helper_8h_1a29ebbbccb9ef2ffa9e3a0548da3a809f" prot="public" static="no">
+        <name>DEBUG_TODO</name>
+        <param><defname>str</defname></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="50" column="13" bodyfile="include/DevelopmentHelper.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_development_helper_8h_1ad1c0d63db6dd5dd00383ef2e491e9bee" prot="public" static="no">
+        <name>DEBUG_TODO_INFUNC</name>
+        <param><defname>str</defname></param>
+        <initializer><ref refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kindref="member">NULL_FUNCTION</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="51" column="13" bodyfile="include/DevelopmentHelper.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_development_helper_8h_1a783bc2c00530d945c8e7ad11bc307342" prot="public" static="no">
+        <name>NULL_POINTER_STRING</name>
+        <param><defname>str</defname></param>
+        <initializer>(str == nullptr ? &quot;-nullptr-&quot; : str)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DevelopmentHelper.h" line="56" column="9" bodyfile="include/DevelopmentHelper.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/DevelopmentHelper.h"/>
+  </compounddef>
+</doxygen>

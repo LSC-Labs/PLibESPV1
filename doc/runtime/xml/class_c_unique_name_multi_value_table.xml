@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_unique_name_multi_value_table" kind="class" language="C++" prot="public">
+    <compoundname>CUniqueNameMultiValueTable</compoundname>
+    <basecompoundref refid="class_c_named_value_table" prot="public" virt="non-virtual">CNamedValueTable&lt; TValue &gt;</basecompoundref>
+    <includes refid="_named_value_table_8h" local="no">NamedValueTable.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename TValue</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_unique_name_multi_value_table_1a7f4a09288c2a2b72e9e6de42403fec46" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CUniqueNameMultiValueTable&lt; TValue &gt;::CUniqueNameMultiValueTable</definition>
+        <argsstring>(bool bCaseSensitiveKey=true, TValue oDefaultValue=0)</argsstring>
+        <name>CUniqueNameMultiValueTable</name>
+        <qualifiedname>CUniqueNameMultiValueTable::CUniqueNameMultiValueTable</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bCaseSensitiveKey</declname>
+          <defval>true</defval>
+        </param>
+        <param>
+          <type>TValue</type>
+          <declname>oDefaultValue</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Creates a table with unique keys and non-unique values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bCaseSensitiveKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>true for case-sensitive key lookup, false for case-insensitive key lookup. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>oDefaultValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value returned by <ref refid="class_c_named_value_table_1a556f87f5cd383b0970a87ee31a52aa88" kindref="member">get()</ref> when no matching key is found. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NamedValueTable.h" line="429" column="9" bodyfile="include/NamedValueTable.h" bodystart="429" bodyend="432"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Named-value table that allows unique names and repeated values. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>A key may appear only once in the table. Setting an existing key updates the stored value. The same value may be stored under multiple different keys.</para>
+<para>This is useful for maps where one name must resolve to one current value, but several names may intentionally share that value.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>TValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of the stored values. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>CNamedValueTable&lt; TValue &gt;</label>
+        <link refid="class_c_named_value_table"/>
+      </node>
+      <node id="1">
+        <label>CUniqueNameMultiValueTable&lt; TValue &gt;</label>
+        <link refid="class_c_unique_name_multi_value_table"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>CNamedValueTable&lt; TValue &gt;</label>
+        <link refid="class_c_named_value_table"/>
+      </node>
+      <node id="1">
+        <label>CUniqueNameMultiValueTable&lt; TValue &gt;</label>
+        <link refid="class_c_unique_name_multi_value_table"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/NamedValueTable.h" line="419" column="1" bodyfile="include/NamedValueTable.h" bodystart="419" bodyend="433"/>
+    <listofallmembers>
+      <member refid="class_c_named_value_table_1a57b5277e14eb0db6a4c133750755f6f5" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>CNamedValueTable</name></member>
+      <member refid="class_c_unique_name_multi_value_table_1a7f4a09288c2a2b72e9e6de42403fec46" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>CUniqueNameMultiValueTable</name></member>
+      <member refid="class_c_named_value_table_1aefbc59eb240091927f75ad119e58a3d8" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>Entries</name></member>
+      <member refid="class_c_named_value_table_1a19dd1dbe6a5e89b853638814bab2381c" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>findEntryByAddress</name></member>
+      <member refid="class_c_named_value_table_1a03faea2824d9aa8867bc5a2bb18eb9b2" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>findFirstByKey</name></member>
+      <member refid="class_c_named_value_table_1a805281fa9b3590ec570e35c75e9ed15b" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>findFirstByValue</name></member>
+      <member refid="class_c_named_value_table_1ae3da6788755f4cbdfc8508279d0125db" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>findNextByKey</name></member>
+      <member refid="class_c_named_value_table_1ac36d447d659c64319b59fe8a07a23b6a" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>findNextByValue</name></member>
+      <member refid="class_c_named_value_table_1a556f87f5cd383b0970a87ee31a52aa88" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>get</name></member>
+      <member refid="class_c_named_value_table_1aef748cf8a06130626fe385c2bd30fc8e" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>getKeys</name></member>
+      <member refid="class_c_named_value_table_1a1ee056a19565d95f01fbe6870d59df55" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>hasKeyEntry</name></member>
+      <member refid="class_c_named_value_table_1ac7871411aef9eaf43f0e51f2f4f05ea9" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>hasValueEntry</name></member>
+      <member refid="class_c_named_value_table_1ac78be826b57d0fa3e6b25f49b9c151a5" prot="protected" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>m_bCaseSensitive</name></member>
+      <member refid="class_c_named_value_table_1ac5f5a0169083861ddf1ecea3316067a1" prot="protected" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>m_bOnlyUniqueKeys</name></member>
+      <member refid="class_c_named_value_table_1a1f24141ab6da395384ac94b0771c0a44" prot="protected" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>m_bOnlyUniqueValues</name></member>
+      <member refid="class_c_named_value_table_1af92a5737ee3a61ff7beb5dd293321f1b" prot="protected" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>m_defaultValue</name></member>
+      <member refid="class_c_named_value_table_1a4e29e8661dcbca41d3d8d6273ee8c857" prot="protected" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>m_tKeyNameCache</name></member>
+      <member refid="class_c_named_value_table_1a6ded152edec08c14135b6e25b8221d27" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>set</name></member>
+      <member refid="class_c_named_value_table_1a7ea63b33e01fcaf51476ec0934843259" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>size</name></member>
+      <member refid="class_c_named_value_table_1afc385682c5fa06f709a626275b912dbc" prot="public" virt="non-virtual"><scope>CUniqueNameMultiValueTable</scope><name>~CNamedValueTable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

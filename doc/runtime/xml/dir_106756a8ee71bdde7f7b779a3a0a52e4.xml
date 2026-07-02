@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="dir_106756a8ee71bdde7f7b779a3a0a52e4" kind="dir">
+    <compoundname>include/ext</compoundname>
+    <innerfile refid="base64_8h">base64.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/ext/"/>
+  </compounddef>
+</doxygen>

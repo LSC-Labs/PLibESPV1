@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="dir_d44c64559bbebec7f509842c48db8b23" kind="dir">
+    <compoundname>include</compoundname>
+    <innerdir refid="dir_106756a8ee71bdde7f7b779a3a0a52e4">include/ext</innerdir>
+    <innerfile refid="_access_token_8h">AccessToken.h</innerfile>
+    <innerfile refid="_a_e_s_cryptor_8h">AESCryptor.h</innerfile>
+    <innerfile refid="_appl_8h">Appl.h</innerfile>
+    <innerfile refid="_appl_module_8h">ApplModule.h</innerfile>
+    <innerfile refid="_base64_data_8h">Base64Data.h</innerfile>
+    <innerfile refid="_battery_measure_8h">BatteryMeasure.h</innerfile>
+    <innerfile refid="_button_8h">Button.h</innerfile>
+    <innerfile refid="_config_handler_8h">ConfigHandler.h</innerfile>
+    <innerfile refid="_development_helper_8h">DevelopmentHelper.h</innerfile>
+    <innerfile refid="_event_handler_8h">EventHandler.h</innerfile>
+    <innerfile refid="_file_system_8h">FileSystem.h</innerfile>
+    <innerfile refid="_input_pin_controller_8h">InputPinController.h</innerfile>
+    <innerfile refid="_json_helper_8h">JsonHelper.h</innerfile>
+    <innerfile refid="_json_node_8h">JsonNode.h</innerfile>
+    <innerfile refid="_light_switch_8h">LightSwitch.h</innerfile>
+    <innerfile refid="_logging_8h">Logging.h</innerfile>
+    <innerfile refid="_l_s_c_utils_8h">LSCUtils.h</innerfile>
+    <innerfile refid="_m_d_n_s_controller_8h">MDNSController.h</innerfile>
+    <innerfile refid="_module_interface_8h">ModuleInterface.h</innerfile>
+    <innerfile refid="_m_q_t_t_controller_8h">MQTTController.h</innerfile>
+    <innerfile refid="_msgs_8h">Msgs.h</innerfile>
+    <innerfile refid="_named_value_table_8h">NamedValueTable.h</innerfile>
+    <innerfile refid="_network_8h">Network.h</innerfile>
+    <innerfile refid="_n_t_p_handler_8h">NTPHandler.h</innerfile>
+    <innerfile refid="_output_pin_controller_8h">OutputPinController.h</innerfile>
+    <innerfile refid="_pin_controller_8h">PinController.h</innerfile>
+    <innerfile refid="_prog_version_8h">ProgVersion.h</innerfile>
+    <innerfile refid="_r_g_b_led_8h">RGBLed.h</innerfile>
+    <innerfile refid="_runtime_8h">Runtime.h</innerfile>
+    <innerfile refid="_security_8h">Security.h</innerfile>
+    <innerfile refid="_simple_delay_8h">SimpleDelay.h</innerfile>
+    <innerfile refid="_status_handler_8h">StatusHandler.h</innerfile>
+    <innerfile refid="_sys_status_8h">SysStatus.h</innerfile>
+    <innerfile refid="_sys_status_led_8h">SysStatusLed.h</innerfile>
+    <innerfile refid="_vars_8h">Vars.h</innerfile>
+    <innerfile refid="_web_server_8h">WebServer.h</innerfile>
+    <innerfile refid="_web_socket_8h">WebSocket.h</innerfile>
+    <innerfile refid="_wi_fi_controller_8h">WiFiController.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/"/>
+  </compounddef>
+</doxygen>

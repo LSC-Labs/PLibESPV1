@@ -9,23 +9,27 @@
 // #define LSC_PIN_PULLDOWN INPUT_PULLDOWN 
 
 
-/// @brief constructor
-/// @param nPin Pin of chip to be controlled
-/// @param bLowLevelIsOn true (default) if level is low, the pin is "On/Activ",
-/// @param bWithPullUpOrDown Use a pull up or a pull down, depending on bLowLevelIsOn
+/**
+ * @brief Creates and configures an input pin controller.
+ * @param nPin GPIO pin to read.
+ * @param bLowLevelIsOn true when LOW should be interpreted as logical ON.
+ * @param bWithPullUpOrDown true to enable an internal pull resistor that matches
+ *        the active level.
+ */
 CInputPinController::CInputPinController(int nPin, bool bLowLevelIsOn, bool bWithPullUpOrDown)
 {
     setup(nPin,bLowLevelIsOn,bWithPullUpOrDown);
 }
 
 /**
- * @brief setup the pin,
- * Keep in mind, on ESP8266 only pin 16 is able to pulldown
- * - If you want to use a pull down on this chip on other pins,
- *   you have to use an external pull down resistor (10 k)
- * @param nPin Pin Number
- * @param bLowLevelIsOn if true, the logical level is on, when signal is low
- * @param bWithPullUpDown if true, a pull up / down is used to get logical low - depending on bLowLevelIsOn.
+ * @brief Configures the GPIO mode and logical active level.
+ *
+ * On ESP8266, only pin 16 supports INPUT_PULLDOWN_16. Other pins need an
+ * external pulldown resistor when LOW must be the inactive state.
+ *
+ * @param nPin GPIO pin number.
+ * @param bLowLevelIsOn true when LOW means logical ON.
+ * @param bWithPullUpDown true to enable an internal pullup or pulldown.
  */
 void CInputPinController::setup(int nPin, bool bLowLevelIsOn, bool bWithPullUpDown) {
     DEBUG_FUNC_START_PARMS("%d,%d,%d",nPin,bLowLevelIsOn,bWithPullUpDown);
@@ -46,14 +50,18 @@ void CInputPinController::setup(int nPin, bool bLowLevelIsOn, bool bWithPullUpDo
     pinMode(this->m_nPin,nMode);
 };
 
+/**
+ * @brief Checks whether the configured pin can be used for interrupts.
+ * @return true when digitalPinToInterrupt() reports a valid interrupt number.
+ */
 bool CInputPinController::canSendInterrupts() {
     return(digitalPinToInterrupt(m_nPin) > 0);
 }
 
 /**
- * @brief check if the pin is logical ON/Activ, depending on the setup (bLowLevelIsOn)
- * @return true or false if the pin is logical activ / on
- *  */
+ * @brief Checks if the current GPIO level maps to logical ON.
+ * @return true when the configured active level is currently present.
+ */
 bool CInputPinController::isPinLogicalOn() {
     DEBUG_FUNC_START();
     int nStatus = digitalRead(m_nPin);
@@ -65,9 +73,9 @@ bool CInputPinController::isPinLogicalOn() {
 }
 
 /**
- * @brief check if the pin is logical Off/Inactiv, depending on the setup (bLowLevelIsOn)
- * @return false or true if the pin is logical activ / off
- *  */
+ * @brief Checks if the current GPIO level maps to logical OFF.
+ * @return true when isPinLogicalOn() is false.
+ */
 bool CInputPinController::isPinLogicalOff() {
     return(!isPinLogicalOn());
 }

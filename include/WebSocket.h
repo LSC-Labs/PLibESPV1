@@ -8,17 +8,20 @@
 #include "DevelopmentHelper.h"
 #include <queue>
 
-/**
- * Encapsulates a captured message
- */
+/// @brief Owns a complete WebSocket message assembled from one or more frames.
 class CWebSocketMessage {
 
     public:
-        size_t                MessageSize          = 0;         // total size of this message
-        char                 *pSerializedMessage   = nullptr;   // serialized message content
-        int                   MessageType          = 0;         // e.g., text (WS_TEXT), binary, etc.
-        AsyncWebSocket       *pSocket              = NULL;      // Socket, receiving the message
-        AsyncWebSocketClient *pClient              = NULL;      // Client, sending the message
+        /// @brief Total expected size of the assembled message.
+        size_t                MessageSize          = 0;
+        /// @brief Zero-terminated assembled message buffer.
+        char                 *pSerializedMessage   = nullptr;
+        /// @brief WebSocket message type, for example WS_TEXT or WS_BINARY.
+        int                   MessageType          = 0;
+        /// @brief Socket that received the message.
+        AsyncWebSocket       *pSocket              = NULL;
+        /// @brief Client that sent the message.
+        AsyncWebSocketClient *pClient              = NULL;
         
         /**
          * @brief Construct a new Web Socket Message object
@@ -38,6 +41,7 @@ class CWebSocketMessage {
             DEBUG_FUNC_END();
         };
 
+        /// @brief Release the assembled message buffer.
         ~CWebSocketMessage() {
             if (pSerializedMessage != NULL) {
                 free(pSerializedMessage);
@@ -61,7 +65,9 @@ class CWebSocketMessage {
         
 };
 
+/// @brief Runtime status of the WebSocket module.
 struct WebSocketStatus {
+    /// @brief millis() snapshot used as simple uptime/status marker.
     long uptime = millis();
 };
 
@@ -72,6 +78,13 @@ struct WebSocketStatus {
 /// @brief Function pointer to register the routes
 // typedef void (funcDispatchMessage)(const WebSocketMessage *pMessage);
 
+/**
+ * @brief WebSocket endpoint that queues messages and dispatches JSON commands.
+ *
+ * Incoming multi-frame messages are captured as CWebSocketMessage objects,
+ * queued, and later dispatched from the application loop. Selected commands can
+ * require authentication before they are processed.
+ */
 class CWebSocket : public AsyncWebSocket, public IMsgEventReceiver {
     private:
         std::queue<CWebSocketMessage *> m_tMsgQueue;
@@ -83,21 +96,34 @@ class CWebSocket : public AsyncWebSocket, public IMsgEventReceiver {
         WebSocketStatus Status; // The status info of the Websocket
 
     public:
+        /// @brief Create a WebSocket endpoint and optionally register on the message bus.
         CWebSocket(const char *pszSocketName, bool bRegisterOnMsgBus = true);
+        /// @brief Dispatch all queued WebSocket messages.
 		void dispatchMessageQueue();
+        /// @brief Dispatch one assembled WebSocket message.
 		virtual bool dispatchMessage(CWebSocketMessage *pMessage);
+        /// @brief Dispatch one parsed JSON WebSocket request.
         virtual bool dispatchJsonMessage(JsonNode &oJsonRequest, CWebSocketMessage *pMessage);   
+        /// @brief Replace the comma-separated list of commands that require auth.
 		virtual String setNeedsAuth(const String &strCommands);
+        /// @brief Return the comma-separated list of commands that require auth.
         virtual String getNeedsAuth();
+        /// @brief Return true if the command requires authentication.
         virtual bool inline needsAuth(String &strCommand);
+        /// @brief React to application loop/status events.
         int receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType);
+        /// @brief AsyncWebSocket callback used to capture incoming frames/events.
         virtual void onWebSocketEvent(AsyncWebSocket *pServer, AsyncWebSocketClient *pClient, AwsEventType eType, void *arg, uint8_t *pData, size_t nLen);
 		
+        /// @brief Send a JSON access-denied response to a client.
         void ICACHE_FLASH_ATTR sendAccessDeniedMessage(JsonNode &oDoc,AsyncWebSocketClient *pClient);
+        /// @brief Serialize and send a JSON document to one client or all clients.
 		void ICACHE_FLASH_ATTR sendJsonDocMessage(JsonNode &oDoc, AsyncWebSocket *pSocket = nullptr, AsyncWebSocketClient *pClient = nullptr);
 	
     private:
         // void addMessageToQueue(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient, int nMessageSize);
+        /// @brief Validate request credentials for authenticated commands.
         bool checkAuth(JsonNode &oRequestDoc, AsyncWebSocketClient *pClient);
+        /// @brief Add an assembled message object to the dispatch queue.
         void addMessageToQueue(CWebSocketMessage *pMsgObj);
 };

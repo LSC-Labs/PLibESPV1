@@ -1,0 +1,674 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_var_table" kind="class" language="C++" prot="public">
+    <compoundname>CVarTable</compoundname>
+    <basecompoundref refid="class_i_config_handler" prot="public" virt="non-virtual">IConfigHandler</basecompoundref>
+    <includes refid="_vars_8h" local="no">Vars.h</includes>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_c_var_table_1a36b5965a0f8fdfaafc1b17f8a1487fa9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class CVar</definition>
+        <argsstring></argsstring>
+        <name>CVar</name>
+        <qualifiedname>CVarTable::CVar</qualifiedname>
+        <param>
+          <type><ref refid="class_c_var" kindref="compound">CVar</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="76" column="26" bodyfile="include/Vars.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_var_table_1a2aa914c45d300e47b4bd028c8846c90c" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="class_c_var" kindref="compound">CVar</ref> * &gt;</type>
+        <definition>std::vector&lt;CVar *&gt; CVarTable::tVarEntries</definition>
+        <argsstring></argsstring>
+        <name>tVarEntries</name>
+        <qualifiedname>CVarTable::tVarEntries</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="77" column="25" bodyfile="include/Vars.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_var_table_1a6858bf2eb47bce967e19c574b829c436" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CVarTable::isCaseSensitive</definition>
+        <argsstring></argsstring>
+        <name>isCaseSensitive</name>
+        <qualifiedname>CVarTable::isCaseSensitive</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="78" column="18" bodyfile="include/Vars.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_c_var_table_1ac3cacc11083009debb37db15e137f764" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CVarTable::prepareKeyName</definition>
+        <argsstring>(char *szKeyName)</argsstring>
+        <name>prepareKeyName</name>
+        <qualifiedname>CVarTable::prepareKeyName</qualifiedname>
+        <param>
+          <type>char *</type>
+          <declname>szKeyName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="81" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a7e78a0beb921cadc539d6426b9c4ffe3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVarTable::getOrCreateVarEntry</definition>
+        <argsstring>(const char *strName)</argsstring>
+        <name>getOrCreateVarEntry</name>
+        <qualifiedname>CVarTable::getOrCreateVarEntry</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>strName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="82" column="19"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_var_table_1a00f8a965bbe384837b48aa13dc84bdfa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CVarTable::CVarTable</definition>
+        <argsstring>(bool bCaseSensitive=false)</argsstring>
+        <name>CVarTable</name>
+        <qualifiedname>CVarTable::CVarTable</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bCaseSensitive</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Create a variable table with optional case-sensitive lookup. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="86" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1ab0bdb76f5cf7ca0becddf282b05e6355" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CVarTable::~CVarTable</definition>
+        <argsstring>()</argsstring>
+        <name>~CVarTable</name>
+        <qualifiedname>CVarTable::~CVarTable</qualifiedname>
+        <briefdescription>
+<para>Delete all owned variables. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="88" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a82ac79e0fd144b22a15cb278ed0f08c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CVarTable::hasCriticalVars</definition>
+        <argsstring>()</argsstring>
+        <name>hasCriticalVars</name>
+        <qualifiedname>CVarTable::hasCriticalVars</qualifiedname>
+        <briefdescription>
+<para>Return true when at least one variable is marked critical. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="90" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1af170af25839b070fbd4cd56cf5b4f773" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVarTable::find</definition>
+        <argsstring>(const char *)</argsstring>
+        <name>find</name>
+        <qualifiedname>CVarTable::find</qualifiedname>
+        <param>
+          <type>const char *</type>
+        </param>
+        <briefdescription>
+<para>Find a variable by name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="93" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a3fe0f2b09ed119504028a39281f71d1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVarTable::find</definition>
+        <argsstring>(String)</argsstring>
+        <name>find</name>
+        <qualifiedname>CVarTable::find</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        </param>
+        <briefdescription>
+<para>Find a variable by String name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="95" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1ae75eda1831ad4a49c52f2ab774d93c9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVarTable::set</definition>
+        <argsstring>(String strName, String strValue)</argsstring>
+        <name>set</name>
+        <qualifiedname>CVarTable::set</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+          <declname>strName</declname>
+        </param>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+          <declname>strValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create a String variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="102" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a830f2f1dfd7192109ee03000ef7371e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVarTable::set</definition>
+        <argsstring>(String strName, const int nValue)</argsstring>
+        <name>set</name>
+        <qualifiedname>CVarTable::set</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+          <declname>strName</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>nValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create an integer variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="104" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a49fcdb0224b58d2e832fd0151f4104ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVarTable::set</definition>
+        <argsstring>(String strName, const unsigned long ulValue)</argsstring>
+        <name>set</name>
+        <qualifiedname>CVarTable::set</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+          <declname>strName</declname>
+        </param>
+        <param>
+          <type>const unsigned long</type>
+          <declname>ulValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create an unsigned long variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="106" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a1e35a418930b05a83d7cb7a7a8737895" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVarTable::set</definition>
+        <argsstring>(String strName, bool bValue)</argsstring>
+        <name>set</name>
+        <qualifiedname>CVarTable::set</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+          <declname>strName</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create a boolean variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="108" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a0b35a9deaf9c0975a0f41c213acef87f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVarTable::set</definition>
+        <argsstring>(const char *pszName, String strValue)</argsstring>
+        <name>set</name>
+        <qualifiedname>CVarTable::set</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+          <declname>strValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create a variable from C-string name and String value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="110" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a58580a0f0c909e83ba84763f43fc203c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVarTable::set</definition>
+        <argsstring>(const char *pszName, const char *pszValue)</argsstring>
+        <name>set</name>
+        <qualifiedname>CVarTable::set</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create a string variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="113" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1af4d2679978d3c69350537de8f7fb9e5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVarTable::set</definition>
+        <argsstring>(const char *pszName, const int nValue)</argsstring>
+        <name>set</name>
+        <qualifiedname>CVarTable::set</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>nValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create an integer variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="115" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1ae49a4d40ef1b2c14caf67b4cbb9cd978" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVarTable::set</definition>
+        <argsstring>(const char *pszName, const unsigned long ulValue)</argsstring>
+        <name>set</name>
+        <qualifiedname>CVarTable::set</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>const unsigned long</type>
+          <declname>ulValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create an unsigned long variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="117" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1ada860e2bdcd7ac5a9c1e4427ed0da351" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_var" kindref="compound">CVar</ref> *</type>
+        <definition>CVar * CVarTable::set</definition>
+        <argsstring>(const char *pszName, bool bValue)</argsstring>
+        <name>set</name>
+        <qualifiedname>CVarTable::set</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create a boolean variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="119" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a32db778879aa41f62236e7cf6fde65ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CVarTable::getValue</definition>
+        <argsstring>(String &amp;strName, const char *pszDefault)</argsstring>
+        <name>getValue</name>
+        <qualifiedname>CVarTable::getValue</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strName</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszDefault</declname>
+        </param>
+        <briefdescription>
+<para>Return a String-named value or the default. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="123" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a5ab3571e9ce2bd5ae39c98abfd3c7ed3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CVarTable::getValue</definition>
+        <argsstring>(String &amp;strName, String &amp;strDefault)</argsstring>
+        <name>getValue</name>
+        <qualifiedname>CVarTable::getValue</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strName</declname>
+        </param>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strDefault</declname>
+        </param>
+        <briefdescription>
+<para>Return a String-named value or the default String value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="125" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a9b0dbb8c8007893a914713e5117e8149" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int CVarTable::getIntValue</definition>
+        <argsstring>(String &amp;strName, int nDefault)</argsstring>
+        <name>getIntValue</name>
+        <qualifiedname>CVarTable::getIntValue</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strName</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nDefault</declname>
+        </param>
+        <briefdescription>
+<para>Return a String-named value converted to int. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="127" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a88a5a389c91cc9845dff8a812767406b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CVarTable::getBoolValue</definition>
+        <argsstring>(String &amp;strName, bool bDefault)</argsstring>
+        <name>getBoolValue</name>
+        <qualifiedname>CVarTable::getBoolValue</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strName</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bDefault</declname>
+        </param>
+        <briefdescription>
+<para>Return a String-named value converted to bool. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="129" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a2ae5d9a7152cb1d54054db5bae349e98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CVarTable::getValue</definition>
+        <argsstring>(const char *pszName, const char *pszDefault)</argsstring>
+        <name>getValue</name>
+        <qualifiedname>CVarTable::getValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszDefault</declname>
+        </param>
+        <briefdescription>
+<para>Return a value by C-string name or the default. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="132" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a8634b8c8a19ea743992e37a36be53ca0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int CVarTable::getIntValue</definition>
+        <argsstring>(const char *pszName, int nDefault)</argsstring>
+        <name>getIntValue</name>
+        <qualifiedname>CVarTable::getIntValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nDefault</declname>
+        </param>
+        <briefdescription>
+<para>Return a C-string named value converted to int. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="134" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1aa6e3f30e30f40e6e0f34a6c50fc1eee2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CVarTable::getBoolValue</definition>
+        <argsstring>(const char *pszName, bool bDefault)</argsstring>
+        <name>getBoolValue</name>
+        <qualifiedname>CVarTable::getBoolValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bDefault</declname>
+        </param>
+        <briefdescription>
+<para>Return a C-string named value converted to bool. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="136" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1ac4e51df043bd8798c8f0e9f0d00841c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CVarTable::writeConfigTo</definition>
+        <argsstring>(JsonNode &amp;oCfgObj, bool bHideCritical) override</argsstring>
+        <name>writeConfigTo</name>
+        <qualifiedname>CVarTable::writeConfigTo</qualifiedname>
+        <reimplements refid="class_i_config_handler_1a3507b2ec7bef0a1ec0a7f90da0ec32f2">writeConfigTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfgObj</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bHideCritical</declname>
+        </param>
+        <briefdescription>
+<para>Write table values into a JSON config node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="152" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a3aa034f6f7c46125f2c3d7640ae434db" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CVarTable::readConfigFrom</definition>
+        <argsstring>(JsonNode &amp;oCfgObj) override</argsstring>
+        <name>readConfigFrom</name>
+        <qualifiedname>CVarTable::readConfigFrom</qualifiedname>
+        <reimplements refid="class_i_config_handler_1a4c43c53522b0408972d6573e91d1e63e">readConfigFrom</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oCfgObj</declname>
+        </param>
+        <briefdescription>
+<para>Read table values from a JSON config node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="154" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_var_table_1a2e95f97f9da8d6653599a8af8b118bdf" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool CVarTable::hasConfigValues</definition>
+        <argsstring>() override</argsstring>
+        <name>hasConfigValues</name>
+        <qualifiedname>CVarTable::hasConfigValues</qualifiedname>
+        <reimplements refid="class_i_config_handler_1a6011c82a3fe9d10ef0ea54d848557f4c">hasConfigValues</reimplements>
+        <briefdescription>
+<para>Return true when the table contains at least one variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Vars.h" line="156" column="26"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Collection of named variables exposed through <ref refid="class_i_config_handler" kindref="compound">IConfigHandler</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>CVarTable</label>
+        <link refid="class_c_var_table"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>CVarTable</label>
+        <link refid="class_c_var_table"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/Vars.h" line="75" column="5" bodyfile="include/Vars.h" bodystart="75" bodyend="157"/>
+    <listofallmembers>
+      <member refid="class_c_var_table_1a36b5965a0f8fdfaafc1b17f8a1487fa9" prot="private" virt="non-virtual"><scope>CVarTable</scope><name>CVar</name></member>
+      <member refid="class_c_var_table_1a00f8a965bbe384837b48aa13dc84bdfa" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>CVarTable</name></member>
+      <member refid="class_c_var_table_1af170af25839b070fbd4cd56cf5b4f773" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>find</name></member>
+      <member refid="class_c_var_table_1a3fe0f2b09ed119504028a39281f71d1b" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>find</name></member>
+      <member refid="class_c_var_table_1a88a5a389c91cc9845dff8a812767406b" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>getBoolValue</name></member>
+      <member refid="class_c_var_table_1aa6e3f30e30f40e6e0f34a6c50fc1eee2" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>getBoolValue</name></member>
+      <member refid="class_c_var_table_1a9b0dbb8c8007893a914713e5117e8149" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>getIntValue</name></member>
+      <member refid="class_c_var_table_1a8634b8c8a19ea743992e37a36be53ca0" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>getIntValue</name></member>
+      <member refid="class_c_var_table_1a7e78a0beb921cadc539d6426b9c4ffe3" prot="protected" virt="non-virtual"><scope>CVarTable</scope><name>getOrCreateVarEntry</name></member>
+      <member refid="class_c_var_table_1a32db778879aa41f62236e7cf6fde65ea" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>getValue</name></member>
+      <member refid="class_c_var_table_1a5ab3571e9ce2bd5ae39c98abfd3c7ed3" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>getValue</name></member>
+      <member refid="class_c_var_table_1a2ae5d9a7152cb1d54054db5bae349e98" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>getValue</name></member>
+      <member refid="class_c_var_table_1a2e95f97f9da8d6653599a8af8b118bdf" prot="public" virt="virtual"><scope>CVarTable</scope><name>hasConfigValues</name></member>
+      <member refid="class_c_var_table_1a82ac79e0fd144b22a15cb278ed0f08c0" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>hasCriticalVars</name></member>
+      <member refid="class_c_var_table_1a6858bf2eb47bce967e19c574b829c436" prot="private" virt="non-virtual"><scope>CVarTable</scope><name>isCaseSensitive</name></member>
+      <member refid="class_i_config_handler_1a8a92be059bfaca6c233419763865a5f4" prot="public" virt="virtual"><scope>CVarTable</scope><name>migrateConfig</name></member>
+      <member refid="class_c_var_table_1ac3cacc11083009debb37db15e137f764" prot="protected" virt="non-virtual"><scope>CVarTable</scope><name>prepareKeyName</name></member>
+      <member refid="class_c_var_table_1a3aa034f6f7c46125f2c3d7640ae434db" prot="public" virt="virtual"><scope>CVarTable</scope><name>readConfigFrom</name></member>
+      <member refid="class_c_var_table_1ae75eda1831ad4a49c52f2ab774d93c9e" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>set</name></member>
+      <member refid="class_c_var_table_1a830f2f1dfd7192109ee03000ef7371e9" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>set</name></member>
+      <member refid="class_c_var_table_1a49fcdb0224b58d2e832fd0151f4104ac" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>set</name></member>
+      <member refid="class_c_var_table_1a1e35a418930b05a83d7cb7a7a8737895" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>set</name></member>
+      <member refid="class_c_var_table_1a0b35a9deaf9c0975a0f41c213acef87f" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>set</name></member>
+      <member refid="class_c_var_table_1a58580a0f0c909e83ba84763f43fc203c" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>set</name></member>
+      <member refid="class_c_var_table_1af4d2679978d3c69350537de8f7fb9e5a" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>set</name></member>
+      <member refid="class_c_var_table_1ae49a4d40ef1b2c14caf67b4cbb9cd978" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>set</name></member>
+      <member refid="class_c_var_table_1ada860e2bdcd7ac5a9c1e4427ed0da351" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>set</name></member>
+      <member refid="class_c_var_table_1a2aa914c45d300e47b4bd028c8846c90c" prot="private" virt="non-virtual"><scope>CVarTable</scope><name>tVarEntries</name></member>
+      <member refid="class_c_var_table_1ac4e51df043bd8798c8f0e9f0d00841c9" prot="public" virt="virtual"><scope>CVarTable</scope><name>writeConfigTo</name></member>
+      <member refid="class_c_var_table_1ab0bdb76f5cf7ca0becddf282b05e6355" prot="public" virt="non-virtual"><scope>CVarTable</scope><name>~CVarTable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_async_mqtt_client" kind="class" language="C++" prot="public">
+    <compoundname>AsyncMqttClient</compoundname>
+    <derivedcompoundref refid="class_c_m_q_t_t_controller" prot="public" virt="non-virtual">CMQTTController</derivedcompoundref>
+    <includes refid="_m_q_t_t_controller_8h" local="no">MQTTController.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_async_mqtt_client_1a596f3fbd302edd381a24a267bb120978" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool AsyncMqttClient::connected</definition>
+        <argsstring>()</argsstring>
+        <name>connected</name>
+        <qualifiedname>AsyncMqttClient::connected</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="20" column="18" bodyfile="include/MQTTController.h" bodystart="20" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_async_mqtt_client_1aef8a53f05ea5f1cd39bea2210a631b7f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void AsyncMqttClient::connect</definition>
+        <argsstring>()</argsstring>
+        <name>connect</name>
+        <qualifiedname>AsyncMqttClient::connect</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="21" column="18" bodyfile="include/MQTTController.h" bodystart="21" bodyend="21"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>AsyncMqttClient</label>
+        <link refid="class_async_mqtt_client"/>
+      </node>
+      <node id="2">
+        <label>CMQTTController</label>
+        <link refid="class_c_m_q_t_t_controller"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="include/MQTTController.h" line="18" column="5" bodyfile="include/MQTTController.h" bodystart="18" bodyend="22"/>
+    <listofallmembers>
+      <member refid="class_async_mqtt_client_1aef8a53f05ea5f1cd39bea2210a631b7f" prot="public" virt="non-virtual"><scope>AsyncMqttClient</scope><name>connect</name></member>
+      <member refid="class_async_mqtt_client_1a596f3fbd302edd381a24a267bb120978" prot="public" virt="non-virtual"><scope>AsyncMqttClient</scope><name>connected</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

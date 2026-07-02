@@ -1,0 +1,457 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_c_wi_fi_controller_8cpp" kind="file" language="C++">
+    <compoundname>CWiFiController.cpp</compoundname>
+    <includes refid="_appl_8h" local="no">Appl.h</includes>
+    <includes refid="_msgs_8h" local="no">Msgs.h</includes>
+    <includes refid="_event_handler_8h" local="no">EventHandler.h</includes>
+    <includes refid="_json_helper_8h" local="no">JsonHelper.h</includes>
+    <includes refid="_wi_fi_controller_8h" local="no">WiFiController.h</includes>
+    <includes refid="_l_s_c_utils_8h" local="no">LSCUtils.h</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>Appl.h</label>
+        <link refid="_appl_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>ConfigHandler.h</label>
+        <link refid="_config_handler_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>DevelopmentHelper.h</label>
+        <link refid="_development_helper_8h"/>
+      </node>
+      <node id="15">
+        <label>EventHandler.h</label>
+        <link refid="_event_handler_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>JsonHelper.h</label>
+        <link refid="_json_helper_8h"/>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>JsonNode.h</label>
+        <link refid="_json_node_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>LSCUtils.h</label>
+        <link refid="_l_s_c_utils_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>Logging.h</label>
+        <link refid="_logging_8h"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>ModuleInterface.h</label>
+        <link refid="_module_interface_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>Msgs.h</label>
+        <link refid="_msgs_8h"/>
+      </node>
+      <node id="18">
+        <label>NamedValueTable.h</label>
+        <link refid="_named_value_table_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>Network.h</label>
+        <link refid="_network_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>StatusHandler.h</label>
+        <link refid="_status_handler_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>SysStatus.h</label>
+        <link refid="_sys_status_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>Vars.h</label>
+        <link refid="_vars_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>WiFiController.h</label>
+        <link refid="_wi_fi_controller_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/CWiFiController.cpp</label>
+        <link refid="_c_wi_fi_controller_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>ArduinoJson.h</label>
+      </node>
+      <node id="11">
+        <label>Esp.h</label>
+      </node>
+      <node id="27">
+        <label>IPAddress.h</label>
+      </node>
+      <node id="5">
+        <label>chrono</label>
+      </node>
+      <node id="16">
+        <label>functional</label>
+      </node>
+      <node id="6">
+        <label>iostream</label>
+      </node>
+      <node id="12">
+        <label>memory</label>
+      </node>
+      <node id="17">
+        <label>queue</label>
+      </node>
+      <node id="23">
+        <label>stdarg.h</label>
+      </node>
+      <node id="4">
+        <label>string.h</label>
+      </node>
+      <node id="10">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespace_l_s_c___w_i_f_i">LSC_WIFI</innernamespace>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1a95dee101fc66734b6c9f582c3398a701" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_AP_MODE</definition>
+        <argsstring></argsstring>
+        <name>WIFI_AP_MODE</name>
+        <initializer>= &quot;ap_mode&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="14" column="13" bodyfile="src/CWiFiController.cpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1a4f32bdd1135d9715475c7bd8a356fc43" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_AP_SSID</definition>
+        <argsstring></argsstring>
+        <name>WIFI_AP_SSID</name>
+        <initializer>= &quot;ap_ssid&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="15" column="13" bodyfile="src/CWiFiController.cpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1a028bd4022692a34c69152c6252f393d4" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_AP_CHANNEL</definition>
+        <argsstring></argsstring>
+        <name>WIFI_AP_CHANNEL</name>
+        <initializer>= &quot;ap_channel&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="16" column="13" bodyfile="src/CWiFiController.cpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1ad91360cece81fd43342acd5adc33c8f6" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_AP_PASSWORD</definition>
+        <argsstring></argsstring>
+        <name>WIFI_AP_PASSWORD</name>
+        <initializer>= &quot;ap_pwd&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="17" column="13" bodyfile="src/CWiFiController.cpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1af3e828ff50d6d46268d42fb770b8a5cf" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_AP_IPADDRESS</definition>
+        <argsstring></argsstring>
+        <name>WIFI_AP_IPADDRESS</name>
+        <initializer>= &quot;ap_ipaddress&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="18" column="13" bodyfile="src/CWiFiController.cpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1acdb35ec343dd20717ee80f22eea713e7" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_AP_SUBNETMASK</definition>
+        <argsstring></argsstring>
+        <name>WIFI_AP_SUBNETMASK</name>
+        <initializer>= &quot;ap_subnet&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="19" column="13" bodyfile="src/CWiFiController.cpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1a6323e8bf10e4e134f650f5bc13519eca" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_FALLBACK_MODE</definition>
+        <argsstring></argsstring>
+        <name>WIFI_FALLBACK_MODE</name>
+        <initializer>= &quot;fallback&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="20" column="13" bodyfile="src/CWiFiController.cpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1ae3e7fa60d758ab35fd70dc3bf10d85eb" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_AP_HIDDEN</definition>
+        <argsstring></argsstring>
+        <name>WIFI_AP_HIDDEN</name>
+        <initializer>= &quot;ap_hide&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="21" column="13" bodyfile="src/CWiFiController.cpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1a586c86c64e7d30517aeee0fe47a25ae4" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_SSID</definition>
+        <argsstring></argsstring>
+        <name>WIFI_SSID</name>
+        <initializer>= &quot;ssid&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="23" column="13" bodyfile="src/CWiFiController.cpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1af3393432b536fd1902d0a4ab8da64ebb" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_BSSID</definition>
+        <argsstring></argsstring>
+        <name>WIFI_BSSID</name>
+        <initializer>= &quot;bssid&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="24" column="13" bodyfile="src/CWiFiController.cpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1a148a1777c915283bcb3f4bf32233e16b" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_PASSWORD</definition>
+        <argsstring></argsstring>
+        <name>WIFI_PASSWORD</name>
+        <initializer>= &quot;wifi_pwd&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="25" column="13" bodyfile="src/CWiFiController.cpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1a83d7bc3a418bf8e9d21c9a8f0a5a422f" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_DHCP</definition>
+        <argsstring></argsstring>
+        <name>WIFI_DHCP</name>
+        <initializer>= &quot;dhcp&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="26" column="13" bodyfile="src/CWiFiController.cpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1a38f3c3eb5426be72349cf5c944d1749f" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_IPADDRESS</definition>
+        <argsstring></argsstring>
+        <name>WIFI_IPADDRESS</name>
+        <initializer>= &quot;ipaddress&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="27" column="13" bodyfile="src/CWiFiController.cpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1a5ca1ccf3c08e0dd127ef8bf5066efd84" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_SUBNETMASK</definition>
+        <argsstring></argsstring>
+        <name>WIFI_SUBNETMASK</name>
+        <initializer>= &quot;subnet&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="28" column="13" bodyfile="src/CWiFiController.cpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1a6be4c719ee728798fecf97780c3fa17e" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_GATEWAY</definition>
+        <argsstring></argsstring>
+        <name>WIFI_GATEWAY</name>
+        <initializer>= &quot;gwip&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="29" column="13" bodyfile="src/CWiFiController.cpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_wi_fi_controller_8cpp_1a308e3a4eb465354ac5f55f1d69dc84f5" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* WIFI_DNS</definition>
+        <argsstring></argsstring>
+        <name>WIFI_DNS</name>
+        <initializer>= &quot;dnsip&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CWiFiController.cpp" line="30" column="13" bodyfile="src/CWiFiController.cpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/CWiFiController.cpp"/>
+  </compounddef>
+</doxygen>

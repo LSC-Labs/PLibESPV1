@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_native_serial" kind="class" language="C++" prot="public">
+    <compoundname>NativeSerial</compoundname>
+    <includes refid="_runtime_8h" local="no">Runtime.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_native_serial_1acadfad9266cf88e4fdc22c4d403e455a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void NativeSerial::printf</definition>
+        <argsstring>(const char *pszFormat, Args... args)</argsstring>
+        <name>printf</name>
+        <qualifiedname>NativeSerial::printf</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszFormat</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Runtime.h" line="35" column="18" bodyfile="include/Runtime.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_native_serial_1aeb0eb5cd9a1c0c15b321c1c787fce7f5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void NativeSerial::print</definition>
+        <argsstring>(const char *pszValue)</argsstring>
+        <name>print</name>
+        <qualifiedname>NativeSerial::print</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Runtime.h" line="36" column="18" bodyfile="include/Runtime.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="class_native_serial_1affb34414f1fe4a8a3367e617a5612b3f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void NativeSerial::println</definition>
+        <argsstring>(const char *pszValue)</argsstring>
+        <name>println</name>
+        <qualifiedname>NativeSerial::println</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Runtime.h" line="37" column="18" bodyfile="include/Runtime.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/Runtime.h" line="32" column="5" bodyfile="include/Runtime.h" bodystart="32" bodyend="38"/>
+    <listofallmembers>
+      <member refid="class_native_serial_1aeb0eb5cd9a1c0c15b321c1c787fce7f5" prot="public" virt="non-virtual"><scope>NativeSerial</scope><name>print</name></member>
+      <member refid="class_native_serial_1acadfad9266cf88e4fdc22c4d403e455a" prot="public" virt="non-virtual"><scope>NativeSerial</scope><name>printf</name></member>
+      <member refid="class_native_serial_1affb34414f1fe4a8a3367e617a5612b3f" prot="public" virt="non-virtual"><scope>NativeSerial</scope><name>println</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

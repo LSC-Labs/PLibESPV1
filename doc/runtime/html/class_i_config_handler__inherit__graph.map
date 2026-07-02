@@ -1,0 +1,23 @@
+<map id="IConfigHandler" name="IConfigHandler">
+<area shape="rect" id="Node000001" title="Interface for configuration handlers." alt="" coords="130,5,238,31"/>
+<area shape="rect" id="Node000002" href="$class_c_config_handler.html" title="Configuration handler manager." alt="" coords="5,79,120,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,41,85,80,81,76,152,37"/>
+<area shape="rect" id="Node000004" href="$class_c_var_table.html" title="Collection of named variables exposed through IConfigHandler." alt="" coords="143,79,224,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="185,44,186,79,181,78,183,49"/>
+<area shape="rect" id="Node000005" href="$class_i_module.html" title="Full Interface for modules." alt="" coords="249,79,316,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="213,38,269,78,263,79,213,43"/>
+<area shape="rect" id="Node000003" href="$class_c_appl.html" title="Central application hub for modules, configuration, status and events." alt="" coords="34,153,91,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="63,118,65,153,60,152,62,123"/>
+<area shape="rect" id="Node000006" href="$class_appl_module.html" title="Abstract Basic Module Implementation You have to implement the dispatch method to reflect your module..." alt="" coords="116,153,206,178"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="251,112,183,154,181,150,246,114"/>
+<area shape="rect" id="Node000009" href="$class_c_n_t_p_handler.html" title="The NTP Handler class as a module." alt="" coords="230,153,333,178"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="284,118,284,154,279,151,280,122"/>
+<area shape="rect" id="Node000010" href="$class_c_web_server.html" title="Async web server module that registers default routes and file access." alt="" coords="358,153,453,178"/>
+<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="316,110,387,152,382,152,315,115"/>
+<area shape="rect" id="Node000011" href="$class_c_wi_fi_controller.html" title="Application module that controls WiFi AP/station mode." alt="" coords="477,153,592,178"/>
+<area shape="poly" id="edge10_Node000005_Node000011" title=" " alt="" coords="331,104,494,151,489,153,330,109"/>
+<area shape="rect" id="Node000007" href="$class_c_battery_measure.html" title=" " alt="" coords="25,226,148,252"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="140,188,101,228,97,224,135,190"/>
+<area shape="rect" id="Node000008" href="$class_c_m_q_t_t_controller.html" title="MQTT message broker module with heartbeat and HA discovery support." alt="" coords="172,226,297,252"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="185,187,225,226,219,226,183,192"/>
+</map>

@@ -5,17 +5,26 @@
 #include "LSCUtils.h"
 #include "DevelopmentHelper.h"
 
+/**
+ * @brief Create a JSON node with an optional name and explicit node type.
+ */
 CJsonNode::CJsonNode(const char* pszName, ELEMENT_TYPE eType) {
     Name = pszName;
     this->m_nObjectType = eType;
 };
 
+/**
+ * @brief Create a named JSON value node initialized with text data.
+ */
 CJsonNode::CJsonNode(const char* pszName, const char* pszValue) {
     this->m_strValue = pszValue;
     this->Name = pszName;
     this->m_nObjectType = ELEMENT_TYPE::VALUE;
 }
 
+/**
+ * @brief Delete all child nodes and reset this node to an empty container.
+ */
 void CJsonNode::clear() {
     for (CJsonNode* pEntry : Elements) {
         delete(pEntry);
@@ -23,10 +32,16 @@ void CJsonNode::clear() {
     Elements.clear();
 }
 
+/**
+ * @brief Return the parent node, or nullptr for a root node.
+ */
 JsonNode * CJsonNode::getParentNode() {
     return(m_pParentNode);
 }
 
+/**
+ * @brief Store the parent pointer used for tree navigation.
+ */
 void CJsonNode::setParentNode(JsonNode * pParentNode) {
     m_pParentNode = pParentNode;
 }
@@ -37,7 +52,7 @@ void CJsonNode::setParentNode(JsonNode * pParentNode) {
  * a path to the node name like "data.const.size".
  * The path elements are limited to 256 bytes in length per element.
  * In the sample "const" length may not exceed 256 bytes
- * @retunrs the node or nullptr if not found.
+ * @return the node or nullptr if not found.
  */
 CJsonNode* CJsonNode::find(const char* pszName) {
     CJsonNode* pResult = nullptr;
@@ -64,6 +79,12 @@ CJsonNode* CJsonNode::find(const char* pszName) {
     return(pResult);
 }
 
+/**
+ * @brief Ensure that all object nodes before the final path element exist.
+ *
+ * For example, "wifi.ip.address" creates/returns the path up to "ip"; the
+ * caller then creates or looks up the final "address" element.
+ */
 CJsonNode* CJsonNode::createJsonPathToElement(const char * pszName) {
     CJsonNode *pResult = this;
     int nDeliIdx = LSC::indexOf(pszName,'.');
@@ -77,6 +98,10 @@ CJsonNode* CJsonNode::createJsonPathToElement(const char * pszName) {
     return(pResult);
 }
 
+/**
+ * @brief Split a dotted JSON path and return the final element name.
+ * @return true if the supplied name contained a path delimiter.
+ */
 bool CJsonNode::getNameFromJsonPath(const char * pszName, String & strName) {
     strName = pszName;
     int nLastIdx = LSC::lastIndexOf(pszName,'.');
@@ -85,10 +110,16 @@ bool CJsonNode::getNameFromJsonPath(const char * pszName, String & strName) {
 }
 
 
+/**
+ * @brief Return an existing value element or create it on demand.
+ */
 CJsonNode & CJsonNode::operator[](const char *pszName) {
     return(*getElement(pszName,true));
 }
 
+/**
+ * @brief String overload for value element access.
+ */
 CJsonNode & CJsonNode::operator[](String & strName) {
     return(*getElement(strName.c_str(),true));
 }
@@ -102,26 +133,38 @@ bool CJsonNode::exists(const char* pszName) {
     return(bFound);
 }
 
+/**
+ * @brief Return the stored node type.
+ */
 CJsonNode::ELEMENT_TYPE CJsonNode::getType() {
     return(m_nObjectType);
 }
 
+/** @brief Return true when this node is a JSON object. */
 bool CJsonNode::isJsonObject() { return(m_nObjectType == ELEMENT_TYPE::OBJECT); }
+/** @brief Return true when this node is a JSON array. */
 bool CJsonNode::isJsonArray() { return(m_nObjectType == ELEMENT_TYPE::ARRAY); }
+/** @brief Return true when this node is a scalar JSON value. */
 bool CJsonNode::isJsonValue() { return(m_nObjectType == ELEMENT_TYPE::VALUE); }
+/** @brief Return true when the named child exists and is an object. */
 bool CJsonNode::isJsonObject(const char *pszName) { 
     CJsonNode *pNode = find(pszName);
     return(pNode ? pNode->isJsonObject(): false); 
 }
+/** @brief Return true when the named child exists and is an array. */
 bool CJsonNode::isJsonArray(const char *pszName) { 
     CJsonNode *pNode = find(pszName);
     return(pNode ? pNode->isJsonArray(): false); 
 }
+/** @brief Return true when the named child exists and is a scalar value. */
 bool CJsonNode::isJsonValue(const char *pszName) { 
     CJsonNode *pNode = find(pszName);
     return(pNode ? pNode->isJsonValue(): false);
 }
 
+/**
+ * @brief Remove and delete the direct child with the given name.
+ */
 void CJsonNode::remove(const char* pszName) {
     size_t nCurIndex = 0;
     for (CJsonNode* pEntry : Elements) {
@@ -136,12 +179,18 @@ void CJsonNode::remove(const char* pszName) {
 
 #pragma region set the value
 
+/**
+ * @brief Convert this node into a scalar value and remember quote handling.
+ */
 void CJsonNode::setNodeValueType(bool bWriteWithQuotes) { 
     clear();
     m_nObjectType = ELEMENT_TYPE::VALUE; 
     m_bWriteValueWithQuotes = bWriteWithQuotes; 
 }
 
+/**
+ * @brief Store a quoted string value in this node.
+ */
 CJsonNode* CJsonNode::setValue(const char* pszValue) {
     this->m_strValue = (char *) pszValue;
     setNodeValueType(true);
@@ -149,6 +198,9 @@ CJsonNode* CJsonNode::setValue(const char* pszValue) {
     return(this);
 }
 
+/**
+ * @brief Store a quoted String value in this node.
+ */
 CJsonNode* CJsonNode::setValue(String & strValue) {
     this->m_strValue = (char *) strValue.c_str();
     setNodeValueType(true);
@@ -157,6 +209,9 @@ CJsonNode* CJsonNode::setValue(String & strValue) {
 }
 
 
+/**
+ * @brief Store an unquoted boolean value in this node.
+ */
 CJsonNode* CJsonNode::setValue(bool bValue) {
     this->m_strValue = bValue ? "true" : "false";
     setNodeValueType(false);
@@ -164,6 +219,9 @@ CJsonNode* CJsonNode::setValue(bool bValue) {
     return(this);
 }
 
+/**
+ * @brief Store an unquoted signed integer value in this node.
+ */
 CJsonNode* CJsonNode::setValue(int nValue) {
     // to avoid to be interpreted as character by string class, print to buffer first...
     char szBuffer[80];
@@ -174,6 +232,9 @@ CJsonNode* CJsonNode::setValue(int nValue) {
     return(this);
 }
 
+/**
+ * @brief Store an unquoted unsigned integer value in this node.
+ */
 CJsonNode* CJsonNode::setValue(unsigned int unValue) {
     // to avoid to be interpreted as character by string class, print to buffer first...
     char szBuffer[80];
@@ -184,6 +245,9 @@ CJsonNode* CJsonNode::setValue(unsigned int unValue) {
     return(this);
 }
 
+/**
+ * @brief Store an unquoted signed long value in this node.
+ */
 CJsonNode* CJsonNode::setValue(long lValue) {
     char szBuffer[80];
     snprintf(szBuffer,sizeof(szBuffer),"%ld",lValue);
@@ -193,6 +257,9 @@ CJsonNode* CJsonNode::setValue(long lValue) {
     return(this);
 }
 
+/**
+ * @brief Store an unquoted unsigned long value in this node.
+ */
 CJsonNode* CJsonNode::setValue(unsigned long ulValue) {
     char szBuffer[80];
     snprintf(szBuffer,sizeof(szBuffer),"%lu",ulValue);
@@ -203,7 +270,7 @@ CJsonNode* CJsonNode::setValue(unsigned long ulValue) {
 }
 
 /**
- * @brief set the value, but only if value is not NAN..
+ * @brief Store an unquoted floating point value, but only if it is not NaN.
  */
 CJsonNode* CJsonNode::setValue(float fValue) {
     if(fValue != NAN) {
@@ -216,27 +283,42 @@ CJsonNode* CJsonNode::setValue(float fValue) {
     return(this);
 }
 
+/**
+ * @brief Set or create a named string value.
+ */
 CJsonNode* CJsonNode::setValue(const char* pszName, const char * pszValue) {
     CJsonNode * pNode = getElement(pszName,true);
     return(pNode->setValue(pszValue));
 }
 
+/**
+ * @brief Set or create a named String value.
+ */
 CJsonNode* CJsonNode::setValue(const char* pszName, String &  strValue) {
     CJsonNode * pNode = getElement(pszName,true);
     return(pNode->setValue(strValue));
 }
 
 
+/**
+ * @brief Set or create a named boolean value.
+ */
 CJsonNode* CJsonNode::setValue(const char* pszName, bool bValue) {
      CJsonNode * pNode = getElement(pszName,true);
     return(pNode->setValue(bValue));
 }
 
+/**
+ * @brief Set or create a named signed integer value.
+ */
 CJsonNode* CJsonNode::setValue(const char* pszName, int nValue) {
     CJsonNode * pNode = getElement(pszName,true);
     return(pNode->setValue(nValue));
 }
 
+/**
+ * @brief Set or create a named floating point value.
+ */
 CJsonNode* CJsonNode::setValue(const char* pszName, float fValue) {
     CJsonNode * pNode = getElement(pszName,true);
     if(fValue != NAN) {
@@ -245,11 +327,17 @@ CJsonNode* CJsonNode::setValue(const char* pszName, float fValue) {
     return(pNode);
 }
 
+/**
+ * @brief Set or create a named signed long value.
+ */
 CJsonNode* CJsonNode::setValue(const char* pszName, long lValue) {
     CJsonNode * pNode = getElement(pszName,true);
     return(pNode->setValue(lValue));
 }
 
+/**
+ * @brief Set or create a named unsigned long value.
+ */
 CJsonNode* CJsonNode::setValue(const char* pszName, unsigned long ulValue) {
     CJsonNode * pNode = getElement(pszName,true);
     return(pNode->setValue(ulValue));
@@ -259,30 +347,48 @@ CJsonNode* CJsonNode::setValue(const char* pszName, unsigned long ulValue) {
 
 #pragma region get the value 
 
+/**
+ * @brief Return this node's value as String, or the supplied default.
+ */
 String & CJsonNode::getValueAsString(String & strDefault) {
     return(m_strValue.c_str() == nullptr ? strDefault : m_strValue);
 }
 
+/**
+ * @brief Return a named child value as String, or the supplied default.
+ */
 String & CJsonNode::getValueAsString(const char *pszName, String & strDefault) {
     CJsonNode *pNode = find(pszName);
     return(pNode ? pNode->getValueAsString(strDefault): strDefault);
 }
 
 
+/**
+ * @brief Return this node's raw value text.
+ */
 const char* CJsonNode::getValue() {
     return(m_strValue.c_str());
 }
 
+/**
+ * @brief Return this node's value as C string, or the supplied default.
+ */
 const char* CJsonNode::getValueAsCharPointer(const char *pszDefault) {
     const char *pszResult = m_strValue.c_str();
     return(pszResult ? pszResult : pszDefault);
 }
 
+/**
+ * @brief Return a named child value as C string, or the supplied default.
+ */
 const char* CJsonNode::getValueAsCharPointer(const char *pszName, const char *pszDefault) {
     CJsonNode *pNode = find(pszName);
     return(pNode ? pNode->getValueAsCharPointer(pszDefault) : pszDefault );
 }
 
+/**
+ * @brief Return a named child value or, for value nodes, this node's value.
+ */
 const char* CJsonNode::getValue(const char* pszName, const char *pszDefault) {
     const char* pszResult = pszDefault;
     CJsonNode* pNode;
@@ -301,12 +407,18 @@ const char* CJsonNode::getValue(const char* pszName, const char *pszDefault) {
     return(pszResult ? pszResult : pszDefault);
 }
 
+/**
+ * @brief Parse this node's numeric value as int.
+ */
 int CJsonNode::getValueAsInt(int nDefault) {
     int nResult = nDefault;
     if (isNumberValue()) nResult = atoi(m_strValue.c_str());
     return(nResult);
 }
 
+/**
+ * @brief Parse a named child value as int.
+ */
 int CJsonNode::getValueAsInt(const char* pszName, int nDefault) {
     CJsonNode* pNode = find(pszName);
     int nResult = pNode ? pNode->getValueAsInt(nDefault) : nDefault;
@@ -314,43 +426,67 @@ int CJsonNode::getValueAsInt(const char* pszName, int nDefault) {
 }
 
 
+/**
+ * @brief Parse this node's numeric value as unsigned int.
+ */
 unsigned int CJsonNode::getValueAsUnsignedInt(unsigned int nDefault) {
     return((unsigned int) getValueAsInt((int) nDefault));
 }
 
+/**
+ * @brief Parse a named child value as unsigned int.
+ */
 unsigned int CJsonNode::getValueAsUnsignedInt(const char* pszName, unsigned int nDefault) {
     return((unsigned int) getValueAsInt(pszName,(int) nDefault));
 }
 
+/**
+ * @brief Parse this node's numeric value as long.
+ */
 long CJsonNode::getValueAsLong(long lDefault) {
     long nResult = lDefault;
     if (isNumberValue()) nResult = atol(m_strValue.c_str());
     return(nResult);
 }
 
+/**
+ * @brief Parse a named child value as long.
+ */
 long CJsonNode::getValueAsLong(const char* pszName, long lDefault) {
     CJsonNode* pNode = find(pszName);
     long nResult = pNode ? pNode->getValueAsLong(lDefault) : lDefault;
     return(nResult);
 }
 
+/**
+ * @brief Parse this node's numeric value as unsigned long.
+ */
 unsigned long CJsonNode::getValueAsUnsignedLong( unsigned long ulDefault) {
     unsigned long nResult = ulDefault;
     if (isNumberValue()) nResult = atol(m_strValue.c_str());
     return(nResult);
 }
+/**
+ * @brief Parse a named child value as unsigned long.
+ */
 unsigned long CJsonNode::getValueAsUnsignedLong(const char* pszName, unsigned long ulDefault) {
     CJsonNode* pNode = find(pszName);
     unsigned long nResult = pNode ? pNode->getValueAsUnsignedLong(ulDefault) : ulDefault;
     return(nResult);
 }
 
+/**
+ * @brief Parse this node's numeric value as float.
+ */
 float CJsonNode::getValueAsFloat(float fDefault) {
     double fResult = fDefault;
     if (isNumberValue()) fResult = atof(m_strValue.c_str());
     return(fResult);
 }
 
+/**
+ * @brief Parse a named child value as float.
+ */
 float CJsonNode::getValueAsFloat(const char* pszName, float fDefault) {
     CJsonNode* pNode = find(pszName);
     float fResult = pNode ? pNode->getValueAsFloat(fDefault) : fDefault;
@@ -358,12 +494,18 @@ float CJsonNode::getValueAsFloat(const char* pszName, float fDefault) {
 }
 
 
+/**
+ * @brief Parse this node's boolean value.
+ */
 bool CJsonNode::getValueAsBool(bool bDefault) {
     bool bResult = bDefault;
     if (isBooleanValue()) bResult = LSC::isTrueValue(m_strValue.c_str()); 
     return(bResult);
 }
 
+/**
+ * @brief Parse a named child value as bool.
+ */
 bool CJsonNode::getValueAsBool(const char* pszName, bool bDefault) {
     CJsonNode* pNode = find(pszName);
     bool bResult = pNode ? pNode->getValueAsBool(bDefault) : bDefault;
@@ -399,6 +541,9 @@ bool CJsonNode::storeValueIf(const char* pszName, bool* pbTarget) {
 }
 
 
+/**
+ * @brief Copy this node's text into the target string when a value is present.
+ */
 bool CJsonNode::storeValueIf(String & strTarget) {
     bool bResult = false;
     if(m_strValue.c_str() != nullptr) {
@@ -408,6 +553,9 @@ bool CJsonNode::storeValueIf(String & strTarget) {
     return(bResult);
 }
 
+/**
+ * @brief Copy this node's text unless it matches the excluded marker value.
+ */
 bool CJsonNode::storeValueIfNot(String & strTarget,const char *pszIfNot) {
     bool bResult = false;
     if(m_strValue.c_str() != nullptr && pszIfNot) {
@@ -419,6 +567,9 @@ bool CJsonNode::storeValueIfNot(String & strTarget,const char *pszIfNot) {
     return(bResult);
 }
 
+/**
+ * @brief Copy a named child text value into the target string when present.
+ */
 bool CJsonNode::storeValueIf(const char* pszName, String & strTarget) {
     bool bResult = false;
     CJsonNode* pNode = find(pszName);
@@ -426,6 +577,9 @@ bool CJsonNode::storeValueIf(const char* pszName, String & strTarget) {
     return(bResult);
 }
 
+/**
+ * @brief Copy a named child text value unless it matches the excluded marker.
+ */
 bool CJsonNode::storeValueIfNot(const char* pszName, String & strTarget, const char *pszIfNot) {
     bool bResult = false;
     CJsonNode* pNode = find(pszName);
@@ -685,6 +839,10 @@ CJsonNode* CJsonNode::getElement(const char* pszName, bool bCreateIfNotExist) {
 
 #pragma information about this node 
 
+/**
+ * @brief Print this node tree to Serial for diagnostics.
+ * @param pszPrefixName Optional dotted prefix prepended to child names.
+ */
 void CJsonNode::dump(const char* pszPrefixName) {
     String strPrefix = pszPrefixName ? pszPrefixName : "";
     if (strPrefix.length() > 0) strPrefix += ".";
@@ -708,19 +866,31 @@ void CJsonNode::dump(const char* pszPrefixName) {
 }
 
 
+/**
+ * @brief Return true if this node contains a recognized boolean literal.
+ */
 bool CJsonNode::isBooleanValue() {
     bool bIsBoolean = LSC::isTrueValue(m_strValue.c_str()) || LSC::isFalseValue(m_strValue.c_str());
     return(bIsBoolean);
 }
 
+/**
+ * @brief Return true if a named child contains a recognized boolean literal.
+ */
 bool CJsonNode::isBooleanValue(const char *pszName) {
     CJsonNode *pNode = find(pszName);
     return(pNode ? pNode->isBooleanValue() : false);
 }
+/**
+ * @brief Return true if a named child contains a numeric literal.
+ */
 bool CJsonNode::isNumberValue(const char *pszName) {
     CJsonNode *pNode = find(pszName);
     return(pNode ? pNode->isNumberValue() : false);
 }
+/**
+ * @brief Return true if this node contains a simple integer/float literal.
+ */
 bool CJsonNode::isNumberValue() {
     bool bResult = false;
     unsigned int nDotCounter = 0;
@@ -745,6 +915,12 @@ bool CJsonNode::isNumberValue() {
 #pragma region node serialization
 
 
+/**
+ * @brief Serialize this node tree as compact JSON.
+ *
+ * The returned pointer belongs to the internal serialization cache and remains
+ * valid until the next serialization call on this node.
+ */
 const char* CJsonNode::getAsJsonText() {
     String strData;
     strData.reserve(1024);
@@ -752,6 +928,12 @@ const char* CJsonNode::getAsJsonText() {
     return(m_strSerializationCache.c_str());
 }
 
+/**
+ * @brief Serialize this node tree as pretty-printed JSON.
+ *
+ * The returned pointer belongs to the internal serialization cache and remains
+ * valid until the next serialization call on this node.
+ */
 const char* CJsonNode::getAsJsonTextPretty() {
     String strData;
     strData.reserve(1024 + 256);
@@ -759,9 +941,19 @@ const char* CJsonNode::getAsJsonTextPretty() {
     return(m_strSerializationCache.c_str());
 }
 
+/**
+ * @brief Append indentation spaces used by pretty JSON serialization.
+ */
 void CJsonNode::writeIdentPrefixString(String & strResultString, int nIdentDeep) {
     while(nIdentDeep-- > 0) strResultString += "    ";
 }
+
+/**
+ * @brief Recursively serialize this node into the provided string buffer.
+ * @param strResultString Output buffer receiving JSON text.
+ * @param nIdentDeep -1 for compact mode, otherwise current indentation level.
+ * @return Pointer to the output buffer's C string.
+ */
 const char* CJsonNode::serializeNode(String & strResultString, int nIdentDeep) {
     DEBUG_FUNC_START();
     const char *pszKeyValDeli   = nIdentDeep > -1 ? ": " : ":";
@@ -902,12 +1094,11 @@ const char* CJsonNode::serialize(String & strResultString, int nIdentDeep) {
 
 #pragma region parsing the input
 
-/// <summary>
-/// parse a value from input string
-/// </summary>
-/// <param name="pszJsonData">The input string to be parsed</param>
-/// <param name="strValueData">Found value will be appended here</param>
-/// <returns>Pointer to the last character the causes the stop of parsing (",{}[]...")</returns>
+/// @brief Parse a scalar JSON token from the input string.
+/// @param pszJsonData Input string positioned at the value start.
+/// @param strValueData Parsed value text is written here.
+/// @param bHasQuotes Set to true when the token was enclosed in quotes.
+/// @return Pointer to the delimiter that stopped parsing (for example ',', '}', ']').
 const char* CJsonNode::parseValue(const char* pszJsonData, String& strValueData, bool& bHasQuotes) {
     bool bEscapeIsActive = false;
     bool bStringIsActive = false;
@@ -957,10 +1148,10 @@ const char* CJsonNode::parseValue(const char* pszJsonData, String& strValueData,
 }
 
 /**
- * @brief Parsing a Json text string
- * - either a native assignment of a var like key:value
- * - a json object, starting with '{'
- * - or an array, starting with '['
+ * @brief Parse JSON text into this node tree.
+ *
+ * Supported inputs are a key/value assignment, a JSON object starting with '{',
+ * or a JSON array starting with '['.
  */
 const char* CJsonNode::parse(const char* pszJsonData) {
     if (pszJsonData) {

@@ -1,0 +1,13 @@
+<map id="CAppl" name="CAppl">
+<area shape="rect" id="Node000001" title="Central application hub for modules, configuration, status and events." alt="" coords="172,153,230,178"/>
+<area shape="rect" id="Node000002" href="$class_c_config_handler.html" title="Configuration handler manager." alt="" coords="5,79,120,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,110,180,151,175,153,99,115"/>
+<area shape="rect" id="Node000003" href="$class_i_config_handler.html" title="Interface for configuration handlers." alt="" coords="8,5,117,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="63,44,65,79,60,78,62,49"/>
+<area shape="rect" id="Node000004" href="$class_c_status_handler.html" title="Status handler class." alt="" coords="144,79,258,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="203,118,203,154,199,151,199,122"/>
+<area shape="rect" id="Node000005" href="$class_i_status_handler.html" title="Interface for a status handler module." alt="" coords="147,5,255,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="203,44,204,80,199,77,200,49"/>
+<area shape="rect" id="Node000006" href="$class_i_msg_event_receiver.html" title="Interface for Message Event Receivers." alt="" coords="282,79,419,105"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="314,111,228,155,226,150,309,112"/>
+</map>

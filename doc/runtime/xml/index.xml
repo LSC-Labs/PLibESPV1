@@ -1,0 +1,1152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.17.0" xml:lang="en-US">
+  <compound refid="struct_appl_config" kind="struct"><name>ApplConfig</name>
+    <member refid="struct_appl_config_1a68e9c0cc68e56aa9a0f849b6a03be2cb" kind="variable"><name>bLogToSerial</name></member>
+    <member refid="struct_appl_config_1a45f60776dd3145ee2c9e0bd50eb030e5" kind="variable"><name>bTraceMode</name></member>
+    <member refid="struct_appl_config_1a9b2d4505501e2c4c1f61bce6e9b6efa6" kind="variable"><name>strDeviceName</name></member>
+    <member refid="struct_appl_config_1ad4bac442cbddc3ef3bef5cc062985214" kind="variable"><name>strDevicePwd</name></member>
+    <member refid="struct_appl_config_1a1231b7227fe7a430f0b1eb9143efc684" kind="variable"><name>bDebugFrontend</name></member>
+  </compound>
+  <compound refid="class_appl_module" kind="class"><name>ApplModule</name>
+    <member refid="class_appl_module_1a13c5086d4c9162d1a96b1234f76932e4" kind="function"><name>dispatch</name></member>
+    <member refid="class_appl_module_1a6f93571379fa6aa97dc07d2fadc56774" kind="function"><name>receiveEvent</name></member>
+  </compound>
+  <compound refid="class_async_mqtt_client" kind="class"><name>AsyncMqttClient</name>
+    <member refid="class_async_mqtt_client_1a596f3fbd302edd381a24a267bb120978" kind="function"><name>connected</name></member>
+    <member refid="class_async_mqtt_client_1aef8a53f05ea5f1cd39bea2210a631b7f" kind="function"><name>connect</name></member>
+  </compound>
+  <compound refid="struct_async_mqtt_client_message_properties" kind="struct"><name>AsyncMqttClientMessageProperties</name>
+  </compound>
+  <compound refid="class_async_web_socket" kind="class"><name>AsyncWebSocket</name>
+    <member refid="class_async_web_socket_1a52a86af620b43bd21d70c446aec2509d" kind="variable"><name>m_strUrl</name></member>
+    <member refid="class_async_web_socket_1a652e225f06c344fcd107267e823dce1b" kind="function"><name>AsyncWebSocket</name></member>
+    <member refid="class_async_web_socket_1afc1cff088d709f9d08ffcfbc791c802a" kind="function"><name>url</name></member>
+    <member refid="class_async_web_socket_1a9e0ba3575505eff5a6df6a4c039348ad" kind="function"><name>onEvent</name></member>
+    <member refid="class_async_web_socket_1a35418e21e7be57bf7f5b5aa009eb265b" kind="function"><name>cleanupClients</name></member>
+    <member refid="class_async_web_socket_1a3e745a4a1b0c7a73d1234a7624a288a0" kind="function"><name>makeBuffer</name></member>
+    <member refid="class_async_web_socket_1a2976831d74578e7a41f4a5d89ac31842" kind="function"><name>textAll</name></member>
+  </compound>
+  <compound refid="class_async_web_socket_client" kind="class"><name>AsyncWebSocketClient</name>
+    <member refid="class_async_web_socket_client_1a8a48b75268522ea4316c21a7e7bce390" kind="variable"><name>_tempObject</name></member>
+    <member refid="class_async_web_socket_client_1a9468ef28a6ccb9218a75d6fe8788f4ff" kind="function"><name>id</name></member>
+    <member refid="class_async_web_socket_client_1ab7956c34d576e1c377a4d6ce647429a0" kind="function"><name>remoteIP</name></member>
+    <member refid="class_async_web_socket_client_1a7efc8cb718155ebbedcdc4c8f9b936d1" kind="function"><name>text</name></member>
+  </compound>
+  <compound refid="class_async_web_socket_message_buffer" kind="class"><name>AsyncWebSocketMessageBuffer</name>
+    <member refid="class_async_web_socket_message_buffer_1a65ab869256ead6d65b56c256fc71a0c5" kind="variable"><name>m_pData</name></member>
+    <member refid="class_async_web_socket_message_buffer_1aca837fa33fdefec3f2536ebda385d429" kind="variable"><name>m_nSize</name></member>
+    <member refid="class_async_web_socket_message_buffer_1a0d7ced3522e501bb755b2cdc589ebca7" kind="function"><name>AsyncWebSocketMessageBuffer</name></member>
+    <member refid="class_async_web_socket_message_buffer_1a8e8a8b2522af8aef2777e7438e0160d8" kind="function"><name>~AsyncWebSocketMessageBuffer</name></member>
+    <member refid="class_async_web_socket_message_buffer_1a640da88d3a47028488c05be7cc092f8c" kind="function"><name>get</name></member>
+    <member refid="class_async_web_socket_message_buffer_1a057f47590f0a949057203750b99f155f" kind="function"><name>size</name></member>
+  </compound>
+  <compound refid="struct_aws_frame_info" kind="struct"><name>AwsFrameInfo</name>
+    <member refid="struct_aws_frame_info_1a25d509a543a09725e6776b0fa7aab3c5" kind="variable"><name>final</name></member>
+    <member refid="struct_aws_frame_info_1ae7308917d1215478ff68c94e6852dad0" kind="variable"><name>index</name></member>
+    <member refid="struct_aws_frame_info_1a0fe0e3a6eaaaad08df3235c379f5a09c" kind="variable"><name>num</name></member>
+    <member refid="struct_aws_frame_info_1ae0a9784d8aa81c689d72ddc227c6b5d5" kind="variable"><name>len</name></member>
+    <member refid="struct_aws_frame_info_1a925b3c00b45d55df6767a522e7e325b9" kind="variable"><name>opcode</name></member>
+  </compound>
+  <compound refid="class_c_access_token" kind="class"><name>CAccessToken</name>
+    <member refid="class_c_access_token_1a0710b312b54e9e66a04bf28642dbaf28" kind="variable"><name>m_oAESCryptor</name></member>
+    <member refid="class_c_access_token_1a21aafd4d0c89a69bacba275bd0866848" kind="variable"><name>m_bStructureIsValid</name></member>
+    <member refid="class_c_access_token_1ac50c84f8e5b60e8c642cb62f1c358624" kind="variable"><name>m_szTokenKey</name></member>
+    <member refid="class_c_access_token_1ad8fb05eee34ee82b940df476bdabced7" kind="variable"><name>m_szIPAddress</name></member>
+    <member refid="class_c_access_token_1a2501e924e6d213a30cbef41cc3c11348" kind="variable"><name>m_ulTimeStamp</name></member>
+    <member refid="class_c_access_token_1aa969a863de1278adb5764c71085d17d4" kind="variable"><name>m_szDataElement</name></member>
+    <member refid="class_c_access_token_1a6471fc2e78e6e37d7738c14ceff2db12" kind="variable"><name>m_szDataElementAsBase64</name></member>
+    <member refid="class_c_access_token_1ac9af9b6ebc37d1b6283881d9e1fa0a9b" kind="variable"><name>m_szTokenAsBase64</name></member>
+    <member refid="class_c_access_token_1a3b6e89aa4b874aba8db6194dfeb1388a" kind="function"><name>loadBase64DataElement</name></member>
+    <member refid="class_c_access_token_1ad99dd8c773a3ea52d50851f074c583d4" kind="function"><name>getBase64DataElement</name></member>
+    <member refid="class_c_access_token_1a71e43d58b207602f4b02e8163f93e5c4" kind="function"><name>CAccessToken</name></member>
+    <member refid="class_c_access_token_1abb94ec7487768b51e21804d6f73cb0e6" kind="function"><name>CAccessToken</name></member>
+    <member refid="class_c_access_token_1ad7b746529c2a3fd69de44a68ed02fac9" kind="function"><name>CAccessToken</name></member>
+    <member refid="class_c_access_token_1a31a5639f0da96e7bf6be110892f42e47" kind="function"><name>getTokenAsBase64</name></member>
+    <member refid="class_c_access_token_1a50fcd762630eac38d95baedc61dfc76f" kind="function"><name>isAuthValid</name></member>
+  </compound>
+  <compound refid="class_c_a_e_s_cryptor" kind="class"><name>CAESCryptor</name>
+    <member refid="class_c_a_e_s_cryptor_1a21d00ef9592cd8973040984d4a1202d4" kind="variable"><name>IV</name></member>
+    <member refid="class_c_a_e_s_cryptor_1ac079aa804b925b5b7d3e77918847ead1" kind="variable"><name>Passphrase</name></member>
+    <member refid="class_c_a_e_s_cryptor_1afc464f922c887c0d726b0c5c833b8571" kind="function"><name>CAESCryptor</name></member>
+    <member refid="class_c_a_e_s_cryptor_1a69cbaa97b5937b3d54075d829c877661" kind="function"><name>decrypt</name></member>
+    <member refid="class_c_a_e_s_cryptor_1aee3924c3ae828697b68b300aa66522a1" kind="function"><name>encrypt</name></member>
+    <member refid="class_c_a_e_s_cryptor_1a9b3661c35f1cef39d5d88284a30ba647" kind="function"><name>insertPkcs7Padding</name></member>
+    <member refid="class_c_a_e_s_cryptor_1a176dd535453dbe204ba44c9d303dd1e3" kind="function"><name>removePkcs7Padding</name></member>
+  </compound>
+  <compound refid="class_c_a_e_s_token" kind="class"><name>CAESToken</name>
+    <member refid="class_c_a_e_s_token_1a46131a38d4d8508fd7284635d308596f" kind="variable"><name>m_copyOf</name></member>
+    <member refid="class_c_a_e_s_token_1a5cd0c172fbe64e23e1783b6477180484" kind="variable"><name>m_szAsString</name></member>
+    <member refid="class_c_a_e_s_token_1aa0deb248e9fb59ff72da5ef383e61ae3" kind="variable"><name>m_szAsBase64</name></member>
+    <member refid="class_c_a_e_s_token_1afbe5f7d8d8189d75d60c65470390ca63" kind="variable"><name>Data</name></member>
+    <member refid="class_c_a_e_s_token_1a0cca5548d268b6567a4f322106595f34" kind="function"><name>CAESToken</name></member>
+    <member refid="class_c_a_e_s_token_1af6e55ff3d4776c7031047c01f73586d6" kind="function"><name>CAESToken</name></member>
+    <member refid="class_c_a_e_s_token_1a9fac56a5e886875b507a4784dc5796a2" kind="function"><name>loadFromString</name></member>
+    <member refid="class_c_a_e_s_token_1aa1ad706e2c99d92adcf859722ddcbf97" kind="function"><name>loadFromBase64</name></member>
+    <member refid="class_c_a_e_s_token_1a22ae2179cc631b4da8ccbdcc52218420" kind="function"><name>getAsBase64</name></member>
+    <member refid="class_c_a_e_s_token_1a4237774da71a926b4e470af680c33d86" kind="function"><name>getAsString</name></member>
+    <member refid="class_c_a_e_s_token_1a74cbe27e4b9296678d087c76e58852c7" kind="function"><name>copyOf</name></member>
+    <member refid="class_c_a_e_s_token_1ad8ad7ec7760ce1db1afc0188b2e94be5" kind="function"><name>createRandom</name></member>
+  </compound>
+  <compound refid="class_c_appl" kind="class"><name>CAppl</name>
+    <member refid="class_c_appl_1a7522362ca1a78133c8d299c1758ace12" kind="variable"><name>m_oCfg</name></member>
+    <member refid="class_c_appl_1a89bc58fd903750a399c4b9e684381ce8" kind="variable"><name>m_oSystemStatus</name></member>
+    <member refid="class_c_appl_1a778490f035466d8fefb89fbc6bfc4524" kind="variable"><name>m_oStatus</name></member>
+    <member refid="class_c_appl_1a94b99e29dc84471d60e41da00c0d5dd4" kind="variable"><name>m_oSysStatus</name></member>
+    <member refid="class_c_appl_1a122d2e505511866bfabe7d889fed92a2" kind="variable"><name>m_strStatus</name></member>
+    <member refid="class_c_appl_1a6a24772b4237214ed000449bb118adf0" kind="variable"><name>m_strSysStatus</name></member>
+    <member refid="class_c_appl_1a7eff4c34cd63af6802987339cd551dcc" kind="variable"><name>m_strIsoDateTime</name></member>
+    <member refid="class_c_appl_1a37fcf0f41699264184d803c4a1ad5f29" kind="variable"><name>m_bStatusChanged</name></member>
+    <member refid="class_c_appl_1a27c8a4f2cad0c1b981d044bbe0c2c144" kind="variable"><name>m_isRebootPending</name></member>
+    <member refid="class_c_appl_1a8a3625eb31e17680f1a09e113766422e" kind="variable"><name>m_ulLastStatusUpdate</name></member>
+    <member refid="class_c_appl_1abc493d3344ad331396bc02d0684594d4" kind="variable"><name>m_oRawTime</name></member>
+    <member refid="class_c_appl_1a7083837a5e7d3c0e301321d5074e0991" kind="variable"><name>m_szISODateTime</name></member>
+    <member refid="class_c_appl_1a7d1800cd0563a310452b0ecc1b7ae3f4" kind="variable"><name>m_szCurTime</name></member>
+    <member refid="class_c_appl_1adcaedefe23a97582cbae7cb8e6df1881" kind="variable"><name>m_szCurDate</name></member>
+    <member refid="class_c_appl_1a0e94f33376c30027d8960418761fb002" kind="variable"><name>m_szUptimeBuffer</name></member>
+    <member refid="class_c_appl_1a239f0760ef07209d6977a111eb414638" kind="variable"><name>AppName</name></member>
+    <member refid="class_c_appl_1a517f0122cd4d063f6d2d99c48ed11c07" kind="variable"><name>AppVersion</name></member>
+    <member refid="class_c_appl_1ad1d6403bf29e058c390e7737822b9641" kind="variable"><name>StartTime</name></member>
+    <member refid="class_c_appl_1a5699e07faf72bc7304b656f044b226c3" kind="variable"><name>Config</name></member>
+    <member refid="class_c_appl_1a249328770f260bde8a87c07257ee6816" kind="variable"><name>MsgBus</name></member>
+    <member refid="class_c_appl_1acdd0e87fa672616cd98fc921c4d8c266" kind="variable"><name>Log</name></member>
+    <member refid="class_c_appl_1aa542b046972c54a7e93c499a2501c12f" kind="function"><name>registerModule</name></member>
+    <member refid="class_c_appl_1a4fa9227e0a357b170dfc1e19de6c0f62" kind="function"><name>writeConfigTo</name></member>
+    <member refid="class_c_appl_1a840f1e43e442a31daef9070d1e9747ad" kind="function"><name>readConfigFrom</name></member>
+    <member refid="class_c_appl_1af16d359039604dc7f6feb73a0dc6d47d" kind="function"><name>readConfigFrom</name></member>
+    <member refid="class_c_appl_1a71d6726c2136fc74c74b49c925d11069" kind="function"><name>migrateConfig</name></member>
+    <member refid="class_c_appl_1a2c07732abb9dad7f25372d734845745d" kind="function"><name>saveConfig</name></member>
+    <member refid="class_c_appl_1a97469f8ddd623809687103d16874e9cc" kind="function"><name>getStatus</name></member>
+    <member refid="class_c_appl_1a909f86568d3cd39042a15f2b8706926b" kind="function"><name>getStatusAsText</name></member>
+    <member refid="class_c_appl_1ae2a7656deb71f8c5c64038757b61a945" kind="function"><name>getState</name></member>
+    <member refid="class_c_appl_1a49ea71426c298359ba6f76af9e50e2fb" kind="function"><name>getStateAsText</name></member>
+    <member refid="class_c_appl_1afe97a1193ac31226e50c9f0f8d348528" kind="function"><name>writeStatusTo</name></member>
+    <member refid="class_c_appl_1aa465c3f2d1e998e366f132368b42c205" kind="function"><name>writeSystemStatusTo</name></member>
+    <member refid="class_c_appl_1abe29595df3d47a871a84585ccb8f39a1" kind="function"><name>getNativeTime</name></member>
+    <member refid="class_c_appl_1a45770a091b696244284287aabb1388ae" kind="function"><name>getUpTime</name></member>
+    <member refid="class_c_appl_1a8d57030fc8deda87cd8e4335b4091613" kind="function"><name>getISODateTime</name></member>
+    <member refid="class_c_appl_1ad03c4a06e5d86ec6fa1c93ee374b9e0d" kind="function"><name>getISODate</name></member>
+    <member refid="class_c_appl_1ae026762ff25b10e92e7398ae409e393b" kind="function"><name>getISOTime</name></member>
+    <member refid="class_c_appl_1a00678e0dccf51134c065369c781c73d1" kind="function"><name>getDeviceID</name></member>
+    <member refid="class_c_appl_1a841da10700fa8d39ec546ccad693daf3" kind="function"><name>getDeviceName</name></member>
+    <member refid="class_c_appl_1a7b1589ed82e3436fb3027ca5f3619c22" kind="function"><name>setDeviceName</name></member>
+    <member refid="class_c_appl_1af2fcd07ede2b70dc42624ee69ff3e334" kind="function"><name>setDeviceName</name></member>
+    <member refid="class_c_appl_1aa308ca472597925a93d52c846c41e72e" kind="function"><name>setDevicePwd</name></member>
+    <member refid="class_c_appl_1acf17eb30174886d46454d9606f568ddc" kind="function"><name>setDevicePwd</name></member>
+    <member refid="class_c_appl_1a39c2b869ac2fb027f9571d6c8d48453c" kind="function"><name>getDevicePwd</name></member>
+    <member refid="class_c_appl_1ab89cd2ae9d6e2f08f01b5d7cb2693eda" kind="function"><name>CAppl</name></member>
+    <member refid="class_c_appl_1a362e719cf07cbafcbabafdfcdb110ad1" kind="function"><name>dispatch</name></member>
+    <member refid="class_c_appl_1aedcd69ac05303845c2dccce89d26ef7f" kind="function"><name>receiveEvent</name></member>
+    <member refid="class_c_appl_1a854edcff2dde626ce022f00a1f32cec0" kind="function"><name>init</name></member>
+    <member refid="class_c_appl_1a260d60f3db8cfe88cf83490e5f3adc01" kind="function"><name>start</name></member>
+    <member refid="class_c_appl_1acc831eca5419245211b581bac23c7d6e" kind="function"><name>sayHello</name></member>
+    <member refid="class_c_appl_1aa45fc998a9a45c63393380fafc7cf786" kind="function"><name>printDiag</name></member>
+    <member refid="class_c_appl_1a6423cabf9e8a193b44fb44e8c050eb79" kind="function"><name>reboot</name></member>
+  </compound>
+  <compound refid="class_c_base64_data" kind="class"><name>CBase64Data</name>
+    <member refid="class_c_base64_data_1abf0d65e18180c5319e067398e2e9ebdb" kind="variable"><name>m_pszEncodedData</name></member>
+    <member refid="class_c_base64_data_1aba6978094dc43b3ebfd96c694ff601db" kind="variable"><name>m_pDecodedData</name></member>
+    <member refid="class_c_base64_data_1a47cb13cbe1b861f67a13e9e2d38658ff" kind="function"><name>~CBase64Data</name></member>
+    <member refid="class_c_base64_data_1a5b10c13924eda881043cca01dfe9e915" kind="function"><name>clear</name></member>
+    <member refid="class_c_base64_data_1af9aa18e5ca9fea98a05f758a50f60b6a" kind="function"><name>getBase64EncodedString</name></member>
+    <member refid="class_c_base64_data_1a05ff7e147d722ffde648916df34818f4" kind="function"><name>getBase64DecodedData</name></member>
+    <member refid="class_c_base64_data_1aad95557f3ef4282c06a3c1afbe958f76" kind="function"><name>base64EncodeData</name></member>
+    <member refid="class_c_base64_data_1a85523e14a56a5963445ab4cea1e5bb9a" kind="function"><name>base64DecodeData</name></member>
+  </compound>
+  <compound refid="class_c_battery_measure" kind="class"><name>CBatteryMeasure</name>
+    <member refid="class_c_battery_measure_1a1989ea65a2eebadf2de0355687018ac7" kind="variable"><name>m_nPin</name></member>
+    <member refid="class_c_battery_measure_1a2791d009b08cb22ad7344d5c6abd750e" kind="variable"><name>m_nBatteryAvailableThreshold</name></member>
+    <member refid="class_c_battery_measure_1a7a01208c090325b7b1368ad40343b07a" kind="variable"><name>m_fBatteryCalcFactor</name></member>
+    <member refid="class_c_battery_measure_1a2f2382b30ca42df36583f501bbc1b557" kind="function"><name>CBatteryMeasure</name></member>
+    <member refid="class_c_battery_measure_1adf5b31c901e75d0527fb7078394eec9d" kind="function"><name>isBatteryAvailable</name></member>
+    <member refid="class_c_battery_measure_1a52d707d81910849d2b9342af40462be3" kind="function"><name>getRawMeasureData</name></member>
+    <member refid="class_c_battery_measure_1a27edf46f8149bca683734353c535307a" kind="function"><name>getVoltage</name></member>
+    <member refid="class_c_battery_measure_1a261bf9656c961acb558919ddf2af582d" kind="function"><name>writeStatusTo</name></member>
+    <member refid="class_c_battery_measure_1ac7061f042630d9b6843ee1cda2f9c0a8" kind="function"><name>writeConfigTo</name></member>
+    <member refid="class_c_battery_measure_1a79e98625f77a2eba67ff65342c152429" kind="function"><name>readConfigFrom</name></member>
+  </compound>
+  <compound refid="class_c_button" kind="class"><name>CButton</name>
+    <member refid="class_c_button_1a05fc99089aa41435d9c05eaf5a0411f2" kind="variable"><name>m_ulDebouncingTime</name></member>
+    <member refid="class_c_button_1a2a77f5d5c313d181dff1eb63e57e7844" kind="variable"><name>m_ulLastCheckTime</name></member>
+    <member refid="class_c_button_1a0057265983f23c5c63eba2e634cbc431" kind="variable"><name>m_nCurStatus</name></member>
+    <member refid="class_c_button_1abb5fc10197c734fc776cc7b2aeab792c" kind="function"><name>interruptHandler</name></member>
+    <member refid="class_c_button_1aa83d990df1c958fb874b9f9440f9b98e" kind="function"><name>CButton</name></member>
+    <member refid="class_c_button_1a7738202d8f7c67fea07a05b59531822e" kind="function"><name>CButton</name></member>
+    <member refid="class_c_button_1a3d99e84962ec5626f6d4863acf4f5dbb" kind="function"><name>~CButton</name></member>
+    <member refid="class_c_button_1a52304325294f6218a0c20d7b4ab12152" kind="function"><name>setup</name></member>
+    <member refid="class_c_button_1a6f6c64a270d2395fff0d69234737c790" kind="function"><name>startMonitoring</name></member>
+    <member refid="class_c_button_1aa8aa5c9037062dc2141822aed3f6209a" kind="function"><name>stopMonitoring</name></member>
+    <member refid="class_c_button_1a1e42a6d458c4890ddca8266c51b0f1f6" kind="function"><name>isPressed</name></member>
+  </compound>
+  <compound refid="class_c_config_handler" kind="class"><name>CConfigHandler</name>
+    <member refid="class_c_config_handler_1a10f791b8437752ed69d330173696cc3f" kind="enum"><name>Oper</name></member>
+    <member refid="class_c_config_handler_1a10f791b8437752ed69d330173696cc3faea9ccd24d6f67329e73a7c0e45498d36" kind="enumvalue"><name>CALL_READ</name></member>
+    <member refid="class_c_config_handler_1a10f791b8437752ed69d330173696cc3fa2798bfc34d81deb001c4ac9cad1f0cc7" kind="enumvalue"><name>CALL_WRITE</name></member>
+    <member refid="class_c_config_handler_1a10f791b8437752ed69d330173696cc3fa20d8be836d29d9067acf309176a5e288" kind="enumvalue"><name>CALL_MIGRATE</name></member>
+    <member refid="class_c_config_handler_1a07be67bc30fb468febb5af4ef917221d" kind="variable"><name>m_tListOfConfigHandlers</name></member>
+    <member refid="class_c_config_handler_1a476833632b26b4724ab5a0c1de3294a0" kind="function"><name>CConfigHandler</name></member>
+    <member refid="class_c_config_handler_1a5d355c0fa5c9bd419e943a82c468c445" kind="function"><name>addConfigHandler</name></member>
+    <member refid="class_c_config_handler_1a62391bf2392245ae4919841e33eb1031" kind="function"><name>addConfigHandler</name></member>
+    <member refid="class_c_config_handler_1a2d0e82764c81898291a11b5e657d5d3f" kind="function"><name>getConfigHandler</name></member>
+    <member refid="class_c_config_handler_1acb340296ad2522d78f97c7b3d0e3277b" kind="function"><name>getConfigHandler</name></member>
+    <member refid="class_c_config_handler_1ace2c447f63de669086fcfbc414997c36" kind="function"><name>writeConfigTo</name></member>
+    <member refid="class_c_config_handler_1ac3a494e31e48d06f6ac74a3edff6cc7a" kind="function"><name>readConfigFrom</name></member>
+    <member refid="class_c_config_handler_1a609ed7c35f650b0f29de42db93d17615" kind="function"><name>migrateConfig</name></member>
+    <member refid="class_c_config_handler_1abacafe4746206ef57d1016b5eb567477" kind="function"><name>dumpConfigHandler</name></member>
+  </compound>
+  <compound refid="class_c_event_handler" kind="class"><name>CEventHandler</name>
+    <member refid="class_c_event_handler_1a174ae318edfd31e990f12a7c64d5d9fe" kind="variable"><name>m_tReceiverTable</name></member>
+    <member refid="class_c_event_handler_1a41b6924a33472d04cee2fe3e90cc6acc" kind="function"><name>~CEventHandler</name></member>
+    <member refid="class_c_event_handler_1a00ead2883340bacefe21f4f270b0e510" kind="function"><name>registerEventReceiver</name></member>
+    <member refid="class_c_event_handler_1a8c59bbe44422335e9a4443a964554337" kind="function"><name>sendEvent</name></member>
+    <member refid="class_c_event_handler_1a712521554583b0d34496c2e376f779e4" kind="function"><name>dumpReceiver</name></member>
+  </compound>
+  <compound refid="class_c_event_logger" kind="class"><name>CEventLogger</name>
+    <member refid="class_c_event_logger_1a7d77eb54eb2710936fce50e6eb42d938" kind="variable"><name>pEventHandler</name></member>
+    <member refid="class_c_event_logger_1adb289eeb4d68a4a56dc1222da9e22315" kind="function"><name>CEventLogger</name></member>
+    <member refid="class_c_event_logger_1ad71ef2dd3bee3a8534ff3ef700aa336f" kind="function"><name>CEventLogger</name></member>
+    <member refid="class_c_event_logger_1a144476f5ac6d1c872805a57f7b3e43a7" kind="function"><name>log</name></member>
+    <member refid="class_c_event_logger_1aa9ac34ea143d3117d0599d4c3223a125" kind="function"><name>log</name></member>
+    <member refid="class_c_event_logger_1aadcf29d801f19e75b98676b74b68e140" kind="function"><name>log</name></member>
+    <member refid="class_c_event_logger_1a58cbc8156a1565c1ed80e3e14c0e4bd1" kind="function"><name>getLogClassNumberFrom</name></member>
+    <member refid="class_c_event_logger_1a2d8a92376346f7228ac7c1e89f2dec29" kind="function"><name>getClassCharFromLogClass</name></member>
+  </compound>
+  <compound refid="class_c_f_s" kind="class"><name>CFS</name>
+    <member refid="class_c_f_s_1a5799abe7f16c73fad33d9155c99da21a" kind="variable"><name>m_oFS</name></member>
+    <member refid="class_c_f_s_1a69d07c242a357c2d98c61a776653a65c" kind="function"><name>CFS</name></member>
+    <member refid="class_c_f_s_1a71d49329dd8ec5fadfd193cf760cb2c8" kind="function"><name>fileExists</name></member>
+    <member refid="class_c_f_s_1aa70531d86686322ae7d85c0ea27f2ccb" kind="function"><name>fileExists</name></member>
+    <member refid="class_c_f_s_1a08e698e3c3f164caada031f054465b9c" kind="function"><name>deleteFile</name></member>
+    <member refid="class_c_f_s_1a5cf05b4918bc8cc32b6a94cb64beb24c" kind="function"><name>deleteFile</name></member>
+    <member refid="class_c_f_s_1a7fd95ab6e4b86e81c922d3ef3cedd1dd" kind="function"><name>deleteAllFilesOnPath</name></member>
+    <member refid="class_c_f_s_1a905a7c14fd30b24e60f0c7d0e2a155a6" kind="function"><name>getFileSize</name></member>
+    <member refid="class_c_f_s_1a58b1f271df82f37e119f4ee47027ca51" kind="function"><name>getFileSize</name></member>
+    <member refid="class_c_f_s_1a6eda9f046ced360eae5b9d4fa5eba9a8" kind="function"><name>getBaseFS</name></member>
+    <member refid="class_c_f_s_1a69726859ce28eed2de5bbba2f6ebfd87" kind="function"><name>loadFileToBuffer</name></member>
+    <member refid="class_c_f_s_1a46cdace6f2ae3ce6c78f7e1f2236abf0" kind="function"><name>loadFileToString</name></member>
+    <member refid="class_c_f_s_1ae258cf3a878372903f0edf4fcb8b20cc" kind="function"><name>loadJsonContentFromFile</name></member>
+    <member refid="class_c_f_s_1a065f19c9f110260985ad33cdc279c078" kind="function"><name>saveJsonContentToFile</name></member>
+    <member refid="class_c_f_s_1a6a4ec378d2776088e7305b35e3959b50" kind="function"><name>getTotalBytes</name></member>
+    <member refid="class_c_f_s_1a01963d98920526953032607bad224a69" kind="function"><name>getUsedBytes</name></member>
+    <member refid="class_c_f_s_1a6c30b872b118c5042cf434601bcb69c1" kind="function"><name>getFileList</name></member>
+    <member refid="class_c_f_s_1a78e8f0c7c0fda64a1a4d665daf22d409" kind="function"><name>getFileList</name></member>
+    <member refid="class_c_f_s_1abc29b89ee482ab37400610f73eecfc98" kind="function"><name>writeStatusTo</name></member>
+  </compound>
+  <compound refid="class_c_input_pin_controller" kind="class"><name>CInputPinController</name>
+    <member refid="class_c_input_pin_controller_1a793c547e4667f99e567fc689be7c1d73" kind="variable"><name>m_bWithPullUpDown</name></member>
+    <member refid="class_c_input_pin_controller_1ad9d0b2a6b20c81aa4b3fff6773e554e0" kind="variable"><name>m_nMode</name></member>
+    <member refid="class_c_input_pin_controller_1a646bc0609efbcb3343536cfe5dbbbbfa" kind="function"><name>CInputPinController</name></member>
+    <member refid="class_c_input_pin_controller_1adad6c52a3037a2d8249f6c90ac356a5a" kind="function"><name>CInputPinController</name></member>
+    <member refid="class_c_input_pin_controller_1a136964c5322041ee2562312883efe69d" kind="function"><name>setup</name></member>
+    <member refid="class_c_input_pin_controller_1aba95d213005da0490df9fafabc7b76ef" kind="function"><name>isPinLogicalOn</name></member>
+    <member refid="class_c_input_pin_controller_1a27a31fcd32f3436797c1261a1ea35dff" kind="function"><name>isPinLogicalOff</name></member>
+    <member refid="class_c_input_pin_controller_1ac2670e1210117c01cc994298b25e57e7" kind="function"><name>canSendInterrupts</name></member>
+  </compound>
+  <compound refid="class_c_json_node" kind="class"><name>CJsonNode</name>
+    <member refid="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551" kind="enum"><name>ELEMENT_TYPE</name></member>
+    <member refid="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551a7c86c62479a5b76cfa5216d082cae754" kind="enumvalue"><name>OBJECT</name></member>
+    <member refid="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551a04e5e40f0113431ea847d6b4a2c0dfe3" kind="enumvalue"><name>VALUE</name></member>
+    <member refid="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551aa4f4d8b8b78fdd512dc4fdc636fbf7b4" kind="enumvalue"><name>ARRAY</name></member>
+    <member refid="class_c_json_node_1a00d4d0be71f966e148b28b0826c18100" kind="variable"><name>Name</name></member>
+    <member refid="class_c_json_node_1a7efdf7c8be2e0d68220ccbca4bf58e64" kind="variable"><name>Elements</name></member>
+    <member refid="class_c_json_node_1ab75e0c976cf144463e693867c37bfaba" kind="variable"><name>m_pParentNode</name></member>
+    <member refid="class_c_json_node_1a9ece53b248161d5aeeec870a58b777d8" kind="variable"><name>m_bWriteValueWithQuotes</name></member>
+    <member refid="class_c_json_node_1a896e5fd871757248c7d6560c7cfe3b6a" kind="variable"><name>m_nObjectType</name></member>
+    <member refid="class_c_json_node_1a5a2ae344580fe6d89f410e71f2c1dfe4" kind="variable"><name>m_strSerializationCache</name></member>
+    <member refid="class_c_json_node_1aefd848ceb482dba476ca0380507aff0b" kind="variable"><name>m_strValue</name></member>
+    <member refid="class_c_json_node_1a44904ee58699290450ada5449458aa0d" kind="function"><name>setParentNode</name></member>
+    <member refid="class_c_json_node_1a0c3a19f7cbd2a43ab01f06024b5cbfc7" kind="function"><name>parseValue</name></member>
+    <member refid="class_c_json_node_1a204c78bee5188a0b5b0e8c2cdadb6c90" kind="function"><name>serializeNode</name></member>
+    <member refid="class_c_json_node_1a91a201220d84b3aea8c122544c44f9a5" kind="function"><name>writeIdentPrefixString</name></member>
+    <member refid="class_c_json_node_1a1d6034d6885579ddfc7055c6f257aa99" kind="function"><name>setNodeValueType</name></member>
+    <member refid="class_c_json_node_1a6e33d8a2563ecc648d5390989d03213d" kind="function"><name>getNameFromJsonPath</name></member>
+    <member refid="class_c_json_node_1a7f6b4abc5201a87d47f21dd0ecb42b59" kind="function"><name>CJsonNode</name></member>
+    <member refid="class_c_json_node_1a1b0e5ce91355b58d7117d2f512bc4419" kind="function"><name>CJsonNode</name></member>
+    <member refid="class_c_json_node_1a6a43757a6bd32c5cd5c918359a0ea2d4" kind="function"><name>CJsonNode</name></member>
+    <member refid="class_c_json_node_1aa71a1579e361d1e05ce521dfdfb271d2" kind="function"><name>~CJsonNode</name></member>
+    <member refid="class_c_json_node_1a5326d5c5b611f76e9ad1987ecc629e4f" kind="function"><name>clear</name></member>
+    <member refid="class_c_json_node_1a5e383788e0aeda7368902cbaca807ae5" kind="function"><name>exists</name></member>
+    <member refid="class_c_json_node_1a821929c31a31919a3ce03e0f9732692f" kind="function"><name>getType</name></member>
+    <member refid="class_c_json_node_1aeac8264573c5f57bddb4575ca4a13ac6" kind="function"><name>getParentNode</name></member>
+    <member refid="class_c_json_node_1aa52c3ef67995e24baef61abbbd67516e" kind="function"><name>isJsonObject</name></member>
+    <member refid="class_c_json_node_1a3f819b42ac871accdee1ee30020f565c" kind="function"><name>isJsonObject</name></member>
+    <member refid="class_c_json_node_1ae38f8ea5ae31a04ac44cde6deb39dfe8" kind="function"><name>isJsonArray</name></member>
+    <member refid="class_c_json_node_1a7baf76480392dced909eb70692de509e" kind="function"><name>isJsonArray</name></member>
+    <member refid="class_c_json_node_1a4ac0e2bf58d3952562aa7707e139bb10" kind="function"><name>isJsonValue</name></member>
+    <member refid="class_c_json_node_1ad77e6e1310284a6a5aa277bfc7156907" kind="function"><name>isJsonValue</name></member>
+    <member refid="class_c_json_node_1a11057a74d66ab925e0cd6587beb575f0" kind="function"><name>isNumberValue</name></member>
+    <member refid="class_c_json_node_1aec04cc5f15049a4c5aa24cc5974894f1" kind="function"><name>isNumberValue</name></member>
+    <member refid="class_c_json_node_1a256cd8992228913d26a51d3497b4f0c7" kind="function"><name>isBooleanValue</name></member>
+    <member refid="class_c_json_node_1ad1ad4298ea81b41e36339b1b8528ca9c" kind="function"><name>isBooleanValue</name></member>
+    <member refid="class_c_json_node_1ae2c49146bac494f46161cf40b759e536" kind="function"><name>find</name></member>
+    <member refid="class_c_json_node_1a5fb685d8c710bfa0df860dbc5c7f17d1" kind="function"><name>createJsonPathToElement</name></member>
+    <member refid="class_c_json_node_1a91000767c73086c88d51dfc998051755" kind="function"><name>createElement</name></member>
+    <member refid="class_c_json_node_1ad09cc1b1f2ed3e0e36f3fb3c22b26fce" kind="function"><name>createObject</name></member>
+    <member refid="class_c_json_node_1abd687f063edfe4bce3498b8ffe44ee33" kind="function"><name>createArray</name></member>
+    <member refid="class_c_json_node_1af7bd654cbb88684ed771db20c7325344" kind="function"><name>operator[]</name></member>
+    <member refid="class_c_json_node_1af34373ad405bee8ed7972dc42b2ecfb7" kind="function"><name>operator[]</name></member>
+    <member refid="class_c_json_node_1a7eb46804ff94fb1c93311e1f3a0649c0" kind="function"><name>getValueAsString</name></member>
+    <member refid="class_c_json_node_1ad23aa7f5668e1a5ba074671593499d68" kind="function"><name>getValueAsString</name></member>
+    <member refid="class_c_json_node_1aec8c1da855e03568a40eceb90fe21aca" kind="function"><name>getValue</name></member>
+    <member refid="class_c_json_node_1a84a336088ea6eca50462996a5219f446" kind="function"><name>getValue</name></member>
+    <member refid="class_c_json_node_1a661606d3998e59f6c32afc34067b1469" kind="function"><name>getValueAsCharPointer</name></member>
+    <member refid="class_c_json_node_1a98e47c36491039a3e3a2e2417df5d768" kind="function"><name>getValueAsCharPointer</name></member>
+    <member refid="class_c_json_node_1acd5f1717f1b9234fc6ef670f5a3a6d26" kind="function"><name>getValueAsInt</name></member>
+    <member refid="class_c_json_node_1aa63fe247f41bb2b548fb8c2ef8c8c320" kind="function"><name>getValueAsInt</name></member>
+    <member refid="class_c_json_node_1afa8fc3bba2728ed7cdeb202c8f29d07e" kind="function"><name>getValueAsUnsignedInt</name></member>
+    <member refid="class_c_json_node_1a004287c25340b5b8a5c3a9c566cabd7f" kind="function"><name>getValueAsUnsignedInt</name></member>
+    <member refid="class_c_json_node_1a59076e918e39adeae5ba45c6bdf74ab5" kind="function"><name>getValueAsFloat</name></member>
+    <member refid="class_c_json_node_1aba6803624452e794e8026befbc86c3b8" kind="function"><name>getValueAsFloat</name></member>
+    <member refid="class_c_json_node_1ad6983de490689c1aad2a0dfe42c033a9" kind="function"><name>getValueAsLong</name></member>
+    <member refid="class_c_json_node_1a8e11f03d381be5d8fc255631ae272265" kind="function"><name>getValueAsLong</name></member>
+    <member refid="class_c_json_node_1ac72518bb9dee9a6b10e8c8889247a0d9" kind="function"><name>getValueAsUnsignedLong</name></member>
+    <member refid="class_c_json_node_1a70c88fa78c72fb1a04eba360bd2abffc" kind="function"><name>getValueAsUnsignedLong</name></member>
+    <member refid="class_c_json_node_1a941d9020a19de432791928ee07a0c308" kind="function"><name>getValueAsBool</name></member>
+    <member refid="class_c_json_node_1a5a156ac57cf4f56e68a8daa2da2f9d6a" kind="function"><name>getValueAsBool</name></member>
+    <member refid="class_c_json_node_1a4609acdb957f292a6785181c27f9e030" kind="function"><name>storeValueIf</name></member>
+    <member refid="class_c_json_node_1a212dcf4e88833a01fac4420307ebff6b" kind="function"><name>storeValueIfNot</name></member>
+    <member refid="class_c_json_node_1af36a6dcd1e3804f550106cac9f91c5e1" kind="function"><name>storeValueIf</name></member>
+    <member refid="class_c_json_node_1a22c46a505bd7e7c59c9f1631da50b103" kind="function"><name>storeValueIfNot</name></member>
+    <member refid="class_c_json_node_1a73f9d3edbd4032943111429285c3515b" kind="function"><name>storeValueIf</name></member>
+    <member refid="class_c_json_node_1ae6fdf1c331b2e297703bafc4b0fb92c7" kind="function"><name>storeValueIf</name></member>
+    <member refid="class_c_json_node_1a9bec6d590781ea3b2c0c16d5299f0bd4" kind="function"><name>storeValueIf</name></member>
+    <member refid="class_c_json_node_1a8db2df2b4730e71c749413856685602f" kind="function"><name>storeValueIf</name></member>
+    <member refid="class_c_json_node_1a315e9d10f10eab4c9da12c9ae1de383e" kind="function"><name>storeValueIf</name></member>
+    <member refid="class_c_json_node_1aefe233c1b08de11649ac93f829d72769" kind="function"><name>storeValueIf</name></member>
+    <member refid="class_c_json_node_1acaa032dc57c139866d3acda521490fb7" kind="function"><name>storeValueIf</name></member>
+    <member refid="class_c_json_node_1a8119540e796e54b4d3aeaabad05c5418" kind="function"><name>storeValueIf</name></member>
+    <member refid="class_c_json_node_1ad2cee4a7b2e7422cd9cae250965e9a18" kind="function"><name>storeValueIf</name></member>
+    <member refid="class_c_json_node_1a683ff2103e8d3b96f8bd0f9fd8dc0e50" kind="function"><name>storeValueIf</name></member>
+    <member refid="class_c_json_node_1a9845c91f2fa89c44400ddf5bb4f8b146" kind="function"><name>getObject</name></member>
+    <member refid="class_c_json_node_1aa7e4175abb6013197f52c0103f2b77bf" kind="function"><name>getArray</name></member>
+    <member refid="class_c_json_node_1a908e80d7dc4f739832b00922ab9cbd79" kind="function"><name>getElement</name></member>
+    <member refid="class_c_json_node_1a465d6b124b7005221c0a8bc2c40c082e" kind="function"><name>parse</name></member>
+    <member refid="class_c_json_node_1acfd4a8af2b1c894ee2a491b1476e2cac" kind="function"><name>remove</name></member>
+    <member refid="class_c_json_node_1a9e41c7af941d920760c263d463f19268" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1a6fb8b3dd62b0e8c91f72062d7887d4e8" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1a95fc2762b37568a7e95ace53d11e4055" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1a4a5137b2c17fd8ac2a05566b66a365ff" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1a3dec66dd326b567ef51c2e51818a3cf4" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1a86f7784ad22c2b608b6da7d679f10d38" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1a3066f1959344b16018c7970393e6815d" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1a2104f8b74df99ca33bbdeb9f8d3ff181" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1a356d558926158f481d3e771f4d5b0bb4" kind="function"><name>operator=</name></member>
+    <member refid="class_c_json_node_1ab3fd693f1d525f72b181dc7db2ea7d68" kind="function"><name>operator=</name></member>
+    <member refid="class_c_json_node_1ac2fe2a18f39acc8e4b7541a28347d7d0" kind="function"><name>operator=</name></member>
+    <member refid="class_c_json_node_1ac75e506ef711c569d27b390ad8971a3c" kind="function"><name>operator=</name></member>
+    <member refid="class_c_json_node_1a4dbdc94d54fac32ee97ae34237621bc6" kind="function"><name>operator=</name></member>
+    <member refid="class_c_json_node_1a53c9af094009bd6a0ce43ca34e272f06" kind="function"><name>operator=</name></member>
+    <member refid="class_c_json_node_1a7b67665e6f6e4c454e27e7d37a7c536a" kind="function"><name>operator=</name></member>
+    <member refid="class_c_json_node_1a3c922f2013929c8e596df5465ec24d9d" kind="function"><name>operator=</name></member>
+    <member refid="class_c_json_node_1a2a0549b745c24ab940af1016c5d5cc73" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1a4a373d88ac6e6ad81fc6188bd19bff27" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1a6d23e04609e4a2cf455f455f66bad3ab" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1aff6ba5d73223137462f41345f455a72c" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1adb45a0261fce42765473da9b99ca514f" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1afb739a4caa48233d9ed5fb646aa5269e" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1ab0b800b3d62c384cf95f6488eeb61126" kind="function"><name>setValue</name></member>
+    <member refid="class_c_json_node_1a7d7620075d30773852b97dfac6897b15" kind="function"><name>dump</name></member>
+    <member refid="class_c_json_node_1a9eee801226d4c041c7c77028ff898b05" kind="function"><name>createPayloadStructure</name></member>
+    <member refid="class_c_json_node_1ade2b58f0705bc91ed18d1f8312aa54ad" kind="function"><name>getAsJsonText</name></member>
+    <member refid="class_c_json_node_1ac14dae834d4d67782d48eac2ba13b90b" kind="function"><name>getAsJsonTextPretty</name></member>
+  </compound>
+  <compound refid="class_c_light_switch" kind="class"><name>CLightSwitch</name>
+    <member refid="class_c_light_switch_1a02f374bcff6f16edd530a9b1af1b235a" kind="variable"><name>_ulNextChange</name></member>
+    <member refid="class_c_light_switch_1acb5151a52aba60169f33209a70315920" kind="variable"><name>_ulBlinkOnMillis</name></member>
+    <member refid="class_c_light_switch_1a978360949c57eb75a7549b80ddd9d667" kind="variable"><name>_ulBlinkOffMillis</name></member>
+    <member refid="class_c_light_switch_1a8d30118e168d2091941f8920d4027c00" kind="variable"><name>_bBlinkIsOn</name></member>
+    <member refid="class_c_light_switch_1a2cc9156534b1590c8702ea7b84caca42" kind="variable"><name>_isWaveFadeIn</name></member>
+    <member refid="class_c_light_switch_1acece775d59011f1f447fcc25d1d5ce05" kind="variable"><name>_nWaveCurPercent</name></member>
+    <member refid="class_c_light_switch_1aa9ce13bdc6e2a6852dbe14eeda5c1488" kind="function"><name>CLightSwitch</name></member>
+    <member refid="class_c_light_switch_1a88386c39079be5b9ba60345734db34df" kind="function"><name>CLightSwitch</name></member>
+    <member refid="class_c_light_switch_1a861f6b7256eb7a205b5c3c6219f36556" kind="function"><name>blink</name></member>
+    <member refid="class_c_light_switch_1ab6af2a066e1217cee2b264d735461a0f" kind="function"><name>wave</name></member>
+    <member refid="class_c_light_switch_1a527f7ae794794e5e4a956022fd3a7d63" kind="function"><name>setBrightness</name></member>
+    <member refid="class_c_light_switch_1ab301a6b2c9645dfe276468f29b1dd744" kind="function"><name>getBrightness</name></member>
+    <member refid="class_c_light_switch_1afb3743e585e0b3ece2b0b1d29b46d543" kind="function"><name>runTests</name></member>
+  </compound>
+  <compound refid="class_c_log_writer" kind="class"><name>CLogWriter</name>
+    <member refid="class_c_log_writer_1ada116e3ac3e9e203af5211904fa54752" kind="variable"><name>pSender</name></member>
+    <member refid="class_c_log_writer_1a31a5700ca8543fec690a493899aad727" kind="variable"><name>pEventHandler</name></member>
+    <member refid="class_c_log_writer_1ad09ea43b6ceaadb78e4344f6cb78fc37" kind="variable"><name>m_strModuleName</name></member>
+    <member refid="class_c_log_writer_1ae913c46cf3e0a93ec5f3aeb1149e8c76" kind="variable"><name>m_nLogLevel</name></member>
+    <member refid="class_c_log_writer_1a4c599fb4d4a8990ac374a148d98a53ec" kind="function"><name>isTypeToWriteAlways</name></member>
+    <member refid="class_c_log_writer_1ab9460894fb21e3aa5a963e0737c713ab" kind="function"><name>isLogLevelToWrite</name></member>
+    <member refid="class_c_log_writer_1ae3bf4c4e462598f1972f5940d38968f5" kind="function"><name>CLogWriter</name></member>
+    <member refid="class_c_log_writer_1a0ea27d180c430dfe1bd960a762a2d8b8" kind="function"><name>setLogLevel</name></member>
+    <member refid="class_c_log_writer_1a967eae24276cda109664ba872021fc0c" kind="function"><name>getLogLevel</name></member>
+    <member refid="class_c_log_writer_1aa13c895523c82960e8e8d060dfb3b167" kind="function"><name>receiveEvent</name></member>
+    <member refid="class_c_log_writer_1a0fa34d87b1165f905c0fd58f81b7c2ac" kind="function"><name>writeLogEntry</name></member>
+    <member refid="class_c_log_writer_1a1d777d54df9ae6f59bc7e3ed8a0e0289" kind="function"><name>writeLogEntry</name></member>
+  </compound>
+  <compound refid="class_c_m_d_n_s_controller" kind="class"><name>CMDNSController</name>
+    <member refid="class_c_m_d_n_s_controller_1ae7fc8695acfc7bfb9b2dab62fdbbe6da" kind="function"><name>CMDNSController</name></member>
+    <member refid="class_c_m_d_n_s_controller_1a27e4d8dde5002a452d44cf941a732dd7" kind="function"><name>CMDNSController</name></member>
+    <member refid="class_c_m_d_n_s_controller_1a7382416447c3e321ef4acc4e009dd09e" kind="function"><name>~CMDNSController</name></member>
+    <member refid="class_c_m_d_n_s_controller_1a4dbedd8b0194e99aa964a1a25899fdc1" kind="function"><name>begin</name></member>
+    <member refid="class_c_m_d_n_s_controller_1a9e91c9166165175033c81015ab183c25" kind="function"><name>end</name></member>
+    <member refid="class_c_m_d_n_s_controller_1af458ffa765c455b48dae74b15d7165d3" kind="function"><name>receiveEvent</name></member>
+  </compound>
+  <compound refid="class_c_m_q_t_t_controller" kind="class"><name>CMQTTController</name>
+    <member refid="class_c_m_q_t_t_controller_1a71d788b230f85352445657c651b6983c" kind="variable"><name>m_nMessageBufferSize</name></member>
+    <member refid="class_c_m_q_t_t_controller_1afc4def6c88ee2c635c6356eb7b2fe0de" kind="variable"><name>m_pszMessageBuffer</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a695345aa025d392640a9f819abedc649" kind="variable"><name>m_pszPublishStateTopic</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a9796524af7ca7fb9c9b1eb59f2b8df55" kind="variable"><name>m_pszDeviceCommandTopics</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a0af9a23b5cac8e776a4bbc0d700973fb" kind="variable"><name>m_pszPublishAvailabilityTopic</name></member>
+    <member refid="class_c_m_q_t_t_controller_1af8096a16c4e4b6ac6d9c4ccc4364c031" kind="variable"><name>m_ulLastHeartBeat</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a08bc63792d9d23453344e25a76ea9056" kind="variable"><name>m_tMessageQeue</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a1e81c93df65d5fc017ed36a3067ff01e" kind="variable"><name>m_tComponentHandlerByName</name></member>
+    <member refid="class_c_m_q_t_t_controller_1ab2b1f6bc98fc46bb7d2817ec130b4df7" kind="variable"><name>m_oTryConnectDelay</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a7f2085a5ced881aa9f65140c198117c1" kind="variable"><name>Config</name></member>
+    <member refid="class_c_m_q_t_t_controller_1ac74b04a6e49d62197d795aecc15f097f" kind="variable"><name>Status</name></member>
+    <member refid="class_c_m_q_t_t_controller_1ae7f9c8e0756d2d6e54394b3c86305931" kind="variable"><name>m_pszHomeAssistantStatusTopic</name></member>
+    <member refid="class_c_m_q_t_t_controller_1acaa493e3d92fef082da6f2c2e537a7da" kind="function"><name>CMQTTController</name></member>
+    <member refid="class_c_m_q_t_t_controller_1af75bc1d7cbd4c90471fd2a4e594da4d1" kind="function"><name>~CMQTTController</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a405131afde7200709ccdc2dc0a802194" kind="function"><name>setup</name></member>
+    <member refid="class_c_m_q_t_t_controller_1ac9c74a493bcf2f4f863023f9bfd93fee" kind="function"><name>readConfigFrom</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a4b51ae16b986cddf624d8e94c5bef1fe" kind="function"><name>writeConfigTo</name></member>
+    <member refid="class_c_m_q_t_t_controller_1aca08c94fb9ec821805e26444cafdec2d" kind="function"><name>writeStatusTo</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a745afbf82929c952cc4a7869c19a424e" kind="function"><name>receiveEvent</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a4d2cd700d573f1658cdbf392aba1e6a9" kind="function"><name>dispatch</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a382b1fefcedda68ad101e8059c41e8b4" kind="function"><name>enableConnection</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a6cacb0d25125c4291abcb19f43451681" kind="function"><name>isDeviceTopic</name></member>
+    <member refid="class_c_m_q_t_t_controller_1ab74ddadf0cf0e502c07fee6b35ea8552" kind="function"><name>isDeviceCommandTopic</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a769936939c5b70399d99739073765b12" kind="function"><name>getDeviceCommandBaseTopicPath</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a8ba55f68062af1962103b80ccda6aa59" kind="function"><name>publishDeviceState</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a3a14cf1980635fe69b29c30597fd1371" kind="function"><name>publishDeviceState</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a6dd0250ff054508e9c3117e236235e24" kind="function"><name>publishDeviceTopic</name></member>
+    <member refid="class_c_m_q_t_t_controller_1ad61b6e55973d37e4ad5ccdbdcde1beb6" kind="function"><name>publishDeviceTopic</name></member>
+    <member refid="class_c_m_q_t_t_controller_1acc799efe0206718b0edae2ab0bd7f00d" kind="function"><name>publishDeviceTopic</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a3e14bc4b81800a097d906d59235ad495" kind="function"><name>publishHeartBeat</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a9419766c46e7215044ba6624750713f2" kind="function"><name>registerHomeAssistantComponent</name></member>
+    <member refid="class_c_m_q_t_t_controller_1af8a775477dab592477831272cd12e146" kind="function"><name>onMqttConnect</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a5e677895116b03c2b99607c13d33d6f3" kind="function"><name>onMqttDisconnect</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a0d58b249278d1568ad3ed484bd327567" kind="function"><name>onMqttMessage</name></member>
+    <member refid="class_c_m_q_t_t_controller_1a31fba60f3878697f7032ec2e7aa0a935" kind="function"><name>publishHomeAssistantDiscovery</name></member>
+  </compound>
+  <compound refid="class_c_multi_name_unique_value_table" kind="class"><name>CMultiNameUniqueValueTable</name>
+    <member refid="class_c_multi_name_unique_value_table_1ae917b97504fb55c2d8b022eb86238f0a" kind="function"><name>CMultiNameUniqueValueTable</name></member>
+  </compound>
+  <compound refid="class_c_named_value_entry" kind="class"><name>CNamedValueEntry</name>
+    <member refid="class_c_named_value_entry_1a4aec61c4ac7ec14dbfdd84cc1b7f31be" kind="variable"><name>m_pszKey</name></member>
+    <member refid="class_c_named_value_entry_1a183efa6ef829a5f5f5450fcc3b9fd585" kind="variable"><name>value</name></member>
+    <member refid="class_c_named_value_entry_1af0c52599cc39df632d78bbb519978a5f" kind="function"><name>CNamedValueEntry</name></member>
+    <member refid="class_c_named_value_entry_1a819fe693b78cf21e898060ccf03268c4" kind="function"><name>~CNamedValueEntry</name></member>
+    <member refid="class_c_named_value_entry_1a560d261f3ef8f54747d4d40013c28f8e" kind="function"><name>getKey</name></member>
+    <member refid="class_c_named_value_entry_1a264dd22b3afa3f24d174b252b3b67b18" kind="function"><name>doesKeyMatch</name></member>
+  </compound>
+  <compound refid="class_c_named_value_table" kind="class"><name>CNamedValueTable</name>
+    <member refid="class_c_named_value_table_1af92a5737ee3a61ff7beb5dd293321f1b" kind="variable"><name>m_defaultValue</name></member>
+    <member refid="class_c_named_value_table_1ac78be826b57d0fa3e6b25f49b9c151a5" kind="variable"><name>m_bCaseSensitive</name></member>
+    <member refid="class_c_named_value_table_1a1f24141ab6da395384ac94b0771c0a44" kind="variable"><name>m_bOnlyUniqueValues</name></member>
+    <member refid="class_c_named_value_table_1ac5f5a0169083861ddf1ecea3316067a1" kind="variable"><name>m_bOnlyUniqueKeys</name></member>
+    <member refid="class_c_named_value_table_1a4e29e8661dcbca41d3d8d6273ee8c857" kind="variable"><name>m_tKeyNameCache</name></member>
+    <member refid="class_c_named_value_table_1aefbc59eb240091927f75ad119e58a3d8" kind="variable"><name>Entries</name></member>
+    <member refid="class_c_named_value_table_1a57b5277e14eb0db6a4c133750755f6f5" kind="function"><name>CNamedValueTable</name></member>
+    <member refid="class_c_named_value_table_1afc385682c5fa06f709a626275b912dbc" kind="function"><name>~CNamedValueTable</name></member>
+    <member refid="class_c_named_value_table_1ac7871411aef9eaf43f0e51f2f4f05ea9" kind="function"><name>hasValueEntry</name></member>
+    <member refid="class_c_named_value_table_1a805281fa9b3590ec570e35c75e9ed15b" kind="function"><name>findFirstByValue</name></member>
+    <member refid="class_c_named_value_table_1ac36d447d659c64319b59fe8a07a23b6a" kind="function"><name>findNextByValue</name></member>
+    <member refid="class_c_named_value_table_1a1ee056a19565d95f01fbe6870d59df55" kind="function"><name>hasKeyEntry</name></member>
+    <member refid="class_c_named_value_table_1a03faea2824d9aa8867bc5a2bb18eb9b2" kind="function"><name>findFirstByKey</name></member>
+    <member refid="class_c_named_value_table_1ae3da6788755f4cbdfc8508279d0125db" kind="function"><name>findNextByKey</name></member>
+    <member refid="class_c_named_value_table_1a19dd1dbe6a5e89b853638814bab2381c" kind="function"><name>findEntryByAddress</name></member>
+    <member refid="class_c_named_value_table_1a6ded152edec08c14135b6e25b8221d27" kind="function"><name>set</name></member>
+    <member refid="class_c_named_value_table_1a7ea63b33e01fcaf51476ec0934843259" kind="function"><name>size</name></member>
+    <member refid="class_c_named_value_table_1aef748cf8a06130626fe385c2bd30fc8e" kind="function"><name>getKeys</name></member>
+    <member refid="class_c_named_value_table_1a556f87f5cd383b0970a87ee31a52aa88" kind="function"><name>get</name></member>
+  </compound>
+  <compound refid="class_c_n_t_p_handler" kind="class"><name>CNTPHandler</name>
+    <member refid="class_c_n_t_p_handler_1aaa779a8186fee9a2c799a43cbd5d6e8c" kind="variable"><name>Config</name></member>
+    <member refid="class_c_n_t_p_handler_1a810979542369a17b9173af0623cf2594" kind="variable"><name>m_oRawTime</name></member>
+    <member refid="class_c_n_t_p_handler_1a2aebecee655a11587a9846b8e6e78d5b" kind="variable"><name>m_bIsInitialized</name></member>
+    <member refid="class_c_n_t_p_handler_1aa7facc38bad0898569688039b6ce38a1" kind="variable"><name>m_uLastUpdate</name></member>
+    <member refid="class_c_n_t_p_handler_1af5385fe79f99640f659c08b0ca58ef31" kind="variable"><name>m_szISODateTime</name></member>
+    <member refid="class_c_n_t_p_handler_1a4a611ca57a4ad7a09ae93888a6931bcf" kind="function"><name>CNTPHandler</name></member>
+    <member refid="class_c_n_t_p_handler_1a67b2ef6ae86225ed9f27802e4535a483" kind="function"><name>setup</name></member>
+    <member refid="class_c_n_t_p_handler_1a433bb61ea932ab4507bf8442cb393b99" kind="function"><name>timeUpdatedByService</name></member>
+    <member refid="class_c_n_t_p_handler_1a568f6a619d94ca4416fddceec8c1291c" kind="function"><name>hasValidTime</name></member>
+    <member refid="class_c_n_t_p_handler_1a8ecaea5b338eef8b2d05e2ab72e583ba" kind="function"><name>getNativeTime</name></member>
+    <member refid="class_c_n_t_p_handler_1af246ea3f74bc0e4b49025f5011e87873" kind="function"><name>getISODateTime</name></member>
+    <member refid="class_c_n_t_p_handler_1a380ba014d81f4c3bd3d30a4ef19297d0" kind="function"><name>writeConfigTo</name></member>
+    <member refid="class_c_n_t_p_handler_1ae02956df1241ff0686dd3678d8d07499" kind="function"><name>readConfigFrom</name></member>
+    <member refid="class_c_n_t_p_handler_1a85709408d316075a1b58d6694925483a" kind="function"><name>writeStatusTo</name></member>
+    <member refid="class_c_n_t_p_handler_1a77da60d5cc0263f5b66c9653eb6009df" kind="function"><name>receiveEvent</name></member>
+  </compound>
+  <compound refid="class_c_output_pin_controller" kind="class"><name>COutputPinController</name>
+    <member refid="class_c_output_pin_controller_1afc2b0fafc198acdc9130e9b6a8406f83" kind="variable"><name>m_nLevelInPercent</name></member>
+    <member refid="class_c_output_pin_controller_1a95652cf7f933c0f243d92822ee466ec2" kind="variable"><name>m_nMaxOutputLevel</name></member>
+    <member refid="class_c_output_pin_controller_1ae6d88a113f2cbc14546378922e31709a" kind="variable"><name>m_nState</name></member>
+    <member refid="class_c_output_pin_controller_1ae6baca50093ab1683e106f897a223ed2" kind="function"><name>COutputPinController</name></member>
+    <member refid="class_c_output_pin_controller_1a353befc8a6e90c2cab65bb61b4203a1c" kind="function"><name>COutputPinController</name></member>
+    <member refid="class_c_output_pin_controller_1a55d01ff14b8ba5c614c32c302e11a993" kind="function"><name>setup</name></member>
+    <member refid="class_c_output_pin_controller_1a888de310d37b2b7f09a284ebbac32d77" kind="function"><name>switchOff</name></member>
+    <member refid="class_c_output_pin_controller_1a612f6d04125b1fd31b8aa3be3b9e949d" kind="function"><name>switchOn</name></member>
+    <member refid="class_c_output_pin_controller_1a770dde91de88f268401cc2a93cea3e01" kind="function"><name>toggleSwitch</name></member>
+    <member refid="class_c_output_pin_controller_1a14371aecf9f0f24c82d7f9f35c58cc2a" kind="function"><name>isOn</name></member>
+    <member refid="class_c_output_pin_controller_1a8eaab28191de4cded730580f3829345c" kind="function"><name>setOutputLevelInPercent</name></member>
+    <member refid="class_c_output_pin_controller_1a4a47a3b440566f98a709e0cb7d365bf5" kind="function"><name>getOutputLevelInPercent</name></member>
+    <member refid="class_c_output_pin_controller_1a78296af02a72e44b3b845071e9fc1e6f" kind="function"><name>getPinLevelValueForPWM</name></member>
+  </compound>
+  <compound refid="class_c_pin_controller" kind="class"><name>CPinController</name>
+    <member refid="class_c_pin_controller_1a01332f330cfaba9977464cfe0fdd909a" kind="variable"><name>m_nPin</name></member>
+    <member refid="class_c_pin_controller_1aaf9483e2f918e46c7c120f5a8d5c3b35" kind="variable"><name>m_bLowLevelIsOn</name></member>
+  </compound>
+  <compound refid="class_c_r_g_b_led" kind="class"><name>CRGBLed</name>
+    <member refid="class_c_r_g_b_led_1ab85aef5c48cc6adfb4065f2a3fe5aebe" kind="variable"><name>m_nCurrentColor</name></member>
+    <member refid="class_c_r_g_b_led_1a7ea758b9e25b078e211e880eb9e81216" kind="variable"><name>COLOR_RED_BIT_MASK</name></member>
+    <member refid="class_c_r_g_b_led_1a758895c8295f147d0447a52e582f6ec1" kind="variable"><name>COLOR_GREEN_BIT_MASK</name></member>
+    <member refid="class_c_r_g_b_led_1ab3d0ec5a1ed9d677292edfacc4362425" kind="variable"><name>COLOR_BLUE_BIT_MASK</name></member>
+    <member refid="class_c_r_g_b_led_1ad636507f68ca82715afed260bfcefa6b" kind="variable"><name>RedLED</name></member>
+    <member refid="class_c_r_g_b_led_1a713bc55abd226e4c284ab0fd6bb62953" kind="variable"><name>GreenLED</name></member>
+    <member refid="class_c_r_g_b_led_1a4376063e15be6240b97134d8e84c70da" kind="variable"><name>BlueLED</name></member>
+    <member refid="class_c_r_g_b_led_1a6da9e5bdd7ba146a27563f4646f2dadd" kind="function"><name>CRGBLed</name></member>
+    <member refid="class_c_r_g_b_led_1a3e1a5b40a76001b7413e1ff276dd42c9" kind="function"><name>CRGBLed</name></member>
+    <member refid="class_c_r_g_b_led_1a52b8488f2cf416cb54340c44ae020a57" kind="function"><name>setup</name></member>
+    <member refid="class_c_r_g_b_led_1a896d7bbc1fe44ca274ab39e1113d706c" kind="function"><name>switchOn</name></member>
+    <member refid="class_c_r_g_b_led_1acaf7aa8df1994c384eb983a6be3d49c3" kind="function"><name>switchOff</name></member>
+    <member refid="class_c_r_g_b_led_1aaa844ed7ffafc84d8ae1bc5071ab3f49" kind="function"><name>setColor</name></member>
+    <member refid="class_c_r_g_b_led_1acd5c67890ece04f5cfa6e46fcef9f1ee" kind="function"><name>setColor</name></member>
+    <member refid="class_c_r_g_b_led_1a6e2b0eb26a4e774d77dba37377aa54b7" kind="function"><name>blink</name></member>
+    <member refid="class_c_r_g_b_led_1a8f471e51aff167211dfa094e3339dd83" kind="function"><name>blink</name></member>
+    <member refid="class_c_r_g_b_led_1ab661984d1ff14883669c00504438d3e4" kind="function"><name>wave</name></member>
+    <member refid="class_c_r_g_b_led_1af233373fed81654c63629550b18e8abc" kind="function"><name>wave</name></member>
+    <member refid="class_c_r_g_b_led_1adf3b9cb1e3d57fba64b017408b60e789" kind="function"><name>setBrightnessInPercent</name></member>
+    <member refid="class_c_r_g_b_led_1a4df77898e3a63a1e070a3091c00f52ba" kind="function"><name>setBrightnessInPercent</name></member>
+    <member refid="class_c_r_g_b_led_1a8406f3825e86bba05a5be171b7560184" kind="function"><name>runTests</name></member>
+    <member refid="class_c_r_g_b_led_1ad702e69cd52c512513ecb25c9eac28e7" kind="function"><name>showStartupFlashLight</name></member>
+    <member refid="class_c_r_g_b_led_1ae95e05a6cc65db1fff30f17640fb2c38" kind="function"><name>runSingleColorTests</name></member>
+    <member refid="class_c_r_g_b_led_1ab36729bd2ce04ecdf76405e3b8f137c7" kind="function"><name>runColorBrightnessTest</name></member>
+  </compound>
+  <compound refid="class_c_serial_log_writer" kind="class"><name>CSerialLogWriter</name>
+    <member refid="class_c_serial_log_writer_1a1466e21ddf91238b5a7bbc0a9bc77ded" kind="function"><name>CSerialLogWriter</name></member>
+  </compound>
+  <compound refid="class_c_simple_delay" kind="class"><name>CSimpleDelay</name>
+    <member refid="class_c_simple_delay_1a9f0e062e042f916730b700ed8f643d22" kind="variable"><name>m_ulStartMillis</name></member>
+    <member refid="class_c_simple_delay_1a36dfd54bb3725660158b2973b0123ade" kind="variable"><name>m_ulDelayMillis</name></member>
+    <member refid="class_c_simple_delay_1ad340f02003446151a4e16d634b8e0706" kind="variable"><name>m_bIsExpired</name></member>
+    <member refid="class_c_simple_delay_1ae0f17ea8df8ebd1006a0d761ca7f5eff" kind="function"><name>CSimpleDelay</name></member>
+    <member refid="class_c_simple_delay_1a0416b48be131201e97fc1c4b01a1578a" kind="function"><name>CSimpleDelay</name></member>
+    <member refid="class_c_simple_delay_1a57d846ab0986bcf4e6419008329d5200" kind="function"><name>~CSimpleDelay</name></member>
+    <member refid="class_c_simple_delay_1a16038179a931fa0da52403c751e92d30" kind="function"><name>start</name></member>
+    <member refid="class_c_simple_delay_1ae4635bd9d770fbb8f0885ebb59002622" kind="function"><name>stop</name></member>
+    <member refid="class_c_simple_delay_1addd5489d09b5303a9503f236aa09d126" kind="function"><name>reset</name></member>
+    <member refid="class_c_simple_delay_1a7003889a67f422e95075ffe5b31572d7" kind="function"><name>isActive</name></member>
+    <member refid="class_c_simple_delay_1a7486dbc63e97f11f94ada1781ca4b7fc" kind="function"><name>restart</name></member>
+    <member refid="class_c_simple_delay_1ade6bc009742cb398dae993560dc002fe" kind="function"><name>next</name></member>
+    <member refid="class_c_simple_delay_1a31baea4964b5bfe89aaa3ee86bffadee" kind="function"><name>setExpired</name></member>
+    <member refid="class_c_simple_delay_1a292a196102ca651e81a1a261ffb45859" kind="function"><name>isExpired</name></member>
+    <member refid="class_c_simple_delay_1a99946f9d482585f5f975335c219ad9bb" kind="function"><name>isDone</name></member>
+    <member refid="class_c_simple_delay_1ab4e388a6f0f32ec564d126676b837eea" kind="function"><name>getElapsed</name></member>
+    <member refid="class_c_simple_delay_1a3d685a59ebece6db574bf59781127eec" kind="function"><name>getRemaining</name></member>
+    <member refid="class_c_simple_delay_1a572ecf8e619b1f49cca8fdb4a8506e0c" kind="function"><name>printDiag</name></member>
+  </compound>
+  <compound refid="class_c_status_handler" kind="class"><name>CStatusHandler</name>
+    <member refid="class_c_status_handler_1a955830f97624aafdc2a0a6f7bfb4722d" kind="variable"><name>m_tListOfStatusHandler</name></member>
+    <member refid="class_c_status_handler_1a651297637269669a4830e13f7b008971" kind="function"><name>addStatusHandler</name></member>
+    <member refid="class_c_status_handler_1acc3b0f2d8ecd47a9441c8e409cf23366" kind="function"><name>addStatusHandler</name></member>
+    <member refid="class_c_status_handler_1afe6642be5d63302b8a455a19f382f6c2" kind="function"><name>getStatusHandler</name></member>
+    <member refid="class_c_status_handler_1ade7bd78c571d1a8ff64cd29a4b3773b9" kind="function"><name>getStatusHandler</name></member>
+    <member refid="class_c_status_handler_1ac2bf405743e55f04b107f7d676df2158" kind="function"><name>writeStatusTo</name></member>
+  </compound>
+  <compound refid="class_c_stream_log_writer" kind="class"><name>CStreamLogWriter</name>
+    <member refid="class_c_stream_log_writer_1a3730bcd21ca75ccdba9697641e50c67a" kind="variable"><name>pStream</name></member>
+    <member refid="class_c_stream_log_writer_1ae118e6f07d8c1d90626bff2b76b5f8e8" kind="function"><name>CStreamLogWriter</name></member>
+    <member refid="class_c_stream_log_writer_1a357c77fa843d0719b24c74bd6251602b" kind="function"><name>writeLogEntry</name></member>
+    <member refid="class_c_stream_log_writer_1a61fef1c30329e670466e044dd6046b3a" kind="function"><name>writeLogEntry</name></member>
+  </compound>
+  <compound refid="class_c_sys_status" kind="class"><name>CSysStatus</name>
+    <member refid="class_c_sys_status_1a76df2a31909b07d1f9cdc872cf2dc9f5" kind="variable"><name>m_pszChipID</name></member>
+    <member refid="class_c_sys_status_1a9e0822ad31ab349e25ffc467293424bd" kind="function"><name>CSysStatus</name></member>
+    <member refid="class_c_sys_status_1a044c34fe2a9c6b0ae4e60e37c1d0a815" kind="function"><name>~CSysStatus</name></member>
+    <member refid="class_c_sys_status_1a06272765f97e2d634484d0cc7d43d5b2" kind="function"><name>getSdkVersion</name></member>
+    <member refid="class_c_sys_status_1a0d5b4eb8a0901516d3e104bd910fc5d6" kind="function"><name>getChipID</name></member>
+    <member refid="class_c_sys_status_1a9f1ae212f90f0a420d0a58c7d2ea0733" kind="function"><name>getFlashChipId</name></member>
+    <member refid="class_c_sys_status_1ad0c26c5803e51ffcb551f165aeef3a71" kind="function"><name>getFlashChipRealSize</name></member>
+    <member refid="class_c_sys_status_1a30f825c8b0fdb66b0790e52db44138f7" kind="function"><name>getFlashChipSize</name></member>
+    <member refid="class_c_sys_status_1a478c15efae3196a5898a45c75ffbe085" kind="function"><name>getSketchSize</name></member>
+    <member refid="class_c_sys_status_1a51782bb5750dc86fc2b864345857cc1a" kind="function"><name>getFreeSketchSpace</name></member>
+    <member refid="class_c_sys_status_1ae7d413e89a43c31ec1d7cc8f589fb0c4" kind="function"><name>getHeapSize</name></member>
+    <member refid="class_c_sys_status_1ab2968ab0c731b93befd6d9324513773e" kind="function"><name>getFreeHeap</name></member>
+    <member refid="class_c_sys_status_1a9e730081f29b5cceb3bcc459a970bf92" kind="function"><name>getMaxAllocHeap</name></member>
+    <member refid="class_c_sys_status_1a7929eae35326079fa42ee66b5fbec9f1" kind="function"><name>getFreePsram</name></member>
+    <member refid="class_c_sys_status_1a966f5cc982407221aa68f977dea826b6" kind="function"><name>getCpuFrequencyMhz</name></member>
+    <member refid="class_c_sys_status_1a9841efdc1d6dbda0247499adc65464a8" kind="function"><name>writeStatusTo</name></member>
+  </compound>
+  <compound refid="class_c_sys_status_led" kind="class"><name>CSysStatusLed</name>
+    <member refid="class_c_sys_status_led_1a3d4e90de1f1c0715f496e9c6aae61511" kind="variable"><name>isRebootRequested</name></member>
+    <member refid="class_c_sys_status_led_1ade1febe455d344a4ca7b9cbb27ebf02f" kind="variable"><name>isButtonPressed</name></member>
+    <member refid="class_c_sys_status_led_1a8087dba70f16237abe2d630d1e498c6a" kind="variable"><name>isInAccessPointMode</name></member>
+    <member refid="class_c_sys_status_led_1a0c0d5728a060873928a5a17390e4de06" kind="variable"><name>isInStationMode</name></member>
+    <member refid="class_c_sys_status_led_1a38733fdd7cc99250d3b2f0ce757e24f5" kind="variable"><name>isWiFiConnected</name></member>
+    <member refid="class_c_sys_status_led_1ac41570fc107172b739b1b1ed194a0b02" kind="function"><name>CSysStatusLed</name></member>
+    <member refid="class_c_sys_status_led_1ada23102aaea47d32b19882018d2d426d" kind="function"><name>receiveEvent</name></member>
+    <member refid="class_c_sys_status_led_1a4d16520f7f29cf4953de83125926f628" kind="function"><name>updateLED</name></member>
+    <member refid="class_c_sys_status_led_1ab17f7c8819b3f90e37e384534c9fa0be" kind="function"><name>getNormalBlinkOnTime</name></member>
+    <member refid="class_c_sys_status_led_1abef9d89a935dd4f240e26cfb3a5b12c7" kind="function"><name>getNormalBlinkOffTime</name></member>
+  </compound>
+  <compound refid="class_c_unique_name_multi_value_table" kind="class"><name>CUniqueNameMultiValueTable</name>
+    <member refid="class_c_unique_name_multi_value_table_1a7f4a09288c2a2b72e9e6de42403fec46" kind="function"><name>CUniqueNameMultiValueTable</name></member>
+  </compound>
+  <compound refid="class_c_var" kind="class"><name>CVar</name>
+    <member refid="class_c_var_1a242ad65a64e92dd4470fc8ebd4369a06" kind="variable"><name>pszKeyName</name></member>
+    <member refid="class_c_var_1ab9d1c698d9cf2e698598cb8b283146fb" kind="variable"><name>pszName</name></member>
+    <member refid="class_c_var_1af32a15b9d4f0db9505af9b45b39859f3" kind="variable"><name>pszValue</name></member>
+    <member refid="class_c_var_1a24dd43300b19955d474b775b4b0389cb" kind="variable"><name>isCritical</name></member>
+    <member refid="class_c_var_1a6b8058971f4f178bae3dddefebca9b87" kind="function"><name>~CVar</name></member>
+    <member refid="class_c_var_1ad8392b840a782ef2fe9eeb05c2faa240" kind="function"><name>CVar</name></member>
+    <member refid="class_c_var_1a2877a00833f843de64e5070f9d10156e" kind="function"><name>CVar</name></member>
+    <member refid="class_c_var_1aa72e253b6e73a765ff3f14c5582e9c21" kind="function"><name>CVar</name></member>
+    <member refid="class_c_var_1aadc75b10062262c1897f8c19ffc09503" kind="function"><name>CVar</name></member>
+    <member refid="class_c_var_1a4b642ba48bfe4aaa344b22b15d7f0746" kind="function"><name>CVar</name></member>
+    <member refid="class_c_var_1a1716f913f77d338f7dda34ed25a26987" kind="function"><name>setVarName</name></member>
+    <member refid="class_c_var_1a81e9abe2ae1d883c6a7ca3122829d178" kind="function"><name>getKeyName</name></member>
+    <member refid="class_c_var_1a6d11ece8bb0ddafb9ab86972a108f578" kind="function"><name>setCriticalVar</name></member>
+    <member refid="class_c_var_1aa6ecff428224bc72a50fd8e80b2a193c" kind="function"><name>setValue</name></member>
+    <member refid="class_c_var_1a654c15b9b28edc0af9bf4399c111cb6c" kind="function"><name>setValue</name></member>
+    <member refid="class_c_var_1add35ff7a9b9a90c75af32c07c820bc47" kind="function"><name>setValue</name></member>
+    <member refid="class_c_var_1a08303d54568516950a3219ee013fd3dd" kind="function"><name>setValue</name></member>
+    <member refid="class_c_var_1a1c7c3e1af25a3bf1e26a1fb62265601e" kind="function"><name>isCriticalVar</name></member>
+    <member refid="class_c_var_1a9b09346b0f0fa6e2d010da6d8847f2d7" kind="function"><name>getName</name></member>
+    <member refid="class_c_var_1a3e79bfc4c6528d46b9db403b57fe9a2e" kind="function"><name>getValue</name></member>
+    <member refid="class_c_var_1ae95b2c0f586ae280ac2ced40fea206a2" kind="function"><name>getIntValue</name></member>
+    <member refid="class_c_var_1a0ba6ef0d4675955995e27086ac6644d0" kind="function"><name>getUnsignedLongValue</name></member>
+    <member refid="class_c_var_1a35c55f510b20afb5c4d7d8670ae8f06a" kind="function"><name>getBoolValue</name></member>
+  </compound>
+  <compound refid="class_c_var_table" kind="class"><name>CVarTable</name>
+    <member refid="class_c_var_table_1a36b5965a0f8fdfaafc1b17f8a1487fa9" kind="friend"><name>CVar</name></member>
+    <member refid="class_c_var_table_1a2aa914c45d300e47b4bd028c8846c90c" kind="variable"><name>tVarEntries</name></member>
+    <member refid="class_c_var_table_1a6858bf2eb47bce967e19c574b829c436" kind="variable"><name>isCaseSensitive</name></member>
+    <member refid="class_c_var_table_1ac3cacc11083009debb37db15e137f764" kind="function"><name>prepareKeyName</name></member>
+    <member refid="class_c_var_table_1a7e78a0beb921cadc539d6426b9c4ffe3" kind="function"><name>getOrCreateVarEntry</name></member>
+    <member refid="class_c_var_table_1a00f8a965bbe384837b48aa13dc84bdfa" kind="function"><name>CVarTable</name></member>
+    <member refid="class_c_var_table_1ab0bdb76f5cf7ca0becddf282b05e6355" kind="function"><name>~CVarTable</name></member>
+    <member refid="class_c_var_table_1a82ac79e0fd144b22a15cb278ed0f08c0" kind="function"><name>hasCriticalVars</name></member>
+    <member refid="class_c_var_table_1af170af25839b070fbd4cd56cf5b4f773" kind="function"><name>find</name></member>
+    <member refid="class_c_var_table_1a3fe0f2b09ed119504028a39281f71d1b" kind="function"><name>find</name></member>
+    <member refid="class_c_var_table_1ae75eda1831ad4a49c52f2ab774d93c9e" kind="function"><name>set</name></member>
+    <member refid="class_c_var_table_1a830f2f1dfd7192109ee03000ef7371e9" kind="function"><name>set</name></member>
+    <member refid="class_c_var_table_1a49fcdb0224b58d2e832fd0151f4104ac" kind="function"><name>set</name></member>
+    <member refid="class_c_var_table_1a1e35a418930b05a83d7cb7a7a8737895" kind="function"><name>set</name></member>
+    <member refid="class_c_var_table_1a0b35a9deaf9c0975a0f41c213acef87f" kind="function"><name>set</name></member>
+    <member refid="class_c_var_table_1a58580a0f0c909e83ba84763f43fc203c" kind="function"><name>set</name></member>
+    <member refid="class_c_var_table_1af4d2679978d3c69350537de8f7fb9e5a" kind="function"><name>set</name></member>
+    <member refid="class_c_var_table_1ae49a4d40ef1b2c14caf67b4cbb9cd978" kind="function"><name>set</name></member>
+    <member refid="class_c_var_table_1ada860e2bdcd7ac5a9c1e4427ed0da351" kind="function"><name>set</name></member>
+    <member refid="class_c_var_table_1a32db778879aa41f62236e7cf6fde65ea" kind="function"><name>getValue</name></member>
+    <member refid="class_c_var_table_1a5ab3571e9ce2bd5ae39c98abfd3c7ed3" kind="function"><name>getValue</name></member>
+    <member refid="class_c_var_table_1a9b0dbb8c8007893a914713e5117e8149" kind="function"><name>getIntValue</name></member>
+    <member refid="class_c_var_table_1a88a5a389c91cc9845dff8a812767406b" kind="function"><name>getBoolValue</name></member>
+    <member refid="class_c_var_table_1a2ae5d9a7152cb1d54054db5bae349e98" kind="function"><name>getValue</name></member>
+    <member refid="class_c_var_table_1a8634b8c8a19ea743992e37a36be53ca0" kind="function"><name>getIntValue</name></member>
+    <member refid="class_c_var_table_1aa6e3f30e30f40e6e0f34a6c50fc1eee2" kind="function"><name>getBoolValue</name></member>
+    <member refid="class_c_var_table_1ac4e51df043bd8798c8f0e9f0d00841c9" kind="function"><name>writeConfigTo</name></member>
+    <member refid="class_c_var_table_1a3aa034f6f7c46125f2c3d7640ae434db" kind="function"><name>readConfigFrom</name></member>
+    <member refid="class_c_var_table_1a2e95f97f9da8d6653599a8af8b118bdf" kind="function"><name>hasConfigValues</name></member>
+  </compound>
+  <compound refid="class_c_web_server" kind="class"><name>CWebServer</name>
+    <member refid="class_c_web_server_1ac04fa8b98859dcabf8f8c4f30b97436c" kind="variable"><name>Version</name></member>
+    <member refid="class_c_web_server_1a2abf6b4ccb9ce545fd9a8ba1506ddc32" kind="variable"><name>Config</name></member>
+    <member refid="class_c_web_server_1a3fa02de3fee20c17f1bebba8cfae91be" kind="variable"><name>Status</name></member>
+    <member refid="class_c_web_server_1ac9b1f253c0939ecf4e26b5e0814ebbf8" kind="function"><name>CWebServer</name></member>
+    <member refid="class_c_web_server_1a4f3aa81c98dc6b58547044790e55a894" kind="function"><name>writeStatusTo</name></member>
+    <member refid="class_c_web_server_1a53e90a7c5bc2dc0af7f48580d9ed6656" kind="function"><name>writeConfigTo</name></member>
+    <member refid="class_c_web_server_1a1a01f3cb7de446aa89b032cb6f3eb28f" kind="function"><name>readConfigFrom</name></member>
+    <member refid="class_c_web_server_1a34b921fb662cd2d27a069252ba0aba23" kind="function"><name>receiveEvent</name></member>
+    <member refid="class_c_web_server_1a793290c9f95c9168e2dbc5e447845f70" kind="function"><name>registerFileAccess</name></member>
+    <member refid="class_c_web_server_1ad1cfb1eb325a5fc99adabd59a617c3b3" kind="function"><name>deliverFile</name></member>
+    <member refid="class_c_web_server_1ac44beb94d88e7849b2430118e2aaace6" kind="function"><name>registerDefaults</name></member>
+    <member refid="class_c_web_server_1aef06b6bb6b9e03f9415a0fa3fa3b6d8f" kind="function"><name>setNewAuthHeader</name></member>
+  </compound>
+  <compound refid="class_c_web_socket" kind="class"><name>CWebSocket</name>
+    <member refid="class_c_web_socket_1ae3911784c3d8fbc12ad2b98931e50367" kind="variable"><name>m_tMsgQueue</name></member>
+    <member refid="class_c_web_socket_1a87d877197dd021bf7fdec9f50a70c600" kind="variable"><name>m_strNeedsAuth</name></member>
+    <member refid="class_c_web_socket_1a68c307e5aa40def12e6499ab17c05042" kind="variable"><name>m_oClientCleanupDelay</name></member>
+    <member refid="class_c_web_socket_1a09f2ec58b5fae0aa2ddb3be354b552ec" kind="variable"><name>Status</name></member>
+    <member refid="class_c_web_socket_1a71672caf00ecf8d10404da47c71cb456" kind="function"><name>CWebSocket</name></member>
+    <member refid="class_c_web_socket_1a13d4065502a387950ed54ba94e871ede" kind="function"><name>dispatchMessageQueue</name></member>
+    <member refid="class_c_web_socket_1a4540167fb2c1bc0e64e0be5869ed122f" kind="function"><name>dispatchMessage</name></member>
+    <member refid="class_c_web_socket_1a6c8a9a295d6ad9786abeb53f4abd9b52" kind="function"><name>dispatchJsonMessage</name></member>
+    <member refid="class_c_web_socket_1acdb14e80acd1088e71f574d61d616165" kind="function"><name>setNeedsAuth</name></member>
+    <member refid="class_c_web_socket_1a1f859ab48ed436b66466c39c20740286" kind="function"><name>getNeedsAuth</name></member>
+    <member refid="class_c_web_socket_1a9cb753c240ffb08c7cff1102380a9140" kind="function"><name>needsAuth</name></member>
+    <member refid="class_c_web_socket_1a26d97d77fa8e4172a69efc9ee844bf02" kind="function"><name>receiveEvent</name></member>
+    <member refid="class_c_web_socket_1a8287548f105685ada47c7bb4d47c8e06" kind="function"><name>onWebSocketEvent</name></member>
+    <member refid="class_c_web_socket_1a6430c32aac3891c87bdfad22789972dc" kind="function"><name>sendAccessDeniedMessage</name></member>
+    <member refid="class_c_web_socket_1a8de81b52168634da37e833e0c0007e76" kind="function"><name>sendJsonDocMessage</name></member>
+    <member refid="class_c_web_socket_1a829953f41e68047bf8dcffc45ffa3a8b" kind="function"><name>checkAuth</name></member>
+    <member refid="class_c_web_socket_1aad8bae1620e9f7582798705aec9408aa" kind="function"><name>addMessageToQueue</name></member>
+  </compound>
+  <compound refid="class_c_web_socket_message" kind="class"><name>CWebSocketMessage</name>
+    <member refid="class_c_web_socket_message_1a894f67a227da6af33f801ae397044c5a" kind="variable"><name>MessageSize</name></member>
+    <member refid="class_c_web_socket_message_1a552c4bbb1bbc535abdb8c640864af6d7" kind="variable"><name>pSerializedMessage</name></member>
+    <member refid="class_c_web_socket_message_1a94000f8009492fbf1f19cc5c3be4da2b" kind="variable"><name>MessageType</name></member>
+    <member refid="class_c_web_socket_message_1af462052f9ddd14f6eee1b9640b938f53" kind="variable"><name>pSocket</name></member>
+    <member refid="class_c_web_socket_message_1a99ddf12031140dae08f704fe7e888bf0" kind="variable"><name>pClient</name></member>
+    <member refid="class_c_web_socket_message_1a1e3c2298ab71f7767bfc8932791cf537" kind="function"><name>CWebSocketMessage</name></member>
+    <member refid="class_c_web_socket_message_1ae86cb3c83f37862df63bb6be6bcade65" kind="function"><name>~CWebSocketMessage</name></member>
+    <member refid="class_c_web_socket_message_1a99ed17abd17ca08e4819c743ffb9d33c" kind="function"><name>setMessageData</name></member>
+  </compound>
+  <compound refid="class_c_wi_fi_controller" kind="class"><name>CWiFiController</name>
+    <member refid="class_c_wi_fi_controller_1a459171b6cf678744520a6d7fcd6d3732" kind="variable"><name>m_strBuffer</name></member>
+    <member refid="class_c_wi_fi_controller_1abddb8e479a6c76c65bf9a7dbf66f0a01" kind="variable"><name>Config</name></member>
+    <member refid="class_c_wi_fi_controller_1af54703cf3b85325819d4538d62ea847d" kind="variable"><name>Status</name></member>
+    <member refid="class_c_wi_fi_controller_1aa09b05329bd45298940dfd8561cb6670" kind="function"><name>getConfigBSSIDAsString</name></member>
+    <member refid="class_c_wi_fi_controller_1aade77682c0601b48b9f0512621e95c0e" kind="function"><name>getStatusText</name></member>
+    <member refid="class_c_wi_fi_controller_1a89345d14a59db398fed0ba34108ec9d0" kind="function"><name>disableWiFi</name></member>
+    <member refid="class_c_wi_fi_controller_1ae53e4f3d634017e9216a08962cc1ebb1" kind="function"><name>startAccessPoint</name></member>
+    <member refid="class_c_wi_fi_controller_1a22cce10fdb6b124c546d698bd4fdef79" kind="function"><name>joinNetwork</name></member>
+    <member refid="class_c_wi_fi_controller_1aa9167f9605f845ff730e331e2586408e" kind="function"><name>onWiFiScanResult</name></member>
+    <member refid="class_c_wi_fi_controller_1ad438de08c7d71e3f81b858c9c3c23587" kind="function"><name>storeIPAddressIf</name></member>
+    <member refid="class_c_wi_fi_controller_1aaef53e48ea0f5ca336e4718359799386" kind="function"><name>getDefaultSSIDofAP</name></member>
+    <member refid="class_c_wi_fi_controller_1a3973e2913377be3d57b4982687c9b480" kind="function"><name>CWiFiController</name></member>
+    <member refid="class_c_wi_fi_controller_1adbe12703563fd35189de9b9ca455fb78" kind="function"><name>writeConfigTo</name></member>
+    <member refid="class_c_wi_fi_controller_1aeb2a0f93c114722c9fdda0d4a7460363" kind="function"><name>readConfigFrom</name></member>
+    <member refid="class_c_wi_fi_controller_1a8b4957d794b69deddc3eb1e87a4ea635" kind="function"><name>writeStatusTo</name></member>
+    <member refid="class_c_wi_fi_controller_1ad0121819a5969b8289fb3dca2881b5d0" kind="function"><name>writeStatusToLog</name></member>
+    <member refid="class_c_wi_fi_controller_1a495ef23b4abd8ad201094eefe3972fec" kind="function"><name>startWiFi</name></member>
+    <member refid="class_c_wi_fi_controller_1a26a884dce9553903dbb27275e831e1eb" kind="function"><name>startAccessPoint</name></member>
+    <member refid="class_c_wi_fi_controller_1a382d9dc194c0ac84479379b91bad41d6" kind="function"><name>restartIfNeeded</name></member>
+    <member refid="class_c_wi_fi_controller_1a34577a13c5bdf7a3d206a38da6af4fa6" kind="function"><name>scanWiFi</name></member>
+    <member refid="class_c_wi_fi_controller_1a19e1797900735d44355ffd825d7d8c0d" kind="function"><name>receiveEvent</name></member>
+  </compound>
+  <compound refid="struct_c_config_handler_1_1_handler_entry" kind="struct"><name>CConfigHandler::HandlerEntry</name>
+    <member refid="struct_c_config_handler_1_1_handler_entry_1ac507c51340520f21b392406427aaeb0d" kind="variable"><name>pszName</name></member>
+    <member refid="struct_c_config_handler_1_1_handler_entry_1a2ea9ddeb0da1bc172d1808295c83fb5e" kind="variable"><name>pHandler</name></member>
+  </compound>
+  <compound refid="class_i_config_handler" kind="class"><name>IConfigHandler</name>
+    <member refid="class_i_config_handler_1a3507b2ec7bef0a1ec0a7f90da0ec32f2" kind="function"><name>writeConfigTo</name></member>
+    <member refid="class_i_config_handler_1a4c43c53522b0408972d6573e91d1e63e" kind="function"><name>readConfigFrom</name></member>
+    <member refid="class_i_config_handler_1a6011c82a3fe9d10ef0ea54d848557f4c" kind="function"><name>hasConfigValues</name></member>
+    <member refid="class_i_config_handler_1a8a92be059bfaca6c233419763865a5f4" kind="function"><name>migrateConfig</name></member>
+  </compound>
+  <compound refid="class_i_home_assistant_component" kind="class"><name>IHomeAssistantComponent</name>
+    <member refid="class_i_home_assistant_component_1afd27eb0ce1e31cd34bb9eb79f3dffd4e" kind="function"><name>insertComponentDiscovery</name></member>
+  </compound>
+  <compound refid="class_i_module" kind="class"><name>IModule</name>
+  </compound>
+  <compound refid="class_i_msg_event_receiver" kind="class"><name>IMsgEventReceiver</name>
+    <member refid="class_i_msg_event_receiver_1a3345710906f9a16c4dca5b7ce2da39d7" kind="function"><name>receiveEvent</name></member>
+  </compound>
+  <compound refid="class_i_p_address" kind="class"><name>IPAddress</name>
+    <member refid="class_i_p_address_1a4e41eaaeb1ea26782b4871ae10abb4cc" kind="variable"><name>m_strAddress</name></member>
+    <member refid="class_i_p_address_1a6089825af3b03060f80282d0dcca1582" kind="function"><name>IPAddress</name></member>
+    <member refid="class_i_p_address_1a939d190c2b2eace1efd6952ab3e06367" kind="function"><name>IPAddress</name></member>
+    <member refid="class_i_p_address_1ae2c097655d3e148321f8a68d2f3e9e1a" kind="function"><name>fromString</name></member>
+    <member refid="class_i_p_address_1a42c3ea343bc00b7fc7ec6b49ceb19f6e" kind="function"><name>toString</name></member>
+  </compound>
+  <compound refid="class_i_status_handler" kind="class"><name>IStatusHandler</name>
+    <member refid="class_i_status_handler_1a159576674bba670032ae23b647db1dec" kind="function"><name>writeStatusTo</name></member>
+    <member refid="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" kind="function"><name>hasStatusValues</name></member>
+  </compound>
+  <compound refid="struct_l_s_c___f_s" kind="struct"><name>LSC_FS</name>
+    <member refid="struct_l_s_c___f_s_1adb2a0567ea48ecff9040dc3104eb6652" kind="variable"><name>isFSInitializedAndOpen</name></member>
+  </compound>
+  <compound refid="struct_m_q_t_t_config" kind="struct"><name>MQTTConfig</name>
+    <member refid="struct_m_q_t_t_config_1ac0687eb5d52c542d8ba0ae9233534eec" kind="variable"><name>isEnabled</name></member>
+    <member refid="struct_m_q_t_t_config_1a401c1e8a0014f441a6150b5614f98ef6" kind="variable"><name>useAutoTopic</name></member>
+    <member refid="struct_m_q_t_t_config_1a73e0b3ce22dce6c8fe7bfcf6ec8aef24" kind="variable"><name>BrokerAddress</name></member>
+    <member refid="struct_m_q_t_t_config_1a546eff5cd4b01da4a690661bb67ea8c2" kind="variable"><name>BrokerPort</name></member>
+    <member refid="struct_m_q_t_t_config_1ac52d496544cbdac0291db0da76fea11e" kind="variable"><name>ClientID</name></member>
+    <member refid="struct_m_q_t_t_config_1a8446f174513eaa0bd83299506bb46bd0" kind="variable"><name>UserName</name></member>
+    <member refid="struct_m_q_t_t_config_1a709b3261964483355a0d738e5cae4fff" kind="variable"><name>UserPassword</name></member>
+    <member refid="struct_m_q_t_t_config_1acbc0fa3342ea34378484d761ea8aafec" kind="variable"><name>PublishTopicPrefix</name></member>
+    <member refid="struct_m_q_t_t_config_1a6efef8a3d27650afb5529c3023153840" kind="variable"><name>PublishInterval</name></member>
+    <member refid="struct_m_q_t_t_config_1a5ad981a4d9c571332ba92668325a13ee" kind="variable"><name>useHA</name></member>
+    <member refid="struct_m_q_t_t_config_1a7fe30c35e390613dc72aa3518f310d26" kind="variable"><name>HADiscoveryPrefix</name></member>
+    <member refid="struct_m_q_t_t_config_1a1e424a0d7a0c674efa1f55050abeeb1d" kind="variable"><name>HAOnlineMessage</name></member>
+    <member refid="struct_m_q_t_t_config_1aa59a2860692f5da99856c4b3730b7d50" kind="variable"><name>HAOfflineMessage</name></member>
+  </compound>
+  <compound refid="class_m_q_t_t_message" kind="class"><name>MQTTMessage</name>
+    <member refid="class_m_q_t_t_message_1ab8f259c808195f167aaceaadc5a5d94b" kind="variable"><name>pController</name></member>
+    <member refid="class_m_q_t_t_message_1ac0a1cab20a3fa7e19c87d55e41649f72" kind="variable"><name>Message</name></member>
+    <member refid="class_m_q_t_t_message_1abd50f4b6d2e2f933e2323ca0d81f7b1d" kind="variable"><name>Topic</name></member>
+    <member refid="class_m_q_t_t_message_1a974c015c98d9e3834d85c3cf3267faef" kind="function"><name>MQTTMessage</name></member>
+    <member refid="class_m_q_t_t_message_1a72b9fd731c7ba440b28ee46a8481c37c" kind="function"><name>~MQTTMessage</name></member>
+    <member refid="class_m_q_t_t_message_1a4d5617cd7f89976d879a196ae121a250" kind="function"><name>isDeviceTopic</name></member>
+    <member refid="class_m_q_t_t_message_1aafdd10bc087227070ebd64a5578a27aa" kind="function"><name>isDeviceCommandTopic</name></member>
+  </compound>
+  <compound refid="struct_m_q_t_t_status" kind="struct"><name>MQTTStatus</name>
+    <member refid="struct_m_q_t_t_status_1ac6c0f031c15183e9bf4f93b5f48b3392" kind="variable"><name>ConStart</name></member>
+    <member refid="struct_m_q_t_t_status_1af2ed2e838f2fdf2f1ec05b39662cbc35" kind="variable"><name>ConEnd</name></member>
+    <member refid="struct_m_q_t_t_status_1a87dc771b7980a0e576c8aca303651db0" kind="variable"><name>DisConReason</name></member>
+    <member refid="struct_m_q_t_t_status_1abea80e618904bbddd02b161f0432de5a" kind="variable"><name>DisConReasonString</name></member>
+  </compound>
+  <compound refid="class_native_serial" kind="class"><name>NativeSerial</name>
+    <member refid="class_native_serial_1acadfad9266cf88e4fdc22c4d403e455a" kind="function"><name>printf</name></member>
+    <member refid="class_native_serial_1aeb0eb5cd9a1c0c15b321c1c787fce7f5" kind="function"><name>print</name></member>
+    <member refid="class_native_serial_1affb34414f1fe4a8a3367e617a5612b3f" kind="function"><name>println</name></member>
+  </compound>
+  <compound refid="struct_n_t_p_config" kind="struct"><name>NTPConfig</name>
+    <member refid="struct_n_t_p_config_1adc903c890cc34a9cd7021761457641c8" kind="variable"><name>isEnabled</name></member>
+    <member refid="struct_n_t_p_config_1a2e57d03c5fafa7ea384b93e4d2609c45" kind="variable"><name>NTPServer</name></member>
+    <member refid="struct_n_t_p_config_1aab8e15173582f5dee65484b9b3022f92" kind="variable"><name>TZ</name></member>
+  </compound>
+  <compound refid="struct_c_status_handler_1_1_status_handler_entry" kind="struct"><name>CStatusHandler::StatusHandlerEntry</name>
+    <member refid="struct_c_status_handler_1_1_status_handler_entry_1a41ebdf4bcf956aa2172b8093ac075958" kind="variable"><name>pszName</name></member>
+    <member refid="struct_c_status_handler_1_1_status_handler_entry_1aba28323bc2f6d0874e215c70e1c9a610" kind="variable"><name>pHandler</name></member>
+  </compound>
+  <compound refid="struct_web_server_config" kind="struct"><name>WebServerConfig</name>
+    <member refid="struct_web_server_config_1a4c9bd47c39c874a2c6669f6f3a1e9f4a" kind="variable"><name>AutoRedirectMode</name></member>
+    <member refid="struct_web_server_config_1ae637de31d80067adefc1a0e66e363c36" kind="variable"><name>UserName</name></member>
+    <member refid="struct_web_server_config_1a3faabfe62166d70c06673a09ae6ceb78" kind="function"><name>authenticate</name></member>
+  </compound>
+  <compound refid="struct_web_server_status" kind="struct"><name>WebServerStatus</name>
+    <member refid="struct_web_server_status_1a3c700c77cd9fbd15fa984dba0b2b37b8" kind="variable"><name>Started</name></member>
+    <member refid="struct_web_server_status_1a1abab2ac1a57242fcdd49766b2ff28f3" kind="variable"><name>AutoRedirectMode</name></member>
+  </compound>
+  <compound refid="struct_web_socket_status" kind="struct"><name>WebSocketStatus</name>
+    <member refid="struct_web_socket_status_1a6476ab63541c7865d4f6b1e3fba6a83a" kind="variable"><name>uptime</name></member>
+  </compound>
+  <compound refid="struct_wi_fi_config" kind="struct"><name>WiFiConfig</name>
+    <member refid="struct_wi_fi_config_1a69d0e6f7495aa1ca197643ee7e026917" kind="variable"><name>accessPointMode</name></member>
+    <member refid="struct_wi_fi_config_1acda13e8190881ae5292d045090615d50" kind="variable"><name>ap_ssid</name></member>
+    <member refid="struct_wi_fi_config_1a99a0d6c88aa5a0f06b864e811b2ce342" kind="variable"><name>ap_Password</name></member>
+    <member refid="struct_wi_fi_config_1a14d16c64d4abefaf37d811de1ffca9df" kind="variable"><name>ap_channel</name></member>
+    <member refid="struct_wi_fi_config_1a6965e7f21320d93a379d038fda64be05" kind="variable"><name>ap_hidden</name></member>
+    <member refid="struct_wi_fi_config_1a92b3a555d7d06f97e6acc14e82ca9800" kind="variable"><name>ap_ipAddress</name></member>
+    <member refid="struct_wi_fi_config_1ad1ef1c39bf1677cf62d9a1a48252e1c8" kind="variable"><name>ap_ipSubnetMask</name></member>
+    <member refid="struct_wi_fi_config_1ad38d64fd537bfe5904d0ac27192650a7" kind="variable"><name>wifi_ssid</name></member>
+    <member refid="struct_wi_fi_config_1a579f550ae0fe29062a1266a5f9ace65a" kind="variable"><name>wifi_bssid</name></member>
+    <member refid="struct_wi_fi_config_1aaed666f4f96ba15de4311d01cfd149be" kind="variable"><name>wifi_Password</name></member>
+    <member refid="struct_wi_fi_config_1a4c75063ed2ff35718a0f52918b588ebf" kind="variable"><name>dhcpEnabled</name></member>
+    <member refid="struct_wi_fi_config_1a27609e631685ab7e884f0168b408f81c" kind="variable"><name>ipAddress</name></member>
+    <member refid="struct_wi_fi_config_1aed3d38ab591fe2b0d2d87798177ac59c" kind="variable"><name>ipSubnetMask</name></member>
+    <member refid="struct_wi_fi_config_1aa72a16296d4567a29db2580feac80d58" kind="variable"><name>ipGateway</name></member>
+    <member refid="struct_wi_fi_config_1a2afd4b999edd3cb0f724f35e8a44ae99" kind="variable"><name>ipDNS</name></member>
+    <member refid="struct_wi_fi_config_1ab01c1717fe6c4bdd409fb4756f1ba9cd" kind="variable"><name>autoFallbackMode</name></member>
+    <member refid="struct_wi_fi_config_1afb2dea4fc2c824425be372ef8be79a09" kind="variable"><name>retryTimeoutSeconds</name></member>
+    <member refid="struct_wi_fi_config_1ab377d6dcedc90bf524a83b115351e760" kind="variable"><name>retryCount</name></member>
+  </compound>
+  <compound refid="struct_wi_fi_status" kind="struct"><name>WiFiStatus</name>
+    <member refid="struct_wi_fi_status_1a9a5b454fb05e4ae1063cd16d6aa3cb01" kind="variable"><name>startTimeInMillis</name></member>
+    <member refid="struct_wi_fi_status_1a8d6e5191ccf1f405bc074e11f740292a" kind="variable"><name>stopTimeInMillis</name></member>
+    <member refid="struct_wi_fi_status_1a84b2aac7569a452c1e787b961b52c6e7" kind="variable"><name>restartTimeInMillis</name></member>
+    <member refid="struct_wi_fi_status_1ac14afaa58306ef8add6e731831641b27" kind="variable"><name>isWiFiConnected</name></member>
+    <member refid="struct_wi_fi_status_1a8c1038be525af124aba99412a5dff621" kind="variable"><name>isInAccessPointMode</name></member>
+    <member refid="struct_wi_fi_status_1a126ea12f33ab75496136c6972f895dc3" kind="variable"><name>isInStationMode</name></member>
+    <member refid="struct_wi_fi_status_1aec038f499425fb6538a9e1f67e56be75" kind="variable"><name>wifiStatus</name></member>
+    <member refid="struct_wi_fi_status_1a127b858bb833ee28cc5f093052e5f6e6" kind="variable"><name>nRetryConnectCounter</name></member>
+  </compound>
+  <compound refid="namespace_l_s_c" kind="namespace"><name>LSC</name>
+    <member refid="namespace_l_s_c_1a59bf31e8ad834a52eed82129eeabe437" kind="function"><name>createPayloadStructure</name></member>
+    <member refid="namespace_l_s_c_1ad1fae2622956db45d34bda50fe787533" kind="function"><name>createPayloadStructure</name></member>
+    <member refid="namespace_l_s_c_1ac9eb3767f78e1b5164bcad1d65a57e21" kind="function"><name>setJsonValueIfNot</name></member>
+    <member refid="namespace_l_s_c_1aaf9a907799e8c5a6a7eb228db6c9d876" kind="function"><name>setJsonValue</name></member>
+    <member refid="namespace_l_s_c_1a28f19bcbc8219d4d62ff49711b8d2d74" kind="function"><name>setJsonValue</name></member>
+    <member refid="namespace_l_s_c_1a1cf4e3f8bd97ad576a0ce1b1b4d86b82" kind="function"><name>setJsonValue</name></member>
+    <member refid="namespace_l_s_c_1ae7a27308cf55a23e3b727bf4b5271569" kind="function"><name>setJsonValue</name></member>
+    <member refid="namespace_l_s_c_1a74afbf378840ab72bcc6db57ebce691f" kind="function"><name>setJsonValue</name></member>
+    <member refid="namespace_l_s_c_1a1f2e8b36415a561fa280c9b6fa3e4cd9" kind="function"><name>setJsonValue</name></member>
+    <member refid="namespace_l_s_c_1aa8135cac0fd57a89edc92defe21ba6d2" kind="function"><name>setJsonValue</name></member>
+    <member refid="namespace_l_s_c_1a9c25d90211a7024f46899625f028f5f4" kind="function"><name>setJsonValue</name></member>
+    <member refid="namespace_l_s_c_1a4cfe9002c5154f02938901014a4c011d" kind="function"><name>setJsonValue</name></member>
+    <member refid="namespace_l_s_c_1a3ce2029a4ea4d3335b0e45eef3ff144e" kind="function"><name>setJsonValue</name></member>
+    <member refid="namespace_l_s_c_1a7538390720d1f9500f29167766b8c09a" kind="function"><name>setJsonValue</name></member>
+    <member refid="namespace_l_s_c_1a947c3d7f90759b5ba0a8a5f3ee12c612" kind="function"><name>getCurrentISODateTime</name></member>
+    <member refid="namespace_l_s_c_1a8f7cd186c38a1e3258d34f136443d4eb" kind="function"><name>getISODateTime</name></member>
+    <member refid="namespace_l_s_c_1a030da47523a176ca53b5c5b692ef2970" kind="function"><name>getFarenheitFromCelsius</name></member>
+    <member refid="namespace_l_s_c_1aab3033a325d077d02c299126c9073b9a" kind="function"><name>getCelsiusFromFarenheit</name></member>
+    <member refid="namespace_l_s_c_1a81444e2f3c79f7d54cb1b8300d630f14" kind="function"><name>stricmp</name></member>
+    <member refid="namespace_l_s_c_1a98c2efd82c6f9689da7e7021cd6c251e" kind="function"><name>indexOf</name></member>
+    <member refid="namespace_l_s_c_1ad5e355ab25d4353fec911dcce207c58f" kind="function"><name>lastIndexOf</name></member>
+    <member refid="namespace_l_s_c_1a65283cb16e3305ab5926c49c61aa32f4" kind="function"><name>isTrueValue</name></member>
+    <member refid="namespace_l_s_c_1a29a21ed992ca0197c96524fb2894a092" kind="function"><name>isFalseValue</name></member>
+    <member refid="namespace_l_s_c_1a84cf54a64ba5fac021afc6d1ba17e8a1" kind="function"><name>isWhite</name></member>
+    <member refid="namespace_l_s_c_1a3d11d71477782c529cbcbcab84c99edb" kind="function"><name>isNumber</name></member>
+    <member refid="namespace_l_s_c_1a236f20bc9eda2741c9dd3d070188f76c" kind="function"><name>skipWhite</name></member>
+    <member refid="namespace_l_s_c_1a5efeeb834de34fd1a98ef6cb77c1f2ca" kind="function"><name>parseBytesToArray</name></member>
+  </compound>
+  <compound refid="namespace_l_s_c___w_i_f_i" kind="namespace"><name>LSC_WIFI</name>
+    <member refid="namespace_l_s_c___w_i_f_i_1afe64b5863b02138db4569d19db241e62" kind="function"><name>getDefaultSSIDofAP</name></member>
+  </compound>
+  <compound refid="_c_web_socket_8md" kind="file"><name>CWebSocket.md</name>
+  </compound>
+  <compound refid="page_builder_8md" kind="file"><name>pageBuilder.md</name>
+  </compound>
+  <compound refid="mainpage_8md" kind="file"><name>mainpage.md</name>
+  </compound>
+  <compound refid="_access_token_8h" kind="file"><name>AccessToken.h</name>
+    <member refid="_access_token_8h_1af100484b6f59ea3a63e2245e1bd29517" kind="define"><name>TOKEN_TIME_ALIVE</name></member>
+  </compound>
+  <compound refid="_a_e_s_cryptor_8h" kind="file"><name>AESCryptor.h</name>
+    <member refid="_a_e_s_cryptor_8h_1a6565cfe4d30573f63e0c1d0df33e2e10" kind="define"><name>APPL_SECURITY_TOKEN_PASS</name></member>
+    <member refid="_a_e_s_cryptor_8h_1acaf38455390ea02d9e6d59d7aabd06ac" kind="define"><name>AES_CRYPTOR_BLOCK_SIZE</name></member>
+  </compound>
+  <compound refid="_appl_8h" kind="file"><name>Appl.h</name>
+    <member refid="_appl_8h_1aad1075ee7a34d865f9534733f9bf1938" kind="define"><name>ApplLogInfo</name></member>
+    <member refid="_appl_8h_1aa59a37b68d6088e4ec03e93abbbf0b54" kind="define"><name>ApplLogWarn</name></member>
+    <member refid="_appl_8h_1a5074798b5c7409e63f84e8d83b302abb" kind="define"><name>ApplLogVerbose</name></member>
+    <member refid="_appl_8h_1abc5b15e3206e3777f7f36023c6a590dd" kind="define"><name>ApplLogError</name></member>
+    <member refid="_appl_8h_1a724663d1e7accdd9b641cf6d7f510984" kind="define"><name>ApplLogInfoWithParms</name></member>
+    <member refid="_appl_8h_1abd8649676c85ad43266b7bee8558bb48" kind="define"><name>ApplLogVerboseWithParms</name></member>
+    <member refid="_appl_8h_1a4e23b9cbf04612bf394508ff798fcb0b" kind="define"><name>ApplLogWarnWithParms</name></member>
+    <member refid="_appl_8h_1ac89597319f632f3becaf2067b240b083" kind="define"><name>ApplLogErrorWithParms</name></member>
+    <member refid="_appl_8h_1a37ee06d775f8906f126b87bce113a5cd" kind="define"><name>ApplLogTraceWithParms</name></member>
+    <member refid="_appl_8h_1a557e280f2825f6879598b5a9a430804b" kind="define"><name>ApplLogTrace</name></member>
+    <member refid="_appl_8h_1a061febd0dccc042bdc16cee44909f888" kind="define"><name>STATUS_DOC_SIZE</name></member>
+    <member refid="_appl_8h_1a4cd75d92fd7b4fbf56390b328310fb30" kind="define"><name>SYSSTATUS_DOC_SIZE</name></member>
+    <member refid="_appl_8h_1ae3a4e4d31f3573ef99e3da21c412edfc" kind="define"><name>JSON_CONFIG_DOC_DEFAULT_SIZE</name></member>
+    <member refid="_appl_8h_1a8defbbb2fc3ea9a6f82d1f14276a8ac1" kind="define"><name>JSON_CONFIG_DEFAULT_FILE</name></member>
+    <member refid="_appl_8h_1a87a9b12e37196ba08400eb3fc3291965" kind="define"><name>JSON_APPL_CONFIG_FILE</name></member>
+    <member refid="_appl_8h_1a9dae37b6b57e30542ac5d55a27d6e46c" kind="define"><name>DEFAULT_DEVICE_NAME</name></member>
+    <member refid="_appl_8h_1aa628533c2b6a4d3c62abe45cdd6a0248" kind="define"><name>DEFAULT_DEVICE_PWD</name></member>
+    <member refid="_appl_8h_1a0d66abe33132833f21a6f38a9f5b64cb" kind="define"><name>HIDDEN_PASSWORD_MASK</name></member>
+    <member refid="_appl_8h_1a6b50235193982e2e0881b445d021e26f" kind="variable"><name>Appl</name></member>
+  </compound>
+  <compound refid="_appl_module_8h" kind="file"><name>ApplModule.h</name>
+  </compound>
+  <compound refid="_base64_data_8h" kind="file"><name>Base64Data.h</name>
+  </compound>
+  <compound refid="_battery_measure_8h" kind="file"><name>BatteryMeasure.h</name>
+  </compound>
+  <compound refid="_button_8h" kind="file"><name>Button.h</name>
+    <member refid="_button_8h_1ac95ed463bb8c147dab5be2665cf11ac1" kind="define"><name>BUTTON_STATUS_ON</name></member>
+    <member refid="_button_8h_1a5c1b32c980f7c1e925ddbf7d73464089" kind="define"><name>BUTTON_STATUS_OFF</name></member>
+    <member refid="_button_8h_1a20b056cdc3e863c26f39824eb3106c45" kind="define"><name>BUTTON_DEBOUNCING_TIME</name></member>
+  </compound>
+  <compound refid="_config_handler_8h" kind="file"><name>ConfigHandler.h</name>
+  </compound>
+  <compound refid="_development_helper_8h" kind="file"><name>DevelopmentHelper.h</name>
+    <member refid="_development_helper_8h_1a00e2dbe1d76c50c1b447a096dbd662f1" kind="define"><name>NULL_FUNCTION</name></member>
+    <member refid="_development_helper_8h_1aefc1f6292c639e5c379c699dcfc57865" kind="define"><name>DEBUG_FUNC_START</name></member>
+    <member refid="_development_helper_8h_1a2834f44be39598b030a616ea1d632657" kind="define"><name>DEBUG_FUNC_END</name></member>
+    <member refid="_development_helper_8h_1adeec7a073c63ec42f7b8d5b172beb24f" kind="define"><name>DEBUG_FUNC_START_PARMS</name></member>
+    <member refid="_development_helper_8h_1ab346c70d02a2b89b268fc717a2e73f84" kind="define"><name>DEBUG_FUNC_END_PARMS</name></member>
+    <member refid="_development_helper_8h_1ac3b786cc5c37142cca3992333737de61" kind="define"><name>DEBUG_INFOS</name></member>
+    <member refid="_development_helper_8h_1a5e6a59bd575ddf0f39e834507fa20474" kind="define"><name>DEBUG_INFO</name></member>
+    <member refid="_development_helper_8h_1a70f9e69ad3c7fab3e3326a6940ef265f" kind="define"><name>DEBUG_FUNC_INFOS</name></member>
+    <member refid="_development_helper_8h_1a3b6e064c68de900ce65523b12f79c248" kind="define"><name>DEBUG_FUNC_INFO</name></member>
+    <member refid="_development_helper_8h_1aaafa95ee185d4dc6a9c2e860da0036b8" kind="define"><name>DEBUG_JSON_OBJ</name></member>
+    <member refid="_development_helper_8h_1a61f41e17e8e936b83d9eaef0b9f57394" kind="define"><name>DEBUG_DELAY</name></member>
+    <member refid="_development_helper_8h_1a29ebbbccb9ef2ffa9e3a0548da3a809f" kind="define"><name>DEBUG_TODO</name></member>
+    <member refid="_development_helper_8h_1ad1c0d63db6dd5dd00383ef2e491e9bee" kind="define"><name>DEBUG_TODO_INFUNC</name></member>
+    <member refid="_development_helper_8h_1a783bc2c00530d945c8e7ad11bc307342" kind="define"><name>NULL_POINTER_STRING</name></member>
+  </compound>
+  <compound refid="_event_handler_8h" kind="file"><name>EventHandler.h</name>
+    <member refid="_event_handler_8h_1af74d24c95b451d1f064aed0c32680db5" kind="define"><name>EVENT_MSG_CALL_AGAIN_WHEN_ALL_OK</name></member>
+    <member refid="_event_handler_8h_1a6c29847fd5f21592f8f691560736ef82" kind="define"><name>EVENT_MSG_RESULT_OK</name></member>
+    <member refid="_event_handler_8h_1add272e1b0f1a76b2548ca11189b2d5b3" kind="define"><name>EVENT_MSG_RESULT_WARN</name></member>
+    <member refid="_event_handler_8h_1a9231afb65cb3de3b48234902eda3db44" kind="define"><name>EVENT_MSG_RESULT_ERROR</name></member>
+    <member refid="_event_handler_8h_1a6ae4b8e784653317186e3962dd3a4575" kind="define"><name>EVENT_MSG_RESULT_STOP_PROCESSING</name></member>
+  </compound>
+  <compound refid="base64_8h" kind="file"><name>base64.h</name>
+    <member refid="base64_8h_1a6397ac136ebdd7977e3abf06f861bf33" kind="define"><name>SAFEBASE64</name></member>
+    <member refid="base64_8h_1a55c0a574d35e9f1460cc4a09d096cb26" kind="define"><name>isMultipleOf</name></member>
+    <member refid="base64_8h_1a6556f55b6a63a66db94487200b151da8" kind="define"><name>isbase64ValidChr</name></member>
+    <member refid="base64_8h_1aa15ae22fcaa94b4f1086253d39837d45" kind="function"><name>base64</name></member>
+    <member refid="base64_8h_1a25eb9f32b4d3312b287a2017ab38adff" kind="function"><name>unbase64</name></member>
+    <member refid="base64_8h_1afb531a3a8ea720741996706766a63031" kind="function"><name>base64integrity</name></member>
+  </compound>
+  <compound refid="_file_system_8h" kind="file"><name>FileSystem.h</name>
+  </compound>
+  <compound refid="_input_pin_controller_8h" kind="file"><name>InputPinController.h</name>
+  </compound>
+  <compound refid="_json_helper_8h" kind="file"><name>JsonHelper.h</name>
+    <member refid="_json_helper_8h_1aecc027364a26483c119b47449d161149" kind="define"><name>GetJsonDocumentAsObject</name></member>
+    <member refid="_json_helper_8h_1a4f2afeaa5d20d3fe713606877c0ec78d" kind="define"><name>JSON_DOC</name></member>
+    <member refid="_json_helper_8h_1aaaa81ffc810e356d8045be8911374343" kind="define"><name>JSON_DOC_STATIC</name></member>
+    <member refid="_json_helper_8h_1a1be822833f8e654b85919cebacff3041" kind="define"><name>CreateJsonArray</name></member>
+    <member refid="_json_helper_8h_1ae002f6d7b2189a442e84ff7b9942abb2" kind="define"><name>CreateEmptyJsonArray</name></member>
+    <member refid="_json_helper_8h_1a3e11defa707fafd30cc8690fedf52282" kind="define"><name>CreateJsonObject</name></member>
+    <member refid="_json_helper_8h_1ac2b8ead46b96ffef119387b57a527e09" kind="define"><name>CreateEmptyJsonObject</name></member>
+    <member refid="_json_helper_8h_1afa0f49bdbe8be961f1adda460c76fd3e" kind="define"><name>GetJsonObject</name></member>
+    <member refid="_json_helper_8h_1a074c82d88cc28caf1d5c38e9cdb1d1c0" kind="define"><name>GetOrCreateJsonObject</name></member>
+    <member refid="_json_helper_8h_1abb43f25d1916d2b646e0b0c466297669" kind="define"><name>JsonKeyExists</name></member>
+  </compound>
+  <compound refid="_json_node_8h" kind="file"><name>JsonNode.h</name>
+    <member refid="_json_node_8h_1af08ec37a8c99d747fb60fa15bc28678b" kind="define"><name>_CRT_SECURE_NO_WARNINGS</name></member>
+    <member refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kind="define"><name>JsonNode</name></member>
+    <member refid="_json_node_8h_1a497f3eb1a24667cc5e81a24ef0e620fd" kind="define"><name>SIMPLE_JSON_TYPE_VALUE</name></member>
+    <member refid="_json_node_8h_1a3b54ef9d91db7ee5eca9275c7eb44ebe" kind="define"><name>SIMPLE_JSON_TYPE_OBJECT</name></member>
+    <member refid="_json_node_8h_1aac03fbb3ef9e57cbcabfab2fe748130b" kind="define"><name>SIMPLE_JSON_TYPE_ARRAY</name></member>
+  </compound>
+  <compound refid="_light_switch_8h" kind="file"><name>LightSwitch.h</name>
+    <member refid="_light_switch_8h_1acf42c74d18e23f72a7dfcdae76b6282a" kind="define"><name>LIGHT_STATE_ON</name></member>
+    <member refid="_light_switch_8h_1adcdd0340a34345c6fabbdf4dee62e945" kind="define"><name>LIGHT_STATE_OFF</name></member>
+  </compound>
+  <compound refid="_logging_8h" kind="file"><name>Logging.h</name>
+    <member refid="_logging_8h_1a4c067aa1134dd0e71598acf3a8ecf949" kind="define"><name>logInfo</name></member>
+    <member refid="_logging_8h_1aff019e0e32c1d65f06b8f8130ddfe090" kind="define"><name>logVerbose</name></member>
+    <member refid="_logging_8h_1ad3c6e060b87e1c178c5a5e1f98c9b747" kind="define"><name>logWarning</name></member>
+    <member refid="_logging_8h_1a0fd0b66048a6c0067346d99523b3b26f" kind="define"><name>logError</name></member>
+    <member refid="_logging_8h_1a3e26c08d2242cc7d3f61eb0a32762f8c" kind="define"><name>logTrace</name></member>
+    <member refid="_logging_8h_1ad6fcdeb6a07034f27c6b069665baaa1a" kind="define"><name>logException</name></member>
+    <member refid="_logging_8h_1abbd39f00a7aead161835487523594c06" kind="define"><name>logDebug</name></member>
+    <member refid="_logging_8h_1a4d8ae15bcc0611de082b5109cd1e3809" kind="define"><name>LOG_CLASS_LEVEL_MASK</name></member>
+    <member refid="_logging_8h_1adf4a8eda8a109ffac3bd41f3e33675a1" kind="define"><name>LOG_CLASS_TYPE_ALWAYS</name></member>
+  </compound>
+  <compound refid="_l_s_c_utils_8h" kind="file"><name>LSCUtils.h</name>
+  </compound>
+  <compound refid="_m_d_n_s_controller_8h" kind="file"><name>MDNSController.h</name>
+  </compound>
+  <compound refid="_module_interface_8h" kind="file"><name>ModuleInterface.h</name>
+  </compound>
+  <compound refid="_m_q_t_t_controller_8h" kind="file"><name>MQTTController.h</name>
+    <member refid="_m_q_t_t_controller_8h_1a84ca83b7fadde2078528f50d6c403f8f" kind="define"><name>MQTT_STATE_AVAILABLE</name></member>
+    <member refid="_m_q_t_t_controller_8h_1a4e779994f55f2acfa8a7871f25c73dcd" kind="define"><name>MQTT_STATE_UNAVAILABLE</name></member>
+    <member refid="_m_q_t_t_controller_8h_1a58b694d0861ae3928b8a5719d2c4af19" kind="define"><name>MQTT_STATE_BOOTING</name></member>
+    <member refid="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbf" kind="enum"><name>AsyncMqttClientDisconnectReason</name></member>
+    <member refid="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfa848e89ec27e775fab0350b25da931038" kind="enumvalue"><name>TCP_DISCONNECTED</name></member>
+    <member refid="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfa71bbc744843d95ad8cde5997f8c269ef" kind="enumvalue"><name>MQTT_UNACCEPTABLE_PROTOCOL_VERSION</name></member>
+    <member refid="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfae1d33b54206ecf678f76972388226860" kind="enumvalue"><name>MQTT_IDENTIFIER_REJECTED</name></member>
+    <member refid="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfa1eb86437fcac2903fff83298778372ca" kind="enumvalue"><name>MQTT_SERVER_UNAVAILABLE</name></member>
+    <member refid="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfa3968e2a7c2ea97a9834fa3b60ed99130" kind="enumvalue"><name>MQTT_MALFORMED_CREDENTIALS</name></member>
+    <member refid="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfa98bd9a02c9ccc20f30195304bb16e16d" kind="enumvalue"><name>MQTT_NOT_AUTHORIZED</name></member>
+    <member refid="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfadbbd968c161230d1ea27afd0a9734910" kind="enumvalue"><name>ESP8266_NOT_ENOUGH_SPACE</name></member>
+  </compound>
+  <compound refid="_msgs_8h" kind="file"><name>Msgs.h</name>
+    <member refid="_msgs_8h_1af7e0e8a3ba049fcbf85bfe063b925c32" kind="define"><name>MSG_APPL_STARTING</name></member>
+    <member refid="_msgs_8h_1ac49a56366e5e56d88821dedaf0718719" kind="define"><name>MSG_APPL_INITIALIZED</name></member>
+    <member refid="_msgs_8h_1a52da4f2c22511331becf52d05b98ca7e" kind="define"><name>MSG_APPL_STARTED</name></member>
+    <member refid="_msgs_8h_1adf6c71af1913e2b5d00f43eb6cfee56e" kind="define"><name>MSG_APPL_STATUS_CHANGED</name></member>
+    <member refid="_msgs_8h_1a7c2ca78598fac187148b654b5bbb86d0" kind="define"><name>MSG_APPL_LOOP</name></member>
+    <member refid="_msgs_8h_1a35d99bf338b41bc6b316565e7257a08b" kind="define"><name>MSG_REBOOT_REQUEST</name></member>
+    <member refid="_msgs_8h_1a4c1e7d623bfb3115bc9b138fcdf34d9e" kind="define"><name>MSG_RESTART_REQUEST</name></member>
+    <member refid="_msgs_8h_1af3de3e99df269beaa5c1193e26445aa0" kind="define"><name>MSG_APPL_SHUTDOWN</name></member>
+    <member refid="_msgs_8h_1ac7b0244b91bffe5f517934291742429d" kind="define"><name>MSG_LOG_ENTRY</name></member>
+    <member refid="_msgs_8h_1aa397b63ae1384be38b9141f98c73b151" kind="define"><name>MSG_LOG_ENTRY_JSON</name></member>
+    <member refid="_msgs_8h_1ade476bd38a5f02209f0a821adb175454" kind="define"><name>MSG_BUTTON_CHANGED</name></member>
+    <member refid="_msgs_8h_1aa0de96b8ad5434c1fca1d589b25cb024" kind="define"><name>MSG_BUTTON_ON</name></member>
+    <member refid="_msgs_8h_1a09640cc0e13c964ed15fb0369322dfc0" kind="define"><name>MSG_BUTTON_OFF</name></member>
+    <member refid="_msgs_8h_1a82632e641a2fdfde669ab6026fa83b5a" kind="define"><name>MSG_RF433_SCAN</name></member>
+    <member refid="_msgs_8h_1a18b2a1cff0e0f528a1b637ecaaf5300d" kind="define"><name>MSG_WIFI_STARTING</name></member>
+    <member refid="_msgs_8h_1aa32e886dabfd41f5cbccb2cd4631fa0f" kind="define"><name>MSG_WIFI_CONNECTED</name></member>
+    <member refid="_msgs_8h_1a978d1f001d86672685a85befed809f4d" kind="define"><name>MSG_WIFI_SCAN</name></member>
+    <member refid="_msgs_8h_1af7db59bbdc766d9f1fd0d4bd086e4fde" kind="define"><name>MSG_WIFI_SCAN_RESULT</name></member>
+    <member refid="_msgs_8h_1a6b96b8196486df93f556e9d86e6da2d6" kind="define"><name>MSG_WIFI_DISABLING</name></member>
+    <member refid="_msgs_8h_1a6d1228149c62b34305a6a2add36029ab" kind="define"><name>MSG_WIFI_DISABLED</name></member>
+    <member refid="_msgs_8h_1aee0b56105c0b36513f323c64b25e28c7" kind="define"><name>MSG_WIFI_ERROR</name></member>
+    <member refid="_msgs_8h_1a0c6e241c6e9794dd92b948fae52a9a5c" kind="define"><name>MSG_CAPTIVE_PORTAL_STARTED</name></member>
+    <member refid="_msgs_8h_1a6280cff6d46329b7825a2d47abb3e311" kind="define"><name>MSG_CAPTIVE_PORTAL_STOPPED</name></member>
+    <member refid="_msgs_8h_1aea483f8379258d0f9049f1af6910f2ef" kind="define"><name>MSG_OTA_START</name></member>
+    <member refid="_msgs_8h_1a5ce307a6a9fd2145057c0c4d31031678" kind="define"><name>MSG_OTA_END</name></member>
+    <member refid="_msgs_8h_1ad0051339b65b0baf25d53547a78b6f44" kind="define"><name>MSG_OTA_PROGRESS</name></member>
+    <member refid="_msgs_8h_1ad3475a063d9bdab6eeb59499ad196fde" kind="define"><name>MSG_OTA_ERROR</name></member>
+    <member refid="_msgs_8h_1aeff00ec7837311f7ec8c4161d23ad6d5" kind="define"><name>MSG_WEBSOCKET_SEND_JSONNODE</name></member>
+    <member refid="_msgs_8h_1ac6f8e2561c6560e6fda252c270322202" kind="define"><name>MSG_WEBSOCKET_DATA_RECEIVED</name></member>
+    <member refid="_msgs_8h_1adf8ccde1d8e3e63110b77fb5cbd46c73" kind="define"><name>MSG_MQTT_STARTING</name></member>
+    <member refid="_msgs_8h_1a224768d9b552f130c20c15ce0fc6f7ce" kind="define"><name>MSG_MQTT_CONNECTED</name></member>
+    <member refid="_msgs_8h_1a065398ef63a37488ef89e7d1e9a65b5b" kind="define"><name>MSG_MQTT_DISCONNECTED</name></member>
+    <member refid="_msgs_8h_1a90b0841b5e37130a6637c9a9c390a600" kind="define"><name>MSG_MQTT_MSG_RECEIVED</name></member>
+    <member refid="_msgs_8h_1a3c8eb5545989a77b3baf7589f9723d08" kind="define"><name>MSG_MQTT_SEND_JSONNODE</name></member>
+    <member refid="_msgs_8h_1a3b24466557be9dca7a6f7bb5a9c35fcc" kind="define"><name>MSG_MQTT_SEND_TEXTSTATE</name></member>
+    <member refid="_msgs_8h_1a871f3a30c521706fae57a05b7e111fd0" kind="define"><name>MSG_MQTT_SEND_JSONSTATE</name></member>
+    <member refid="_msgs_8h_1a6b9d62f2a2bd1820c657e87b9aa8ed51" kind="define"><name>MSG_HA_FILL_DISCOVERY</name></member>
+    <member refid="_msgs_8h_1abcfd6e20eb5498708859528bd578803c" kind="define"><name>MSG_HA_FILL_DISCOVERY_CMPS</name></member>
+    <member refid="_msgs_8h_1a4a4640b9384b072f37e00f806a4e02ac" kind="define"><name>MSG_JSON_OBJECT</name></member>
+    <member refid="_msgs_8h_1ace561c043687143600b31a6bbdc3cf08" kind="define"><name>MSG_JSON_PAYLOAD</name></member>
+    <member refid="_msgs_8h_1ac30d67736ccd4a1eb6248c5fca2042c6" kind="define"><name>LOG_CLASS_INFO</name></member>
+    <member refid="_msgs_8h_1a6fdde02e785818710d1d23ee4a1e4492" kind="define"><name>LOG_CLASS_VERBOSE</name></member>
+    <member refid="_msgs_8h_1a7a704bed54cd8059c4dd8ffbb8186c13" kind="define"><name>LOG_CLASS_WARN</name></member>
+    <member refid="_msgs_8h_1a1ccf5c9732933ba3170ef63d45c280b4" kind="define"><name>LOG_CLASS_ERROR</name></member>
+    <member refid="_msgs_8h_1a4f3703f3823ffeb20d0b7f98c128e8b3" kind="define"><name>LOG_CLASS_TRACE</name></member>
+    <member refid="_msgs_8h_1ace2707c58d56882b56826ab8415525ec" kind="define"><name>LOG_CLASS_DEBUG</name></member>
+    <member refid="_msgs_8h_1a28e5033797a5dbd746a71ca193a1acc1" kind="define"><name>LOG_CLASS_EXCEPTION</name></member>
+    <member refid="_msgs_8h_1a5bf0dc4a017d384ee8caf51730b02f30" kind="define"><name>WIFI_ACCESS_POINT_MODE</name></member>
+    <member refid="_msgs_8h_1acc02c773ad810bd1cac201a440f32a20" kind="define"><name>WIFI_STATION_MODE</name></member>
+    <member refid="_msgs_8h_1a6f0149123d8c8ff370ed6fe722094a01" kind="variable"><name>MSG_USER_BASE</name></member>
+  </compound>
+  <compound refid="_named_value_table_8h" kind="file"><name>NamedValueTable.h</name>
+  </compound>
+  <compound refid="_network_8h" kind="file"><name>Network.h</name>
+    <member refid="_network_8h_1a71e1e3806a7f4e5f9aa046c2cc221bf4" kind="define"><name>WS_TEXT</name></member>
+    <member refid="_network_8h_1a46ef0d5853852b59d766eb4dd858cf72" kind="define"><name>WS_BINARY</name></member>
+    <member refid="_network_8h_1a3c33b5e64d6635e10f74e3577e642293" kind="enum"><name>AwsEventType</name></member>
+    <member refid="_network_8h_1a3c33b5e64d6635e10f74e3577e642293a8ee533e983912fa8ebff62b940cb5d57" kind="enumvalue"><name>WS_EVT_CONNECT</name></member>
+    <member refid="_network_8h_1a3c33b5e64d6635e10f74e3577e642293ac27b495e6645907750b440aeaca9d014" kind="enumvalue"><name>WS_EVT_DISCONNECT</name></member>
+    <member refid="_network_8h_1a3c33b5e64d6635e10f74e3577e642293a6286c37466f0d7ab6a61aac2e24cfd51" kind="enumvalue"><name>WS_EVT_ERROR</name></member>
+    <member refid="_network_8h_1a3c33b5e64d6635e10f74e3577e642293ac03ec7b81b62de01387a9a0f1e7353ef" kind="enumvalue"><name>WS_EVT_DATA</name></member>
+  </compound>
+  <compound refid="_n_t_p_handler_8h" kind="file"><name>NTPHandler.h</name>
+  </compound>
+  <compound refid="_output_pin_controller_8h" kind="file"><name>OutputPinController.h</name>
+    <member refid="_output_pin_controller_8h_1a33b90f5429fe46ff40e374be0d64c76b" kind="define"><name>DEVICE_STATE_UNKNOWN</name></member>
+    <member refid="_output_pin_controller_8h_1a087bbfbddb74bc5803caa28bb9c17fde" kind="define"><name>DEVICE_STATE_ACTIVE</name></member>
+    <member refid="_output_pin_controller_8h_1a2cbc464dd0b86ee8b1a2afcd83105138" kind="define"><name>DEVICE_STATE_INACTIVE</name></member>
+  </compound>
+  <compound refid="_pin_controller_8h" kind="file"><name>PinController.h</name>
+  </compound>
+  <compound refid="_prog_version_8h" kind="file"><name>ProgVersion.h</name>
+    <member refid="_prog_version_8h_1ac11f4f94d23dabb8fad0050ea3a0733a" kind="define"><name>PROG_VERSION_NAME</name></member>
+    <member refid="_prog_version_8h_1a9c5ab28e89c35a122205556228ab6fda" kind="define"><name>PROG_VERSION_MAJOR</name></member>
+    <member refid="_prog_version_8h_1ab8c84b6482365f1462a66337b5629163" kind="define"><name>PROG_VERSION_MINOR</name></member>
+    <member refid="_prog_version_8h_1ad92cb1084aeb33568251c1c1afe94d23" kind="define"><name>PROG_VERSION_PATCH</name></member>
+    <member refid="_prog_version_8h_1ae0bd6f0d7a6f6ea1e4741768e51453dd" kind="define"><name>PROG_VERSION_BUILD</name></member>
+    <member refid="_prog_version_8h_1a50ef2e611dcbc13c41a2bb2556009c61" kind="define"><name>PROG_VERSION</name></member>
+    <member refid="_prog_version_8h_1a6a95481d5ad566954a0377a9e260f324" kind="define"><name>PROG_VERSION_SHORT</name></member>
+    <member refid="_prog_version_8h_1a1ecc90da53b90068bece2e15d50a07f6" kind="define"><name>PROG_VERSION_LONG</name></member>
+  </compound>
+  <compound refid="_r_g_b_led_8h" kind="file"><name>RGBLed.h</name>
+    <member refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52" kind="enum"><name>RGB_COLOR</name></member>
+    <member refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52af77fb67151d0c18d397069ad8c271ba3" kind="enumvalue"><name>BLACK</name></member>
+    <member refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52af80f9a890089d211842d59625e561f88" kind="enumvalue"><name>RED</name></member>
+    <member refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52aa60bd322f93178d68184e30e162571ca" kind="enumvalue"><name>GREEN</name></member>
+    <member refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52ae735a848bf82163a19236ead1c3ef2d2" kind="enumvalue"><name>YELLOW</name></member>
+    <member refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52a35d6719cb4d7577c031b3d79057a1b79" kind="enumvalue"><name>BLUE</name></member>
+    <member refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52a2772ad7cd64f03c2aed60f91c69fa69d" kind="enumvalue"><name>PURPLE</name></member>
+    <member refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52aafe71cad474c15ce63b300c470eef8cc" kind="enumvalue"><name>CYAN</name></member>
+    <member refid="_r_g_b_led_8h_1a72f7be47410c630dc0dd54234e46ed52a283fc479650da98250635b9c3c0e7e50" kind="enumvalue"><name>WHITE</name></member>
+  </compound>
+  <compound refid="_runtime_8h" kind="file"><name>Runtime.h</name>
+    <member refid="_runtime_8h_1aa02526b896b908725e0737fd11363def" kind="define"><name>JOIN_</name></member>
+    <member refid="_runtime_8h_1a6d739e525c41fd6bc0a89df808890ee9" kind="define"><name>JOIN</name></member>
+    <member refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kind="define"><name>String</name></member>
+    <member refid="_runtime_8h_1a291d286e486250d6ae9ab1d1869d94c8" kind="define"><name>SerialPrintf</name></member>
+    <member refid="_runtime_8h_1afebd45c0d36db732504450393777ce5c" kind="define"><name>ICACHE_FLASH_ATTR</name></member>
+    <member refid="_runtime_8h_1a1c93649e353f05880dde3ea240eb235d" kind="define"><name>F</name></member>
+    <member refid="_runtime_8h_1a25b4929f49db860a9acae9b76710e165" kind="variable"><name>Serial</name></member>
+    <member refid="_runtime_8h_1a4f1b1d27c79f52f8e9d2df4877c4ff7d" kind="function"><name>strlwr</name></member>
+    <member refid="_runtime_8h_1a6ff7f2532a22366f0013bc41397129fd" kind="function"><name>millis</name></member>
+  </compound>
+  <compound refid="_security_8h" kind="file"><name>Security.h</name>
+    <member refid="_security_8h_1a6565cfe4d30573f63e0c1d0df33e2e10" kind="define"><name>APPL_SECURITY_TOKEN_PASS</name></member>
+    <member refid="_security_8h_1a0e1a9857d49e27c2b5a71746fa823907" kind="define"><name>APPL_SECURITY_TOKEN_KEY</name></member>
+  </compound>
+  <compound refid="_simple_delay_8h" kind="file"><name>SimpleDelay.h</name>
+  </compound>
+  <compound refid="_status_handler_8h" kind="file"><name>StatusHandler.h</name>
+    <member refid="_status_handler_8h_1ab1ad51ad89c2482937a416f6c1699c44" kind="define"><name>STATUS_LEVEL_VERBOSE</name></member>
+    <member refid="_status_handler_8h_1ad33eab0de4e088931d94b504679013e4" kind="define"><name>STATUS_LEVEL_INFO</name></member>
+    <member refid="_status_handler_8h_1add765e226ec41aa2559e46737e7ebed7" kind="define"><name>STATUS_LEVEL_STATE</name></member>
+    <member refid="_status_handler_8h_1aa81a6237b3dc4b3765b28447387ebcda" kind="define"><name>STAUTS_LEVEL_MIN</name></member>
+  </compound>
+  <compound refid="_sys_status_8h" kind="file"><name>SysStatus.h</name>
+  </compound>
+  <compound refid="_sys_status_led_8h" kind="file"><name>SysStatusLed.h</name>
+  </compound>
+  <compound refid="_vars_8h" kind="file"><name>Vars.h</name>
+  </compound>
+  <compound refid="_web_server_8h" kind="file"><name>WebServer.h</name>
+  </compound>
+  <compound refid="_web_socket_8h" kind="file"><name>WebSocket.h</name>
+    <member refid="_web_socket_8h_1ad079a90262b62965b88fd6a7cab3c8f6" kind="define"><name>WS_NEEDS_AUTH</name></member>
+  </compound>
+  <compound refid="_wi_fi_controller_8h" kind="file"><name>WiFiController.h</name>
+    <member refid="_wi_fi_controller_8h_1af6e13ca017c4f5e5408efa5362ec17b1" kind="define"><name>WIFI_MODULE_DEFAULT_AP_IP</name></member>
+    <member refid="_wi_fi_controller_8h_1a1bff4e0600e86e55857179e084a899a4" kind="define"><name>WIFI_MODULE_DEFAULT_AP_SUBNET</name></member>
+    <member refid="_wi_fi_controller_8h_1a975c202172ddc47d9e9f60efd9ba1460" kind="define"><name>WIFI_DEFAULT_AP_SSID_PREFIX</name></member>
+    <member refid="_wi_fi_controller_8h_1a580fda34d1f3c1a90a3924a4f0761fac" kind="define"><name>WIFI_DEFAULT_AP_SSID</name></member>
+    <member refid="_wi_fi_controller_8h_1aae398ed68ab4de673a8bb17721bd744c" kind="define"><name>WIFI_HIDDEN_PASSWORD</name></member>
+    <member refid="_wi_fi_controller_8h_1ade206efd0f079b0dbf30f1d7a10928b4" kind="define"><name>WIFI_AP_DEFAULT_PASSWORD</name></member>
+  </compound>
+  <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>
+  </compound>
+  <compound refid="md__r_e_a_d_m_e" kind="page"><name>md__r_e_a_d_m_e</name>
+  </compound>
+  <compound refid="md_doc_2page_builder" kind="page"><name>md_doc_2page_builder</name>
+  </compound>
+  <compound refid="md_doc_2_c_web_socket" kind="page"><name>md_doc_2_c_web_socket</name>
+  </compound>
+  <compound refid="todo" kind="page"><name>todo</name>
+  </compound>
+  <compound refid="dir_e68e8157741866f444e17edd764ebbae" kind="dir"><name>doc</name>
+  </compound>
+  <compound refid="dir_106756a8ee71bdde7f7b779a3a0a52e4" kind="dir"><name>include/ext</name>
+  </compound>
+  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>include</name>
+  </compound>
+  <compound refid="dir_c0e703b1800f645c74a61a33e6a10c09" kind="dir"><name>doc/runtime</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

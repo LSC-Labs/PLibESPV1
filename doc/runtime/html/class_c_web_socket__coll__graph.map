@@ -1,0 +1,9 @@
+<map id="CWebSocket" name="CWebSocket">
+<area shape="rect" id="Node000001" title="Function pointer to register the routes." alt="" coords="174,102,272,128"/>
+<area shape="rect" id="Node000002" href="$class_async_web_socket.html" title=" " alt="" coords="5,5,131,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,37,205,100,200,103,100,42"/>
+<area shape="rect" id="Node000003" href="$class_i_msg_event_receiver.html" title="Interface for Message Event Receivers." alt="" coords="154,5,291,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="225,45,225,103,220,100,221,48"/>
+<area shape="rect" id="Node000004" href="$struct_web_socket_status.html" title="Runtime status of the WebSocket module." alt="" coords="316,5,442,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="349,39,244,104,242,99,344,39"/>
+</map>

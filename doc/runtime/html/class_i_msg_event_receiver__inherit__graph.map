@@ -1,0 +1,31 @@
+<map id="IMsgEventReceiver" name="IMsgEventReceiver">
+<area shape="rect" id="Node000001" title="Interface for Message Event Receivers." alt="" coords="264,5,401,31"/>
+<area shape="rect" id="Node000002" href="$class_c_appl.html" title="Central application hub for modules, configuration, status and events." alt="" coords="5,79,63,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="262,37,76,82,65,84,62,80,75,76,263,32"/>
+<area shape="rect" id="Node000003" href="$class_c_log_writer.html" title="Class to handle the logging for a module This class is used to write log entries for a specific modul..." alt="" coords="87,79,173,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="282,39,166,81,163,76,286,35"/>
+<area shape="rect" id="Node000006" href="$class_c_m_d_n_s_controller.html" title=" " alt="" coords="197,79,324,105"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="312,40,275,81,271,76,308,44"/>
+<area shape="rect" id="Node000007" href="$class_c_sys_status_led.html" title=" " alt="" coords="348,79,461,105"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="356,39,395,79,390,78,355,44"/>
+<area shape="rect" id="Node000008" href="$class_c_web_socket.html" title="Function pointer to register the routes." alt="" coords="485,79,583,105"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="381,34,502,78,497,79,381,39"/>
+<area shape="rect" id="Node000009" href="$class_i_module.html" title="Full Interface for modules." alt="" coords="607,79,674,105"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="403,32,596,76,609,82,604,82,595,82,403,38"/>
+<area shape="rect" id="Node000004" href="$class_c_stream_log_writer.html" title="Log writer that prints log entries to an Arduino Stream." alt="" coords="66,153,194,178"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="131,118,133,153,127,151,129,122"/>
+<area shape="rect" id="Node000005" href="$class_c_serial_log_writer.html" title="Stream log writer preconfigured for Serial." alt="" coords="70,226,190,252"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="132,192,132,227,128,225,128,196"/>
+<area shape="rect" id="Node000010" href="$class_appl_module.html" title="Abstract Basic Module Implementation You have to implement the dispatch method to reflect your module..." alt="" coords="413,153,503,178"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="598,110,490,155,488,150,593,111"/>
+<area shape="rect" id="Node000013" href="$class_c_n_t_p_handler.html" title="The NTP Handler class as a module." alt="" coords="526,153,630,178"/>
+<area shape="poly" id="edge12_Node000009_Node000013" title=" " alt="" coords="623,115,590,154,587,150,618,118"/>
+<area shape="rect" id="Node000014" href="$class_c_web_server.html" title="Async web server module that registers default routes and file access." alt="" coords="654,153,750,178"/>
+<area shape="poly" id="edge13_Node000009_Node000014" title=" " alt="" coords="662,114,694,153,689,151,660,119"/>
+<area shape="rect" id="Node000015" href="$class_c_wi_fi_controller.html" title="Application module that controls WiFi AP/station mode." alt="" coords="774,153,888,178"/>
+<area shape="poly" id="edge14_Node000009_Node000015" title=" " alt="" coords="687,108,801,152,796,152,687,113"/>
+<area shape="rect" id="Node000011" href="$class_c_battery_measure.html" title=" " alt="" coords="336,226,460,252"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="441,189,409,228,407,224,436,191"/>
+<area shape="rect" id="Node000012" href="$class_c_m_q_t_t_controller.html" title="MQTT message broker module with heartbeat and HA discovery support." alt="" coords="484,226,608,252"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="486,186,534,227,529,225,484,191"/>
+</map>

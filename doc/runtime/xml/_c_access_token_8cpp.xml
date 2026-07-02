@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_c_access_token_8cpp" kind="file" language="C++">
+    <compoundname>CAccessToken.cpp</compoundname>
+    <includes refid="_access_token_8h" local="no">AccessToken.h</includes>
+    <includes refid="_development_helper_8h" local="no">DevelopmentHelper.h</includes>
+    <includes refid="_json_node_8h" local="no">JsonNode.h</includes>
+    <includes refid="_base64_data_8h" local="no">Base64Data.h</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>AESCryptor.h</label>
+        <link refid="_a_e_s_cryptor_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>AccessToken.h</label>
+        <link refid="_access_token_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Base64Data.h</label>
+        <link refid="_base64_data_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>DevelopmentHelper.h</label>
+        <link refid="_development_helper_8h"/>
+      </node>
+      <node id="11">
+        <label>JsonNode.h</label>
+        <link refid="_json_node_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Network.h</label>
+        <link refid="_network_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>ext/base64.h</label>
+        <link refid="base64_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/CAccessToken.cpp</label>
+        <link refid="_c_access_token_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Arduino.h</label>
+      </node>
+      <node id="8">
+        <label>chrono</label>
+      </node>
+      <node id="9">
+        <label>iostream</label>
+      </node>
+      <node id="7">
+        <label>string.h</label>
+      </node>
+      <node id="12">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/CAccessToken.cpp"/>
+  </compounddef>
+</doxygen>

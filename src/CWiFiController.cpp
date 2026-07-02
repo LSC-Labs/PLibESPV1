@@ -32,7 +32,10 @@ const char * WIFI_DNS               = "dnsip";
 namespace LSC_WIFI {
 
     /**
-     *  @brief Create the Default SSID for the Access Point
+     * @brief Create the fallback SSID used by the device access point.
+     *
+     * The SSID is built from the configured prefix and the last four bytes of
+     * the soft AP MAC address so that several devices can run side by side.
      */ 
     String getDefaultSSIDofAP()
     {
@@ -45,15 +48,14 @@ namespace LSC_WIFI {
 }
 
 /**
- * Constructor
-
+ * @brief Create a WiFi controller instance with default configuration/status.
  */
 CWiFiController::CWiFiController() {}
 
 
 
 /**
- * @brief Create the Default SSID for the Access Point
+ * @brief Return the default access point SSID generated for this device.
  */ 
 String CWiFiController::getDefaultSSIDofAP()
 {
@@ -65,7 +67,7 @@ String CWiFiController::getDefaultSSIDofAP()
 #pragma region "Interface to Config / Status handling"
 
 /**
- * @brief Get the textual representation of the WiFi status
+ * @brief Convert an Arduino WiFi status code into a readable text.
  */
 String CWiFiController::getStatusText(int nWiFiStatus) {
     switch (nWiFiStatus)
@@ -83,7 +85,10 @@ String CWiFiController::getStatusText(int nWiFiStatus) {
 }
 
 /**
- * @brief Write your configuration into the json object
+ * @brief Write the current WiFi configuration into a JSON node.
+ *
+ * Passwords are masked when requested so status/config endpoints can expose the
+ * structure without leaking credentials.
  */
 void CWiFiController::writeConfigTo(JsonNode &oCfgNode,bool bHideCritical) {
     DEBUG_FUNC_START();
@@ -113,7 +118,9 @@ void CWiFiController::writeConfigTo(JsonNode &oCfgNode,bool bHideCritical) {
 }
 
 /**
- * @brief Read the configuration from the json object
+ * @brief Read WiFi configuration values from a JSON node.
+ *
+ * Masked password values are ignored to preserve the already configured secret.
  */
 void CWiFiController::readConfigFrom(JsonNode &oCfgNode) {
     DEBUG_FUNC_START();
@@ -143,6 +150,10 @@ void CWiFiController::readConfigFrom(JsonNode &oCfgNode) {
     DEBUG_FUNC_END();
 } 
 
+/**
+ * @brief Read an IP address from a JSON node when the key exists.
+ * @return true if the key existed and could be parsed into the target address.
+ */
 bool CWiFiController::storeIPAddressIf(JsonNode & oCfgNode,const char *pszKeyName, IPAddress & pTarget) {
     DEBUG_FUNC_START_PARMS("-,%s,%p",pszKeyName,(void *) pTarget);
     bool bResult = false;
@@ -154,7 +165,10 @@ bool CWiFiController::storeIPAddressIf(JsonNode & oCfgNode,const char *pszKeyNam
     return(bResult);
 }
 /**
- * @brief Write the status information into the json object
+ * @brief Write the currently active WiFi state into a JSON status node.
+ *
+ * The method reports mode, connection timing, interface addresses, hostname,
+ * MAC address and signal strength for either AP or station mode.
  */
 void CWiFiController::writeStatusTo(JsonNode &oStatusNode, int nLevel) {
     DEBUG_FUNC_START();
@@ -197,7 +211,7 @@ void CWiFiController::writeStatusTo(JsonNode &oStatusNode, int nLevel) {
 }
 
 /**
- * @brief Write the status information into the log
+ * @brief Serialize the current WiFi status and write it to the application log.
  */
 void CWiFiController::writeStatusToLog() {
     JsonNode oStatusObj;
@@ -207,11 +221,11 @@ void CWiFiController::writeStatusToLog() {
 
 #pragma endregion
 
-/// @brief Listen to the application mesage bus
-/// @param pSender 
-/// @param nMsgId 
-/// @param pMessage 
-/// @param nType 
+/// @brief Listen to the application message bus and react to WiFi commands.
+/// @param pSender Sender of the event (unused).
+/// @param nMsgId Message id, currently only MSG_WIFI_SCAN is handled.
+/// @param pMessage Optional event payload (unused).
+/// @param nType Optional event type/class (unused).
 /// @return EVENT_MSG_RESULT_OK => continue processing
 int CWiFiController::receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType) {
     switch(nMsgId) {
@@ -224,10 +238,13 @@ int CWiFiController::receiveEvent(const void * pSender, int nMsgId, const void *
 #pragma region "Starter for Access Point and Station Mode"
 
 /** 
- * @brief start the access point
- *       - if it does not work by config start a default access point
- * @param bUseConfigData use config data
- * @return connected or not
+ * @brief Start access point mode.
+ *
+ * When configured AP startup fails, a deterministic fallback AP is started so
+ * the device remains reachable for configuration.
+ *
+ * @param bUseConfigData true to use configured AP settings first.
+ * @return true if AP mode is active.
  * */
 bool CWiFiController::startAccessPoint(bool bUseConfigData)
 {   bool bIsConnected = false;
@@ -250,14 +267,13 @@ bool CWiFiController::startAccessPoint(bool bUseConfigData)
 }
 
 /** 
- * @brief start the access point
- *       - if it does not work by config start a default access point
- * @param pszSSID      SSID of this node
+ * @brief Start the ESP WiFi stack in access point mode with explicit settings.
+ * @param pszSSID      SSID broadcast by this node.
  * @param ipAP         IPAddress of this node
  * @param ipSubnetAP   Subnet mask of this node. 
  * @param bHidden      if true, the SSID Network will be hidden...
  * @param pszPassword  Password for this Accesspoint
- * @return connected or not
+ * @return true if the access point was started successfully.
  * */
 bool CWiFiController::startAccessPoint(const char * pszSSID, 
                                         IPAddress ipAP, 
@@ -295,11 +311,11 @@ bool CWiFiController::startAccessPoint(const char * pszSSID,
 
 
 /**
- * @brief join an existing network (Station Mode)
+ * @brief Join an existing WiFi network in station mode.
  * @param pszSSID SSID to join
  * @param pszPassword Password to use
  * @param bSSID BSSID to use (if 0,0,0,0,0,0 - do not use BSSID)
- * @return connected or not
+ * @return true if the station connection was established before the timeout.
  */
 bool CWiFiController::joinNetwork(const char *pszSSID, const char *pszPassword, byte bSSID[6])
 {
@@ -357,11 +373,11 @@ bool CWiFiController::joinNetwork(const char *pszSSID, const char *pszPassword, 
 
 
 /**
- * @brief start the setup of wifi (first call in usage)
- * Main entry point to start the WiFi.
+ * @brief Start WiFi using either default AP mode or the loaded configuration.
  * 
- * If the instance has already a configuration, we can start the setup with enableWiFi).
- * Otherwise go into Default Acces Point mode
+ * Station mode failures optionally fall back to AP mode or schedule a retry,
+ * depending on the configured fallback/retry settings.
+ *
  * @param bUseConfigData if false - start default AP, if true, use the loaded config data.
  */
 void CWiFiController::startWiFi(bool bUseConfigData)
@@ -406,9 +422,8 @@ void CWiFiController::startWiFi(bool bUseConfigData)
 };
 
 /** 
- * @brief restart the WiFi if needed
- * If the wifi is not connected and the restart time is reached, try to restart the WiFi
- * @return connected or not
+ * @brief Retry or disable WiFi when a scheduled reconnect is pending.
+ * @return true if WiFi is connected after the check.
  */
 bool CWiFiController::restartIfNeeded() {
     if(!Status.isWiFiConnected) {
@@ -425,7 +440,7 @@ bool CWiFiController::restartIfNeeded() {
 }
 
 /**
- * @brief disable the WiFi
+ * @brief Disconnect station/AP mode and publish the corresponding bus events.
  */
 void CWiFiController::disableWiFi()
 {
@@ -447,8 +462,10 @@ void CWiFiController::disableWiFi()
 
 #pragma region "WiFi Scan"
 /**
- * @brief Start a WiFi Scan
- * the result will be send via MSG_WIFI_SCAN_RESULT event on the message bus
+ * @brief Start an asynchronous WiFi scan.
+ *
+ * The result is delivered by onWiFiScanResult and broadcast via
+ * MSG_WIFI_SCAN_RESULT.
  */
 void CWiFiController::scanWiFi() {
     DEBUG_FUNC_START();
@@ -459,8 +476,10 @@ void CWiFiController::scanWiFi() {
 }
 
 /**
- * @brief Callback function for WiFi Scan Result
- * send the result via message bus
+ * @brief Build and send the JSON payload for an asynchronous scan result.
+ *
+ * Networks are sorted by signal strength and capped to the strongest entries to
+ * keep the event payload small.
  */
 void CWiFiController::onWiFiScanResult(int nNetworksFound) {
 	DEBUG_FUNC_START_PARMS("%d",nNetworksFound);

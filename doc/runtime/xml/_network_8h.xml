@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_network_8h" kind="file" language="C++">
+    <compoundname>Network.h</compoundname>
+    <includes refid="_runtime_8h" local="no">Runtime.h</includes>
+    <includedby refid="_a_e_s_cryptor_8h" local="no">include/AESCryptor.h</includedby>
+    <includedby refid="_security_8h" local="no">include/Security.h</includedby>
+    <includedby refid="_web_server_8h" local="no">include/WebServer.h</includedby>
+    <includedby refid="_web_socket_8h" local="yes">include/WebSocket.h</includedby>
+    <includedby refid="_wi_fi_controller_8h" local="no">include/WiFiController.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>include/Network.h</label>
+        <link refid="_network_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>chrono</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="3">
+        <label>string.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>include/AESCryptor.h</label>
+        <link refid="_a_e_s_cryptor_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>include/AccessToken.h</label>
+        <link refid="_access_token_8h"/>
+      </node>
+      <node id="1">
+        <label>include/Network.h</label>
+        <link refid="_network_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>include/Security.h</label>
+        <link refid="_security_8h"/>
+      </node>
+      <node id="5">
+        <label>include/WebServer.h</label>
+        <link refid="_web_server_8h"/>
+      </node>
+      <node id="6">
+        <label>include/WebSocket.h</label>
+        <link refid="_web_socket_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>include/WiFiController.h</label>
+        <link refid="_wi_fi_controller_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_i_p_address" prot="public">IPAddress</innerclass>
+    <innerclass refid="class_async_web_socket_message_buffer" prot="public">AsyncWebSocketMessageBuffer</innerclass>
+    <innerclass refid="class_async_web_socket" prot="public">AsyncWebSocket</innerclass>
+    <innerclass refid="class_async_web_socket_client" prot="public">AsyncWebSocketClient</innerclass>
+    <innerclass refid="struct_aws_frame_info" prot="public">AwsFrameInfo</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_network_8h_1a71e1e3806a7f4e5f9aa046c2cc221bf4" prot="public" static="no">
+        <name>WS_TEXT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="34" column="9" bodyfile="include/Network.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_network_8h_1a46ef0d5853852b59d766eb4dd858cf72" prot="public" static="no">
+        <name>WS_BINARY</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="35" column="9" bodyfile="include/Network.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="_network_8h_1a3c33b5e64d6635e10f74e3577e642293" prot="public" static="no" strong="no">
+        <type></type>
+        <name>AwsEventType</name>
+        <enumvalue id="_network_8h_1a3c33b5e64d6635e10f74e3577e642293a8ee533e983912fa8ebff62b940cb5d57" prot="public">
+          <name>WS_EVT_CONNECT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_network_8h_1a3c33b5e64d6635e10f74e3577e642293ac27b495e6645907750b440aeaca9d014" prot="public">
+          <name>WS_EVT_DISCONNECT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_network_8h_1a3c33b5e64d6635e10f74e3577e642293a6286c37466f0d7ab6a61aac2e24cfd51" prot="public">
+          <name>WS_EVT_ERROR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_network_8h_1a3c33b5e64d6635e10f74e3577e642293ac03ec7b81b62de01387a9a0f1e7353ef" prot="public">
+          <name>WS_EVT_DATA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="27" column="1" bodyfile="include/Network.h" bodystart="27" bodyend="32"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/Network.h"/>
+  </compounddef>
+</doxygen>

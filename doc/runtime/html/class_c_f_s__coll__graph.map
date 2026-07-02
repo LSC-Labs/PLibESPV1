@@ -1,0 +1,7 @@
+<map id="CFS" name="CFS">
+<area shape="rect" id="Node000001" title="Filesystem facade used by modules to avoid direct LittleFS/SPIFFS use." alt="" coords="91,102,140,128"/>
+<area shape="rect" id="Node000002" href="$class_i_status_handler.html" title="Interface for a status handler module." alt="" coords="5,5,114,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="76,42,111,101,106,102,73,46"/>
+<area shape="rect" id="Node000003" href="$struct_l_s_c___f_s.html" title="FileSystem helper functions." alt="" coords="137,5,208,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="160,43,125,103,121,100,155,45"/>
+</map>

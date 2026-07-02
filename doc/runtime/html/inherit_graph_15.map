@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$class_c_named_value_table.html" title="Lightweight ordered table for named values." alt="" coords="5,46,206,72"/>
+<area shape="rect" id="Node000001" href="$class_c_multi_name_unique_value_table.html" title="Named&#45;value table that allows many names but only unique values." alt="" coords="254,5,452,46"/>
+<area shape="poly" id="edge29_Node000000_Node000001" title=" " alt="" coords="220,41,256,38,251,40,221,46"/>
+<area shape="rect" id="Node000002" href="$class_c_unique_name_multi_value_table.html" title="Named&#45;value table that allows unique names and repeated values." alt="" coords="254,71,452,111"/>
+<area shape="poly" id="edge30_Node000000_Node000002" title=" " alt="" coords="221,71,256,78,251,78,221,77"/>
+</map>

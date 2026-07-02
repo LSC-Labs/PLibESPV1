@@ -1,0 +1,493 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_c_m_q_t_t_controler_8cpp" kind="file" language="C++">
+    <compoundname>CMQTTControler.cpp</compoundname>
+    <includes local="no">Arduino.h</includes>
+    <includes refid="_json_node_8h" local="no">JsonNode.h</includes>
+    <includes refid="_appl_8h" local="no">Appl.h</includes>
+    <includes refid="_network_8h" local="no">Network.h</includes>
+    <includes refid="_m_q_t_t_controller_8h" local="no">MQTTController.h</includes>
+    <includes refid="_l_s_c_utils_8h" local="no">LSCUtils.h</includes>
+    <includes refid="_msgs_8h" local="no">Msgs.h</includes>
+    <includes refid="_sys_status_8h" local="no">SysStatus.h</includes>
+    <incdepgraph>
+      <node id="9">
+        <label>Appl.h</label>
+        <link refid="_appl_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>ApplModule.h</label>
+        <link refid="_appl_module_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>ConfigHandler.h</label>
+        <link refid="_config_handler_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>DevelopmentHelper.h</label>
+        <link refid="_development_helper_8h"/>
+      </node>
+      <node id="16">
+        <label>EventHandler.h</label>
+        <link refid="_event_handler_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>JsonNode.h</label>
+        <link refid="_json_node_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>LSCUtils.h</label>
+        <link refid="_l_s_c_utils_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>Logging.h</label>
+        <link refid="_logging_8h"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>MQTTController.h</label>
+        <link refid="_m_q_t_t_controller_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>ModuleInterface.h</label>
+        <link refid="_module_interface_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>Msgs.h</label>
+        <link refid="_msgs_8h"/>
+      </node>
+      <node id="19">
+        <label>NamedValueTable.h</label>
+        <link refid="_named_value_table_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>Network.h</label>
+        <link refid="_network_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>SimpleDelay.h</label>
+        <link refid="_simple_delay_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>StatusHandler.h</label>
+        <link refid="_status_handler_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>SysStatus.h</label>
+        <link refid="_sys_status_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>Vars.h</label>
+        <link refid="_vars_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/CMQTTControler.cpp</label>
+        <link refid="_c_m_q_t_t_controler_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Arduino.h</label>
+      </node>
+      <node id="12">
+        <label>Esp.h</label>
+      </node>
+      <node id="6">
+        <label>chrono</label>
+      </node>
+      <node id="17">
+        <label>functional</label>
+      </node>
+      <node id="7">
+        <label>iostream</label>
+      </node>
+      <node id="13">
+        <label>memory</label>
+      </node>
+      <node id="18">
+        <label>queue</label>
+      </node>
+      <node id="24">
+        <label>stdarg.h</label>
+      </node>
+      <node id="5">
+        <label>string.h</label>
+      </node>
+      <node id="8">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_c_m_q_t_t_controler_8cpp_1a1c0233f6b3575458e27d31448dab3c69" prot="public" static="no">
+        <name>MQTT_RECV_MESSAGE_BUFFER_SIZE</name>
+        <initializer>2048</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="14" column="9" bodyfile="src/CMQTTControler.cpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_c_m_q_t_t_controler_8cpp_1aab5797a8956ff77cd7b58654c3058121" prot="public" static="no">
+        <name>MQTT_HA_TOPIC_AVAILABILITY</name>
+        <initializer>&quot;avty&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="40" column="10" bodyfile="src/CMQTTControler.cpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1a9b7f6bae0019620571dc1582ed2cd5aa" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_HIDDEN_PASSWORD</definition>
+        <argsstring></argsstring>
+        <name>MQTT_HIDDEN_PASSWORD</name>
+        <initializer>= &quot;******&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="16" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1aea614bea53c384fa0649e4ad8590e125" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_CONFIG_ENABLED</definition>
+        <argsstring></argsstring>
+        <name>MQTT_CONFIG_ENABLED</name>
+        <initializer>= &quot;enabled&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="17" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1a18c636c9327b2b546580033272f07bd3" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_CONFIG_BROCKERPORT</definition>
+        <argsstring></argsstring>
+        <name>MQTT_CONFIG_BROCKERPORT</name>
+        <initializer>= &quot;port&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="18" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1a2ab77ed4a0ef28ff8c60002d4a294e52" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_CONFIG_BROCKERADDRESS</definition>
+        <argsstring></argsstring>
+        <name>MQTT_CONFIG_BROCKERADDRESS</name>
+        <initializer>= &quot;host&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="19" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1a63a34e13cebea324ddcd0cea01043a37" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_CONFIG_USERNAME</definition>
+        <argsstring></argsstring>
+        <name>MQTT_CONFIG_USERNAME</name>
+        <initializer>= &quot;user&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="20" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1a0e6bf4d12fd85e3c9b183598694f70ed" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_CONFIG_USERPASSWORD</definition>
+        <argsstring></argsstring>
+        <name>MQTT_CONFIG_USERPASSWORD</name>
+        <initializer>= &quot;passwd&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="21" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1a8446f799c0865c1c0873f1a8878a6613" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_CONFIG_PUBLISHTOPIC</definition>
+        <argsstring></argsstring>
+        <name>MQTT_CONFIG_PUBLISHTOPIC</name>
+        <initializer>= &quot;topic&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="22" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1a0fa1ab0bed8cce10181e2f6fd292c75d" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_CONFIG_PUBLISHINTERVAL</definition>
+        <argsstring></argsstring>
+        <name>MQTT_CONFIG_PUBLISHINTERVAL</name>
+        <initializer>= &quot;syncrate&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="23" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1a34db1cde100bb6d2924ddb8f99c7e58e" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_CONFIG_USEAUTOTOPIC</definition>
+        <argsstring></argsstring>
+        <name>MQTT_CONFIG_USEAUTOTOPIC</name>
+        <initializer>= &quot;autotopic&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="24" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1afe11b7e3f7e9d0a2064dc5e8062a82f4" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_CONFIG_USEHA</definition>
+        <argsstring></argsstring>
+        <name>MQTT_CONFIG_USEHA</name>
+        <initializer>= &quot;useha&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="25" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1a60a85342e9a838695a4c0aabdfd9677f" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_CONFIG_HA_TOPICS</definition>
+        <argsstring></argsstring>
+        <name>MQTT_CONFIG_HA_TOPICS</name>
+        <initializer>= &quot;hatopics&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="26" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1aaac53a71cccb76aef5ca7dbc528b9dc2" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_MSG_TOPIC_STATE</definition>
+        <argsstring></argsstring>
+        <name>MQTT_MSG_TOPIC_STATE</name>
+        <initializer>= &quot;state&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="28" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1af22147195517e5c350d6b59c35153c98" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_MSG_TOPIC_STATUS</definition>
+        <argsstring></argsstring>
+        <name>MQTT_MSG_TOPIC_STATUS</name>
+        <initializer>= &quot;status&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="29" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1aeae237d140a1b9cc7d2901c0a8b717a6" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_MSG_TOPIC_HEARTBEAT</definition>
+        <argsstring></argsstring>
+        <name>MQTT_MSG_TOPIC_HEARTBEAT</name>
+        <initializer>= &quot;info&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="30" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1a5e37adb5e0c0746c2223dffefbdc2023" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_HA_MSG_ONLINE</definition>
+        <argsstring></argsstring>
+        <name>MQTT_HA_MSG_ONLINE</name>
+        <initializer>= &quot;online&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="36" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_c_m_q_t_t_controler_8cpp_1ad09742a2ae8cb312cf464bcb9a0cb763" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MQTT_HA_MSG_OFFLINE</definition>
+        <argsstring></argsstring>
+        <name>MQTT_HA_MSG_OFFLINE</name>
+        <initializer>= &quot;offline&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CMQTTControler.cpp" line="37" column="13" bodyfile="src/CMQTTControler.cpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/CMQTTControler.cpp"/>
+  </compounddef>
+</doxygen>

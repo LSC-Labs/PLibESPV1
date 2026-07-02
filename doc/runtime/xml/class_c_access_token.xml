@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_access_token" kind="class" language="C++" prot="public">
+    <compoundname>CAccessToken</compoundname>
+    <includes refid="_access_token_8h" local="no">AccessToken.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_access_token_1a0710b312b54e9e66a04bf28642dbaf28" prot="private" static="no" mutable="no">
+        <type><ref refid="class_c_a_e_s_cryptor" kindref="compound">CAESCryptor</ref></type>
+        <definition>CAESCryptor CAccessToken::m_oAESCryptor</definition>
+        <argsstring></argsstring>
+        <name>m_oAESCryptor</name>
+        <qualifiedname>CAccessToken::m_oAESCryptor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="15" column="21" bodyfile="include/AccessToken.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_access_token_1a21aafd4d0c89a69bacba275bd0866848" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CAccessToken::m_bStructureIsValid</definition>
+        <argsstring></argsstring>
+        <name>m_bStructureIsValid</name>
+        <qualifiedname>CAccessToken::m_bStructureIsValid</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="16" column="21" bodyfile="include/AccessToken.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_access_token_1ac50c84f8e5b60e8c642cb62f1c358624" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CAccessToken::m_szTokenKey[30]</definition>
+        <argsstring>[30]</argsstring>
+        <name>m_szTokenKey</name>
+        <qualifiedname>CAccessToken::m_szTokenKey</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="17" column="21" bodyfile="include/AccessToken.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_access_token_1ad8fb05eee34ee82b940df476bdabced7" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CAccessToken::m_szIPAddress[30]</definition>
+        <argsstring>[30]</argsstring>
+        <name>m_szIPAddress</name>
+        <qualifiedname>CAccessToken::m_szIPAddress</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="18" column="21" bodyfile="include/AccessToken.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_access_token_1a2501e924e6d213a30cbef41cc3c11348" prot="private" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long CAccessToken::m_ulTimeStamp</definition>
+        <argsstring></argsstring>
+        <name>m_ulTimeStamp</name>
+        <qualifiedname>CAccessToken::m_ulTimeStamp</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="19" column="21" bodyfile="include/AccessToken.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_access_token_1aa969a863de1278adb5764c71085d17d4" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CAccessToken::m_szDataElement[(sizeof(m_szTokenKey)+sizeof(m_szIPAddress)+sizeof(m_ulTimeStamp))+30]</definition>
+        <argsstring>[(sizeof(m_szTokenKey)+sizeof(m_szIPAddress)+sizeof(m_ulTimeStamp))+30]</argsstring>
+        <name>m_szDataElement</name>
+        <qualifiedname>CAccessToken::m_szDataElement</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="23" column="21" bodyfile="include/AccessToken.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_access_token_1a6471fc2e78e6e37d7738c14ceff2db12" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CAccessToken::m_szDataElementAsBase64[(sizeof(m_szDataElement)/3 *4)+40]</definition>
+        <argsstring>[(sizeof(m_szDataElement)/3 *4)+40]</argsstring>
+        <name>m_szDataElementAsBase64</name>
+        <qualifiedname>CAccessToken::m_szDataElementAsBase64</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="24" column="21" bodyfile="include/AccessToken.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_access_token_1ac9af9b6ebc37d1b6283881d9e1fa0a9b" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CAccessToken::m_szTokenAsBase64[((sizeof(m_szDataElementAsBase64)+sizeof(m_szIPAddress))/3 *4)+20]</definition>
+        <argsstring>[((sizeof(m_szDataElementAsBase64)+sizeof(m_szIPAddress))/3 *4)+20]</argsstring>
+        <name>m_szTokenAsBase64</name>
+        <qualifiedname>CAccessToken::m_szTokenAsBase64</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="26" column="21" bodyfile="include/AccessToken.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_c_access_token_1a3b6e89aa4b874aba8db6194dfeb1388a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CAccessToken::loadBase64DataElement</definition>
+        <argsstring>(const char *pszData)</argsstring>
+        <name>loadBase64DataElement</name>
+        <qualifiedname>CAccessToken::loadBase64DataElement</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszData</declname>
+        </param>
+        <briefdescription>
+<para>Decode and load the base64-encoded token payload. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="29" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_access_token_1ad99dd8c773a3ea52d50851f074c583d4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CAccessToken::getBase64DataElement</definition>
+        <argsstring>(bool bRefreshTimeStamp=true)</argsstring>
+        <name>getBase64DataElement</name>
+        <qualifiedname>CAccessToken::getBase64DataElement</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bRefreshTimeStamp</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Return the base64-encoded payload, optionally refreshing timestamp. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="31" column="21"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_access_token_1a71e43d58b207602f4b02e8163f93e5c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CAccessToken::CAccessToken</definition>
+        <argsstring>()</argsstring>
+        <name>CAccessToken</name>
+        <qualifiedname>CAccessToken::CAccessToken</qualifiedname>
+        <briefdescription>
+<para>Create an empty invalid access token. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="35" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_access_token_1abb94ec7487768b51e21804d6f73cb0e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CAccessToken::CAccessToken</definition>
+        <argsstring>(const char *pszIPAddress, const char *pszTokenKey, const char *pszIV=nullptr)</argsstring>
+        <name>CAccessToken</name>
+        <qualifiedname>CAccessToken::CAccessToken</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszIPAddress</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszTokenKey</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszIV</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Create a token for the given IP address and token key. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="37" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_access_token_1ad7b746529c2a3fd69de44a68ed02fac9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CAccessToken::CAccessToken</definition>
+        <argsstring>(const char *pszBase64EncodedString)</argsstring>
+        <name>CAccessToken</name>
+        <qualifiedname>CAccessToken::CAccessToken</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszBase64EncodedString</declname>
+        </param>
+        <briefdescription>
+<para>Create a token by decoding an existing base64 token string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="39" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_access_token_1a31a5639f0da96e7bf6be110892f42e47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CAccessToken::getTokenAsBase64</definition>
+        <argsstring>(bool bRandomIV=true)</argsstring>
+        <name>getTokenAsBase64</name>
+        <qualifiedname>CAccessToken::getTokenAsBase64</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bRandomIV</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Return the complete access token encoded as base64. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="42" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_access_token_1a50fcd762630eac38d95baedc61dfc76f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CAccessToken::isAuthValid</definition>
+        <argsstring>(const char *pszIPAddress, const char *pszTokenKey)</argsstring>
+        <name>isAuthValid</name>
+        <qualifiedname>CAccessToken::isAuthValid</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszIPAddress</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszTokenKey</declname>
+        </param>
+        <briefdescription>
+<para>Validate token structure, IP address, key and lifetime. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="44" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Access Token to be exchanged with clients, to ensure correct authentication. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><xrefsect id="todo_1_todo000001"><xreftitle>Todo</xreftitle><xrefdescription><para>enhance with application specific meta information</para>
+</xrefdescription></xrefsect></para>
+    </detaileddescription>
+    <location file="include/AccessToken.h" line="14" column="1" bodyfile="include/AccessToken.h" bodystart="14" bodyend="45"/>
+    <listofallmembers>
+      <member refid="class_c_access_token_1a71e43d58b207602f4b02e8163f93e5c4" prot="public" virt="non-virtual"><scope>CAccessToken</scope><name>CAccessToken</name></member>
+      <member refid="class_c_access_token_1abb94ec7487768b51e21804d6f73cb0e6" prot="public" virt="non-virtual"><scope>CAccessToken</scope><name>CAccessToken</name></member>
+      <member refid="class_c_access_token_1ad7b746529c2a3fd69de44a68ed02fac9" prot="public" virt="non-virtual"><scope>CAccessToken</scope><name>CAccessToken</name></member>
+      <member refid="class_c_access_token_1ad99dd8c773a3ea52d50851f074c583d4" prot="protected" virt="non-virtual"><scope>CAccessToken</scope><name>getBase64DataElement</name></member>
+      <member refid="class_c_access_token_1a31a5639f0da96e7bf6be110892f42e47" prot="public" virt="non-virtual"><scope>CAccessToken</scope><name>getTokenAsBase64</name></member>
+      <member refid="class_c_access_token_1a50fcd762630eac38d95baedc61dfc76f" prot="public" virt="non-virtual"><scope>CAccessToken</scope><name>isAuthValid</name></member>
+      <member refid="class_c_access_token_1a3b6e89aa4b874aba8db6194dfeb1388a" prot="protected" virt="non-virtual"><scope>CAccessToken</scope><name>loadBase64DataElement</name></member>
+      <member refid="class_c_access_token_1a21aafd4d0c89a69bacba275bd0866848" prot="private" virt="non-virtual"><scope>CAccessToken</scope><name>m_bStructureIsValid</name></member>
+      <member refid="class_c_access_token_1a0710b312b54e9e66a04bf28642dbaf28" prot="private" virt="non-virtual"><scope>CAccessToken</scope><name>m_oAESCryptor</name></member>
+      <member refid="class_c_access_token_1aa969a863de1278adb5764c71085d17d4" prot="private" virt="non-virtual"><scope>CAccessToken</scope><name>m_szDataElement</name></member>
+      <member refid="class_c_access_token_1a6471fc2e78e6e37d7738c14ceff2db12" prot="private" virt="non-virtual"><scope>CAccessToken</scope><name>m_szDataElementAsBase64</name></member>
+      <member refid="class_c_access_token_1ad8fb05eee34ee82b940df476bdabced7" prot="private" virt="non-virtual"><scope>CAccessToken</scope><name>m_szIPAddress</name></member>
+      <member refid="class_c_access_token_1ac9af9b6ebc37d1b6283881d9e1fa0a9b" prot="private" virt="non-virtual"><scope>CAccessToken</scope><name>m_szTokenAsBase64</name></member>
+      <member refid="class_c_access_token_1ac50c84f8e5b60e8c642cb62f1c358624" prot="private" virt="non-virtual"><scope>CAccessToken</scope><name>m_szTokenKey</name></member>
+      <member refid="class_c_access_token_1a2501e924e6d213a30cbef41cc3c11348" prot="private" virt="non-virtual"><scope>CAccessToken</scope><name>m_ulTimeStamp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

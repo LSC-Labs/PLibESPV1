@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_i_status_handler" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>IStatusHandler</compoundname>
+    <derivedcompoundref refid="class_c_f_s" prot="public" virt="non-virtual">CFS</derivedcompoundref>
+    <derivedcompoundref refid="class_c_status_handler" prot="public" virt="non-virtual">CStatusHandler</derivedcompoundref>
+    <derivedcompoundref refid="class_c_sys_status" prot="public" virt="non-virtual">CSysStatus</derivedcompoundref>
+    <derivedcompoundref refid="class_i_module" prot="public" virt="non-virtual">IModule</derivedcompoundref>
+    <includes refid="_status_handler_8h" local="no">StatusHandler.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_i_status_handler_1a159576674bba670032ae23b647db1dec" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void IStatusHandler::writeStatusTo</definition>
+        <argsstring>(JsonNode &amp;oStatusNode, int nLevel=STATUS_LEVEL_INFO)=0</argsstring>
+        <name>writeStatusTo</name>
+        <qualifiedname>IStatusHandler::writeStatusTo</qualifiedname>
+        <reimplementedby refid="class_c_appl_1afe97a1193ac31226e50c9f0f8d348528">writeStatusTo</reimplementedby>
+        <reimplementedby refid="class_c_battery_measure_1a261bf9656c961acb558919ddf2af582d">writeStatusTo</reimplementedby>
+        <reimplementedby refid="class_c_f_s_1abc29b89ee482ab37400610f73eecfc98">writeStatusTo</reimplementedby>
+        <reimplementedby refid="class_c_m_q_t_t_controller_1aca08c94fb9ec821805e26444cafdec2d">writeStatusTo</reimplementedby>
+        <reimplementedby refid="class_c_n_t_p_handler_1a85709408d316075a1b58d6694925483a">writeStatusTo</reimplementedby>
+        <reimplementedby refid="class_c_status_handler_1ac2bf405743e55f04b107f7d676df2158">writeStatusTo</reimplementedby>
+        <reimplementedby refid="class_c_sys_status_1a9841efdc1d6dbda0247499adc65464a8">writeStatusTo</reimplementedby>
+        <reimplementedby refid="class_c_web_server_1a4f3aa81c98dc6b58547044790e55a894">writeStatusTo</reimplementedby>
+        <reimplementedby refid="class_c_wi_fi_controller_1a8b4957d794b69deddc3eb1e87a4ea635">writeStatusTo</reimplementedby>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oStatusNode</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nLevel</declname>
+          <defval><ref refid="_status_handler_8h_1ad33eab0de4e088931d94b504679013e4" kindref="member">STATUS_LEVEL_INFO</ref></defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/StatusHandler.h" line="15" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool IStatusHandler::hasStatusValues</definition>
+        <argsstring>(int nLevel=STATUS_LEVEL_INFO)</argsstring>
+        <name>hasStatusValues</name>
+        <qualifiedname>IStatusHandler::hasStatusValues</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nLevel</declname>
+          <defval><ref refid="_status_handler_8h_1ad33eab0de4e088931d94b504679013e4" kindref="member">STATUS_LEVEL_INFO</ref></defval>
+        </param>
+        <briefdescription>
+<para>Implement if you don&apos;t want to insert your status section, if there is no data in the requested level Default = true, create the section and ask me;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/StatusHandler.h" line="21" column="22" bodyfile="include/StatusHandler.h" bodystart="21" bodyend="21"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Interface for a status handler module. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="7">
+        <label>ApplModule</label>
+        <link refid="class_appl_module"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>CAppl</label>
+        <link refid="class_c_appl"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>CBatteryMeasure</label>
+        <link refid="class_c_battery_measure"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CFS</label>
+        <link refid="class_c_f_s"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>CMQTTController</label>
+        <link refid="class_c_m_q_t_t_controller"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>CNTPHandler</label>
+        <link refid="class_c_n_t_p_handler"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CStatusHandler</label>
+        <link refid="class_c_status_handler"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>CSysStatus</label>
+        <link refid="class_c_sys_status"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>CWebServer</label>
+        <link refid="class_c_web_server"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>CWiFiController</label>
+        <link refid="class_c_wi_fi_controller"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </inheritancegraph>
+    <location file="include/StatusHandler.h" line="13" column="1" bodyfile="include/StatusHandler.h" bodystart="13" bodyend="22"/>
+    <listofallmembers>
+      <member refid="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" prot="public" virt="virtual"><scope>IStatusHandler</scope><name>hasStatusValues</name></member>
+      <member refid="class_i_status_handler_1a159576674bba670032ae23b647db1dec" prot="public" virt="pure-virtual"><scope>IStatusHandler</scope><name>writeStatusTo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

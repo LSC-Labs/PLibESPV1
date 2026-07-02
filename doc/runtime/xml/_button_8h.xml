@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_button_8h" kind="file" language="C++">
+    <compoundname>Button.h</compoundname>
+    <includes refid="_input_pin_controller_8h" local="no">InputPinController.h</includes>
+    <includes local="no">Ticker.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>include/Button.h</label>
+        <link refid="_button_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>InputPinController.h</label>
+        <link refid="_input_pin_controller_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>PinController.h</label>
+        <link refid="_pin_controller_8h"/>
+      </node>
+      <node id="3">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Ticker.h</label>
+      </node>
+      <node id="5">
+        <label>chrono</label>
+      </node>
+      <node id="6">
+        <label>iostream</label>
+      </node>
+      <node id="4">
+        <label>string.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="class_c_button" prot="public">CButton</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_button_8h_1ac95ed463bb8c147dab5be2665cf11ac1" prot="public" static="no">
+        <name>BUTTON_STATUS_ON</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="6" column="9" bodyfile="include/Button.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_button_8h_1a5c1b32c980f7c1e925ddbf7d73464089" prot="public" static="no">
+        <name>BUTTON_STATUS_OFF</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="7" column="9" bodyfile="include/Button.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_button_8h_1a20b056cdc3e863c26f39824eb3106c45" prot="public" static="no">
+        <name>BUTTON_DEBOUNCING_TIME</name>
+        <initializer>30</initializer>
+        <briefdescription>
+<para>Debouncing time of button... Default is 100 ms. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Button.h" line="12" column="13" bodyfile="include/Button.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/Button.h"/>
+  </compounddef>
+</doxygen>

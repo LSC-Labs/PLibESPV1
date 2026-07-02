@@ -2,7 +2,7 @@
 #include <Runtime.h>
 #include <LightSwitch.h>
 
-// Names of colors to be used with the COLOR_* Bitmasks
+/// @brief Named RGB color bitmasks used by CRGBLed.
 enum RGB_COLOR {
   BLACK  = 0,
   RED    = 1,
@@ -42,11 +42,15 @@ class CRGBLed
         const int COLOR_BLUE_BIT_MASK  = 4;
 
     public:
+        /// @brief Red channel light switch.
         CLightSwitch RedLED;
+        /// @brief Green channel light switch.
         CLightSwitch GreenLED;
+        /// @brief Blue channel light switch.
         CLightSwitch BlueLED;
     
     public:
+        /// @brief Create an unconfigured RGB LED.
         CRGBLed();
         /**
          * @brief Constructor
@@ -57,10 +61,11 @@ class CRGBLed
          */
         CRGBLed(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow = true);
         /**
-         * Start the RGB LED and initilaize the pins
+         * @brief Configure the RGB LED pins and active-level mode.
          */
         void setup(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow = true);
 
+        /// @brief Switch all active color channels on.
         void switchOn();
 
         /**
@@ -82,21 +87,30 @@ class CRGBLed
          */
         void setColor(int nColorBits, bool bSwitchLeds = true);
 
+        /// @brief Blink the given named color.
         void blink(RGB_COLOR eColor, unsigned long nOnMillis = 500, unsigned long nOffMillis = 500);
+        /// @brief Blink the given color bitmask.
         void blink(int nColorBits,   unsigned long nOnMillis = 500, unsigned long nOffMillis = 500);
 
+        /// @brief Fade the given named color in/out repeatedly.
         void wave(RGB_COLOR eColor, unsigned long ulFadeInMillis=500, unsigned long ulFadeOutMillis = 500, unsigned long ulOnTime = 1000, unsigned long ulOffTime = 2000, int nMaxLevelInPercent = -1);
+        /// @brief Fade the given color bitmask in/out repeatedly.
         void wave(int nColorBits,   unsigned long ulFadeInMillis=500, unsigned long ulFadeOutMillis = 500, unsigned long ulOnTime = 1000, unsigned long ulOffTime = 2000, int nMaxLevelInPercent = -1);
 
+        /// @brief Set brightness for one named color channel/group.
         void setBrightnessInPercent(RGB_COLOR eColor, int nBrightnessPercent);
+        /// @brief Set brightness for one color bitmask channel/group.
         void setBrightnessInPercent(int nColorBits,   int nBrightnessPercent);
         /**
          * Run the tests for the RGB LED
          */
         void runTests();
+        /// @brief Show a short startup flash sequence.
         void showStartupFlashLight(int nDelayBetweenFlashes);
     private:
+        /// @brief Run single-color diagnostics.
         void runSingleColorTests();
+        /// @brief Run color brightness diagnostics.
         void runColorBrightnessTest();
         
 };

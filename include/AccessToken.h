@@ -25,15 +25,21 @@ class CAccessToken {
 
     char            m_szTokenAsBase64[((sizeof(m_szDataElementAsBase64) + sizeof(m_szIPAddress))/3 * 4) + 20];
     protected:
+        /// @brief Decode and load the base64-encoded token payload.
         bool loadBase64DataElement(const char * pszData);
+        /// @brief Return the base64-encoded payload, optionally refreshing timestamp.
         const char * getBase64DataElement(bool bRefreshTimeStamp = true);
 
     public:
+        /// @brief Create an empty invalid access token.
         CAccessToken();
+        /// @brief Create a token for the given IP address and token key.
         CAccessToken(const char * pszIPAddress, const char * pszTokenKey, const char * pszIV = nullptr);
+        /// @brief Create a token by decoding an existing base64 token string.
         CAccessToken(const char * pszBase64EncodedString);
 
+        /// @brief Return the complete access token encoded as base64.
         const char * getTokenAsBase64(bool bRandomIV = true);
+        /// @brief Validate token structure, IP address, key and lifetime.
         bool isAuthValid(const char * pszIPAddress, const char * pszTokenKey);
 };
-

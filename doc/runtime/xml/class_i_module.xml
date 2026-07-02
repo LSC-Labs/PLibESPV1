@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_i_module" kind="class" language="C++" prot="public">
+    <compoundname>IModule</compoundname>
+    <basecompoundref refid="class_i_config_handler" prot="public" virt="non-virtual">IConfigHandler</basecompoundref>
+    <basecompoundref refid="class_i_status_handler" prot="public" virt="non-virtual">IStatusHandler</basecompoundref>
+    <basecompoundref refid="class_i_msg_event_receiver" prot="public" virt="non-virtual">IMsgEventReceiver</basecompoundref>
+    <derivedcompoundref refid="class_appl_module" prot="public" virt="non-virtual">ApplModule</derivedcompoundref>
+    <derivedcompoundref refid="class_c_n_t_p_handler" prot="public" virt="non-virtual">CNTPHandler</derivedcompoundref>
+    <derivedcompoundref refid="class_c_web_server" prot="public" virt="non-virtual">CWebServer</derivedcompoundref>
+    <derivedcompoundref refid="class_c_wi_fi_controller" prot="public" virt="non-virtual">CWiFiController</derivedcompoundref>
+    <includes refid="_module_interface_8h" local="no">ModuleInterface.h</includes>
+    <briefdescription>
+<para>Full Interface for modules. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><itemizedlist>
+<listitem><para>Configuration Handling</para>
+</listitem><listitem><para>Status Handling</para>
+</listitem><listitem><para>Event Handling </para>
+</listitem></itemizedlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="5">
+        <label>ApplModule</label>
+        <link refid="class_appl_module"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>CBatteryMeasure</label>
+        <link refid="class_c_battery_measure"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>CMQTTController</label>
+        <link refid="class_c_m_q_t_t_controller"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>CNTPHandler</label>
+        <link refid="class_c_n_t_p_handler"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>CWebServer</label>
+        <link refid="class_c_web_server"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>CWiFiController</label>
+        <link refid="class_c_wi_fi_controller"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="1">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="3">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="1">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="3">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/ModuleInterface.h" line="20" column="1" bodyfile="include/ModuleInterface.h" bodystart="20" bodyend="22"/>
+    <listofallmembers>
+      <member refid="class_i_config_handler_1a6011c82a3fe9d10ef0ea54d848557f4c" prot="public" virt="virtual"><scope>IModule</scope><name>hasConfigValues</name></member>
+      <member refid="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" prot="public" virt="virtual"><scope>IModule</scope><name>hasStatusValues</name></member>
+      <member refid="class_i_config_handler_1a8a92be059bfaca6c233419763865a5f4" prot="public" virt="virtual"><scope>IModule</scope><name>migrateConfig</name></member>
+      <member refid="class_i_config_handler_1a4c43c53522b0408972d6573e91d1e63e" prot="public" virt="pure-virtual"><scope>IModule</scope><name>readConfigFrom</name></member>
+      <member refid="class_i_msg_event_receiver_1a3345710906f9a16c4dca5b7ce2da39d7" prot="public" virt="pure-virtual"><scope>IModule</scope><name>receiveEvent</name></member>
+      <member refid="class_i_config_handler_1a3507b2ec7bef0a1ec0a7f90da0ec32f2" prot="public" virt="pure-virtual"><scope>IModule</scope><name>writeConfigTo</name></member>
+      <member refid="class_i_status_handler_1a159576674bba670032ae23b647db1dec" prot="public" virt="pure-virtual"><scope>IModule</scope><name>writeStatusTo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_logging_8h" kind="file" language="C++">
+    <compoundname>Logging.h</compoundname>
+    <includes local="no">stdarg.h</includes>
+    <includes refid="_event_handler_8h" local="no">EventHandler.h</includes>
+    <includes refid="_msgs_8h" local="no">Msgs.h</includes>
+    <includedby refid="_appl_8h" local="no">include/Appl.h</includedby>
+    <incdepgraph>
+      <node id="13">
+        <label>DevelopmentHelper.h</label>
+        <link refid="_development_helper_8h"/>
+      </node>
+      <node id="3">
+        <label>EventHandler.h</label>
+        <link refid="_event_handler_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>LSCUtils.h</label>
+        <link refid="_l_s_c_utils_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/Logging.h</label>
+        <link refid="_logging_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>Msgs.h</label>
+        <link refid="_msgs_8h"/>
+      </node>
+      <node id="11">
+        <label>NamedValueTable.h</label>
+        <link refid="_named_value_table_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>chrono</label>
+      </node>
+      <node id="8">
+        <label>functional</label>
+      </node>
+      <node id="7">
+        <label>iostream</label>
+      </node>
+      <node id="10">
+        <label>queue</label>
+      </node>
+      <node id="2">
+        <label>stdarg.h</label>
+      </node>
+      <node id="5">
+        <label>string.h</label>
+      </node>
+      <node id="9">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>include/Appl.h</label>
+        <link refid="_appl_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/Logging.h</label>
+        <link refid="_logging_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>include/MDNSController.h</label>
+        <link refid="_m_d_n_s_controller_8h"/>
+      </node>
+      <node id="4">
+        <label>include/NTPHandler.h</label>
+        <link refid="_n_t_p_handler_8h"/>
+      </node>
+      <node id="5">
+        <label>include/WebServer.h</label>
+        <link refid="_web_server_8h"/>
+      </node>
+      <node id="6">
+        <label>include/WiFiController.h</label>
+        <link refid="_wi_fi_controller_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_c_event_logger" prot="public">CEventLogger</innerclass>
+    <innerclass refid="class_c_log_writer" prot="public">CLogWriter</innerclass>
+    <innerclass refid="class_c_stream_log_writer" prot="public">CStreamLogWriter</innerclass>
+    <innerclass refid="class_c_serial_log_writer" prot="public">CSerialLogWriter</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_logging_8h_1a4c067aa1134dd0e71598acf3a8ecf949" prot="public" static="no">
+        <name>logInfo</name>
+        <param><defname>s</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>log(&quot;I&quot;,s, ##__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="7" column="9" bodyfile="include/Logging.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_logging_8h_1aff019e0e32c1d65f06b8f8130ddfe090" prot="public" static="no">
+        <name>logVerbose</name>
+        <param><defname>s</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>log(&quot;V&quot;,s, ##__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="8" column="9" bodyfile="include/Logging.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_logging_8h_1ad3c6e060b87e1c178c5a5e1f98c9b747" prot="public" static="no">
+        <name>logWarning</name>
+        <param><defname>s</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>log(&quot;W&quot;,s, ##__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="9" column="9" bodyfile="include/Logging.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_logging_8h_1a0fd0b66048a6c0067346d99523b3b26f" prot="public" static="no">
+        <name>logError</name>
+        <param><defname>s</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>log(&quot;E&quot;,s, ##__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="10" column="9" bodyfile="include/Logging.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_logging_8h_1a3e26c08d2242cc7d3f61eb0a32762f8c" prot="public" static="no">
+        <name>logTrace</name>
+        <param><defname>s</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>log(&quot;T&quot;,s, ##__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="11" column="9" bodyfile="include/Logging.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_logging_8h_1ad6fcdeb6a07034f27c6b069665baaa1a" prot="public" static="no">
+        <name>logException</name>
+        <param><defname>s</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>log(&quot;X&quot;,s, ##__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="12" column="9" bodyfile="include/Logging.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_logging_8h_1abbd39f00a7aead161835487523594c06" prot="public" static="no">
+        <name>logDebug</name>
+        <param><defname>s</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>log(&quot;D&quot;,s, ##__VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="13" column="9" bodyfile="include/Logging.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_logging_8h_1a4d8ae15bcc0611de082b5109cd1e3809" prot="public" static="no">
+        <name>LOG_CLASS_LEVEL_MASK</name>
+        <initializer>&quot;.IV..TWEDX&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="17" column="9" bodyfile="include/Logging.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_logging_8h_1adf4a8eda8a109ffac3bd41f3e33675a1" prot="public" static="no">
+        <name>LOG_CLASS_TYPE_ALWAYS</name>
+        <initializer>&quot;WEX&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="18" column="9" bodyfile="include/Logging.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/Logging.h"/>
+  </compounddef>
+</doxygen>

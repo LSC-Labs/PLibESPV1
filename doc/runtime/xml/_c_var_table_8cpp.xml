@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_c_var_table_8cpp" kind="file" language="C++">
+    <compoundname>CVarTable.cpp</compoundname>
+    <includes refid="_development_helper_8h" local="no">DevelopmentHelper.h</includes>
+    <includes refid="_vars_8h" local="no">Vars.h</includes>
+    <incdepgraph>
+      <node id="4">
+        <label>ConfigHandler.h</label>
+        <link refid="_config_handler_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DevelopmentHelper.h</label>
+        <link refid="_development_helper_8h"/>
+      </node>
+      <node id="9">
+        <label>JsonNode.h</label>
+        <link refid="_json_node_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Vars.h</label>
+        <link refid="_vars_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/CVarTable.cpp</label>
+        <link refid="_c_var_table_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>chrono</label>
+      </node>
+      <node id="8">
+        <label>iostream</label>
+      </node>
+      <node id="6">
+        <label>string.h</label>
+      </node>
+      <node id="10">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_c_var_table_8cpp_1a1a643dec29e6533f389ab45a2b9a0308" prot="public" static="no">
+        <name>LSC_VARS_CRITICAL_ENTRY_MASK</name>
+        <initializer>&quot;******&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CVarTable.cpp" line="31" column="13" bodyfile="src/CVarTable.cpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_c_var_table_8cpp_1a84a5c79c8d497796f25e126d05194800" prot="public" static="no">
+        <name>LSC_VARS_CRITICAL_NAMES_KEY</name>
+        <initializer>&quot;__CN&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CVarTable.cpp" line="34" column="13" bodyfile="src/CVarTable.cpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the <ref refid="class_c_var_table" kindref="compound">CVarTable</ref> class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="version"><para>1.0 </para>
+</simplesect>
+<simplesect kind="date"><para>2023-10-01 </para>
+</simplesect>
+<simplesect kind="copyright"><para>LSC-Labs </para>
+</simplesect>
+<simplesect kind="author"><para>P. Liebl</para>
+</simplesect>
+The <ref refid="class_c_var_table" kindref="compound">CVarTable</ref> class is used to manage a list of variables (<ref refid="class_c_var" kindref="compound">CVar</ref>) and provides methods to find, create, and manipulate these variables.</para>
+<para>-D DEBUGINFOS - enable debug macros -D DEBUG_LSC_VARS - enable debug macros output for this module. -D LSC_VARS_CRITICAL_ENTRY_MASK - string to be used for critical vars (value) -D LSC_VARS_CRITICAL_NAMES_KEY - key name to be used to store critical names into a JSON object</para>
+<para><simplesect kind="note"><para>2025-03-31 : added support for critical vars Support for JSON 7.x and JSON 6.x </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="src/CVarTable.cpp"/>
+  </compounddef>
+</doxygen>

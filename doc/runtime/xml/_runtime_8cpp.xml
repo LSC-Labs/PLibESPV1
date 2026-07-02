@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_runtime_8cpp" kind="file" language="C++">
+    <compoundname>Runtime.cpp</compoundname>
+    <includes refid="_runtime_8h" local="yes">Runtime.h</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/Runtime.cpp</label>
+        <link refid="_runtime_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>chrono</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="3">
+        <label>string.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="_runtime_8cpp_1a25b4929f49db860a9acae9b76710e165" prot="public" static="no" mutable="no">
+        <type><ref refid="class_native_serial" kindref="compound">NativeSerial</ref></type>
+        <definition>NativeSerial Serial</definition>
+        <argsstring></argsstring>
+        <name>Serial</name>
+        <briefdescription>
+<para>Minimal Serial replacement for native tests. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Runtime.cpp" line="7" column="18" bodyfile="src/Runtime.cpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="_runtime_8cpp_1a4f1b1d27c79f52f8e9d2df4877c4ff7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char * strlwr</definition>
+        <argsstring>(char *s)</argsstring>
+        <name>strlwr</name>
+        <param>
+          <type>char *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>Converts a C string to lower case in place. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mutable null-terminated string. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The same pointer that was passed in. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Runtime.cpp" line="14" column="10" bodyfile="src/Runtime.cpp" bodystart="14" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="_runtime_8cpp_1a6ff7f2532a22366f0013bc41397129fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long millis</definition>
+        <argsstring>()</argsstring>
+        <name>millis</name>
+        <briefdescription>
+<para>Native replacement for Arduino <ref refid="_runtime_8cpp_1a6ff7f2532a22366f0013bc41397129fd" kindref="member">millis()</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The value starts at 1 so that 0 can keep its common meaning of &quot;timer not
+started&quot; in classes such as <ref refid="class_c_simple_delay" kindref="compound">CSimpleDelay</ref>.</para>
+<para><simplesect kind="return"><para>Milliseconds since the first call, plus one. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/Runtime.cpp" line="31" column="19" bodyfile="src/Runtime.cpp" bodystart="31" bodyend="38"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/Runtime.cpp"/>
+  </compounddef>
+</doxygen>

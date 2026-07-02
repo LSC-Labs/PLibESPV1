@@ -1,0 +1,259 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_m_q_t_t_controller_8h" kind="file" language="C++">
+    <compoundname>MQTTController.h</compoundname>
+    <includes refid="_runtime_8h" local="no">Runtime.h</includes>
+    <includes refid="_json_node_8h" local="no">JsonNode.h</includes>
+    <includes refid="_appl_module_8h" local="no">ApplModule.h</includes>
+    <includes refid="_named_value_table_8h" local="no">NamedValueTable.h</includes>
+    <includes refid="_simple_delay_8h" local="no">SimpleDelay.h</includes>
+    <includes local="no">queue</includes>
+    <incdepgraph>
+      <node id="8">
+        <label>ApplModule.h</label>
+        <link refid="_appl_module_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>ConfigHandler.h</label>
+        <link refid="_config_handler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>DevelopmentHelper.h</label>
+        <link refid="_development_helper_8h"/>
+      </node>
+      <node id="12">
+        <label>EventHandler.h</label>
+        <link refid="_event_handler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>JsonNode.h</label>
+        <link refid="_json_node_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>LSCUtils.h</label>
+        <link refid="_l_s_c_utils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/MQTTController.h</label>
+        <link refid="_m_q_t_t_controller_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>ModuleInterface.h</label>
+        <link refid="_module_interface_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>Msgs.h</label>
+        <link refid="_msgs_8h"/>
+      </node>
+      <node id="15">
+        <label>NamedValueTable.h</label>
+        <link refid="_named_value_table_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>SimpleDelay.h</label>
+        <link refid="_simple_delay_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>StatusHandler.h</label>
+        <link refid="_status_handler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>chrono</label>
+      </node>
+      <node id="13">
+        <label>functional</label>
+      </node>
+      <node id="5">
+        <label>iostream</label>
+      </node>
+      <node id="14">
+        <label>queue</label>
+      </node>
+      <node id="3">
+        <label>string.h</label>
+      </node>
+      <node id="7">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_async_mqtt_client_message_properties" prot="public">AsyncMqttClientMessageProperties</innerclass>
+    <innerclass refid="class_async_mqtt_client" prot="public">AsyncMqttClient</innerclass>
+    <innerclass refid="struct_m_q_t_t_config" prot="public">MQTTConfig</innerclass>
+    <innerclass refid="struct_m_q_t_t_status" prot="public">MQTTStatus</innerclass>
+    <innerclass refid="class_i_home_assistant_component" prot="public">IHomeAssistantComponent</innerclass>
+    <innerclass refid="class_c_m_q_t_t_controller" prot="public">CMQTTController</innerclass>
+    <innerclass refid="class_m_q_t_t_message" prot="public">MQTTMessage</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_m_q_t_t_controller_8h_1a84ca83b7fadde2078528f50d6c403f8f" prot="public" static="no">
+        <name>MQTT_STATE_AVAILABLE</name>
+        <initializer>&quot;online&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="33" column="9" bodyfile="include/MQTTController.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_m_q_t_t_controller_8h_1a4e779994f55f2acfa8a7871f25c73dcd" prot="public" static="no">
+        <name>MQTT_STATE_UNAVAILABLE</name>
+        <initializer>&quot;offline&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="34" column="9" bodyfile="include/MQTTController.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_m_q_t_t_controller_8h_1a58b694d0861ae3928b8a5719d2c4af19" prot="public" static="no">
+        <name>MQTT_STATE_BOOTING</name>
+        <initializer>&quot;booting&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="35" column="9" bodyfile="include/MQTTController.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbf" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>AsyncMqttClientDisconnectReason</name>
+        <enumvalue id="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfa848e89ec27e775fab0350b25da931038" prot="public">
+          <name>TCP_DISCONNECTED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfa71bbc744843d95ad8cde5997f8c269ef" prot="public">
+          <name>MQTT_UNACCEPTABLE_PROTOCOL_VERSION</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfae1d33b54206ecf678f76972388226860" prot="public">
+          <name>MQTT_IDENTIFIER_REJECTED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfa1eb86437fcac2903fff83298778372ca" prot="public">
+          <name>MQTT_SERVER_UNAVAILABLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfa3968e2a7c2ea97a9834fa3b60ed99130" prot="public">
+          <name>MQTT_MALFORMED_CREDENTIALS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfa98bd9a02c9ccc20f30195304bb16e16d" prot="public">
+          <name>MQTT_NOT_AUTHORIZED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_m_q_t_t_controller_8h_1a574a2eb419a7e53116fe07e237279cbfadbbd968c161230d1ea27afd0a9734910" prot="public">
+          <name>ESP8266_NOT_ENOUGH_SPACE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="6" column="5" bodyfile="include/MQTTController.h" bodystart="6" bodyend="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/MQTTController.h"/>
+  </compounddef>
+</doxygen>

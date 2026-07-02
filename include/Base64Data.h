@@ -47,7 +47,7 @@ class CBase64Data {
      * @param nInputLen len of the input data to be encoded
      * @param pszOutput output area, where the string can be written (needs to be large enough to hold the encoded string !)
      * @param nOutputLen size of the output area, to ensure no memory violation.
-     * @param bNoCRLF No CRLF inside the generated string
+     * @param bRemoveCRLF No CRLF inside the generated string
      * @return the final data length, or -1 if output area is too small...
      */
     static int base64EncodeData(const char * pszInput, size_t nInputLen, char * pszOutput, size_t nOutputLen, bool bRemoveCRLF = true) {
@@ -81,6 +81,5 @@ class CBase64Data {
         return(nFinalLen);
     }
 };
-
 
 

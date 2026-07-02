@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_serial_log_writer" kind="class" language="C++" prot="public">
+    <compoundname>CSerialLogWriter</compoundname>
+    <basecompoundref refid="class_c_stream_log_writer" prot="public" virt="non-virtual">CStreamLogWriter</basecompoundref>
+    <includes refid="_logging_8h" local="no">Logging.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_serial_log_writer_1a1466e21ddf91238b5a7bbc0a9bc77ded" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CSerialLogWriter::CSerialLogWriter</definition>
+        <argsstring>()</argsstring>
+        <name>CSerialLogWriter</name>
+        <qualifiedname>CSerialLogWriter::CSerialLogWriter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Logging.h" line="88" column="9" bodyfile="include/Logging.h" bodystart="88" bodyend="88"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Stream log writer preconfigured for Serial. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>CLogWriter</label>
+        <link refid="class_c_log_writer"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CSerialLogWriter</label>
+        <link refid="class_c_serial_log_writer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CStreamLogWriter</label>
+        <link refid="class_c_stream_log_writer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>CLogWriter</label>
+        <link refid="class_c_log_writer"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CSerialLogWriter</label>
+        <link refid="class_c_serial_log_writer"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CStreamLogWriter</label>
+        <link refid="class_c_stream_log_writer"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/Logging.h" line="86" column="1" bodyfile="include/Logging.h" bodystart="86" bodyend="89"/>
+    <listofallmembers>
+      <member refid="class_c_log_writer_1ae3bf4c4e462598f1972f5940d38968f5" prot="public" virt="non-virtual"><scope>CSerialLogWriter</scope><name>CLogWriter</name></member>
+      <member refid="class_c_serial_log_writer_1a1466e21ddf91238b5a7bbc0a9bc77ded" prot="public" virt="non-virtual"><scope>CSerialLogWriter</scope><name>CSerialLogWriter</name></member>
+      <member refid="class_c_stream_log_writer_1ae118e6f07d8c1d90626bff2b76b5f8e8" prot="public" virt="non-virtual"><scope>CSerialLogWriter</scope><name>CStreamLogWriter</name></member>
+      <member refid="class_c_log_writer_1a967eae24276cda109664ba872021fc0c" prot="public" virt="non-virtual"><scope>CSerialLogWriter</scope><name>getLogLevel</name></member>
+      <member refid="class_c_log_writer_1aa13c895523c82960e8e8d060dfb3b167" prot="public" virt="virtual"><scope>CSerialLogWriter</scope><name>receiveEvent</name></member>
+      <member refid="class_c_log_writer_1a0ea27d180c430dfe1bd960a762a2d8b8" prot="public" virt="non-virtual"><scope>CSerialLogWriter</scope><name>setLogLevel</name></member>
+      <member refid="class_c_stream_log_writer_1a357c77fa843d0719b24c74bd6251602b" prot="public" virt="virtual"><scope>CSerialLogWriter</scope><name>writeLogEntry</name></member>
+      <member refid="class_c_stream_log_writer_1a61fef1c30329e670466e044dd6046b3a" prot="public" virt="virtual"><scope>CSerialLogWriter</scope><name>writeLogEntry</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,16 @@
+<map id="include/LightSwitch.h" name="include/LightSwitch.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="106,5,252,31"/>
+<area shape="rect" id="Node000002" href="$_runtime_8h.html" title=" " alt="" coords="84,153,165,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,29,153,80,134,139,129,137,148,78,171,34"/>
+<area shape="rect" id="Node000006" href="$_output_pin_controller_8h.html" title=" " alt="" coords="162,79,308,105"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="189,29,219,66,213,67,188,34"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,226,70,252"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="112,178,65,219,62,214,107,180"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="94,226,154,252"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="126,177,127,212,122,209,122,181"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="178,226,249,252"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="140,176,189,216,184,217,138,181"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="214,107,157,146,154,142,218,104"/>
+<area shape="rect" id="Node000007" href="$_pin_controller_8h.html" title=" " alt="" coords="188,153,295,178"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="237,103,241,138,237,136,234,107"/>
+</map>

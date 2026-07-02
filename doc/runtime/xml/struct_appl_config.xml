@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="struct_appl_config" kind="struct" language="C++" prot="public">
+    <compoundname>ApplConfig</compoundname>
+    <includes refid="_appl_8h" local="no">Appl.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_appl_config_1a68e9c0cc68e56aa9a0f849b6a03be2cb" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ApplConfig::bLogToSerial</definition>
+        <argsstring></argsstring>
+        <name>bLogToSerial</name>
+        <qualifiedname>ApplConfig::bLogToSerial</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+<para>true to attach a serial log writer during application init. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="97" column="13" bodyfile="include/Appl.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_appl_config_1a45f60776dd3145ee2c9e0bd50eb030e5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ApplConfig::bTraceMode</definition>
+        <argsstring></argsstring>
+        <name>bTraceMode</name>
+        <qualifiedname>ApplConfig::bTraceMode</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+<para>true when trace mode is enabled through configuration. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="99" column="13" bodyfile="include/Appl.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_appl_config_1a9b2d4505501e2c4c1f61bce6e9b6efa6" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String ApplConfig::strDeviceName</definition>
+        <argsstring></argsstring>
+        <name>strDeviceName</name>
+        <qualifiedname>ApplConfig::strDeviceName</qualifiedname>
+        <initializer>= <ref refid="_appl_8h_1a9dae37b6b57e30542ac5d55a27d6e46c" kindref="member">DEFAULT_DEVICE_NAME</ref></initializer>
+        <briefdescription>
+<para>Device name/hostname used by network-facing modules. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="101" column="13" bodyfile="include/Appl.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_appl_config_1ad4bac442cbddc3ef3bef5cc062985214" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String ApplConfig::strDevicePwd</definition>
+        <argsstring></argsstring>
+        <name>strDevicePwd</name>
+        <qualifiedname>ApplConfig::strDevicePwd</qualifiedname>
+        <initializer>= <ref refid="_appl_8h_1aa628533c2b6a4d3c62abe45cdd6a0248" kindref="member">DEFAULT_DEVICE_PWD</ref></initializer>
+        <briefdescription>
+<para>Device password used by authentication-aware modules. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="103" column="13" bodyfile="include/Appl.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_appl_config_1a1231b7227fe7a430f0b1eb9143efc684" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ApplConfig::bDebugFrontend</definition>
+        <argsstring></argsstring>
+        <name>bDebugFrontend</name>
+        <qualifiedname>ApplConfig::bDebugFrontend</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+<para>true to expose frontend debug information. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="110" column="10" bodyfile="include/Appl.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Runtime configuration of the global <ref refid="class_c_appl" kindref="compound">CAppl</ref> object. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/Appl.h" line="95" column="1" bodyfile="include/Appl.h" bodystart="95" bodyend="112"/>
+    <listofallmembers>
+      <member refid="struct_appl_config_1a1231b7227fe7a430f0b1eb9143efc684" prot="public" virt="non-virtual"><scope>ApplConfig</scope><name>bDebugFrontend</name></member>
+      <member refid="struct_appl_config_1a68e9c0cc68e56aa9a0f849b6a03be2cb" prot="public" virt="non-virtual"><scope>ApplConfig</scope><name>bLogToSerial</name></member>
+      <member refid="struct_appl_config_1a45f60776dd3145ee2c9e0bd50eb030e5" prot="public" virt="non-virtual"><scope>ApplConfig</scope><name>bTraceMode</name></member>
+      <member refid="struct_appl_config_1a9b2d4505501e2c4c1f61bce6e9b6efa6" prot="public" virt="non-virtual"><scope>ApplConfig</scope><name>strDeviceName</name></member>
+      <member refid="struct_appl_config_1ad4bac442cbddc3ef3bef5cc062985214" prot="public" virt="non-virtual"><scope>ApplConfig</scope><name>strDevicePwd</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

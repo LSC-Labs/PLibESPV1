@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="struct_c_config_handler_1_1_handler_entry" kind="struct" language="C++" prot="private">
+    <compoundname>CConfigHandler::HandlerEntry</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_c_config_handler_1_1_handler_entry_1ac507c51340520f21b392406427aaeb0d" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* CConfigHandler::HandlerEntry::pszName</definition>
+        <argsstring></argsstring>
+        <name>pszName</name>
+        <qualifiedname>CConfigHandler::HandlerEntry::pszName</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ConfigHandler.h" line="42" column="29" bodyfile="include/ConfigHandler.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_c_config_handler_1_1_handler_entry_1a2ea9ddeb0da1bc172d1808295c83fb5e" prot="public" static="no" mutable="no">
+        <type><ref refid="class_i_config_handler" kindref="compound">IConfigHandler</ref> *</type>
+        <definition>IConfigHandler* CConfigHandler::HandlerEntry::pHandler</definition>
+        <argsstring></argsstring>
+        <name>pHandler</name>
+        <qualifiedname>CConfigHandler::HandlerEntry::pHandler</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/ConfigHandler.h" line="43" column="29" bodyfile="include/ConfigHandler.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>CConfigHandler::HandlerEntry</label>
+        <childnode refid="2" relation="usage">
+          <edgelabel>pHandler</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/ConfigHandler.h" line="41" column="9" bodyfile="include/ConfigHandler.h" bodystart="41" bodyend="44"/>
+    <listofallmembers>
+      <member refid="struct_c_config_handler_1_1_handler_entry_1a2ea9ddeb0da1bc172d1808295c83fb5e" prot="public" virt="non-virtual"><scope>CConfigHandler::HandlerEntry</scope><name>pHandler</name></member>
+      <member refid="struct_c_config_handler_1_1_handler_entry_1ac507c51340520f21b392406427aaeb0d" prot="public" virt="non-virtual"><scope>CConfigHandler::HandlerEntry</scope><name>pszName</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

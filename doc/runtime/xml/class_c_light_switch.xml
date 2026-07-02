@@ -1,0 +1,320 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_light_switch" kind="class" language="C++" prot="public">
+    <compoundname>CLightSwitch</compoundname>
+    <basecompoundref refid="class_c_output_pin_controller" prot="public" virt="non-virtual">COutputPinController</basecompoundref>
+    <includes refid="_light_switch_8h" local="no">LightSwitch.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_light_switch_1a02f374bcff6f16edd530a9b1af1b235a" prot="private" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long CLightSwitch::_ulNextChange</definition>
+        <argsstring></argsstring>
+        <name>_ulNextChange</name>
+        <qualifiedname>CLightSwitch::_ulNextChange</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="11" column="23" bodyfile="include/LightSwitch.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_light_switch_1acb5151a52aba60169f33209a70315920" prot="private" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long CLightSwitch::_ulBlinkOnMillis</definition>
+        <argsstring></argsstring>
+        <name>_ulBlinkOnMillis</name>
+        <qualifiedname>CLightSwitch::_ulBlinkOnMillis</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="12" column="23" bodyfile="include/LightSwitch.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_light_switch_1a978360949c57eb75a7549b80ddd9d667" prot="private" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long CLightSwitch::_ulBlinkOffMillis</definition>
+        <argsstring></argsstring>
+        <name>_ulBlinkOffMillis</name>
+        <qualifiedname>CLightSwitch::_ulBlinkOffMillis</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="13" column="23" bodyfile="include/LightSwitch.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_light_switch_1a8d30118e168d2091941f8920d4027c00" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CLightSwitch::_bBlinkIsOn</definition>
+        <argsstring></argsstring>
+        <name>_bBlinkIsOn</name>
+        <qualifiedname>CLightSwitch::_bBlinkIsOn</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="14" column="23" bodyfile="include/LightSwitch.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_light_switch_1a2cc9156534b1590c8702ea7b84caca42" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CLightSwitch::_isWaveFadeIn</definition>
+        <argsstring></argsstring>
+        <name>_isWaveFadeIn</name>
+        <qualifiedname>CLightSwitch::_isWaveFadeIn</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="15" column="23" bodyfile="include/LightSwitch.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_light_switch_1acece775d59011f1f447fcc25d1d5ce05" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CLightSwitch::_nWaveCurPercent</definition>
+        <argsstring></argsstring>
+        <name>_nWaveCurPercent</name>
+        <qualifiedname>CLightSwitch::_nWaveCurPercent</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="16" column="23" bodyfile="include/LightSwitch.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_light_switch_1aa9ce13bdc6e2a6852dbe14eeda5c1488" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CLightSwitch::CLightSwitch</definition>
+        <argsstring>()</argsstring>
+        <name>CLightSwitch</name>
+        <qualifiedname>CLightSwitch::CLightSwitch</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="19" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_light_switch_1a88386c39079be5b9ba60345734db34df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CLightSwitch::CLightSwitch</definition>
+        <argsstring>(int nSwitchPin, bool bLowLevelIsOn=true)</argsstring>
+        <name>CLightSwitch</name>
+        <qualifiedname>CLightSwitch::CLightSwitch</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nSwitchPin</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bLowLevelIsOn</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="20" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_light_switch_1a861f6b7256eb7a205b5c3c6219f36556" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CLightSwitch::blink</definition>
+        <argsstring>(unsigned long nOnMillis=1000, unsigned long nOffMillis=1000)</argsstring>
+        <name>blink</name>
+        <qualifiedname>CLightSwitch::blink</qualifiedname>
+        <param>
+          <type>unsigned long</type>
+          <declname>nOnMillis</declname>
+          <defval>1000</defval>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>nOffMillis</declname>
+          <defval>1000</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="22" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_light_switch_1ab6af2a066e1217cee2b264d735461a0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CLightSwitch::wave</definition>
+        <argsstring>(unsigned long ulFadeInMillis=200, unsigned long ulFadeOutMillis=200, unsigned long ulOnTime=1000, unsigned long ulOffTime=1000, int nMaxLevelInPercent=-1)</argsstring>
+        <name>wave</name>
+        <qualifiedname>CLightSwitch::wave</qualifiedname>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulFadeInMillis</declname>
+          <defval>200</defval>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulFadeOutMillis</declname>
+          <defval>200</defval>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulOnTime</declname>
+          <defval>1000</defval>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulOffTime</declname>
+          <defval>1000</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMaxLevelInPercent</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="23" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_light_switch_1a527f7ae794794e5e4a956022fd3a7d63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CLightSwitch::setBrightness</definition>
+        <argsstring>(int nLevelInPercent=100)</argsstring>
+        <name>setBrightness</name>
+        <qualifiedname>CLightSwitch::setBrightness</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nLevelInPercent</declname>
+          <defval>100</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="24" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_light_switch_1ab301a6b2c9645dfe276468f29b1dd744" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int CLightSwitch::getBrightness</definition>
+        <argsstring>()</argsstring>
+        <name>getBrightness</name>
+        <qualifiedname>CLightSwitch::getBrightness</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="25" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_light_switch_1afb3743e585e0b3ece2b0b1d29b46d543" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CLightSwitch::runTests</definition>
+        <argsstring>()</argsstring>
+        <name>runTests</name>
+        <qualifiedname>CLightSwitch::runTests</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/LightSwitch.h" line="26" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>CLightSwitch</label>
+        <link refid="class_c_light_switch"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>COutputPinController</label>
+        <link refid="class_c_output_pin_controller"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CPinController</label>
+        <link refid="class_c_pin_controller"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>CLightSwitch</label>
+        <link refid="class_c_light_switch"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>COutputPinController</label>
+        <link refid="class_c_output_pin_controller"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CPinController</label>
+        <link refid="class_c_pin_controller"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/LightSwitch.h" line="9" column="1" bodyfile="include/LightSwitch.h" bodystart="9" bodyend="27"/>
+    <listofallmembers>
+      <member refid="class_c_light_switch_1a8d30118e168d2091941f8920d4027c00" prot="private" virt="non-virtual"><scope>CLightSwitch</scope><name>_bBlinkIsOn</name></member>
+      <member refid="class_c_light_switch_1a2cc9156534b1590c8702ea7b84caca42" prot="private" virt="non-virtual"><scope>CLightSwitch</scope><name>_isWaveFadeIn</name></member>
+      <member refid="class_c_light_switch_1acece775d59011f1f447fcc25d1d5ce05" prot="private" virt="non-virtual"><scope>CLightSwitch</scope><name>_nWaveCurPercent</name></member>
+      <member refid="class_c_light_switch_1a978360949c57eb75a7549b80ddd9d667" prot="private" virt="non-virtual"><scope>CLightSwitch</scope><name>_ulBlinkOffMillis</name></member>
+      <member refid="class_c_light_switch_1acb5151a52aba60169f33209a70315920" prot="private" virt="non-virtual"><scope>CLightSwitch</scope><name>_ulBlinkOnMillis</name></member>
+      <member refid="class_c_light_switch_1a02f374bcff6f16edd530a9b1af1b235a" prot="private" virt="non-virtual"><scope>CLightSwitch</scope><name>_ulNextChange</name></member>
+      <member refid="class_c_light_switch_1a861f6b7256eb7a205b5c3c6219f36556" prot="public" virt="non-virtual"><scope>CLightSwitch</scope><name>blink</name></member>
+      <member refid="class_c_light_switch_1aa9ce13bdc6e2a6852dbe14eeda5c1488" prot="public" virt="non-virtual"><scope>CLightSwitch</scope><name>CLightSwitch</name></member>
+      <member refid="class_c_light_switch_1a88386c39079be5b9ba60345734db34df" prot="public" virt="non-virtual"><scope>CLightSwitch</scope><name>CLightSwitch</name></member>
+      <member refid="class_c_output_pin_controller_1ae6baca50093ab1683e106f897a223ed2" prot="public" virt="non-virtual"><scope>CLightSwitch</scope><name>COutputPinController</name></member>
+      <member refid="class_c_output_pin_controller_1a353befc8a6e90c2cab65bb61b4203a1c" prot="public" virt="non-virtual"><scope>CLightSwitch</scope><name>COutputPinController</name></member>
+      <member refid="class_c_light_switch_1ab301a6b2c9645dfe276468f29b1dd744" prot="public" virt="non-virtual"><scope>CLightSwitch</scope><name>getBrightness</name></member>
+      <member refid="class_c_output_pin_controller_1a4a47a3b440566f98a709e0cb7d365bf5" prot="public" virt="virtual"><scope>CLightSwitch</scope><name>getOutputLevelInPercent</name></member>
+      <member refid="class_c_output_pin_controller_1a78296af02a72e44b3b845071e9fc1e6f" prot="protected" virt="virtual"><scope>CLightSwitch</scope><name>getPinLevelValueForPWM</name></member>
+      <member refid="class_c_output_pin_controller_1a14371aecf9f0f24c82d7f9f35c58cc2a" prot="public" virt="virtual"><scope>CLightSwitch</scope><name>isOn</name></member>
+      <member refid="class_c_pin_controller_1aaf9483e2f918e46c7c120f5a8d5c3b35" prot="protected" virt="non-virtual"><scope>CLightSwitch</scope><name>m_bLowLevelIsOn</name></member>
+      <member refid="class_c_output_pin_controller_1afc2b0fafc198acdc9130e9b6a8406f83" prot="protected" virt="non-virtual"><scope>CLightSwitch</scope><name>m_nLevelInPercent</name></member>
+      <member refid="class_c_output_pin_controller_1a95652cf7f933c0f243d92822ee466ec2" prot="protected" virt="non-virtual"><scope>CLightSwitch</scope><name>m_nMaxOutputLevel</name></member>
+      <member refid="class_c_pin_controller_1a01332f330cfaba9977464cfe0fdd909a" prot="protected" virt="non-virtual"><scope>CLightSwitch</scope><name>m_nPin</name></member>
+      <member refid="class_c_output_pin_controller_1ae6d88a113f2cbc14546378922e31709a" prot="protected" virt="non-virtual"><scope>CLightSwitch</scope><name>m_nState</name></member>
+      <member refid="class_c_light_switch_1afb3743e585e0b3ece2b0b1d29b46d543" prot="public" virt="non-virtual"><scope>CLightSwitch</scope><name>runTests</name></member>
+      <member refid="class_c_light_switch_1a527f7ae794794e5e4a956022fd3a7d63" prot="public" virt="non-virtual"><scope>CLightSwitch</scope><name>setBrightness</name></member>
+      <member refid="class_c_output_pin_controller_1a8eaab28191de4cded730580f3829345c" prot="public" virt="virtual"><scope>CLightSwitch</scope><name>setOutputLevelInPercent</name></member>
+      <member refid="class_c_output_pin_controller_1a55d01ff14b8ba5c614c32c302e11a993" prot="public" virt="virtual"><scope>CLightSwitch</scope><name>setup</name></member>
+      <member refid="class_c_output_pin_controller_1a888de310d37b2b7f09a284ebbac32d77" prot="public" virt="virtual"><scope>CLightSwitch</scope><name>switchOff</name></member>
+      <member refid="class_c_output_pin_controller_1a612f6d04125b1fd31b8aa3be3b9e949d" prot="public" virt="virtual"><scope>CLightSwitch</scope><name>switchOn</name></member>
+      <member refid="class_c_output_pin_controller_1a770dde91de88f268401cc2a93cea3e01" prot="public" virt="virtual"><scope>CLightSwitch</scope><name>toggleSwitch</name></member>
+      <member refid="class_c_light_switch_1ab6af2a066e1217cee2b264d735461a0f" prot="public" virt="non-virtual"><scope>CLightSwitch</scope><name>wave</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

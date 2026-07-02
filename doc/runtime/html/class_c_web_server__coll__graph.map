@@ -1,0 +1,17 @@
+<map id="CWebServer" name="CWebServer">
+<area shape="rect" id="Node000001" title="Async web server module that registers default routes and file access." alt="" coords="233,177,328,203"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="12,80,134,106"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,110,256,175,252,178,113,115"/>
+<area shape="rect" id="Node000003" href="$class_i_module.html" title="Full Interface for modules." alt="" coords="158,80,225,106"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="214,115,272,176,267,176,212,120"/>
+<area shape="rect" id="Node000004" href="$class_i_config_handler.html" title="Interface for configuration handlers." alt="" coords="5,5,114,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="95,36,172,79,167,81,95,41"/>
+<area shape="rect" id="Node000005" href="$class_i_status_handler.html" title="Interface for a status handler module." alt="" coords="137,5,246,31"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="193,44,194,81,189,79,190,49"/>
+<area shape="rect" id="Node000006" href="$class_i_msg_event_receiver.html" title="Interface for Message Event Receivers." alt="" coords="270,5,406,31"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="298,39,217,82,215,78,303,37"/>
+<area shape="rect" id="Node000007" href="$struct_web_server_config.html" title="Runtime configuration of the web server module." alt="" coords="250,80,373,106"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="305,119,287,178,283,175,301,122"/>
+<area shape="rect" id="Node000008" href="$struct_web_server_status.html" title="Status of the web server module." alt="" coords="398,80,521,106"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="427,113,353,155,306,179,304,174,350,151,422,115"/>
+</map>

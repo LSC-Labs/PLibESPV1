@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="namespace_l_s_c_1_1_f_s" kind="namespace" language="C++">
+    <compoundname>LSC::FS</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespace_l_s_c_1_1_f_s_1af55503abe7cca2a240f42608690f5211" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool LSC::FS::isInitializedAndOpen</definition>
+        <argsstring></argsstring>
+        <name>isInitializedAndOpen</name>
+        <qualifiedname>LSC::FS::isInitializedAndOpen</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/CFileSystem.cpp" line="13" column="14" bodyfile="src/CFileSystem.cpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/CFileSystem.cpp" line="12" column="5"/>
+  </compounddef>
+</doxygen>

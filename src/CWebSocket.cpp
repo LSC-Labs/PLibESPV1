@@ -22,10 +22,9 @@
 #define DEFAULT_RESPONSE_DOC_SIZE 2048
 
 /**
- * @brief Constructor - register the onEvent Handler...
- *        Binds the onWebSocketEvent Handler to the basic WebSocket object.
- * @param strSocketName 
- * @param bRegisterOnMsgBus If true, the WebSocket will register itself on the application message bus.
+ * @brief Creates a WebSocket endpoint and binds its event callback.
+ * @param strSocketName URL/path of the WebSocket endpoint.
+ * @param bRegisterOnMsgBus Reserved flag for message bus registration.
  */	
 CWebSocket::CWebSocket(const char* strSocketName, bool bRegisterOnMsgBus) : AsyncWebSocket(strSocketName){
 	DEBUG_FUNC_START_PARMS("%s,%d",NULL_POINTER_STRING(strSocketName),bRegisterOnMsgBus);
@@ -55,9 +54,12 @@ CWebSocket::CWebSocket(const char* strSocketName, bool bRegisterOnMsgBus) : Asyn
 
 #pragma region Receiving Messages (Event / Socket)
 /**
- * @brief Dispatch the message queue from the application object
- * To get this work, this object instance will register itself on the message bus of the application.
- * @see constructor CWebSocket
+ * @brief Handles application events relevant to WebSocket processing.
+ *
+ * MSG_APPL_LOOP drains queued WebSocket messages and periodically cleans up
+ * inactive clients. JSON send events are serialized to all clients.
+ *
+ * @return EVENT_MSG_RESULT_OK after processing.
  */
 int CWebSocket::receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType) {
     switch(nMsgId) {
@@ -82,18 +84,20 @@ int CWebSocket::receiveEvent(const void * pSender, int nMsgId, const void * pMes
 }
 
 /** 
- * @brief Catch the message from WebSocket and write the received data to the message queue
- * To process the queue, you have to dispatch the queue on a regular base (in loop)
- * otherwise, the queue will run out of memory...
- * @param pSocket		// Socket (this)
- * @param pClient 		// Client, sending the message
- * @param eType			// Type of Message 
- * @param pArg 			// Error code or Frame Info - depends on eType 
- * @param pData 		// pointer to data received
- * @param nDataLen 		// Length of the current data (pData)
+ * @brief Captures WebSocket events and queues complete messages.
+ *
+ * Incoming data is copied into CWebSocketMessage objects. Single-frame messages
+ * are queued immediately; multi-frame messages are assembled in the client's
+ * temporary object and queued only after the final frame.
+ *
+ * @param pSocket Socket receiving the event.
+ * @param pClient Client that sent the data.
+ * @param eType Event type.
+ * @param pArg Error code or AwsFrameInfo depending on eType.
+ * @param pData Current frame payload.
+ * @param nFrameDataLen Length of pData.
  * @see : https://github.com/ESP32Async/ESPAsyncWebServer/wiki#async-websocket-event
- * - Implementation of this side, seems to contain error in implmenting multi frames ? >> check and see below
- * */
+ */
 void CWebSocket::onWebSocketEvent(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient, AwsEventType eType, void *pArg, uint8_t *pData, size_t nFrameDataLen)
 {
 	DEBUG_FUNC_START_PARMS("eType=%d,nLen=%d", eType,nFrameDataLen);
@@ -166,8 +170,9 @@ void CWebSocket::onWebSocketEvent(AsyncWebSocket *pSocket, AsyncWebSocketClient 
 
 
 /**
- * @brief Add a message to the internal message queue.
- * It should be processed outside the WebSocket event handler in main loop
+ * @brief Adds a completed message to the internal processing queue.
+ *
+ * Messages are processed outside the socket callback to keep the callback short.
  */
 void CWebSocket::addMessageToQueue(CWebSocketMessage *pMsgObj)
 {
@@ -190,10 +195,10 @@ void CWebSocket::addMessageToQueue(CWebSocketMessage *pMsgObj)
 #pragma region Message Sending
 
 /** 
- * @brief send a Json doc message to a client, or if not defined - to all
- * @param oDoc 	Document to be sent
- * @param pSocket Socket to handle the communication - if not specified, use own socket.
- * @param pClient Specific client to talk to. (if set, the message will be sent only to this client)
+ * @brief Sends a JsonNode as a WebSocket text message.
+ * @param oDoc Document to serialize.
+ * @param pSocket Socket to use. nullptr means this socket.
+ * @param pClient Specific client. nullptr broadcasts to all clients.
  * @see  https://github.com/ESP32Async/ESPAsyncWebServer/wiki#asyncwebsocketmessagebuffer-and-makebuffer
  */
  void ICACHE_FLASH_ATTR CWebSocket::sendJsonDocMessage(JsonNode &oDoc, AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient) {
@@ -222,10 +227,11 @@ void CWebSocket::addMessageToQueue(CWebSocketMessage *pMsgObj)
 }
 
 /** 
- * @brief send an "ERROR: Access Denied (401)" Message to a specific client...
- * @param oDoc Container will be filled with the message
- * @param pClient Client to send to...
- * */
+ * @brief Sends an access-denied payload to a specific client.
+ *
+ * The original request document is reused as response container and the token is
+ * explicitly invalidated in the response.
+ */
 void ICACHE_FLASH_ATTR CWebSocket::sendAccessDeniedMessage(JsonNode &oRequestDoc,AsyncWebSocketClient *pClient) {
 	if(pClient) {
 		// Remember the requested command / type so it can be inserted in the message again.
@@ -248,10 +254,8 @@ void ICACHE_FLASH_ATTR CWebSocket::sendAccessDeniedMessage(JsonNode &oRequestDoc
 #pragma region Authentication
 
 /**
- * @brief Set the Needs Auth string
- * Be aware that this will overwrite any existing command list.
- * @param strCommands Comma delimited string containing the commands needing authentication.
- * @return The set string
+ * @brief Replaces the comma-delimited command list that requires auth.
+ * @return Stored command list.
  */
 String CWebSocket::setNeedsAuth(const String &strCommands) {
 	m_strNeedsAuth = strCommands;
@@ -259,8 +263,7 @@ String CWebSocket::setNeedsAuth(const String &strCommands) {
 };
 
 /**
- * @brief Get the Needs Auth string
- * @return String containing the commands needing authentication, delimited by commas
+ * @brief Gets the comma-delimited command list that requires auth.
  */
 String CWebSocket::getNeedsAuth() {
 	return m_strNeedsAuth;
@@ -268,19 +271,19 @@ String CWebSocket::getNeedsAuth() {
 
 
 /**
- * @brief Check if a command needs authentication
- * @param strCommand The command to be checked	
- * @return true if the command needs authentication, false otherwise
+ * @brief Checks whether a command is listed as requiring authentication.
+ * @param strCommand Lowercase command name.
+ * @return true when the command appears in m_strNeedsAuth.
  */
 bool inline CWebSocket::needsAuth(String &strCommand) {
 	return(m_strNeedsAuth.indexOf(strCommand) > -1);
 }
 
 /**
- * @brief Check the authentication token in the Json Document is a valid token and matches the client IP
- * @param oJsonRequest The Json Document containing the request and the token
- * @param pClient The WebSocket Client requesting the command (needed to get the remote IP)
- * @return true if the token is valid, false otherwise
+ * @brief Validates the token in a request against the client IP address.
+ * @param oJsonRequest Request document containing a "token" value.
+ * @param pClient Requesting client.
+ * @return true when token structure, IP and application key are valid.
  */
 bool CWebSocket::checkAuth(JsonNode &oJsonRequest, AsyncWebSocketClient *pClient) {
 	DEBUG_FUNC_START();
@@ -305,9 +308,10 @@ bool CWebSocket::checkAuth(JsonNode &oJsonRequest, AsyncWebSocketClient *pClient
 
      
 /**
- * @brief Dispatch the current message queue with the well known commands...
- * This function should be called in the main loop to process the message queue.
- * Calls dispatchMessage with the act message and cleans up the memory after processing.
+ * @brief Processes and deletes all queued WebSocket messages.
+ *
+ * Call this from the main loop or via MSG_APPL_LOOP to keep socket callbacks
+ * lightweight and avoid unbounded queue growth.
  */
 void CWebSocket::dispatchMessageQueue()
 {
@@ -320,12 +324,15 @@ void CWebSocket::dispatchMessageQueue()
 }
 
 /**
- * @brief Dispatch a JSON WebSocket Message
- * Override this function to implement your own message handling.
- * Expecting always a JSON Object from client !
- * @param oJsonRequest the JSON request document
- * @param pMessage the message to be processed
- * @return true if message command was recognized processed, false otherwise
+ * @brief Dispatches a parsed JSON request.
+ *
+ * Built-in commands cover status/config retrieval, authenticated config changes,
+ * restart, scans, backup/restore and factory reset. Unknown commands return
+ * false so application code can handle them through MSG_WEBSOCKET_DATA_RECEIVED.
+ *
+ * @param oJsonRequest Parsed request document.
+ * @param pMessage Original WebSocket message metadata.
+ * @return true when the command was handled or access-denied was sent.
  */
 bool CWebSocket::dispatchJsonMessage(JsonNode & oJsonRequest, CWebSocketMessage *pMessage) {
 	DEBUG_FUNC_START();
@@ -438,11 +445,13 @@ bool CWebSocket::dispatchJsonMessage(JsonNode & oJsonRequest, CWebSocketMessage 
 }
 
 /**
- * @brief Dispatch a single WebSocket Message
- * Override this function to implement your own message handling.
- * Expecting always a JSON Object from client !
- * @param pMessage the message to be processed
- * @return true if message command was recognized processed, false otherwise
+ * @brief Parses and dispatches one queued WebSocket message.
+ *
+ * Non-JSON messages and unknown commands are forwarded to the application
+ * message bus for custom handling.
+ *
+ * @param pMessage Queued message to process.
+ * @return true when the message was parsed and handled by built-in dispatch.
  */
 bool CWebSocket::dispatchMessage( CWebSocketMessage *pMessage) {
 	DEBUG_FUNC_START();

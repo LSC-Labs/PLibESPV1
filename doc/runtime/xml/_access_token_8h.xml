@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_access_token_8h" kind="file" language="C++">
+    <compoundname>AccessToken.h</compoundname>
+    <includes refid="_a_e_s_cryptor_8h" local="no">AESCryptor.h</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>AESCryptor.h</label>
+        <link refid="_a_e_s_cryptor_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/AccessToken.h</label>
+        <link refid="_access_token_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Network.h</label>
+        <link refid="_network_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Arduino.h</label>
+      </node>
+      <node id="7">
+        <label>chrono</label>
+      </node>
+      <node id="8">
+        <label>iostream</label>
+      </node>
+      <node id="6">
+        <label>string.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="class_c_access_token" prot="public">CAccessToken</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_access_token_8h_1af100484b6f59ea3a63e2245e1bd29517" prot="public" static="no">
+        <name>TOKEN_TIME_ALIVE</name>
+        <initializer>(30*60*1000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AccessToken.h" line="6" column="9" bodyfile="include/AccessToken.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/AccessToken.h"/>
+  </compounddef>
+</doxygen>

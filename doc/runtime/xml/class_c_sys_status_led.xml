@@ -1,0 +1,284 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_sys_status_led" kind="class" language="C++" prot="public">
+    <compoundname>CSysStatusLed</compoundname>
+    <basecompoundref refid="class_c_r_g_b_led" prot="public" virt="non-virtual">CRGBLed</basecompoundref>
+    <basecompoundref refid="class_i_msg_event_receiver" prot="public" virt="non-virtual">IMsgEventReceiver</basecompoundref>
+    <includes refid="_sys_status_led_8h" local="no">SysStatusLed.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_sys_status_led_1a3d4e90de1f1c0715f496e9c6aae61511" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CSysStatusLed::isRebootRequested</definition>
+        <argsstring></argsstring>
+        <name>isRebootRequested</name>
+        <qualifiedname>CSysStatusLed::isRebootRequested</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatusLed.h" line="8" column="10" bodyfile="include/SysStatusLed.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_sys_status_led_1ade1febe455d344a4ca7b9cbb27ebf02f" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CSysStatusLed::isButtonPressed</definition>
+        <argsstring></argsstring>
+        <name>isButtonPressed</name>
+        <qualifiedname>CSysStatusLed::isButtonPressed</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatusLed.h" line="9" column="10" bodyfile="include/SysStatusLed.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_sys_status_led_1a8087dba70f16237abe2d630d1e498c6a" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CSysStatusLed::isInAccessPointMode</definition>
+        <argsstring></argsstring>
+        <name>isInAccessPointMode</name>
+        <qualifiedname>CSysStatusLed::isInAccessPointMode</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatusLed.h" line="10" column="10" bodyfile="include/SysStatusLed.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_sys_status_led_1a0c0d5728a060873928a5a17390e4de06" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CSysStatusLed::isInStationMode</definition>
+        <argsstring></argsstring>
+        <name>isInStationMode</name>
+        <qualifiedname>CSysStatusLed::isInStationMode</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatusLed.h" line="11" column="10" bodyfile="include/SysStatusLed.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_sys_status_led_1a38733fdd7cc99250d3b2f0ce757e24f5" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CSysStatusLed::isWiFiConnected</definition>
+        <argsstring></argsstring>
+        <name>isWiFiConnected</name>
+        <qualifiedname>CSysStatusLed::isWiFiConnected</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatusLed.h" line="12" column="10" bodyfile="include/SysStatusLed.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_sys_status_led_1ac41570fc107172b739b1b1ed194a0b02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CSysStatusLed::CSysStatusLed</definition>
+        <argsstring>(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow=true)</argsstring>
+        <name>CSysStatusLed</name>
+        <qualifiedname>CSysStatusLed::CSysStatusLed</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nRedPin</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nGreenPin</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nBluePin</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bActiveLow</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatusLed.h" line="15" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_led_1ada23102aaea47d32b19882018d2d426d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>virtual int CSysStatusLed::receiveEvent</definition>
+        <argsstring>(const void *pSender, int nMsgId, const void *pMessage, int nType)</argsstring>
+        <name>receiveEvent</name>
+        <qualifiedname>CSysStatusLed::receiveEvent</qualifiedname>
+        <reimplements refid="class_i_msg_event_receiver_1a3345710906f9a16c4dca5b7ce2da39d7">receiveEvent</reimplements>
+        <param>
+          <type>const void *</type>
+          <declname>pSender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsgId</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>pMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatusLed.h" line="17" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_led_1a4d16520f7f29cf4953de83125926f628" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CSysStatusLed::updateLED</definition>
+        <argsstring>()</argsstring>
+        <name>updateLED</name>
+        <qualifiedname>CSysStatusLed::updateLED</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatusLed.h" line="18" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_led_1ab17f7c8819b3f90e37e384534c9fa0be" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>unsigned long</type>
+        <definition>virtual unsigned long CSysStatusLed::getNormalBlinkOnTime</definition>
+        <argsstring>()</argsstring>
+        <name>getNormalBlinkOnTime</name>
+        <qualifiedname>CSysStatusLed::getNormalBlinkOnTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatusLed.h" line="19" column="31" bodyfile="include/SysStatusLed.h" bodystart="19" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_sys_status_led_1abef9d89a935dd4f240e26cfb3a5b12c7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>unsigned long</type>
+        <definition>virtual unsigned long CSysStatusLed::getNormalBlinkOffTime</definition>
+        <argsstring>()</argsstring>
+        <name>getNormalBlinkOffTime</name>
+        <qualifiedname>CSysStatusLed::getNormalBlinkOffTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/SysStatusLed.h" line="20" column="31" bodyfile="include/SysStatusLed.h" bodystart="20" bodyend="20"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>CRGBLed</label>
+        <link refid="class_c_r_g_b_led"/>
+      </node>
+      <node id="1">
+        <label>CSysStatusLed</label>
+        <link refid="class_c_sys_status_led"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>CLightSwitch</label>
+        <link refid="class_c_light_switch"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>COutputPinController</label>
+        <link refid="class_c_output_pin_controller"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>CPinController</label>
+        <link refid="class_c_pin_controller"/>
+      </node>
+      <node id="2">
+        <label>CRGBLed</label>
+        <link refid="class_c_r_g_b_led"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>BlueLED</edgelabel>
+          <edgelabel>GreenLED</edgelabel>
+          <edgelabel>RedLED</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CSysStatusLed</label>
+        <link refid="class_c_sys_status_led"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/SysStatusLed.h" line="6" column="1" bodyfile="include/SysStatusLed.h" bodystart="6" bodyend="21"/>
+    <listofallmembers>
+      <member refid="class_c_r_g_b_led_1a6e2b0eb26a4e774d77dba37377aa54b7" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>blink</name></member>
+      <member refid="class_c_r_g_b_led_1a8f471e51aff167211dfa094e3339dd83" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>blink</name></member>
+      <member refid="class_c_r_g_b_led_1a4376063e15be6240b97134d8e84c70da" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>BlueLED</name></member>
+      <member refid="class_c_r_g_b_led_1a6da9e5bdd7ba146a27563f4646f2dadd" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>CRGBLed</name></member>
+      <member refid="class_c_r_g_b_led_1a3e1a5b40a76001b7413e1ff276dd42c9" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>CRGBLed</name></member>
+      <member refid="class_c_sys_status_led_1ac41570fc107172b739b1b1ed194a0b02" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>CSysStatusLed</name></member>
+      <member refid="class_c_sys_status_led_1abef9d89a935dd4f240e26cfb3a5b12c7" prot="public" virt="virtual"><scope>CSysStatusLed</scope><name>getNormalBlinkOffTime</name></member>
+      <member refid="class_c_sys_status_led_1ab17f7c8819b3f90e37e384534c9fa0be" prot="public" virt="virtual"><scope>CSysStatusLed</scope><name>getNormalBlinkOnTime</name></member>
+      <member refid="class_c_r_g_b_led_1a713bc55abd226e4c284ab0fd6bb62953" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>GreenLED</name></member>
+      <member refid="class_c_sys_status_led_1ade1febe455d344a4ca7b9cbb27ebf02f" prot="private" virt="non-virtual"><scope>CSysStatusLed</scope><name>isButtonPressed</name></member>
+      <member refid="class_c_sys_status_led_1a8087dba70f16237abe2d630d1e498c6a" prot="private" virt="non-virtual"><scope>CSysStatusLed</scope><name>isInAccessPointMode</name></member>
+      <member refid="class_c_sys_status_led_1a0c0d5728a060873928a5a17390e4de06" prot="private" virt="non-virtual"><scope>CSysStatusLed</scope><name>isInStationMode</name></member>
+      <member refid="class_c_sys_status_led_1a3d4e90de1f1c0715f496e9c6aae61511" prot="private" virt="non-virtual"><scope>CSysStatusLed</scope><name>isRebootRequested</name></member>
+      <member refid="class_c_sys_status_led_1a38733fdd7cc99250d3b2f0ce757e24f5" prot="private" virt="non-virtual"><scope>CSysStatusLed</scope><name>isWiFiConnected</name></member>
+      <member refid="class_c_sys_status_led_1ada23102aaea47d32b19882018d2d426d" prot="public" virt="virtual"><scope>CSysStatusLed</scope><name>receiveEvent</name></member>
+      <member refid="class_c_r_g_b_led_1ad636507f68ca82715afed260bfcefa6b" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>RedLED</name></member>
+      <member refid="class_c_r_g_b_led_1a8406f3825e86bba05a5be171b7560184" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>runTests</name></member>
+      <member refid="class_c_r_g_b_led_1adf3b9cb1e3d57fba64b017408b60e789" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>setBrightnessInPercent</name></member>
+      <member refid="class_c_r_g_b_led_1a4df77898e3a63a1e070a3091c00f52ba" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>setBrightnessInPercent</name></member>
+      <member refid="class_c_r_g_b_led_1aaa844ed7ffafc84d8ae1bc5071ab3f49" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>setColor</name></member>
+      <member refid="class_c_r_g_b_led_1acd5c67890ece04f5cfa6e46fcef9f1ee" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>setColor</name></member>
+      <member refid="class_c_r_g_b_led_1a52b8488f2cf416cb54340c44ae020a57" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>setup</name></member>
+      <member refid="class_c_r_g_b_led_1ad702e69cd52c512513ecb25c9eac28e7" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>showStartupFlashLight</name></member>
+      <member refid="class_c_r_g_b_led_1acaf7aa8df1994c384eb983a6be3d49c3" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>switchOff</name></member>
+      <member refid="class_c_r_g_b_led_1a896d7bbc1fe44ca274ab39e1113d706c" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>switchOn</name></member>
+      <member refid="class_c_sys_status_led_1a4d16520f7f29cf4953de83125926f628" prot="public" virt="virtual"><scope>CSysStatusLed</scope><name>updateLED</name></member>
+      <member refid="class_c_r_g_b_led_1ab661984d1ff14883669c00504438d3e4" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>wave</name></member>
+      <member refid="class_c_r_g_b_led_1af233373fed81654c63629550b18e8abc" prot="public" virt="non-virtual"><scope>CSysStatusLed</scope><name>wave</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

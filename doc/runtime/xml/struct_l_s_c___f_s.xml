@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="struct_l_s_c___f_s" kind="struct" language="C++" prot="public">
+    <compoundname>LSC_FS</compoundname>
+    <includes refid="_file_system_8h" local="no">FileSystem.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_l_s_c___f_s_1adb2a0567ea48ecff9040dc3104eb6652" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool LSC_FS::isFSInitializedAndOpen</definition>
+        <argsstring></argsstring>
+        <name>isFSInitializedAndOpen</name>
+        <qualifiedname>LSC_FS::isFSInitializedAndOpen</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+<para>true once the configured filesystem has been mounted/opened. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/FileSystem.h" line="19" column="10" bodyfile="include/FileSystem.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>FileSystem helper functions. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This modules helps you to operate with the Filesystem of the ESP32. To avoid programming against LittleFS or SPIFFS, this module provides simple functions to operate with the filesystem, so you can easily switch between this systems.</para>
+<para>Known issues: Do not store filenames in F(&quot;&quot;) macros - LittleFS will throw an exception (3).</para>
+<para>Shared filesystem initialization state. </para>
+    </detaileddescription>
+    <location file="include/FileSystem.h" line="17" column="1" bodyfile="include/FileSystem.h" bodystart="17" bodyend="20"/>
+    <listofallmembers>
+      <member refid="struct_l_s_c___f_s_1adb2a0567ea48ecff9040dc3104eb6652" prot="public" virt="non-virtual"><scope>LSC_FS</scope><name>isFSInitializedAndOpen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

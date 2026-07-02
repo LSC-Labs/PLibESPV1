@@ -1,0 +1,642 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_msgs_8h" kind="file" language="C++">
+    <compoundname>Msgs.h</compoundname>
+    <includedby refid="_logging_8h" local="no">include/Logging.h</includedby>
+    <includedby refid="_module_interface_8h" local="no">include/ModuleInterface.h</includedby>
+    <invincdepgraph>
+      <node id="3">
+        <label>include/Appl.h</label>
+        <link refid="_appl_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>include/ApplModule.h</label>
+        <link refid="_appl_module_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>include/BatteryMeasure.h</label>
+        <link refid="_battery_measure_8h"/>
+      </node>
+      <node id="2">
+        <label>include/Logging.h</label>
+        <link refid="_logging_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>include/MDNSController.h</label>
+        <link refid="_m_d_n_s_controller_8h"/>
+      </node>
+      <node id="11">
+        <label>include/MQTTController.h</label>
+        <link refid="_m_q_t_t_controller_8h"/>
+      </node>
+      <node id="8">
+        <label>include/ModuleInterface.h</label>
+        <link refid="_module_interface_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/Msgs.h</label>
+        <link refid="_msgs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>include/NTPHandler.h</label>
+        <link refid="_n_t_p_handler_8h"/>
+      </node>
+      <node id="6">
+        <label>include/WebServer.h</label>
+        <link refid="_web_server_8h"/>
+      </node>
+      <node id="7">
+        <label>include/WiFiController.h</label>
+        <link refid="_wi_fi_controller_8h"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_msgs_8h_1af7e0e8a3ba049fcbf85bfe063b925c32" prot="public" static="no">
+        <name>MSG_APPL_STARTING</name>
+        <initializer>100</initializer>
+        <briefdescription>
+<para>Message definition basics. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Defines the basic messages, sent or received by the libary functions. Application should send messages beginning from MSG_USER_BASE </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="10" column="9" bodyfile="include/Msgs.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1ac49a56366e5e56d88821dedaf0718719" prot="public" static="no">
+        <name>MSG_APPL_INITIALIZED</name>
+        <initializer>102</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="11" column="9" bodyfile="include/Msgs.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a52da4f2c22511331becf52d05b98ca7e" prot="public" static="no">
+        <name>MSG_APPL_STARTED</name>
+        <initializer>103</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="12" column="9" bodyfile="include/Msgs.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1adf6c71af1913e2b5d00f43eb6cfee56e" prot="public" static="no">
+        <name>MSG_APPL_STATUS_CHANGED</name>
+        <initializer>105</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="13" column="9" bodyfile="include/Msgs.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a7c2ca78598fac187148b654b5bbb86d0" prot="public" static="no">
+        <name>MSG_APPL_LOOP</name>
+        <initializer>110</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="14" column="9" bodyfile="include/Msgs.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a35d99bf338b41bc6b316565e7257a08b" prot="public" static="no">
+        <name>MSG_REBOOT_REQUEST</name>
+        <initializer>198</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="15" column="9" bodyfile="include/Msgs.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a4c1e7d623bfb3115bc9b138fcdf34d9e" prot="public" static="no">
+        <name>MSG_RESTART_REQUEST</name>
+        <initializer>198</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="16" column="9" bodyfile="include/Msgs.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1af3de3e99df269beaa5c1193e26445aa0" prot="public" static="no">
+        <name>MSG_APPL_SHUTDOWN</name>
+        <initializer>199</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="17" column="9" bodyfile="include/Msgs.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1ac7b0244b91bffe5f517934291742429d" prot="public" static="no">
+        <name>MSG_LOG_ENTRY</name>
+        <initializer>201</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="19" column="9" bodyfile="include/Msgs.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1aa397b63ae1384be38b9141f98c73b151" prot="public" static="no">
+        <name>MSG_LOG_ENTRY_JSON</name>
+        <initializer>202</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="20" column="9" bodyfile="include/Msgs.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1ade476bd38a5f02209f0a821adb175454" prot="public" static="no">
+        <name>MSG_BUTTON_CHANGED</name>
+        <initializer>1020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="23" column="9" bodyfile="include/Msgs.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1aa0de96b8ad5434c1fca1d589b25cb024" prot="public" static="no">
+        <name>MSG_BUTTON_ON</name>
+        <initializer>1021</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="24" column="9" bodyfile="include/Msgs.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a09640cc0e13c964ed15fb0369322dfc0" prot="public" static="no">
+        <name>MSG_BUTTON_OFF</name>
+        <initializer>1022</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="25" column="9" bodyfile="include/Msgs.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a82632e641a2fdfde669ab6026fa83b5a" prot="public" static="no">
+        <name>MSG_RF433_SCAN</name>
+        <initializer>1080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="27" column="9" bodyfile="include/Msgs.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a18b2a1cff0e0f528a1b637ecaaf5300d" prot="public" static="no">
+        <name>MSG_WIFI_STARTING</name>
+        <initializer>5000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="29" column="9" bodyfile="include/Msgs.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1aa32e886dabfd41f5cbccb2cd4631fa0f" prot="public" static="no">
+        <name>MSG_WIFI_CONNECTED</name>
+        <initializer>5001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="30" column="9" bodyfile="include/Msgs.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a978d1f001d86672685a85befed809f4d" prot="public" static="no">
+        <name>MSG_WIFI_SCAN</name>
+        <initializer>5002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="31" column="9" bodyfile="include/Msgs.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1af7db59bbdc766d9f1fd0d4bd086e4fde" prot="public" static="no">
+        <name>MSG_WIFI_SCAN_RESULT</name>
+        <initializer>5003</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="32" column="9" bodyfile="include/Msgs.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a6b96b8196486df93f556e9d86e6da2d6" prot="public" static="no">
+        <name>MSG_WIFI_DISABLING</name>
+        <initializer>5007</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="33" column="9" bodyfile="include/Msgs.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a6d1228149c62b34305a6a2add36029ab" prot="public" static="no">
+        <name>MSG_WIFI_DISABLED</name>
+        <initializer>5008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="34" column="9" bodyfile="include/Msgs.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1aee0b56105c0b36513f323c64b25e28c7" prot="public" static="no">
+        <name>MSG_WIFI_ERROR</name>
+        <initializer>5009</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="35" column="9" bodyfile="include/Msgs.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a0c6e241c6e9794dd92b948fae52a9a5c" prot="public" static="no">
+        <name>MSG_CAPTIVE_PORTAL_STARTED</name>
+        <initializer>5050</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="36" column="9" bodyfile="include/Msgs.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a6280cff6d46329b7825a2d47abb3e311" prot="public" static="no">
+        <name>MSG_CAPTIVE_PORTAL_STOPPED</name>
+        <initializer>5051</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="37" column="9" bodyfile="include/Msgs.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1aea483f8379258d0f9049f1af6910f2ef" prot="public" static="no">
+        <name>MSG_OTA_START</name>
+        <initializer>5090</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="38" column="9" bodyfile="include/Msgs.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a5ce307a6a9fd2145057c0c4d31031678" prot="public" static="no">
+        <name>MSG_OTA_END</name>
+        <initializer>5091</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="39" column="9" bodyfile="include/Msgs.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1ad0051339b65b0baf25d53547a78b6f44" prot="public" static="no">
+        <name>MSG_OTA_PROGRESS</name>
+        <initializer>5092</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="40" column="9" bodyfile="include/Msgs.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1ad3475a063d9bdab6eeb59499ad196fde" prot="public" static="no">
+        <name>MSG_OTA_ERROR</name>
+        <initializer>5093</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="41" column="9" bodyfile="include/Msgs.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1aeff00ec7837311f7ec8c4161d23ad6d5" prot="public" static="no">
+        <name>MSG_WEBSOCKET_SEND_JSONNODE</name>
+        <initializer>5100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="44" column="9" bodyfile="include/Msgs.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1ac6f8e2561c6560e6fda252c270322202" prot="public" static="no">
+        <name>MSG_WEBSOCKET_DATA_RECEIVED</name>
+        <initializer>5101</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="45" column="9" bodyfile="include/Msgs.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1adf8ccde1d8e3e63110b77fb5cbd46c73" prot="public" static="no">
+        <name>MSG_MQTT_STARTING</name>
+        <initializer>5300</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="47" column="9" bodyfile="include/Msgs.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a224768d9b552f130c20c15ce0fc6f7ce" prot="public" static="no">
+        <name>MSG_MQTT_CONNECTED</name>
+        <initializer>5301</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="48" column="9" bodyfile="include/Msgs.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a065398ef63a37488ef89e7d1e9a65b5b" prot="public" static="no">
+        <name>MSG_MQTT_DISCONNECTED</name>
+        <initializer>5308</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="49" column="9" bodyfile="include/Msgs.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a90b0841b5e37130a6637c9a9c390a600" prot="public" static="no">
+        <name>MSG_MQTT_MSG_RECEIVED</name>
+        <initializer>5310</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="50" column="9" bodyfile="include/Msgs.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a3c8eb5545989a77b3baf7589f9723d08" prot="public" static="no">
+        <name>MSG_MQTT_SEND_JSONNODE</name>
+        <initializer>5320</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="51" column="9" bodyfile="include/Msgs.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a3b24466557be9dca7a6f7bb5a9c35fcc" prot="public" static="no">
+        <name>MSG_MQTT_SEND_TEXTSTATE</name>
+        <initializer>5321</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="52" column="9" bodyfile="include/Msgs.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a871f3a30c521706fae57a05b7e111fd0" prot="public" static="no">
+        <name>MSG_MQTT_SEND_JSONSTATE</name>
+        <initializer>5322</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="53" column="9" bodyfile="include/Msgs.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a6b9d62f2a2bd1820c657e87b9aa8ed51" prot="public" static="no">
+        <name>MSG_HA_FILL_DISCOVERY</name>
+        <initializer>5400</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="55" column="9" bodyfile="include/Msgs.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1abcfd6e20eb5498708859528bd578803c" prot="public" static="no">
+        <name>MSG_HA_FILL_DISCOVERY_CMPS</name>
+        <initializer>5401</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="56" column="9" bodyfile="include/Msgs.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a4a4640b9384b072f37e00f806a4e02ac" prot="public" static="no">
+        <name>MSG_JSON_OBJECT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Generic Payload Message, object is a JsonDocument in Message Payload structure. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="61" column="9" bodyfile="include/Msgs.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1ace561c043687143600b31a6bbdc3cf08" prot="public" static="no">
+        <name>MSG_JSON_PAYLOAD</name>
+        <initializer>9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="62" column="9" bodyfile="include/Msgs.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1ac30d67736ccd4a1eb6248c5fca2042c6" prot="public" static="no">
+        <name>LOG_CLASS_INFO</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="69" column="9" bodyfile="include/Msgs.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a6fdde02e785818710d1d23ee4a1e4492" prot="public" static="no">
+        <name>LOG_CLASS_VERBOSE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="70" column="9" bodyfile="include/Msgs.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a7a704bed54cd8059c4dd8ffbb8186c13" prot="public" static="no">
+        <name>LOG_CLASS_WARN</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="71" column="9" bodyfile="include/Msgs.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a1ccf5c9732933ba3170ef63d45c280b4" prot="public" static="no">
+        <name>LOG_CLASS_ERROR</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="72" column="9" bodyfile="include/Msgs.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a4f3703f3823ffeb20d0b7f98c128e8b3" prot="public" static="no">
+        <name>LOG_CLASS_TRACE</name>
+        <initializer>7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="73" column="9" bodyfile="include/Msgs.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1ace2707c58d56882b56826ab8415525ec" prot="public" static="no">
+        <name>LOG_CLASS_DEBUG</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="74" column="9" bodyfile="include/Msgs.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a28e5033797a5dbd746a71ca193a1acc1" prot="public" static="no">
+        <name>LOG_CLASS_EXCEPTION</name>
+        <initializer>9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="75" column="9" bodyfile="include/Msgs.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1a5bf0dc4a017d384ee8caf51730b02f30" prot="public" static="no">
+        <name>WIFI_ACCESS_POINT_MODE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="78" column="9" bodyfile="include/Msgs.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_msgs_8h_1acc02c773ad810bd1cac201a440f32a20" prot="public" static="no">
+        <name>WIFI_STATION_MODE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="79" column="9" bodyfile="include/Msgs.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="_msgs_8h_1a6f0149123d8c8ff370ed6fe722094a01" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int MSG_USER_BASE</definition>
+        <argsstring></argsstring>
+        <name>MSG_USER_BASE</name>
+        <initializer>= 10000</initializer>
+        <briefdescription>
+<para>Base Value - User defined messages should start with this value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Msgs.h" line="67" column="11" bodyfile="include/Msgs.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/Msgs.h"/>
+  </compounddef>
+</doxygen>

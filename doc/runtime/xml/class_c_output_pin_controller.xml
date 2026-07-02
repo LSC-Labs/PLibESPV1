@@ -1,0 +1,290 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_output_pin_controller" kind="class" language="C++" prot="public">
+    <compoundname>COutputPinController</compoundname>
+    <basecompoundref refid="class_c_pin_controller" prot="public" virt="non-virtual">CPinController</basecompoundref>
+    <derivedcompoundref refid="class_c_light_switch" prot="public" virt="non-virtual">CLightSwitch</derivedcompoundref>
+    <includes refid="_output_pin_controller_8h" local="no">OutputPinController.h</includes>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_c_output_pin_controller_1afc2b0fafc198acdc9130e9b6a8406f83" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int COutputPinController::m_nLevelInPercent</definition>
+        <argsstring></argsstring>
+        <name>m_nLevelInPercent</name>
+        <qualifiedname>COutputPinController::m_nLevelInPercent</qualifiedname>
+        <initializer>= 100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/OutputPinController.h" line="28" column="13" bodyfile="include/OutputPinController.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_output_pin_controller_1a95652cf7f933c0f243d92822ee466ec2" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int COutputPinController::m_nMaxOutputLevel</definition>
+        <argsstring></argsstring>
+        <name>m_nMaxOutputLevel</name>
+        <qualifiedname>COutputPinController::m_nMaxOutputLevel</qualifiedname>
+        <initializer>= 255</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/OutputPinController.h" line="29" column="13" bodyfile="include/OutputPinController.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_output_pin_controller_1ae6d88a113f2cbc14546378922e31709a" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int COutputPinController::m_nState</definition>
+        <argsstring></argsstring>
+        <name>m_nState</name>
+        <qualifiedname>COutputPinController::m_nState</qualifiedname>
+        <initializer>= -1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/OutputPinController.h" line="30" column="13" bodyfile="include/OutputPinController.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_output_pin_controller_1ae6baca50093ab1683e106f897a223ed2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>COutputPinController::COutputPinController</definition>
+        <argsstring>()</argsstring>
+        <name>COutputPinController</name>
+        <qualifiedname>COutputPinController::COutputPinController</qualifiedname>
+        <briefdescription>
+<para>Create an unconfigured output pin controller. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/OutputPinController.h" line="34" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_output_pin_controller_1a353befc8a6e90c2cab65bb61b4203a1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>COutputPinController::COutputPinController</definition>
+        <argsstring>(int nSwitchPin, bool bLowLevelIsOn=false)</argsstring>
+        <name>COutputPinController</name>
+        <qualifiedname>COutputPinController::COutputPinController</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nSwitchPin</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bLowLevelIsOn</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Create and configure an output pin controller. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/OutputPinController.h" line="36" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_output_pin_controller_1a55d01ff14b8ba5c614c32c302e11a993" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void COutputPinController::setup</definition>
+        <argsstring>(int SwitchPin, bool bLowLevelIsOn=false)</argsstring>
+        <name>setup</name>
+        <qualifiedname>COutputPinController::setup</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>SwitchPin</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bLowLevelIsOn</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Configure the output pin and active-level logic. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/OutputPinController.h" line="38" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_output_pin_controller_1a888de310d37b2b7f09a284ebbac32d77" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void COutputPinController::switchOff</definition>
+        <argsstring>()</argsstring>
+        <name>switchOff</name>
+        <qualifiedname>COutputPinController::switchOff</qualifiedname>
+        <briefdescription>
+<para>Switch the controlled output off. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/OutputPinController.h" line="40" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_output_pin_controller_1a612f6d04125b1fd31b8aa3be3b9e949d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void COutputPinController::switchOn</definition>
+        <argsstring>()</argsstring>
+        <name>switchOn</name>
+        <qualifiedname>COutputPinController::switchOn</qualifiedname>
+        <briefdescription>
+<para>Switch the controlled output on. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/OutputPinController.h" line="42" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_output_pin_controller_1a770dde91de88f268401cc2a93cea3e01" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool COutputPinController::toggleSwitch</definition>
+        <argsstring>()</argsstring>
+        <name>toggleSwitch</name>
+        <qualifiedname>COutputPinController::toggleSwitch</qualifiedname>
+        <briefdescription>
+<para>Toggle the output and return the new on/off state. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/OutputPinController.h" line="44" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_output_pin_controller_1a14371aecf9f0f24c82d7f9f35c58cc2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool COutputPinController::isOn</definition>
+        <argsstring>()</argsstring>
+        <name>isOn</name>
+        <qualifiedname>COutputPinController::isOn</qualifiedname>
+        <briefdescription>
+<para>Return true if the output is currently on. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/OutputPinController.h" line="46" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_output_pin_controller_1a8eaab28191de4cded730580f3829345c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void COutputPinController::setOutputLevelInPercent</definition>
+        <argsstring>(int nLevelInPercent=100)</argsstring>
+        <name>setOutputLevelInPercent</name>
+        <qualifiedname>COutputPinController::setOutputLevelInPercent</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nLevelInPercent</declname>
+          <defval>100</defval>
+        </param>
+        <briefdescription>
+<para>Set the active PWM/output level in percent. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/OutputPinController.h" line="49" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_output_pin_controller_1a4a47a3b440566f98a709e0cb7d365bf5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>virtual int COutputPinController::getOutputLevelInPercent</definition>
+        <argsstring>()</argsstring>
+        <name>getOutputLevelInPercent</name>
+        <qualifiedname>COutputPinController::getOutputLevelInPercent</qualifiedname>
+        <briefdescription>
+<para>Return the configured active PWM/output level in percent. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/OutputPinController.h" line="51" column="22"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_c_output_pin_controller_1a78296af02a72e44b3b845071e9fc1e6f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>virtual int COutputPinController::getPinLevelValueForPWM</definition>
+        <argsstring>(int nLevelInPercent)</argsstring>
+        <name>getPinLevelValueForPWM</name>
+        <qualifiedname>COutputPinController::getPinLevelValueForPWM</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nLevelInPercent</declname>
+        </param>
+        <briefdescription>
+<para>Convert a percent value to the hardware PWM range. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/OutputPinController.h" line="55" column="21"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Base class to controll a pin as in or output with helper functions. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>CLightSwitch</label>
+        <link refid="class_c_light_switch"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>COutputPinController</label>
+        <link refid="class_c_output_pin_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CPinController</label>
+        <link refid="class_c_pin_controller"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>COutputPinController</label>
+        <link refid="class_c_output_pin_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CPinController</label>
+        <link refid="class_c_pin_controller"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/OutputPinController.h" line="26" column="1" bodyfile="include/OutputPinController.h" bodystart="26" bodyend="56"/>
+    <listofallmembers>
+      <member refid="class_c_output_pin_controller_1ae6baca50093ab1683e106f897a223ed2" prot="public" virt="non-virtual"><scope>COutputPinController</scope><name>COutputPinController</name></member>
+      <member refid="class_c_output_pin_controller_1a353befc8a6e90c2cab65bb61b4203a1c" prot="public" virt="non-virtual"><scope>COutputPinController</scope><name>COutputPinController</name></member>
+      <member refid="class_c_output_pin_controller_1a4a47a3b440566f98a709e0cb7d365bf5" prot="public" virt="virtual"><scope>COutputPinController</scope><name>getOutputLevelInPercent</name></member>
+      <member refid="class_c_output_pin_controller_1a78296af02a72e44b3b845071e9fc1e6f" prot="protected" virt="virtual"><scope>COutputPinController</scope><name>getPinLevelValueForPWM</name></member>
+      <member refid="class_c_output_pin_controller_1a14371aecf9f0f24c82d7f9f35c58cc2a" prot="public" virt="virtual"><scope>COutputPinController</scope><name>isOn</name></member>
+      <member refid="class_c_pin_controller_1aaf9483e2f918e46c7c120f5a8d5c3b35" prot="protected" virt="non-virtual"><scope>COutputPinController</scope><name>m_bLowLevelIsOn</name></member>
+      <member refid="class_c_output_pin_controller_1afc2b0fafc198acdc9130e9b6a8406f83" prot="protected" virt="non-virtual"><scope>COutputPinController</scope><name>m_nLevelInPercent</name></member>
+      <member refid="class_c_output_pin_controller_1a95652cf7f933c0f243d92822ee466ec2" prot="protected" virt="non-virtual"><scope>COutputPinController</scope><name>m_nMaxOutputLevel</name></member>
+      <member refid="class_c_pin_controller_1a01332f330cfaba9977464cfe0fdd909a" prot="protected" virt="non-virtual"><scope>COutputPinController</scope><name>m_nPin</name></member>
+      <member refid="class_c_output_pin_controller_1ae6d88a113f2cbc14546378922e31709a" prot="protected" virt="non-virtual"><scope>COutputPinController</scope><name>m_nState</name></member>
+      <member refid="class_c_output_pin_controller_1a8eaab28191de4cded730580f3829345c" prot="public" virt="virtual"><scope>COutputPinController</scope><name>setOutputLevelInPercent</name></member>
+      <member refid="class_c_output_pin_controller_1a55d01ff14b8ba5c614c32c302e11a993" prot="public" virt="virtual"><scope>COutputPinController</scope><name>setup</name></member>
+      <member refid="class_c_output_pin_controller_1a888de310d37b2b7f09a284ebbac32d77" prot="public" virt="virtual"><scope>COutputPinController</scope><name>switchOff</name></member>
+      <member refid="class_c_output_pin_controller_1a612f6d04125b1fd31b8aa3be3b9e949d" prot="public" virt="virtual"><scope>COutputPinController</scope><name>switchOn</name></member>
+      <member refid="class_c_output_pin_controller_1a770dde91de88f268401cc2a93cea3e01" prot="public" virt="virtual"><scope>COutputPinController</scope><name>toggleSwitch</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

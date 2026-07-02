@@ -1,0 +1,15 @@
+<map id="CMQTTController" name="CMQTTController">
+<area shape="rect" id="Node000001" title="MQTT message broker module with heartbeat and HA discovery support." alt="" coords="66,226,191,252"/>
+<area shape="rect" id="Node000002" href="$class_async_mqtt_client.html" title=" " alt="" coords="5,153,124,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,187,120,225,115,226,84,192"/>
+<area shape="rect" id="Node000003" href="$class_appl_module.html" title="Abstract Basic Module Implementation You have to implement the dispatch method to reflect your module..." alt="" coords="148,153,237,178"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="174,189,141,228,138,224,169,191"/>
+<area shape="rect" id="Node000004" href="$class_i_module.html" title="Full Interface for modules." alt="" coords="159,79,226,105"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="194,118,195,153,190,151,191,122"/>
+<area shape="rect" id="Node000005" href="$class_i_config_handler.html" title="Interface for configuration handlers." alt="" coords="6,5,115,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="96,36,172,77,168,80,96,41"/>
+<area shape="rect" id="Node000006" href="$class_i_status_handler.html" title="Interface for a status handler module." alt="" coords="138,5,247,31"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="194,44,195,79,190,78,191,49"/>
+<area shape="rect" id="Node000007" href="$class_i_msg_event_receiver.html" title="Interface for Message Event Receivers." alt="" coords="271,5,407,31"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="298,40,219,81,216,76,303,37"/>
+</map>

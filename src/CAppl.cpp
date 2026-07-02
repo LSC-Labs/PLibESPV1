@@ -41,8 +41,11 @@
 #pragma region Constructor / init and Message Dispatching
 
 /**
- * @brief constructor
- * Register self as Eventhandler and the IConfigHandler of Config as "cfg"
+ * @brief Create the global application hub.
+ *
+ * The constructor initializes serial logging when enabled, wires the event log
+ * to the message bus, registers the application itself as event receiver and
+ * exposes the local variable table under the "cfg" config section.
  */
 CAppl::CAppl() {
 	if(LSC_APPL_SERIAL_SPEED > 0) Serial.begin(LSC_APPL_SERIAL_SPEED);
@@ -52,9 +55,9 @@ CAppl::CAppl() {
 }  
 
 /**
- * @brief Initialize the Application Framework and the random generatore
- * @param strAppName    The name of the Application
- * @param strAppVersion The Version of the Application
+ * @brief Initialize the application metadata and announce startup.
+ * @param strAppName Name of the firmware/application.
+ * @param strAppVersion Version string of the firmware/application.
  */
 void CAppl::init(const char *strAppName, const char *strAppVersion) {
     AppName 	= strAppName;
@@ -69,20 +72,31 @@ void CAppl::init(const char *strAppName, const char *strAppVersion) {
 	MsgBus.sendEvent(this,MSG_APPL_INITIALIZED,nullptr,0);
 }
 
+/**
+ * @brief Publish the application-started event after initialization finished.
+ * @param pMsg Optional payload passed to registered event receivers.
+ * @param nType Optional payload type/class.
+ */
 void CAppl::start(void * pMsg, int nType) {
 	MsgBus.sendEvent(this,MSG_APPL_STARTED,pMsg,nType);
 }
 
 
 /**
- * @brief Dispatch a periodic message to all registered Message Event Receivers
- * @param nMsgType Optional Message Class
- * @param pMsg       Optional Message Pointer
+ * @brief Dispatch a periodic loop message to all registered event receivers.
+ * @param nMsgType Optional message class/type.
+ * @param pMsg Optional message payload.
  */
 void CAppl::dispatch(int nMsgType,const void *pMsg) {
 	this->MsgBus.sendEvent(this,MSG_APPL_LOOP,pMsg,nMsgType);
 }
 
+/**
+ * @brief Handle application-level events before other modules continue.
+ *
+ * Reboot requests are delayed by one additional bus pass so modules can see the
+ * shutdown event before ESP.restart() is executed.
+ */
 int CAppl::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nClass) {
     int nResult = EVENT_MSG_RESULT_OK;
 	switch(nMsg) {
@@ -106,11 +120,8 @@ int CAppl::receiveEvent(const void * pSender, int nMsg, const void * pMessage, i
 #pragma region Module Registration and Rebooting
 
 /**
- * @brief Register a Module to the Application
- * - Register Config Handler
- * - Register Status Handler
- * - Register Message Event Receiver
- * @param pszModuleName The name of the module (Config / Status Handler Name)
+ * @brief Register a module with configuration, status and event handling.
+ * @param pszModuleName Name used for config/status sections and event logging.
  * @param pModule Pointer to the Module Interface
  */
 void CAppl::registerModule(const char * pszModuleName, IModule * pModule) {
@@ -126,8 +137,9 @@ void CAppl::registerModule(const char * pszModuleName, IModule * pModule) {
 }
 
 /**
- * @brief Reboot the System after nDelayMillis milliseconds
- * @param nDelayMillis Delay in milliseconds before rebooting
+ * @brief Send shutdown events and restart the ESP after the given delay.
+ * @param nDelay Delay in milliseconds before rebooting.
+ * @param bForce true to reboot even if a receiver asks to delay shutdown.
  */
 void CAppl::reboot(int nDelay, bool bForce) {
 	Log.log("W",F("Rebooting..."));
@@ -143,9 +155,8 @@ void CAppl::reboot(int nDelay, bool bForce) {
 
 #pragma region Configuration Handling
 /**
- * @brief Read the configuration from a JsonObject
- * @param oJsonObj The JsonObject to read the configuration from
- * TODO: Implement the local var table (Config) reading also...
+ * @brief Read application and registered-module settings from a JSON tree.
+ * @param oJsonObj Root configuration object.
  */
 void CAppl::readConfigFrom(JsonNode &oJsonObj) {
 	DEBUG_FUNC_START();
@@ -169,8 +180,8 @@ void CAppl::readConfigFrom(JsonNode &oJsonObj) {
 }
 
 /** 
- * @brief read the configuration from the file system.
- * Read the config file from the file system and load all modules.
+ * @brief Read the configuration file and load settings into all modules.
+ *
  * - Use the pszConfigFileName, given by the user or use JSON_APPL_CONFIG_FILE (/config.json).
  * - If this file is not in place, use JSON_CONFIG_DEFAULT_File (/default)
  * @param pszConfigFileName The configuration FileName (Default is /config.json)
@@ -200,10 +211,11 @@ bool CAppl::readConfigFrom(const char *pszConfigFileName, int nJsonDocSize) {
 }
 
 /**
- * Migrate the configuration if needed.
- * Will be called after reading the config file from filesystem,
- * or by user...
- * 2026-03-02 : devicename and devicepwd get from old locations if in place.
+ * @brief Migrate legacy configuration keys into their current locations.
+ *
+ * Called after loading JSON from the file system and before registered handlers
+ * read their sections. Since 2026-03-02, devicename and devicepwd are moved
+ * from their previous web/wifi locations when present.
  */
 void CAppl::migrateConfig(JsonNode & oCfgData) {
 
@@ -232,9 +244,11 @@ void CAppl::migrateConfig(JsonNode & oCfgData) {
 
 
 /** 
- * @brief write the current configuration into the file system.
- *        a current config file will be loaded first to avoid loosing unknown config data...
- *        To get a clean config file, delete it first.
+ * @brief Persist the current configuration to the file system.
+ *
+ * The existing config file is loaded first so unknown keys are preserved. Delete
+ * the file beforehand if a clean generated config is desired.
+ *
  * @param pszConfigFileName The configuration FileName (Default is /config.json)
  * @param nJsonDocSize      The size of the expected total size, othterwies JSON_CONFIG_DEFAULT_SIZE is used.
  * 							(obsolet for ArduinoJson >= 7)
@@ -284,10 +298,10 @@ void CAppl::writeConfigTo(JsonNode &oJsonObj, bool bHideCritical) {
 #pragma region Status Handling
 
 /**
- * Return the current status
- * Do not delete or free the pointer, it is handeld by the instance 
- * and stays alive, as long this instance is living (!)
- * This is needed to send async the status via web socket, web server and other async tasks !
+ * @brief Build and return the reusable application status node.
+ *
+ * The returned pointer is owned by this instance and remains valid until the
+ * next status update or destruction. It must not be deleted by callers.
  */
 JsonNode *  CAppl::getStatus(int nLevel) {
 	m_oStatus.clear();
@@ -295,28 +309,31 @@ JsonNode *  CAppl::getStatus(int nLevel) {
 	return( & m_oStatus);
 }
 
+/**
+ * @brief Return the current application status serialized as JSON text.
+ */
 const char * CAppl::getStatusAsText(int nLevel) {
     JsonNode * pStatus = getStatus(nLevel);
     return(pStatus->getAsJsonText());
 }
 
 /**
- * @brief Get the state of this device..
- * is using getStatus with STATUS_LEVEL_STATE as level param
+ * @brief Return the compact state view of this device.
  * @returns a CJsonNode pointer (do not delete, it is managed by this instance)
  */
 JsonNode * CAppl::getState() { return(getStatus(STATUS_LEVEL_STATE)); }
 
 /**
- * @brief Get the device state as Json string 
+ * @brief Return the compact device state serialized as JSON text.
  * @returns pointer to a json formated state string (do not delete or free this pointer !)
  */
 const char * CAppl::getStateAsText() { 
 	return(getStatus(STATUS_LEVEL_STATE)->getAsJsonText()); 
 }
 /**
- * @brief Write the current status into a JsonObject
- * @param oStatusObj The JsonObject to write the status to
+ * @brief Write application metadata and module status into a JSON node.
+ * @param oStatusObj Target JSON node.
+ * @param nLevel Detail level requested by the caller.
  */
 void CAppl::writeStatusTo(JsonNode &oStatusObj, int nLevel = STATUS_LEVEL_INFO) {
 	DEBUG_FUNC_START();
@@ -340,8 +357,8 @@ void CAppl::writeStatusTo(JsonNode &oStatusObj, int nLevel = STATUS_LEVEL_INFO) 
 
 
 /**
- * @brief Write the system status into a JsonObject
- * @param oStatusObj The JsonObject to write the system status to
+ * @brief Write lower-level system diagnostics into a JSON node.
+ * @param oStatusNode Target JSON node.
  */
 void CAppl::writeSystemStatusTo(JsonNode &oStatusNode) {
 	DEBUG_FUNC_START();
@@ -356,8 +373,7 @@ void CAppl::writeSystemStatusTo(JsonNode &oStatusNode) {
 #pragma region Time and Date functions 
 
 /**
- * @brief Get the Uptime of the System as String HH:MM:SS
- * @return String with the Uptime
+ * @brief Return the application uptime as HH:MM:SS.
  */
 const char * CAppl::getUpTime() {
 	unsigned long ulUpTime = millis() - this->StartTime;
@@ -407,7 +423,7 @@ const char * CAppl::getISOTime() {
 /**
  * @brief Get the native time_t value of the system
  * @return The native time_t value
-	 */
+ */
 time_t CAppl::getNativeTime() {
         time(&m_oRawTime);
         return(m_oRawTime);
@@ -426,6 +442,9 @@ const char * CAppl::getISODateTime() {
 }
 
 
+/**
+ * @brief Return the stable chip/device identifier from system status.
+ */
 const char * CAppl::getDeviceID() {
 	return(m_oSystemStatus.getChipID());
 }
@@ -447,8 +466,8 @@ void CAppl::sayHello() {
 	Serial.println("");
 }   
 
-/// @brief print some diagnostic information
-/// https://42project.net/groesse-des-esp8266-flash-speicher-sowie-chip-id-ausgeben-und-mit-der-konfiguration-ueberpruefen/
+/// @brief Print flash/heap diagnostics and verify flash size configuration.
+/// @see https://42project.net/groesse-des-esp8266-flash-speicher-sowie-chip-id-ausgeben-und-mit-der-konfiguration-ueberpruefen/
 void CAppl::printDiag() {
 
 	// CSysStatus oSysStatus;
@@ -481,4 +500,3 @@ void CAppl::printDiag() {
 
 /// @brief The global application object
 CAppl Appl;
-

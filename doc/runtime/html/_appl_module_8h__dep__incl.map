@@ -1,0 +1,7 @@
+<map id="include/ApplModule.h" name="include/ApplModule.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="113,5,259,31"/>
+<area shape="rect" id="Node000002" href="$_battery_measure_8h.html" title=" " alt="" coords="5,79,175,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,40,107,81,105,76,155,41"/>
+<area shape="rect" id="Node000003" href="$_m_q_t_t_controller_8h.html" title=" " alt="" coords="199,79,368,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="215,38,270,79,264,79,214,43"/>
+</map>

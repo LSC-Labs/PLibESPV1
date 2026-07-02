@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_aff658140b5e7b3b627b7275c534a858">src/ext</innerdir>
+    <innerfile refid="_c_access_token_8cpp">CAccessToken.cpp</innerfile>
+    <innerfile refid="_c_a_e_s_cryptor_8cpp">CAESCryptor.cpp</innerfile>
+    <innerfile refid="_c_appl_8cpp">CAppl.cpp</innerfile>
+    <innerfile refid="_c_battery_measure_8cpp">CBatteryMeasure.cpp</innerfile>
+    <innerfile refid="_c_button_8cpp">CButton.cpp</innerfile>
+    <innerfile refid="_c_config_handler_8cpp">CConfigHandler.cpp</innerfile>
+    <innerfile refid="_c_delay_8cpp">CDelay.cpp</innerfile>
+    <innerfile refid="_c_event_handler_8cpp">CEventHandler.cpp</innerfile>
+    <innerfile refid="_c_file_system_8cpp">CFileSystem.cpp</innerfile>
+    <innerfile refid="_c_input_pin_controller_8cpp">CInputPinController.cpp</innerfile>
+    <innerfile refid="_c_json_node_8cpp">CJsonNode.cpp</innerfile>
+    <innerfile refid="_c_light_switch_8cpp">CLightSwitch.cpp</innerfile>
+    <innerfile refid="_c_logging_8cpp">CLogging.cpp</innerfile>
+    <innerfile refid="_c_m_d_n_s_controller_8cpp">CMDNSController.cpp</innerfile>
+    <innerfile refid="_c_m_q_t_t_controler_8cpp">CMQTTControler.cpp</innerfile>
+    <innerfile refid="_c_n_t_p_handler_8cpp">CNTPHandler.cpp</innerfile>
+    <innerfile refid="_c_output_pin_controller_8cpp">COutputPinController.cpp</innerfile>
+    <innerfile refid="_c_r_g_b_led_8cpp">CRGBLed.cpp</innerfile>
+    <innerfile refid="_c_status_handler_8cpp">CStatusHandler.cpp</innerfile>
+    <innerfile refid="_c_sys_status_8cpp">CSysStatus.cpp</innerfile>
+    <innerfile refid="_c_sys_status_led_8cpp">CSysStatusLed.cpp</innerfile>
+    <innerfile refid="_c_var_8cpp">CVar.cpp</innerfile>
+    <innerfile refid="_c_var_table_8cpp">CVarTable.cpp</innerfile>
+    <innerfile refid="_c_web_server_8cpp">CWebServer.cpp</innerfile>
+    <innerfile refid="_c_web_socket_8cpp">CWebSocket.cpp</innerfile>
+    <innerfile refid="_c_wi_fi_controller_8cpp">CWiFiController.cpp</innerfile>
+    <innerfile refid="_json_helper_8cpp">JsonHelper.cpp</innerfile>
+    <innerfile refid="_l_s_c_utils_8cpp">LSCUtils.cpp</innerfile>
+    <innerfile refid="_runtime_8cpp">Runtime.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/"/>
+  </compounddef>
+</doxygen>

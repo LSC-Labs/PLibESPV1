@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="_a_e_s_cryptor_8h" kind="file" language="C++">
+    <compoundname>AESCryptor.h</compoundname>
+    <includes local="no">Arduino.h</includes>
+    <includes refid="_network_8h" local="no">Network.h</includes>
+    <includedby refid="_access_token_8h" local="no">include/AccessToken.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>include/AESCryptor.h</label>
+        <link refid="_a_e_s_cryptor_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Network.h</label>
+        <link refid="_network_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Runtime.h</label>
+        <link refid="_runtime_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Arduino.h</label>
+      </node>
+      <node id="6">
+        <label>chrono</label>
+      </node>
+      <node id="7">
+        <label>iostream</label>
+      </node>
+      <node id="5">
+        <label>string.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>include/AESCryptor.h</label>
+        <link refid="_a_e_s_cryptor_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>include/AccessToken.h</label>
+        <link refid="_access_token_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_c_a_e_s_token" prot="public">CAESToken</innerclass>
+    <innerclass refid="class_c_a_e_s_cryptor" prot="public">CAESCryptor</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_a_e_s_cryptor_8h_1a6565cfe4d30573f63e0c1d0df33e2e10" prot="public" static="no">
+        <name>APPL_SECURITY_TOKEN_PASS</name>
+        <initializer>&quot;Kis8%$vvQ@ä+qw12&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="11" column="13" bodyfile="include/AESCryptor.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_a_e_s_cryptor_8h_1acaf38455390ea02d9e6d59d7aabd06ac" prot="public" static="no">
+        <name>AES_CRYPTOR_BLOCK_SIZE</name>
+        <initializer>br_aes_big_BLOCK_SIZE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/AESCryptor.h" line="15" column="9" bodyfile="include/AESCryptor.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/AESCryptor.h"/>
+  </compounddef>
+</doxygen>

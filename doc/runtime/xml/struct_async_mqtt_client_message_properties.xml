@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="struct_async_mqtt_client_message_properties" kind="struct" language="C++" prot="public">
+    <compoundname>AsyncMqttClientMessageProperties</compoundname>
+    <includes refid="_m_q_t_t_controller_8h" local="no">MQTTController.h</includes>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/MQTTController.h" line="16" column="5" bodyfile="include/MQTTController.h" bodystart="16" bodyend="16"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

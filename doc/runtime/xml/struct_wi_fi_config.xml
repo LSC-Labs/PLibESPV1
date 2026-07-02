@@ -1,0 +1,335 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="struct_wi_fi_config" kind="struct" language="C++" prot="public">
+    <compoundname>WiFiConfig</compoundname>
+    <includes refid="_wi_fi_controller_8h" local="no">WiFiController.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_wi_fi_config_1a69d0e6f7495aa1ca197643ee7e026917" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool WiFiConfig::accessPointMode</definition>
+        <argsstring></argsstring>
+        <name>accessPointMode</name>
+        <qualifiedname>WiFiConfig::accessPointMode</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+<para>true for access point mode, false for station mode. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="78" column="10" bodyfile="include/WiFiController.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1acda13e8190881ae5292d045090615d50" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String WiFiConfig::ap_ssid</definition>
+        <argsstring></argsstring>
+        <name>ap_ssid</name>
+        <qualifiedname>WiFiConfig::ap_ssid</qualifiedname>
+        <initializer>= <ref refid="namespace_l_s_c___w_i_f_i_1afe64b5863b02138db4569d19db241e62" kindref="member">LSC_WIFI::getDefaultSSIDofAP</ref>()</initializer>
+        <briefdescription>
+<para>Access point SSID used when this device creates its own network. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="81" column="15" bodyfile="include/WiFiController.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1a99a0d6c88aa5a0f06b864e811b2ce342" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String WiFiConfig::ap_Password</definition>
+        <argsstring></argsstring>
+        <name>ap_Password</name>
+        <qualifiedname>WiFiConfig::ap_Password</qualifiedname>
+        <initializer>= <ref refid="_wi_fi_controller_8h_1ade206efd0f079b0dbf30f1d7a10928b4" kindref="member">WIFI_AP_DEFAULT_PASSWORD</ref></initializer>
+        <briefdescription>
+<para>Access point password. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="83" column="15" bodyfile="include/WiFiController.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1a14d16c64d4abefaf37d811de1ffca9df" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WiFiConfig::ap_channel</definition>
+        <argsstring></argsstring>
+        <name>ap_channel</name>
+        <qualifiedname>WiFiConfig::ap_channel</qualifiedname>
+        <initializer>= 6</initializer>
+        <briefdescription>
+<para>Access point WiFi channel. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="85" column="15" bodyfile="include/WiFiController.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1a6965e7f21320d93a379d038fda64be05" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool WiFiConfig::ap_hidden</definition>
+        <argsstring></argsstring>
+        <name>ap_hidden</name>
+        <qualifiedname>WiFiConfig::ap_hidden</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+<para>true to hide the AP SSID from normal scans. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="87" column="15" bodyfile="include/WiFiController.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1a92b3a555d7d06f97e6acc14e82ca9800" prot="public" static="no" mutable="no">
+        <type><ref refid="class_i_p_address" kindref="compound">IPAddress</ref></type>
+        <definition>IPAddress WiFiConfig::ap_ipAddress</definition>
+        <argsstring></argsstring>
+        <name>ap_ipAddress</name>
+        <qualifiedname>WiFiConfig::ap_ipAddress</qualifiedname>
+        <initializer>= <ref refid="_wi_fi_controller_8h_1af6e13ca017c4f5e5408efa5362ec17b1" kindref="member">WIFI_MODULE_DEFAULT_AP_IP</ref></initializer>
+        <briefdescription>
+<para>Static IP address of the access point interface. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="89" column="15" bodyfile="include/WiFiController.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1ad1ef1c39bf1677cf62d9a1a48252e1c8" prot="public" static="no" mutable="no">
+        <type><ref refid="class_i_p_address" kindref="compound">IPAddress</ref></type>
+        <definition>IPAddress WiFiConfig::ap_ipSubnetMask</definition>
+        <argsstring></argsstring>
+        <name>ap_ipSubnetMask</name>
+        <qualifiedname>WiFiConfig::ap_ipSubnetMask</qualifiedname>
+        <initializer>= <ref refid="_wi_fi_controller_8h_1a1bff4e0600e86e55857179e084a899a4" kindref="member">WIFI_MODULE_DEFAULT_AP_SUBNET</ref></initializer>
+        <briefdescription>
+<para>Subnet mask of the access point interface. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="91" column="15" bodyfile="include/WiFiController.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1ad38d64fd537bfe5904d0ac27192650a7" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String WiFiConfig::wifi_ssid</definition>
+        <argsstring></argsstring>
+        <name>wifi_ssid</name>
+        <qualifiedname>WiFiConfig::wifi_ssid</qualifiedname>
+        <briefdescription>
+<para>SSID to join in station mode. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="94" column="15" bodyfile="include/WiFiController.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1a579f550ae0fe29062a1266a5f9ace65a" prot="public" static="no" mutable="no">
+        <type>byte</type>
+        <definition>byte WiFiConfig::wifi_bssid[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>wifi_bssid</name>
+        <qualifiedname>WiFiConfig::wifi_bssid</qualifiedname>
+        <initializer>= {0, 0, 0, 0, 0, 0}</initializer>
+        <briefdescription>
+<para>Optional fixed BSSID to join; all zero means &quot;do not pin BSSID&quot;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="96" column="15" bodyfile="include/WiFiController.h" bodystart="96" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1aaed666f4f96ba15de4311d01cfd149be" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String WiFiConfig::wifi_Password</definition>
+        <argsstring></argsstring>
+        <name>wifi_Password</name>
+        <qualifiedname>WiFiConfig::wifi_Password</qualifiedname>
+        <briefdescription>
+<para>Password used when joining the configured station network. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="98" column="15" bodyfile="include/WiFiController.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1a4c75063ed2ff35718a0f52918b588ebf" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool WiFiConfig::dhcpEnabled</definition>
+        <argsstring></argsstring>
+        <name>dhcpEnabled</name>
+        <qualifiedname>WiFiConfig::dhcpEnabled</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+<para>true to use DHCP in station mode. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="101" column="15" bodyfile="include/WiFiController.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1a27609e631685ab7e884f0168b408f81c" prot="public" static="no" mutable="no">
+        <type><ref refid="class_i_p_address" kindref="compound">IPAddress</ref></type>
+        <definition>IPAddress WiFiConfig::ipAddress</definition>
+        <argsstring></argsstring>
+        <name>ipAddress</name>
+        <qualifiedname>WiFiConfig::ipAddress</qualifiedname>
+        <briefdescription>
+<para>Static station IP address used when DHCP is disabled. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="104" column="15" bodyfile="include/WiFiController.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1aed3d38ab591fe2b0d2d87798177ac59c" prot="public" static="no" mutable="no">
+        <type><ref refid="class_i_p_address" kindref="compound">IPAddress</ref></type>
+        <definition>IPAddress WiFiConfig::ipSubnetMask</definition>
+        <argsstring></argsstring>
+        <name>ipSubnetMask</name>
+        <qualifiedname>WiFiConfig::ipSubnetMask</qualifiedname>
+        <briefdescription>
+<para>Static station subnet mask used when DHCP is disabled. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="106" column="15" bodyfile="include/WiFiController.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1aa72a16296d4567a29db2580feac80d58" prot="public" static="no" mutable="no">
+        <type><ref refid="class_i_p_address" kindref="compound">IPAddress</ref></type>
+        <definition>IPAddress WiFiConfig::ipGateway</definition>
+        <argsstring></argsstring>
+        <name>ipGateway</name>
+        <qualifiedname>WiFiConfig::ipGateway</qualifiedname>
+        <briefdescription>
+<para>Static station gateway used when DHCP is disabled. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="108" column="15" bodyfile="include/WiFiController.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1a2afd4b999edd3cb0f724f35e8a44ae99" prot="public" static="no" mutable="no">
+        <type><ref refid="class_i_p_address" kindref="compound">IPAddress</ref></type>
+        <definition>IPAddress WiFiConfig::ipDNS</definition>
+        <argsstring></argsstring>
+        <name>ipDNS</name>
+        <qualifiedname>WiFiConfig::ipDNS</qualifiedname>
+        <briefdescription>
+<para>Static station DNS server used when DHCP is disabled. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="110" column="15" bodyfile="include/WiFiController.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1ab01c1717fe6c4bdd409fb4756f1ba9cd" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool WiFiConfig::autoFallbackMode</definition>
+        <argsstring></argsstring>
+        <name>autoFallbackMode</name>
+        <qualifiedname>WiFiConfig::autoFallbackMode</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+<para>true to fall back to AP mode when station mode cannot connect. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="113" column="10" bodyfile="include/WiFiController.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1afb2dea4fc2c824425be372ef8be79a09" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WiFiConfig::retryTimeoutSeconds</definition>
+        <argsstring></argsstring>
+        <name>retryTimeoutSeconds</name>
+        <qualifiedname>WiFiConfig::retryTimeoutSeconds</qualifiedname>
+        <initializer>= 20</initializer>
+        <briefdescription>
+<para>Delay between station reconnect attempts in seconds. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="116" column="10" bodyfile="include/WiFiController.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_wi_fi_config_1ab377d6dcedc90bf524a83b115351e760" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WiFiConfig::retryCount</definition>
+        <argsstring></argsstring>
+        <name>retryCount</name>
+        <qualifiedname>WiFiConfig::retryCount</qualifiedname>
+        <initializer>= 3*60*24*10</initializer>
+        <briefdescription>
+<para>Maximum number of reconnect attempts before WiFi is disabled. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WiFiController.h" line="118" column="10" bodyfile="include/WiFiController.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Runtime configuration for access point and station mode. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>IPAddress</label>
+        <link refid="class_i_p_address"/>
+      </node>
+      <node id="1">
+        <label>WiFiConfig</label>
+        <link refid="struct_wi_fi_config"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>ap_ipAddress</edgelabel>
+          <edgelabel>ap_ipSubnetMask</edgelabel>
+          <edgelabel>ipAddress</edgelabel>
+          <edgelabel>ipDNS</edgelabel>
+          <edgelabel>ipGateway</edgelabel>
+          <edgelabel>ipSubnetMask</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/WiFiController.h" line="76" column="1" bodyfile="include/WiFiController.h" bodystart="76" bodyend="119"/>
+    <listofallmembers>
+      <member refid="struct_wi_fi_config_1a69d0e6f7495aa1ca197643ee7e026917" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>accessPointMode</name></member>
+      <member refid="struct_wi_fi_config_1a14d16c64d4abefaf37d811de1ffca9df" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>ap_channel</name></member>
+      <member refid="struct_wi_fi_config_1a6965e7f21320d93a379d038fda64be05" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>ap_hidden</name></member>
+      <member refid="struct_wi_fi_config_1a92b3a555d7d06f97e6acc14e82ca9800" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>ap_ipAddress</name></member>
+      <member refid="struct_wi_fi_config_1ad1ef1c39bf1677cf62d9a1a48252e1c8" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>ap_ipSubnetMask</name></member>
+      <member refid="struct_wi_fi_config_1a99a0d6c88aa5a0f06b864e811b2ce342" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>ap_Password</name></member>
+      <member refid="struct_wi_fi_config_1acda13e8190881ae5292d045090615d50" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>ap_ssid</name></member>
+      <member refid="struct_wi_fi_config_1ab01c1717fe6c4bdd409fb4756f1ba9cd" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>autoFallbackMode</name></member>
+      <member refid="struct_wi_fi_config_1a4c75063ed2ff35718a0f52918b588ebf" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>dhcpEnabled</name></member>
+      <member refid="struct_wi_fi_config_1a27609e631685ab7e884f0168b408f81c" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>ipAddress</name></member>
+      <member refid="struct_wi_fi_config_1a2afd4b999edd3cb0f724f35e8a44ae99" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>ipDNS</name></member>
+      <member refid="struct_wi_fi_config_1aa72a16296d4567a29db2580feac80d58" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>ipGateway</name></member>
+      <member refid="struct_wi_fi_config_1aed3d38ab591fe2b0d2d87798177ac59c" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>ipSubnetMask</name></member>
+      <member refid="struct_wi_fi_config_1ab377d6dcedc90bf524a83b115351e760" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>retryCount</name></member>
+      <member refid="struct_wi_fi_config_1afb2dea4fc2c824425be372ef8be79a09" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>retryTimeoutSeconds</name></member>
+      <member refid="struct_wi_fi_config_1a579f550ae0fe29062a1266a5f9ace65a" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>wifi_bssid</name></member>
+      <member refid="struct_wi_fi_config_1aaed666f4f96ba15de4311d01cfd149be" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>wifi_Password</name></member>
+      <member refid="struct_wi_fi_config_1ad38d64fd537bfe5904d0ac27192650a7" prot="public" virt="non-virtual"><scope>WiFiConfig</scope><name>wifi_ssid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

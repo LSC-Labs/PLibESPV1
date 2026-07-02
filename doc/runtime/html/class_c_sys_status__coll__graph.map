@@ -1,0 +1,5 @@
+<map id="CSysStatus" name="CSysStatus">
+<area shape="rect" id="Node000001" title="SysStatus.h." alt="" coords="13,79,106,105"/>
+<area shape="rect" id="Node000002" href="$class_i_status_handler.html" title="Interface for a status handler module." alt="" coords="5,5,114,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,45,62,79,57,78,58,48"/>
+</map>

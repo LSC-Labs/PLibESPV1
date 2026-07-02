@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_async_web_socket_message_buffer" kind="class" language="C++" prot="public">
+    <compoundname>AsyncWebSocketMessageBuffer</compoundname>
+    <includes refid="_network_8h" local="no">Network.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_async_web_socket_message_buffer_1a65ab869256ead6d65b56c256fc71a0c5" prot="private" static="no" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* AsyncWebSocketMessageBuffer::m_pData</definition>
+        <argsstring></argsstring>
+        <name>m_pData</name>
+        <qualifiedname>AsyncWebSocketMessageBuffer::m_pData</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="42" column="17" bodyfile="include/Network.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_async_web_socket_message_buffer_1aca837fa33fdefec3f2536ebda385d429" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t AsyncWebSocketMessageBuffer::m_nSize</definition>
+        <argsstring></argsstring>
+        <name>m_nSize</name>
+        <qualifiedname>AsyncWebSocketMessageBuffer::m_nSize</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="43" column="18" bodyfile="include/Network.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_async_web_socket_message_buffer_1a0d7ced3522e501bb755b2cdc589ebca7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AsyncWebSocketMessageBuffer::AsyncWebSocketMessageBuffer</definition>
+        <argsstring>(size_t nSize)</argsstring>
+        <name>AsyncWebSocketMessageBuffer</name>
+        <qualifiedname>AsyncWebSocketMessageBuffer::AsyncWebSocketMessageBuffer</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>nSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="46" column="9" bodyfile="include/Network.h" bodystart="46" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="class_async_web_socket_message_buffer_1a8e8a8b2522af8aef2777e7438e0160d8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>AsyncWebSocketMessageBuffer::~AsyncWebSocketMessageBuffer</definition>
+        <argsstring>()</argsstring>
+        <name>~AsyncWebSocketMessageBuffer</name>
+        <qualifiedname>AsyncWebSocketMessageBuffer::~AsyncWebSocketMessageBuffer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="50" column="9" bodyfile="include/Network.h" bodystart="50" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="class_async_web_socket_message_buffer_1a640da88d3a47028488c05be7cc092f8c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint8_t *</type>
+        <definition>uint8_t * AsyncWebSocketMessageBuffer::get</definition>
+        <argsstring>()</argsstring>
+        <name>get</name>
+        <qualifiedname>AsyncWebSocketMessageBuffer::get</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="54" column="17" bodyfile="include/Network.h" bodystart="54" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="class_async_web_socket_message_buffer_1a057f47590f0a949057203750b99f155f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t AsyncWebSocketMessageBuffer::size</definition>
+        <argsstring>()</argsstring>
+        <name>size</name>
+        <qualifiedname>AsyncWebSocketMessageBuffer::size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="55" column="16" bodyfile="include/Network.h" bodystart="55" bodyend="55"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/Network.h" line="40" column="1" bodyfile="include/Network.h" bodystart="40" bodyend="56"/>
+    <listofallmembers>
+      <member refid="class_async_web_socket_message_buffer_1a0d7ced3522e501bb755b2cdc589ebca7" prot="public" virt="non-virtual"><scope>AsyncWebSocketMessageBuffer</scope><name>AsyncWebSocketMessageBuffer</name></member>
+      <member refid="class_async_web_socket_message_buffer_1a640da88d3a47028488c05be7cc092f8c" prot="public" virt="non-virtual"><scope>AsyncWebSocketMessageBuffer</scope><name>get</name></member>
+      <member refid="class_async_web_socket_message_buffer_1aca837fa33fdefec3f2536ebda385d429" prot="private" virt="non-virtual"><scope>AsyncWebSocketMessageBuffer</scope><name>m_nSize</name></member>
+      <member refid="class_async_web_socket_message_buffer_1a65ab869256ead6d65b56c256fc71a0c5" prot="private" virt="non-virtual"><scope>AsyncWebSocketMessageBuffer</scope><name>m_pData</name></member>
+      <member refid="class_async_web_socket_message_buffer_1a057f47590f0a949057203750b99f155f" prot="public" virt="non-virtual"><scope>AsyncWebSocketMessageBuffer</scope><name>size</name></member>
+      <member refid="class_async_web_socket_message_buffer_1a8e8a8b2522af8aef2777e7438e0160d8" prot="public" virt="non-virtual"><scope>AsyncWebSocketMessageBuffer</scope><name>~AsyncWebSocketMessageBuffer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

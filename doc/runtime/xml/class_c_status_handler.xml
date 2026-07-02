@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_status_handler" kind="class" language="C++" prot="public">
+    <compoundname>CStatusHandler</compoundname>
+    <basecompoundref refid="class_i_status_handler" prot="public" virt="non-virtual">IStatusHandler</basecompoundref>
+    <derivedcompoundref refid="class_c_appl" prot="public" virt="non-virtual">CAppl</derivedcompoundref>
+    <includes refid="_status_handler_8h" local="no">StatusHandler.h</includes>
+    <innerclass refid="struct_c_status_handler_1_1_status_handler_entry" prot="private">CStatusHandler::StatusHandlerEntry</innerclass>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_status_handler_1a955830f97624aafdc2a0a6f7bfb4722d" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; StatusHandlerEntry &gt;</type>
+        <definition>std::vector&lt;StatusHandlerEntry&gt; CStatusHandler::m_tListOfStatusHandler</definition>
+        <argsstring></argsstring>
+        <name>m_tListOfStatusHandler</name>
+        <qualifiedname>CStatusHandler::m_tListOfStatusHandler</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/StatusHandler.h" line="33" column="17" bodyfile="include/StatusHandler.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_status_handler_1a651297637269669a4830e13f7b008971" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CStatusHandler::addStatusHandler</definition>
+        <argsstring>(String strName, IStatusHandler *pHandler)</argsstring>
+        <name>addStatusHandler</name>
+        <qualifiedname>CStatusHandler::addStatusHandler</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+          <declname>strName</declname>
+        </param>
+        <param>
+          <type><ref refid="class_i_status_handler" kindref="compound">IStatusHandler</ref> *</type>
+          <declname>pHandler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/StatusHandler.h" line="36" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_status_handler_1acc3b0f2d8ecd47a9441c8e409cf23366" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CStatusHandler::addStatusHandler</definition>
+        <argsstring>(const char *pszName, IStatusHandler *pHandler)</argsstring>
+        <name>addStatusHandler</name>
+        <qualifiedname>CStatusHandler::addStatusHandler</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type><ref refid="class_i_status_handler" kindref="compound">IStatusHandler</ref> *</type>
+          <declname>pHandler</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/StatusHandler.h" line="37" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_status_handler_1afe6642be5d63302b8a455a19f382f6c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_i_status_handler" kindref="compound">IStatusHandler</ref> *</type>
+        <definition>IStatusHandler * CStatusHandler::getStatusHandler</definition>
+        <argsstring>(String strName)</argsstring>
+        <name>getStatusHandler</name>
+        <qualifiedname>CStatusHandler::getStatusHandler</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+          <declname>strName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/StatusHandler.h" line="38" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_status_handler_1ade7bd78c571d1a8ff64cd29a4b3773b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_i_status_handler" kindref="compound">IStatusHandler</ref> *</type>
+        <definition>IStatusHandler * CStatusHandler::getStatusHandler</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>getStatusHandler</name>
+        <qualifiedname>CStatusHandler::getStatusHandler</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/StatusHandler.h" line="39" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_status_handler_1ac2bf405743e55f04b107f7d676df2158" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CStatusHandler::writeStatusTo</definition>
+        <argsstring>(JsonNode &amp;oStatusNode, int nLevel=STATUS_LEVEL_INFO) override</argsstring>
+        <name>writeStatusTo</name>
+        <qualifiedname>CStatusHandler::writeStatusTo</qualifiedname>
+        <reimplements refid="class_i_status_handler_1a159576674bba670032ae23b647db1dec">writeStatusTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oStatusNode</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nLevel</declname>
+          <defval><ref refid="_status_handler_8h_1ad33eab0de4e088931d94b504679013e4" kindref="member">STATUS_LEVEL_INFO</ref></defval>
+        </param>
+        <briefdescription>
+<para>Interface implementation. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/StatusHandler.h" line="42" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Status handler class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Works as a status handler and can register further status handler modules. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>CAppl</label>
+        <link refid="class_c_appl"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CStatusHandler</label>
+        <link refid="class_c_status_handler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>CStatusHandler</label>
+        <link refid="class_c_status_handler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/StatusHandler.h" line="28" column="1" bodyfile="include/StatusHandler.h" bodystart="28" bodyend="43"/>
+    <listofallmembers>
+      <member refid="class_c_status_handler_1a651297637269669a4830e13f7b008971" prot="public" virt="non-virtual"><scope>CStatusHandler</scope><name>addStatusHandler</name></member>
+      <member refid="class_c_status_handler_1acc3b0f2d8ecd47a9441c8e409cf23366" prot="public" virt="non-virtual"><scope>CStatusHandler</scope><name>addStatusHandler</name></member>
+      <member refid="class_c_status_handler_1afe6642be5d63302b8a455a19f382f6c2" prot="public" virt="non-virtual"><scope>CStatusHandler</scope><name>getStatusHandler</name></member>
+      <member refid="class_c_status_handler_1ade7bd78c571d1a8ff64cd29a4b3773b9" prot="public" virt="non-virtual"><scope>CStatusHandler</scope><name>getStatusHandler</name></member>
+      <member refid="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" prot="public" virt="virtual"><scope>CStatusHandler</scope><name>hasStatusValues</name></member>
+      <member refid="class_c_status_handler_1a955830f97624aafdc2a0a6f7bfb4722d" prot="private" virt="non-virtual"><scope>CStatusHandler</scope><name>m_tListOfStatusHandler</name></member>
+      <member refid="class_c_status_handler_1ac2bf405743e55f04b107f7d676df2158" prot="public" virt="virtual"><scope>CStatusHandler</scope><name>writeStatusTo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

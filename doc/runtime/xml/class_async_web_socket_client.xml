@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_async_web_socket_client" kind="class" language="C++" prot="public">
+    <compoundname>AsyncWebSocketClient</compoundname>
+    <includes refid="_network_8h" local="no">Network.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_async_web_socket_client_1a8a48b75268522ea4316c21a7e7bce390" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* AsyncWebSocketClient::_tempObject</definition>
+        <argsstring></argsstring>
+        <name>_tempObject</name>
+        <qualifiedname>AsyncWebSocketClient::_tempObject</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="73" column="14" bodyfile="include/Network.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_async_web_socket_client_1a9468ef28a6ccb9218a75d6fe8788f4ff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t AsyncWebSocketClient::id</definition>
+        <argsstring>()</argsstring>
+        <name>id</name>
+        <qualifiedname>AsyncWebSocketClient::id</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="74" column="18" bodyfile="include/Network.h" bodystart="74" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="class_async_web_socket_client_1ab7956c34d576e1c377a4d6ce647429a0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_i_p_address" kindref="compound">IPAddress</ref></type>
+        <definition>IPAddress AsyncWebSocketClient::remoteIP</definition>
+        <argsstring>()</argsstring>
+        <name>remoteIP</name>
+        <qualifiedname>AsyncWebSocketClient::remoteIP</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="75" column="19" bodyfile="include/Network.h" bodystart="75" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="class_async_web_socket_client_1a7efc8cb718155ebbedcdc4c8f9b936d1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void AsyncWebSocketClient::text</definition>
+        <argsstring>(AsyncWebSocketMessageBuffer *pBuffer)</argsstring>
+        <name>text</name>
+        <qualifiedname>AsyncWebSocketClient::text</qualifiedname>
+        <param>
+          <type><ref refid="class_async_web_socket_message_buffer" kindref="compound">AsyncWebSocketMessageBuffer</ref> *</type>
+          <declname>pBuffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Network.h" line="76" column="14" bodyfile="include/Network.h" bodystart="76" bodyend="76"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/Network.h" line="71" column="1" bodyfile="include/Network.h" bodystart="71" bodyend="77"/>
+    <listofallmembers>
+      <member refid="class_async_web_socket_client_1a8a48b75268522ea4316c21a7e7bce390" prot="public" virt="non-virtual"><scope>AsyncWebSocketClient</scope><name>_tempObject</name></member>
+      <member refid="class_async_web_socket_client_1a9468ef28a6ccb9218a75d6fe8788f4ff" prot="public" virt="non-virtual"><scope>AsyncWebSocketClient</scope><name>id</name></member>
+      <member refid="class_async_web_socket_client_1ab7956c34d576e1c377a4d6ce647429a0" prot="public" virt="non-virtual"><scope>AsyncWebSocketClient</scope><name>remoteIP</name></member>
+      <member refid="class_async_web_socket_client_1a7efc8cb718155ebbedcdc4c8f9b936d1" prot="public" virt="non-virtual"><scope>AsyncWebSocketClient</scope><name>text</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

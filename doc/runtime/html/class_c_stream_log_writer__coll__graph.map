@@ -1,0 +1,7 @@
+<map id="CStreamLogWriter" name="CStreamLogWriter">
+<area shape="rect" id="Node000001" title="Log writer that prints log entries to an Arduino Stream." alt="" coords="9,153,138,178"/>
+<area shape="rect" id="Node000002" href="$class_c_log_writer.html" title="Class to handle the logging for a module This class is used to write log entries for a specific modul..." alt="" coords="30,79,117,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,118,76,153,71,151,72,122"/>
+<area shape="rect" id="Node000003" href="$class_i_msg_event_receiver.html" title="Interface for Message Event Receivers." alt="" coords="5,5,142,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="75,44,76,79,71,78,72,49"/>
+</map>

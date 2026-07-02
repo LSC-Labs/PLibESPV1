@@ -1,0 +1,359 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_web_server" kind="class" language="C++" prot="public">
+    <compoundname>CWebServer</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">AsyncWebServer</basecompoundref>
+    <basecompoundref refid="class_i_module" prot="public" virt="non-virtual">IModule</basecompoundref>
+    <includes refid="_web_server_8h" local="no">WebServer.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_c_web_server_1ac04fa8b98859dcabf8f8c4f30b97436c" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int CWebServer::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <qualifiedname>CWebServer::Version</qualifiedname>
+        <initializer>= 1</initializer>
+        <briefdescription>
+<para>Module version exposed for diagnostics. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="47" column="19" bodyfile="include/WebServer.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_web_server_1a2abf6b4ccb9ce545fd9a8ba1506ddc32" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_web_server_config" kindref="compound">WebServerConfig</ref></type>
+        <definition>WebServerConfig CWebServer::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <qualifiedname>CWebServer::Config</qualifiedname>
+        <briefdescription>
+<para>Configuration of the webserver. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="49" column="25" bodyfile="include/WebServer.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_web_server_1a3fa02de3fee20c17f1bebba8cfae91be" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_web_server_status" kindref="compound">WebServerStatus</ref></type>
+        <definition>WebServerStatus CWebServer::Status</definition>
+        <argsstring></argsstring>
+        <name>Status</name>
+        <qualifiedname>CWebServer::Status</qualifiedname>
+        <briefdescription>
+<para>Status information about the webserver. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="51" column="25" bodyfile="include/WebServer.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_web_server_1ac9b1f253c0939ecf4e26b5e0814ebbf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CWebServer::CWebServer</definition>
+        <argsstring>(int nPortNumber=80)</argsstring>
+        <name>CWebServer</name>
+        <qualifiedname>CWebServer::CWebServer</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nPortNumber</declname>
+          <defval>80</defval>
+        </param>
+        <briefdescription>
+<para>Create a web server on the given TCP port. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="57" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_server_1a4f3aa81c98dc6b58547044790e55a894" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CWebServer::writeStatusTo</definition>
+        <argsstring>(JsonNode &amp;oStatusNode, int nLevel=STATUS_LEVEL_INFO) override</argsstring>
+        <name>writeStatusTo</name>
+        <qualifiedname>CWebServer::writeStatusTo</qualifiedname>
+        <reimplements refid="class_i_status_handler_1a159576674bba670032ae23b647db1dec">writeStatusTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oStatusNode</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nLevel</declname>
+          <defval><ref refid="_status_handler_8h_1ad33eab0de4e088931d94b504679013e4" kindref="member">STATUS_LEVEL_INFO</ref></defval>
+        </param>
+        <briefdescription>
+<para>Write web server status into a JSON node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="60" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_server_1a53e90a7c5bc2dc0af7f48580d9ed6656" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CWebServer::writeConfigTo</definition>
+        <argsstring>(JsonNode &amp;oNode, bool bHideCritical) override</argsstring>
+        <name>writeConfigTo</name>
+        <qualifiedname>CWebServer::writeConfigTo</qualifiedname>
+        <reimplements refid="class_i_config_handler_1a3507b2ec7bef0a1ec0a7f90da0ec32f2">writeConfigTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oNode</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bHideCritical</declname>
+        </param>
+        <briefdescription>
+<para>Write web server configuration into a JSON node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="62" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_server_1a1a01f3cb7de446aa89b032cb6f3eb28f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CWebServer::readConfigFrom</definition>
+        <argsstring>(JsonNode &amp;oNode) override</argsstring>
+        <name>readConfigFrom</name>
+        <qualifiedname>CWebServer::readConfigFrom</qualifiedname>
+        <reimplements refid="class_i_config_handler_1a4c43c53522b0408972d6573e91d1e63e">readConfigFrom</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oNode</declname>
+        </param>
+        <briefdescription>
+<para>Read web server configuration from a JSON node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="64" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_server_1a34b921fb662cd2d27a069252ba0aba23" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>int CWebServer::receiveEvent</definition>
+        <argsstring>(const void *pSender, int nMsg, const void *pMessage, int nClass) override</argsstring>
+        <name>receiveEvent</name>
+        <qualifiedname>CWebServer::receiveEvent</qualifiedname>
+        <reimplements refid="class_i_msg_event_receiver_1a3345710906f9a16c4dca5b7ce2da39d7">receiveEvent</reimplements>
+        <param>
+          <type>const void *</type>
+          <declname>pSender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsg</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>pMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nClass</declname>
+        </param>
+        <briefdescription>
+<para>React to application lifecycle/network events. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="66" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_server_1a793290c9f95c9168e2dbc5e447845f70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CWebServer::registerFileAccess</definition>
+        <argsstring>()</argsstring>
+        <name>registerFileAccess</name>
+        <qualifiedname>CWebServer::registerFileAccess</qualifiedname>
+        <briefdescription>
+<para>Register routes used to serve static files from the file system. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="69" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_server_1ad1cfb1eb325a5fc99adabd59a617c3b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CWebServer::deliverFile</definition>
+        <argsstring>(AsyncWebServerRequest *pRequest)</argsstring>
+        <name>deliverFile</name>
+        <qualifiedname>CWebServer::deliverFile</qualifiedname>
+        <param>
+          <type>AsyncWebServerRequest *</type>
+          <declname>pRequest</declname>
+        </param>
+        <briefdescription>
+<para>Deliver a requested file or a fallback response. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="71" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_server_1ac44beb94d88e7849b2430118e2aaace6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CWebServer::registerDefaults</definition>
+        <argsstring>()</argsstring>
+        <name>registerDefaults</name>
+        <qualifiedname>CWebServer::registerDefaults</qualifiedname>
+        <briefdescription>
+<para>Register built-in routes such as status/config endpoints. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="73" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_server_1aef06b6bb6b9e03f9415a0fa3fa3b6d8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CWebServer::setNewAuthHeader</definition>
+        <argsstring>(AsyncWebServerRequest *pRequest, AsyncWebServerResponse *pResponse)</argsstring>
+        <name>setNewAuthHeader</name>
+        <qualifiedname>CWebServer::setNewAuthHeader</qualifiedname>
+        <param>
+          <type>AsyncWebServerRequest *</type>
+          <declname>pRequest</declname>
+        </param>
+        <param>
+          <type>AsyncWebServerResponse *</type>
+          <declname>pResponse</declname>
+        </param>
+        <briefdescription>
+<para>Add/update authentication headers on a response. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="75" column="22"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Async web server module that registers default routes and file access. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>AsyncWebServer</label>
+      </node>
+      <node id="1">
+        <label>CWebServer</label>
+        <link refid="class_c_web_server"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="3">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="5">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>AsyncWebServer</label>
+      </node>
+      <node id="1">
+        <label>CWebServer</label>
+        <link refid="class_c_web_server"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Status</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="3">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="5">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+      <node id="7">
+        <label>WebServerConfig</label>
+        <link refid="struct_web_server_config"/>
+      </node>
+      <node id="8">
+        <label>WebServerStatus</label>
+        <link refid="struct_web_server_status"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/WebServer.h" line="44" column="1" bodyfile="include/WebServer.h" bodystart="44" bodyend="76"/>
+    <listofallmembers>
+      <member refid="class_c_web_server_1a2abf6b4ccb9ce545fd9a8ba1506ddc32" prot="public" virt="non-virtual"><scope>CWebServer</scope><name>Config</name></member>
+      <member refid="class_c_web_server_1ac9b1f253c0939ecf4e26b5e0814ebbf8" prot="public" virt="non-virtual"><scope>CWebServer</scope><name>CWebServer</name></member>
+      <member refid="class_c_web_server_1ad1cfb1eb325a5fc99adabd59a617c3b3" prot="public" virt="non-virtual"><scope>CWebServer</scope><name>deliverFile</name></member>
+      <member refid="class_i_config_handler_1a6011c82a3fe9d10ef0ea54d848557f4c" prot="public" virt="virtual"><scope>CWebServer</scope><name>hasConfigValues</name></member>
+      <member refid="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" prot="public" virt="virtual"><scope>CWebServer</scope><name>hasStatusValues</name></member>
+      <member refid="class_i_config_handler_1a8a92be059bfaca6c233419763865a5f4" prot="public" virt="virtual"><scope>CWebServer</scope><name>migrateConfig</name></member>
+      <member refid="class_c_web_server_1a1a01f3cb7de446aa89b032cb6f3eb28f" prot="public" virt="virtual"><scope>CWebServer</scope><name>readConfigFrom</name></member>
+      <member refid="class_c_web_server_1a34b921fb662cd2d27a069252ba0aba23" prot="public" virt="virtual"><scope>CWebServer</scope><name>receiveEvent</name></member>
+      <member refid="class_c_web_server_1ac44beb94d88e7849b2430118e2aaace6" prot="public" virt="non-virtual"><scope>CWebServer</scope><name>registerDefaults</name></member>
+      <member refid="class_c_web_server_1a793290c9f95c9168e2dbc5e447845f70" prot="public" virt="non-virtual"><scope>CWebServer</scope><name>registerFileAccess</name></member>
+      <member refid="class_c_web_server_1aef06b6bb6b9e03f9415a0fa3fa3b6d8f" prot="public" virt="virtual"><scope>CWebServer</scope><name>setNewAuthHeader</name></member>
+      <member refid="class_c_web_server_1a3fa02de3fee20c17f1bebba8cfae91be" prot="public" virt="non-virtual"><scope>CWebServer</scope><name>Status</name></member>
+      <member refid="class_c_web_server_1ac04fa8b98859dcabf8f8c4f30b97436c" prot="public" virt="non-virtual"><scope>CWebServer</scope><name>Version</name></member>
+      <member refid="class_c_web_server_1a53e90a7c5bc2dc0af7f48580d9ed6656" prot="public" virt="virtual"><scope>CWebServer</scope><name>writeConfigTo</name></member>
+      <member refid="class_c_web_server_1a4f3aa81c98dc6b58547044790e55a894" prot="public" virt="virtual"><scope>CWebServer</scope><name>writeStatusTo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

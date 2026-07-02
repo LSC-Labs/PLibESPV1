@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="struct_web_server_config" kind="struct" language="C++" prot="public">
+    <compoundname>WebServerConfig</compoundname>
+    <includes refid="_web_server_8h" local="no">WebServer.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_web_server_config_1a4c9bd47c39c874a2c6669f6f3a1e9f4a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool WebServerConfig::AutoRedirectMode</definition>
+        <argsstring></argsstring>
+        <name>AutoRedirectMode</name>
+        <qualifiedname>WebServerConfig::AutoRedirectMode</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+<para>true to redirect unknown/default traffic automatically. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="11" column="12" bodyfile="include/WebServer.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_web_server_config_1ae637de31d80067adefc1a0e66e363c36" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String WebServerConfig::UserName</definition>
+        <argsstring></argsstring>
+        <name>UserName</name>
+        <qualifiedname>WebServerConfig::UserName</qualifiedname>
+        <initializer>= &quot;admin&quot;</initializer>
+        <briefdescription>
+<para>HTTP basic auth user name; password is read from Appl. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="13" column="12" bodyfile="include/WebServer.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_web_server_config_1a3faabfe62166d70c06673a09ae6ceb78" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool WebServerConfig::authenticate</definition>
+        <argsstring>(AsyncWebServerRequest *pRequest, const char *pszReason, bool bLogFailed)</argsstring>
+        <name>authenticate</name>
+        <qualifiedname>WebServerConfig::authenticate</qualifiedname>
+        <param>
+          <type>AsyncWebServerRequest *</type>
+          <declname>pRequest</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszReason</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bLogFailed</declname>
+        </param>
+        <briefdescription>
+<para>Authenticate a request against configured user and application password. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pRequest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Request to authenticate. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pszReason</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional reason used for failed-auth logging. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bLogFailed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>true to write failed attempts to the application log. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the request has valid credentials. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebServer.h" line="21" column="10" bodyfile="include/WebServer.h" bodystart="21" bodyend="30"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Runtime configuration of the web server module. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/WebServer.h" line="9" column="1" bodyfile="include/WebServer.h" bodystart="9" bodyend="31"/>
+    <listofallmembers>
+      <member refid="struct_web_server_config_1a3faabfe62166d70c06673a09ae6ceb78" prot="public" virt="non-virtual"><scope>WebServerConfig</scope><name>authenticate</name></member>
+      <member refid="struct_web_server_config_1a4c9bd47c39c874a2c6669f6f3a1e9f4a" prot="public" virt="non-virtual"><scope>WebServerConfig</scope><name>AutoRedirectMode</name></member>
+      <member refid="struct_web_server_config_1ae637de31d80067adefc1a0e66e363c36" prot="public" virt="non-virtual"><scope>WebServerConfig</scope><name>UserName</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,2191 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_json_node" kind="class" language="C++" prot="public">
+    <compoundname>CJsonNode</compoundname>
+    <includes refid="_json_node_8h" local="no">JsonNode.h</includes>
+    <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551" prot="public" static="no" strong="no">
+        <type></type>
+        <name>ELEMENT_TYPE</name>
+        <qualifiedname>CJsonNode::ELEMENT_TYPE</qualifiedname>
+        <enumvalue id="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551a7c86c62479a5b76cfa5216d082cae754" prot="public">
+          <name>OBJECT</name>
+          <briefdescription>
+<para>Node contains named child nodes. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551a04e5e40f0113431ea847d6b4a2c0dfe3" prot="public">
+          <name>VALUE</name>
+          <briefdescription>
+<para>Node contains one scalar value. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551aa4f4d8b8b78fdd512dc4fdc636fbf7b4" prot="public">
+          <name>ARRAY</name>
+          <briefdescription>
+<para>Node contains ordered child nodes. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>JSON node kind used by the lightweight tree implementation. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="29" column="5" bodyfile="include/JsonNode.h" bodystart="29" bodyend="36"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_c_json_node_1a00d4d0be71f966e148b28b0826c18100" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CJsonNode::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <qualifiedname>CJsonNode::Name</qualifiedname>
+        <briefdescription>
+<para>Optional name/key of this node inside its parent. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="39" column="12" bodyfile="include/JsonNode.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_json_node_1a7efdf7c8be2e0d68220ccbca4bf58e64" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> * &gt;</type>
+        <definition>std::vector&lt;CJsonNode*&gt; CJsonNode::Elements</definition>
+        <argsstring></argsstring>
+        <name>Elements</name>
+        <qualifiedname>CJsonNode::Elements</qualifiedname>
+        <briefdescription>
+<para>Owned child nodes for objects and arrays. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="41" column="17" bodyfile="include/JsonNode.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_c_json_node_1ab75e0c976cf144463e693867c37bfaba" prot="protected" static="no" mutable="no">
+        <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> *</type>
+        <definition>JsonNode* CJsonNode::m_pParentNode</definition>
+        <argsstring></argsstring>
+        <name>m_pParentNode</name>
+        <qualifiedname>CJsonNode::m_pParentNode</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="44" column="20" bodyfile="include/JsonNode.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_json_node_1a9ece53b248161d5aeeec870a58b777d8" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CJsonNode::m_bWriteValueWithQuotes</definition>
+        <argsstring></argsstring>
+        <name>m_bWriteValueWithQuotes</name>
+        <qualifiedname>CJsonNode::m_bWriteValueWithQuotes</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="45" column="21" bodyfile="include/JsonNode.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_json_node_1a896e5fd871757248c7d6560c7cfe3b6a" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551" kindref="member">ELEMENT_TYPE</ref></type>
+        <definition>ELEMENT_TYPE CJsonNode::m_nObjectType</definition>
+        <argsstring></argsstring>
+        <name>m_nObjectType</name>
+        <qualifiedname>CJsonNode::m_nObjectType</qualifiedname>
+        <initializer>= <ref refid="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551a7c86c62479a5b76cfa5216d082cae754" kindref="member">ELEMENT_TYPE::OBJECT</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="46" column="21" bodyfile="include/JsonNode.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_json_node_1a5a2ae344580fe6d89f410e71f2c1dfe4" prot="protected" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CJsonNode::m_strSerializationCache</definition>
+        <argsstring></argsstring>
+        <name>m_strSerializationCache</name>
+        <qualifiedname>CJsonNode::m_strSerializationCache</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="50" column="13" bodyfile="include/JsonNode.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_json_node_1aefd848ceb482dba476ca0380507aff0b" prot="protected" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CJsonNode::m_strValue</definition>
+        <argsstring></argsstring>
+        <name>m_strValue</name>
+        <qualifiedname>CJsonNode::m_strValue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="51" column="13" bodyfile="include/JsonNode.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_c_json_node_1a44904ee58699290450ada5449458aa0d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CJsonNode::setParentNode</definition>
+        <argsstring>(JsonNode *pParentNode)</argsstring>
+        <name>setParentNode</name>
+        <qualifiedname>CJsonNode::setParentNode</qualifiedname>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> *</type>
+          <declname>pParentNode</declname>
+        </param>
+        <briefdescription>
+<para>Store the parent pointer used for tree navigation. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="54" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a0c3a19f7cbd2a43ab01f06024b5cbfc7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CJsonNode::parseValue</definition>
+        <argsstring>(const char *pszJsonData, String &amp;strValueData, bool &amp;bHasQuotes)</argsstring>
+        <name>parseValue</name>
+        <qualifiedname>CJsonNode::parseValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszJsonData</declname>
+        </param>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strValueData</declname>
+        </param>
+        <param>
+          <type>bool &amp;</type>
+          <declname>bHasQuotes</declname>
+        </param>
+        <briefdescription>
+<para>Parse one scalar JSON token from the input string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="56" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a204c78bee5188a0b5b0e8c2cdadb6c90" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CJsonNode::serializeNode</definition>
+        <argsstring>(String &amp;strResultString, int nIdentDeep=0)</argsstring>
+        <name>serializeNode</name>
+        <qualifiedname>CJsonNode::serializeNode</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strResultString</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nIdentDeep</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Recursively serialize this node into the provided string buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="58" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a91a201220d84b3aea8c122544c44f9a5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CJsonNode::writeIdentPrefixString</definition>
+        <argsstring>(String &amp;strResultString, int nIdentDeep=0)</argsstring>
+        <name>writeIdentPrefixString</name>
+        <qualifiedname>CJsonNode::writeIdentPrefixString</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strResultString</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nIdentDeep</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Append indentation spaces used by pretty JSON serialization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="60" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a1d6034d6885579ddfc7055c6f257aa99" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CJsonNode::setNodeValueType</definition>
+        <argsstring>(bool bWriteWithQuotes=true)</argsstring>
+        <name>setNodeValueType</name>
+        <qualifiedname>CJsonNode::setNodeValueType</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bWriteWithQuotes</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Convert this node into a scalar value and remember quote handling. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="62" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a6e33d8a2563ecc648d5390989d03213d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::getNameFromJsonPath</definition>
+        <argsstring>(const char *pszName, String &amp;strName)</argsstring>
+        <name>getNameFromJsonPath</name>
+        <qualifiedname>CJsonNode::getNameFromJsonPath</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strName</declname>
+        </param>
+        <briefdescription>
+<para>Split a dotted JSON path and return the final element name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="64" column="18"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_json_node_1a7f6b4abc5201a87d47f21dd0ecb42b59" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CJsonNode::CJsonNode</definition>
+        <argsstring>()</argsstring>
+        <name>CJsonNode</name>
+        <qualifiedname>CJsonNode::CJsonNode</qualifiedname>
+        <briefdescription>
+<para>Create an unnamed object node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="70" column="5" bodyfile="include/JsonNode.h" bodystart="70" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a1b0e5ce91355b58d7117d2f512bc4419" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CJsonNode::CJsonNode</definition>
+        <argsstring>(const char *pszName, const char *pszValue)</argsstring>
+        <name>CJsonNode</name>
+        <qualifiedname>CJsonNode::CJsonNode</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszValue</declname>
+        </param>
+        <briefdescription>
+<para>Create a named JSON value node initialized with text data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="72" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a6a43757a6bd32c5cd5c918359a0ea2d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CJsonNode::CJsonNode</definition>
+        <argsstring>(const char *pszName, ELEMENT_TYPE eType=ELEMENT_TYPE::OBJECT)</argsstring>
+        <name>CJsonNode</name>
+        <qualifiedname>CJsonNode::CJsonNode</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type><ref refid="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551" kindref="member">ELEMENT_TYPE</ref></type>
+          <declname>eType</declname>
+          <defval><ref refid="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551a7c86c62479a5b76cfa5216d082cae754" kindref="member">ELEMENT_TYPE::OBJECT</ref></defval>
+        </param>
+        <briefdescription>
+<para>Create a JSON node with an optional name and explicit node type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="74" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1aa71a1579e361d1e05ce521dfdfb271d2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual CJsonNode::~CJsonNode</definition>
+        <argsstring>()</argsstring>
+        <name>~CJsonNode</name>
+        <qualifiedname>CJsonNode::~CJsonNode</qualifiedname>
+        <briefdescription>
+<para>Delete all child nodes on destruction. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="77" column="13" bodyfile="include/JsonNode.h" bodystart="77" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a5326d5c5b611f76e9ad1987ecc629e4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CJsonNode::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <qualifiedname>CJsonNode::clear</qualifiedname>
+        <briefdescription>
+<para>Delete all child nodes and reset this node to an empty container. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="81" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a5e383788e0aeda7368902cbaca807ae5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool CJsonNode::exists</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>exists</name>
+        <qualifiedname>CJsonNode::exists</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+<para>Return true if a direct or dotted-path child exists. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="83" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a821929c31a31919a3ce03e0f9732692f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551" kindref="member">ELEMENT_TYPE</ref></type>
+        <definition>ELEMENT_TYPE CJsonNode::getType</definition>
+        <argsstring>()</argsstring>
+        <name>getType</name>
+        <qualifiedname>CJsonNode::getType</qualifiedname>
+        <briefdescription>
+<para>Return the stored node type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="85" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1aeac8264573c5f57bddb4575ca4a13ac6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> *</type>
+        <definition>JsonNode * CJsonNode::getParentNode</definition>
+        <argsstring>()</argsstring>
+        <name>getParentNode</name>
+        <qualifiedname>CJsonNode::getParentNode</qualifiedname>
+        <briefdescription>
+<para>Return the parent node, or nullptr for a root node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="87" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1aa52c3ef67995e24baef61abbbd67516e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::isJsonObject</definition>
+        <argsstring>()</argsstring>
+        <name>isJsonObject</name>
+        <qualifiedname>CJsonNode::isJsonObject</qualifiedname>
+        <briefdescription>
+<para>Return true when this node is a JSON object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="90" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a3f819b42ac871accdee1ee30020f565c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::isJsonObject</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>isJsonObject</name>
+        <qualifiedname>CJsonNode::isJsonObject</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+<para>Return true when the named child exists and is an object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="92" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ae38f8ea5ae31a04ac44cde6deb39dfe8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::isJsonArray</definition>
+        <argsstring>()</argsstring>
+        <name>isJsonArray</name>
+        <qualifiedname>CJsonNode::isJsonArray</qualifiedname>
+        <briefdescription>
+<para>Return true when this node is a JSON array. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="94" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a7baf76480392dced909eb70692de509e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::isJsonArray</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>isJsonArray</name>
+        <qualifiedname>CJsonNode::isJsonArray</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+<para>Return true when the named child exists and is an array. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="96" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a4ac0e2bf58d3952562aa7707e139bb10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::isJsonValue</definition>
+        <argsstring>()</argsstring>
+        <name>isJsonValue</name>
+        <qualifiedname>CJsonNode::isJsonValue</qualifiedname>
+        <briefdescription>
+<para>Return true when this node is a scalar JSON value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="98" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ad77e6e1310284a6a5aa277bfc7156907" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::isJsonValue</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>isJsonValue</name>
+        <qualifiedname>CJsonNode::isJsonValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+<para>Return true when the named child exists and is a scalar value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="100" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a11057a74d66ab925e0cd6587beb575f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::isNumberValue</definition>
+        <argsstring>()</argsstring>
+        <name>isNumberValue</name>
+        <qualifiedname>CJsonNode::isNumberValue</qualifiedname>
+        <briefdescription>
+<para>Return true if this node contains a simple integer/float literal. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="102" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1aec04cc5f15049a4c5aa24cc5974894f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::isNumberValue</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>isNumberValue</name>
+        <qualifiedname>CJsonNode::isNumberValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+<para>Return true if a named child contains a numeric literal. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="104" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a256cd8992228913d26a51d3497b4f0c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::isBooleanValue</definition>
+        <argsstring>()</argsstring>
+        <name>isBooleanValue</name>
+        <qualifiedname>CJsonNode::isBooleanValue</qualifiedname>
+        <briefdescription>
+<para>Return true if this node contains a recognized boolean literal. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="106" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ad1ad4298ea81b41e36339b1b8528ca9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::isBooleanValue</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>isBooleanValue</name>
+        <qualifiedname>CJsonNode::isBooleanValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+<para>Return true if a named child contains a recognized boolean literal. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="108" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ae2c49146bac494f46161cf40b759e536" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::find</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>find</name>
+        <qualifiedname>CJsonNode::find</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+<para>Find a child by name or dotted path. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="110" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a5fb685d8c710bfa0df860dbc5c7f17d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::createJsonPathToElement</definition>
+        <argsstring>(const char *pszElement)</argsstring>
+        <name>createJsonPathToElement</name>
+        <qualifiedname>CJsonNode::createJsonPathToElement</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszElement</declname>
+        </param>
+        <briefdescription>
+<para>Ensure that all object nodes before the final path element exist. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="112" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a91000767c73086c88d51dfc998051755" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::createElement</definition>
+        <argsstring>(const char *pszName=nullptr)</argsstring>
+        <name>createElement</name>
+        <qualifiedname>CJsonNode::createElement</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Create or replace a child value node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="114" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ad09cc1b1f2ed3e0e36f3fb3c22b26fce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::createObject</definition>
+        <argsstring>(const char *pszName=nullptr)</argsstring>
+        <name>createObject</name>
+        <qualifiedname>CJsonNode::createObject</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Create or replace a child object node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="116" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1abd687f063edfe4bce3498b8ffe44ee33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::createArray</definition>
+        <argsstring>(const char *pszName=nullptr)</argsstring>
+        <name>createArray</name>
+        <qualifiedname>CJsonNode::createArray</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Create or replace a child array node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="118" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1af7bd654cbb88684ed771db20c7325344" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> &amp;</type>
+        <definition>CJsonNode &amp; CJsonNode::operator[]</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>CJsonNode::operator[]</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+<para>Return an existing value element or create it on demand. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="120" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1af34373ad405bee8ed7972dc42b2ecfb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> &amp;</type>
+        <definition>CJsonNode &amp; CJsonNode::operator[]</definition>
+        <argsstring>(String &amp;strName)</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>CJsonNode::operator[]</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strName</declname>
+        </param>
+        <briefdescription>
+<para>String overload for value element access. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="122" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a7eb46804ff94fb1c93311e1f3a0649c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+        <definition>String &amp; CJsonNode::getValueAsString</definition>
+        <argsstring>(String &amp;strDefault)</argsstring>
+        <name>getValueAsString</name>
+        <qualifiedname>CJsonNode::getValueAsString</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strDefault</declname>
+        </param>
+        <briefdescription>
+<para>Return this node&apos;s value as String, or the supplied default. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="126" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ad23aa7f5668e1a5ba074671593499d68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+        <definition>String &amp; CJsonNode::getValueAsString</definition>
+        <argsstring>(const char *pszName, String &amp;strDefault)</argsstring>
+        <name>getValueAsString</name>
+        <qualifiedname>CJsonNode::getValueAsString</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strDefault</declname>
+        </param>
+        <briefdescription>
+<para>Return a named child value as String, or the supplied default. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="128" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1aec8c1da855e03568a40eceb90fe21aca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CJsonNode::getValue</definition>
+        <argsstring>()</argsstring>
+        <name>getValue</name>
+        <qualifiedname>CJsonNode::getValue</qualifiedname>
+        <briefdescription>
+<para>Return this node&apos;s raw value text. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="131" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a84a336088ea6eca50462996a5219f446" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CJsonNode::getValue</definition>
+        <argsstring>(const char *pszName, const char *pszDefault=nullptr)</argsstring>
+        <name>getValue</name>
+        <qualifiedname>CJsonNode::getValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszDefault</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Return a named child value or, for value nodes, this node&apos;s value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="133" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a661606d3998e59f6c32afc34067b1469" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CJsonNode::getValueAsCharPointer</definition>
+        <argsstring>(const char *pszDefault)</argsstring>
+        <name>getValueAsCharPointer</name>
+        <qualifiedname>CJsonNode::getValueAsCharPointer</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszDefault</declname>
+        </param>
+        <briefdescription>
+<para>Return this node&apos;s value as C string, or the supplied default. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="136" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a98e47c36491039a3e3a2e2417df5d768" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CJsonNode::getValueAsCharPointer</definition>
+        <argsstring>(const char *pszName, const char *pszDefault)</argsstring>
+        <name>getValueAsCharPointer</name>
+        <qualifiedname>CJsonNode::getValueAsCharPointer</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszDefault</declname>
+        </param>
+        <briefdescription>
+<para>Return a named child value as C string, or the supplied default. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="138" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1acd5f1717f1b9234fc6ef670f5a3a6d26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int CJsonNode::getValueAsInt</definition>
+        <argsstring>(const char *pszname, int nDefault=-1)</argsstring>
+        <name>getValueAsInt</name>
+        <qualifiedname>CJsonNode::getValueAsInt</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszname</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nDefault</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+<para>Parse a named child value as int. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="141" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1aa63fe247f41bb2b548fb8c2ef8c8c320" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int CJsonNode::getValueAsInt</definition>
+        <argsstring>(int nDefault=-1)</argsstring>
+        <name>getValueAsInt</name>
+        <qualifiedname>CJsonNode::getValueAsInt</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nDefault</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+<para>Parse this node&apos;s numeric value as int. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="143" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1afa8fc3bba2728ed7cdeb202c8f29d07e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int CJsonNode::getValueAsUnsignedInt</definition>
+        <argsstring>(const char *pszname, unsigned int nDefault=0)</argsstring>
+        <name>getValueAsUnsignedInt</name>
+        <qualifiedname>CJsonNode::getValueAsUnsignedInt</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszname</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>nDefault</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Parse a named child value as unsigned int. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="146" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a004287c25340b5b8a5c3a9c566cabd7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int CJsonNode::getValueAsUnsignedInt</definition>
+        <argsstring>(unsigned int nDefault=0)</argsstring>
+        <name>getValueAsUnsignedInt</name>
+        <qualifiedname>CJsonNode::getValueAsUnsignedInt</qualifiedname>
+        <param>
+          <type>unsigned int</type>
+          <declname>nDefault</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Parse this node&apos;s numeric value as unsigned int. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="148" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a59076e918e39adeae5ba45c6bdf74ab5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float CJsonNode::getValueAsFloat</definition>
+        <argsstring>(const char *pszname, float fDefault=-999.0)</argsstring>
+        <name>getValueAsFloat</name>
+        <qualifiedname>CJsonNode::getValueAsFloat</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszname</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>fDefault</declname>
+          <defval>-999.0</defval>
+        </param>
+        <briefdescription>
+<para>Parse a named child value as float. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="151" column="11"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1aba6803624452e794e8026befbc86c3b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float CJsonNode::getValueAsFloat</definition>
+        <argsstring>(float fDefault=-999.0)</argsstring>
+        <name>getValueAsFloat</name>
+        <qualifiedname>CJsonNode::getValueAsFloat</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>fDefault</declname>
+          <defval>-999.0</defval>
+        </param>
+        <briefdescription>
+<para>Parse this node&apos;s numeric value as float. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="153" column="11"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ad6983de490689c1aad2a0dfe42c033a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long CJsonNode::getValueAsLong</definition>
+        <argsstring>(const char *pszname, long lDefault=0)</argsstring>
+        <name>getValueAsLong</name>
+        <qualifiedname>CJsonNode::getValueAsLong</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszname</declname>
+        </param>
+        <param>
+          <type>long</type>
+          <declname>lDefault</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Parse a named child value as long. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="156" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a8e11f03d381be5d8fc255631ae272265" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long CJsonNode::getValueAsLong</definition>
+        <argsstring>(long lDefault=0)</argsstring>
+        <name>getValueAsLong</name>
+        <qualifiedname>CJsonNode::getValueAsLong</qualifiedname>
+        <param>
+          <type>long</type>
+          <declname>lDefault</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Parse this node&apos;s numeric value as long. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="158" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ac72518bb9dee9a6b10e8c8889247a0d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long CJsonNode::getValueAsUnsignedLong</definition>
+        <argsstring>(const char *pszname, unsigned long ulDefault=0)</argsstring>
+        <name>getValueAsUnsignedLong</name>
+        <qualifiedname>CJsonNode::getValueAsUnsignedLong</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszname</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulDefault</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Parse a named child value as unsigned long. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="161" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a70c88fa78c72fb1a04eba360bd2abffc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long CJsonNode::getValueAsUnsignedLong</definition>
+        <argsstring>(unsigned long ulDefault=0)</argsstring>
+        <name>getValueAsUnsignedLong</name>
+        <qualifiedname>CJsonNode::getValueAsUnsignedLong</qualifiedname>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulDefault</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Parse this node&apos;s numeric value as unsigned long. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="163" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a941d9020a19de432791928ee07a0c308" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::getValueAsBool</definition>
+        <argsstring>(const char *pszname, bool bDefault=false)</argsstring>
+        <name>getValueAsBool</name>
+        <qualifiedname>CJsonNode::getValueAsBool</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszname</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bDefault</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Parse a named child value as bool. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="166" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a5a156ac57cf4f56e68a8daa2da2f9d6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::getValueAsBool</definition>
+        <argsstring>(bool bDefault=false)</argsstring>
+        <name>getValueAsBool</name>
+        <qualifiedname>CJsonNode::getValueAsBool</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bDefault</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Parse this node&apos;s boolean value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="168" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a4609acdb957f292a6785181c27f9e030" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIf</definition>
+        <argsstring>(String &amp;strTarget)</argsstring>
+        <name>storeValueIf</name>
+        <qualifiedname>CJsonNode::storeValueIf</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strTarget</declname>
+        </param>
+        <briefdescription>
+<para>Copy this node&apos;s text into the target string when present. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="171" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a212dcf4e88833a01fac4420307ebff6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIfNot</definition>
+        <argsstring>(String &amp;strTarget, const char *pszIfNot)</argsstring>
+        <name>storeValueIfNot</name>
+        <qualifiedname>CJsonNode::storeValueIfNot</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strTarget</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszIfNot</declname>
+        </param>
+        <briefdescription>
+<para>Copy this node&apos;s text unless it matches the excluded marker. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="173" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1af36a6dcd1e3804f550106cac9f91c5e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIf</definition>
+        <argsstring>(const char *pszName, String &amp;strTarget)</argsstring>
+        <name>storeValueIf</name>
+        <qualifiedname>CJsonNode::storeValueIf</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strTarget</declname>
+        </param>
+        <briefdescription>
+<para>Copy a named child text value into the target string when present. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="175" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a22c46a505bd7e7c59c9f1631da50b103" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIfNot</definition>
+        <argsstring>(const char *pszName, String &amp;strTarget, const char *pszIfNot)</argsstring>
+        <name>storeValueIfNot</name>
+        <qualifiedname>CJsonNode::storeValueIfNot</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strTarget</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszIfNot</declname>
+        </param>
+        <briefdescription>
+<para>Copy a named child text value unless it matches the excluded marker. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="177" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a73f9d3edbd4032943111429285c3515b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIf</definition>
+        <argsstring>(int *pnTarget)</argsstring>
+        <name>storeValueIf</name>
+        <qualifiedname>CJsonNode::storeValueIf</qualifiedname>
+        <param>
+          <type>int *</type>
+          <declname>pnTarget</declname>
+        </param>
+        <briefdescription>
+<para>Store this value in the target if it is numeric. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="180" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ae6fdf1c331b2e297703bafc4b0fb92c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIf</definition>
+        <argsstring>(const char *pszName, int *pnTarget)</argsstring>
+        <name>storeValueIf</name>
+        <qualifiedname>CJsonNode::storeValueIf</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>pnTarget</declname>
+        </param>
+        <briefdescription>
+<para>Store a named child in the target if it is numeric. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="182" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a9bec6d590781ea3b2c0c16d5299f0bd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIf</definition>
+        <argsstring>(unsigned int *pnTarget)</argsstring>
+        <name>storeValueIf</name>
+        <qualifiedname>CJsonNode::storeValueIf</qualifiedname>
+        <param>
+          <type>unsigned int *</type>
+          <declname>pnTarget</declname>
+        </param>
+        <briefdescription>
+<para>Store this value in the target if it is numeric. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="185" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a8db2df2b4730e71c749413856685602f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIf</definition>
+        <argsstring>(const char *pszName, unsigned int *pnTarget)</argsstring>
+        <name>storeValueIf</name>
+        <qualifiedname>CJsonNode::storeValueIf</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>unsigned int *</type>
+          <declname>pnTarget</declname>
+        </param>
+        <briefdescription>
+<para>Store a named child in the target if it is numeric. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="187" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a315e9d10f10eab4c9da12c9ae1de383e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIf</definition>
+        <argsstring>(long *plTarget)</argsstring>
+        <name>storeValueIf</name>
+        <qualifiedname>CJsonNode::storeValueIf</qualifiedname>
+        <param>
+          <type>long *</type>
+          <declname>plTarget</declname>
+        </param>
+        <briefdescription>
+<para>Store this value in the target if it is numeric. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="190" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1aefe233c1b08de11649ac93f829d72769" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIf</definition>
+        <argsstring>(const char *pszName, long *plTarget)</argsstring>
+        <name>storeValueIf</name>
+        <qualifiedname>CJsonNode::storeValueIf</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>long *</type>
+          <declname>plTarget</declname>
+        </param>
+        <briefdescription>
+<para>Store a named child in the target if it is numeric. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="192" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1acaa032dc57c139866d3acda521490fb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIf</definition>
+        <argsstring>(bool *pbTarget)</argsstring>
+        <name>storeValueIf</name>
+        <qualifiedname>CJsonNode::storeValueIf</qualifiedname>
+        <param>
+          <type>bool *</type>
+          <declname>pbTarget</declname>
+        </param>
+        <briefdescription>
+<para>Store this value in the target if it is boolean. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="195" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a8119540e796e54b4d3aeaabad05c5418" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIf</definition>
+        <argsstring>(const char *pszName, bool *pbTarget)</argsstring>
+        <name>storeValueIf</name>
+        <qualifiedname>CJsonNode::storeValueIf</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>bool *</type>
+          <declname>pbTarget</declname>
+        </param>
+        <briefdescription>
+<para>Store a named child in the target if it is boolean. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="197" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ad2cee4a7b2e7422cd9cae250965e9a18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIf</definition>
+        <argsstring>(float *fTarget)</argsstring>
+        <name>storeValueIf</name>
+        <qualifiedname>CJsonNode::storeValueIf</qualifiedname>
+        <param>
+          <type>float *</type>
+          <declname>fTarget</declname>
+        </param>
+        <briefdescription>
+<para>Store this value in the target if it is numeric. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="200" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a683ff2103e8d3b96f8bd0f9fd8dc0e50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CJsonNode::storeValueIf</definition>
+        <argsstring>(const char *pszName, float *pfTarget)</argsstring>
+        <name>storeValueIf</name>
+        <qualifiedname>CJsonNode::storeValueIf</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>float *</type>
+          <declname>pfTarget</declname>
+        </param>
+        <briefdescription>
+<para>Store a named child in the target if it is numeric. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="202" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a9845c91f2fa89c44400ddf5bb4f8b146" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::getObject</definition>
+        <argsstring>(const char *pszName, bool bCreateIfNotExist=false)</argsstring>
+        <name>getObject</name>
+        <qualifiedname>CJsonNode::getObject</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bCreateIfNotExist</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Return a named object node, optionally creating/converting it. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="206" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1aa7e4175abb6013197f52c0103f2b77bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::getArray</definition>
+        <argsstring>(const char *pszName, bool bCreateIfNotExist=false)</argsstring>
+        <name>getArray</name>
+        <qualifiedname>CJsonNode::getArray</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bCreateIfNotExist</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Return a named array node, optionally creating/converting it. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="208" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a908e80d7dc4f739832b00922ab9cbd79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::getElement</definition>
+        <argsstring>(const char *pszName, bool bCreateIfNotExist=false)</argsstring>
+        <name>getElement</name>
+        <qualifiedname>CJsonNode::getElement</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bCreateIfNotExist</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Return a named scalar value node, optionally creating/converting it. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="210" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a465d6b124b7005221c0a8bc2c40c082e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CJsonNode::parse</definition>
+        <argsstring>(const char *pszJsonData)</argsstring>
+        <name>parse</name>
+        <qualifiedname>CJsonNode::parse</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszJsonData</declname>
+        </param>
+        <briefdescription>
+<para>Parse JSON text into this node tree. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="213" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1acfd4a8af2b1c894ee2a491b1476e2cac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CJsonNode::remove</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>remove</name>
+        <qualifiedname>CJsonNode::remove</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+<para>Remove and delete the direct child with the given name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="216" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a9e41c7af941d920760c263d463f19268" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(const char *pszValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszValue</declname>
+        </param>
+        <briefdescription>
+<para>Store a quoted string value in this node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="219" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a6fb8b3dd62b0e8c91f72062d7887d4e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(String &amp;strValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strValue</declname>
+        </param>
+        <briefdescription>
+<para>Store a quoted String value in this node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="221" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a95fc2762b37568a7e95ace53d11e4055" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(bool bValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bValue</declname>
+        </param>
+        <briefdescription>
+<para>Store an unquoted boolean value in this node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="223" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a4a5137b2c17fd8ac2a05566b66a365ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(int nValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nValue</declname>
+        </param>
+        <briefdescription>
+<para>Store an unquoted signed integer value in this node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="225" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a3dec66dd326b567ef51c2e51818a3cf4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(unsigned int unValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>unsigned int</type>
+          <declname>unValue</declname>
+        </param>
+        <briefdescription>
+<para>Store an unquoted unsigned integer value in this node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="227" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a86f7784ad22c2b608b6da7d679f10d38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(float fValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>fValue</declname>
+        </param>
+        <briefdescription>
+<para>Store an unquoted floating point value in this node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="229" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a3066f1959344b16018c7970393e6815d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(long lValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>long</type>
+          <declname>lValue</declname>
+        </param>
+        <briefdescription>
+<para>Store an unquoted signed long value in this node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="231" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a2104f8b74df99ca33bbdeb9f8d3ff181" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(unsigned long ulValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulValue</declname>
+        </param>
+        <briefdescription>
+<para>Store an unquoted unsigned long value in this node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="233" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a356d558926158f481d3e771f4d5b0bb4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::operator=</definition>
+        <argsstring>(const char *pszValue)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>CJsonNode::operator=</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="235" column="15" bodyfile="include/JsonNode.h" bodystart="235" bodyend="235"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ab3fd693f1d525f72b181dc7db2ea7d68" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::operator=</definition>
+        <argsstring>(String &amp;strValue)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>CJsonNode::operator=</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="236" column="15" bodyfile="include/JsonNode.h" bodystart="236" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ac2fe2a18f39acc8e4b7541a28347d7d0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::operator=</definition>
+        <argsstring>(bool bValue)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>CJsonNode::operator=</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>bValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="237" column="15" bodyfile="include/JsonNode.h" bodystart="237" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ac75e506ef711c569d27b390ad8971a3c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::operator=</definition>
+        <argsstring>(int nValue)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>CJsonNode::operator=</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="238" column="15" bodyfile="include/JsonNode.h" bodystart="238" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a4dbdc94d54fac32ee97ae34237621bc6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::operator=</definition>
+        <argsstring>(unsigned int unValue)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>CJsonNode::operator=</qualifiedname>
+        <param>
+          <type>unsigned int</type>
+          <declname>unValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="239" column="15" bodyfile="include/JsonNode.h" bodystart="239" bodyend="239"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a53c9af094009bd6a0ce43ca34e272f06" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::operator=</definition>
+        <argsstring>(float fValue)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>CJsonNode::operator=</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>fValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="240" column="15" bodyfile="include/JsonNode.h" bodystart="240" bodyend="240"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a7b67665e6f6e4c454e27e7d37a7c536a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::operator=</definition>
+        <argsstring>(long lValue)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>CJsonNode::operator=</qualifiedname>
+        <param>
+          <type>long</type>
+          <declname>lValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="241" column="15" bodyfile="include/JsonNode.h" bodystart="241" bodyend="241"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a3c922f2013929c8e596df5465ec24d9d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::operator=</definition>
+        <argsstring>(unsigned long ulValue)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>CJsonNode::operator=</qualifiedname>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="242" column="15" bodyfile="include/JsonNode.h" bodystart="242" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a2a0549b745c24ab940af1016c5d5cc73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(const char *pszName, const char *pszValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create a named string value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="245" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a4a373d88ac6e6ad81fc6188bd19bff27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(const char *pszName, String &amp;strValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref> &amp;</type>
+          <declname>strValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create a named String value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="247" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a6d23e04609e4a2cf455f455f66bad3ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(const char *pszName, bool bValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create a named boolean value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="249" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1aff6ba5d73223137462f41345f455a72c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(const char *pszName, int nValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create a named signed integer value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="251" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1adb45a0261fce42765473da9b99ca514f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(const char *pszName, float fValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>fValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create a named floating point value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="253" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1afb739a4caa48233d9ed5fb646aa5269e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(const char *pszName, long lValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>long</type>
+          <declname>lValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create a named signed long value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="255" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ab0b800b3d62c384cf95f6488eeb61126" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_c_json_node" kindref="compound">CJsonNode</ref> *</type>
+        <definition>CJsonNode * CJsonNode::setValue</definition>
+        <argsstring>(const char *pszName, unsigned long ulValue)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>CJsonNode::setValue</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>ulValue</declname>
+        </param>
+        <briefdescription>
+<para>Set or create a named unsigned long value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="257" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a7d7620075d30773852b97dfac6897b15" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CJsonNode::dump</definition>
+        <argsstring>(const char *pszPrefix=&quot;&quot;)</argsstring>
+        <name>dump</name>
+        <qualifiedname>CJsonNode::dump</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszPrefix</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Print this node tree to Serial for diagnostics. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="260" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1a9eee801226d4c041c7c77028ff898b05" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> *</type>
+        <definition>JsonNode * CJsonNode::createPayloadStructure</definition>
+        <argsstring>(const char *pszCommand, const char *pszDataType, const char *pszPayload=nullptr)</argsstring>
+        <name>createPayloadStructure</name>
+        <qualifiedname>CJsonNode::createPayloadStructure</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszCommand</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszDataType</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszPayload</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Create the common command/data/payload message structure. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The payload object node so callers can fill it directly. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="266" column="15" bodyfile="include/JsonNode.h" bodystart="266" bodyend="274"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ade2b58f0705bc91ed18d1f8312aa54ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CJsonNode::getAsJsonText</definition>
+        <argsstring>()</argsstring>
+        <name>getAsJsonText</name>
+        <qualifiedname>CJsonNode::getAsJsonText</qualifiedname>
+        <briefdescription>
+<para>Serialize this node tree as compact JSON. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="276" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_json_node_1ac14dae834d4d67782d48eac2ba13b90b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CJsonNode::getAsJsonTextPretty</definition>
+        <argsstring>()</argsstring>
+        <name>getAsJsonTextPretty</name>
+        <qualifiedname>CJsonNode::getAsJsonTextPretty</qualifiedname>
+        <briefdescription>
+<para>Serialize this node tree as pretty-printed JSON. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/JsonNode.h" line="278" column="16"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/JsonNode.h" line="26" column="1" bodyfile="include/JsonNode.h" bodystart="26" bodyend="279"/>
+    <listofallmembers>
+      <member refid="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551aa4f4d8b8b78fdd512dc4fdc636fbf7b4" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>ARRAY</name></member>
+      <member refid="class_c_json_node_1a7f6b4abc5201a87d47f21dd0ecb42b59" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>CJsonNode</name></member>
+      <member refid="class_c_json_node_1a1b0e5ce91355b58d7117d2f512bc4419" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>CJsonNode</name></member>
+      <member refid="class_c_json_node_1a6a43757a6bd32c5cd5c918359a0ea2d4" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>CJsonNode</name></member>
+      <member refid="class_c_json_node_1a5326d5c5b611f76e9ad1987ecc629e4f" prot="public" virt="virtual"><scope>CJsonNode</scope><name>clear</name></member>
+      <member refid="class_c_json_node_1abd687f063edfe4bce3498b8ffe44ee33" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>createArray</name></member>
+      <member refid="class_c_json_node_1a91000767c73086c88d51dfc998051755" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>createElement</name></member>
+      <member refid="class_c_json_node_1a5fb685d8c710bfa0df860dbc5c7f17d1" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>createJsonPathToElement</name></member>
+      <member refid="class_c_json_node_1ad09cc1b1f2ed3e0e36f3fb3c22b26fce" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>createObject</name></member>
+      <member refid="class_c_json_node_1a9eee801226d4c041c7c77028ff898b05" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>createPayloadStructure</name></member>
+      <member refid="class_c_json_node_1a7d7620075d30773852b97dfac6897b15" prot="public" virt="virtual"><scope>CJsonNode</scope><name>dump</name></member>
+      <member refid="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>ELEMENT_TYPE</name></member>
+      <member refid="class_c_json_node_1a7efdf7c8be2e0d68220ccbca4bf58e64" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>Elements</name></member>
+      <member refid="class_c_json_node_1a5e383788e0aeda7368902cbaca807ae5" prot="public" virt="virtual"><scope>CJsonNode</scope><name>exists</name></member>
+      <member refid="class_c_json_node_1ae2c49146bac494f46161cf40b759e536" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>find</name></member>
+      <member refid="class_c_json_node_1aa7e4175abb6013197f52c0103f2b77bf" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getArray</name></member>
+      <member refid="class_c_json_node_1ade2b58f0705bc91ed18d1f8312aa54ad" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getAsJsonText</name></member>
+      <member refid="class_c_json_node_1ac14dae834d4d67782d48eac2ba13b90b" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getAsJsonTextPretty</name></member>
+      <member refid="class_c_json_node_1a908e80d7dc4f739832b00922ab9cbd79" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getElement</name></member>
+      <member refid="class_c_json_node_1a6e33d8a2563ecc648d5390989d03213d" prot="protected" virt="non-virtual"><scope>CJsonNode</scope><name>getNameFromJsonPath</name></member>
+      <member refid="class_c_json_node_1a9845c91f2fa89c44400ddf5bb4f8b146" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getObject</name></member>
+      <member refid="class_c_json_node_1aeac8264573c5f57bddb4575ca4a13ac6" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getParentNode</name></member>
+      <member refid="class_c_json_node_1a821929c31a31919a3ce03e0f9732692f" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getType</name></member>
+      <member refid="class_c_json_node_1aec8c1da855e03568a40eceb90fe21aca" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValue</name></member>
+      <member refid="class_c_json_node_1a84a336088ea6eca50462996a5219f446" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValue</name></member>
+      <member refid="class_c_json_node_1a941d9020a19de432791928ee07a0c308" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsBool</name></member>
+      <member refid="class_c_json_node_1a5a156ac57cf4f56e68a8daa2da2f9d6a" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsBool</name></member>
+      <member refid="class_c_json_node_1a661606d3998e59f6c32afc34067b1469" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsCharPointer</name></member>
+      <member refid="class_c_json_node_1a98e47c36491039a3e3a2e2417df5d768" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsCharPointer</name></member>
+      <member refid="class_c_json_node_1a59076e918e39adeae5ba45c6bdf74ab5" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsFloat</name></member>
+      <member refid="class_c_json_node_1aba6803624452e794e8026befbc86c3b8" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsFloat</name></member>
+      <member refid="class_c_json_node_1acd5f1717f1b9234fc6ef670f5a3a6d26" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsInt</name></member>
+      <member refid="class_c_json_node_1aa63fe247f41bb2b548fb8c2ef8c8c320" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsInt</name></member>
+      <member refid="class_c_json_node_1ad6983de490689c1aad2a0dfe42c033a9" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsLong</name></member>
+      <member refid="class_c_json_node_1a8e11f03d381be5d8fc255631ae272265" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsLong</name></member>
+      <member refid="class_c_json_node_1a7eb46804ff94fb1c93311e1f3a0649c0" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsString</name></member>
+      <member refid="class_c_json_node_1ad23aa7f5668e1a5ba074671593499d68" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsString</name></member>
+      <member refid="class_c_json_node_1afa8fc3bba2728ed7cdeb202c8f29d07e" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsUnsignedInt</name></member>
+      <member refid="class_c_json_node_1a004287c25340b5b8a5c3a9c566cabd7f" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsUnsignedInt</name></member>
+      <member refid="class_c_json_node_1ac72518bb9dee9a6b10e8c8889247a0d9" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsUnsignedLong</name></member>
+      <member refid="class_c_json_node_1a70c88fa78c72fb1a04eba360bd2abffc" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>getValueAsUnsignedLong</name></member>
+      <member refid="class_c_json_node_1a256cd8992228913d26a51d3497b4f0c7" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>isBooleanValue</name></member>
+      <member refid="class_c_json_node_1ad1ad4298ea81b41e36339b1b8528ca9c" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>isBooleanValue</name></member>
+      <member refid="class_c_json_node_1ae38f8ea5ae31a04ac44cde6deb39dfe8" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>isJsonArray</name></member>
+      <member refid="class_c_json_node_1a7baf76480392dced909eb70692de509e" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>isJsonArray</name></member>
+      <member refid="class_c_json_node_1aa52c3ef67995e24baef61abbbd67516e" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>isJsonObject</name></member>
+      <member refid="class_c_json_node_1a3f819b42ac871accdee1ee30020f565c" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>isJsonObject</name></member>
+      <member refid="class_c_json_node_1a4ac0e2bf58d3952562aa7707e139bb10" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>isJsonValue</name></member>
+      <member refid="class_c_json_node_1ad77e6e1310284a6a5aa277bfc7156907" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>isJsonValue</name></member>
+      <member refid="class_c_json_node_1a11057a74d66ab925e0cd6587beb575f0" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>isNumberValue</name></member>
+      <member refid="class_c_json_node_1aec04cc5f15049a4c5aa24cc5974894f1" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>isNumberValue</name></member>
+      <member refid="class_c_json_node_1a9ece53b248161d5aeeec870a58b777d8" prot="protected" virt="non-virtual"><scope>CJsonNode</scope><name>m_bWriteValueWithQuotes</name></member>
+      <member refid="class_c_json_node_1a896e5fd871757248c7d6560c7cfe3b6a" prot="protected" virt="non-virtual"><scope>CJsonNode</scope><name>m_nObjectType</name></member>
+      <member refid="class_c_json_node_1ab75e0c976cf144463e693867c37bfaba" prot="protected" virt="non-virtual"><scope>CJsonNode</scope><name>m_pParentNode</name></member>
+      <member refid="class_c_json_node_1a5a2ae344580fe6d89f410e71f2c1dfe4" prot="protected" virt="non-virtual"><scope>CJsonNode</scope><name>m_strSerializationCache</name></member>
+      <member refid="class_c_json_node_1aefd848ceb482dba476ca0380507aff0b" prot="protected" virt="non-virtual"><scope>CJsonNode</scope><name>m_strValue</name></member>
+      <member refid="class_c_json_node_1a00d4d0be71f966e148b28b0826c18100" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>Name</name></member>
+      <member refid="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551a7c86c62479a5b76cfa5216d082cae754" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>OBJECT</name></member>
+      <member refid="class_c_json_node_1a356d558926158f481d3e771f4d5b0bb4" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>operator=</name></member>
+      <member refid="class_c_json_node_1ab3fd693f1d525f72b181dc7db2ea7d68" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>operator=</name></member>
+      <member refid="class_c_json_node_1ac2fe2a18f39acc8e4b7541a28347d7d0" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>operator=</name></member>
+      <member refid="class_c_json_node_1ac75e506ef711c569d27b390ad8971a3c" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>operator=</name></member>
+      <member refid="class_c_json_node_1a4dbdc94d54fac32ee97ae34237621bc6" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>operator=</name></member>
+      <member refid="class_c_json_node_1a53c9af094009bd6a0ce43ca34e272f06" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>operator=</name></member>
+      <member refid="class_c_json_node_1a7b67665e6f6e4c454e27e7d37a7c536a" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>operator=</name></member>
+      <member refid="class_c_json_node_1a3c922f2013929c8e596df5465ec24d9d" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>operator=</name></member>
+      <member refid="class_c_json_node_1af7bd654cbb88684ed771db20c7325344" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>operator[]</name></member>
+      <member refid="class_c_json_node_1af34373ad405bee8ed7972dc42b2ecfb7" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>operator[]</name></member>
+      <member refid="class_c_json_node_1a465d6b124b7005221c0a8bc2c40c082e" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>parse</name></member>
+      <member refid="class_c_json_node_1a0c3a19f7cbd2a43ab01f06024b5cbfc7" prot="protected" virt="non-virtual"><scope>CJsonNode</scope><name>parseValue</name></member>
+      <member refid="class_c_json_node_1acfd4a8af2b1c894ee2a491b1476e2cac" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>remove</name></member>
+      <member refid="class_c_json_node_1a204c78bee5188a0b5b0e8c2cdadb6c90" prot="protected" virt="non-virtual"><scope>CJsonNode</scope><name>serializeNode</name></member>
+      <member refid="class_c_json_node_1a1d6034d6885579ddfc7055c6f257aa99" prot="protected" virt="non-virtual"><scope>CJsonNode</scope><name>setNodeValueType</name></member>
+      <member refid="class_c_json_node_1a44904ee58699290450ada5449458aa0d" prot="protected" virt="non-virtual"><scope>CJsonNode</scope><name>setParentNode</name></member>
+      <member refid="class_c_json_node_1a9e41c7af941d920760c263d463f19268" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1a6fb8b3dd62b0e8c91f72062d7887d4e8" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1a95fc2762b37568a7e95ace53d11e4055" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1a4a5137b2c17fd8ac2a05566b66a365ff" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1a3dec66dd326b567ef51c2e51818a3cf4" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1a86f7784ad22c2b608b6da7d679f10d38" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1a3066f1959344b16018c7970393e6815d" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1a2104f8b74df99ca33bbdeb9f8d3ff181" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1a2a0549b745c24ab940af1016c5d5cc73" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1a4a373d88ac6e6ad81fc6188bd19bff27" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1a6d23e04609e4a2cf455f455f66bad3ab" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1aff6ba5d73223137462f41345f455a72c" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1adb45a0261fce42765473da9b99ca514f" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1afb739a4caa48233d9ed5fb646aa5269e" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1ab0b800b3d62c384cf95f6488eeb61126" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>setValue</name></member>
+      <member refid="class_c_json_node_1a4609acdb957f292a6785181c27f9e030" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIf</name></member>
+      <member refid="class_c_json_node_1af36a6dcd1e3804f550106cac9f91c5e1" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIf</name></member>
+      <member refid="class_c_json_node_1a73f9d3edbd4032943111429285c3515b" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIf</name></member>
+      <member refid="class_c_json_node_1ae6fdf1c331b2e297703bafc4b0fb92c7" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIf</name></member>
+      <member refid="class_c_json_node_1a9bec6d590781ea3b2c0c16d5299f0bd4" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIf</name></member>
+      <member refid="class_c_json_node_1a8db2df2b4730e71c749413856685602f" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIf</name></member>
+      <member refid="class_c_json_node_1a315e9d10f10eab4c9da12c9ae1de383e" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIf</name></member>
+      <member refid="class_c_json_node_1aefe233c1b08de11649ac93f829d72769" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIf</name></member>
+      <member refid="class_c_json_node_1acaa032dc57c139866d3acda521490fb7" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIf</name></member>
+      <member refid="class_c_json_node_1a8119540e796e54b4d3aeaabad05c5418" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIf</name></member>
+      <member refid="class_c_json_node_1ad2cee4a7b2e7422cd9cae250965e9a18" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIf</name></member>
+      <member refid="class_c_json_node_1a683ff2103e8d3b96f8bd0f9fd8dc0e50" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIf</name></member>
+      <member refid="class_c_json_node_1a212dcf4e88833a01fac4420307ebff6b" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIfNot</name></member>
+      <member refid="class_c_json_node_1a22c46a505bd7e7c59c9f1631da50b103" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>storeValueIfNot</name></member>
+      <member refid="class_c_json_node_1a2ceefa2d11a3859d03e5ba94fb82d551a04e5e40f0113431ea847d6b4a2c0dfe3" prot="public" virt="non-virtual"><scope>CJsonNode</scope><name>VALUE</name></member>
+      <member refid="class_c_json_node_1a91a201220d84b3aea8c122544c44f9a5" prot="protected" virt="non-virtual"><scope>CJsonNode</scope><name>writeIdentPrefixString</name></member>
+      <member refid="class_c_json_node_1aa71a1579e361d1e05ce521dfdfb271d2" prot="public" virt="virtual"><scope>CJsonNode</scope><name>~CJsonNode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

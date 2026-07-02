@@ -9,8 +9,10 @@
 namespace LSC {
 
     /**
-     * @brief check if the chararcter is a "white" character
-     * Same as std::isspace() but does not throw an exception on "Umlaute" like "ä"
+     * @brief Checks if a character is one of the supported whitespace chars.
+     *
+     * This intentionally avoids std::isspace() to prevent locale/encoding
+     * surprises on embedded targets.
      */
     bool isWhite(const char c) {
         return(
@@ -23,6 +25,12 @@ namespace LSC {
             );
     }
 
+    /**
+     * @brief Checks whether a string is a simple decimal number.
+     *
+     * A leading sign is allowed. At least one digit is required. At most one
+     * decimal point is allowed.
+     */
     bool isNumber(const char *pszString) {
         bool bResult = false;
         bool bHasDigit = false;
@@ -44,22 +52,22 @@ namespace LSC {
         return (bResult && bHasDigit && nDotCounter < 2); // Must have at least one digit and only 0 or 1 dot inside.
     }
     /**
-     * @brief skipWhite skips the white characters.
-     *As ther could be also special chars like "Umlaute" in german,
-    * isspace() cannot handle this chars, so check step by step...
-    * </summary>
-    * @param psz pointer to the data to be skipped...
-    * @returns the new pointer to the first non white character (or end of string)
-    * */
+     * @brief Skips leading whitespace characters.
+     * @param psz Pointer to a null-terminated string, or nullptr.
+     * @return Pointer to the first non-whitespace character, end of string, or
+     *         nullptr when psz is nullptr.
+     */
     const char* skipWhite(const char * psz) {
         while (psz && isWhite(*psz)) psz++;
         return(psz);
     }
 
     /**
-     * @brief a case insensitive string compare.
-     * As it is not part of the std c library - this implementation can help.
-     * Ensure, the pointers are valid
+     * @brief Case-insensitive string comparison.
+     *
+     * The caller must pass valid null-terminated strings.
+     *
+     * @return 0 when equal, otherwise the character difference.
      * @see : https://doxygen.reactos.org/d3/d11/stricmp_8c_source.html
      */
     int stricmp(const char *psz1, const char *psz2)
@@ -74,6 +82,10 @@ namespace LSC {
         return toupper(*(unsigned const char *)psz1) - toupper(*(unsigned const char *)(psz2));
     }
 
+    /**
+     * @brief Finds the first index of a character in a string.
+     * @return Zero-based index, or -1 when not found or psz is nullptr.
+     */
     int indexOf(const char *psz, const char cToken) {
         int nResult = -1;
         if(psz) {
@@ -87,6 +99,10 @@ namespace LSC {
         return(nResult);
     }
 
+    /**
+     * @brief Finds the last index of a character in a string.
+     * @return Zero-based index, or -1 when not found or psz is nullptr.
+     */
     int lastIndexOf(const char *psz, const char cToken) {
         int nResult = -1;
         if(psz) {
@@ -128,9 +144,16 @@ namespace LSC {
         return(pszBuffer);
     }
 
+    /**
+     * @brief Converts Celsius to Fahrenheit.
+     */
     float getFarenheitFromCelsius(float fTemp) {
         return((fTemp * 1.8) + 32);
     }
+
+    /**
+     * @brief Converts Fahrenheit to Celsius.
+     */
     float getCelsiusFromFarenheit(float fTemp) {
         return((fTemp - 32) / 1.8);
     }
@@ -156,14 +179,14 @@ namespace LSC {
     }
 */
     /**
-     * @brief parse a string with delimited values into a byte array.
-     * @param pBytes    Pointer to the byte Array to be filled in min length of nMaxBytes
-     * @param pszInput  The string to be parsed like "xx:xx:xx:xx"
-     * @param cSep      The separator like ':'
-     * @param nMaxBytes Max bytes available in pBytes Array
-     * @param nBase     Base to convert, like 10 - decimal
-     * @return 
-     *  */
+     * @brief Parses delimited numeric tokens into a byte array.
+     * @param pBytes Target byte array.
+     * @param pszInput Input string such as "127.0.0.1" or "AA:BB".
+     * @param cSep Token separator.
+     * @param nMaxBytes Maximum target byte count.
+     * @param nBase Numeric base for strtol().
+     * @return Number of bytes written.
+     */
     int ICACHE_FLASH_ATTR parseBytesToArray(uint8_t *pBytes, const char * pszInput, char cSep, int nMaxBytes, int nBase)
     {
         // set target to zero...
@@ -192,11 +215,10 @@ namespace LSC {
     }
 
     /**
-     * @brief check if it is a "false" value string
-     * - "0", "false", "-", "off", "n", "no"
-     * @param pszData data to be checked
-     * @returns true, if one of the valid false values are matiching the data (case insensitive) 
-     * */
+     * @brief Checks whether a string explicitly represents false.
+     * @param pszData Data to check. nullptr is treated as false.
+     * @return true for "0", "false", "-", "off", "n" or "no".
+     */
     bool ICACHE_FLASH_ATTR isFalseValue(const char* pszData) {
         bool bResult = false;
         if(!pszData) bResult = true;
@@ -209,18 +231,16 @@ namespace LSC {
         return(bResult);
     }
     /** 
-     * @brief Check if the value contains a true expression
-     *  - "1", "true, "+", "on", "y" or "yes"
-     * In default the data will be checked explicit. If explicit is false,
-     * The data will be checked against isFalseValue().
-     * 
-     * --> Explicit mode    : Values must match
-     * --> Not Explict mode : Returns true, if it is NOT false ==> "otto" is not false ==> result is true,
+     * @brief Checks whether a string represents true.
      *
-     * @param strData "1", "true", "+", "on", "y" or "yes" will result in a true value (if bExplicit == true)
-     * @param bExplicit false == will use !isFalseValue(), all values, not false will become true (!)
-     * @return true when the check results in a true value. If pszData is a nullptr, the result is false.
-     * */
+     * Explicit mode accepts only "1", "true", "+", "on", "y" and "yes".
+     * Non-explicit mode returns true for every value that is not an explicit
+     * false value.
+     *
+     * @param pszData Value to check.
+     * @param bExplicit true for strict true matching, false for !isFalseValue().
+     * @return true when the value should be interpreted as true.
+     */
     bool ICACHE_FLASH_ATTR isTrueValue(const char* pszData, bool bExplicit) {
         bool bResult = false;
         if(!bExplicit) bResult = !isFalseValue(pszData);

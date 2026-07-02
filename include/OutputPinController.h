@@ -30,20 +30,29 @@ class COutputPinController : public CPinController {
         int m_nState = -1;                  // Current State (on/off/undefined: -1)
 
     public:
+        /// @brief Create an unconfigured output pin controller.
         COutputPinController();
+        /// @brief Create and configure an output pin controller.
         COutputPinController(int nSwitchPin, bool bLowLevelIsOn = false);
+        /// @brief Configure the output pin and active-level logic.
         virtual void setup(int SwitchPin, bool bLowLevelIsOn = false);
+        /// @brief Switch the controlled output off.
         virtual void switchOff();
+        /// @brief Switch the controlled output on.
         virtual void switchOn();
+        /// @brief Toggle the output and return the new on/off state.
         virtual bool toggleSwitch();
+        /// @brief Return true if the output is currently on.
         virtual bool isOn();
 
+        /// @brief Set the active PWM/output level in percent.
         virtual void setOutputLevelInPercent(int nLevelInPercent = 100);
+        /// @brief Return the configured active PWM/output level in percent.
         virtual int  getOutputLevelInPercent();
 
     protected:
+        /// @brief Convert a percent value to the hardware PWM range.
         virtual int getPinLevelValueForPWM(int nLevelInPercent);
 };
-
 
 

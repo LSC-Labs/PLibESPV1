@@ -8,28 +8,45 @@
 #include <DevelopmentHelper.h>
 #include <FunctionalInterrupt.h>
 
+/**
+ * @brief Creates an unconfigured button.
+ *
+ * Call setup() before reading the button or starting interrupt monitoring.
+ */
 CButton::CButton() {}
+
+/**
+ * @brief Stops interrupt monitoring when the button object is destroyed.
+ */
 CButton::~CButton() {
     stopMonitoring();
 }
-/// @brief constructor, is using setup()
-/// @param nPin Pin of the button
-/// @param bLowLevelIsOn Default is true => the button is activ on low signal
-/// @param bUsePullUpDown Default is true => use a pull up / down, depending in bLowLevelIsOn
+
+/**
+ * @brief Creates and configures a button input.
+ * @param nPin GPIO pin connected to the button.
+ * @param bLowLevelIsOn true when LOW means pressed.
+ * @param bUsePullUpDown true to enable the matching internal pull resistor.
+ */
 CButton::CButton(int nPin, bool bLowLevelIsOn,bool bUsePullUpDown) {
     // Initialize the button immediatly...
     setup(nPin,bLowLevelIsOn,bUsePullUpDown);
 };
 
-/// @brief set the mode of the button pin
-/// @param nPin Input - Pin of the button
-/// @param bLowLevelIsOn Defaul is true => the button is activ on low signal 
-/// @param bUsePullUpDown Default is true => use a pull up
+/**
+ * @brief Configures the button pin and initializes the cached status.
+ * @param nPin GPIO input pin of the button.
+ * @param bLowLevelIsOn true when LOW means pressed.
+ * @param bUsePullUpDown true to enable the matching internal pull resistor.
+ */
 void CButton::setup(int nPin,bool bLowLevelIsOn, bool bUsePullUpDown) {
     CInputPinController::setup(nPin,bLowLevelIsOn,bUsePullUpDown);
     m_nCurStatus = isPinLogicalOn() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
 }
 
+/**
+ * @brief Attaches the interrupt handler when the selected pin supports it.
+ */
 void CButton::startMonitoring(){
     DEBUG_FUNC_START();
     if(canSendInterrupts()) {
@@ -39,12 +56,21 @@ void CButton::startMonitoring(){
     DEBUG_FUNC_END();
 }
 
+/**
+ * @brief Detaches the interrupt handler from the configured pin.
+ */
 void CButton::stopMonitoring(){
     detachInterrupt(m_nPin);
 }
 
-/// @brief Interrupt Handler for Hardware Interrupts
-/// respects the debouncing time of the last pressed button
+/**
+ * @brief Hardware interrupt handler that publishes button state changes.
+ *
+ * The handler updates the cached state immediately and sends MSG_BUTTON_ON or
+ * MSG_BUTTON_OFF through the application message bus. Software debounce is done
+ * by isPressed(); the interrupt path is intentionally direct so transitions are
+ * not lost.
+ */
 void IRAM_ATTR CButton::interruptHandler() {
     m_nCurStatus = isPinLogicalOn() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
     DEBUG_INFOS("BTN: pin %d is %d (logicalOn == %d) - operation mode(%d)",
@@ -61,10 +87,14 @@ void IRAM_ATTR CButton::interruptHandler() {
 
 }
 
-/// @brief Check if the button is pressed...
-///        Try to debounce the butten by software delay...
-///        Remember the last status, to be able to detect a double click.
-/// @return true or false
+/**
+ * @brief Reads the debounced button state.
+ *
+ * The pin is sampled only after the configured debounce interval has elapsed.
+ * Between samples, the cached status is returned.
+ *
+ * @return true when the button is currently considered pressed.
+ */
 bool CButton::isPressed() {
     DEBUG_FUNC_START();
     if(m_ulLastCheckTime + m_ulDebouncingTime < millis()) { 

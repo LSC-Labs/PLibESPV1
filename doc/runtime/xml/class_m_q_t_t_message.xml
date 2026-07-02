@@ -1,0 +1,207 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_m_q_t_t_message" kind="class" language="C++" prot="public">
+    <compoundname>MQTTMessage</compoundname>
+    <includes refid="_m_q_t_t_controller_8h" local="no">MQTTController.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_m_q_t_t_message_1ab8f259c808195f167aaceaadc5a5d94b" prot="public" static="no" mutable="no">
+        <type><ref refid="class_c_m_q_t_t_controller" kindref="compound">CMQTTController</ref> *</type>
+        <definition>CMQTTController* MQTTMessage::pController</definition>
+        <argsstring></argsstring>
+        <name>pController</name>
+        <qualifiedname>MQTTMessage::pController</qualifiedname>
+        <briefdescription>
+<para>Controller used for topic helper checks; may be nullptr in tests. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="197" column="23" bodyfile="include/MQTTController.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_m_q_t_t_message_1ac0a1cab20a3fa7e19c87d55e41649f72" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* MQTTMessage::Message</definition>
+        <argsstring></argsstring>
+        <name>Message</name>
+        <qualifiedname>MQTTMessage::Message</qualifiedname>
+        <briefdescription>
+<para>Received message payload from the message broker. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="199" column="11" bodyfile="include/MQTTController.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_m_q_t_t_message_1abd50f4b6d2e2f933e2323ca0d81f7b1d" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* MQTTMessage::Topic</definition>
+        <argsstring></argsstring>
+        <name>Topic</name>
+        <qualifiedname>MQTTMessage::Topic</qualifiedname>
+        <briefdescription>
+<para>Topic that carried the received message. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="201" column="11" bodyfile="include/MQTTController.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_m_q_t_t_message_1a974c015c98d9e3834d85c3cf3267faef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MQTTMessage::MQTTMessage</definition>
+        <argsstring>(const char *pszTopic, const char *pszMessage, CMQTTController *pController=nullptr)</argsstring>
+        <name>MQTTMessage</name>
+        <qualifiedname>MQTTMessage::MQTTMessage</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszTopic</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>pszMessage</declname>
+        </param>
+        <param>
+          <type><ref refid="class_c_m_q_t_t_controller" kindref="compound">CMQTTController</ref> *</type>
+          <declname>pController</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Copy topic and payload into an owned message object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="204" column="5" bodyfile="include/MQTTController.h" bodystart="204" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="class_m_q_t_t_message_1a72b9fd731c7ba440b28ee46a8481c37c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MQTTMessage::~MQTTMessage</definition>
+        <argsstring>()</argsstring>
+        <name>~MQTTMessage</name>
+        <qualifiedname>MQTTMessage::~MQTTMessage</qualifiedname>
+        <briefdescription>
+<para>Release copied topic and payload strings. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="210" column="5" bodyfile="include/MQTTController.h" bodystart="210" bodyend="217"/>
+      </memberdef>
+      <memberdef kind="function" id="class_m_q_t_t_message_1a4d5617cd7f89976d879a196ae121a250" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MQTTMessage::isDeviceTopic</definition>
+        <argsstring>()</argsstring>
+        <name>isDeviceTopic</name>
+        <qualifiedname>MQTTMessage::isDeviceTopic</qualifiedname>
+        <briefdescription>
+<para>Return true if this message topic belongs to the device prefix. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="220" column="10" bodyfile="include/MQTTController.h" bodystart="220" bodyend="222"/>
+      </memberdef>
+      <memberdef kind="function" id="class_m_q_t_t_message_1aafdd10bc087227070ebd64a5578a27aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MQTTMessage::isDeviceCommandTopic</definition>
+        <argsstring>()</argsstring>
+        <name>isDeviceCommandTopic</name>
+        <qualifiedname>MQTTMessage::isDeviceCommandTopic</qualifiedname>
+        <briefdescription>
+<para>Return true if this message topic is a command topic. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MQTTController.h" line="224" column="10" bodyfile="include/MQTTController.h" bodystart="224" bodyend="226"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Owns one received MQTT topic/payload pair until dispatch. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>ApplModule</label>
+        <link refid="class_appl_module"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>AsyncMqttClient</label>
+        <link refid="class_async_mqtt_client"/>
+      </node>
+      <node id="2">
+        <label>CMQTTController</label>
+        <link refid="class_c_m_q_t_t_controller"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>Status</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="5">
+        <label>IModule</label>
+        <link refid="class_i_module"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="7">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+      <node id="9">
+        <label>MQTTConfig</label>
+        <link refid="struct_m_q_t_t_config"/>
+      </node>
+      <node id="1">
+        <label>MQTTMessage</label>
+        <link refid="class_m_q_t_t_message"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>pController</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>MQTTStatus</label>
+        <link refid="struct_m_q_t_t_status"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/MQTTController.h" line="193" column="1" bodyfile="include/MQTTController.h" bodystart="193" bodyend="227"/>
+    <listofallmembers>
+      <member refid="class_m_q_t_t_message_1aafdd10bc087227070ebd64a5578a27aa" prot="public" virt="non-virtual"><scope>MQTTMessage</scope><name>isDeviceCommandTopic</name></member>
+      <member refid="class_m_q_t_t_message_1a4d5617cd7f89976d879a196ae121a250" prot="public" virt="non-virtual"><scope>MQTTMessage</scope><name>isDeviceTopic</name></member>
+      <member refid="class_m_q_t_t_message_1ac0a1cab20a3fa7e19c87d55e41649f72" prot="public" virt="non-virtual"><scope>MQTTMessage</scope><name>Message</name></member>
+      <member refid="class_m_q_t_t_message_1a974c015c98d9e3834d85c3cf3267faef" prot="public" virt="non-virtual"><scope>MQTTMessage</scope><name>MQTTMessage</name></member>
+      <member refid="class_m_q_t_t_message_1ab8f259c808195f167aaceaadc5a5d94b" prot="public" virt="non-virtual"><scope>MQTTMessage</scope><name>pController</name></member>
+      <member refid="class_m_q_t_t_message_1abd50f4b6d2e2f933e2323ca0d81f7b1d" prot="public" virt="non-virtual"><scope>MQTTMessage</scope><name>Topic</name></member>
+      <member refid="class_m_q_t_t_message_1a72b9fd731c7ba440b28ee46a8481c37c" prot="public" virt="non-virtual"><scope>MQTTMessage</scope><name>~MQTTMessage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

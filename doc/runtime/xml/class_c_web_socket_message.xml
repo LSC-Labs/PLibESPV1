@@ -1,0 +1,263 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_web_socket_message" kind="class" language="C++" prot="public">
+    <compoundname>CWebSocketMessage</compoundname>
+    <includes refid="_web_socket_8h" local="no">WebSocket.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_c_web_socket_message_1a894f67a227da6af33f801ae397044c5a" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t CWebSocketMessage::MessageSize</definition>
+        <argsstring></argsstring>
+        <name>MessageSize</name>
+        <qualifiedname>CWebSocketMessage::MessageSize</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>Total expected size of the assembled message. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="16" column="31" bodyfile="include/WebSocket.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_web_socket_message_1a552c4bbb1bbc535abdb8c640864af6d7" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* CWebSocketMessage::pSerializedMessage</definition>
+        <argsstring></argsstring>
+        <name>pSerializedMessage</name>
+        <qualifiedname>CWebSocketMessage::pSerializedMessage</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+<para>Zero-terminated assembled message buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="18" column="30" bodyfile="include/WebSocket.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_web_socket_message_1a94000f8009492fbf1f19cc5c3be4da2b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CWebSocketMessage::MessageType</definition>
+        <argsstring></argsstring>
+        <name>MessageType</name>
+        <qualifiedname>CWebSocketMessage::MessageType</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>WebSocket message type, for example WS_TEXT or WS_BINARY. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="20" column="31" bodyfile="include/WebSocket.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_web_socket_message_1af462052f9ddd14f6eee1b9640b938f53" prot="public" static="no" mutable="no">
+        <type><ref refid="class_async_web_socket" kindref="compound">AsyncWebSocket</ref> *</type>
+        <definition>AsyncWebSocket* CWebSocketMessage::pSocket</definition>
+        <argsstring></argsstring>
+        <name>pSocket</name>
+        <qualifiedname>CWebSocketMessage::pSocket</qualifiedname>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+<para>Socket that received the message. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="22" column="30" bodyfile="include/WebSocket.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_web_socket_message_1a99ddf12031140dae08f704fe7e888bf0" prot="public" static="no" mutable="no">
+        <type><ref refid="class_async_web_socket_client" kindref="compound">AsyncWebSocketClient</ref> *</type>
+        <definition>AsyncWebSocketClient* CWebSocketMessage::pClient</definition>
+        <argsstring></argsstring>
+        <name>pClient</name>
+        <qualifiedname>CWebSocketMessage::pClient</qualifiedname>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+<para>Client that sent the message. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="24" column="30" bodyfile="include/WebSocket.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_web_socket_message_1a1e3c2298ab71f7767bfc8932791cf537" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CWebSocketMessage::CWebSocketMessage</definition>
+        <argsstring>(AsyncWebSocket *pSocket, AsyncWebSocketClient *pClient, size_t nMessageSize, int nType=WS_BINARY)</argsstring>
+        <name>CWebSocketMessage</name>
+        <qualifiedname>CWebSocketMessage::CWebSocketMessage</qualifiedname>
+        <param>
+          <type><ref refid="class_async_web_socket" kindref="compound">AsyncWebSocket</ref> *</type>
+          <declname>pSocket</declname>
+        </param>
+        <param>
+          <type><ref refid="class_async_web_socket_client" kindref="compound">AsyncWebSocketClient</ref> *</type>
+          <declname>pClient</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nMessageSize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nType</declname>
+          <defval><ref refid="_network_8h_1a46ef0d5853852b59d766eb4dd858cf72" kindref="member">WS_BINARY</ref></defval>
+        </param>
+        <briefdescription>
+<para>Construct a new Web Socket Message object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pSocket</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The WebSocket server instance </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pClient</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The client from which the message was received </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nMessageSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the message </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of the message (e.g., text (WS_TEXT), binary (WS_BINARY), etc.) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="33" column="9" bodyfile="include/WebSocket.h" bodystart="33" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_socket_message_1ae86cb3c83f37862df63bb6be6bcade65" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CWebSocketMessage::~CWebSocketMessage</definition>
+        <argsstring>()</argsstring>
+        <name>~CWebSocketMessage</name>
+        <qualifiedname>CWebSocketMessage::~CWebSocketMessage</qualifiedname>
+        <briefdescription>
+<para>Release the assembled message buffer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="45" column="9" bodyfile="include/WebSocket.h" bodystart="45" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_web_socket_message_1a99ed17abd17ca08e4819c743ffb9d33c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_c_web_socket_message" kindref="compound">CWebSocketMessage</ref> *</type>
+        <definition>CWebSocketMessage * CWebSocketMessage::setMessageData</definition>
+        <argsstring>(uint8_t *pData, uint64_t nIndex, size_t nDataLen)</argsstring>
+        <name>setMessageData</name>
+        <qualifiedname>CWebSocketMessage::setMessageData</qualifiedname>
+        <param>
+          <type>uint8_t *</type>
+          <declname>pData</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>nIndex</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>nDataLen</declname>
+        </param>
+        <briefdescription>
+<para>Set the message data (segment). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data to be stored </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index - starting point to write into the final serialized message </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nDataLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of data, pData is pointing to </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>this object for further processing... </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/WebSocket.h" line="59" column="28" bodyfile="include/WebSocket.h" bodystart="59" bodyend="64"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Owns a complete WebSocket message assembled from one or more frames. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>AsyncWebSocket</label>
+        <link refid="class_async_web_socket"/>
+      </node>
+      <node id="3">
+        <label>AsyncWebSocketClient</label>
+        <link refid="class_async_web_socket_client"/>
+      </node>
+      <node id="1">
+        <label>CWebSocketMessage</label>
+        <link refid="class_c_web_socket_message"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>pSocket</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>pClient</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/WebSocket.h" line="12" column="1" bodyfile="include/WebSocket.h" bodystart="12" bodyend="66"/>
+    <listofallmembers>
+      <member refid="class_c_web_socket_message_1a1e3c2298ab71f7767bfc8932791cf537" prot="public" virt="non-virtual"><scope>CWebSocketMessage</scope><name>CWebSocketMessage</name></member>
+      <member refid="class_c_web_socket_message_1a894f67a227da6af33f801ae397044c5a" prot="public" virt="non-virtual"><scope>CWebSocketMessage</scope><name>MessageSize</name></member>
+      <member refid="class_c_web_socket_message_1a94000f8009492fbf1f19cc5c3be4da2b" prot="public" virt="non-virtual"><scope>CWebSocketMessage</scope><name>MessageType</name></member>
+      <member refid="class_c_web_socket_message_1a99ddf12031140dae08f704fe7e888bf0" prot="public" virt="non-virtual"><scope>CWebSocketMessage</scope><name>pClient</name></member>
+      <member refid="class_c_web_socket_message_1a552c4bbb1bbc535abdb8c640864af6d7" prot="public" virt="non-virtual"><scope>CWebSocketMessage</scope><name>pSerializedMessage</name></member>
+      <member refid="class_c_web_socket_message_1af462052f9ddd14f6eee1b9640b938f53" prot="public" virt="non-virtual"><scope>CWebSocketMessage</scope><name>pSocket</name></member>
+      <member refid="class_c_web_socket_message_1a99ed17abd17ca08e4819c743ffb9d33c" prot="public" virt="non-virtual"><scope>CWebSocketMessage</scope><name>setMessageData</name></member>
+      <member refid="class_c_web_socket_message_1ae86cb3c83f37862df63bb6be6bcade65" prot="public" virt="non-virtual"><scope>CWebSocketMessage</scope><name>~CWebSocketMessage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

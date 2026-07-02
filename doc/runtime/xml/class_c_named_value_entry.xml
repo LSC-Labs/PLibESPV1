@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_named_value_entry" kind="class" language="C++" prot="public">
+    <compoundname>CNamedValueEntry</compoundname>
+    <includes refid="_named_value_table_8h" local="no">NamedValueTable.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename TValue</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_c_named_value_entry_1a4aec61c4ac7ec14dbfdd84cc1b7f31be" prot="protected" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* CNamedValueEntry&lt; TValue &gt;::m_pszKey</definition>
+        <argsstring></argsstring>
+        <name>m_pszKey</name>
+        <qualifiedname>CNamedValueEntry::m_pszKey</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+<para>Owned copy of the key string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The pointer is allocated with strdup() in the constructor and released in the destructor. A nullptr key is allowed, but it will not match any lookup key. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NamedValueTable.h" line="26" column="15" bodyfile="include/NamedValueTable.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_c_named_value_entry_1a183efa6ef829a5f5f5450fcc3b9fd585" prot="public" static="no" mutable="no">
+        <type>TValue</type>
+        <definition>TValue CNamedValueEntry&lt; TValue &gt;::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <qualifiedname>CNamedValueEntry::value</qualifiedname>
+        <briefdescription>
+<para>Stored value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This is public by design: find functions return entries so callers can read or update the value directly. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NamedValueTable.h" line="79" column="16" bodyfile="include/NamedValueTable.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_named_value_entry_1af0c52599cc39df632d78bbb519978a5f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CNamedValueEntry&lt; TValue &gt;::CNamedValueEntry</definition>
+        <argsstring>(const char *pszKey, TValue value)</argsstring>
+        <name>CNamedValueEntry</name>
+        <qualifiedname>CNamedValueEntry::CNamedValueEntry</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszKey</declname>
+        </param>
+        <param>
+          <type>TValue</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Creates a new entry and copies the key. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pszKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key name for this entry. May be nullptr. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial value to store in the entry. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NamedValueTable.h" line="34" column="9" bodyfile="include/NamedValueTable.h" bodystart="34" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_named_value_entry_1a819fe693b78cf21e898060ccf03268c4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CNamedValueEntry&lt; TValue &gt;::~CNamedValueEntry</definition>
+        <argsstring>()</argsstring>
+        <name>~CNamedValueEntry</name>
+        <qualifiedname>CNamedValueEntry::~CNamedValueEntry</qualifiedname>
+        <briefdescription>
+<para>Releases the owned key string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NamedValueTable.h" line="42" column="9" bodyfile="include/NamedValueTable.h" bodystart="42" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_named_value_entry_1a560d261f3ef8f54747d4d40013c28f8e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CNamedValueEntry&lt; TValue &gt;::getKey</definition>
+        <argsstring>()</argsstring>
+        <name>getKey</name>
+        <qualifiedname>CNamedValueEntry::getKey</qualifiedname>
+        <briefdescription>
+<para>Gets the stored key. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Pointer to the owned key string, or nullptr if the entry was created without a key. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NamedValueTable.h" line="54" column="21" bodyfile="include/NamedValueTable.h" bodystart="54" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_named_value_entry_1a264dd22b3afa3f24d174b252b3b67b18" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CNamedValueEntry&lt; TValue &gt;::doesKeyMatch</definition>
+        <argsstring>(const char *pszKey, bool bCaseSensitive)</argsstring>
+        <name>doesKeyMatch</name>
+        <qualifiedname>CNamedValueEntry::doesKeyMatch</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszKey</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bCaseSensitive</declname>
+        </param>
+        <briefdescription>
+<para>Checks if a lookup key matches this entry key. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pszKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lookup key to compare with this entry key. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bCaseSensitive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>true for strcmp(), false for <ref refid="namespace_l_s_c_1a81444e2f3c79f7d54cb1b8300d630f14" kindref="member">LSC::stricmp()</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true when both keys exist and match according to the selected comparison mode. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/NamedValueTable.h" line="65" column="14" bodyfile="include/NamedValueTable.h" bodystart="65" bodyend="71"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Single key/value entry used by <ref refid="class_c_named_value_table" kindref="compound">CNamedValueTable</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The entry owns a copy of the key string. The value is stored directly and is intentionally public so callers can update it after a lookup without another wrapper function.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>TValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of the stored value. The value type must be copyable. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="include/NamedValueTable.h" line="16" column="1" bodyfile="include/NamedValueTable.h" bodystart="16" bodyend="80"/>
+    <listofallmembers>
+      <member refid="class_c_named_value_entry_1af0c52599cc39df632d78bbb519978a5f" prot="public" virt="non-virtual"><scope>CNamedValueEntry</scope><name>CNamedValueEntry</name></member>
+      <member refid="class_c_named_value_entry_1a264dd22b3afa3f24d174b252b3b67b18" prot="public" virt="non-virtual"><scope>CNamedValueEntry</scope><name>doesKeyMatch</name></member>
+      <member refid="class_c_named_value_entry_1a560d261f3ef8f54747d4d40013c28f8e" prot="public" virt="non-virtual"><scope>CNamedValueEntry</scope><name>getKey</name></member>
+      <member refid="class_c_named_value_entry_1a4aec61c4ac7ec14dbfdd84cc1b7f31be" prot="protected" virt="non-virtual"><scope>CNamedValueEntry</scope><name>m_pszKey</name></member>
+      <member refid="class_c_named_value_entry_1a183efa6ef829a5f5f5450fcc3b9fd585" prot="public" virt="non-virtual"><scope>CNamedValueEntry</scope><name>value</name></member>
+      <member refid="class_c_named_value_entry_1a819fe693b78cf21e898060ccf03268c4" prot="public" virt="non-virtual"><scope>CNamedValueEntry</scope><name>~CNamedValueEntry</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

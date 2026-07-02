@@ -1,0 +1,4070 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R 29 0 R 31 0 R 33 0 R 35 0 R 37 0 R 39 0 R 41 0 R 43 0 R 45 0 R 47 0 R 49 0 R 51 0 R 53 0 R 55 0 R 57 0 R 59 0 R 61 0 R 63 0 R 65 0 R 67 0 R 69 0 R 71 0 R] /Count 34 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Length 2462 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(PLIBESPV1 RUNTIME LIBRARY) Tj
+T*
+() Tj
+T*
+(Generated from Doxygen XML on 2026-07-02 13:29.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Overview) Tj
+T*
+() Tj
+T*
+(This document is a compact Markdown companion to the full Doxygen HTML output.) Tj
+T*
+(It lists the documented classes, structs, files and their public API members.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(Contents) Tj
+T*
+() Tj
+T*
+(- [class ApplModule]\(#applmodule\)) Tj
+T*
+(- [class AsyncMqttClient]\(#asyncmqttclient\)) Tj
+T*
+(- [class AsyncWebSocket]\(#asyncwebsocket\)) Tj
+T*
+(- [class AsyncWebSocketClient]\(#asyncwebsocketclient\)) Tj
+T*
+(- [class AsyncWebSocketMessageBuffer]\(#asyncwebsocketmessagebuffer\)) Tj
+T*
+(- [class CAccessToken]\(#caccesstoken\)) Tj
+T*
+(- [class CAESCryptor]\(#caescryptor\)) Tj
+T*
+(- [class CAESToken]\(#caestoken\)) Tj
+T*
+(- [class CAppl]\(#cappl\)) Tj
+T*
+(- [class CBase64Data]\(#cbase64data\)) Tj
+T*
+(- [class CBatteryMeasure]\(#cbatterymeasure\)) Tj
+T*
+(- [class CButton]\(#cbutton\)) Tj
+T*
+(- [class CConfigHandler]\(#cconfighandler\)) Tj
+T*
+(- [class CEventHandler]\(#ceventhandler\)) Tj
+T*
+(- [class CEventLogger]\(#ceventlogger\)) Tj
+T*
+(- [class CFS]\(#cfs\)) Tj
+T*
+(- [class CInputPinController]\(#cinputpincontroller\)) Tj
+T*
+(- [class CJsonNode]\(#cjsonnode\)) Tj
+T*
+(- [class CLightSwitch]\(#clightswitch\)) Tj
+T*
+(- [class CLogWriter]\(#clogwriter\)) Tj
+T*
+(- [class CMDNSController]\(#cmdnscontroller\)) Tj
+T*
+(- [class CMQTTController]\(#cmqttcontroller\)) Tj
+T*
+(- [class CMultiNameUniqueValueTable]\(#cmultinameuniquevaluetable\)) Tj
+T*
+(- [class CNamedValueEntry]\(#cnamedvalueentry\)) Tj
+T*
+(- [class CNamedValueTable]\(#cnamedvaluetable\)) Tj
+T*
+(- [class CNTPHandler]\(#cntphandler\)) Tj
+T*
+(- [class COutputPinController]\(#coutputpincontroller\)) Tj
+T*
+(- [class CPinController]\(#cpincontroller\)) Tj
+T*
+(- [class CRGBLed]\(#crgbled\)) Tj
+T*
+(- [class CSerialLogWriter]\(#cseriallogwriter\)) Tj
+T*
+(- [class CSimpleDelay]\(#csimpledelay\)) Tj
+T*
+(- [class CStatusHandler]\(#cstatushandler\)) Tj
+T*
+(- [class CStreamLogWriter]\(#cstreamlogwriter\)) Tj
+T*
+(- [class CSysStatus]\(#csysstatus\)) Tj
+T*
+(- [class CSysStatusLed]\(#csysstatusled\)) Tj
+T*
+(- [class CUniqueNameMultiValueTable]\(#cuniquenamemultivaluetable\)) Tj
+T*
+(- [class CVar]\(#cvar\)) Tj
+T*
+(- [class CVarTable]\(#cvartable\)) Tj
+T*
+(- [class CWebServer]\(#cwebserver\)) Tj
+T*
+(- [class CWebSocket]\(#cwebsocket\)) Tj
+T*
+(- [class CWebSocketMessage]\(#cwebsocketmessage\)) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 2623 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(- [class CWiFiController]\(#cwificontroller\)) Tj
+T*
+(- [class IConfigHandler]\(#iconfighandler\)) Tj
+T*
+(- [class IHomeAssistantComponent]\(#ihomeassistantcomponent\)) Tj
+T*
+(- [class IModule]\(#imodule\)) Tj
+T*
+(- [class IMsgEventReceiver]\(#imsgeventreceiver\)) Tj
+T*
+(- [class IPAddress]\(#ipaddress\)) Tj
+T*
+(- [class IStatusHandler]\(#istatushandler\)) Tj
+T*
+(- [class MQTTMessage]\(#mqttmessage\)) Tj
+T*
+(- [class NativeSerial]\(#nativeserial\)) Tj
+T*
+(- [file AccessToken.h]\(#accesstoken.h\)) Tj
+T*
+(- [file AESCryptor.h]\(#aescryptor.h\)) Tj
+T*
+(- [file Appl.h]\(#appl.h\)) Tj
+T*
+(- [file ApplModule.h]\(#applmodule.h\)) Tj
+T*
+(- [file base64.h]\(#base64.h\)) Tj
+T*
+(- [file Base64Data.h]\(#base64data.h\)) Tj
+T*
+(- [file BatteryMeasure.h]\(#batterymeasure.h\)) Tj
+T*
+(- [file Button.h]\(#button.h\)) Tj
+T*
+(- [file ConfigHandler.h]\(#confighandler.h\)) Tj
+T*
+(- [file CWebSocket.md]\(#cwebsocket.md\)) Tj
+T*
+(- [file DevelopmentHelper.h]\(#developmenthelper.h\)) Tj
+T*
+(- [file EventHandler.h]\(#eventhandler.h\)) Tj
+T*
+(- [file FileSystem.h]\(#filesystem.h\)) Tj
+T*
+(- [file InputPinController.h]\(#inputpincontroller.h\)) Tj
+T*
+(- [file JsonHelper.h]\(#jsonhelper.h\)) Tj
+T*
+(- [file JsonNode.h]\(#jsonnode.h\)) Tj
+T*
+(- [file LightSwitch.h]\(#lightswitch.h\)) Tj
+T*
+(- [file Logging.h]\(#logging.h\)) Tj
+T*
+(- [file LSCUtils.h]\(#lscutils.h\)) Tj
+T*
+(- [file mainpage.md]\(#mainpage.md\)) Tj
+T*
+(- [file MDNSController.h]\(#mdnscontroller.h\)) Tj
+T*
+(- [file ModuleInterface.h]\(#moduleinterface.h\)) Tj
+T*
+(- [file MQTTController.h]\(#mqttcontroller.h\)) Tj
+T*
+(- [file Msgs.h]\(#msgs.h\)) Tj
+T*
+(- [file NamedValueTable.h]\(#namedvaluetable.h\)) Tj
+T*
+(- [file Network.h]\(#network.h\)) Tj
+T*
+(- [file NTPHandler.h]\(#ntphandler.h\)) Tj
+T*
+(- [file OutputPinController.h]\(#outputpincontroller.h\)) Tj
+T*
+(- [file pageBuilder.md]\(#pagebuilder.md\)) Tj
+T*
+(- [file PinController.h]\(#pincontroller.h\)) Tj
+T*
+(- [file ProgVersion.h]\(#progversion.h\)) Tj
+T*
+(- [file README.md]\(#readme.md\)) Tj
+T*
+(- [file RGBLed.h]\(#rgbled.h\)) Tj
+T*
+(- [file Runtime.h]\(#runtime.h\)) Tj
+T*
+(- [file Security.h]\(#security.h\)) Tj
+T*
+(- [file SimpleDelay.h]\(#simpledelay.h\)) Tj
+T*
+(- [file StatusHandler.h]\(#statushandler.h\)) Tj
+T*
+(- [file SysStatus.h]\(#sysstatus.h\)) Tj
+T*
+(- [file SysStatusLed.h]\(#sysstatusled.h\)) Tj
+T*
+(- [file Vars.h]\(#vars.h\)) Tj
+T*
+(- [file WebServer.h]\(#webserver.h\)) Tj
+T*
+(- [file WebSocket.h]\(#websocket.h\)) Tj
+T*
+(- [file WiFiController.h]\(#wificontroller.h\)) Tj
+T*
+(- [namespace LSC]\(#lsc\)) Tj
+T*
+(- [namespace LSC_WIFI]\(#lsc_wifi\)) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 2375 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(- [struct ApplConfig]\(#applconfig\)) Tj
+T*
+(- [struct AsyncMqttClientMessageProperties]\(#asyncmqttclientmessageproperties\)) Tj
+T*
+(- [struct AwsFrameInfo]\(#awsframeinfo\)) Tj
+T*
+(- [struct CConfigHandler::HandlerEntry]\(#cconfighandlerhandlerentry\)) Tj
+T*
+(- [struct CStatusHandler::StatusHandlerEntry]\(#cstatushandlerstatushandlerentry\)) Tj
+T*
+(- [struct LSC_FS]\(#lsc_fs\)) Tj
+T*
+(- [struct MQTTConfig]\(#mqttconfig\)) Tj
+T*
+(- [struct MQTTStatus]\(#mqttstatus\)) Tj
+T*
+(- [struct NTPConfig]\(#ntpconfig\)) Tj
+T*
+(- [struct WebServerConfig]\(#webserverconfig\)) Tj
+T*
+(- [struct WebServerStatus]\(#webserverstatus\)) Tj
+T*
+(- [struct WebSocketStatus]\(#websocketstatus\)) Tj
+T*
+(- [struct WiFiConfig]\(#wificonfig\)) Tj
+T*
+(- [struct WiFiStatus]\(#wifistatus\)) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class ApplModule) Tj
+T*
+() Tj
+T*
+(Abstract Basic Module Implementation You have to implement the dispatch method to reflect your) Tj
+T*
+(module logic Implement the configuration and status handling.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - virtual void ApplModule::dispatch\(\) - Default dispatch function by doing nothing.) Tj
+T*
+(public-func - virtual int ApplModule::receiveEvent\(const void *pSender, int nMsg, const void) Tj
+T*
+(*pMessage, int nClass\) override - Default Event Receiver, is calling the dispatch function on) Tj
+T*
+(Application loop.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class AsyncMqttClient) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - bool AsyncMqttClient::connected\(\) -) Tj
+T*
+(public-func - void AsyncMqttClient::connect\(\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class AsyncWebSocket) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - AsyncWebSocket::AsyncWebSocket\(const char *pszUrl=""\) -) Tj
+T*
+(public-func - const char * AsyncWebSocket::url\(\) -) Tj
+T*
+(public-func - void AsyncWebSocket::onEvent\(...\) -) Tj
+T*
+(public-func - void AsyncWebSocket::cleanupClients\(\) -) Tj
+T*
+(public-func - AsyncWebSocketMessageBuffer * AsyncWebSocket::makeBuffer\(size_t nSize\) -) Tj
+T*
+(public-func - void AsyncWebSocket::textAll\(AsyncWebSocketMessageBuffer *pBuffer\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class AsyncWebSocketClient) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - void* AsyncWebSocketClient::_tempObject -) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 8 0 R >>
+endobj
+10 0 obj
+<< /Length 3160 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(public-func - uint32_t AsyncWebSocketClient::id\(\) -) Tj
+T*
+(public-func - IPAddress AsyncWebSocketClient::remoteIP\(\) -) Tj
+T*
+(public-func - void AsyncWebSocketClient::text\(AsyncWebSocketMessageBuffer *pBuffer\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class AsyncWebSocketMessageBuffer) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - AsyncWebSocketMessageBuffer::AsyncWebSocketMessageBuffer\(size_t nSize\) -) Tj
+T*
+(public-func - AsyncWebSocketMessageBuffer::~AsyncWebSocketMessageBuffer\(\) -) Tj
+T*
+(public-func - uint8_t * AsyncWebSocketMessageBuffer::get\(\) -) Tj
+T*
+(public-func - size_t AsyncWebSocketMessageBuffer::size\(\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CAccessToken) Tj
+T*
+() Tj
+T*
+(Access Token to be exchanged with clients, to ensure correct authentication.) Tj
+T*
+() Tj
+T*
+(Todoenhance with application specific meta information) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(protected-func - bool CAccessToken::loadBase64DataElement\(const char *pszData\) - Decode and load the) Tj
+T*
+(base64-encoded token payload.) Tj
+T*
+(protected-func - const char * CAccessToken::getBase64DataElement\(bool bRefreshTimeStamp=true\) -) Tj
+T*
+(Return the base64-encoded payload, optionally refreshing timestamp.) Tj
+T*
+(public-func - CAccessToken::CAccessToken\(\) - Create an empty invalid access token.) Tj
+T*
+(public-func - CAccessToken::CAccessToken\(const char *pszIPAddress, const char *pszTokenKey, const) Tj
+T*
+(char *pszIV=nullptr\) - Create a token for the given IP address and token key.) Tj
+T*
+(public-func - CAccessToken::CAccessToken\(const char *pszBase64EncodedString\) - Create a token by) Tj
+T*
+(decoding an existing base64 token string.) Tj
+T*
+(public-func - const char * CAccessToken::getTokenAsBase64\(bool bRandomIV=true\) - Return the complete) Tj
+T*
+(access token encoded as base64.) Tj
+T*
+(public-func - bool CAccessToken::isAuthValid\(const char *pszIPAddress, const char *pszTokenKey\) -) Tj
+T*
+(Validate token structure, IP address, key and lifetime.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CAESCryptor) Tj
+T*
+() Tj
+T*
+(Helper class for AES encryption/decryption with PKCS#7 padding.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - CAESToken CAESCryptor::IV - Initialization vector used by encrypt/decrypt.) Tj
+T*
+(public-attrib - CAESToken CAESCryptor::Passphrase - Default passphrase used when no explicit) Tj
+T*
+(passphrase is supplied.) Tj
+T*
+(public-func - CAESCryptor::CAESCryptor\(\) - Create a cryptor with default IV/passphrase tokens.) Tj
+T*
+(public-func - size_t CAESCryptor::decrypt\(void *pData, size_t nDataLen, const char) Tj
+T*
+(*pszPassphrase=nullptr\) - Decrypt data in place and return the resulting data length.) Tj
+T*
+(public-func - size_t CAESCryptor::encrypt\(void *pData, size_t nDataLen, const char) Tj
+T*
+(*pszPassphrase=nullptr\) - Encrypt data in place and return the padded/encrypted length.) Tj
+T*
+(public-func - size_t CAESCryptor::insertPkcs7Padding\(unsigned char *pData, size_t nDataLength,) Tj
+T*
+(size_t nBlockSize=AES_CRYPTOR_BLOCK_SIZE\) - Add PKCS#7 padding to a buffer and return the padded) Tj
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 10 0 R >>
+endobj
+12 0 obj
+<< /Length 3361 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(length.) Tj
+T*
+(public-func - void CAESCryptor::removePkcs7Padding\(unsigned char *pData, size_t &nDataLength, size_t) Tj
+T*
+(nBlockSize=AES_CRYPTOR_BLOCK_SIZE\) - Remove PKCS#7 padding and update the data length in place.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CAESToken) Tj
+T*
+() Tj
+T*
+(AES Token for IV and Passphrase, used by CAESCryptor.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - unsigned char CAESToken::Data[AES_CRYPTOR_BLOCK_SIZE][AES_CRYPTOR_BLOCK_SIZE] - Raw) Tj
+T*
+(16-byte token data used as AES IV/passphrase material.) Tj
+T*
+(public-func - CAESToken::CAESToken\(\) - Create a token initialized with empty/default data.) Tj
+T*
+(public-func - CAESToken::CAESToken\(const char *pszTokenString\) - Create a token from a plain string.) Tj
+T*
+(public-func - void CAESToken::loadFromString\(const char *pszTokenString\) - Load token data from a) Tj
+T*
+(plain string, truncated/padded to block size.) Tj
+T*
+(public-func - void CAESToken::loadFromBase64\(const char *pszBase64String\) - Load token data from a) Tj
+T*
+(base64-encoded string.) Tj
+T*
+(public-func - const char * CAESToken::getAsBase64\(\) - Return token data encoded as base64.) Tj
+T*
+(public-func - const char * CAESToken::getAsString\(\) - Return token data as a zero-terminated string) Tj
+T*
+(buffer.) Tj
+T*
+(public-func - void * CAESToken::copyOf\(\) - Return a stable copy of the raw token data.) Tj
+T*
+(public-func - void CAESToken::createRandom\(\) - Fill the token with random bytes.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CAppl) Tj
+T*
+() Tj
+T*
+(Central application hub for modules, configuration, status and events.) Tj
+T*
+() Tj
+T*
+(CAppl owns the message bus, central logger, variable table and reusable status documents. Modules) Tj
+T*
+(register here to participate in config loading/saving, status reporting and application lifecycle) Tj
+T*
+(events.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - String CAppl::AppName - Human-readable application/firmware name.) Tj
+T*
+(public-attrib - String CAppl::AppVersion - Human-readable application/firmware version.) Tj
+T*
+(public-attrib - const unsigned long CAppl::StartTime - millis\(\) value captured when the global CAppl) Tj
+T*
+(object is created.) Tj
+T*
+(public-attrib - CVarTable CAppl::Config - Application-local variable table, exported as "cfg".) Tj
+T*
+(public-attrib - CEventHandler CAppl::MsgBus - Application message bus used by modules and log) Tj
+T*
+(writers.) Tj
+T*
+(public-attrib - CEventLogger CAppl::Log - Event-based application logger.) Tj
+T*
+(public-func - void CAppl::registerModule\(const char *pszModuleName, IModule *pModule\) - Register a) Tj
+T*
+(module with configuration, status and event handling.) Tj
+T*
+(public-func - void CAppl::writeConfigTo\(JsonNode &oNode, bool bHideCritical\) override - Write) Tj
+T*
+(application and registered-module configuration.) Tj
+T*
+(public-func - void CAppl::readConfigFrom\(JsonNode &oNode\) override - Read application and) Tj
+T*
+(registered-module settings from JSON.) Tj
+T*
+(public-func - bool CAppl::readConfigFrom\(const char *pszFileName, int) Tj
+T*
+(nJsonDocSize=JSON_CONFIG_DOC_DEFAULT_SIZE\) - Read a configuration file and load settings into all) Tj
+T*
+(modules.) Tj
+T*
+(public-func - void CAppl::migrateConfig\(JsonNode &oDoc\) - Migrate legacy configuration keys into) Tj
+ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 12 0 R >>
+endobj
+14 0 obj
+<< /Length 3808 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(their current locations.) Tj
+T*
+(public-func - bool CAppl::saveConfig\(const char *pszFileName=JSON_APPL_CONFIG_FILE, int) Tj
+T*
+(nJsonDocSize=JSON_CONFIG_DOC_DEFAULT_SIZE\) - Persist the current configuration to the file system.) Tj
+T*
+(public-func - JsonNode * CAppl::getStatus\(int nLevel=STATUS_LEVEL_INFO\) - Build and return the) Tj
+T*
+(reusable application status node.) Tj
+T*
+(public-func - const char * CAppl::getStatusAsText\(int nLevel=STATUS_LEVEL_INFO\) - Return the current) Tj
+T*
+(application status serialized as JSON text.) Tj
+T*
+(public-func - JsonNode * CAppl::getState\(\) - Return the compact state view of this device.) Tj
+T*
+(public-func - const char * CAppl::getStateAsText\(\) - Return the compact device state serialized as) Tj
+T*
+(JSON text.) Tj
+T*
+(public-func - void CAppl::writeStatusTo\(JsonNode &oNode, int nStatusLevel\) override - Write) Tj
+T*
+(application metadata and module status into a JSON node.) Tj
+T*
+(public-func - void CAppl::writeSystemStatusTo\(JsonNode &oNode\) - Write lower-level system) Tj
+T*
+(diagnostics into a JSON node.) Tj
+T*
+(public-func - time_t CAppl::getNativeTime\(\) - Return the native system time.) Tj
+T*
+(public-func - const char * CAppl::getUpTime\(\) - Return application uptime as HH:MM:SS.) Tj
+T*
+(public-func - const char * CAppl::getISODateTime\(\) - Return current local date/time as YYYY-MM-) Tj
+T*
+(DDTHH:MM:SS.) Tj
+T*
+(public-func - const char * CAppl::getISODate\(\) - Return current local date as YYYY-MM-DD.) Tj
+T*
+(public-func - const char * CAppl::getISOTime\(\) - Return current local time as HH:MM:SS.) Tj
+T*
+(public-func - const char * CAppl::getDeviceID\(\) - Return the stable chip/device identifier from) Tj
+T*
+(system status.) Tj
+T*
+(public-func - String CAppl::getDeviceName\(\) - Return the configured device name.) Tj
+T*
+(public-func - void CAppl::setDeviceName\(const char *pszName\) - Set the configured device name from a) Tj
+T*
+(C string.) Tj
+T*
+(public-func - void CAppl::setDeviceName\(String strName\) - Set the configured device name from a) Tj
+T*
+(String.) Tj
+T*
+(public-func - void CAppl::setDevicePwd\(const char *pszName\) - Set the configured device password) Tj
+T*
+(from a C string.) Tj
+T*
+(public-func - void CAppl::setDevicePwd\(String strName\) - Set the configured device password from a) Tj
+T*
+(String.) Tj
+T*
+(public-func - String CAppl::getDevicePwd\(\) - Return the configured device password.) Tj
+T*
+(public-func - CAppl::CAppl\(\) - Create the global application hub.) Tj
+T*
+(public-func - void CAppl::dispatch\(int nMsgType=0, const void *pMsg=nullptr\) - Dispatch a periodic) Tj
+T*
+(loop message to all registered receivers.) Tj
+T*
+(public-func - int CAppl::receiveEvent\(const void *pSender, int nMsgType, const void *pMessage, int) Tj
+T*
+(nClass\) - Handle application-level events such as reboot requests.) Tj
+T*
+(public-func - void CAppl::init\(const char *strAppName, const char *strAppVersion\) - Initialize the) Tj
+T*
+(application metadata and announce startup.) Tj
+T*
+(public-func - void CAppl::start\(void *pData=nullptr, int nType=0\) - Publish the application-started) Tj
+T*
+(event after initialization finished.) Tj
+T*
+(public-func - void CAppl::sayHello\(\) - Print a short application banner to Serial.) Tj
+T*
+(public-func - void CAppl::printDiag\(\) - Print flash/heap diagnostics and verify flash size) Tj
+T*
+(configuration.) Tj
+T*
+(public-func - void CAppl::reboot\(int nDelayMillis=2000, bool bForce=false\) - Send shutdown events) Tj
+T*
+(and restart the ESP after the given delay.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CBase64Data) Tj
+T*
+() Tj
+T*
+(Using the base implmentation of NibbleAndHalf \(see base64.h\).) Tj
+T*
+() Tj
+T*
+(wrapping the base implemation to be able to change, as in the past, a lot of implementations had) Tj
+T*
+(problems.) Tj
+ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 14 0 R >>
+endobj
+16 0 obj
+<< /Length 2757 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(protected-attrib - char* CBase64Data::m_pszEncodedData -) Tj
+T*
+(protected-attrib - unsigned char* CBase64Data::m_pDecodedData -) Tj
+T*
+(public-func - virtual CBase64Data::~CBase64Data\(\) -) Tj
+T*
+(public-func - virtual void CBase64Data::clear\(\) -) Tj
+T*
+(public-func - const char * CBase64Data::getBase64EncodedString\(const char *pszInput, size_t) Tj
+T*
+(nInputLen=0\) -) Tj
+T*
+(public-func - const unsigned char * CBase64Data::getBase64DecodedData\(const char *pszInput, int) Tj
+T*
+(&nFinalLen\) -) Tj
+T*
+(public-static-func - static int CBase64Data::base64EncodeData\(const char *pszInput, size_t) Tj
+T*
+(nInputLen, char *pszOutput, size_t nOutputLen, bool bRemoveCRLF=true\) - encode data \(also bin\) to an) Tj
+T*
+(base 64 string If output area is not large enough to hold the string, nothing will be changed \(!\)) Tj
+T*
+(public-static-func - static int CBase64Data::base64DecodeData\(const char *pszInput, size_t) Tj
+T*
+(nInputLen, char *pszOutput, size_t nOutputLen\) - decode base 64 data to normal representation If) Tj
+T*
+(output area is not large enough to hold the data, nothing will be changed \(!\)) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CBatteryMeasure) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CBatteryMeasure::CBatteryMeasure\(int nPin, float fCalcFactor=4.2\) - Battery measure) Tj
+T*
+(constructor.) Tj
+T*
+(public-func - bool CBatteryMeasure::isBatteryAvailable\(\) -) Tj
+T*
+(public-func - int CBatteryMeasure::getRawMeasureData\(\) -) Tj
+T*
+(public-func - float CBatteryMeasure::getVoltage\(int nDigits=-1\) -) Tj
+T*
+(public-func - void CBatteryMeasure::writeStatusTo\(JsonNode &oStatusObj, int nLevel\) override -) Tj
+T*
+(public-func - void CBatteryMeasure::writeConfigTo\(JsonNode &oConfigObj, bool bHideCritical\) override) Tj
+T*
+(-) Tj
+T*
+(public-func - void CBatteryMeasure::readConfigFrom\(JsonNode &oConfigObj\) override -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CButton) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(private-func - void IRAM_ATTR CButton::interruptHandler\(\) -) Tj
+T*
+(public-func - CButton::CButton\(\) -) Tj
+T*
+(public-func - CButton::CButton\(int nPin, bool bLowLevelIsOn=true, bool bUsePullUpDown=true\) -) Tj
+T*
+(public-func - CButton::~CButton\(\) -) Tj
+T*
+(public-func - void CButton::setup\(int nPin, bool bLowLevelIsOn=true, bool bUsePullUpDown=true\) -) Tj
+T*
+(public-func - void CButton::startMonitoring\(\) -) Tj
+T*
+(public-func - void CButton::stopMonitoring\(\) -) Tj
+T*
+(public-func - bool CButton::isPressed\(\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CConfigHandler) Tj
+T*
+() Tj
+T*
+(Configuration handler manager.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 16 0 R >>
+endobj
+18 0 obj
+<< /Length 3028 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(public-func - CConfigHandler::CConfigHandler\(\) -) Tj
+T*
+(public-func - void CConfigHandler::addConfigHandler\(String strName, IConfigHandler *pHandler, bool) Tj
+T*
+(bForceInclude=false\) -) Tj
+T*
+(public-func - void CConfigHandler::addConfigHandler\(const char *pszName, IConfigHandler *pHandler,) Tj
+T*
+(bool bForceInclude=false\) -) Tj
+T*
+(public-func - IConfigHandler * CConfigHandler::getConfigHandler\(String strName, int nIdx=0\) -) Tj
+T*
+(public-func - IConfigHandler * CConfigHandler::getConfigHandler\(const char *pszName, int nIdx=0\) -) Tj
+T*
+(public-func - virtual void CConfigHandler::writeConfigTo\(JsonNode &oNode, bool bHideCritical\)) Tj
+T*
+(override - Interface implementation.) Tj
+T*
+(public-func - virtual void CConfigHandler::readConfigFrom\(JsonNode &oNode\) override -) Tj
+T*
+(public-func - void CConfigHandler::migrateConfig\(JsonNode &oCfgDoc, JsonNode &oCfgNode\) override -) Tj
+T*
+(public-func - void CConfigHandler::dumpConfigHandler\(\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CEventHandler) Tj
+T*
+() Tj
+T*
+(Event Handler Manager.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CEventHandler::~CEventHandler\(\) -) Tj
+T*
+(public-func - void CEventHandler::registerEventReceiver\(IMsgEventReceiver *pEventReceiver, const) Tj
+T*
+(char *pszReceiverName=nullptr\) -) Tj
+T*
+(public-func - int CEventHandler::sendEvent\(void *pSender, int nMsgID, const void *pMessage, int) Tj
+T*
+(nMsgType\) - Send the message to the Message Event Receivers To avoid receiving your own message,) Tj
+T*
+(specify the Sender \(this\).) Tj
+T*
+(public-func - void CEventHandler::dumpReceiver\(\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CEventLogger) Tj
+T*
+() Tj
+T*
+(Logger facade that sends formatted log events through CEventHandler.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CEventLogger::CEventLogger\(\) - Create a logger without an attached event handler.) Tj
+T*
+(public-func - CEventLogger::CEventLogger\(CEventHandler *pEventHandler\) - Create a logger that) Tj
+T*
+(publishes to the given event handler.) Tj
+T*
+(public-func - void CEventLogger::log\(const char *pszType, const __FlashStringHelper *pszMessage,...\)) Tj
+T*
+(- Format and publish a flash-string log message.) Tj
+T*
+(public-func - void CEventLogger::log\(const char *pszType, const char *pszMessage,...\) - Format and) Tj
+T*
+(publish a C-string log message.) Tj
+T*
+(public-func - void CEventLogger::log\(const char *strType, JsonNode *pDoc\) - Publish a JSON document) Tj
+T*
+(as log payload.) Tj
+T*
+(public-static-func - static int CEventLogger::getLogClassNumberFrom\(const char cClass\) - Convert a) Tj
+T*
+(log class character into its numeric message class.) Tj
+T*
+(public-static-func - static char CEventLogger::getClassCharFromLogClass\(int nClassNo\) - Convert a) Tj
+T*
+(numeric message class back to its log class character.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CFS) Tj
+T*
+() Tj
+T*
+(Filesystem facade used by modules to avoid direct LittleFS/SPIFFS use.) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 18 0 R >>
+endobj
+20 0 obj
+<< /Length 3512 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CFS::CFS\(\) - Create a filesystem helper and initialize the base filesystem if needed.) Tj
+T*
+(public-func - bool CFS::fileExists\(const char *pszFileName\) - Return true if the file exists.) Tj
+T*
+(public-func - bool CFS::fileExists\(String &strFileName\) - String overload for file existence checks.) Tj
+T*
+(public-func - void CFS::deleteFile\(const char *pszFileName\) - Delete a file when it exists.) Tj
+T*
+(public-func - void CFS::deleteFile\(String &strFileName\) - String overload for deleting a file.) Tj
+T*
+(public-func - void CFS::deleteAllFilesOnPath\(const char *pszPath\) - Delete all files below the given) Tj
+T*
+(path.) Tj
+T*
+(public-func - size_t CFS::getFileSize\(const char *pszFileName\) - Return the file size in bytes, or 0) Tj
+T*
+(if it cannot be read.) Tj
+T*
+(public-func - size_t CFS::getFileSize\(String &strFileName\) - String overload for file size lookup.) Tj
+T*
+(public-func - FS CFS::getBaseFS\(\) - Return the configured base filesystem object.) Tj
+T*
+(public-func - size_t CFS::loadFileToBuffer\(const char *strFileName, std::unique_ptr< char[]> &pData\)) Tj
+T*
+(- Load a file into an owned zero-terminated buffer.) Tj
+T*
+(public-func - bool CFS::loadFileToString\(const char *strFileName, String &strResult\) - Load a file) Tj
+T*
+(into a String.) Tj
+T*
+(public-func - bool CFS::loadJsonContentFromFile\(const char *strFileName, JsonNode &oDoc\) - Parse) Tj
+T*
+(JSON content from a file into a JsonNode.) Tj
+T*
+(public-func - bool CFS::saveJsonContentToFile\(const char *strFileName, JsonNode &oDoc\) - Serialize) Tj
+T*
+(and save a JsonNode to a file.) Tj
+T*
+(public-func - size_t CFS::getTotalBytes\(\) - Return total bytes of the mounted filesystem.) Tj
+T*
+(public-func - size_t CFS::getUsedBytes\(\) - Return used bytes of the mounted filesystem.) Tj
+T*
+(public-func - bool CFS::getFileList\(JsonNode &oDirDoc, const char *pszPath="/"\) - Write a directory) Tj
+T*
+(listing into a JSON node.) Tj
+T*
+(public-func - String CFS::getFileList\(const char *pszPath="/"\) - Return a directory listing) Tj
+T*
+(serialized as text.) Tj
+T*
+(public-func - void CFS::writeStatusTo\(JsonNode &oStatus, int nLevel=STATUS_LEVEL_INFO\) override -) Tj
+T*
+(Write filesystem capacity/status into a JSON node.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CInputPinController) Tj
+T*
+() Tj
+T*
+(InputPinController.h.) Tj
+T*
+() Tj
+T*
+(\(c\) 2024 LSC labs InputPinController class Can be initiated with the correkt pin, level and) Tj
+T*
+(pullup/down in the constructor or via the setup phase of the project. Respecting the pin logic) Tj
+T*
+(\(logic high = on or off\) when asking for the pin status.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(protected-attrib - bool CInputPinController::m_bWithPullUpDown -) Tj
+T*
+(protected-attrib - int CInputPinController::m_nMode -) Tj
+T*
+(public-func - CInputPinController::CInputPinController\(\) -) Tj
+T*
+(public-func - CInputPinController::CInputPinController\(int nPin, bool bLowLevelIsOn=true, bool) Tj
+T*
+(bWithPullUpOrDown=false\) -) Tj
+T*
+(public-func - virtual void CInputPinController::setup\(int SwitchPin, bool bLowLevelIsOn=true, bool) Tj
+T*
+(bWithPullUpOrDown=false\) -) Tj
+T*
+(public-func - virtual bool CInputPinController::isPinLogicalOn\(\) -) Tj
+T*
+(public-func - virtual bool CInputPinController::isPinLogicalOff\(\) -) Tj
+T*
+(public-func - virtual bool CInputPinController::canSendInterrupts\(\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CJsonNode) Tj
+ET
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 20 0 R >>
+endobj
+22 0 obj
+<< /Length 4061 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - String CJsonNode::Name - Optional name/key of this node inside its parent.) Tj
+T*
+(public-attrib - std::vector<CJsonNode*> CJsonNode::Elements - Owned child nodes for objects and) Tj
+T*
+(arrays.) Tj
+T*
+(protected-attrib - JsonNode* CJsonNode::m_pParentNode -) Tj
+T*
+(protected-attrib - bool CJsonNode::m_bWriteValueWithQuotes -) Tj
+T*
+(protected-attrib - ELEMENT_TYPE CJsonNode::m_nObjectType -) Tj
+T*
+(protected-attrib - String CJsonNode::m_strSerializationCache -) Tj
+T*
+(protected-attrib - String CJsonNode::m_strValue -) Tj
+T*
+(protected-func - void CJsonNode::setParentNode\(JsonNode *pParentNode\) - Store the parent pointer) Tj
+T*
+(used for tree navigation.) Tj
+T*
+(protected-func - const char * CJsonNode::parseValue\(const char *pszJsonData, String &strValueData,) Tj
+T*
+(bool &bHasQuotes\) - Parse one scalar JSON token from the input string.) Tj
+T*
+(protected-func - const char * CJsonNode::serializeNode\(String &strResultString, int nIdentDeep=0\) -) Tj
+T*
+(Recursively serialize this node into the provided string buffer.) Tj
+T*
+(protected-func - void CJsonNode::writeIdentPrefixString\(String &strResultString, int nIdentDeep=0\) -) Tj
+T*
+(Append indentation spaces used by pretty JSON serialization.) Tj
+T*
+(protected-func - void CJsonNode::setNodeValueType\(bool bWriteWithQuotes=true\) - Convert this node) Tj
+T*
+(into a scalar value and remember quote handling.) Tj
+T*
+(protected-func - bool CJsonNode::getNameFromJsonPath\(const char *pszName, String &strName\) - Split a) Tj
+T*
+(dotted JSON path and return the final element name.) Tj
+T*
+(public-func - CJsonNode::CJsonNode\(\) - Create an unnamed object node.) Tj
+T*
+(public-func - CJsonNode::CJsonNode\(const char *pszName, const char *pszValue\) - Create a named JSON) Tj
+T*
+(value node initialized with text data.) Tj
+T*
+(public-func - CJsonNode::CJsonNode\(const char *pszName, ELEMENT_TYPE eType=ELEMENT_TYPE::OBJECT\) -) Tj
+T*
+(Create a JSON node with an optional name and explicit node type.) Tj
+T*
+(public-func - virtual CJsonNode::~CJsonNode\(\) - Delete all child nodes on destruction.) Tj
+T*
+(public-func - virtual void CJsonNode::clear\(\) - Delete all child nodes and reset this node to an) Tj
+T*
+(empty container.) Tj
+T*
+(public-func - virtual bool CJsonNode::exists\(const char *pszName\) - Return true if a direct or) Tj
+T*
+(dotted-path child exists.) Tj
+T*
+(public-func - ELEMENT_TYPE CJsonNode::getType\(\) - Return the stored node type.) Tj
+T*
+(public-func - JsonNode * CJsonNode::getParentNode\(\) - Return the parent node, or nullptr for a root) Tj
+T*
+(node.) Tj
+T*
+(public-func - bool CJsonNode::isJsonObject\(\) - Return true when this node is a JSON object.) Tj
+T*
+(public-func - bool CJsonNode::isJsonObject\(const char *pszName\) - Return true when the named child) Tj
+T*
+(exists and is an object.) Tj
+T*
+(public-func - bool CJsonNode::isJsonArray\(\) - Return true when this node is a JSON array.) Tj
+T*
+(public-func - bool CJsonNode::isJsonArray\(const char *pszName\) - Return true when the named child) Tj
+T*
+(exists and is an array.) Tj
+T*
+(public-func - bool CJsonNode::isJsonValue\(\) - Return true when this node is a scalar JSON value.) Tj
+T*
+(public-func - bool CJsonNode::isJsonValue\(const char *pszName\) - Return true when the named child) Tj
+T*
+(exists and is a scalar value.) Tj
+T*
+(public-func - bool CJsonNode::isNumberValue\(\) - Return true if this node contains a simple) Tj
+T*
+(integer/float literal.) Tj
+T*
+(public-func - bool CJsonNode::isNumberValue\(const char *pszName\) - Return true if a named child) Tj
+T*
+(contains a numeric literal.) Tj
+T*
+(public-func - bool CJsonNode::isBooleanValue\(\) - Return true if this node contains a recognized) Tj
+T*
+(boolean literal.) Tj
+T*
+(public-func - bool CJsonNode::isBooleanValue\(const char *pszName\) - Return true if a named child) Tj
+T*
+(contains a recognized boolean literal.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::find\(const char *pszName\) - Find a child by name or dotted) Tj
+ET
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 22 0 R >>
+endobj
+24 0 obj
+<< /Length 4154 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(path.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::createJsonPathToElement\(const char *pszElement\) - Ensure that) Tj
+T*
+(all object nodes before the final path element exist.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::createElement\(const char *pszName=nullptr\) - Create or replace) Tj
+T*
+(a child value node.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::createObject\(const char *pszName=nullptr\) - Create or replace a) Tj
+T*
+(child object node.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::createArray\(const char *pszName=nullptr\) - Create or replace a) Tj
+T*
+(child array node.) Tj
+T*
+(public-func - CJsonNode & CJsonNode::operator[]\(const char *pszName\) - Return an existing value) Tj
+T*
+(element or create it on demand.) Tj
+T*
+(public-func - CJsonNode & CJsonNode::operator[]\(String &strName\) - String overload for value element) Tj
+T*
+(access.) Tj
+T*
+(public-func - String & CJsonNode::getValueAsString\(String &strDefault\) - Return this node's value as) Tj
+T*
+(String, or the supplied default.) Tj
+T*
+(public-func - String & CJsonNode::getValueAsString\(const char *pszName, String &strDefault\) - Return) Tj
+T*
+(a named child value as String, or the supplied default.) Tj
+T*
+(public-func - const char * CJsonNode::getValue\(\) - Return this node's raw value text.) Tj
+T*
+(public-func - const char * CJsonNode::getValue\(const char *pszName, const char *pszDefault=nullptr\)) Tj
+T*
+(- Return a named child value or, for value nodes, this node's value.) Tj
+T*
+(public-func - const char * CJsonNode::getValueAsCharPointer\(const char *pszDefault\) - Return this) Tj
+T*
+(node's value as C string, or the supplied default.) Tj
+T*
+(public-func - const char * CJsonNode::getValueAsCharPointer\(const char *pszName, const char) Tj
+T*
+(*pszDefault\) - Return a named child value as C string, or the supplied default.) Tj
+T*
+(public-func - int CJsonNode::getValueAsInt\(const char *pszname, int nDefault=-1\) - Parse a named) Tj
+T*
+(child value as int.) Tj
+T*
+(public-func - int CJsonNode::getValueAsInt\(int nDefault=-1\) - Parse this node's numeric value as) Tj
+T*
+(int.) Tj
+T*
+(public-func - unsigned int CJsonNode::getValueAsUnsignedInt\(const char *pszname, unsigned int) Tj
+T*
+(nDefault=0\) - Parse a named child value as unsigned int.) Tj
+T*
+(public-func - unsigned int CJsonNode::getValueAsUnsignedInt\(unsigned int nDefault=0\) - Parse this) Tj
+T*
+(node's numeric value as unsigned int.) Tj
+T*
+(public-func - float CJsonNode::getValueAsFloat\(const char *pszname, float fDefault=-999.0\) - Parse a) Tj
+T*
+(named child value as float.) Tj
+T*
+(public-func - float CJsonNode::getValueAsFloat\(float fDefault=-999.0\) - Parse this node's numeric) Tj
+T*
+(value as float.) Tj
+T*
+(public-func - long CJsonNode::getValueAsLong\(const char *pszname, long lDefault=0\) - Parse a named) Tj
+T*
+(child value as long.) Tj
+T*
+(public-func - long CJsonNode::getValueAsLong\(long lDefault=0\) - Parse this node's numeric value as) Tj
+T*
+(long.) Tj
+T*
+(public-func - unsigned long CJsonNode::getValueAsUnsignedLong\(const char *pszname, unsigned long) Tj
+T*
+(ulDefault=0\) - Parse a named child value as unsigned long.) Tj
+T*
+(public-func - unsigned long CJsonNode::getValueAsUnsignedLong\(unsigned long ulDefault=0\) - Parse) Tj
+T*
+(this node's numeric value as unsigned long.) Tj
+T*
+(public-func - bool CJsonNode::getValueAsBool\(const char *pszname, bool bDefault=false\) - Parse a) Tj
+T*
+(named child value as bool.) Tj
+T*
+(public-func - bool CJsonNode::getValueAsBool\(bool bDefault=false\) - Parse this node's boolean value.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIf\(String &strTarget\) - Copy this node's text into the) Tj
+T*
+(target string when present.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIfNot\(String &strTarget, const char *pszIfNot\) - Copy this) Tj
+T*
+(node's text unless it matches the excluded marker.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIf\(const char *pszName, String &strTarget\) - Copy a named) Tj
+T*
+(child text value into the target string when present.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIfNot\(const char *pszName, String &strTarget, const char) Tj
+ET
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 24 0 R >>
+endobj
+26 0 obj
+<< /Length 3927 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(*pszIfNot\) - Copy a named child text value unless it matches the excluded marker.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIf\(int *pnTarget\) - Store this value in the target if it is) Tj
+T*
+(numeric.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIf\(const char *pszName, int *pnTarget\) - Store a named child) Tj
+T*
+(in the target if it is numeric.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIf\(unsigned int *pnTarget\) - Store this value in the target) Tj
+T*
+(if it is numeric.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIf\(const char *pszName, unsigned int *pnTarget\) - Store a) Tj
+T*
+(named child in the target if it is numeric.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIf\(long *plTarget\) - Store this value in the target if it is) Tj
+T*
+(numeric.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIf\(const char *pszName, long *plTarget\) - Store a named) Tj
+T*
+(child in the target if it is numeric.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIf\(bool *pbTarget\) - Store this value in the target if it is) Tj
+T*
+(boolean.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIf\(const char *pszName, bool *pbTarget\) - Store a named) Tj
+T*
+(child in the target if it is boolean.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIf\(float *fTarget\) - Store this value in the target if it is) Tj
+T*
+(numeric.) Tj
+T*
+(public-func - bool CJsonNode::storeValueIf\(const char *pszName, float *pfTarget\) - Store a named) Tj
+T*
+(child in the target if it is numeric.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::getObject\(const char *pszName, bool bCreateIfNotExist=false\) -) Tj
+T*
+(Return a named object node, optionally creating/converting it.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::getArray\(const char *pszName, bool bCreateIfNotExist=false\) -) Tj
+T*
+(Return a named array node, optionally creating/converting it.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::getElement\(const char *pszName, bool bCreateIfNotExist=false\) -) Tj
+T*
+(Return a named scalar value node, optionally creating/converting it.) Tj
+T*
+(public-func - const char * CJsonNode::parse\(const char *pszJsonData\) - Parse JSON text into this) Tj
+T*
+(node tree.) Tj
+T*
+(public-func - void CJsonNode::remove\(const char *pszName\) - Remove and delete the direct child with) Tj
+T*
+(the given name.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(const char *pszValue\) - Store a quoted string value in) Tj
+T*
+(this node.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(String &strValue\) - Store a quoted String value in) Tj
+T*
+(this node.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(bool bValue\) - Store an unquoted boolean value in this) Tj
+T*
+(node.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(int nValue\) - Store an unquoted signed integer value) Tj
+T*
+(in this node.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(unsigned int unValue\) - Store an unquoted unsigned) Tj
+T*
+(integer value in this node.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(float fValue\) - Store an unquoted floating point value) Tj
+T*
+(in this node.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(long lValue\) - Store an unquoted signed long value in) Tj
+T*
+(this node.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(unsigned long ulValue\) - Store an unquoted unsigned) Tj
+T*
+(long value in this node.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::operator=\(const char *pszValue\) -) Tj
+T*
+(public-func - CJsonNode * CJsonNode::operator=\(String &strValue\) -) Tj
+T*
+(public-func - CJsonNode * CJsonNode::operator=\(bool bValue\) -) Tj
+T*
+(public-func - CJsonNode * CJsonNode::operator=\(int nValue\) -) Tj
+T*
+(public-func - CJsonNode * CJsonNode::operator=\(unsigned int unValue\) -) Tj
+T*
+(public-func - CJsonNode * CJsonNode::operator=\(float fValue\) -) Tj
+T*
+(public-func - CJsonNode * CJsonNode::operator=\(long lValue\) -) Tj
+ET
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 26 0 R >>
+endobj
+28 0 obj
+<< /Length 3180 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(public-func - CJsonNode * CJsonNode::operator=\(unsigned long ulValue\) -) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(const char *pszName, const char *pszValue\) - Set or) Tj
+T*
+(create a named string value.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(const char *pszName, String &strValue\) - Set or create) Tj
+T*
+(a named String value.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(const char *pszName, bool bValue\) - Set or create a) Tj
+T*
+(named boolean value.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(const char *pszName, int nValue\) - Set or create a) Tj
+T*
+(named signed integer value.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(const char *pszName, float fValue\) - Set or create a) Tj
+T*
+(named floating point value.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(const char *pszName, long lValue\) - Set or create a) Tj
+T*
+(named signed long value.) Tj
+T*
+(public-func - CJsonNode * CJsonNode::setValue\(const char *pszName, unsigned long ulValue\) - Set or) Tj
+T*
+(create a named unsigned long value.) Tj
+T*
+(public-func - virtual void CJsonNode::dump\(const char *pszPrefix=""\) - Print this node tree to) Tj
+T*
+(Serial for diagnostics.) Tj
+T*
+(public-func - JsonNode * CJsonNode::createPayloadStructure\(const char *pszCommand, const char) Tj
+T*
+(*pszDataType, const char *pszPayload=nullptr\) - Create the common command/data/payload message) Tj
+T*
+(structure.) Tj
+T*
+(public-func - const char * CJsonNode::getAsJsonText\(\) - Serialize this node tree as compact JSON.) Tj
+T*
+(public-func - const char * CJsonNode::getAsJsonTextPretty\(\) - Serialize this node tree as pretty-) Tj
+T*
+(printed JSON.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CLightSwitch) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CLightSwitch::CLightSwitch\(\) -) Tj
+T*
+(public-func - CLightSwitch::CLightSwitch\(int nSwitchPin, bool bLowLevelIsOn=true\) -) Tj
+T*
+(public-func - void CLightSwitch::blink\(unsigned long nOnMillis=1000, unsigned long nOffMillis=1000\)) Tj
+T*
+(-) Tj
+T*
+(public-func - void CLightSwitch::wave\(unsigned long ulFadeInMillis=200, unsigned long) Tj
+T*
+(ulFadeOutMillis=200, unsigned long ulOnTime=1000, unsigned long ulOffTime=1000, int) Tj
+T*
+(nMaxLevelInPercent=-1\) -) Tj
+T*
+(public-func - void CLightSwitch::setBrightness\(int nLevelInPercent=100\) -) Tj
+T*
+(public-func - int CLightSwitch::getBrightness\(\) -) Tj
+T*
+(public-func - void CLightSwitch::runTests\(\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CLogWriter) Tj
+T*
+() Tj
+T*
+(Class to handle the logging for a module This class is used to write log entries for a specific) Tj
+T*
+(module.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(private-func - bool CLogWriter::isTypeToWriteAlways\(const char cType\) -) Tj
+T*
+(private-func - bool CLogWriter::isLogLevelToWrite\(const char cType\) -) Tj
+T*
+(public-func - CLogWriter::CLogWriter\(\) -) Tj
+T*
+(public-func - int CLogWriter::setLogLevel\(int nLogLevel\) - Set the maximum log level written by this) Tj
+T*
+(writer.) Tj
+T*
+(public-func - int CLogWriter::getLogLevel\(\) - Return the currently configured maximum log level.) Tj
+ET
+endstream
+endobj
+29 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 28 0 R >>
+endobj
+30 0 obj
+<< /Length 3368 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(public-func - virtual int CLogWriter::receiveEvent\(const void *pSender, int nMsgType, const void) Tj
+T*
+(*pMessage, int nClass\) override - Receive log events from the message bus and write matching) Tj
+T*
+(entries.) Tj
+T*
+(public-func - virtual void CLogWriter::writeLogEntry\(const char *strType, const char *strMessage\) -) Tj
+T*
+(Write a text log entry to the concrete output.) Tj
+T*
+(public-func - virtual void CLogWriter::writeLogEntry\(const char *strType, JsonNode *oDoc\) - Write a) Tj
+T*
+(JSON log entry to the concrete output.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CMDNSController) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CMDNSController::CMDNSController\(\) -) Tj
+T*
+(public-func - CMDNSController::CMDNSController\(const char *pszAutoregisterName\) -) Tj
+T*
+(public-func - CMDNSController::~CMDNSController\(\) -) Tj
+T*
+(public-func - bool CMDNSController::begin\(const char *pszHostname=nullptr\) -) Tj
+T*
+(public-func - void CMDNSController::end\(\) -) Tj
+T*
+(public-func - int CMDNSController::receiveEvent\(const void *pSender, int nMsg, const void *pMessage,) Tj
+T*
+(int nClass\) override -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CMQTTController) Tj
+T*
+() Tj
+T*
+(MQTT message broker module with heartbeat and HA discovery support.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - MQTTConfig CMQTTController::Config - MQTT connection and topic configuration.) Tj
+T*
+(public-attrib - MQTTStatus CMQTTController::Status - Current MQTT connection status.) Tj
+T*
+(protected-attrib - char* CMQTTController::m_pszHomeAssistantStatusTopic -) Tj
+T*
+(public-func - CMQTTController::CMQTTController\(\) - Create the MQTT controller with default) Tj
+T*
+(config/status.) Tj
+T*
+(public-func - CMQTTController::~CMQTTController\(\) - Release owned topic/message buffers.) Tj
+T*
+(public-func - void CMQTTController::setup\(int nPublishInterval=60\) - Configure MQTT callbacks and) Tj
+T*
+(heartbeat interval.) Tj
+T*
+(public-func - void CMQTTController::readConfigFrom\(JsonNode &oCfg\) override - Read MQTT) Tj
+T*
+(configuration from a JSON node.) Tj
+T*
+(public-func - void CMQTTController::writeConfigTo\(JsonNode &oCfg, bool bHideCritical\) override -) Tj
+T*
+(Write MQTT configuration into a JSON node.) Tj
+T*
+(public-func - void CMQTTController::writeStatusTo\(JsonNode &oCfg, int nLevel\) override - Write MQTT) Tj
+T*
+(connection status into a JSON node.) Tj
+T*
+(public-func - int CMQTTController::receiveEvent\(const void *pSender, int nMsg, const void *pMessage,) Tj
+T*
+(int nClass\) override - React to application/network lifecycle events.) Tj
+T*
+(public-func - void CMQTTController::dispatch\(\) override - Dispatch queued MQTT messages and) Tj
+T*
+(heartbeat work.) Tj
+T*
+(public-func - bool CMQTTController::enableConnection\(\) - Return true if MQTT is enabled and has) Tj
+T*
+(enough config to connect.) Tj
+T*
+(public-func - bool CMQTTController::isDeviceTopic\(const char *pszTopic\) - Return true if the topic) Tj
+T*
+(belongs to this device topic prefix.) Tj
+T*
+(public-func - bool CMQTTController::isDeviceCommandTopic\(const char *pszTopic\) - Return true if the) Tj
+T*
+(topic is a command topic for this device.) Tj
+T*
+(public-func - const char * CMQTTController::getDeviceCommandBaseTopicPath\(\) - Return the base topic) Tj
+T*
+(path used for device commands.) Tj
+ET
+endstream
+endobj
+31 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 30 0 R >>
+endobj
+32 0 obj
+<< /Length 3505 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(public-func - void CMQTTController::publishDeviceState\(JsonNode &oStateData\) - Publish the current) Tj
+T*
+(device state from a JSON node.) Tj
+T*
+(public-func - void CMQTTController::publishDeviceState\(const char *pszStateData\) - Publish the) Tj
+T*
+(current device state from serialized JSON/text.) Tj
+T*
+(public-func - void CMQTTController::publishDeviceTopic\(String strTopic, JsonNode &oDataNode, int) Tj
+T*
+(nQOS=0, bool bRetain=false\) - Publish a JSON node below the device topic prefix.) Tj
+T*
+(public-func - void CMQTTController::publishDeviceTopic\(const char *pszTopic, JsonNode &oDataNode,) Tj
+T*
+(int nQOS=0, bool bRetain=false\) - Publish a JSON node below the device topic prefix.) Tj
+T*
+(public-func - void CMQTTController::publishDeviceTopic\(const char *pszTopic, const char *pszData,) Tj
+T*
+(int nQOS=0, bool bRetain=false\) - Publish text below the device topic prefix.) Tj
+T*
+(public-func - virtual void CMQTTController::publishHeartBeat\(bool bForceSend=false\) - Publish) Tj
+T*
+(availability/heartbeat messages when due or forced.) Tj
+T*
+(public-func - void CMQTTController::registerHomeAssistantComponent\(const char *pszName,) Tj
+T*
+(IHomeAssistantComponent *pHandler\) - Register a component handler for Home Assistant discovery.) Tj
+T*
+(protected-func - void CMQTTController::onMqttConnect\(bool sessionPresent\) - AsyncMqttClient connect) Tj
+T*
+(callback.) Tj
+T*
+(protected-func - void CMQTTController::onMqttDisconnect\(AsyncMqttClientDisconnectReason reason\) -) Tj
+T*
+(AsyncMqttClient disconnect callback.) Tj
+T*
+(protected-func - void CMQTTController::onMqttMessage\(char *topic, char *payload,) Tj
+T*
+(AsyncMqttClientMessageProperties properties, size_t len, size_t index, size_t total\) -) Tj
+T*
+(AsyncMqttClient message callback.) Tj
+T*
+(protected-func - void CMQTTController::publishHomeAssistantDiscovery\(\) - Publish Home Assistant) Tj
+T*
+(discovery information for registered components.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CMultiNameUniqueValueTable) Tj
+T*
+() Tj
+T*
+(Named-value table that allows many names but only unique values.) Tj
+T*
+() Tj
+T*
+(A value may appear only once in the table. Multiple keys are allowed as long as every key references) Tj
+T*
+(a different value. set\(\) returns nullptr when a new entry would duplicate an existing value. This is) Tj
+T*
+(useful for registries where the same object pointer must not be registered twice, even if callers) Tj
+T*
+(use different names. TValue Type of the stored values.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CMultiNameUniqueValueTable< TValue >::CMultiNameUniqueValueTable\(bool) Tj
+T*
+(bCaseSensitiveKey=true, TValue oDefaultValue=0\) - Creates a table with unique values and non-unique) Tj
+T*
+(keys.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CNamedValueEntry) Tj
+T*
+() Tj
+T*
+(Single key/value entry used by CNamedValueTable.) Tj
+T*
+() Tj
+T*
+(The entry owns a copy of the key string. The value is stored directly and is intentionally public so) Tj
+T*
+(callers can update it after a lookup without another wrapper function. TValue Type of the stored) Tj
+T*
+(value. The value type must be copyable.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(protected-attrib - char* CNamedValueEntry< TValue >::m_pszKey - Owned copy of the key string.) Tj
+T*
+(public-attrib - TValue CNamedValueEntry< TValue >::value - Stored value.) Tj
+T*
+(public-func - CNamedValueEntry< TValue >::CNamedValueEntry\(const char *pszKey, TValue value\) -) Tj
+ET
+endstream
+endobj
+33 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 32 0 R >>
+endobj
+34 0 obj
+<< /Length 4030 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(Creates a new entry and copies the key.) Tj
+T*
+(public-func - CNamedValueEntry< TValue >::~CNamedValueEntry\(\) - Releases the owned key string.) Tj
+T*
+(public-func - const char * CNamedValueEntry< TValue >::getKey\(\) - Gets the stored key.) Tj
+T*
+(public-func - bool CNamedValueEntry< TValue >::doesKeyMatch\(const char *pszKey, bool bCaseSensitive\)) Tj
+T*
+(- Checks if a lookup key matches this entry key.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CNamedValueTable) Tj
+T*
+() Tj
+T*
+(Lightweight ordered table for named values.) Tj
+T*
+() Tj
+T*
+(The table stores entries in insertion order and offers lookup by key, lookup by value, and optional) Tj
+T*
+(uniqueness rules. It is intentionally simpler than std::map: duplicate keys and duplicate values are) Tj
+T*
+(allowed by default, while derived classes can enable uniqueness constraints. Key comparison can be) Tj
+T*
+(case-sensitive or case-insensitive. When no matching key exists, get\(\) returns the configured) Tj
+T*
+(default value. TValue Type of the stored values. The value type must be copyable and comparable with) Tj
+T*
+(operator== for value lookups and unique-value tables.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(protected-attrib - TValue CNamedValueTable< TValue >::m_defaultValue - Value returned by get\(\) when) Tj
+T*
+(no matching key exists.) Tj
+T*
+(protected-attrib - bool CNamedValueTable< TValue >::m_bCaseSensitive - Controls key comparison mode.) Tj
+T*
+(protected-attrib - bool CNamedValueTable< TValue >::m_bOnlyUniqueValues - When true, a value may) Tj
+T*
+(exist only once in the table.) Tj
+T*
+(protected-attrib - bool CNamedValueTable< TValue >::m_bOnlyUniqueKeys - When true, a key may exist) Tj
+T*
+(only once in the table.) Tj
+T*
+(protected-attrib - std::vector<const char *> CNamedValueTable< TValue >::m_tKeyNameCache - Cached) Tj
+T*
+(list of key pointers in insertion order.) Tj
+T*
+(public-attrib - std::vector<CNamedValueEntry<TValue> * > CNamedValueTable< TValue >::Entries -) Tj
+T*
+(Public entry list for direct iteration.) Tj
+T*
+(public-func - CNamedValueTable< TValue >::CNamedValueTable\(bool bCaseSensitiveKey=true, TValue) Tj
+T*
+(defaultValue=0\) - Creates an empty named-value table.) Tj
+T*
+(public-func - CNamedValueTable< TValue >::~CNamedValueTable\(\) - Deletes all owned entries.) Tj
+T*
+(public-func - bool CNamedValueTable< TValue >::hasValueEntry\(TValue oValue\) - Checks if the table) Tj
+T*
+(contains at least one entry with a value.) Tj
+T*
+(public-func - CNamedValueEntry< TValue > * CNamedValueTable< TValue >::findFirstByValue\(TValue) Tj
+T*
+(oValue\) - Finds the first entry with the given value.) Tj
+T*
+(public-func - CNamedValueEntry< TValue > * CNamedValueTable< TValue >::findNextByValue\(TValue) Tj
+T*
+(oValue, CNamedValueEntry< TValue > *pLastFound=nullptr\) - Finds the next entry with the given value.) Tj
+T*
+(public-func - bool CNamedValueTable< TValue >::hasKeyEntry\(const char *pszKey\) - Checks if the table) Tj
+T*
+(contains at least one entry with a key.) Tj
+T*
+(public-func - CNamedValueEntry< TValue > * CNamedValueTable< TValue >::findFirstByKey\(const char) Tj
+T*
+(*pszKey\) - Finds the first entry with the given key.) Tj
+T*
+(public-func - CNamedValueEntry< TValue > * CNamedValueTable< TValue >::findNextByKey\(const char) Tj
+T*
+(*pszKey, CNamedValueEntry< TValue > *pLastFound=nullptr\) - Finds the next entry with the given key.) Tj
+T*
+(public-func - CNamedValueEntry< TValue > * CNamedValueTable< TValue) Tj
+T*
+(>::findEntryByAddress\(CNamedValueEntry< TValue > *pNamedEntry\) - Verifies that an entry pointer) Tj
+T*
+(belongs to this table.) Tj
+T*
+(public-func - CNamedValueEntry< TValue > * CNamedValueTable< TValue >::set\(const char *pszKey, const) Tj
+T*
+(TValue value\) - Sets or inserts a named value.) Tj
+T*
+(public-func - int CNamedValueTable< TValue >::size\(\) - Gets the number of entries in the table.) Tj
+T*
+(public-func - std::vector< const char * > CNamedValueTable< TValue >::getKeys\(\) - Gets all known) Tj
+T*
+(keys in insertion order.) Tj
+ET
+endstream
+endobj
+35 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 34 0 R >>
+endobj
+36 0 obj
+<< /Length 3274 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(public-func - TValue CNamedValueTable< TValue >::get\(const char *pszKey\) - Gets the value for a key.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CNTPHandler) Tj
+T*
+() Tj
+T*
+(The NTP Handler class as a module.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(protected-attrib - NTPConfig CNTPHandler::Config -) Tj
+T*
+(protected-attrib - time_t CNTPHandler::m_oRawTime -) Tj
+T*
+(protected-attrib - bool CNTPHandler::m_bIsInitialized -) Tj
+T*
+(protected-attrib - unsigned long CNTPHandler::m_uLastUpdate -) Tj
+T*
+(protected-attrib - char CNTPHandler::m_szISODateTime[40][40] -) Tj
+T*
+(public-func - CNTPHandler::CNTPHandler\(const char *pszAutoRegisterName=nullptr\) -) Tj
+T*
+(public-func - void CNTPHandler::setup\(\) -) Tj
+T*
+(public-func - void CNTPHandler::timeUpdatedByService\(\) -) Tj
+T*
+(public-func - bool CNTPHandler::hasValidTime\(\) -) Tj
+T*
+(public-func - time_t CNTPHandler::getNativeTime\(\) -) Tj
+T*
+(public-func - const char * CNTPHandler::getISODateTime\(\) -) Tj
+T*
+(public-func - void CNTPHandler::writeConfigTo\(JsonNode &oCfgObj, bool bHideCritical\) override -) Tj
+T*
+(public-func - void CNTPHandler::readConfigFrom\(JsonNode &oCfgObj\) override -) Tj
+T*
+(public-func - void CNTPHandler::writeStatusTo\(JsonNode &oStatusObj, int nLevel=STATUS_LEVEL_INFO\)) Tj
+T*
+(override -) Tj
+T*
+(public-func - int CNTPHandler::receiveEvent\(const void *pSender, int nMsgType, const void *pMessage,) Tj
+T*
+(int nClass\) override -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class COutputPinController) Tj
+T*
+() Tj
+T*
+(Base class to controll a pin as in or output with helper functions.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(protected-attrib - int COutputPinController::m_nLevelInPercent -) Tj
+T*
+(protected-attrib - int COutputPinController::m_nMaxOutputLevel -) Tj
+T*
+(protected-attrib - int COutputPinController::m_nState -) Tj
+T*
+(public-func - COutputPinController::COutputPinController\(\) - Create an unconfigured output pin) Tj
+T*
+(controller.) Tj
+T*
+(public-func - COutputPinController::COutputPinController\(int nSwitchPin, bool bLowLevelIsOn=false\) -) Tj
+T*
+(Create and configure an output pin controller.) Tj
+T*
+(public-func - virtual void COutputPinController::setup\(int SwitchPin, bool bLowLevelIsOn=false\) -) Tj
+T*
+(Configure the output pin and active-level logic.) Tj
+T*
+(public-func - virtual void COutputPinController::switchOff\(\) - Switch the controlled output off.) Tj
+T*
+(public-func - virtual void COutputPinController::switchOn\(\) - Switch the controlled output on.) Tj
+T*
+(public-func - virtual bool COutputPinController::toggleSwitch\(\) - Toggle the output and return the) Tj
+T*
+(new on/off state.) Tj
+T*
+(public-func - virtual bool COutputPinController::isOn\(\) - Return true if the output is currently on.) Tj
+T*
+(public-func - virtual void COutputPinController::setOutputLevelInPercent\(int nLevelInPercent=100\) -) Tj
+T*
+(Set the active PWM/output level in percent.) Tj
+T*
+(public-func - virtual int COutputPinController::getOutputLevelInPercent\(\) - Return the configured) Tj
+T*
+(active PWM/output level in percent.) Tj
+T*
+(protected-func - virtual int COutputPinController::getPinLevelValueForPWM\(int nLevelInPercent\) -) Tj
+T*
+(Convert a percent value to the hardware PWM range.) Tj
+ET
+endstream
+endobj
+37 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 36 0 R >>
+endobj
+38 0 obj
+<< /Length 3321 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+() Tj
+T*
+() Tj
+T*
+(class CPinController) Tj
+T*
+() Tj
+T*
+(PinController.h.) Tj
+T*
+() Tj
+T*
+(\(c\) 2024 LSC Labs Base class for Input / Output pins. Defines the pin and if it is activ low or) Tj
+T*
+(activ high. Input and Output Controllers should reflect this bas information.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(protected-attrib - int CPinController::m_nPin -) Tj
+T*
+(protected-attrib - int CPinController::m_bLowLevelIsOn -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CRGBLed) Tj
+T*
+() Tj
+T*
+(Class to handle the RGB LED Initialize the RGB LED with the pins for the colors and with the) Tj
+T*
+(Information COMMON_ANODE \(Active Low\) or COMMON_CATHODE \(Active High\).) Tj
+T*
+() Tj
+T*
+(The Setup function must be called to initialize the pins) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - CLightSwitch CRGBLed::RedLED - Red channel light switch.) Tj
+T*
+(public-attrib - CLightSwitch CRGBLed::GreenLED - Green channel light switch.) Tj
+T*
+(public-attrib - CLightSwitch CRGBLed::BlueLED - Blue channel light switch.) Tj
+T*
+(public-func - CRGBLed::CRGBLed\(\) - Create an unconfigured RGB LED.) Tj
+T*
+(public-func - CRGBLed::CRGBLed\(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow=true\) -) Tj
+T*
+(Constructor.) Tj
+T*
+(public-func - void CRGBLed::setup\(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow=true\) -) Tj
+T*
+(Configure the RGB LED pins and active-level mode.) Tj
+T*
+(public-func - void CRGBLed::switchOn\(\) - Switch all active color channels on.) Tj
+T*
+(public-func - void CRGBLed::switchOff\(\) - Switch off the RGB LED.) Tj
+T*
+(public-func - void CRGBLed::setColor\(RGB_COLOR eColor, bool bSwitchLeds=true\) - Set the color of the) Tj
+T*
+(RGB LED.) Tj
+T*
+(public-func - void CRGBLed::setColor\(int nColorBits, bool bSwitchLeds=true\) - Set the color of the) Tj
+T*
+(RGB LED - follow the Bitmasks in RGB_COLOR !) Tj
+T*
+(public-func - void CRGBLed::blink\(RGB_COLOR eColor, unsigned long nOnMillis=500, unsigned long) Tj
+T*
+(nOffMillis=500\) - Blink the given named color.) Tj
+T*
+(public-func - void CRGBLed::blink\(int nColorBits, unsigned long nOnMillis=500, unsigned long) Tj
+T*
+(nOffMillis=500\) - Blink the given color bitmask.) Tj
+T*
+(public-func - void CRGBLed::wave\(RGB_COLOR eColor, unsigned long ulFadeInMillis=500, unsigned long) Tj
+T*
+(ulFadeOutMillis=500, unsigned long ulOnTime=1000, unsigned long ulOffTime=2000, int) Tj
+T*
+(nMaxLevelInPercent=-1\) - Fade the given named color in/out repeatedly.) Tj
+T*
+(public-func - void CRGBLed::wave\(int nColorBits, unsigned long ulFadeInMillis=500, unsigned long) Tj
+T*
+(ulFadeOutMillis=500, unsigned long ulOnTime=1000, unsigned long ulOffTime=2000, int) Tj
+T*
+(nMaxLevelInPercent=-1\) - Fade the given color bitmask in/out repeatedly.) Tj
+T*
+(public-func - void CRGBLed::setBrightnessInPercent\(RGB_COLOR eColor, int nBrightnessPercent\) - Set) Tj
+T*
+(brightness for one named color channel/group.) Tj
+T*
+(public-func - void CRGBLed::setBrightnessInPercent\(int nColorBits, int nBrightnessPercent\) - Set) Tj
+T*
+(brightness for one color bitmask channel/group.) Tj
+T*
+(public-func - void CRGBLed::runTests\(\) - Run the tests for the RGB LED.) Tj
+T*
+(public-func - void CRGBLed::showStartupFlashLight\(int nDelayBetweenFlashes\) - Show a short startup) Tj
+ET
+endstream
+endobj
+39 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 38 0 R >>
+endobj
+40 0 obj
+<< /Length 2754 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(flash sequence.) Tj
+T*
+(private-func - void CRGBLed::runSingleColorTests\(\) - Run single-color diagnostics.) Tj
+T*
+(private-func - void CRGBLed::runColorBrightnessTest\(\) - Run color brightness diagnostics.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CSerialLogWriter) Tj
+T*
+() Tj
+T*
+(Stream log writer preconfigured for Serial.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CSerialLogWriter::CSerialLogWriter\(\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CSimpleDelay) Tj
+T*
+() Tj
+T*
+(Simple delay class to avoid DOS calls to functions.) Tj
+T*
+() Tj
+T*
+(Should avoid to cal services too often \(e.g. web requests\). Usage: CDelay oDelay\(5000\); // 5 seconds) Tj
+T*
+(delay if\(oDelay.isDone\(\)\) { ... ; oDelay.restart\(\); } As an alternative, you can use) Tj
+T*
+(start\(nDelayMillis\) to set a new delay time. Use reset\(\) to stop the delay.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CSimpleDelay::CSimpleDelay\(\) -) Tj
+T*
+(public-func - CSimpleDelay::CSimpleDelay\(unsigned long nDelayMillis\) -) Tj
+T*
+(public-func - CSimpleDelay::~CSimpleDelay\(\) -) Tj
+T*
+(public-func - CSimpleDelay * CSimpleDelay::start\(unsigned long ulDelayMillis, bool bStartNow=true\) -) Tj
+T*
+(Starts the delay countdown.) Tj
+T*
+(public-func - void CSimpleDelay::stop\(\) -) Tj
+T*
+(public-func - void CSimpleDelay::reset\(\) - Resets the delay \(stops it\).) Tj
+T*
+(public-func - bool CSimpleDelay::isActive\(\) - checks if the delay is activ \(running\)) Tj
+T*
+(public-func - unsigned long CSimpleDelay::restart\(\) - Restarts the delay with the previous set delay) Tj
+T*
+(time.) Tj
+T*
+(public-func - unsigned long CSimpleDelay::next\(\) - Advances to the next delay period without) Tj
+T*
+(resetting the start time.) Tj
+T*
+(public-func - void CSimpleDelay::setExpired\(\) - Set the delay to expired \(stop the timer, without) Tj
+T*
+(reseting the start time\).) Tj
+T*
+(public-func - bool CSimpleDelay::isExpired\(\) - checks if the delay is expired \(stopped by an) Tj
+T*
+(explicit setExpired\(\) - not, if the delay isDone\(\)\)) Tj
+T*
+(public-func - bool CSimpleDelay::isDone\(\) - Checks if the delay time has elapsed, or the user has) Tj
+T*
+(stopped the delay with setExpired\(\).) Tj
+T*
+(public-func - unsigned long CSimpleDelay::getElapsed\(\) - Get the Elapsed time since start in) Tj
+T*
+(milliseconds.) Tj
+T*
+(public-func - unsigned long CSimpleDelay::getRemaining\(\) - Get the Remaining time until the delay is) Tj
+T*
+(done in milliseconds.) Tj
+T*
+(public-func - void CSimpleDelay::printDiag\(\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CStatusHandler) Tj
+T*
+() Tj
+T*
+(Status handler class.) Tj
+T*
+() Tj
+T*
+(Works as a status handler and can register further status handler modules.) Tj
+ET
+endstream
+endobj
+41 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 40 0 R >>
+endobj
+42 0 obj
+<< /Length 2834 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - void CStatusHandler::addStatusHandler\(String strName, IStatusHandler *pHandler\) -) Tj
+T*
+(public-func - void CStatusHandler::addStatusHandler\(const char *pszName, IStatusHandler *pHandler\) -) Tj
+T*
+(public-func - IStatusHandler * CStatusHandler::getStatusHandler\(String strName\) -) Tj
+T*
+(public-func - IStatusHandler * CStatusHandler::getStatusHandler\(const char *pszName\) -) Tj
+T*
+(public-func - void CStatusHandler::writeStatusTo\(JsonNode &oStatusNode, int) Tj
+T*
+(nLevel=STATUS_LEVEL_INFO\) override - Interface implementation.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CStreamLogWriter) Tj
+T*
+() Tj
+T*
+(Log writer that prints log entries to an Arduino Stream.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CStreamLogWriter::CStreamLogWriter\(Stream *pStream\) - Create a log writer for the) Tj
+T*
+(given stream.) Tj
+T*
+(public-func - void CStreamLogWriter::writeLogEntry\(const char *strType, const char *strMessage\)) Tj
+T*
+(override - Write a text log entry to the configured stream.) Tj
+T*
+(public-func - void CStreamLogWriter::writeLogEntry\(const char *strType, JsonNode *pDoc\) override -) Tj
+T*
+(Write a JSON log entry to the configured stream.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CSysStatus) Tj
+T*
+() Tj
+T*
+(SysStatus.h.) Tj
+T*
+() Tj
+T*
+(\(c\) 2025 LSC Labs Aliases functions to sys information Helps to port information between devices and) Tj
+T*
+(implements the ISatusHandler interface Not all information are available - still porting... Thanks) Tj
+T*
+(to the implementation of Jason2866 which gives a lot of basic ideas.) Tj
+T*
+(https://github.com/Jason2866/ESP32_Show_Info/blob/main/src/Chip_info.ino#L68) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CSysStatus::CSysStatus\(\) -) Tj
+T*
+(public-func - CSysStatus::~CSysStatus\(\) -) Tj
+T*
+(public-func - const char * CSysStatus::getSdkVersion\(\) -) Tj
+T*
+(public-func - const char * CSysStatus::getChipID\(\) -) Tj
+T*
+(public-func - uint32_t CSysStatus::getFlashChipId\(\) -) Tj
+T*
+(public-func - uint32_t CSysStatus::getFlashChipRealSize\(\) -) Tj
+T*
+(public-func - uint32_t CSysStatus::getFlashChipSize\(\) -) Tj
+T*
+(public-func - uint32_t CSysStatus::getSketchSize\(\) -) Tj
+T*
+(public-func - uint32_t CSysStatus::getFreeSketchSpace\(\) -) Tj
+T*
+(public-func - uint32_t CSysStatus::getHeapSize\(\) -) Tj
+T*
+(public-func - uint32_t CSysStatus::getFreeHeap\(\) -) Tj
+T*
+(public-func - uint32_t CSysStatus::getMaxAllocHeap\(\) -) Tj
+T*
+(public-func - uint32_t CSysStatus::getFreePsram\(\) -) Tj
+T*
+(public-func - uint32_t CSysStatus::getCpuFrequencyMhz\(\) -) Tj
+T*
+(public-func - void CSysStatus::writeStatusTo\(JsonNode &oStatusObj, int nLevel=STATUS_LEVEL_INFO\)) Tj
+T*
+(override -) Tj
+T*
+() Tj
+T*
+() Tj
+ET
+endstream
+endobj
+43 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 42 0 R >>
+endobj
+44 0 obj
+<< /Length 3088 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(class CSysStatusLed) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CSysStatusLed::CSysStatusLed\(int nRedPin, int nGreenPin, int nBluePin, bool) Tj
+T*
+(bActiveLow=true\) -) Tj
+T*
+(public-func - virtual int CSysStatusLed::receiveEvent\(const void *pSender, int nMsgId, const void) Tj
+T*
+(*pMessage, int nType\) -) Tj
+T*
+(public-func - virtual void CSysStatusLed::updateLED\(\) -) Tj
+T*
+(public-func - virtual unsigned long CSysStatusLed::getNormalBlinkOnTime\(\) -) Tj
+T*
+(public-func - virtual unsigned long CSysStatusLed::getNormalBlinkOffTime\(\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CUniqueNameMultiValueTable) Tj
+T*
+() Tj
+T*
+(Named-value table that allows unique names and repeated values.) Tj
+T*
+() Tj
+T*
+(A key may appear only once in the table. Setting an existing key updates the stored value. The same) Tj
+T*
+(value may be stored under multiple different keys. This is useful for maps where one name must) Tj
+T*
+(resolve to one current value, but several names may intentionally share that value. TValue Type of) Tj
+T*
+(the stored values.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CUniqueNameMultiValueTable< TValue >::CUniqueNameMultiValueTable\(bool) Tj
+T*
+(bCaseSensitiveKey=true, TValue oDefaultValue=0\) - Creates a table with unique keys and non-unique) Tj
+T*
+(values.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CVar) Tj
+T*
+() Tj
+T*
+(Represents one named configuration variable.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - CVar::~CVar\(\) - Release owned name/key/value buffers.) Tj
+T*
+(public-func - CVar::CVar\(\) - Create an empty variable.) Tj
+T*
+(public-func - CVar::CVar\(const char *pszName\) - Create a variable with a name and empty value.) Tj
+T*
+(public-func - CVar::CVar\(const char *pszName, const char *pszValue\) - Create a string variable.) Tj
+T*
+(public-func - CVar::CVar\(const char *pszName, const int nValue\) - Create an integer variable.) Tj
+T*
+(public-func - CVar::CVar\(const char *pszName, const bool bValue\) - Create a boolean variable.) Tj
+T*
+(public-func - void CVar::setVarName\(const char *pszName\) - Set or replace the variable name and) Tj
+T*
+(derived lookup key.) Tj
+T*
+(public-func - const char * CVar::getKeyName\(bool bCaseSensitive=false\) - Return the lookup key;) Tj
+T*
+(original case can be requested.) Tj
+T*
+(public-func - CVar * CVar::setCriticalVar\(bool bIsCritical\) - Mark whether this variable contains) Tj
+T*
+(critical/secret data.) Tj
+T*
+(public-func - CVar * CVar::setValue\(const char *strValue\) - Set the variable value from text.) Tj
+T*
+(public-func - CVar * CVar::setValue\(const int nValue\) - Set the variable value from an integer.) Tj
+T*
+(public-func - CVar * CVar::setValue\(const bool bValue\) - Set the variable value from a boolean.) Tj
+T*
+(public-func - CVar * CVar::setValue\(const unsigned long ulValue\) - Set the variable value from an) Tj
+T*
+(unsigned long.) Tj
+T*
+(public-func - bool CVar::isCriticalVar\(\) - Return true if this variable should be masked in public) Tj
+T*
+(config.) Tj
+ET
+endstream
+endobj
+45 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 44 0 R >>
+endobj
+46 0 obj
+<< /Length 3613 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(public-func - const char * CVar::getName\(\) - Return the original variable name.) Tj
+T*
+(public-func - const char * CVar::getValue\(\) - Return the value as text.) Tj
+T*
+(public-func - const int CVar::getIntValue\(\) - Return the value converted to int.) Tj
+T*
+(public-func - const unsigned long CVar::getUnsignedLongValue\(\) - Return the value converted to) Tj
+T*
+(unsigned long.) Tj
+T*
+(public-func - const bool CVar::getBoolValue\(\) - Return the value converted to bool.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CVarTable) Tj
+T*
+() Tj
+T*
+(Collection of named variables exposed through IConfigHandler.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(protected-func - bool CVarTable::prepareKeyName\(char *szKeyName\) -) Tj
+T*
+(protected-func - CVar * CVarTable::getOrCreateVarEntry\(const char *strName\) -) Tj
+T*
+(public-func - CVarTable::CVarTable\(bool bCaseSensitive=false\) - Create a variable table with) Tj
+T*
+(optional case-sensitive lookup.) Tj
+T*
+(public-func - CVarTable::~CVarTable\(\) - Delete all owned variables.) Tj
+T*
+(public-func - bool CVarTable::hasCriticalVars\(\) - Return true when at least one variable is marked) Tj
+T*
+(critical.) Tj
+T*
+(public-func - CVar * CVarTable::find\(const char *\) - Find a variable by name.) Tj
+T*
+(public-func - CVar * CVarTable::find\(String\) - Find a variable by String name.) Tj
+T*
+(public-func - CVar * CVarTable::set\(String strName, String strValue\) - Set or create a String) Tj
+T*
+(variable.) Tj
+T*
+(public-func - CVar * CVarTable::set\(String strName, const int nValue\) - Set or create an integer) Tj
+T*
+(variable.) Tj
+T*
+(public-func - CVar * CVarTable::set\(String strName, const unsigned long ulValue\) - Set or create an) Tj
+T*
+(unsigned long variable.) Tj
+T*
+(public-func - CVar * CVarTable::set\(String strName, bool bValue\) - Set or create a boolean variable.) Tj
+T*
+(public-func - CVar * CVarTable::set\(const char *pszName, String strValue\) - Set or create a variable) Tj
+T*
+(from C-string name and String value.) Tj
+T*
+(public-func - CVar * CVarTable::set\(const char *pszName, const char *pszValue\) - Set or create a) Tj
+T*
+(string variable.) Tj
+T*
+(public-func - CVar * CVarTable::set\(const char *pszName, const int nValue\) - Set or create an) Tj
+T*
+(integer variable.) Tj
+T*
+(public-func - CVar * CVarTable::set\(const char *pszName, const unsigned long ulValue\) - Set or) Tj
+T*
+(create an unsigned long variable.) Tj
+T*
+(public-func - CVar * CVarTable::set\(const char *pszName, bool bValue\) - Set or create a boolean) Tj
+T*
+(variable.) Tj
+T*
+(public-func - const char * CVarTable::getValue\(String &strName, const char *pszDefault\) - Return a) Tj
+T*
+(String-named value or the default.) Tj
+T*
+(public-func - const char * CVarTable::getValue\(String &strName, String &strDefault\) - Return a) Tj
+T*
+(String-named value or the default String value.) Tj
+T*
+(public-func - int CVarTable::getIntValue\(String &strName, int nDefault\) - Return a String-named) Tj
+T*
+(value converted to int.) Tj
+T*
+(public-func - bool CVarTable::getBoolValue\(String &strName, bool bDefault\) - Return a String-named) Tj
+T*
+(value converted to bool.) Tj
+T*
+(public-func - const char * CVarTable::getValue\(const char *pszName, const char *pszDefault\) - Return) Tj
+T*
+(a value by C-string name or the default.) Tj
+T*
+(public-func - int CVarTable::getIntValue\(const char *pszName, int nDefault\) - Return a C-string) Tj
+T*
+(named value converted to int.) Tj
+T*
+(public-func - bool CVarTable::getBoolValue\(const char *pszName, bool bDefault\) - Return a C-string) Tj
+T*
+(named value converted to bool.) Tj
+ET
+endstream
+endobj
+47 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 46 0 R >>
+endobj
+48 0 obj
+<< /Length 3400 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(public-func - virtual void CVarTable::writeConfigTo\(JsonNode &oCfgObj, bool bHideCritical\) override) Tj
+T*
+(- Write table values into a JSON config node.) Tj
+T*
+(public-func - virtual void CVarTable::readConfigFrom\(JsonNode &oCfgObj\) override - Read table values) Tj
+T*
+(from a JSON config node.) Tj
+T*
+(public-func - virtual bool CVarTable::hasConfigValues\(\) override - Return true when the table) Tj
+T*
+(contains at least one variable.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CWebServer) Tj
+T*
+() Tj
+T*
+(Async web server module that registers default routes and file access.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - const int CWebServer::Version - Module version exposed for diagnostics.) Tj
+T*
+(public-attrib - WebServerConfig CWebServer::Config - Configuration of the webserver.) Tj
+T*
+(public-attrib - WebServerStatus CWebServer::Status - Status information about the webserver.) Tj
+T*
+(public-func - CWebServer::CWebServer\(int nPortNumber=80\) - Create a web server on the given TCP) Tj
+T*
+(port.) Tj
+T*
+(public-func - void CWebServer::writeStatusTo\(JsonNode &oStatusNode, int nLevel=STATUS_LEVEL_INFO\)) Tj
+T*
+(override - Write web server status into a JSON node.) Tj
+T*
+(public-func - void CWebServer::writeConfigTo\(JsonNode &oNode, bool bHideCritical\) override - Write) Tj
+T*
+(web server configuration into a JSON node.) Tj
+T*
+(public-func - void CWebServer::readConfigFrom\(JsonNode &oNode\) override - Read web server) Tj
+T*
+(configuration from a JSON node.) Tj
+T*
+(public-func - int CWebServer::receiveEvent\(const void *pSender, int nMsg, const void *pMessage, int) Tj
+T*
+(nClass\) override - React to application lifecycle/network events.) Tj
+T*
+(public-func - void CWebServer::registerFileAccess\(\) - Register routes used to serve static files) Tj
+T*
+(from the file system.) Tj
+T*
+(public-func - void CWebServer::deliverFile\(AsyncWebServerRequest *pRequest\) - Deliver a requested) Tj
+T*
+(file or a fallback response.) Tj
+T*
+(public-func - void CWebServer::registerDefaults\(\) - Register built-in routes such as status/config) Tj
+T*
+(endpoints.) Tj
+T*
+(public-func - virtual void CWebServer::setNewAuthHeader\(AsyncWebServerRequest *pRequest,) Tj
+T*
+(AsyncWebServerResponse *pResponse\) - Add/update authentication headers on a response.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CWebSocket) Tj
+T*
+() Tj
+T*
+(Function pointer to register the routes.) Tj
+T*
+() Tj
+T*
+(WebSocket endpoint that queues messages and dispatches JSON commands. Incoming multi-frame messages) Tj
+T*
+(are captured as CWebSocketMessage objects, queued, and later dispatched from the application loop.) Tj
+T*
+(Selected commands can require authentication before they are processed.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - WebSocketStatus CWebSocket::Status -) Tj
+T*
+(public-func - CWebSocket::CWebSocket\(const char *pszSocketName, bool bRegisterOnMsgBus=true\) -) Tj
+T*
+(Create a WebSocket endpoint and optionally register on the message bus.) Tj
+T*
+(public-func - void CWebSocket::dispatchMessageQueue\(\) - Dispatch all queued WebSocket messages.) Tj
+T*
+(public-func - virtual bool CWebSocket::dispatchMessage\(CWebSocketMessage *pMessage\) - Dispatch one) Tj
+T*
+(assembled WebSocket message.) Tj
+T*
+(public-func - virtual bool CWebSocket::dispatchJsonMessage\(JsonNode &oJsonRequest, CWebSocketMessage) Tj
+ET
+endstream
+endobj
+49 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 48 0 R >>
+endobj
+50 0 obj
+<< /Length 3426 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(*pMessage\) - Dispatch one parsed JSON WebSocket request.) Tj
+T*
+(public-func - virtual String CWebSocket::setNeedsAuth\(const String &strCommands\) - Replace the) Tj
+T*
+(comma-separated list of commands that require auth.) Tj
+T*
+(public-func - virtual String CWebSocket::getNeedsAuth\(\) - Return the comma-separated list of) Tj
+T*
+(commands that require auth.) Tj
+T*
+(public-func - virtual bool CWebSocket::needsAuth\(String &strCommand\) - Return true if the command) Tj
+T*
+(requires authentication.) Tj
+T*
+(public-func - int CWebSocket::receiveEvent\(const void *pSender, int nMsgId, const void *pMessage,) Tj
+T*
+(int nType\) - React to application loop/status events.) Tj
+T*
+(public-func - virtual void CWebSocket::onWebSocketEvent\(AsyncWebSocket *pServer,) Tj
+T*
+(AsyncWebSocketClient *pClient, AwsEventType eType, void *arg, uint8_t *pData, size_t nLen\) -) Tj
+T*
+(AsyncWebSocket callback used to capture incoming frames/events.) Tj
+T*
+(public-func - void ICACHE_FLASH_ATTR CWebSocket::sendAccessDeniedMessage\(JsonNode &oDoc,) Tj
+T*
+(AsyncWebSocketClient *pClient\) - Send a JSON access-denied response to a client.) Tj
+T*
+(public-func - void ICACHE_FLASH_ATTR CWebSocket::sendJsonDocMessage\(JsonNode &oDoc, AsyncWebSocket) Tj
+T*
+(*pSocket=nullptr, AsyncWebSocketClient *pClient=nullptr\) - Serialize and send a JSON document to one) Tj
+T*
+(client or all clients.) Tj
+T*
+(private-func - bool CWebSocket::checkAuth\(JsonNode &oRequestDoc, AsyncWebSocketClient *pClient\) -) Tj
+T*
+(Validate request credentials for authenticated commands.) Tj
+T*
+(private-func - void CWebSocket::addMessageToQueue\(CWebSocketMessage *pMsgObj\) - Add an assembled) Tj
+T*
+(message object to the dispatch queue.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CWebSocketMessage) Tj
+T*
+() Tj
+T*
+(Owns a complete WebSocket message assembled from one or more frames.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - size_t CWebSocketMessage::MessageSize - Total expected size of the assembled) Tj
+T*
+(message.) Tj
+T*
+(public-attrib - char* CWebSocketMessage::pSerializedMessage - Zero-terminated assembled message) Tj
+T*
+(buffer.) Tj
+T*
+(public-attrib - int CWebSocketMessage::MessageType - WebSocket message type, for example WS_TEXT or) Tj
+T*
+(WS_BINARY.) Tj
+T*
+(public-attrib - AsyncWebSocket* CWebSocketMessage::pSocket - Socket that received the message.) Tj
+T*
+(public-attrib - AsyncWebSocketClient* CWebSocketMessage::pClient - Client that sent the message.) Tj
+T*
+(public-func - CWebSocketMessage::CWebSocketMessage\(AsyncWebSocket *pSocket, AsyncWebSocketClient) Tj
+T*
+(*pClient, size_t nMessageSize, int nType=WS_BINARY\) - Construct a new Web Socket Message object.) Tj
+T*
+(public-func - CWebSocketMessage::~CWebSocketMessage\(\) - Release the assembled message buffer.) Tj
+T*
+(public-func - CWebSocketMessage * CWebSocketMessage::setMessageData\(uint8_t *pData, uint64_t nIndex,) Tj
+T*
+(size_t nDataLen\) - Set the message data \(segment\).) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class CWiFiController) Tj
+T*
+() Tj
+T*
+(Application module that controls WiFi AP/station mode.) Tj
+T*
+() Tj
+T*
+(The controller reads/writes its configuration through IConfigHandler, publishes status through) Tj
+T*
+(IStatusHandler and reacts to WiFi scan requests from the application message bus.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - WiFiStatus CWiFiController::Status -) Tj
+ET
+endstream
+endobj
+51 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 50 0 R >>
+endobj
+52 0 obj
+<< /Length 3495 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(private-func - const char * CWiFiController::getConfigBSSIDAsString\(\) -) Tj
+T*
+(private-func - String CWiFiController::getStatusText\(int nWiFiStatus\) - Convert an Arduino WiFi) Tj
+T*
+(status code into readable text.) Tj
+T*
+(private-func - void CWiFiController::disableWiFi\(\) - Disconnect station/AP mode and publish the) Tj
+T*
+(corresponding bus events.) Tj
+T*
+(private-func - bool CWiFiController::startAccessPoint\(const char *pszSSID, IPAddress apip, IPAddress) Tj
+T*
+(apsubnet, bool bHidden, const char *pszPassword=NULL\) - Start access point mode with explicit) Tj
+T*
+(network settings.) Tj
+T*
+(private-func - bool CWiFiController::joinNetwork\(const char *pszSSID, const char *pszPassword, byte) Tj
+T*
+(bSSID[6]\) - Join an existing WiFi network in station mode.) Tj
+T*
+(private-func - void CWiFiController::onWiFiScanResult\(int nNumber\) - Build and send the JSON payload) Tj
+T*
+(for an asynchronous scan result.) Tj
+T*
+(private-func - bool CWiFiController::storeIPAddressIf\(JsonNode &oCfgData, const char *pszKeyName,) Tj
+T*
+(IPAddress &pTarget\) - Read an IP address from a JSON node when the key exists.) Tj
+T*
+(public-static-func - static String CWiFiController::getDefaultSSIDofAP\(\) - Return the default access) Tj
+T*
+(point SSID generated for this device.) Tj
+T*
+(public-func - CWiFiController::CWiFiController\(\) - Create a WiFi controller instance with default) Tj
+T*
+(configuration/status.) Tj
+T*
+(public-func - void CWiFiController::writeConfigTo\(JsonNode &oCfgObj, bool bHideCritical\) override -) Tj
+T*
+(Write the current WiFi configuration into a JSON node.) Tj
+T*
+(public-func - void CWiFiController::readConfigFrom\(JsonNode &oCfgObj\) override - Read WiFi) Tj
+T*
+(configuration values from a JSON node.) Tj
+T*
+(public-func - void CWiFiController::writeStatusTo\(JsonNode &oStatusObj, int) Tj
+T*
+(nLevel=STATUS_LEVEL_INFO\) override - Write the currently active WiFi state into a JSON status node.) Tj
+T*
+(public-func - void CWiFiController::writeStatusToLog\(\) - Serialize the current WiFi status and write) Tj
+T*
+(it to the application log.) Tj
+T*
+(public-func - void CWiFiController::startWiFi\(bool bUseConfigData\) - Start WiFi using either default) Tj
+T*
+(AP mode or loaded configuration.) Tj
+T*
+(public-func - bool CWiFiController::startAccessPoint\(bool bUseConfigData\) - Start access point mode.) Tj
+T*
+(public-func - bool CWiFiController::restartIfNeeded\(\) - Retry or disable WiFi when a scheduled) Tj
+T*
+(reconnect is pending.) Tj
+T*
+(public-func - void CWiFiController::scanWiFi\(\) - Start an asynchronous WiFi scan.) Tj
+T*
+(public-func - int CWiFiController::receiveEvent\(const void *pSender, int nMsgId, const void) Tj
+T*
+(*pMessage, int nType\) - Listen to the application message bus and react to WiFi commands.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class IConfigHandler) Tj
+T*
+() Tj
+T*
+(Interface for configuration handlers.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - virtual void IConfigHandler::writeConfigTo\(JsonNode &oCfgNode, bool bHideCritical\)=0 -) Tj
+T*
+(public-func - virtual void IConfigHandler::readConfigFrom\(JsonNode &oCfgNode\)=0 -) Tj
+T*
+(public-func - virtual bool IConfigHandler::hasConfigValues\(\) -) Tj
+T*
+(public-func - virtual void IConfigHandler::migrateConfig\(JsonNode &oCfgDoc, JsonNode &oCfgNode\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class IHomeAssistantComponent) Tj
+T*
+() Tj
+T*
+(Implement if needed.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+53 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 52 0 R >>
+endobj
+54 0 obj
+<< /Length 2109 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(public-func - virtual void IHomeAssistantComponent::insertComponentDiscovery\(const char) Tj
+T*
+(*pszComponentName, JsonNode &oComponentArea, CMQTTController *pController\)=0 - insert your component) Tj
+T*
+(registration data of HA AutoDiscovery \(device\).) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class IModule) Tj
+T*
+() Tj
+T*
+(Full Interface for modules.) Tj
+T*
+() Tj
+T*
+(Configuration HandlingStatus HandlingEvent Handling) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class IMsgEventReceiver) Tj
+T*
+() Tj
+T*
+(Interface for Message Event Receivers.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - virtual int IMsgEventReceiver::receiveEvent\(const void *pSender, int nMsg, const void) Tj
+T*
+(*pMessage, int nMsgInfo\)=0 -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class IPAddress) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - IPAddress::IPAddress\(\) -) Tj
+T*
+(public-func - IPAddress::IPAddress\(uint8_t n1, uint8_t n2, uint8_t n3, uint8_t n4\) -) Tj
+T*
+(public-func - void IPAddress::fromString\(const char *pszSource\) -) Tj
+T*
+(public-func - String IPAddress::toString\(\) const -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class IStatusHandler) Tj
+T*
+() Tj
+T*
+(Interface for a status handler module.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - virtual void IStatusHandler::writeStatusTo\(JsonNode &oStatusNode, int) Tj
+T*
+(nLevel=STATUS_LEVEL_INFO\)=0 -) Tj
+T*
+(public-func - virtual bool IStatusHandler::hasStatusValues\(int nLevel=STATUS_LEVEL_INFO\) - Implement) Tj
+T*
+(if you don't want to insert your status section, if there is no data in the requested level Default) Tj
+T*
+(= true, create the section and ask me;.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class MQTTMessage) Tj
+T*
+() Tj
+T*
+(Owns one received MQTT topic/payload pair until dispatch.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - CMQTTController* MQTTMessage::pController - Controller used for topic helper checks;) Tj
+T*
+(may be nullptr in tests.) Tj
+T*
+(public-attrib - char* MQTTMessage::Message - Received message payload from the message broker.) Tj
+ET
+endstream
+endobj
+55 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 54 0 R >>
+endobj
+56 0 obj
+<< /Length 1580 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(public-attrib - char* MQTTMessage::Topic - Topic that carried the received message.) Tj
+T*
+(public-func - MQTTMessage::MQTTMessage\(const char *pszTopic, const char *pszMessage, CMQTTController) Tj
+T*
+(*pController=nullptr\) - Copy topic and payload into an owned message object.) Tj
+T*
+(public-func - MQTTMessage::~MQTTMessage\(\) - Release copied topic and payload strings.) Tj
+T*
+(public-func - bool MQTTMessage::isDeviceTopic\(\) - Return true if this message topic belongs to the) Tj
+T*
+(device prefix.) Tj
+T*
+(public-func - bool MQTTMessage::isDeviceCommandTopic\(\) - Return true if this message topic is a) Tj
+T*
+(command topic.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(class NativeSerial) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-func - void NativeSerial::printf\(const char *pszFormat, Args... args\) -) Tj
+T*
+(public-func - void NativeSerial::print\(const char *pszValue\) -) Tj
+T*
+(public-func - void NativeSerial::println\(const char *pszValue\) -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file AccessToken.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file AESCryptor.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file Appl.h) Tj
+T*
+() Tj
+T*
+(Application Main Class.) Tj
+T*
+() Tj
+T*
+(Peter L. \(LSC Labs\) 1.0) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file ApplModule.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file base64.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file Base64Data.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file BatteryMeasure.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file Button.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file ConfigHandler.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file CWebSocket.md) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file DevelopmentHelper.h) Tj
+ET
+endstream
+endobj
+57 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 56 0 R >>
+endobj
+58 0 obj
+<< /Length 974 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+() Tj
+T*
+() Tj
+T*
+(file EventHandler.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file FileSystem.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file InputPinController.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file JsonHelper.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file JsonNode.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file LightSwitch.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file Logging.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file LSCUtils.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file mainpage.md) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file MDNSController.h) Tj
+T*
+() Tj
+T*
+(MDNS Controller class definition ESP MDNS controller to handle mDNS responder start/stop on WiFi) Tj
+T*
+(events.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file ModuleInterface.h) Tj
+T*
+() Tj
+T*
+(Full Interface for a module and an abstract basic module implementation.) Tj
+T*
+() Tj
+T*
+(LSC-Labs - P.Liebl) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file MQTTController.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file Msgs.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file NamedValueTable.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file Network.h) Tj
+T*
+() Tj
+T*
+() Tj
+ET
+endstream
+endobj
+59 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 58 0 R >>
+endobj
+60 0 obj
+<< /Length 1049 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(file NTPHandler.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file OutputPinController.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file pageBuilder.md) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file PinController.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file ProgVersion.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file README.md) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file RGBLed.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file Runtime.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file Security.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file SimpleDelay.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file StatusHandler.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file SysStatus.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file SysStatusLed.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file Vars.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file WebServer.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file WebSocket.h) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(file WiFiController.h) Tj
+T*
+() Tj
+T*
+(WiFi Controller to handle Access Point and Station Mode.) Tj
+T*
+() Tj
+T*
+(Peter L. \(LSC Labs\) 1.0 How to use:Instantiate the WiFi Controller "CWiFiController oWiFi" in the) Tj
+T*
+(global scopeRegister the controller as a module to the application message bus, and the) Tj
+ET
+endstream
+endobj
+61 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 60 0 R >>
+endobj
+62 0 obj
+<< /Length 2182 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(configuration / status handling: => CWiFiController oWiFi\("wifi"\); -or- => CWiFiController oWiFi; =>) Tj
+T*
+(Appl.registerModule\("wifi",&oWiFi\); -or- => CWiFiController oWiFi; =>) Tj
+T*
+(Appl.MsgBus.registerEventReceiver\(&oWiFi\); => Appl.addConfigHandler\("wifi",&oWiFi\); =>) Tj
+T*
+(Appl.addStatusHandler\("wifi",&oWiFi\);Call startWiFi\(true\) to start the WiFi with the configuration) Tj
+T*
+(data, this will enable the WiFi in Station mode, or in Access Point mode. or startWiFi\(false\) to) Tj
+T*
+(start a default Access Point) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(namespace LSC) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(namespace LSC_WIFI) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(struct ApplConfig) Tj
+T*
+() Tj
+T*
+(Runtime configuration of the global CAppl object.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - bool ApplConfig::bLogToSerial - true to attach a serial log writer during) Tj
+T*
+(application init.) Tj
+T*
+(public-attrib - bool ApplConfig::bTraceMode - true when trace mode is enabled through configuration.) Tj
+T*
+(public-attrib - String ApplConfig::strDeviceName - Device name/hostname used by network-facing) Tj
+T*
+(modules.) Tj
+T*
+(public-attrib - String ApplConfig::strDevicePwd - Device password used by authentication-aware) Tj
+T*
+(modules.) Tj
+T*
+(public-attrib - bool ApplConfig::bDebugFrontend - true to expose frontend debug information.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(struct AsyncMqttClientMessageProperties) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(struct AwsFrameInfo) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - bool AwsFrameInfo::final -) Tj
+T*
+(public-attrib - uint64_t AwsFrameInfo::index -) Tj
+T*
+(public-attrib - uint8_t AwsFrameInfo::num -) Tj
+T*
+(public-attrib - uint64_t AwsFrameInfo::len -) Tj
+T*
+(public-attrib - uint8_t AwsFrameInfo::opcode -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(struct CConfigHandler::HandlerEntry) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - const char* CConfigHandler::HandlerEntry::pszName -) Tj
+T*
+(public-attrib - IConfigHandler* CConfigHandler::HandlerEntry::pHandler -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(struct CStatusHandler::StatusHandlerEntry) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+63 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 62 0 R >>
+endobj
+64 0 obj
+<< /Length 2889 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - const char* CStatusHandler::StatusHandlerEntry::pszName -) Tj
+T*
+(public-attrib - IStatusHandler* CStatusHandler::StatusHandlerEntry::pHandler -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(struct LSC_FS) Tj
+T*
+() Tj
+T*
+(FileSystem helper functions.) Tj
+T*
+() Tj
+T*
+(This modules helps you to operate with the Filesystem of the ESP32. To avoid programming against) Tj
+T*
+(LittleFS or SPIFFS, this module provides simple functions to operate with the filesystem, so you can) Tj
+T*
+(easily switch between this systems. Known issues: Do not store filenames in F\(""\) macros - LittleFS) Tj
+T*
+(will throw an exception \(3\). Shared filesystem initialization state.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - bool LSC_FS::isFSInitializedAndOpen - true once the configured filesystem has been) Tj
+T*
+(mounted/opened.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(struct MQTTConfig) Tj
+T*
+() Tj
+T*
+(Runtime configuration for the MQTT broker connection and topics.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - bool MQTTConfig::isEnabled - true when MQTT should connect/publish.) Tj
+T*
+(public-attrib - bool MQTTConfig::useAutoTopic - true to generate the publish topic from device data.) Tj
+T*
+(public-attrib - String MQTTConfig::BrokerAddress - Hostname or IP address of the MQTT broker.) Tj
+T*
+(public-attrib - int MQTTConfig::BrokerPort - TCP port of the MQTT broker.) Tj
+T*
+(public-attrib - String MQTTConfig::ClientID - MQTT client id used by this device.) Tj
+T*
+(public-attrib - String MQTTConfig::UserName - MQTT broker username.) Tj
+T*
+(public-attrib - String MQTTConfig::UserPassword - MQTT broker password.) Tj
+T*
+(public-attrib - String MQTTConfig::PublishTopicPrefix - Base topic used for device state/command) Tj
+T*
+(topics.) Tj
+T*
+(public-attrib - int MQTTConfig::PublishInterval - Heartbeat interval in seconds; 0 disables periodic) Tj
+T*
+(heartbeat.) Tj
+T*
+(public-attrib - bool MQTTConfig::useHA - true to publish Home Assistant MQTT discovery data.) Tj
+T*
+(public-attrib - String MQTTConfig::HADiscoveryPrefix - MQTT discovery prefix used by Home Assistant.) Tj
+T*
+(public-attrib - String MQTTConfig::HAOnlineMessage - Home Assistant availability message for online.) Tj
+T*
+(public-attrib - String MQTTConfig::HAOfflineMessage - Home Assistant availability message for) Tj
+T*
+(offline.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(struct MQTTStatus) Tj
+T*
+() Tj
+T*
+(Runtime status of the MQTT connection.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - unsigned long MQTTStatus::ConStart - millis\(\) value when connection started.) Tj
+T*
+(public-attrib - unsigned long MQTTStatus::ConEnd - millis\(\) value when connection ended.) Tj
+T*
+(public-attrib - AsyncMqttClientDisconnectReason MQTTStatus::DisConReason - Last disconnect reason) Tj
+ET
+endstream
+endobj
+65 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 64 0 R >>
+endobj
+66 0 obj
+<< /Length 2072 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(reported by AsyncMqttClient.) Tj
+T*
+(public-attrib - String MQTTStatus::DisConReasonString - Text representation of the last disconnect) Tj
+T*
+(reason.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(struct NTPConfig) Tj
+T*
+() Tj
+T*
+(NTP Service for ESP Devices Setup when a internet connection \(WiFi\) becomes available...) Tj
+T*
+() Tj
+T*
+(: https://randomnerdtutorials.com/esp32-date-time-ntp-client-server-arduino/ :) Tj
+T*
+(https://forum.arduino.cc/t/getting-time-from-ntp-service-using-nodemcu-1-0-esp-12e/702333/12) Tj
+T*
+(Configuration struct of the NTP Handler) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - bool NTPConfig::isEnabled -) Tj
+T*
+(public-attrib - String NTPConfig::NTPServer -) Tj
+T*
+(public-attrib - String NTPConfig::TZ -) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(struct WebServerConfig) Tj
+T*
+() Tj
+T*
+(Runtime configuration of the web server module.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - bool WebServerConfig::AutoRedirectMode - true to redirect unknown/default traffic) Tj
+T*
+(automatically.) Tj
+T*
+(public-attrib - String WebServerConfig::UserName - HTTP basic auth user name; password is read from) Tj
+T*
+(Appl.) Tj
+T*
+(public-func - bool WebServerConfig::authenticate\(AsyncWebServerRequest *pRequest, const char) Tj
+T*
+(*pszReason, bool bLogFailed\) - Authenticate a request against configured user and application) Tj
+T*
+(password.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(struct WebServerStatus) Tj
+T*
+() Tj
+T*
+(Status of the web server module.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - bool WebServerStatus::Started - true after the server has been started.) Tj
+T*
+(public-attrib - bool WebServerStatus::AutoRedirectMode - Last active auto-redirect mode.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(struct WebSocketStatus) Tj
+T*
+() Tj
+T*
+(Runtime status of the WebSocket module.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - long WebSocketStatus::uptime - millis\(\) snapshot used as simple uptime/status) Tj
+T*
+(marker.) Tj
+T*
+() Tj
+ET
+endstream
+endobj
+67 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 66 0 R >>
+endobj
+68 0 obj
+<< /Length 3077 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+() Tj
+T*
+(struct WiFiConfig) Tj
+T*
+() Tj
+T*
+(Runtime configuration for access point and station mode.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - bool WiFiConfig::accessPointMode - true for access point mode, false for station) Tj
+T*
+(mode.) Tj
+T*
+(public-attrib - String WiFiConfig::ap_ssid - Access point SSID used when this device creates its own) Tj
+T*
+(network.) Tj
+T*
+(public-attrib - String WiFiConfig::ap_Password - Access point password.) Tj
+T*
+(public-attrib - int WiFiConfig::ap_channel - Access point WiFi channel.) Tj
+T*
+(public-attrib - bool WiFiConfig::ap_hidden - true to hide the AP SSID from normal scans.) Tj
+T*
+(public-attrib - IPAddress WiFiConfig::ap_ipAddress - Static IP address of the access point) Tj
+T*
+(interface.) Tj
+T*
+(public-attrib - IPAddress WiFiConfig::ap_ipSubnetMask - Subnet mask of the access point interface.) Tj
+T*
+(public-attrib - String WiFiConfig::wifi_ssid - SSID to join in station mode.) Tj
+T*
+(public-attrib - byte WiFiConfig::wifi_bssid[6][6] - Optional fixed BSSID to join; all zero means "do) Tj
+T*
+(not pin BSSID".) Tj
+T*
+(public-attrib - String WiFiConfig::wifi_Password - Password used when joining the configured station) Tj
+T*
+(network.) Tj
+T*
+(public-attrib - bool WiFiConfig::dhcpEnabled - true to use DHCP in station mode.) Tj
+T*
+(public-attrib - IPAddress WiFiConfig::ipAddress - Static station IP address used when DHCP is) Tj
+T*
+(disabled.) Tj
+T*
+(public-attrib - IPAddress WiFiConfig::ipSubnetMask - Static station subnet mask used when DHCP is) Tj
+T*
+(disabled.) Tj
+T*
+(public-attrib - IPAddress WiFiConfig::ipGateway - Static station gateway used when DHCP is disabled.) Tj
+T*
+(public-attrib - IPAddress WiFiConfig::ipDNS - Static station DNS server used when DHCP is disabled.) Tj
+T*
+(public-attrib - bool WiFiConfig::autoFallbackMode - true to fall back to AP mode when station mode) Tj
+T*
+(cannot connect.) Tj
+T*
+(public-attrib - int WiFiConfig::retryTimeoutSeconds - Delay between station reconnect attempts in) Tj
+T*
+(seconds.) Tj
+T*
+(public-attrib - int WiFiConfig::retryCount - Maximum number of reconnect attempts before WiFi is) Tj
+T*
+(disabled.) Tj
+T*
+() Tj
+T*
+() Tj
+T*
+(struct WiFiStatus) Tj
+T*
+() Tj
+T*
+(WiFi Status structure.) Tj
+T*
+() Tj
+T*
+(Scope - Member - Description) Tj
+T*
+() Tj
+T*
+(public-attrib - unsigned long WiFiStatus::startTimeInMillis - millis\(\) value when WiFi/AP mode was) Tj
+T*
+(started.) Tj
+T*
+(public-attrib - unsigned long WiFiStatus::stopTimeInMillis - millis\(\) value when WiFi was stopped.) Tj
+T*
+(public-attrib - unsigned long WiFiStatus::restartTimeInMillis - millis\(\) value for the next) Tj
+T*
+(scheduled reconnect, or -1 if none.) Tj
+T*
+(public-attrib - bool WiFiStatus::isWiFiConnected - true when the active WiFi mode is) Tj
+T*
+(connected/started.) Tj
+T*
+(public-attrib - bool WiFiStatus::isInAccessPointMode - true when the controller currently runs in AP) Tj
+T*
+(mode.) Tj
+T*
+(public-attrib - bool WiFiStatus::isInStationMode - true when the controller currently runs in) Tj
+T*
+(station mode.) Tj
+ET
+endstream
+endobj
+69 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 68 0 R >>
+endobj
+70 0 obj
+<< /Length 279 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+14 TL
+(public-attrib - wl_status_t WiFiStatus::wifiStatus - Last Arduino WiFi status, including station) Tj
+T*
+(connection errors.) Tj
+T*
+(public-attrib - int WiFiStatus::nRetryConnectCounter - Number of reconnect attempts already) Tj
+T*
+(performed.) Tj
+ET
+endstream
+endobj
+71 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 70 0 R >>
+endobj
+xref
+0 72
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000351 00000 n 
+0000000421 00000 n 
+0000002935 00000 n 
+0000003061 00000 n 
+0000005736 00000 n 
+0000005862 00000 n 
+0000008289 00000 n 
+0000008415 00000 n 
+0000011628 00000 n 
+0000011756 00000 n 
+0000015170 00000 n 
+0000015298 00000 n 
+0000019159 00000 n 
+0000019287 00000 n 
+0000022097 00000 n 
+0000022225 00000 n 
+0000025306 00000 n 
+0000025434 00000 n 
+0000028999 00000 n 
+0000029127 00000 n 
+0000033241 00000 n 
+0000033369 00000 n 
+0000037576 00000 n 
+0000037704 00000 n 
+0000041684 00000 n 
+0000041812 00000 n 
+0000045045 00000 n 
+0000045173 00000 n 
+0000048594 00000 n 
+0000048722 00000 n 
+0000052280 00000 n 
+0000052408 00000 n 
+0000056491 00000 n 
+0000056619 00000 n 
+0000059946 00000 n 
+0000060074 00000 n 
+0000063448 00000 n 
+0000063576 00000 n 
+0000066383 00000 n 
+0000066511 00000 n 
+0000069398 00000 n 
+0000069526 00000 n 
+0000072667 00000 n 
+0000072795 00000 n 
+0000076461 00000 n 
+0000076589 00000 n 
+0000080042 00000 n 
+0000080170 00000 n 
+0000083649 00000 n 
+0000083777 00000 n 
+0000087325 00000 n 
+0000087453 00000 n 
+0000089615 00000 n 
+0000089743 00000 n 
+0000091376 00000 n 
+0000091504 00000 n 
+0000092530 00000 n 
+0000092658 00000 n 
+0000093760 00000 n 
+0000093888 00000 n 
+0000096123 00000 n 
+0000096251 00000 n 
+0000099193 00000 n 
+0000099321 00000 n 
+0000101446 00000 n 
+0000101574 00000 n 
+0000104704 00000 n 
+0000104832 00000 n 
+0000105163 00000 n 
+trailer
+<< /Size 72 /Root 1 0 R >>
+startxref
+105291
+%%EOF

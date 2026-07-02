@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_m_d_n_s_controller" kind="class" language="C++" prot="public">
+    <compoundname>CMDNSController</compoundname>
+    <basecompoundref refid="class_i_msg_event_receiver" prot="public" virt="non-virtual">IMsgEventReceiver</basecompoundref>
+    <includes refid="_m_d_n_s_controller_8h" local="no">MDNSController.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_m_d_n_s_controller_1ae7fc8695acfc7bfb9b2dab62fdbbe6da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CMDNSController::CMDNSController</definition>
+        <argsstring>()</argsstring>
+        <name>CMDNSController</name>
+        <qualifiedname>CMDNSController::CMDNSController</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MDNSController.h" line="22" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_d_n_s_controller_1a27e4d8dde5002a452d44cf941a732dd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CMDNSController::CMDNSController</definition>
+        <argsstring>(const char *pszAutoregisterName)</argsstring>
+        <name>CMDNSController</name>
+        <qualifiedname>CMDNSController::CMDNSController</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszAutoregisterName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MDNSController.h" line="23" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_d_n_s_controller_1a7382416447c3e321ef4acc4e009dd09e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CMDNSController::~CMDNSController</definition>
+        <argsstring>()</argsstring>
+        <name>~CMDNSController</name>
+        <qualifiedname>CMDNSController::~CMDNSController</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MDNSController.h" line="24" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_d_n_s_controller_1a4dbedd8b0194e99aa964a1a25899fdc1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CMDNSController::begin</definition>
+        <argsstring>(const char *pszHostname=nullptr)</argsstring>
+        <name>begin</name>
+        <qualifiedname>CMDNSController::begin</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszHostname</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MDNSController.h" line="26" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_d_n_s_controller_1a9e91c9166165175033c81015ab183c25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CMDNSController::end</definition>
+        <argsstring>()</argsstring>
+        <name>end</name>
+        <qualifiedname>CMDNSController::end</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MDNSController.h" line="27" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_m_d_n_s_controller_1af458ffa765c455b48dae74b15d7165d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>int CMDNSController::receiveEvent</definition>
+        <argsstring>(const void *pSender, int nMsg, const void *pMessage, int nClass) override</argsstring>
+        <name>receiveEvent</name>
+        <qualifiedname>CMDNSController::receiveEvent</qualifiedname>
+        <reimplements refid="class_i_msg_event_receiver_1a3345710906f9a16c4dca5b7ce2da39d7">receiveEvent</reimplements>
+        <param>
+          <type>const void *</type>
+          <declname>pSender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsg</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>pMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nClass</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/MDNSController.h" line="29" column="13"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>CMDNSController</label>
+        <link refid="class_c_m_d_n_s_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>CMDNSController</label>
+        <link refid="class_c_m_d_n_s_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/MDNSController.h" line="20" column="1" bodyfile="include/MDNSController.h" bodystart="20" bodyend="30"/>
+    <listofallmembers>
+      <member refid="class_c_m_d_n_s_controller_1a4dbedd8b0194e99aa964a1a25899fdc1" prot="public" virt="non-virtual"><scope>CMDNSController</scope><name>begin</name></member>
+      <member refid="class_c_m_d_n_s_controller_1ae7fc8695acfc7bfb9b2dab62fdbbe6da" prot="public" virt="non-virtual"><scope>CMDNSController</scope><name>CMDNSController</name></member>
+      <member refid="class_c_m_d_n_s_controller_1a27e4d8dde5002a452d44cf941a732dd7" prot="public" virt="non-virtual"><scope>CMDNSController</scope><name>CMDNSController</name></member>
+      <member refid="class_c_m_d_n_s_controller_1a9e91c9166165175033c81015ab183c25" prot="public" virt="non-virtual"><scope>CMDNSController</scope><name>end</name></member>
+      <member refid="class_c_m_d_n_s_controller_1af458ffa765c455b48dae74b15d7165d3" prot="public" virt="virtual"><scope>CMDNSController</scope><name>receiveEvent</name></member>
+      <member refid="class_c_m_d_n_s_controller_1a7382416447c3e321ef4acc4e009dd09e" prot="public" virt="non-virtual"><scope>CMDNSController</scope><name>~CMDNSController</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

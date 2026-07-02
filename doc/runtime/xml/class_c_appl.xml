@@ -1,0 +1,1221 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.17.0" xml:lang="en-US">
+  <compounddef id="class_c_appl" kind="class" language="C++" prot="public">
+    <compoundname>CAppl</compoundname>
+    <basecompoundref refid="class_c_config_handler" prot="public" virt="non-virtual">CConfigHandler</basecompoundref>
+    <basecompoundref refid="class_c_status_handler" prot="public" virt="non-virtual">CStatusHandler</basecompoundref>
+    <basecompoundref refid="class_i_msg_event_receiver" prot="private" virt="non-virtual">IMsgEventReceiver</basecompoundref>
+    <includes refid="_appl_8h" local="no">Appl.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_c_appl_1a7522362ca1a78133c8d299c1758ace12" prot="private" static="no" mutable="no">
+        <type><ref refid="struct_appl_config" kindref="compound">ApplConfig</ref></type>
+        <definition>ApplConfig CAppl::m_oCfg</definition>
+        <argsstring></argsstring>
+        <name>m_oCfg</name>
+        <qualifiedname>CAppl::m_oCfg</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="122" column="17" bodyfile="include/Appl.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a89bc58fd903750a399c4b9e684381ce8" prot="private" static="no" mutable="no">
+        <type><ref refid="class_c_sys_status" kindref="compound">CSysStatus</ref></type>
+        <definition>CSysStatus CAppl::m_oSystemStatus</definition>
+        <argsstring></argsstring>
+        <name>m_oSystemStatus</name>
+        <qualifiedname>CAppl::m_oSystemStatus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="123" column="17" bodyfile="include/Appl.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a778490f035466d8fefb89fbc6bfc4524" prot="private" static="no" mutable="no">
+        <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref></type>
+        <definition>JsonNode CAppl::m_oStatus</definition>
+        <argsstring></argsstring>
+        <name>m_oStatus</name>
+        <qualifiedname>CAppl::m_oStatus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="124" column="17" bodyfile="include/Appl.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a94b99e29dc84471d60e41da00c0d5dd4" prot="private" static="no" mutable="no">
+        <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref></type>
+        <definition>JsonNode CAppl::m_oSysStatus</definition>
+        <argsstring></argsstring>
+        <name>m_oSysStatus</name>
+        <qualifiedname>CAppl::m_oSysStatus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="125" column="17" bodyfile="include/Appl.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a122d2e505511866bfabe7d889fed92a2" prot="private" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CAppl::m_strStatus</definition>
+        <argsstring></argsstring>
+        <name>m_strStatus</name>
+        <qualifiedname>CAppl::m_strStatus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="126" column="17" bodyfile="include/Appl.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a6a24772b4237214ed000449bb118adf0" prot="private" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CAppl::m_strSysStatus</definition>
+        <argsstring></argsstring>
+        <name>m_strSysStatus</name>
+        <qualifiedname>CAppl::m_strSysStatus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="127" column="17" bodyfile="include/Appl.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a7eff4c34cd63af6802987339cd551dcc" prot="private" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CAppl::m_strIsoDateTime</definition>
+        <argsstring></argsstring>
+        <name>m_strIsoDateTime</name>
+        <qualifiedname>CAppl::m_strIsoDateTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="128" column="17" bodyfile="include/Appl.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a37fcf0f41699264184d803c4a1ad5f29" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CAppl::m_bStatusChanged</definition>
+        <argsstring></argsstring>
+        <name>m_bStatusChanged</name>
+        <qualifiedname>CAppl::m_bStatusChanged</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="132" column="10" bodyfile="include/Appl.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a27c8a4f2cad0c1b981d044bbe0c2c144" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CAppl::m_isRebootPending</definition>
+        <argsstring></argsstring>
+        <name>m_isRebootPending</name>
+        <qualifiedname>CAppl::m_isRebootPending</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="133" column="10" bodyfile="include/Appl.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a8a3625eb31e17680f1a09e113766422e" prot="private" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long CAppl::m_ulLastStatusUpdate</definition>
+        <argsstring></argsstring>
+        <name>m_ulLastStatusUpdate</name>
+        <qualifiedname>CAppl::m_ulLastStatusUpdate</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="135" column="21" bodyfile="include/Appl.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1abc493d3344ad331396bc02d0684594d4" prot="private" static="no" mutable="no">
+        <type>time_t</type>
+        <definition>time_t CAppl::m_oRawTime</definition>
+        <argsstring></argsstring>
+        <name>m_oRawTime</name>
+        <qualifiedname>CAppl::m_oRawTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="136" column="21" bodyfile="include/Appl.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a7083837a5e7d3c0e301321d5074e0991" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CAppl::m_szISODateTime[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>m_szISODateTime</name>
+        <qualifiedname>CAppl::m_szISODateTime</qualifiedname>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="137" column="10" bodyfile="include/Appl.h" bodystart="137" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a7d1800cd0563a310452b0ecc1b7ae3f4" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CAppl::m_szCurTime[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>m_szCurTime</name>
+        <qualifiedname>CAppl::m_szCurTime</qualifiedname>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="138" column="10" bodyfile="include/Appl.h" bodystart="138" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1adcaedefe23a97582cbae7cb8e6df1881" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CAppl::m_szCurDate[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>m_szCurDate</name>
+        <qualifiedname>CAppl::m_szCurDate</qualifiedname>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="139" column="10" bodyfile="include/Appl.h" bodystart="139" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a0e94f33376c30027d8960418761fb002" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CAppl::m_szUptimeBuffer[20]</definition>
+        <argsstring>[20]</argsstring>
+        <name>m_szUptimeBuffer</name>
+        <qualifiedname>CAppl::m_szUptimeBuffer</qualifiedname>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="140" column="10" bodyfile="include/Appl.h" bodystart="140" bodyend="140"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_c_appl_1a239f0760ef07209d6977a111eb414638" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CAppl::AppName</definition>
+        <argsstring></argsstring>
+        <name>AppName</name>
+        <qualifiedname>CAppl::AppName</qualifiedname>
+        <briefdescription>
+<para>Human-readable application/firmware name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="144" column="16" bodyfile="include/Appl.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a517f0122cd4d063f6d2d99c48ed11c07" prot="public" static="no" mutable="no">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CAppl::AppVersion</definition>
+        <argsstring></argsstring>
+        <name>AppVersion</name>
+        <qualifiedname>CAppl::AppVersion</qualifiedname>
+        <briefdescription>
+<para>Human-readable application/firmware version. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="146" column="16" bodyfile="include/Appl.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1ad1d6403bf29e058c390e7737822b9641" prot="public" static="no" mutable="no">
+        <type>const unsigned long</type>
+        <definition>const unsigned long CAppl::StartTime</definition>
+        <argsstring></argsstring>
+        <name>StartTime</name>
+        <qualifiedname>CAppl::StartTime</qualifiedname>
+        <initializer>= <ref refid="_runtime_8h_1a6ff7f2532a22366f0013bc41397129fd" kindref="member">millis</ref>()</initializer>
+        <briefdescription>
+<para><ref refid="_runtime_8h_1a6ff7f2532a22366f0013bc41397129fd" kindref="member">millis()</ref> value captured when the global <ref refid="class_c_appl" kindref="compound">CAppl</ref> object is created. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="148" column="29" bodyfile="include/Appl.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a5699e07faf72bc7304b656f044b226c3" prot="public" static="no" mutable="no">
+        <type><ref refid="class_c_var_table" kindref="compound">CVarTable</ref></type>
+        <definition>CVarTable CAppl::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <qualifiedname>CAppl::Config</qualifiedname>
+        <briefdescription>
+<para>Application-local variable table, exported as &quot;cfg&quot;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="154" column="24" bodyfile="include/Appl.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1a249328770f260bde8a87c07257ee6816" prot="public" static="no" mutable="no">
+        <type><ref refid="class_c_event_handler" kindref="compound">CEventHandler</ref></type>
+        <definition>CEventHandler CAppl::MsgBus</definition>
+        <argsstring></argsstring>
+        <name>MsgBus</name>
+        <qualifiedname>CAppl::MsgBus</qualifiedname>
+        <briefdescription>
+<para>Application message bus used by modules and log writers. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="156" column="24" bodyfile="include/Appl.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_appl_1acdd0e87fa672616cd98fc921c4d8c266" prot="public" static="no" mutable="no">
+        <type><ref refid="class_c_event_logger" kindref="compound">CEventLogger</ref></type>
+        <definition>CEventLogger CAppl::Log</definition>
+        <argsstring></argsstring>
+        <name>Log</name>
+        <qualifiedname>CAppl::Log</qualifiedname>
+        <briefdescription>
+<para>Event-based application logger. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="158" column="24" bodyfile="include/Appl.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_appl_1aa542b046972c54a7e93c499a2501c12f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAppl::registerModule</definition>
+        <argsstring>(const char *pszModuleName, IModule *pModule)</argsstring>
+        <name>registerModule</name>
+        <qualifiedname>CAppl::registerModule</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszModuleName</declname>
+        </param>
+        <param>
+          <type><ref refid="class_i_module" kindref="compound">IModule</ref> *</type>
+          <declname>pModule</declname>
+        </param>
+        <briefdescription>
+<para>Register a module with configuration, status and event handling. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pszModuleName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name used for config/status sections and event logging. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pModule</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Module instance implementing <ref refid="class_i_module" kindref="compound">IModule</ref>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="165" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a4fa9227e0a357b170dfc1e19de6c0f62" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CAppl::writeConfigTo</definition>
+        <argsstring>(JsonNode &amp;oNode, bool bHideCritical) override</argsstring>
+        <name>writeConfigTo</name>
+        <qualifiedname>CAppl::writeConfigTo</qualifiedname>
+        <reimplements refid="class_c_config_handler_1ace2c447f63de669086fcfbc414997c36">writeConfigTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oNode</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bHideCritical</declname>
+        </param>
+        <briefdescription>
+<para>Write application and registered-module configuration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>oNode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Target JSON node. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bHideCritical</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>true to mask passwords/secrets. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="172" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a840f1e43e442a31daef9070d1e9747ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CAppl::readConfigFrom</definition>
+        <argsstring>(JsonNode &amp;oNode) override</argsstring>
+        <name>readConfigFrom</name>
+        <qualifiedname>CAppl::readConfigFrom</qualifiedname>
+        <reimplements refid="class_c_config_handler_1ac3a494e31e48d06f6ac74a3edff6cc7a">readConfigFrom</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oNode</declname>
+        </param>
+        <briefdescription>
+<para>Read application and registered-module settings from JSON. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>oNode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source configuration node. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="178" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1af16d359039604dc7f6feb73a0dc6d47d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CAppl::readConfigFrom</definition>
+        <argsstring>(const char *pszFileName, int nJsonDocSize=JSON_CONFIG_DOC_DEFAULT_SIZE)</argsstring>
+        <name>readConfigFrom</name>
+        <qualifiedname>CAppl::readConfigFrom</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszFileName</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nJsonDocSize</declname>
+          <defval><ref refid="_appl_8h_1ae3a4e4d31f3573ef99e3da21c412edfc" kindref="member">JSON_CONFIG_DOC_DEFAULT_SIZE</ref></defval>
+        </param>
+        <briefdescription>
+<para>Read a configuration file and load settings into all modules. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pszFileName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Config file path, or nullptr for JSON_APPL_CONFIG_FILE. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nJsonDocSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Legacy JSON document size for older ArduinoJson versions. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if a configuration file was loaded successfully. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="187" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a71d6726c2136fc74c74b49c925d11069" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAppl::migrateConfig</definition>
+        <argsstring>(JsonNode &amp;oDoc)</argsstring>
+        <name>migrateConfig</name>
+        <qualifiedname>CAppl::migrateConfig</qualifiedname>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oDoc</declname>
+        </param>
+        <briefdescription>
+<para>Migrate legacy configuration keys into their current locations. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>oDoc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Root configuration node to migrate in place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="193" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a2c07732abb9dad7f25372d734845745d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CAppl::saveConfig</definition>
+        <argsstring>(const char *pszFileName=JSON_APPL_CONFIG_FILE, int nJsonDocSize=JSON_CONFIG_DOC_DEFAULT_SIZE)</argsstring>
+        <name>saveConfig</name>
+        <qualifiedname>CAppl::saveConfig</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszFileName</declname>
+          <defval><ref refid="_appl_8h_1a87a9b12e37196ba08400eb3fc3291965" kindref="member">JSON_APPL_CONFIG_FILE</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nJsonDocSize</declname>
+          <defval><ref refid="_appl_8h_1ae3a4e4d31f3573ef99e3da21c412edfc" kindref="member">JSON_CONFIG_DOC_DEFAULT_SIZE</ref></defval>
+        </param>
+        <briefdescription>
+<para>Persist the current configuration to the file system. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pszFileName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Config file path. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nJsonDocSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Legacy JSON document size for older ArduinoJson versions. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the configuration was written successfully. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="201" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a97469f8ddd623809687103d16874e9cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> *</type>
+        <definition>JsonNode * CAppl::getStatus</definition>
+        <argsstring>(int nLevel=STATUS_LEVEL_INFO)</argsstring>
+        <name>getStatus</name>
+        <qualifiedname>CAppl::getStatus</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nLevel</declname>
+          <defval><ref refid="_status_handler_8h_1ad33eab0de4e088931d94b504679013e4" kindref="member">STATUS_LEVEL_INFO</ref></defval>
+        </param>
+        <briefdescription>
+<para>Build and return the reusable application status node. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nLevel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested status detail level. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer owned by <ref refid="class_c_appl" kindref="compound">CAppl</ref>; do not delete it. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="208" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a909f86568d3cd39042a15f2b8706926b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CAppl::getStatusAsText</definition>
+        <argsstring>(int nLevel=STATUS_LEVEL_INFO)</argsstring>
+        <name>getStatusAsText</name>
+        <qualifiedname>CAppl::getStatusAsText</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nLevel</declname>
+          <defval><ref refid="_status_handler_8h_1ad33eab0de4e088931d94b504679013e4" kindref="member">STATUS_LEVEL_INFO</ref></defval>
+        </param>
+        <briefdescription>
+<para>Return the current application status serialized as JSON text. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="213" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1ae2a7656deb71f8c5c64038757b61a945" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> *</type>
+        <definition>JsonNode * CAppl::getState</definition>
+        <argsstring>()</argsstring>
+        <name>getState</name>
+        <qualifiedname>CAppl::getState</qualifiedname>
+        <briefdescription>
+<para>Return the compact state view of this device. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="218" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a49ea71426c298359ba6f76af9e50e2fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CAppl::getStateAsText</definition>
+        <argsstring>()</argsstring>
+        <name>getStateAsText</name>
+        <qualifiedname>CAppl::getStateAsText</qualifiedname>
+        <briefdescription>
+<para>Return the compact device state serialized as JSON text. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="223" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1afe97a1193ac31226e50c9f0f8d348528" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void CAppl::writeStatusTo</definition>
+        <argsstring>(JsonNode &amp;oNode, int nStatusLevel) override</argsstring>
+        <name>writeStatusTo</name>
+        <qualifiedname>CAppl::writeStatusTo</qualifiedname>
+        <reimplements refid="class_i_status_handler_1a159576674bba670032ae23b647db1dec">writeStatusTo</reimplements>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oNode</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nStatusLevel</declname>
+        </param>
+        <briefdescription>
+<para>Write application metadata and module status into a JSON node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="228" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1aa465c3f2d1e998e366f132368b42c205" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAppl::writeSystemStatusTo</definition>
+        <argsstring>(JsonNode &amp;oNode)</argsstring>
+        <name>writeSystemStatusTo</name>
+        <qualifiedname>CAppl::writeSystemStatusTo</qualifiedname>
+        <param>
+          <type><ref refid="_json_node_8h_1a16d85de1190fc418f8ad60b31c7cf28a" kindref="member">JsonNode</ref> &amp;</type>
+          <declname>oNode</declname>
+        </param>
+        <briefdescription>
+<para>Write lower-level system diagnostics into a JSON node. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="233" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1abe29595df3d47a871a84585ccb8f39a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>time_t</type>
+        <definition>time_t CAppl::getNativeTime</definition>
+        <argsstring>()</argsstring>
+        <name>getNativeTime</name>
+        <qualifiedname>CAppl::getNativeTime</qualifiedname>
+        <briefdescription>
+<para>Return the native system time. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="238" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a45770a091b696244284287aabb1388ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CAppl::getUpTime</definition>
+        <argsstring>()</argsstring>
+        <name>getUpTime</name>
+        <qualifiedname>CAppl::getUpTime</qualifiedname>
+        <briefdescription>
+<para>Return application uptime as HH:MM:SS. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="243" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a8d57030fc8deda87cd8e4335b4091613" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CAppl::getISODateTime</definition>
+        <argsstring>()</argsstring>
+        <name>getISODateTime</name>
+        <qualifiedname>CAppl::getISODateTime</qualifiedname>
+        <briefdescription>
+<para>Return current local date/time as YYYY-MM-DDTHH:MM:SS. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="248" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1ad03c4a06e5d86ec6fa1c93ee374b9e0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CAppl::getISODate</definition>
+        <argsstring>()</argsstring>
+        <name>getISODate</name>
+        <qualifiedname>CAppl::getISODate</qualifiedname>
+        <briefdescription>
+<para>Return current local date as YYYY-MM-DD. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="253" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1ae026762ff25b10e92e7398ae409e393b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CAppl::getISOTime</definition>
+        <argsstring>()</argsstring>
+        <name>getISOTime</name>
+        <qualifiedname>CAppl::getISOTime</qualifiedname>
+        <briefdescription>
+<para>Return current local time as HH:MM:SS. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="258" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a00678e0dccf51134c065369c781c73d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * CAppl::getDeviceID</definition>
+        <argsstring>()</argsstring>
+        <name>getDeviceID</name>
+        <qualifiedname>CAppl::getDeviceID</qualifiedname>
+        <briefdescription>
+<para>Return the stable chip/device identifier from system status. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="263" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a841da10700fa8d39ec546ccad693daf3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CAppl::getDeviceName</definition>
+        <argsstring>()</argsstring>
+        <name>getDeviceName</name>
+        <qualifiedname>CAppl::getDeviceName</qualifiedname>
+        <briefdescription>
+<para>Return the configured device name. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="266" column="16" bodyfile="include/Appl.h" bodystart="266" bodyend="266"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a7b1589ed82e3436fb3027ca5f3619c22" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAppl::setDeviceName</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>setDeviceName</name>
+        <qualifiedname>CAppl::setDeviceName</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+<para>Set the configured device name from a C string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="268" column="14" bodyfile="include/Appl.h" bodystart="268" bodyend="268"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1af2fcd07ede2b70dc42624ee69ff3e334" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAppl::setDeviceName</definition>
+        <argsstring>(String strName)</argsstring>
+        <name>setDeviceName</name>
+        <qualifiedname>CAppl::setDeviceName</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+          <declname>strName</declname>
+        </param>
+        <briefdescription>
+<para>Set the configured device name from a String. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="270" column="14" bodyfile="include/Appl.h" bodystart="270" bodyend="270"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1aa308ca472597925a93d52c846c41e72e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAppl::setDevicePwd</definition>
+        <argsstring>(const char *pszName)</argsstring>
+        <name>setDevicePwd</name>
+        <qualifiedname>CAppl::setDevicePwd</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>pszName</declname>
+        </param>
+        <briefdescription>
+<para>Set the configured device password from a C string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="272" column="14" bodyfile="include/Appl.h" bodystart="272" bodyend="272"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1acf17eb30174886d46454d9606f568ddc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAppl::setDevicePwd</definition>
+        <argsstring>(String strName)</argsstring>
+        <name>setDevicePwd</name>
+        <qualifiedname>CAppl::setDevicePwd</qualifiedname>
+        <param>
+          <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+          <declname>strName</declname>
+        </param>
+        <briefdescription>
+<para>Set the configured device password from a String. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="274" column="14" bodyfile="include/Appl.h" bodystart="274" bodyend="274"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a39c2b869ac2fb027f9571d6c8d48453c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="_runtime_8h_1ad3834cab10a0d63f8168683208864a90" kindref="member">String</ref></type>
+        <definition>String CAppl::getDevicePwd</definition>
+        <argsstring>()</argsstring>
+        <name>getDevicePwd</name>
+        <qualifiedname>CAppl::getDevicePwd</qualifiedname>
+        <briefdescription>
+<para>Return the configured device password. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="276" column="16" bodyfile="include/Appl.h" bodystart="276" bodyend="276"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1ab89cd2ae9d6e2f08f01b5d7cb2693eda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CAppl::CAppl</definition>
+        <argsstring>()</argsstring>
+        <name>CAppl</name>
+        <qualifiedname>CAppl::CAppl</qualifiedname>
+        <briefdescription>
+<para>Create the global application hub. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="282" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a362e719cf07cbafcbabafdfcdb110ad1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAppl::dispatch</definition>
+        <argsstring>(int nMsgType=0, const void *pMsg=nullptr)</argsstring>
+        <name>dispatch</name>
+        <qualifiedname>CAppl::dispatch</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nMsgType</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>pMsg</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Dispatch a periodic loop message to all registered receivers. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="287" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1aedcd69ac05303845c2dccce89d26ef7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>int CAppl::receiveEvent</definition>
+        <argsstring>(const void *pSender, int nMsgType, const void *pMessage, int nClass)</argsstring>
+        <name>receiveEvent</name>
+        <qualifiedname>CAppl::receiveEvent</qualifiedname>
+        <reimplements refid="class_i_msg_event_receiver_1a3345710906f9a16c4dca5b7ce2da39d7">receiveEvent</reimplements>
+        <param>
+          <type>const void *</type>
+          <declname>pSender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nMsgType</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>pMessage</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nClass</declname>
+        </param>
+        <briefdescription>
+<para>Handle application-level events such as reboot requests. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="292" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a854edcff2dde626ce022f00a1f32cec0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAppl::init</definition>
+        <argsstring>(const char *strAppName, const char *strAppVersion)</argsstring>
+        <name>init</name>
+        <qualifiedname>CAppl::init</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>strAppName</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>strAppVersion</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the application metadata and announce startup. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="297" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a260d60f3db8cfe88cf83490e5f3adc01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAppl::start</definition>
+        <argsstring>(void *pData=nullptr, int nType=0)</argsstring>
+        <name>start</name>
+        <qualifiedname>CAppl::start</qualifiedname>
+        <param>
+          <type>void *</type>
+          <declname>pData</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nType</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Publish the application-started event after initialization finished. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="302" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1acc831eca5419245211b581bac23c7d6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAppl::sayHello</definition>
+        <argsstring>()</argsstring>
+        <name>sayHello</name>
+        <qualifiedname>CAppl::sayHello</qualifiedname>
+        <briefdescription>
+<para>Print a short application banner to Serial. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="307" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1aa45fc998a9a45c63393380fafc7cf786" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAppl::printDiag</definition>
+        <argsstring>()</argsstring>
+        <name>printDiag</name>
+        <qualifiedname>CAppl::printDiag</qualifiedname>
+        <briefdescription>
+<para>Print flash/heap diagnostics and verify flash size configuration. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="312" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_c_appl_1a6423cabf9e8a193b44fb44e8c050eb79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CAppl::reboot</definition>
+        <argsstring>(int nDelayMillis=2000, bool bForce=false)</argsstring>
+        <name>reboot</name>
+        <qualifiedname>CAppl::reboot</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>nDelayMillis</declname>
+          <defval>2000</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bForce</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Send shutdown events and restart the ESP after the given delay. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/Appl.h" line="317" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Central application hub for modules, configuration, status and events. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="class_c_appl" kindref="compound">CAppl</ref> owns the message bus, central logger, variable table and reusable status documents. Modules register here to participate in config loading/saving, status reporting and application lifecycle events. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>CAppl</label>
+        <link refid="class_c_appl"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CConfigHandler</label>
+        <link refid="class_c_config_handler"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>CStatusHandler</label>
+        <link refid="class_c_status_handler"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="6">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="5">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>CAppl</label>
+        <link refid="class_c_appl"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="private-inheritance">
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>MsgBus</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>Log</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CConfigHandler</label>
+        <link refid="class_c_config_handler"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>CEventHandler</label>
+        <link refid="class_c_event_handler"/>
+      </node>
+      <node id="9">
+        <label>CEventLogger</label>
+        <link refid="class_c_event_logger"/>
+      </node>
+      <node id="4">
+        <label>CStatusHandler</label>
+        <link refid="class_c_status_handler"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>CVarTable</label>
+        <link refid="class_c_var_table"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IConfigHandler</label>
+        <link refid="class_i_config_handler"/>
+      </node>
+      <node id="6">
+        <label>IMsgEventReceiver</label>
+        <link refid="class_i_msg_event_receiver"/>
+      </node>
+      <node id="5">
+        <label>IStatusHandler</label>
+        <link refid="class_i_status_handler"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/Appl.h" line="121" column="1" bodyfile="include/Appl.h" bodystart="121" bodyend="319"/>
+    <listofallmembers>
+      <member refid="class_c_config_handler_1a5d355c0fa5c9bd419e943a82c468c445" prot="public" virt="non-virtual"><scope>CAppl</scope><name>addConfigHandler</name></member>
+      <member refid="class_c_config_handler_1a62391bf2392245ae4919841e33eb1031" prot="public" virt="non-virtual"><scope>CAppl</scope><name>addConfigHandler</name></member>
+      <member refid="class_c_status_handler_1a651297637269669a4830e13f7b008971" prot="public" virt="non-virtual"><scope>CAppl</scope><name>addStatusHandler</name></member>
+      <member refid="class_c_status_handler_1acc3b0f2d8ecd47a9441c8e409cf23366" prot="public" virt="non-virtual"><scope>CAppl</scope><name>addStatusHandler</name></member>
+      <member refid="class_c_appl_1a239f0760ef07209d6977a111eb414638" prot="public" virt="non-virtual"><scope>CAppl</scope><name>AppName</name></member>
+      <member refid="class_c_appl_1a517f0122cd4d063f6d2d99c48ed11c07" prot="public" virt="non-virtual"><scope>CAppl</scope><name>AppVersion</name></member>
+      <member refid="class_c_appl_1ab89cd2ae9d6e2f08f01b5d7cb2693eda" prot="public" virt="non-virtual"><scope>CAppl</scope><name>CAppl</name></member>
+      <member refid="class_c_config_handler_1a476833632b26b4724ab5a0c1de3294a0" prot="public" virt="non-virtual"><scope>CAppl</scope><name>CConfigHandler</name></member>
+      <member refid="class_c_appl_1a5699e07faf72bc7304b656f044b226c3" prot="public" virt="non-virtual"><scope>CAppl</scope><name>Config</name></member>
+      <member refid="class_c_appl_1a362e719cf07cbafcbabafdfcdb110ad1" prot="public" virt="non-virtual"><scope>CAppl</scope><name>dispatch</name></member>
+      <member refid="class_c_config_handler_1abacafe4746206ef57d1016b5eb567477" prot="public" virt="non-virtual"><scope>CAppl</scope><name>dumpConfigHandler</name></member>
+      <member refid="class_c_config_handler_1a2d0e82764c81898291a11b5e657d5d3f" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getConfigHandler</name></member>
+      <member refid="class_c_config_handler_1acb340296ad2522d78f97c7b3d0e3277b" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getConfigHandler</name></member>
+      <member refid="class_c_appl_1a00678e0dccf51134c065369c781c73d1" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getDeviceID</name></member>
+      <member refid="class_c_appl_1a841da10700fa8d39ec546ccad693daf3" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getDeviceName</name></member>
+      <member refid="class_c_appl_1a39c2b869ac2fb027f9571d6c8d48453c" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getDevicePwd</name></member>
+      <member refid="class_c_appl_1ad03c4a06e5d86ec6fa1c93ee374b9e0d" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getISODate</name></member>
+      <member refid="class_c_appl_1a8d57030fc8deda87cd8e4335b4091613" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getISODateTime</name></member>
+      <member refid="class_c_appl_1ae026762ff25b10e92e7398ae409e393b" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getISOTime</name></member>
+      <member refid="class_c_appl_1abe29595df3d47a871a84585ccb8f39a1" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getNativeTime</name></member>
+      <member refid="class_c_appl_1ae2a7656deb71f8c5c64038757b61a945" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getState</name></member>
+      <member refid="class_c_appl_1a49ea71426c298359ba6f76af9e50e2fb" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getStateAsText</name></member>
+      <member refid="class_c_appl_1a97469f8ddd623809687103d16874e9cc" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getStatus</name></member>
+      <member refid="class_c_appl_1a909f86568d3cd39042a15f2b8706926b" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getStatusAsText</name></member>
+      <member refid="class_c_status_handler_1afe6642be5d63302b8a455a19f382f6c2" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getStatusHandler</name></member>
+      <member refid="class_c_status_handler_1ade7bd78c571d1a8ff64cd29a4b3773b9" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getStatusHandler</name></member>
+      <member refid="class_c_appl_1a45770a091b696244284287aabb1388ae" prot="public" virt="non-virtual"><scope>CAppl</scope><name>getUpTime</name></member>
+      <member refid="class_i_config_handler_1a6011c82a3fe9d10ef0ea54d848557f4c" prot="public" virt="virtual"><scope>CAppl</scope><name>hasConfigValues</name></member>
+      <member refid="class_i_status_handler_1a09c7f2469095ba9b1eb92ac7809d02d9" prot="public" virt="virtual"><scope>CAppl</scope><name>hasStatusValues</name></member>
+      <member refid="class_c_appl_1a854edcff2dde626ce022f00a1f32cec0" prot="public" virt="non-virtual"><scope>CAppl</scope><name>init</name></member>
+      <member refid="class_c_appl_1acdd0e87fa672616cd98fc921c4d8c266" prot="public" virt="non-virtual"><scope>CAppl</scope><name>Log</name></member>
+      <member refid="class_c_appl_1a37fcf0f41699264184d803c4a1ad5f29" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_bStatusChanged</name></member>
+      <member refid="class_c_appl_1a27c8a4f2cad0c1b981d044bbe0c2c144" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_isRebootPending</name></member>
+      <member refid="class_c_appl_1a7522362ca1a78133c8d299c1758ace12" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_oCfg</name></member>
+      <member refid="class_c_appl_1abc493d3344ad331396bc02d0684594d4" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_oRawTime</name></member>
+      <member refid="class_c_appl_1a778490f035466d8fefb89fbc6bfc4524" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_oStatus</name></member>
+      <member refid="class_c_appl_1a94b99e29dc84471d60e41da00c0d5dd4" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_oSysStatus</name></member>
+      <member refid="class_c_appl_1a89bc58fd903750a399c4b9e684381ce8" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_oSystemStatus</name></member>
+      <member refid="class_c_appl_1a7eff4c34cd63af6802987339cd551dcc" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_strIsoDateTime</name></member>
+      <member refid="class_c_appl_1a122d2e505511866bfabe7d889fed92a2" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_strStatus</name></member>
+      <member refid="class_c_appl_1a6a24772b4237214ed000449bb118adf0" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_strSysStatus</name></member>
+      <member refid="class_c_appl_1adcaedefe23a97582cbae7cb8e6df1881" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_szCurDate</name></member>
+      <member refid="class_c_appl_1a7d1800cd0563a310452b0ecc1b7ae3f4" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_szCurTime</name></member>
+      <member refid="class_c_appl_1a7083837a5e7d3c0e301321d5074e0991" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_szISODateTime</name></member>
+      <member refid="class_c_appl_1a0e94f33376c30027d8960418761fb002" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_szUptimeBuffer</name></member>
+      <member refid="class_c_appl_1a8a3625eb31e17680f1a09e113766422e" prot="private" virt="non-virtual"><scope>CAppl</scope><name>m_ulLastStatusUpdate</name></member>
+      <member refid="class_c_appl_1a71d6726c2136fc74c74b49c925d11069" prot="public" virt="non-virtual"><scope>CAppl</scope><name>migrateConfig</name></member>
+      <member refid="class_c_config_handler_1a609ed7c35f650b0f29de42db93d17615" prot="public" virt="virtual" ambiguityscope="CConfigHandler::"><scope>CAppl</scope><name>migrateConfig</name></member>
+      <member refid="class_c_appl_1a249328770f260bde8a87c07257ee6816" prot="public" virt="non-virtual"><scope>CAppl</scope><name>MsgBus</name></member>
+      <member refid="class_c_appl_1aa45fc998a9a45c63393380fafc7cf786" prot="public" virt="non-virtual"><scope>CAppl</scope><name>printDiag</name></member>
+      <member refid="class_c_appl_1a840f1e43e442a31daef9070d1e9747ad" prot="public" virt="virtual"><scope>CAppl</scope><name>readConfigFrom</name></member>
+      <member refid="class_c_appl_1af16d359039604dc7f6feb73a0dc6d47d" prot="public" virt="non-virtual"><scope>CAppl</scope><name>readConfigFrom</name></member>
+      <member refid="class_c_appl_1a6423cabf9e8a193b44fb44e8c050eb79" prot="public" virt="non-virtual"><scope>CAppl</scope><name>reboot</name></member>
+      <member refid="class_c_appl_1aedcd69ac05303845c2dccce89d26ef7f" prot="public" virt="virtual"><scope>CAppl</scope><name>receiveEvent</name></member>
+      <member refid="class_c_appl_1aa542b046972c54a7e93c499a2501c12f" prot="public" virt="non-virtual"><scope>CAppl</scope><name>registerModule</name></member>
+      <member refid="class_c_appl_1a2c07732abb9dad7f25372d734845745d" prot="public" virt="non-virtual"><scope>CAppl</scope><name>saveConfig</name></member>
+      <member refid="class_c_appl_1acc831eca5419245211b581bac23c7d6e" prot="public" virt="non-virtual"><scope>CAppl</scope><name>sayHello</name></member>
+      <member refid="class_c_appl_1a7b1589ed82e3436fb3027ca5f3619c22" prot="public" virt="non-virtual"><scope>CAppl</scope><name>setDeviceName</name></member>
+      <member refid="class_c_appl_1af2fcd07ede2b70dc42624ee69ff3e334" prot="public" virt="non-virtual"><scope>CAppl</scope><name>setDeviceName</name></member>
+      <member refid="class_c_appl_1aa308ca472597925a93d52c846c41e72e" prot="public" virt="non-virtual"><scope>CAppl</scope><name>setDevicePwd</name></member>
+      <member refid="class_c_appl_1acf17eb30174886d46454d9606f568ddc" prot="public" virt="non-virtual"><scope>CAppl</scope><name>setDevicePwd</name></member>
+      <member refid="class_c_appl_1a260d60f3db8cfe88cf83490e5f3adc01" prot="public" virt="non-virtual"><scope>CAppl</scope><name>start</name></member>
+      <member refid="class_c_appl_1ad1d6403bf29e058c390e7737822b9641" prot="public" virt="non-virtual"><scope>CAppl</scope><name>StartTime</name></member>
+      <member refid="class_c_appl_1a4fa9227e0a357b170dfc1e19de6c0f62" prot="public" virt="virtual"><scope>CAppl</scope><name>writeConfigTo</name></member>
+      <member refid="class_c_appl_1afe97a1193ac31226e50c9f0f8d348528" prot="public" virt="virtual"><scope>CAppl</scope><name>writeStatusTo</name></member>
+      <member refid="class_c_appl_1aa465c3f2d1e998e366f132368b42c205" prot="public" virt="non-virtual"><scope>CAppl</scope><name>writeSystemStatusTo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
