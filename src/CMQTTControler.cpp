@@ -611,7 +611,7 @@ void CMQTTController::onMqttMessage(char *pszTopic, char *pszPayload, AsyncMqttC
     // Last Block received ? => store data in queue
     if(nIndex + nLen == nTotal) {
         DEBUG_INFOS("MQTT status message received \"%s\"",m_pszMessageBuffer);
-        MQTTMessage *pMessage = new MQTTMessage( pszTopic, m_pszMessageBuffer);
+        MQTTMessage *pMessage = new MQTTMessage( pszTopic, m_pszMessageBuffer, this);
         m_tMessageQeue.push(pMessage);
         free(m_pszMessageBuffer);
         m_pszMessageBuffer = nullptr;
