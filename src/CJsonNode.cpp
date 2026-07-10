@@ -962,13 +962,16 @@ const char* CJsonNode::serializeNode(String & strResultString, int nIdentDeep) {
     switch(this->m_nObjectType) {
         case ELEMENT_TYPE::VALUE:
             {
+                String strValue = getValueAsCharPointer("");
+                strValue.replace("\\","\\\\");
+                strValue.replace("\"","\\\"");
                 // Element type value detected - write with or without quotes...
                 if (!m_bWriteValueWithQuotes) {
-                    strResultString += getValueAsCharPointer("");
+                    strResultString += strValue;
                 }
                 else {
                     strResultString += "\"";
-                    strResultString += getValueAsCharPointer("");
+                    strResultString += strValue;
                     strResultString += "\"";
                 }
             }
@@ -1016,79 +1019,7 @@ const char* CJsonNode::serializeNode(String & strResultString, int nIdentDeep) {
     DEBUG_FUNC_END();
     return(strResultString.c_str());
 }
-/*
-const char* CJsonNode::serialize(String & strResultString, int nIdentDeep) {
 
-    String strPrefix = "";
-    const char *pszKeyValDeli   = nIdentDeep > -1 ? " : " : ":";
-    const char *pszPost         = nIdentDeep > -1 ? "\n"  : "";
-
-    // Output with indent requested
-    if(nIdentDeep > -1) {
-        for(int nDeep = 0; nDeep < nIdentDeep; nDeep++ ) {
-            strPrefix += "   ";
-        }
-        nIdentDeep++;
-    }
-    
-    // If a name is in place, write the name an the key value delimiter...
-    if (Name.length() > 0) {
-        strResultString += strPrefix.c_str();
-        strResultString += "\"";
-        strResultString += Name.c_str();
-        strResultString += "\"";
-        strResultString += pszKeyValDeli;
-    }
-    
-    switch (this->m_nObjectType) {
-
-        case ELEMENT_TYPE::VALUE:
-            {
-                // Element type value detected - write with or without quotes...
-                if (!m_bWriteValueWithQuotes) {
-                    strResultString += getValueAsCharPointer("");
-                }
-                else {
-                    strResultString += "\"";
-                    strResultString += getValueAsCharPointer("");
-                    strResultString += "\"";
-                }
-            }
-            break;
-            
-        case ELEMENT_TYPE::OBJECT:
-        case ELEMENT_TYPE::ARRAY: 
-            {
-                bool bFirstElement  = true;
-                strResultString += m_nObjectType == ELEMENT_TYPE::OBJECT ? "{" : "[";
-                strResultString += pszPost; // New Line if necessary...
-                for(CJsonNode *pChildNode : this->Elements) {
-                    if (!bFirstElement) {
-                        strResultString += ",";
-                        strResultString += pszPost; // New Line if pretty mode
-                    }
-                    pChildNode->serialize(strResultString,nIdentDeep);
-                    bFirstElement  = false;
-                }
-                strResultString += pszPost; // New Line (if pretty mode)
-                strResultString += strPrefix.c_str();
-                strResultString += m_nObjectType == ELEMENT_TYPE::OBJECT ? "}" : "]";
-            }
-            break;
-
-        default:
-            {
-                DEBUG_INFO("JSON:: ####### unexpected data found #######");
-                DEBUG_INFOS("  --> Node Type  : %d",m_nObjectType);
-                DEBUG_INFOS("  --> Node Value : %s",m_strValue.c_str());
-                DEBUG_INFOS("  --> Current result:\n%s",strResultString.c_str());
-            }
-            break;
-    }
-
-    return(strResultString.c_str());
-}
-*/
 
 #pragma endregion
 
