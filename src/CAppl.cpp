@@ -351,7 +351,7 @@ void CAppl::writeStatusTo(JsonNode &oStatusObj, int nLevel = STATUS_LEVEL_INFO) 
 	// writeSystemStatusTo(oStatusObj);
 	// Iterate through additional registered Status Handler by
 	// calling the base class member (this is NOT a static function ;-)
-	CStatusHandler::writeStatusTo(oStatusObj);
+	CStatusHandler::writeStatusTo(oStatusObj,nLevel);
 	DEBUG_FUNC_END();
 }
 
