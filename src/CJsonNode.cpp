@@ -54,10 +54,10 @@ void CJsonNode::setParentNode(JsonNode * pParentNode) {
  * In the sample "const" length may not exceed 256 bytes
  * @return the node or nullptr if not found.
  */
-CJsonNode* CJsonNode::find(const char* pszName) {
+CJsonNode* CJsonNode::find(const char* pszName, bool bResolveName ) {
     CJsonNode* pResult = nullptr;
     if(pszName) {
-        int nDeliIdx = LSC::indexOf(pszName,'.');
+        int nDeliIdx = bResolveName ? LSC::indexOf(pszName,'.') : -1;
         // If a '.' is in the name, scan for the first name and handover to the next
         if(nDeliIdx > -1) {
             char szBuffer[256];
@@ -735,10 +735,11 @@ CJsonNode* CJsonNode::getObject(const char* pszName, bool bCreateIfNotExist) {
  */
 CJsonNode* CJsonNode::createElement(const char *pszName) {
     CJsonNode *pNode = nullptr;
-    if(pszName) pNode = find(pszName);
+    if(pszName) pNode = find(pszName,false);
     if(!pNode) {
         pNode = new CJsonNode();
         pNode->setParentNode(this);
+        if(pszName) pNode->Name = pszName;
     }
     else pNode->clear();
     pNode->m_nObjectType = ELEMENT_TYPE::VALUE;

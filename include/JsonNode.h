@@ -107,7 +107,7 @@ public:
     /// @brief Return true if a named child contains a recognized boolean literal.
     bool isBooleanValue(const char *pszName);
     /// @brief Find a child by name or dotted path.
-    CJsonNode*          find(const char* pszName);
+    CJsonNode*          find(const char* pszName, bool bResolveName = true);
     /// @brief Ensure that all object nodes before the final path element exist.
     CJsonNode*          createJsonPathToElement(const char *pszElement);
     /// @brief Create or replace a child value node.
