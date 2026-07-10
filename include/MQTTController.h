@@ -200,10 +200,20 @@ class MQTTMessage {
     /// @brief Topic that carried the received message.
     char * Topic;
 
+    char * DeviceCmdTopic; // Command topic for this device, if the message is a command topic.
+
     /// @brief Copy topic and payload into an owned message object.
     MQTTMessage(const char * pszTopic, const char *pszMessage, CMQTTController * pController = nullptr) : pController(pController) {
         Topic = strdup(pszTopic);
         Message = strdup(pszMessage);
+        if(isDeviceCommandTopic()) {
+            String strDeviceCmdTopic = pszTopic;
+            size_t nPublishTopicLength = pController ? strlen(pController->getDeviceCommandBaseTopicPath()) : 0;
+            strDeviceCmdTopic.remove(0,nPublishTopicLength + 1); // Remove the command topic prefix and the following slash 
+            DeviceCmdTopic = strdup(strDeviceCmdTopic.c_str());
+        } else {
+            DeviceCmdTopic = nullptr;
+        }
     }
 
     /// @brief Release copied topic and payload strings.
