@@ -5,10 +5,13 @@
     height: 100%;
     overflow: auto;
     color: grey;
-    h4 {
-        text-align: center;
-    }
+    
 }
+
+#fwHistoryPanel h4 {
+        text-align: center;
+}
+
 #fwHistory {
     font-size: small;
     
