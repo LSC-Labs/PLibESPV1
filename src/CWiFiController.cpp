@@ -150,6 +150,20 @@ void CWiFiController::readConfigFrom(JsonNode &oCfgNode) {
     DEBUG_FUNC_END();
 } 
 
+
+void CWiFiController::insertComponentDiscovery(const char * pszComponentName, JsonNode & oComponentArea, CMQTTController * pController) {
+    String strCompID = Appl.getDeviceID();
+    strCompID += "-wifi-rssi";
+    char szValueTemplate[256];
+    sniprintf(szValueTemplate,sizeof(szValueTemplate),"{{ value_json.%s.rssi }}",pszComponentName);
+    JsonNode * pSensor = oComponentArea.createObject("wifi-rssi");
+    pSensor->setValue("p",                   "sensor");
+    pSensor->setValue("device_class",        "signal_strength");
+    pSensor->setValue("unit_of_measurement", "dBm");
+    pSensor->setValue("value_template" ,     szValueTemplate);
+    pSensor->setValue("unique_id",           strCompID.c_str());
+}   
+
 /**
  * @brief Read an IP address from a JSON node when the key exists.
  * @return true if the key existed and could be parsed into the target address.

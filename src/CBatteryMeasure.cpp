@@ -89,4 +89,20 @@ void CBatteryMeasure::readConfigFrom(JsonNode &oConfigData) {
     oConfigData.storeValueIf("calcFactor", &m_fBatteryCalcFactor);
 }
 
+void CBatteryMeasure::insertComponentDiscovery(const char * pszComponentName, JsonNode & oComponentArea, CMQTTController * pController) {
+    String strCompID = Appl.getDeviceID();
+    strCompID += "-bat-volt";
+    char szValueTemplate[256];
+    sniprintf(szValueTemplate,sizeof(szValueTemplate),"{{ value_json.%s.volt }}",pszComponentName);
+    JsonNode * pSensor = oComponentArea.createObject("bat-volt");
+    pSensor->setValue("p",                   "sensor");
+    pSensor->setValue("device_class",        "voltage");
+    pSensor->setValue("unit_of_measurement", "V");
+    pSensor->setValue("suggested_display_precision", 2);
+    pSensor->setValue("name",                "Battery Voltage");
+    pSensor->setValue("value_template" ,     szValueTemplate);
+    pSensor->setValue("unique_id",           strCompID.c_str());
+}     
+
+
 #pragma endregion
