@@ -1,0 +1,15 @@
+
+#fwHistoryPanel {
+    padding-top: 100px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    color: grey;
+    h4 {
+        text-align: center;
+    }
+}
+#fwHistory {
+    font-size: small;
+    
+}

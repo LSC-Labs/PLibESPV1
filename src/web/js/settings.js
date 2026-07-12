@@ -12,8 +12,9 @@ const APP_SETTINGS = {
         "ws": {
             "recon": true, // Reconnect to the WebSocket if lost...
         },
-        "latest": {
-            "url": "https://api.github.com/repos/LSC-Labs/PLibESPV1/releases/latest"
+        "firmware": {
+            "list": "https://api.github.com/repos/LSC-Labs/PLibESPV1/releases",
+            "latest": "https://api.github.com/repos/LSC-Labs/PLibESPV1/releases/latest"
         },
         "GitHubPage": "https://github.com/LSC-Labs/PLibESPV1",
         "homePage": "https://github.com/LSC-Labs",
