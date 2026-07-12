@@ -114,7 +114,10 @@ def getVersionStringOf(oVersion):
 	
 
 def getTargetFirmwareName(env):
-	strFileName = env.subst("$PIOENV")
+	projectPath = env['PROJECT_DIR']
+	# os.path.basename extrahiert daraus nur den letzten Ordnernamen (den Projektnamen)
+	projectName = os.path.basename(projectPath)
+	strFileName = projectName + " - " + env.subst("$PIOENV")
 	if strFileName.endswith("_debug"):
 		strFileName +=  " (firmware).bin"
 	else:
