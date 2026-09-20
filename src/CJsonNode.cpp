@@ -257,6 +257,15 @@ CJsonNode* CJsonNode::setValue(long lValue) {
     return(this);
 }
 
+CJsonNode* CJsonNode::setValue(signed long long llValue) {
+    char szBuffer[80];
+    snprintf(szBuffer,sizeof(szBuffer),"%lld",llValue);
+    this->m_strValue = szBuffer;
+    setNodeValueType(false);
+    DEBUG_INFOS("JSON: -> setting quoted:(%d): %s == %s",m_bWriteValueWithQuotes,Name.c_str(),m_strValue.c_str());
+    return(this);
+}
+
 /**
  * @brief Store an unquoted unsigned long value in this node.
  */

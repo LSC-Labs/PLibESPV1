@@ -229,6 +229,7 @@ public:
     CJsonNode* setValue(float           fValue);
     /// @brief Store an unquoted signed long value in this node.
     CJsonNode* setValue(long            lValue);
+    CJsonNode* setValue(signed long long       llValue);
     /// @brief Store an unquoted unsigned long value in this node.
     CJsonNode* setValue(unsigned long   ulValue);
 
@@ -239,6 +240,7 @@ public:
     CJsonNode* operator=(unsigned int   unValue)  { return(setValue(unValue)); }
     CJsonNode* operator=(float          fValue)   { return(setValue(fValue)); }
     CJsonNode* operator=(long           lValue)   { return(setValue(lValue)); }
+    CJsonNode* operator=(signed long long llValue)   { return(setValue(llValue)); }
     CJsonNode* operator=(unsigned long  ulValue)  { return(setValue(ulValue)); }
 
     /// @brief Set or create a named string value.
