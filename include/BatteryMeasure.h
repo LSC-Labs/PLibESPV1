@@ -1,9 +1,8 @@
 #pragma once
 #include <ApplModule.h>
-#include <ConfigHandler.h>
-#include <StatusHandler.h>
+#include <MQTTController.h>
 
-class CBatteryMeasure : public ApplModule {
+class CBatteryMeasure : public ApplModule, public IHomeAssistantComponent {
     private:
         int   m_nPin;
         int   m_nBatteryAvailableThreshold = 100;
@@ -23,5 +22,7 @@ class CBatteryMeasure : public ApplModule {
         void  writeStatusTo( JsonNode &oStatusObj, int nLevel)         override;
         void  writeConfigTo( JsonNode &oConfigObj, bool bHideCritical) override;
         void  readConfigFrom(JsonNode &oConfigObj)                     override;
+
+        void insertComponentDiscovery(const char * pszComponentName, JsonNode & oComponentArea, CMQTTController * pController) override;    
 };
 

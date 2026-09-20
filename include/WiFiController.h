@@ -28,7 +28,7 @@
  */
 #include <Appl.h>
 #include <Network.h>
-#include <JsonNode.h>
+#include <MQTTController.h>
 
 #ifndef WIFI_MODULE_DEFAULT_AP_IP
     #define WIFI_MODULE_DEFAULT_AP_IP     IPAddress(192,168,4,1)
@@ -146,7 +146,7 @@ struct WiFiStatus {
  * status through IStatusHandler and reacts to WiFi scan requests from the
  * application message bus.
  */
-class CWiFiController : public IModule { 
+class CWiFiController : public IModule, public IHomeAssistantComponent { 
     private:
         String m_strBuffer;
         WiFiConfig    Config;   // Configuration of the WiFi module
@@ -197,6 +197,8 @@ class CWiFiController : public IModule {
          * @param nLevel Requested status detail level.
          */
         void writeStatusTo( JsonNode &oStatusObj, int nLevel = STATUS_LEVEL_INFO) override;
+
+        void insertComponentDiscovery(const char * pszComponentName, JsonNode & oComponentArea, CMQTTController * pController) override;    
 
         /**
          * @brief Serialize the current WiFi status and write it to the application log.
