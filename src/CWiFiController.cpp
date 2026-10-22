@@ -6,7 +6,7 @@
 #include <Appl.h>
 #include <Msgs.h>
 #include <EventHandler.h>
-#include <JsonHelper.h>
+#include <JsonNode.h>
 #include <WiFiController.h>
 #include <LSCUtils.h>
 
@@ -513,21 +513,24 @@ void CWiFiController::onWiFiScanResult(int nNetworksFound) {
 			}
 		}
 	}
-
-    JSON_DOC(oRootDoc,512);
+    CJsonNode oRootDoc;
+    // JSON_DOC(oRootDoc,512);
 	oRootDoc["command"] = "update";
 	oRootDoc["data"] 	= "ssidlist";
-	JsonArray oScanResult = CreateJsonArray(oRootDoc,"payload");
+    JsonNode * pScanResult = oRootDoc.createArray("payload");
+	// JsonArray oScanResult = CreateJsonArray(oRootDoc,"payload");
 	for (int i = 0; i < 10 && i < nNetworksFound; ++i)
 	{
 		// JsonObject oItem = oScanResult.createNestedObject();
-        JsonObject oItem = CreateEmptyJsonObject(oScanResult);
-		oItem["ssid"] 		= WiFi.SSID(tIndices[i]);
-		oItem["bssid"] 		= WiFi.BSSIDstr(tIndices[i]);
-		oItem["rssi"] 		= WiFi.RSSI(tIndices[i]);
-		oItem["channel"] 	= WiFi.channel(tIndices[i]);
-		oItem["enctype"] 	= WiFi.encryptionType(tIndices[i]);
-		oItem["hidden"] 	= WiFi.isHidden(tIndices[i]) ? true : false;
+        // JsonObject oItem = CreateEmptyJsonObject(oScanResult);
+		// oItem["ssid"] 		= WiFi.SSID(tIndices[i]);
+        JsonNode * pItem = pScanResult->createObject();
+        pItem->setValue("ssid", WiFi.SSID(tIndices[i]).c_str());
+		pItem->setValue("bssid", WiFi.BSSIDstr(tIndices[i]).c_str());
+		pItem->setValue("rssi", WiFi.RSSI(tIndices[i]));
+		pItem->setValue("channel", WiFi.channel(tIndices[i]));
+		pItem->setValue("enctype", WiFi.encryptionType(tIndices[i]));
+		pItem->setValue("hidden", WiFi.isHidden(tIndices[i]) ? true : false);
 	}
     Appl.MsgBus.sendEvent(this,MSG_WIFI_SCAN_RESULT,&oRootDoc,0);
 	// sendJsonDocMessage(oRootDoc,this,nullptr);

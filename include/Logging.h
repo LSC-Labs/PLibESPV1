@@ -21,7 +21,7 @@
 /// @brief Logger facade that sends formatted log events through CEventHandler.
 class CEventLogger {
     private:
-        CEventHandler * pEventHandler;
+        CEventHandler * pEventHandler = nullptr;
     public:
         /// @brief Create a logger without an attached event handler.
         CEventLogger();
