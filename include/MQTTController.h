@@ -63,7 +63,7 @@ struct MQTTConfig {
     /// @brief true to publish Home Assistant MQTT discovery data.
     bool    useHA             = false;              // Use of Home Asisst
     /// @brief MQTT discovery prefix used by Home Assistant.
-    String  HADiscoveryPrefix = "/homeassistant";   // Home Assistant Discovery Prefix
+    String  HADiscoveryPrefix = "homeassistant";   // Home Assistant Discovery Prefix
     /// @brief Home Assistant availability message for online.
     String  HAOnlineMessage   = "online";           // message when going online
     /// @brief Home Assistant availability message for offline.
