@@ -128,7 +128,6 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
     String      m_strIsoDateTime;
 
     
-    // JSON_DOC(m_oStatusDoc,JSON_STATUS_DOC_DEFAULT_SIZE);
     bool m_bStatusChanged   = true;
     bool m_isRebootPending  = false;
     // CSimpleDelay m_oRebootDelay;
@@ -181,7 +180,7 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
         /**
          * @brief Read a configuration file and load settings into all modules.
          * @param pszFileName Config file path, or nullptr for JSON_APPL_CONFIG_FILE.
-         * @param nJsonDocSize Legacy JSON document size for older ArduinoJson versions.
+         * @param nJsonDocSize Unused (kept for compatibility, JsonNode allocates dynamically).
          * @return true if a configuration file was loaded successfully.
          */
         bool readConfigFrom(const char *pszFileName, int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
@@ -195,7 +194,7 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
         /**
          * @brief Persist the current configuration to the file system.
          * @param pszFileName Config file path.
-         * @param nJsonDocSize Legacy JSON document size for older ArduinoJson versions.
+         * @param nJsonDocSize Unused (kept for compatibility, JsonNode allocates dynamically).
          * @return true if the configuration was written successfully.
          */
         bool saveConfig(const char *pszFileName = JSON_APPL_CONFIG_FILE,  int nJsonDocSize = JSON_CONFIG_DOC_DEFAULT_SIZE);   // Load config from Files
@@ -318,5 +317,23 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
         
 };
 
-/// @brief Global application instance used by modules and logging macros.
-extern CAppl Appl;
+/**
+ * @brief Global application instance used by modules and logging macros.
+ *
+ * Appl is created on first use ("nifty counter", like std::cout): every
+ * translation unit that includes Appl.h contains a CApplInitializer object,
+ * which is constructed before any global object defined later in that unit.
+ * The first initializer constructs Appl. So global modules, that register
+ * themselves in their constructor (i.e. CMDNSController, CNTPHandler), work
+ * independent of the (undefined) construction order of the files.
+ */
+extern CAppl & Appl;
+
+namespace LSC {
+    /// @brief Constructs Appl on first use (one instance per translation unit).
+    struct CApplInitializer {
+        CApplInitializer();
+        ~CApplInitializer();
+    };
+}
+static LSC::CApplInitializer s_oLSCApplInitializer;
