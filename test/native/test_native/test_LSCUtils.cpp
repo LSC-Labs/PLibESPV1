@@ -278,3 +278,44 @@ TEST(LSCUtils,testGetCelsiusFromFarenheitNegativeForty) {
     float fResult = LSC::getCelsiusFromFarenheit(-40);
     ASSERT_FLOAT_EQ(-40.0, fResult);
 }
+
+TEST(LSCUtils,testParseToByteArrayKeepsEmptyFields) {
+    uint8_t bData[6];
+    int nSize = LSC::parseBytesToArray(bData,"aa::bb",':',sizeof(bData),16);
+    EXPECT_EQ(nSize,3);                                // empty field = 0, not skipped
+    EXPECT_EQ(bData[0],0xaa);
+    EXPECT_EQ(bData[1],0);
+    EXPECT_EQ(bData[2],0xbb);
+}
+
+TEST(LSCUtils,testParseToByteArrayStopsAtInvalidToken) {
+    uint8_t bData[4];
+    EXPECT_EQ(LSC::parseBytesToArray(bData,"1.300.3",'.',sizeof(bData),10),1);   // 300 > 255
+    EXPECT_EQ(bData[0],1);
+    EXPECT_EQ(bData[1],0);
+    EXPECT_EQ(LSC::parseBytesToArray(bData,"1.x.3",'.',sizeof(bData),10),1);     // not a number
+    EXPECT_EQ(LSC::parseBytesToArray(bData,"12zz:01",':',sizeof(bData),16),0);  // trailing garbage
+}
+
+TEST(LSCUtils,testParseToByteArrayNullArguments) {
+    uint8_t bData[4] = {1,2,3,4};
+    EXPECT_EQ(LSC::parseBytesToArray(bData,nullptr,'.',sizeof(bData),10),0);
+    EXPECT_EQ(bData[0],0);                             // target cleared
+    EXPECT_EQ(LSC::parseBytesToArray(nullptr,"1.2",'.',4,10),0);
+    EXPECT_EQ(LSC::parseBytesToArray(bData,"",'.',sizeof(bData),10),0);
+}
+
+TEST(LSCUtils,testStricmpWithHighBytesAndNull) {
+    EXPECT_EQ(LSC::stricmp("Gr\xC3\xBC\xC3\x9F","GR\xC3\xBC\xC3\x9F"),0);      // UTF-8 bytes >= 0x80
+    EXPECT_NE(LSC::stricmp("\xC3\xBC","u"),0);
+    EXPECT_EQ(LSC::stricmp(nullptr,nullptr),0);
+    EXPECT_LT(LSC::stricmp(nullptr,"a"),0);
+    EXPECT_GT(LSC::stricmp("a",nullptr),0);
+}
+
+TEST(LSCUtils,testEmptyValueIsFalse) {
+    EXPECT_TRUE(LSC::isFalseValue(""));
+    EXPECT_FALSE(LSC::isTrueValue("",false));          // previously true
+    EXPECT_FALSE(LSC::isTrueValue("",true));
+    EXPECT_FALSE(LSC::isTrueValue(nullptr,false));
+}

@@ -63,23 +63,27 @@ namespace LSC {
     }
 
     /**
-     * @brief Case-insensitive string comparison.
+     * @brief Case-insensitive string comparison (ASCII letters).
      *
-     * The caller must pass valid null-terminated strings.
+     * Characters are passed to toupper() as unsigned char - a negative char
+     * (UTF-8 / umlaut bytes >= 0x80 on targets with signed char) is undefined
+     * behavior for toupper(). nullptr is sorted before every string.
      *
      * @return 0 when equal, otherwise the character difference.
      * @see : https://doxygen.reactos.org/d3/d11/stricmp_8c_source.html
      */
     int stricmp(const char *psz1, const char *psz2)
     {
-        while (toupper(*psz1) == toupper(*psz2))
+        if (!psz1 || !psz2) return (psz1 == psz2) ? 0 : (psz1 ? 1 : -1);
+        const unsigned char *p1 = (const unsigned char *) psz1;
+        const unsigned char *p2 = (const unsigned char *) psz2;
+        while (toupper(*p1) == toupper(*p2))
         {
-            if (*psz1 == 0)
-            return 0;
-            psz1++;
-            psz2++;
+            if (*p1 == 0) return 0;
+            p1++;
+            p2++;
         }
-        return toupper(*(unsigned const char *)psz1) - toupper(*(unsigned const char *)(psz2));
+        return toupper(*p1) - toupper(*p2);
     }
 
     /**
@@ -136,10 +140,13 @@ namespace LSC {
      * @return String The ISO formatted time string.
      */
     char * getISODateTime(time_t oNativeTime, char *pszBuffer, int nBufferLen) {
-        struct tm* oTimeInfo = localtime(&oNativeTime);
-        if(nBufferLen > 20) {
-            memset(pszBuffer,'\0',sizeof(nBufferLen));
-            strftime(pszBuffer,nBufferLen,"%FT%T",oTimeInfo);
+        if(!pszBuffer || nBufferLen <= 0) return(pszBuffer);
+        pszBuffer[0] = '\0';                   // empty result if the buffer is too small
+        // localtime_r: thread safe (localtime() uses one static buffer for all callers)
+        struct tm oTimeInfo;
+        if(nBufferLen > 20 && localtime_r(&oNativeTime, &oTimeInfo)) {
+            memset(pszBuffer,'\0',(size_t) nBufferLen);
+            strftime(pszBuffer,(size_t) nBufferLen,"%FT%T",&oTimeInfo);
         }
         return(pszBuffer);
     }
@@ -148,39 +155,24 @@ namespace LSC {
      * @brief Converts Celsius to Fahrenheit.
      */
     float getFarenheitFromCelsius(float fTemp) {
-        return((fTemp * 1.8) + 32);
+        return((fTemp * 1.8f) + 32.0f);      // float literals - no (slow, software) double math
     }
 
     /**
      * @brief Converts Fahrenheit to Celsius.
      */
     float getCelsiusFromFarenheit(float fTemp) {
-        return((fTemp - 32) / 1.8);
+        return((fTemp - 32.0f) / 1.8f);
     }
-/*
-    String getAddressAsString(IPAddress ip) {
-        return String(ip[0]) + "." + String(ip[1]) + "." + String(ip[2]) + "." + String(ip[3]);
-    }
-*/
-    /*
-        
-    void ICACHE_FLASH_ATTR copyTo(char *pszTarget, const char *pszSource, int nMaxLen) {
-        if(pszTarget && pszSource) {
-            if(nMaxLen > 0) memset(pszTarget,0,nMaxLen);
-            strncpy(pszTarget,pszSource,nMaxLen);
-        }
-    }
-
-    void ICACHE_FLASH_ATTR copyTo(char &szTarget, const char &szSource, int nMaxLen) {
-        if(szTarget && szSource) {
-            if(nMaxLen > 0) memset(&szTarget,0,nMaxLen);
-            strncpy(&szTarget,&szSource,nMaxLen);
-        }
-    }
-*/
     /**
      * @brief Parses delimited numeric tokens into a byte array.
-     * @param pBytes Target byte array.
+     *
+     * Works without heap and without strtok() (not reentrant, and it skips empty
+     * fields - "aa::bb" gave 2 instead of 3 bytes and shifted the following ones).
+     * An empty field is 0. Parsing stops at the first invalid token
+     * (not a number in nBase, or > 255) - the bytes parsed so far are kept.
+     *
+     * @param pBytes Target byte array (set to 0 first).
      * @param pszInput Input string such as "127.0.0.1" or "AA:BB".
      * @param cSep Token separator.
      * @param nMaxBytes Maximum target byte count.
@@ -189,39 +181,43 @@ namespace LSC {
      */
     int ICACHE_FLASH_ATTR parseBytesToArray(uint8_t *pBytes, const char * pszInput, char cSep, int nMaxBytes, int nBase)
     {
-        // set target to zero...
-        memset(pBytes,'\0',nMaxBytes);
+        if(!pBytes || nMaxBytes <= 0) return(0);
+        memset(pBytes,'\0',(size_t) nMaxBytes);
+        if(!pszInput) return(0);
 
-        // copy source into buffer
-        size_t nSizeOfBuffer = strlen(pszInput) + 5;
-        char *pszBuffer = (char *) malloc(nSizeOfBuffer);
-        memset(pszBuffer,'\0',nSizeOfBuffer);
-        strcpy(pszBuffer,pszInput);
-
-        // prepare the token
-        char szToken[2];
-        szToken[0] = cSep;
-        szToken[1] = '\0';
-
-        // start tokenization
-        char * psz = strtok(pszBuffer,szToken);
         int nIdx = 0;
-        while(psz != NULL && nMaxBytes > nIdx) {
-            pBytes[nIdx++] = strtol(psz,NULL,nBase);
-            psz = strtok(NULL, szToken);
+        const char *psz = pszInput;
+        while(*psz && nIdx < nMaxBytes) {
+            // Token: up to the separator / end of string
+            const char *pszEnd = psz;
+            while(*pszEnd && *pszEnd != cSep) pszEnd++;
+            long lValue = 0;
+            if(pszEnd > psz) {
+                char szToken[16];
+                size_t nLen = (size_t) (pszEnd - psz);
+                if(nLen >= sizeof(szToken)) break;          // too long for a byte value
+                memcpy(szToken, psz, nLen);
+                szToken[nLen] = '\0';
+                char *pszParsedEnd = nullptr;
+                lValue = strtol(szToken, &pszParsedEnd, nBase);
+                if(*pszParsedEnd != '\0' || lValue < 0 || lValue > 255) break;   // invalid token
+            }
+            pBytes[nIdx++] = (uint8_t) lValue;
+            if(*pszEnd == '\0') break;
+            psz = pszEnd + 1;
+            // trailing separator ("1.2.") - nothing follows
         }
-        free(pszBuffer);
         return(nIdx);
     }
 
     /**
      * @brief Checks whether a string explicitly represents false.
-     * @param pszData Data to check. nullptr is treated as false.
-     * @return true for "0", "false", "-", "off", "n" or "no".
+     * @param pszData Data to check. nullptr and "" are treated as false.
+     * @return true for nullptr, "", "0", "false", "-", "off", "n" or "no".
      */
     bool ICACHE_FLASH_ATTR isFalseValue(const char* pszData) {
         bool bResult = false;
-        if(!pszData) bResult = true;
+        if(!pszData || !*pszData) bResult = true;   // no value is false (not "true" in non-explicit mode)
         else if (0 == stricmp(pszData,"0"))     bResult = true;
         else if( 0 == stricmp(pszData,"false")) bResult = true;
         else if( 0 == strcmp( pszData,"-"))     bResult = true;
@@ -257,116 +253,4 @@ namespace LSC {
         return(bResult);
     }
 
-/** 
-
-    /// @brief Store a int value to the target (by pointer)
-    /// @param pTarget pointer to store the value
-    /// @param strValue the value to be stored. if null or empty, try to set the default
-    /// @param pDefault pointer to a default, if strValue can not be used.
-    /// @return  true, if value or default could be set
-    bool ICACHE_FLASH_ATTR setValue(float* pTarget, String strValue, const float *pDefault) {
-        DEBUG_FUNC_START();
-        bool bResult = true;
-        if(pTarget) {
-            if(strValue && strValue.length() > 0) { 
-                
-                *pTarget = strtod(strValue.c_str(),NULL); // strValue.toInt();
-                // DEBUG_INFOS(" storeValue(int) -> %s (%d)", strValue.c_str(),*pTarget);
-            } else if(pDefault && pTarget != pDefault) {
-                *pTarget = *pDefault;
-            } else {
-                bResult = false;
-            }
-        } else bResult = false;
-        return(bResult);
-    }
-
-
-    /// @brief Store a int value to the target (by pointer)
-    /// @param pTarget pointer to store the value
-    /// @param strValue the value to be stored. if null or empty, try to set the default
-    /// @param pDefault pointer to a default, if strValue can not be used.
-    /// @return  true, if value or default could be set
-    bool ICACHE_FLASH_ATTR setValue(int* pTarget, String strValue, const int *pDefault) {
-        DEBUG_FUNC_START();
-        bool bResult = true;
-        if(pTarget) {
-            if(strValue && strValue.length() > 0) { 
-                
-                *pTarget = strValue.toInt();
-                // DEBUG_INFOS(" storeValue(int) -> %s (%d)", strValue.c_str(),*pTarget);
-            } else if(pDefault && pTarget != pDefault) {
-                *pTarget = *pDefault;
-            } else {
-                bResult = false;
-            }
-        } else bResult = false;
-        return(bResult);
-    }
-
-    /// @brief Store a unsigned long value to the target (by pointer)
-    /// @param pTarget pointer to store the value
-    /// @param strValue the value to be stored. if null or empty, try to set the default
-    /// @param pDefault pointer to a default, if strValue can not be used.
-    /// @return  true, if value or default could be set
-    bool ICACHE_FLASH_ATTR setValue(unsigned long* pTarget, String strValue, const unsigned long *pDefault) {
-        DEBUG_FUNC_START();
-        bool bResult = true;
-        if(pTarget) {
-            if(strValue && strValue.length() > 0) { 
-                *pTarget = strValue.toInt();
-            } else if(pDefault && pTarget != pDefault) {
-                *pTarget = *pDefault;
-            } else {
-                bResult = false;
-            }
-        } else bResult = false;
-        return(bResult);
-    }
-       
-
-
-    bool ICACHE_FLASH_ATTR setValue(bool *pTarget, String strValue, const bool *pDefault) {
-        bool bResult = true;
-        if(pTarget) {
-            if(strValue && strValue.length() > 0) { 
-                *pTarget = isTrueValue(strValue.c_str(),false);
-            } else if(pDefault && pTarget != pDefault) {
-                *pTarget = *pDefault;
-            } else {
-                bResult = false;
-            }
-        } else bResult = false;
-        return(bResult);
-    }
-
-    bool ICACHE_FLASH_ATTR setValue(String &strTarget, const char* pszValue, const char* pszDefault) {
-        DEBUG_FUNC_START();
-        bool bResult = true;
-        if(strTarget) {
-            if(pszValue && *pszValue && *pszValue != '\0') {
-                strTarget = pszValue;
-            } else if(pszDefault && *pszDefault != '\0') {
-                strTarget = pszValue;
-            } else {
-                bResult = false;
-            }
-        } else bResult = false;
-        return(bResult);
-    }
-
-
-    bool ICACHE_FLASH_ATTR setValue(IPAddress &oAddress, const char *pszAddress, const char *pszDefault) {
-        DEBUG_FUNC_START();
-        bool bResult = true;
-        if(pszAddress) {
-            oAddress.fromString(pszAddress);
-        } else if(pszDefault) {
-            oAddress.fromString(pszDefault);
-        } else {
-            bResult = false;
-        }
-        return(bResult);
-    }
-*/
 }
