@@ -28,6 +28,16 @@
 #include <SimpleDelay.h>
 
 #include <queue>
+#ifdef ESP32
+    #include <mutex>
+#endif
+
+#ifndef MQTT_MAX_RECV_MESSAGE_SIZE
+    #define MQTT_MAX_RECV_MESSAGE_SIZE  2048    ///< larger inbound messages are dropped
+#endif
+#ifndef MQTT_MAX_QUEUED_MESSAGES
+    #define MQTT_MAX_QUEUED_MESSAGES    10      ///< inbound messages waiting for dispatch
+#endif
 
 
 #define MQTT_STATE_AVAILABLE       "online"
@@ -88,7 +98,14 @@ struct MQTTStatus {
  * 
  */
 class IHomeAssistantComponent {
+    friend class CMQTTController;
+    private:
+        CRegistrations m_oHARegistrations;      // MQTT controllers this component is registered in
+
     public:
+        /// @brief Removes this component automatically from all MQTT controllers.
+        virtual ~IHomeAssistantComponent() { m_oHARegistrations.releaseAll(this); }
+
         /**
          * insert your component registration data of HA AutoDiscovery (device).
          * When called, the component area is already created and you can insert your component data here.
@@ -107,8 +124,15 @@ class IHomeAssistantComponent {
 
 
 
-/// @brief MQTT message broker module with heartbeat and HA discovery support.
-class CMQTTController : public AsyncMqttClient, public ApplModule {
+/**
+ * @brief MQTT message broker module with heartbeat and HA discovery support.
+ *
+ * Threading: the AsyncMqttClient callbacks (connect, disconnect, message) run
+ * in the async TCP context (AsyncTCP task on ESP32, SYS context on ESP8266).
+ * They only store data/flags; events, logging and publishing of discovery data
+ * are done in dispatch() (application loop).
+ */
+class CMQTTController : public AsyncMqttClient, public ApplModule, public IRegistry {
     private:
         size_t m_nMessageBufferSize          = 0;
         char * m_pszMessageBuffer            = nullptr;
@@ -116,7 +140,25 @@ class CMQTTController : public AsyncMqttClient, public ApplModule {
         char * m_pszDeviceCommandTopics      = nullptr;
         char * m_pszPublishAvailabilityTopic = nullptr;
 
-        unsigned long m_ulLastHeartBeat = 0;
+        // AsyncMqttClient stores only the pointers of server/credentials/client id -
+        // keep own copies, so changing Config at runtime cannot leave dangling pointers.
+        char * m_pszHost       = nullptr;
+        char * m_pszUser       = nullptr;
+        char * m_pszPassword   = nullptr;
+        char * m_pszClientId   = nullptr;
+        bool   m_bSetupDone    = false;
+
+        CSimpleDelay  m_oHeartBeatDelay;           // interval of the heartbeat (expired = send now)
+
+        // Set in the async callbacks, processed in dispatch()
+        volatile bool m_bEvtConnected     = false;
+        volatile bool m_bEvtDisconnected  = false;
+        volatile bool m_bSessionPresent   = false;
+        volatile int  m_nDisconnectReason = 0;
+
+        #ifdef ESP32
+            std::mutex m_oQueueLock;               // message queue: filled async, drained in loop
+        #endif
         std::queue<MQTTMessage * > m_tMessageQeue; // FiFo queue with Message pointer...
         CNamedValueTable<IHomeAssistantComponent *> m_tComponentHandlerByName;
         CSimpleDelay m_oTryConnectDelay;
@@ -133,8 +175,9 @@ class CMQTTController : public AsyncMqttClient, public ApplModule {
         /// @brief Release owned topic/message buffers.
         ~CMQTTController();
         
-        /// @brief Configure MQTT callbacks and heartbeat interval.
-        void setup(int nPublishInterval = 60);
+        /// @brief Configure server, callbacks, last will and start connecting.
+        /// @param nPublishInterval Heartbeat interval in seconds; < 0 keeps the configured value.
+        void setup(int nPublishInterval = -1);
         /// @brief Read MQTT configuration from a JSON node.
         void readConfigFrom(JsonNode &oCfg) override;
         /// @brief Write MQTT configuration into a JSON node.
@@ -176,6 +219,11 @@ class CMQTTController : public AsyncMqttClient, public ApplModule {
         void onMqttDisconnect(AsyncMqttClientDisconnectReason reason);
         /// @brief AsyncMqttClient message callback.
         void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties properties, size_t len, size_t index, size_t total);
+    private:
+        /// @brief Handle connect/disconnect flags of the async callbacks in the loop.
+        void processConnectionEvents();
+        /// @brief Text of a disconnect reason.
+        static const char * getDisconnectReasonText(AsyncMqttClientDisconnectReason eReason);
 
     /******************************* Home Assistant Section *********************************/
     protected:
@@ -186,6 +234,10 @@ class CMQTTController : public AsyncMqttClient, public ApplModule {
     public:
         /// @brief Register a component handler for Home Assistant discovery.
         void registerHomeAssistantComponent(const char * pszName, IHomeAssistantComponent * pHandler);
+        /// @brief Remove a component handler (all names).
+        void unregisterHomeAssistantComponent(IHomeAssistantComponent * pHandler);
+        /// @brief IRegistry - a registered component is being destroyed.
+        void forgetRegisteredObject(const void *pObject) override;
 };
 
 
@@ -204,13 +256,15 @@ class MQTTMessage {
 
     /// @brief Copy topic and payload into an owned message object.
     MQTTMessage(const char * pszTopic, const char *pszMessage, CMQTTController * pController = nullptr) : pController(pController) {
-        Topic = strdup(pszTopic);
-        Message = strdup(pszMessage);
+        Topic = strdup(pszTopic ? pszTopic : "");
+        Message = strdup(pszMessage ? pszMessage : "");
         if(isDeviceCommandTopic()) {
-            String strDeviceCmdTopic = pszTopic;
-            size_t nPublishTopicLength = pController ? strlen(pController->getDeviceCommandBaseTopicPath()) : 0;
-            strDeviceCmdTopic.remove(0,nPublishTopicLength + 1); // Remove the command topic prefix and the following slash 
-            DeviceCmdTopic = strdup(strDeviceCmdTopic.c_str());
+            // Skip the command topic prefix and the following slash
+            // (plain pointer arithmetic - works with Arduino String and std::string runtimes)
+            size_t nTopicLength = pszTopic ? strlen(pszTopic) : 0;
+            size_t nSkip = pController ? strlen(pController->getDeviceCommandBaseTopicPath()) + 1 : 0;
+            if(nSkip > nTopicLength) nSkip = nTopicLength;
+            DeviceCmdTopic = strdup(pszTopic ? pszTopic + nSkip : "");
         } else {
             DeviceCmdTopic = nullptr;
         }
@@ -218,13 +272,12 @@ class MQTTMessage {
 
     /// @brief Release copied topic and payload strings.
     ~MQTTMessage() {
-        if(Message) {
-            free(Message);
-        }
-        if(Topic) {
-            free(Topic);
-        }
+        if(Message)        free(Message);
+        if(Topic)          free(Topic);
+        if(DeviceCmdTopic) free(DeviceCmdTopic);
     }
+    MQTTMessage(const MQTTMessage &) = delete;
+    MQTTMessage & operator=(const MQTTMessage &) = delete;
 
     /// @brief Return true if this message topic belongs to the device prefix.
     bool isDeviceTopic() {
@@ -257,5 +310,12 @@ inline bool CMQTTController::isDeviceCommandTopic(const char *pszTopic) {
                           strncmp(&pszTopic[nPublishTopicLength],"/cmd/",5) == 0;
     }
     return(bIsCommandTopic);
+}
+
+inline const char * CMQTTController::getDeviceCommandBaseTopicPath() {
+    if(m_pszDeviceCommandTopics == nullptr) {
+        m_pszDeviceCommandTopics = strdup((Config.PublishTopicPrefix + "/cmd").c_str());
+    }
+    return(m_pszDeviceCommandTopics);
 }
 #endif
