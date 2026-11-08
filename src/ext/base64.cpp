@@ -255,13 +255,15 @@ unsigned char* unbase64( const char* ascii, int len, int *flen )
   // a valid base64 string at all.
   *flen = 3*(len/4) - pad;
   if( *flen < 0 )  *flen = 0;
-  unsigned char *bin = (unsigned char*)malloc( *flen );
+  // +1: the result is always zero terminated, so decoded text can be used as C string
+  unsigned char *bin = (unsigned char*)malloc( *flen + 1 );
   if( !bin )
   {
 //    puts( "ERROR: unbase64 could not allocate enough memory." ) ;
 //    puts( "I must stop because I could not get enough" ) ;
     return 0;
   }
+  bin[ *flen ] = 0;
   
   int cb = 0; // counter for bin
   int charNo; // counter for what base64 char we're currently decoding
