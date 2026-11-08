@@ -17,8 +17,13 @@ enum RGB_COLOR {
 
 /**
  * @brief Class to handle the RGB LED
- * Initialize the RGB LED with the pins for the colors and with the
- * Information COMMON_ANODE (Active Low) or COMMON_CATHODE (Active High)
+ * Initialize the RGB LED with the pins for the colors and the wiring:
+ *  - bActiveLow = true  (default): common CATHODE LED (cathode to GND, a channel
+ *                                  is ON with HIGH)
+ *  - bActiveLow = false          : common ANODE LED (anode to VCC, a channel is
+ *                                  ON with LOW)
+ * @attention The name bActiveLow is inverted to the behavior (kept for
+ *            compatibility, see COutputPinController): true means active HIGH.
  * 
  * The Setup function must be called to initialize the pins
  */
@@ -28,9 +33,7 @@ class CRGBLed
         // int m_nRedPin;
         // int m_nGreenPin;
         // int m_nBluePin;
-        // bool m_bActiveLow; // Active Low (common anode) or Active High (common cathode)?
-        // int m_nRGB_LED_ON  = LOW;  // Active Low
-        // int m_nRGB_LED_OFF = HIGH; // Active High
+
         // int m_nBrightnessMaxLevel = 255; //  255 PWM adjustment for the brightness (output only 255 - not 1024)
 
         // bool m_bBlinkMode = false;
@@ -57,11 +60,13 @@ class CRGBLed
          * @param nRedPin   Pin number for the red LED
          * @param nGreenPin Pin number for the green LED
          * @param nBluePin  Pin number for the blue LED
-         * @param bActiveLow If true, the LED is active low (Common Cathode)
+         * @param bActiveLow true (default): common cathode, channel ON = HIGH;
+         *                   false: common anode, channel ON = LOW (name inverted - see class doc)
          */
         CRGBLed(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow = true);
         /**
          * @brief Configure the RGB LED pins and active-level mode.
+         * @param bActiveLow true (default): common cathode (ON = HIGH), false: common anode (ON = LOW).
          */
         void setup(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow = true);
 
@@ -87,6 +92,10 @@ class CRGBLed
          */
         void setColor(int nColorBits, bool bSwitchLeds = true);
 
+        /// @brief Restart the blink cycle of all channels (keeps mixed colors in sync).
+        void restartBlink() { RedLED.restartBlink(); GreenLED.restartBlink(); BlueLED.restartBlink(); }
+        /// @brief Restart the wave cycle of all channels (keeps mixed colors in sync).
+        void restartWave()  { RedLED.restartWave();  GreenLED.restartWave();  BlueLED.restartWave(); }
         /// @brief Blink the given named color.
         void blink(RGB_COLOR eColor, unsigned long nOnMillis = 500, unsigned long nOffMillis = 500);
         /// @brief Blink the given color bitmask.

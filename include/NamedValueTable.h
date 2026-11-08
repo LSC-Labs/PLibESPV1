@@ -130,7 +130,7 @@ class CNamedValueTable {
          * @brief Cached list of key pointers in insertion order.
          *
          * The pointers refer to keys owned by the entries in Entries. They stay
-         * valid for the lifetime of the table because entries are not removed.
+         * valid until the entry is removed (removeIf() / removeByValue()).
          */
         std::vector<const char *> m_tKeyNameCache;
         
@@ -338,6 +338,38 @@ class CNamedValueTable {
          */
         int size() {
             return(Entries.size());
+        }
+
+        /**
+         * @brief Removes (and deletes) all entries matching the predicate.
+         * Key pointers returned earlier by getKeys() for removed entries become invalid.
+         * @param fnMatch bool(CNamedValueEntry<TValue> *) - true to remove the entry.
+         * @return Number of removed entries.
+         */
+        template<typename TPredicate>
+        int removeIf(TPredicate fnMatch) {
+            int nRemoved = 0;
+            for(size_t nIdx = 0; nIdx < Entries.size(); ) {
+                CNamedValueEntry<TValue> *pEntry = Entries[nIdx];
+                if(fnMatch(pEntry)) {
+                    Entries.erase(Entries.begin() + nIdx);
+                    delete(pEntry);
+                    nRemoved++;
+                } else nIdx++;
+            }
+            if(nRemoved > 0) {
+                m_tKeyNameCache.clear();
+                for(auto *pEntry : Entries) m_tKeyNameCache.push_back(pEntry->getKey());
+            }
+            return(nRemoved);
+        }
+
+        /**
+         * @brief Removes all entries with the given value.
+         * @return Number of removed entries.
+         */
+        int removeByValue(TValue oValue) {
+            return(removeIf([&oValue](CNamedValueEntry<TValue> *pEntry) { return(pEntry->value == oValue); }));
         }
 
         /**

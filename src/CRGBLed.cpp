@@ -19,7 +19,9 @@ CRGBLed::CRGBLed() {}
  * @param nRedPin GPIO pin for the red channel.
  * @param nGreenPin GPIO pin for the green channel.
  * @param nBluePin GPIO pin for the blue channel.
- * @param bActiveLow true when the LED channels are active-low.
+ * @param bActiveLow true (default): common cathode, channel ON = HIGH;
+ *        false: common anode, channel ON = LOW. The name is inverted to the
+ *        behavior (kept for compatibility - see COutputPinController).
  */
 CRGBLed::CRGBLed(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow) :
     RedLED(nRedPin, bActiveLow),
@@ -30,6 +32,7 @@ CRGBLed::CRGBLed(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow) :
 
 /**
  * @brief Configures all three color channels after default construction.
+ * @param bActiveLow true (default): common cathode (ON = HIGH), false: common anode (ON = LOW).
  */
 void CRGBLed::setup(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow) {
     RedLED.setup(nRedPin,bActiveLow);
@@ -95,21 +98,10 @@ void CRGBLed::setBrightnessInPercent(RGB_COLOR eColor, int nBrightnessPercent) {
  * @param nBrightnessPercent Brightness level in percent.
  */
 void CRGBLed::setBrightnessInPercent(int nColorBits, int nBrightnessPercent) {
-    /*
-    if(nBrightnessPercent < 0) nBrightnessPercent = 0;
-    if(nBrightnessPercent > 100) nBrightnessPercent = 100;
-    int nBrightnessNormal    = (nBrightnessPercent * m_nBrightnessMaxLevel) / 100;
-    int nBrightnessInverted  = m_nBrightnessMaxLevel - nBrightnessNormal;
-    int nBrightnessValue     = this->m_bActiveLow ? nBrightnessInverted : nBrightnessNormal;
-    */
-    // Serial.printf("Setting brightness to %2d == %d %d\n",nBrightness, nBrightnessValue, nBrightness *1024);   
+    // The active level (PWM inversion) is handled by each channel (COutputPinController)
     RedLED.setBrightness(  (nColorBits & COLOR_RED_BIT_MASK) ? nBrightnessPercent : 0);
-    GreenLED.setBrightness((nColorBits & COLOR_RED_BIT_MASK) ? nBrightnessPercent : 0);
-    BlueLED.setBrightness( (nColorBits & COLOR_RED_BIT_MASK) ? nBrightnessPercent : 0);
-    /*
-    if(nColorBits & COLOR_GREEN_BIT_MASK) analogWrite(m_nGreenPin, nBrightnessValue);
-    if(nColorBits & COLOR_BLUE_BIT_MASK) analogWrite(m_nBluePin, nBrightnessValue);
-    */
+    GreenLED.setBrightness((nColorBits & COLOR_GREEN_BIT_MASK) ? nBrightnessPercent : 0);
+    BlueLED.setBrightness( (nColorBits & COLOR_BLUE_BIT_MASK) ? nBrightnessPercent : 0);
 }
 
 

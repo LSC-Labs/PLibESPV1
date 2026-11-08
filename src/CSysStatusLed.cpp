@@ -1,5 +1,5 @@
-#ifndef DEBUG_LSC_STATUSHANDLER
-    #undef DEBUG_INFOS
+#ifndef DEBUG_LSC_STATUSLED
+    #undef DEBUGINFOS
 #endif
 
 #include <SysStatusLed.h>
@@ -12,7 +12,8 @@
  * @param nRedPin Red channel GPIO pin.
  * @param nGreenPin Green channel GPIO pin.
  * @param nBluePin Blue channel GPIO pin.
- * @param bActiveLow true when the LED channels are active-low.
+ * @param bActiveLow true (default): common cathode (ON = HIGH), false: common
+ *        anode (ON = LOW) - name inverted to the behavior, see CRGBLed.
  */
 CSysStatusLed::CSysStatusLed(int nRedPin, int nGreenPin, int nBluePin, bool bActiveLow) :
     CRGBLed(nRedPin,nGreenPin,nBluePin,bActiveLow) 
@@ -29,6 +30,7 @@ CSysStatusLed::CSysStatusLed(int nRedPin, int nGreenPin, int nBluePin, bool bAct
  * @return EVENT_MSG_RESULT_OK after every handled or ignored message.
  */
 int CSysStatusLed::receiveEvent(const void * pSender, int nMsgId, const void * pMessage, int nType) {
+    (void) pSender; (void) pMessage;
     switch(nMsgId) {
         case MSG_APPL_LOOP     :  updateLED();                                 
                                   break;
@@ -43,7 +45,11 @@ int CSysStatusLed::receiveEvent(const void * pSender, int nMsgId, const void * p
                 isInAccessPointMode = (nType == WIFI_ACCESS_POINT_MODE);
                 isInStationMode     = (nType == WIFI_STATION_MODE);
                 isWiFiConnected = isInAccessPointMode || isInStationMode;
+                m_oSignalCheck.setExpired();        // check the signal immediately
                 break;
+        // (Re)connecting or connection failed - not connected until MSG_WIFI_CONNECTED
+        case MSG_WIFI_STARTING :
+        case MSG_WIFI_ERROR    :
         case MSG_WIFI_DISABLED :
                 isInAccessPointMode = false;
                 isInStationMode = false;
@@ -54,31 +60,50 @@ int CSysStatusLed::receiveEvent(const void * pSender, int nMsgId, const void * p
 }
 
 /**
- * @brief Applies the current status flags to the RGB LED.
+ * @brief Blinks with the given pattern; a changed pattern restarts all channels.
+ *
+ * Every color channel has its own blink timer. Without the restart, mixed
+ * colors (yellow = red + green) would blink out of phase after a change.
+ */
+void CSysStatusLed::showBlink(int nColor, unsigned long ulOnMillis, unsigned long ulOffMillis) {
+    if(nColor != m_nBlinkColor || ulOnMillis != m_ulBlinkOn || ulOffMillis != m_ulBlinkOff) {
+        m_nBlinkColor = nColor;
+        m_ulBlinkOn   = ulOnMillis;
+        m_ulBlinkOff  = ulOffMillis;
+        restartBlink();
+    }
+    blink(nColor, ulOnMillis, ulOffMillis);
+}
+
+/**
+ * @brief Applies the current status flags to the RGB LED (called on MSG_APPL_LOOP).
  *
  * Priority order is: reboot request, button pressed, then normal WiFi status.
  * In station mode the signal strength can downgrade green to yellow; a lost
- * connection is shown as red.
+ * connection is shown as red. The signal is checked once per second.
  */
 void CSysStatusLed::updateLED() {
     // Reboot and Button Pressed == Prio 1
     if(isRebootRequested) {
+        m_nBlinkColor = -1;                 // next blink pattern starts fresh
         setColor(RGB_COLOR::RED);
     } else if(isButtonPressed) {
-        blink(RGB_COLOR::YELLOW,100,100);
+        showBlink(RGB_COLOR::YELLOW,100,100);
     }  else {
         // Normal operation...
-        int nBlinkOn = getNormalBlinkOnTime();
-        int nBlinkOff = getNormalBlinkOffTime();
-        int nColor = RGB_COLOR::YELLOW;
+        int nColor = RGB_COLOR::YELLOW;     // no WiFi / connecting
         if(isInAccessPointMode) {
             nColor = RGB_COLOR::BLUE;
         } else if(isWiFiConnected) {
-            nColor = RGB_COLOR::GREEN;
-            // Strength of signal to low or not longer available...
-            if(!WiFi.isConnected())     { nColor = RGB_COLOR::RED; }
-            else if (WiFi.RSSI() < -82) { nColor = RGB_COLOR::YELLOW;}
+            if(m_oSignalCheck.isDone()) {
+                m_oSignalCheck.restart();
+                // Strength of signal to low or not longer available...
+                if(!WiFi.isConnected())                         m_nStationColor = RGB_COLOR::RED;
+                else if (WiFi.RSSI() < STATUSLED_WEAK_RSSI)     m_nStationColor = RGB_COLOR::YELLOW;
+                else                                            m_nStationColor = RGB_COLOR::GREEN;
+            }
+            nColor = m_nStationColor;
         }
-        blink(nColor,nBlinkOn,nBlinkOff); 
+        showBlink(nColor,getNormalBlinkOnTime(),getNormalBlinkOffTime()); 
     }
 } 
