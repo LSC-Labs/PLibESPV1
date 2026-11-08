@@ -92,15 +92,27 @@
   // ESP8266
 #endif
 
+/**
+ * @brief System information (chip, flash, heap, sketch, file system) as status handler.
+ *
+ * Values that do not change at runtime (chip id, flash sizes, sketch size) are
+ * read once and cached - ESP.getSketchSize() reads the image from flash on ESP32.
+ */
 class CSysStatus : public IStatusHandler {
     private :
-        const char *m_pszChipID; // Used as buffer for the chip Name/ID
+        char     m_szChipID[16] = {0};      // hex chip id (cached)
+        uint32_t m_ulSketchSize      = 0;   // cached, 0 = not read yet
+        uint32_t m_ulFreeSketchSpace = 0;
+        uint32_t m_ulFlashRealSize   = 0;
 
     public:
       CSysStatus();
       ~CSysStatus();
         const char * getSdkVersion();
+        /// @brief Unique chip id as hex string (lower 24 bit of the factory MAC - same on ESP8266/ESP32).
         const char * getChipID();
+        /// @brief Chip model, i.e. "ESP32-D0WDQ6" or "ESP8266".
+        const char * getChipModel();
         uint32_t getFlashChipId();
         uint32_t getFlashChipRealSize();
         uint32_t getFlashChipSize();
@@ -111,6 +123,8 @@ class CSysStatus : public IStatusHandler {
         uint32_t getMaxAllocHeap();
         uint32_t getFreePsram();
         uint32_t getCpuFrequencyMhz();
+        /// @brief Heap fragmentation in percent (ESP8266; ESP32: calculated).
+        uint8_t  getHeapFragmentation();
 
         void writeStatusTo(JsonNode &oStatusObj, int nLevel = STATUS_LEVEL_INFO) override;
 
