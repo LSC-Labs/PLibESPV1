@@ -29,6 +29,7 @@
 #include <Appl.h>
 #include <Network.h>
 #include <MQTTController.h>
+#include <SimpleDelay.h>
 
 #ifndef WIFI_MODULE_DEFAULT_AP_IP
     #define WIFI_MODULE_DEFAULT_AP_IP     IPAddress(192,168,4,1)
@@ -49,6 +50,9 @@
 #ifndef WIFI_DEFAULT_AP_SSID
     #define WIFI_DEFAULT_AP_SSID CWiFiController::getDefaultSSIDofAP()
 #endif
+
+/// @brief Marker for "no reconnect scheduled" in WiFiStatus::restartTimeInMillis
+#define WIFI_NO_RESTART ((unsigned long) -1)
 
 #ifndef WIFI_HIDDEN_PASSWORD
     #define WIFI_HIDDEN_PASSWORD HIDDEN_PASSWORD_MASK
@@ -124,8 +128,8 @@ struct WiFiStatus {
     unsigned long startTimeInMillis = 0;
     /// @brief millis() value when WiFi was stopped.
     unsigned long stopTimeInMillis  = 0;
-    /// @brief millis() value for the next scheduled reconnect, or -1 if none.
-    unsigned long restartTimeInMillis = -1;
+    /// @brief millis() value for the next scheduled reconnect, or WIFI_NO_RESTART if none.
+    unsigned long restartTimeInMillis = (unsigned long) -1;
 
     /// @brief true when the active WiFi mode is connected/started.
     bool isWiFiConnected = false;
@@ -160,6 +164,7 @@ class CWiFiController : public IModule, public IHomeAssistantComponent {
                 snprintf(szTemp,sizeof(szTemp),"%02x",Config.wifi_bssid[nIdx]);
                 if(!bIsFirst) m_strBuffer += ":";
                 m_strBuffer += szTemp;
+                bIsFirst = false;
             }
             return(bHasValues ? m_strBuffer.c_str() : "");
         }
@@ -237,6 +242,8 @@ class CWiFiController : public IModule, public IHomeAssistantComponent {
 
 
         private:
+            bool m_bScanRunning = false;    // async scan started, polled in MSG_APPL_LOOP
+            CSimpleDelay m_oRestartDelay;   // scheduled reconnect (active = reconnect pending)
             /**
              * @brief Convert an Arduino WiFi status code into readable text.
              */
