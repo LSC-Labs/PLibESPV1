@@ -4,42 +4,86 @@
 #include <ConfigHandler.h>
 #include <DevelopmentHelper.h>
 #include <JsonNode.h>
-#include <map>
-
-using namespace std;
 
 /**
  * @brief Registers a configuration handler using a String name.
  * @param strName Section name used in the JSON configuration tree.
  * @param pHandler Handler that reads and writes this section.
- * @param bForceInclude Reserved compatibility flag; duplicate names are still
- *        ignored by the current implementation.
+ * @param bForceInclude Reserved compatibility flag (unused).
+ * @return see addConfigHandler(const char*,IConfigHandler*,bool)
  */
-void CConfigHandler::addConfigHandler(String strName, IConfigHandler *pHandler, bool bForceInclude){
-    addConfigHandler(strName.c_str(),pHandler,bForceInclude);
+bool CConfigHandler::addConfigHandler(String strName, IConfigHandler *pHandler, bool bForceInclude){
+    return(addConfigHandler(strName.c_str(),pHandler,bForceInclude));
 }
 
 /**
  * @brief Adds a configuration handler to the registry.
  *
  * The handler is stored under pszName and later receives the JSON subnode with
- * the same name. Duplicate names are ignored by the current implementation, so
- * one section is owned by one handler.
+ * the same name. One section is owned by one handler: a name that is already
+ * used by another handler is rejected. A list can not contain itself (endless
+ * recursion).
  * 
  * @param pszName Name of the handler section, for example "wifi".
  * @param pHandler Handler that can read/write the section data.
- * @param bForceInclude Reserved compatibility flag.
+ * @param bForceInclude Reserved compatibility flag (unused).
+ * @return true if registered or already registered with this name.
  */
-void CConfigHandler::addConfigHandler(const char* pszName, IConfigHandler *pHandler, bool bForceInclude){
+bool CConfigHandler::addConfigHandler(const char* pszName, IConfigHandler *pHandler, bool bForceInclude){
+    (void) bForceInclude;
     DEBUG_FUNC_START_PARMS("%s,%p",NULL_POINTER_STRING(pszName),pHandler);
-    if(pHandler && pszName) {
-        // If already registered with name, do nothing - otherwise register.
-        if(!getConfigHandler(pszName)) {
-            HandlerEntry oEntry { strdup(pszName),pHandler};
-            m_tListOfConfigHandlers.push_back(oEntry);
-        } 
+    bool bResult = false;
+    if(pHandler && pszName && *pszName && pHandler != this) {
+        IConfigHandler *pExisting = getConfigHandler(pszName);
+        if(pExisting) {
+            bResult = (pExisting == pHandler);
+            if(!bResult) DEBUG_INFOS("CFG: name '%s' already used by another handler - ignored",pszName);
+        } else {
+            HandlerEntry oEntry;
+            oEntry.pszName  = strdup(pszName);
+            oEntry.pHandler = pHandler;
+            if(oEntry.pszName) {
+                m_tListOfConfigHandlers.push_back(oEntry);
+                pHandler->m_oConfigRegistrations.attach(this);
+                bResult = true;
+            }
+        }
     }
-    DEBUG_FUNC_END();
+    DEBUG_FUNC_END_PARMS("%d",bResult);
+    return(bResult);
+}
+
+/**
+ * @brief Detaches all registered handlers and frees the stored names.
+ */
+CConfigHandler::~CConfigHandler() {
+    for (auto &oEntry : m_tListOfConfigHandlers) {
+        if(oEntry.pHandler) oEntry.pHandler->m_oConfigRegistrations.detach(this);
+        free((void *) oEntry.pszName);
+    }
+    m_tListOfConfigHandlers.clear();
+}
+
+/**
+ * @brief Removes all entries of a handler and frees their names.
+ * @param pHandler Address of the IConfigHandler interface.
+ */
+void CConfigHandler::removeHandlerEntries(const void *pHandler) {
+    for (size_t nIdx = 0; nIdx < m_tListOfConfigHandlers.size(); ) {
+        if((const void *) m_tListOfConfigHandlers[nIdx].pHandler == pHandler) {
+            free((void *) m_tListOfConfigHandlers[nIdx].pszName);
+            m_tListOfConfigHandlers.erase(m_tListOfConfigHandlers.begin() + nIdx);
+        } else nIdx++;
+    }
+}
+
+/**
+ * @brief Removes a configuration handler (all names) from this list.
+ */
+void CConfigHandler::removeConfigHandler(IConfigHandler *pHandler) {
+    if(!pHandler) return;
+    removeHandlerEntries(pHandler);
+    pHandler->m_oConfigRegistrations.detach(this);
 }
 
 /**
@@ -59,13 +103,26 @@ IConfigHandler * CConfigHandler::getConfigHandler(String strName, int nIdx) {
  * @return Matching handler pointer, or nullptr.
  */
 IConfigHandler * CConfigHandler::getConfigHandler(const char* pszName, int nIdx) {
-    IConfigHandler *pHandler = nullptr;
+    if(!pszName) return(nullptr);
     for (const auto& oEntry : m_tListOfConfigHandlers) { 
-        if(strcmp(oEntry.pszName,pszName) == 0) {
-            if (nIdx-- == 0) pHandler = oEntry.pHandler;
+        if(oEntry.pszName && strcmp(oEntry.pszName,pszName) == 0) {
+            if (nIdx-- == 0) return(oEntry.pHandler);
         }
     }
-    return(pHandler);
+    return(nullptr);
+}
+
+/**
+ * @brief Checks if an entry (copied before a handler call) is still registered.
+ *
+ * Compares the pointers only - the name buffer of a removed entry is freed
+ * and must not be read.
+ */
+bool CConfigHandler::isEntryRegistered(const HandlerEntry &oEntry) const {
+    for (const auto& oCurrent : m_tListOfConfigHandlers) {
+        if(oCurrent.pszName == oEntry.pszName && oCurrent.pHandler == oEntry.pHandler) return(true);
+    }
+    return(false);
 }
 
 
@@ -80,16 +137,20 @@ IConfigHandler * CConfigHandler::getConfigHandler(const char* pszName, int nIdx)
  */
 void CConfigHandler::writeConfigTo(JsonNode &oNode, bool bHideCritical){
     DEBUG_FUNC_START_PARMS("oNode=%p,bHideCritical=%d", &oNode, bHideCritical);
-    for (const auto& oEntry : m_tListOfConfigHandlers) { 
-        if(oEntry.pHandler) {
-            // Write the node only, if there are config values to be written,
-            // If the Handler says yes, create the JSON node and give it the config handler..
-            if(oEntry.pHandler->hasConfigValues()) {
-                JsonNode * pSubNode = oNode.getObject(oEntry.pszName,true);
-                oEntry.pHandler->writeConfigTo(*pSubNode,bHideCritical);
-            }
+    if(m_bInCall) return;               // cyclic registration - do not recurse
+    m_bInCall = true;
+    // Snapshot - handlers may be added/removed/destroyed in the calls
+    std::vector<HandlerEntry> tEntries = m_tListOfConfigHandlers;
+    for (const auto &oEntry : tEntries) { 
+        if(!oEntry.pHandler || !isEntryRegistered(oEntry)) continue;
+        // Write the node only, if there are config values to be written,
+        // If the Handler says yes, create the JSON node and give it the config handler..
+        if(oEntry.pHandler->hasConfigValues()) {
+            JsonNode * pSubNode = oNode.getObject(oEntry.pszName,true);
+            if(pSubNode) oEntry.pHandler->writeConfigTo(*pSubNode,bHideCritical);
         }
     }
+    m_bInCall = false;
     DEBUG_FUNC_END();
 }
 
@@ -105,12 +166,16 @@ void CConfigHandler::writeConfigTo(JsonNode &oNode, bool bHideCritical){
  */
 void CConfigHandler::migrateConfig(JsonNode & oCfgDoc, JsonNode & oCfgNode) {
     DEBUG_FUNC_START();
-    for (const auto& oEntry : m_tListOfConfigHandlers) { 
-        if(oEntry.pHandler && oEntry.pszName) {
-            JsonNode * pCfgHandlerNode = oCfgNode.getObject(oEntry.pszName,true);
-            oEntry.pHandler->migrateConfig(oCfgDoc,*pCfgHandlerNode);
-        }
+    if(m_bInCall) return;               // cyclic registration - do not recurse
+    m_bInCall = true;
+    std::vector<HandlerEntry> tEntries = m_tListOfConfigHandlers;
+    for (const auto &oEntry : tEntries) { 
+        if(!oEntry.pHandler || !isEntryRegistered(oEntry)) continue;
+        // The section is created, so the handler can move old settings into it
+        JsonNode * pCfgHandlerNode = oCfgNode.getObject(oEntry.pszName,true);
+        if(pCfgHandlerNode) oEntry.pHandler->migrateConfig(oCfgDoc,*pCfgHandlerNode);
     }
+    m_bInCall = false;
     DEBUG_FUNC_END();
 }
 
@@ -125,17 +190,19 @@ void CConfigHandler::migrateConfig(JsonNode & oCfgDoc, JsonNode & oCfgNode) {
 void CConfigHandler::readConfigFrom(JsonNode &oNode) {
     DEBUG_FUNC_START();
     DEBUG_JSON_OBJ(oNode);
-    // Iterate through known Handler... maybe duplicate names of node !
-    for (const auto& oEntry : m_tListOfConfigHandlers) { 
-        if(oEntry.pHandler && oEntry.pszName) {
-            JsonNode * pSubNode = oNode.getObject(oEntry.pszName);
-            if(pSubNode) {
-                DEBUG_INFOS(" -- Reading subnode '%s'", oEntry.pszName);
-                oEntry.pHandler->readConfigFrom(*pSubNode);
-            } else {
-                DEBUG_INFOS("---- Subnode '%s' not found in config - skipping", oEntry.pszName);
-            }
+    if(m_bInCall) return;               // cyclic registration - do not recurse
+    m_bInCall = true;
+    std::vector<HandlerEntry> tEntries = m_tListOfConfigHandlers;
+    for (const auto &oEntry : tEntries) { 
+        if(!oEntry.pHandler || !isEntryRegistered(oEntry)) continue;
+        JsonNode * pSubNode = oNode.getObject(oEntry.pszName);
+        if(pSubNode) {
+            DEBUG_INFOS(" -- Reading subnode '%s'", oEntry.pszName);
+            oEntry.pHandler->readConfigFrom(*pSubNode);
+        } else {
+            DEBUG_INFOS("---- Subnode '%s' not found in config - skipping", oEntry.pszName);
         }
     }
+    m_bInCall = false;
     DEBUG_FUNC_END();
 }

@@ -3,12 +3,22 @@
 #include <Runtime.h>
 #include <JsonNode.h>
 #include <vector>
+#include <Registration.h>
+
+class CConfigHandler;
 
 /**
  * Interface for configuration handlers
  */
 class IConfigHandler {
+    friend class CConfigHandler;
+    private:
+        CRegistrations m_oConfigRegistrations;  // config handler lists this handler is registered in
+
     public:
+        /// @brief Removes this handler automatically from all config handler lists.
+        virtual ~IConfigHandler() { m_oConfigRegistrations.releaseAll(this); }
+
         virtual void writeConfigTo( JsonNode &oCfgNode, bool bHideCritical) = 0;
         virtual void readConfigFrom(JsonNode &oCfgNode) = 0;
 
@@ -29,31 +39,51 @@ class IConfigHandler {
 
 
 /**
- * Configuration handler manager
+ * Configuration handler manager.
+ *
+ * Holds named child handlers; each one owns the JSON sub object with its name.
+ * - A name can be registered only once (first registration wins).
+ * - A handler may be registered under several names.
+ * - Handlers can be removed or destroyed while the list is processed
+ *   (removed handlers are skipped, no other handler is skipped).
+ * - Re-entrant calls (handler registered in itself or in a cycle) are ignored
+ *   instead of recursing endlessly.
  */
-class CConfigHandler : public IConfigHandler {
+class CConfigHandler : public IConfigHandler, public IRegistry {
     private:
-        enum Oper {
-            CALL_READ,
-            CALL_WRITE,
-            CALL_MIGRATE
-        };
         struct HandlerEntry {
             const char      *pszName = nullptr;
             IConfigHandler  *pHandler = nullptr;
         };
 
-        // HandlerEntry *pListOfHandlerEntries;
         std::vector<HandlerEntry> m_tListOfConfigHandlers;
+        bool m_bInCall = false;     // guard against recursion (cyclic registration)
+
+        /// @brief true if the entry (same name buffer and handler) is still registered.
+        bool isEntryRegistered(const HandlerEntry &oEntry) const;
 
     protected:
-       
+        /// @brief Remove all entries of a handler (frees the names).
+        void removeHandlerEntries(const void *pHandler);
 
     public:
         CConfigHandler() {}
+        CConfigHandler(const CConfigHandler &) = delete;
+        CConfigHandler & operator=(const CConfigHandler &) = delete;
+        /// @brief Detaches all registered handlers and frees the names.
+        ~CConfigHandler();
 
-        void addConfigHandler(String strName, IConfigHandler *pHandler, bool bForceInclude = false);   // Register a config handler
-        void addConfigHandler(const char *pszName, IConfigHandler *pHandler, bool bForceInclude = false);   // Register a config handler
+        /// @brief Remove a handler from this list (all names).
+        void removeConfigHandler(IConfigHandler *pHandler);
+        /// @brief IRegistry - a registered handler is being destroyed.
+        void forgetRegisteredObject(const void *pObject) override { removeHandlerEntries(pObject); }
+
+        /// @brief Register a config handler for the section pszName.
+        /// @return true if registered (or already registered with this name), false if the
+        ///         name is used by another handler or the handler is this list itself.
+        bool addConfigHandler(String strName, IConfigHandler *pHandler, bool bForceInclude = false);
+        /// @copydoc addConfigHandler(String,IConfigHandler*,bool)
+        bool addConfigHandler(const char *pszName, IConfigHandler *pHandler, bool bForceInclude = false);
         IConfigHandler * getConfigHandler(String      strName,  int nIdx = 0);  // Get a Config Handler by his name
         IConfigHandler * getConfigHandler(const char *pszName,  int nIdx = 0);  // Get a Config Handler by his name
 
