@@ -6,8 +6,7 @@
 // Find more details to google test:
 // https://google.github.io/googletest/primer.html
 
-// Include the needed source code for testing...
-#include <includeModules.h>
+// The library sources (src/) are built with the tests (platformio.ini: test_build_src = yes)
 
 
 #if defined(ARDUINO)

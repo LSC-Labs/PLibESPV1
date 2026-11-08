@@ -39,33 +39,54 @@ TEST_F(CWebServerTest, ConstructorInitializesWithPortNumber) {
     EXPECT_TRUE(true); // Server object created successfully
 }
 
-// Config read/write tests
+// Config read/write tests (JsonNode - the library does not use ArduinoJson any more)
 TEST_F(CWebServerTest, ReadConfigFromJsonObject) {
-    JsonDocument doc;
-    JsonObject obj = doc.to<JsonObject>();
-    obj[WEBSERVER_AUTOREDIRECT_MODE] = true;
-    
-    EXPECT_NO_THROW(webServer.readConfigFrom(obj));
+    JsonNode oCfg;
+    oCfg[WEBSERVER_AUTOREDIRECT_MODE] = false;
+    webServer.readConfigFrom(oCfg);
+    EXPECT_FALSE(webServer.Config.AutoRedirectMode);
 }
 
 TEST_F(CWebServerTest, WriteConfigToJsonObject) {
-    JsonDocument doc;
-    JsonObject obj = doc.to<JsonObject>();
-    
-    EXPECT_NO_THROW(webServer.writeConfigTo(obj, false));
+    JsonNode oCfg;
+    webServer.writeConfigTo(oCfg, false);
+    EXPECT_TRUE(oCfg.exists(WEBSERVER_AUTOREDIRECT_MODE));
 }
 
 TEST_F(CWebServerTest, WriteStatusToJsonObject) {
-    JsonDocument doc;
-    JsonObject obj = doc.to<JsonObject>();
-    
-    EXPECT_NO_THROW(webServer.writeStatusTo(obj));
+    JsonNode oStatus;
+    webServer.writeStatusTo(oStatus);
+    EXPECT_TRUE(oStatus.exists("started"));
+    EXPECT_TRUE(oStatus.exists("captivePortal"));
 }
 
-// Event handling tests
+// Event handling tests - redirect only with captive portal AND config enabled
 TEST_F(CWebServerTest, ReceiveEventCaptivePortalStarted) {
+    webServer.Config.AutoRedirectMode = true;
     int result = webServer.receiveEvent(nullptr, MSG_CAPTIVE_PORTAL_STARTED, nullptr, 0);
     EXPECT_EQ(result, EVENT_MSG_RESULT_OK);
+    EXPECT_TRUE(webServer.Status.CaptivePortalActive);
+    EXPECT_TRUE(webServer.Status.AutoRedirectMode);
+    webServer.receiveEvent(nullptr, MSG_CAPTIVE_PORTAL_STOPPED, nullptr, 0);
+    EXPECT_FALSE(webServer.Status.CaptivePortalActive);
+    EXPECT_FALSE(webServer.Status.AutoRedirectMode);
+}
+
+TEST_F(CWebServerTest, NoRedirectWhenDisabledInConfig) {
+    JsonNode oCfg;
+    oCfg[WEBSERVER_AUTOREDIRECT_MODE] = false;
+    webServer.readConfigFrom(oCfg);
+    webServer.receiveEvent(nullptr, MSG_CAPTIVE_PORTAL_STARTED, nullptr, 0);
+    EXPECT_TRUE(webServer.Status.CaptivePortalActive);
+    EXPECT_FALSE(webServer.Status.AutoRedirectMode);
+}
+
+TEST_F(CWebServerTest, FileNameValidation) {
+    EXPECT_TRUE(CWebServer::isValidFileName("config.json"));
+    EXPECT_FALSE(CWebServer::isValidFileName(""));
+    EXPECT_FALSE(CWebServer::isValidFileName("../config.json"));
+    EXPECT_FALSE(CWebServer::isValidFileName("dir/file"));
+    EXPECT_FALSE(CWebServer::isValidFileName("0123456789012345678901234567890123"));   // > 31 chars
 }
 
 // Security tests

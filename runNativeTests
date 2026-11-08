@@ -1,0 +1,23 @@
+#!/bin/sh
+# Runs the native unit tests (test/native) on this computer - no ESP board needed.
+#
+#   native              : tests with the JsonNode backend (default)
+#   native_arduinojson  : same tests with the ArduinoJson backend of JsonHelper.h
+#
+# Usage: ./runNativeTests [pio test options]   e.g. ./runNativeTests -vv
+# Exit code 0 if all environments pass, 1 otherwise.
+
+cd "$(dirname "$0")" || exit 1
+
+nResult=0
+for sEnv in native native_arduinojson; do
+    echo "=== pio test -e $sEnv"
+    pio test -e "$sEnv" "$@" || nResult=1
+done
+
+if [ $nResult -eq 0 ]; then
+    echo "=== native tests: all passed"
+else
+    echo "=== native tests: FAILED"
+fi
+exit $nResult

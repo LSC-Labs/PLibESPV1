@@ -84,7 +84,7 @@ TEST_F(CApplTest, DispatchSendsEvent) {
     // CAppl appl;
     Appl.init("TestApp", "1.0.0");
     
-    EXPECT_NO_THROW(Appl.dispatch(nullptr, 0));
+    EXPECT_NO_THROW(Appl.dispatch(0, nullptr));     // dispatch(int nMsgType, const void *pMsg)
 }
 
 
