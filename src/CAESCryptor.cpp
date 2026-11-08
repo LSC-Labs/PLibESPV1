@@ -9,6 +9,22 @@
 #include <AESCryptor.h>
 #include <DevelopmentHelper.h>
 #include <Base64Data.h>
+#ifdef ESP32
+    #include <mbedtls/aes.h>
+    #include <esp_system.h>         // esp_random()
+#else
+    #include <bearssl/bearssl_block.h>
+#endif
+
+/*
+ * Notes
+ * -----
+ * - AES-128-CBC with PKCS#7 padding. CBC only provides confidentiality - use a
+ *   MAC (see CAccessToken) if the data must be protected against modification.
+ * - Passphrase.loadFromString() uses the first 16 bytes of the string directly
+ *   as key (no key derivation) - use 16 random characters for a fixed passphrase.
+ * - Random values (IV, default passphrase) come from the hardware RNG.
+ */
 
 #ifndef DEBUG_LSC_AESCRYPT
     #undef DEBUGINFOS
@@ -46,7 +62,7 @@
      * @return Pointer to an internal base64 buffer.
      */
     const char * CAESToken::getAsBase64() {
-        CBase64Data::base64EncodeData((const char *) Data,16,m_szAsBase64,sizeof(m_szAsBase64),true);
+        CBase64Data::base64EncodeData((const char *) Data,sizeof(Data),m_szAsBase64,sizeof(m_szAsBase64),true);
         return(m_szAsBase64);
     }
 
@@ -54,17 +70,20 @@
      * @brief Loads token bytes from a base64 string.
      * @param pszBase64String Base64 data representing exactly one AES block.
      */
-    void CAESToken::loadFromBase64(const char * pszBase64String) {
-        if(pszBase64String) {
-            char szBuffer[strlen(pszBase64String) + 40];
-            size_t nSize = CBase64Data::base64DecodeData(pszBase64String,strlen(pszBase64String), szBuffer,sizeof(szBuffer));
-            // Expecting the right size (!)
-            if(nSize == sizeof(Data)) {
-                memcpy(Data,szBuffer,sizeof(Data));
-            } else {
-                DEBUG_INFOS("## ERROR - size of token is not as expected : %d - %d",nSize,sizeof(Data));
-            }
+    bool CAESToken::loadFromBase64(const char * pszBase64String) {
+        // One block = 24 base64 characters - longer input is invalid (no stack buffer
+        // sized by the input, the string may come from a client)
+        size_t nInputLen = pszBase64String ? strlen(pszBase64String) : 0;
+        if(nInputLen == 0 || nInputLen > 32) return(false);
+        char szBuffer[sizeof(Data) + 8] = {0};
+        int nSize = CBase64Data::base64DecodeData(pszBase64String, nInputLen, szBuffer, sizeof(szBuffer));
+        // Expecting exactly one block (-1 = error)
+        if(nSize != (int) sizeof(Data)) {
+            DEBUG_INFOS("## ERROR - size of token is not as expected : %d - %d",nSize,(int) sizeof(Data));
+            return(false);
         }
+        memcpy(Data,szBuffer,sizeof(Data));
+        return(true);
     }
 
     /**
@@ -96,16 +115,35 @@
         }
 
     /**
-     * @brief Fills the token with random printable-ish bytes.
+     * @brief Fills the token with random bytes.
+     *
+     * Previously Arduino random() was used: seeded with millis() (predictable)
+     * and limited to 42 printable values per byte. Now the full byte range of
+     * the hardware RNG is used.
      */
     void CAESToken::createRandom() {
-            // The initialization should be done in the main object
-            // normaly this is done already in the Appl instance
-            // initializeRandomNumbers(false);
-            for(unsigned int nIdx = 0; nIdx < sizeof(Data); nIdx++) {
-                Data[nIdx] = random(0x30l,0x5al);
+        fillRandom(Data, sizeof(Data));
+    }
+
+    /**
+     * @brief Fills a buffer with bytes of the hardware random number generator.
+     *
+     * ESP32: esp_random(), ESP8266: RANDOM_REG32. Both are true random numbers
+     * while the radio (WiFi) is active - before that they are pseudo random.
+     */
+    void CAESToken::fillRandom(unsigned char *pBuffer, size_t nLen) {
+        if(!pBuffer) return;
+        for(size_t nIdx = 0; nIdx < nLen; nIdx += 4) {
+            #ifdef ESP32
+                uint32_t ulRandom = esp_random();
+            #else
+                uint32_t ulRandom = RANDOM_REG32;
+            #endif
+            for(size_t nByte = 0; nByte < 4 && nIdx + nByte < nLen; nByte++) {
+                pBuffer[nIdx + nByte] = (unsigned char) (ulRandom >> (8 * nByte));
             }
         }
+    }
 
 #pragma endregion
 
@@ -125,12 +163,27 @@
  */
 size_t CAESCryptor::decrypt(void * pData, size_t nDataLen, const char * pszPassphrase ) {
         if(pszPassphrase) Passphrase.loadFromString(pszPassphrase);
+        // CBC needs complete blocks - anything else is invalid input
+        if(!pData || nDataLen == 0 || (nDataLen % AES_CRYPTOR_BLOCK_SIZE) != 0) return(0);
 
-        br_aes_big_cbcdec_keys decCtx;
-        br_aes_big_cbcdec_init(&decCtx, Passphrase.Data,AES_CRYPTOR_BLOCK_SIZE);
-        br_aes_big_cbcdec_run( &decCtx, IV.copyOf(), pData, nDataLen);
+        #ifdef ESP32
+            mbedtls_aes_context oCtx;
+            mbedtls_aes_init(&oCtx);
+            int nRC = mbedtls_aes_setkey_dec(&oCtx, Passphrase.Data, AES_CRYPTOR_BLOCK_SIZE * 8);
+            if(nRC == 0) nRC = mbedtls_aes_crypt_cbc(&oCtx, MBEDTLS_AES_DECRYPT, nDataLen,
+                                        (unsigned char *) IV.copyOf(),
+                                        (const unsigned char *) pData, (unsigned char *) pData);
+            mbedtls_aes_free(&oCtx);
+            if(nRC != 0) return(0);
+        #else
+            br_aes_big_cbcdec_keys decCtx;
+            br_aes_big_cbcdec_init(&decCtx, Passphrase.Data,AES_CRYPTOR_BLOCK_SIZE);
+            br_aes_big_cbcdec_run( &decCtx, IV.copyOf(), pData, nDataLen);
+            memset(&decCtx, 0, sizeof(decCtx));     // do not leave the key schedule on the stack
+        #endif
 
-        removePkcs7Padding((unsigned char *) pData,nDataLen);
+        // Invalid padding = wrong key or corrupted data
+        if(!removePkcs7Padding((unsigned char *) pData,nDataLen)) return(0);
         return(nDataLen);
     }
 
@@ -150,10 +203,23 @@ size_t CAESCryptor::decrypt(void * pData, size_t nDataLen, const char * pszPassp
 
         if(pszPassphrase) Passphrase.loadFromString(pszPassphrase);
 
+        if(!pData) return(0);
         size_t nTotalSize = insertPkcs7Padding((unsigned char *) pData,nDataLen);
-        br_aes_big_cbcenc_keys encCtx;
-        br_aes_big_cbcenc_init(&encCtx, Passphrase.Data , 16);
-        br_aes_big_cbcenc_run( &encCtx, IV.copyOf(), pData, nTotalSize);
+        #ifdef ESP32
+            mbedtls_aes_context oCtx;
+            mbedtls_aes_init(&oCtx);
+            int nRC = mbedtls_aes_setkey_enc(&oCtx, Passphrase.Data, AES_CRYPTOR_BLOCK_SIZE * 8);
+            if(nRC == 0) nRC = mbedtls_aes_crypt_cbc(&oCtx, MBEDTLS_AES_ENCRYPT, nTotalSize,
+                                        (unsigned char *) IV.copyOf(),
+                                        (const unsigned char *) pData, (unsigned char *) pData);
+            mbedtls_aes_free(&oCtx);
+            if(nRC != 0) return(0);
+        #else
+            br_aes_big_cbcenc_keys encCtx;
+            br_aes_big_cbcenc_init(&encCtx, Passphrase.Data , AES_CRYPTOR_BLOCK_SIZE);
+            br_aes_big_cbcenc_run( &encCtx, IV.copyOf(), pData, nTotalSize);
+            memset(&encCtx, 0, sizeof(encCtx));     // do not leave the key schedule on the stack
+        #endif
 
         return(nTotalSize);
     }
@@ -175,25 +241,32 @@ size_t CAESCryptor::decrypt(void * pData, size_t nDataLen, const char * pszPassp
     }
 
     /**
-     * @brief Removes PKCS#7 padding from a decrypted buffer.
+     * @brief Checks and removes PKCS#7 padding from a decrypted buffer.
      *
-     * Padding bytes are overwritten with '\0' to make decrypted text buffers
+     * All padding bytes must have the padding length as value (1..nBlockSize).
+     * Valid padding bytes are overwritten with '\0' to make decrypted text buffers
      * usable as C strings when the original payload was textual.
      *
      * @param pData Decrypted data buffer.
      * @param nDataLength In/out length. Reduced by the padding length.
      * @param nBlockSize AES block size, normally 16.
+     * @return false for invalid padding (wrong key / corrupted data); data and length unchanged.
      */
-    void CAESCryptor::removePkcs7Padding(unsigned char * pData, size_t& nDataLength, size_t nBlockSize) {
+    bool CAESCryptor::removePkcs7Padding(unsigned char * pData, size_t& nDataLength, size_t nBlockSize) {
+        if (!pData || nDataLength == 0) return(false);
         size_t nPaddingLen = pData[nDataLength - 1];
-        if (nPaddingLen <= nBlockSize) {
-            // TODO: check if the padding is consistent over whole area (!)
-            for (size_t nIdx = 0; nIdx < nPaddingLen; nIdx++) {
-                pData[nDataLength -1 - nIdx] = '\0';
-            }
-            nDataLength -= nPaddingLen;
+        if (nPaddingLen == 0 || nPaddingLen > nBlockSize || nPaddingLen > nDataLength) return(false);
+        // Check every padding byte (without early exit)
+        unsigned char cDiff = 0;
+        for (size_t nIdx = 0; nIdx < nPaddingLen; nIdx++) {
+            cDiff |= (unsigned char) (pData[nDataLength - 1 - nIdx] ^ (unsigned char) nPaddingLen);
         }
-        
+        if (cDiff != 0) return(false);
+        for (size_t nIdx = 0; nIdx < nPaddingLen; nIdx++) {
+            pData[nDataLength - 1 - nIdx] = '\0';
+        }
+        nDataLength -= nPaddingLen;
+        return(true);
     }
 
 
