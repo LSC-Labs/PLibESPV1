@@ -126,8 +126,11 @@ void CFS::deleteAllFilesOnPath(const char *pszPath) {
             File oFile = oDirEntry.openNextFile();
             while (oFile) {
                 if (!oFile.isDirectory()) {
-                    DEBUG_INFOS(" - deleting file %s",oDirEntry.fileName().c_str());
-                    LittleFS.remove(oFile.name());
+                    // name() has no path on ESP32 - use the full path, close before removing
+                    String strFile = oFile.path();
+                    oFile.close();
+                    DEBUG_INFOS(" - deleting file %s",strFile.c_str());
+                    LittleFS.remove(strFile);
                 }
                 oFile = oDirEntry.openNextFile();
             }
@@ -189,6 +192,16 @@ bool CFS::getFileList(JsonNode &oDirDoc, const char *pszPath) {
  * @param pszPath Directory path. nullptr means root.
  * @return JSON array string with file entries.
  */
+static String jsonEscapedName(const String &strName) {
+    String strResult;
+    for (size_t nIdx = 0; nIdx < strName.length(); nIdx++) {
+        char c = strName[nIdx];
+        if (c == '"' || c == '\\') strResult += '\\';
+        if ((unsigned char) c >= 0x20) strResult += c;
+    }
+    return(strResult);
+}
+
 String CFS::getFileList(const char* pszPath) {
     String strResult = "[";
     const char *pszDir = pszPath ?  pszPath : "/";
@@ -202,7 +215,7 @@ String CFS::getFileList(const char* pszPath) {
                     strResult += oFile.isDirectory() ? "\"D\"" : "\"F\"";
                     strResult += ", \"s\": ";
                     strResult += oFile.size();
-                    strResult += ", \"n\": \"" + String(oFile.name()) + "\"";
+                    strResult += ", \"n\": \"" + jsonEscapedName(String(oFile.name())) + "\"";
                     strResult += "}";
                 }
                 oFile = oDirEntry.openNextFile();
@@ -218,7 +231,7 @@ String CFS::getFileList(const char* pszPath) {
             else strResult += "\"-\"";
             strResult += ", \"s\": ",
             strResult += oDirEntry.fileSize();
-            strResult += ", \"n\": \"" + oDirEntry.fileName() + "\"";
+            strResult += ", \"n\": \"" + jsonEscapedName(oDirEntry.fileName()) + "\"";
             strResult += "}";
         }
     #endif
@@ -277,10 +290,10 @@ bool CFS::saveJsonContentToFile(const char* strFileName, JsonNode &oDoc) {
     File oFile = LittleFS.open(strFileName, "w");
     if (oFile)
     {
-        oFile.write(oDoc.getAsJsonText());
-        // serializeJson(oDoc,oFile);
+        const char *pszData = oDoc.getAsJsonText();
+        size_t nLen = pszData ? strlen(pszData) : 0;
+        bResult = oFile.write((const uint8_t *) pszData, nLen) == nLen;
         oFile.close();
-        bResult = true;
     }
     return(bResult);
 }
@@ -289,7 +302,7 @@ bool CFS::saveJsonContentToFile(const char* strFileName, JsonNode &oDoc) {
  * @brief Loads a JSON file and parses it into a JsonNode.
  * @param strFileName File path to read.
  * @param oDoc Target JSON node.
- * @return true when bytes were loaded from the file.
+ * @return true when the file was loaded and contains valid JSON.
  */
 bool CFS::loadJsonContentFromFile(const char *strFileName,JsonNode &oDoc) {
     DEBUG_FUNC_START_PARMS("%s,...",strFileName);
@@ -298,16 +311,14 @@ bool CFS::loadJsonContentFromFile(const char *strFileName,JsonNode &oDoc) {
     nSize = loadFileToBuffer(strFileName,ptrBuffer);
     // (void) nSize;
     DEBUG_INFOS(" --- loaded %d bytes %s",nSize,ptrBuffer ? ptrBuffer.get() : "-nullptr-");
-    if(ptrBuffer) {
-        oDoc.parse(ptrBuffer.get());
-        /*
-	    auto error = deserializeJson(oDoc, ptrBuffer.get());
-        if (error) {
-            DEBUG_INFOS(" --- deserializeJson() failed: %s", error.c_str());
-        } 
-            */
+    bool bResult = false;
+    if(ptrBuffer && nSize > 0) {
+        // parse() keeps oDoc unchanged and returns nullptr on invalid JSON
+        bResult = oDoc.parse(ptrBuffer.get()) != nullptr;
+        if(!bResult) {
+            DEBUG_INFOS(" --- invalid JSON in %s", strFileName);
+        }
     }
-    bool bResult = nSize > 0? true: false;
     DEBUG_FUNC_END_PARMS("%s",bResult ? "OK" : "NOT Loaded");
     return(bResult);
 }
