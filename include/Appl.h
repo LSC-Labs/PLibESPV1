@@ -6,6 +6,14 @@
 #include <Logging.h>
 #include <Vars.h>
 #include <DevelopmentHelper.h>
+#include <SimpleDelay.h>
+#ifdef ESP32
+    #include <mutex>
+#endif
+
+#ifndef APPL_STATUS_SNAPSHOT_INTERVAL
+    #define APPL_STATUS_SNAPSHOT_INTERVAL 1000  ///< ms between status snapshots for async callers
+#endif
 
 
 
@@ -121,11 +129,20 @@ struct ApplConfig {
 class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
     ApplConfig  m_oCfg;   
     CSysStatus  m_oSystemStatus;
-    JsonNode    m_oStatus;
-    JsonNode    m_oSysStatus;
-    String      m_strStatus;
-    String      m_strSysStatus;
-    String      m_strIsoDateTime;
+    JsonNode    m_oStatus;              // used by getStatus() - loop context only
+    // Status snapshot for other contexts (async web server) - built in dispatch()
+    String       m_strStatusSnapshot;
+    CSimpleDelay m_oStatusSnapshotDelay;
+    #ifdef ESP32
+        std::mutex m_oStatusSnapshotLock;
+    #endif
+    CLogWriter * m_pSerialLogWriter = nullptr;  // created/removed by updateSerialLogWriter()
+    bool         m_bInitialized     = false;
+
+    /// @brief Register or remove the serial log writer according to m_oCfg.bLogToSerial.
+    void updateSerialLogWriter();
+    /// @brief Rebuild the status snapshot (loop context).
+    void updateStatusSnapshot();
 
     
     bool m_bStatusChanged   = true;
@@ -209,7 +226,17 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
         /**
          * @brief Return the current application status serialized as JSON text.
          */
+        /// @brief Status as JSON text (internal buffer - loop context only, see getStatusSnapshot()).
         const char  * getStatusAsText(int nLevel = STATUS_LEVEL_INFO);
+        /**
+         * @brief Copy of the status JSON (STATUS_LEVEL_INFO) - safe from any context.
+         *
+         * Use this in async callbacks (web server handlers): getStatusAsText()
+         * rebuilds a shared buffer, which must not be done from two tasks at once.
+         * The snapshot is refreshed in dispatch() (APPL_STATUS_SNAPSHOT_INTERVAL);
+         * from the loop context a fresh status is returned.
+         */
+        String getStatusSnapshot();
 
         /**
          * @brief Return the compact state view of this device.

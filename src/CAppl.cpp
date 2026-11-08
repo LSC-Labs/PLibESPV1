@@ -34,6 +34,7 @@
 #endif
 
 #include <Appl.h>
+#include <new>
 #include <FileSystem.h>
 #include <SysStatus.h>
 #include <LSCUtils.h>
@@ -49,7 +50,7 @@
  */
 CAppl::CAppl() {
 	if(LSC_APPL_SERIAL_SPEED > 0) Serial.begin(LSC_APPL_SERIAL_SPEED);
-    Log = CEventLogger(&MsgBus);
+    Log.setEventHandler(&MsgBus);
 	MsgBus.registerEventReceiver(this,"Appl");
 	addConfigHandler("cfg",&Config);
 }  
@@ -63,9 +64,8 @@ void CAppl::init(const char *strAppName, const char *strAppVersion) {
     AppName 	= strAppName;
     AppVersion  = strAppVersion;
 	
-    if(m_oCfg.bLogToSerial) {
-        MsgBus.registerEventReceiver(new CSerialLogWriter(),"SerialLogWriter");
-    }
+    m_bInitialized = true;
+    updateSerialLogWriter();        // also called after reading the config
 
 	MsgBus.sendEvent(this,MSG_APPL_STARTING,nullptr,0);
 	randomSeed(millis());
@@ -88,7 +88,30 @@ void CAppl::start(void * pMsg, int nType) {
  * @param pMsg Optional message payload.
  */
 void CAppl::dispatch(int nMsgType,const void *pMsg) {
+	MsgBus.processDeferredEvents();	// events/log entries from other contexts (async callbacks)
 	this->MsgBus.sendEvent(this,MSG_APPL_LOOP,pMsg,nMsgType);
+	// Status copy for async callers (web server) - built here in the loop context
+	if(!m_oStatusSnapshotDelay.isActive() || m_oStatusSnapshotDelay.isDone()) {
+		updateStatusSnapshot();
+		m_oStatusSnapshotDelay.restartWith(APPL_STATUS_SNAPSHOT_INTERVAL);
+	}
+}
+
+/**
+ * @brief Registers or removes the serial log writer according to the config.
+ *
+ * Called by init() and after reading the config, so "logToSerial" also works
+ * when the config is read after init(). Only one writer is created.
+ */
+void CAppl::updateSerialLogWriter() {
+	if(!m_bInitialized) return;				// init() decides first
+	if(m_oCfg.bLogToSerial && !m_pSerialLogWriter) {
+		m_pSerialLogWriter = new (std::nothrow) CSerialLogWriter();
+		if(m_pSerialLogWriter) MsgBus.registerEventReceiver(m_pSerialLogWriter,"SerialLogWriter");
+	} else if(!m_oCfg.bLogToSerial && m_pSerialLogWriter) {
+		delete m_pSerialLogWriter;			// unregisters itself from the bus
+		m_pSerialLogWriter = nullptr;
+	}
 }
 
 /**
@@ -166,13 +189,20 @@ void CAppl::readConfigFrom(JsonNode &oJsonObj) {
 	oJsonObj.storeValueIf("traceMode",	&m_oCfg.bTraceMode);
 	oJsonObj.storeValueIf("devicename",	 m_oCfg.strDeviceName);
 
-	// Set the device password only, it is NOT the hidden appl password
-	// If it is empty, keep the default passwort.
-	oJsonObj.storeValueIfNot("devicepwd",m_oCfg.strDevicePwd,HIDDEN_PASSWORD_MASK);
-	if(m_oCfg.strDeviceName.isEmpty()) 	 m_oCfg.strDeviceName = DEFAULT_DEVICE_PWD;
+	// Set the device password only, it is NOT the hidden appl password.
+	// The mask (hidden password) and an empty value keep the current password -
+	// an empty password would allow a web login without password.
+	String strNewPwd;
+	if(oJsonObj.storeValueIfNot("devicepwd",strNewPwd,HIDDEN_PASSWORD_MASK) && strNewPwd.length() > 0) {
+		m_oCfg.strDevicePwd = strNewPwd;
+	}
+	if(m_oCfg.strDevicePwd.isEmpty())	m_oCfg.strDevicePwd  = DEFAULT_DEVICE_PWD;
+	// An empty device name falls back to the default NAME (was: the default password)
+	if(m_oCfg.strDeviceName.isEmpty()) 	m_oCfg.strDeviceName = DEFAULT_DEVICE_NAME;
 	
 	DEBUG_INFOS(" -- Device Name: %s",m_oCfg.strDeviceName.c_str());
-	DEBUG_INFOS(" -- Device Pass: \"%s\"",m_oCfg.strDevicePwd.c_str());
+	DEBUG_INFOS(" -- Device Pass: %s",m_oCfg.strDevicePwd.length() > 0 ? "(set)" : "(empty)");
+	updateSerialLogWriter();
 
 	// Then Iterate through registerd Config Handler
 	CConfigHandler::readConfigFrom(oJsonObj);
@@ -185,8 +215,7 @@ void CAppl::readConfigFrom(JsonNode &oJsonObj) {
  * - Use the pszConfigFileName, given by the user or use JSON_APPL_CONFIG_FILE (/config.json).
  * - If this file is not in place, use JSON_CONFIG_DEFAULT_File (/default)
  * @param pszConfigFileName The configuration FileName (Default is /config.json)
- * @param nJsonDocSize      The size of the expected total size, othterwies JSON_CONFIG_DEFAULT_SIZE is used.
- * 							(obsolet for ArduinoJson >= 7)
+ * @param nJsonDocSize      Unused (kept for compatibility, JsonNode allocates dynamically).
  * @return true, if the file could be read...
  * */
 bool CAppl::readConfigFrom(const char *pszConfigFileName, int nJsonDocSize) {
@@ -250,8 +279,7 @@ void CAppl::migrateConfig(JsonNode & oCfgData) {
  * the file beforehand if a clean generated config is desired.
  *
  * @param pszConfigFileName The configuration FileName (Default is /config.json)
- * @param nJsonDocSize      The size of the expected total size, othterwies JSON_CONFIG_DEFAULT_SIZE is used.
- * 							(obsolet for ArduinoJson >= 7)
+ * @param nJsonDocSize      Unused (kept for compatibility, JsonNode allocates dynamically).
  * @return true, if the file could be written...
  * */
 bool CAppl::saveConfig(const char *pszConfigFileName, int nJsonDocSize) {
@@ -272,8 +300,8 @@ bool CAppl::saveConfig(const char *pszConfigFileName, int nJsonDocSize) {
 }
 
 /**
- * @brief Write the current configuration into a JsonObject
- * @param oJsonObj      The JsonObject to write the configuration to
+ * @brief Write the current configuration into a JsonNode
+ * @param oJsonObj      The JsonNode to write the configuration to
  * @param bHideCritical If true, critical information like passwords will be hidden
  */
 void CAppl::writeConfigTo(JsonNode &oJsonObj, bool bHideCritical) {
@@ -311,10 +339,41 @@ JsonNode *  CAppl::getStatus(int nLevel) {
 
 /**
  * @brief Return the current application status serialized as JSON text.
+ *
+ * The text is in a shared buffer that is rebuilt by every call - loop context
+ * only. Other contexts (async web server) use getStatusSnapshot().
  */
 const char * CAppl::getStatusAsText(int nLevel) {
     JsonNode * pStatus = getStatus(nLevel);
     return(pStatus->getAsJsonText());
+}
+
+/**
+ * @brief Rebuilds the status snapshot (loop context, called by dispatch()).
+ *
+ * Uses an own JsonNode - the shared m_oStatus may be in use by the caller.
+ */
+void CAppl::updateStatusSnapshot() {
+	JsonNode oStatus;
+	writeStatusTo(oStatus, STATUS_LEVEL_INFO);
+	String strStatus = oStatus.getAsJsonText();
+	#ifdef ESP32
+		std::lock_guard<std::mutex> oGuard(m_oStatusSnapshotLock);
+	#endif
+	m_strStatusSnapshot = strStatus;
+}
+
+/**
+ * @brief Returns a copy of the status - safe from any context.
+ */
+String CAppl::getStatusSnapshot() {
+	if(CEventHandler::isLoopContext()) {
+		updateStatusSnapshot();			// fresh status in the loop
+	}
+	#ifdef ESP32
+		std::lock_guard<std::mutex> oGuard(m_oStatusSnapshotLock);
+	#endif
+	return(m_strStatusSnapshot.length() > 0 ? m_strStatusSnapshot : String("{}"));
 }
 
 /**
@@ -373,23 +432,19 @@ void CAppl::writeSystemStatusTo(JsonNode &oStatusNode) {
 #pragma region Time and Date functions 
 
 /**
- * @brief Return the application uptime as HH:MM:SS.
+ * @brief Return the time since boot as HH:MM:SS (hours not limited to 24).
  */
 const char * CAppl::getUpTime() {
-	unsigned long ulUpTime = millis() - this->StartTime;
-	// 3600000 milliseconds in an hour
-	long nHours   = ulUpTime / 3600000; 		// 1000 * 60 * 60
-	ulUpTime = ulUpTime - 3600000 * nHours;		// Remove hours
-
-	// 60000 milliseconds in a minute
-	long nMinutes = ulUpTime / 60000;			// 1000 * 60
-	ulUpTime = ulUpTime - 60000 * nMinutes;		// Remove minutes
-
-	// 1000 milliseconds in a second		
-	long nSeconds = ulUpTime / 1000;			// 1000 ms
-	
-
-	snprintf(m_szUptimeBuffer,sizeof(m_szUptimeBuffer), "%02lu:%02lu:%02lu", nHours, nMinutes, nSeconds);
+	// 64 bit microseconds since boot - millis() wraps after ~49.7 days
+	#ifdef ESP32
+		uint64_t ullUpSeconds = (uint64_t) esp_timer_get_time() / 1000000ULL;
+	#else
+		uint64_t ullUpSeconds = micros64() / 1000000ULL;
+	#endif
+	unsigned long ulHours   = (unsigned long) (ullUpSeconds / 3600ULL);
+	unsigned int  nMinutes  = (unsigned int) ((ullUpSeconds / 60ULL) % 60ULL);
+	unsigned int  nSeconds  = (unsigned int) (ullUpSeconds % 60ULL);
+	snprintf(m_szUptimeBuffer,sizeof(m_szUptimeBuffer), "%02lu:%02u:%02u", ulHours, nMinutes, nSeconds);
 	return(m_szUptimeBuffer);
 }
 
@@ -435,9 +490,12 @@ time_t CAppl::getNativeTime() {
  */
 const char * CAppl::getISODateTime() {
         time_t oNativeTime = getNativeTime();
-        struct tm* oTimeInfo = localtime(&oNativeTime);
+        // localtime_r: thread safe - the status is also written from the async web server
+        struct tm oTimeInfo;
         memset(m_szISODateTime,'\0',sizeof(m_szISODateTime));
-        strftime(m_szISODateTime,sizeof(m_szISODateTime),"%FT%T",oTimeInfo);
+        if(localtime_r(&oNativeTime, &oTimeInfo)) {
+            strftime(m_szISODateTime,sizeof(m_szISODateTime),"%FT%T",&oTimeInfo);
+        }
         return(m_szISODateTime);
 }
 
@@ -498,5 +556,31 @@ void CAppl::printDiag() {
 
 #pragma endregion Diagnostic and Display Functions
 
+#pragma region Global application object (nifty counter)
+
+namespace {
+    // Storage for Appl. The constexpr constructor makes it constant initialized
+    // (before any dynamic initialization), so the reference "Appl" below is valid
+    // from the start - the object itself is constructed by the first CApplInitializer.
+    union ApplStorage {
+        char  cDummy;
+        CAppl oAppl;
+        constexpr ApplStorage() : cDummy(0) {}
+        ~ApplStorage() {}       // destruction is done by the last CApplInitializer
+    };
+    ApplStorage  s_oApplStorage;
+    unsigned int s_nApplInitCounter = 0;   // zero initialized before any constructor runs
+}
+
 /// @brief The global application object
-CAppl Appl;
+CAppl & Appl = s_oApplStorage.oAppl;
+
+LSC::CApplInitializer::CApplInitializer() {
+    if(s_nApplInitCounter++ == 0) new (&s_oApplStorage.oAppl) CAppl();
+}
+
+LSC::CApplInitializer::~CApplInitializer() {
+    if(--s_nApplInitCounter == 0) s_oApplStorage.oAppl.~CAppl();
+}
+
+#pragma endregion

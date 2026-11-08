@@ -354,11 +354,9 @@ void CWebServer::registerDefaults() {
 
     on("/status", HTTP_GET, [](AsyncWebServerRequest *pRequest) {
         DEBUG_INFO("WEB:/status (GET)");
-        const char *pszActStatus = Appl.getStatusAsText();
-        DEBUG_INFOS("WEB:/status -> %s",pszActStatus ? pszActStatus : "-");
-        // Copy the status: the response is sent asynchronously, the status buffer
-        // of Appl may change (or be reallocated) in the meantime.
-        pRequest->send(200, "application/json", String(pszActStatus ? pszActStatus : "{}"));
+        // Async context: never build the status here (shared buffers, module state of
+        // the loop) - use the snapshot built in the loop (copy, safe from any task)
+        pRequest->send(200, "application/json", Appl.getStatusSnapshot());
     });
 
     on("/update", HTTP_POST,
