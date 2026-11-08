@@ -3,12 +3,20 @@
 #include <Arduino.h>
 #include <Appl.h>
 #include <Network.h>
+#include <FS.h>
 #include <WebSocket.h>
+
+/// @brief Page the captive portal redirects to (start page of the portal).
+#ifndef WEBSERVER_CAPTIVE_START_PAGE
+    #define WEBSERVER_CAPTIVE_START_PAGE "/"
+#endif
 
 /// @brief Runtime configuration of the web server module.
 struct WebServerConfig {
-    /// @brief true to redirect unknown/default traffic automatically.
-    bool   AutoRedirectMode = false;
+    /// @brief true: while the captive portal is active, requests to unknown pages
+    ///        are redirected to the captive start page (WEBSERVER_CAPTIVE_START_PAGE).
+    ///        Without an active captive portal unknown pages always return 404.
+    bool   AutoRedirectMode = true;
     /// @brief HTTP basic auth user name; password is read from Appl.
     String UserName = "admin";
     // String Passwd   = "admin";
@@ -19,8 +27,9 @@ struct WebServerConfig {
     /// @param bLogFailed true to write failed attempts to the application log.
     /// @return true if the request has valid credentials.
     bool authenticate(AsyncWebServerRequest *pRequest, const char* pszReason, bool bLogFailed) {
+        if(!pRequest) return(false);
         bool bAuthenticated = pRequest->authenticate(UserName.c_str(),Appl.getDevicePwd().c_str());
-        if(!bAuthenticated && bLogFailed) {
+        if(!bAuthenticated && bLogFailed && pRequest->client()) {
             IPAddress oRemoteIP = pRequest->client()->remoteIP();
             ApplLogWarnWithParms(F("unauthorized web access (%s): %s"),
                                     oRemoteIP.toString().c_str(),
@@ -34,7 +43,10 @@ struct WebServerConfig {
 struct WebServerStatus {
     /// @brief true after the server has been started.
     bool   Started = false;
-    /// @brief Last active auto-redirect mode.
+    /// @brief true while the captive portal is active (MSG_CAPTIVE_PORTAL_STARTED/STOPPED).
+    bool   CaptivePortalActive = false;
+    /// @brief true if unknown pages are currently redirected
+    ///        (Config.AutoRedirectMode && CaptivePortalActive).
     bool   AutoRedirectMode = false;
 };
 
@@ -42,6 +54,22 @@ struct WebServerStatus {
  * @brief Async web server module that registers default routes and file access.
  */
 class CWebServer : public AsyncWebServer, public IModule {
+    private:
+        /// @brief State of the running file upload (one at a time).
+        struct UploadState {
+            AsyncWebServerRequest *pOwner = nullptr;   // request that owns the upload
+            File                   oFile;
+            bool                   bError = false;
+        } m_oUpload;
+
+        AsyncWebServerRequest *m_pOtaOwner      = nullptr;  // request that owns the firmware update
+        bool                   m_bOtaError      = false;
+        size_t                 m_nOtaProgressSent = 0;
+        volatile bool          m_bRebootAfterOta = false;   // executed in MSG_APPL_LOOP
+
+        /// @brief Recalculate Status.AutoRedirectMode from config and captive portal state.
+        void updateRedirectMode();
+
     public:
         /// @brief Module version exposed for diagnostics.
         const int Version = 1;
@@ -55,6 +83,13 @@ class CWebServer : public AsyncWebServer, public IModule {
     public:
         /// @brief Create a web server on the given TCP port.
         CWebServer(int nPortNumber = 80);
+        /// @brief Start the server (sets Status.Started). Multiple calls are ignored.
+        /// Is called automatically on MSG_WIFI_CONNECTED, if not started before.
+        void begin();
+        /// @brief Stop the server (resets Status.Started).
+        void end();
+        /// @brief true for a plain file name (no path, no "..", max. 31 chars).
+        static bool isValidFileName(const String &strName);
 
         /// @brief Write web server status into a JSON node.
         void writeStatusTo(JsonNode &oStatusNode, int nLevel = STATUS_LEVEL_INFO) override;
