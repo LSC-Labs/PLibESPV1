@@ -4,12 +4,19 @@
 #include <NTPHandler.h>
 #include <LSCUtils.h>
 #include <Msgs.h>
-#include <coredecls.h>
+#ifdef ESP32
+    #include <esp_sntp.h>
+    // SNTP callback is a plain C function pointer - route it to the handler instance
+    static CNTPHandler *s_pNTPHandlerInstance = nullptr;
+    static void onSntpTimeSync(struct timeval *) {
+        if(s_pNTPHandlerInstance) s_pNTPHandlerInstance->timeUpdatedByService();
+    }
+#else
+    #include <coredecls.h>
+#endif
 #include <DevelopmentHelper.h>
-// #include <JsonHelper.h>
 
 
-// WiFiStatus getStatus() { return Status; }    
 
 #pragma region Module Interfaces
 
@@ -19,8 +26,10 @@
  * @param bHideCritical Unused here; no NTP value is critical.
  */
 void CNTPHandler::writeConfigTo( JsonNode &oCfgNode, bool bHideCritical) {
+    (void) bHideCritical;
     oCfgNode["enabled"]        = Config.isEnabled;
     oCfgNode["server"]         = Config.NTPServer;
+    oCfgNode["tz"]             = Config.TZ;
 }
 
 /**
@@ -30,45 +39,64 @@ void CNTPHandler::writeConfigTo( JsonNode &oCfgNode, bool bHideCritical) {
 void CNTPHandler::readConfigFrom(JsonNode &oCfgNode) {
     oCfgNode.storeValueIf("enabled", & Config.isEnabled);
     oCfgNode.storeValueIf("server",    Config.NTPServer );
+    // POSIX TZ string, i.e. "CET-1CEST,M3.5.0/02,M10.5.0/03" (applied by setup(), i.e. after reboot)
+    oCfgNode.storeValueIf("tz",        Config.TZ );
+}
+
+/**
+ * @brief Gets the current local time - thread safe (localtime_r).
+ *
+ * localtime() uses one static buffer for all callers; the status is also
+ * written from the async web server (/status), so it must not be used here.
+ * @return false if the time could not be converted.
+ */
+bool CNTPHandler::getLocalTime(struct tm &oTimeInfo) {
+    time_t oNow = time(nullptr);
+    m_oRawTime = oNow;
+    return(localtime_r(&oNow, &oTimeInfo) != nullptr);
 }
 
 /**
  * @brief Writes current NTP/time status into a JSON node.
  *
- * The status contains an ISO timestamp, epoch-like seconds, day of week and
- * week number based on the current system time.
+ * The status contains the sync state, an ISO timestamp, seconds since epoch,
+ * day of week (1 = Monday) and the ISO 8601 week number.
  *
  * @param oStatusObj Target status node.
  * @param nLevel Status verbosity, currently unused.
  */
 void CNTPHandler::writeStatusTo( JsonNode &oStatusObj, int nLevel) {
+    (void) nLevel;
     oStatusObj["enabled"] = Config.isEnabled;
-    time(&m_oRawTime);
-    struct tm* oTimeInfo;
-    oTimeInfo = localtime(&m_oRawTime);
+    oStatusObj["valid"]   = hasValidTime();     // false: time not synchronized yet (1970...)
+    struct tm oTimeInfo;
+    if(!getLocalTime(oTimeInfo)) return;
 
-    char szBuffer[80];
+    char szBuffer[40];
     // formats see: https://www.man7.org/linux/man-pages/man3/strftime.3.html
-    strftime(szBuffer,80,"%FT%T",oTimeInfo);
+    strftime(szBuffer,sizeof(szBuffer),"%FT%T",&oTimeInfo);
     oStatusObj["iso"] = szBuffer;
-    strftime(szBuffer,80,"%s",oTimeInfo);
+    // seconds since epoch (UTC) - "%s" is a GNU extension, so it is formatted directly
+    snprintf(szBuffer,sizeof(szBuffer),"%lld",(long long) m_oRawTime);
     oStatusObj["dt"] = szBuffer;
-    strftime(szBuffer,80,"%u",oTimeInfo);
+    strftime(szBuffer,sizeof(szBuffer),"%u",&oTimeInfo);
     oStatusObj["dow"] = szBuffer;
-    strftime(szBuffer,80,"%W",oTimeInfo);
+    // ISO 8601 week (%V) - "%W" counted the weeks from the first Monday, which
+    // differs from the ISO/DIN week number at the beginning/end of a year
+    strftime(szBuffer,sizeof(szBuffer),"%V",&oTimeInfo);
     oStatusObj["week"] = szBuffer;
 }
 
 #pragma endregion
 
-#pragma date / time queries
+#pragma region date / time queries
 
 /**
  * @brief Gets the current native time_t value.
  * @return Current system time.
  */
 time_t CNTPHandler::getNativeTime() {
-    time(&m_oRawTime);
+    m_oRawTime = time(nullptr);
     return(m_oRawTime);
 }
 
@@ -77,12 +105,15 @@ time_t CNTPHandler::getNativeTime() {
  * @return Pointer to the internal timestamp buffer.
  */
 const char * CNTPHandler::getISODateTime() {
-time_t oNativeTime = getNativeTime();
-struct tm* oTimeInfo = localtime(&oNativeTime);
-memset(m_szISODateTime,'\0',sizeof(m_szISODateTime));
-strftime(m_szISODateTime,sizeof(m_szISODateTime),"%FT%T",oTimeInfo);
-return(m_szISODateTime);
+    struct tm oTimeInfo;
+    memset(m_szISODateTime,'\0',sizeof(m_szISODateTime));
+    if(getLocalTime(oTimeInfo)) {
+        strftime(m_szISODateTime,sizeof(m_szISODateTime),"%FT%T",&oTimeInfo);
+    }
+    return(m_szISODateTime);
 }
+
+#pragma endregion
 
 /**
  * @brief Starts NTP setup when WiFi reports station-mode connectivity.
@@ -105,27 +136,35 @@ int CNTPHandler::receiveEvent(const void * pSender, int nMsgType, const void * p
  * @brief Callback invoked by the time service when the time was updated.
  */
 void CNTPHandler::timeUpdatedByService() {
-    DEBUG_FUNC_START();
+    // Runs in the lwIP/SNTP context - only store values (no logging, no events)
     this->m_uLastUpdate = millis();
-    DEBUG_FUNC_END();
+    this->m_bTimeValid  = true;     // separate flag - millis() may be 0
 }
 
 /**
- * @brief Initializes the SNTP/time service once.
+ * @brief Initializes the SNTP/time service once (only if enabled in the config).
  *
  * The callback is registered before configTime() so successful updates can mark
- * this handler as having valid time.
+ * this handler as having valid time. Server and time zone changes take effect
+ * after a reboot.
  */
 void CNTPHandler::setup(void) {
     DEBUG_FUNC_START();
-    if(!m_bIsInitialized) {
-        // std::function<void(void)> funcOnEvent;
-        TrivialCB funcOnEvent;
-        // Prepare the bind of the own onWebSocketEvent Handler function
-        funcOnEvent = std::bind(&CNTPHandler::timeUpdatedByService,this);
-        settimeofday_cb (funcOnEvent);
-        DEBUG_INFOS(" calling => configTime(\"%s\",\"%s\")",Config.TZ.c_str(),Config.NTPServer.c_str());
-        configTime(Config.TZ.c_str(), Config.NTPServer.c_str());
+    if(!m_bIsInitialized && Config.isEnabled && Config.NTPServer.length() > 0) {
+        // lwIP (sntp_setservername) keeps only the POINTER to the server name.
+        // Config.NTPServer may change at runtime (saveconfig) - use an own, stable copy.
+        strncpy(m_szServer, Config.NTPServer.c_str(), sizeof(m_szServer) - 1);
+        m_szServer[sizeof(m_szServer) - 1] = '\0';
+        DEBUG_INFOS(" calling => configTime(\"%s\",\"%s\")",Config.TZ.c_str(),m_szServer);
+        // The TZ string is copied (setenv) - no lifetime issue
+        #ifdef ESP32
+            s_pNTPHandlerInstance = this;
+            sntp_set_time_sync_notification_cb(onSntpTimeSync);
+            configTzTime(Config.TZ.c_str(), m_szServer);
+        #else
+            settimeofday_cb([this]() { this->timeUpdatedByService(); });
+            configTime(Config.TZ.c_str(), m_szServer);
+        #endif
         m_bIsInitialized = true;
     }
     DEBUG_FUNC_END();
@@ -136,5 +175,5 @@ void CNTPHandler::setup(void) {
  * @return true after timeUpdatedByService() has been called.
  */
 bool CNTPHandler::hasValidTime() {
-    return(this->m_uLastUpdate > 0);
+    return(this->m_bTimeValid);
 }
