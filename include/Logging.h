@@ -4,6 +4,10 @@
 #include <EventHandler.h>
 #include <Msgs.h>
 
+#ifndef LOG_ENTRY_BUFFER_SIZE
+    #define LOG_ENTRY_BUFFER_SIZE   512     ///< max. length of a formatted log entry
+#endif
+
 #define logInfo(s,...)      log("I",s, ##__VA_ARGS__)
 #define logVerbose(s,...)   log("V",s, ##__VA_ARGS__)
 #define logWarning(s,...)   log("W",s, ##__VA_ARGS__)
@@ -18,15 +22,28 @@
 #define LOG_CLASS_TYPE_ALWAYS "WEX"  
 
 
-/// @brief Logger facade that sends formatted log events through CEventHandler.
+/**
+ * @brief Logger facade that sends formatted log events through CEventHandler.
+ *
+ * Log calls from other contexts (AsyncTCP task on ESP32, SYS context on
+ * ESP8266 - i.e. web server, WebSocket, MQTT callbacks) are queued on the
+ * message bus (postEventText()) and written in the loop - the log writers are
+ * not thread safe.
+ */
 class CEventLogger {
     private:
         CEventHandler * pEventHandler = nullptr;
+
+        /// @brief Send (or queue) one formatted entry.
+        void publish(char cType, const char *pszText);
+
     public:
         /// @brief Create a logger without an attached event handler.
         CEventLogger();
         /// @brief Create a logger that publishes to the given event handler.
         CEventLogger(CEventHandler * pEventHandler);
+        /// @brief Set the event handler (message bus) the entries are sent to.
+        void setEventHandler(CEventHandler * pEventHandler) { this->pEventHandler = pEventHandler; }
 
         /// @brief Convert a log class character into its numeric message class.
         static int  getLogClassNumberFrom(const char cClass);
@@ -47,10 +64,7 @@ class CEventLogger {
 class CLogWriter : public IMsgEventReceiver {
     
     private:
-        void *pSender;
-        CEventHandler *pEventHandler;
-        const char* m_strModuleName;
-        char m_nLogLevel = 3; 
+        int  m_nLogLevel = 3;       // index in LOG_CLASS_LEVEL_MASK: I=1, V=2 ... (W/E/X always)
         bool isTypeToWriteAlways(const char cType);
         bool isLogLevelToWrite(const char cType);
     public:

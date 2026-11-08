@@ -1,11 +1,11 @@
 #pragma once
 
-#include <../src/DevelopmentHelper.cpp>
+// #include <../src/DevelopmentHelper.cpp>
 
 #include <../src/CFileSystem.cpp>
 #include <../src/CLogging.cpp>
 
-#include <../src/CDelay.cpp>
+#include <../src/CSimpleDelay.cpp>
 #include <../src/CAppl.cpp>
 
 #include <../src/LSCUtils.cpp>

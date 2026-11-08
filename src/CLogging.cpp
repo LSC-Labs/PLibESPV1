@@ -8,15 +8,15 @@
 #include <Msgs.h>
 #include <DevelopmentHelper.h>
 
-#define LOG_ENTRY_BUFFER_SIZE  512
+#include <ctype.h>
 
 #pragma region Implementation of CEventLogger
 
 /**
  * @brief Creates a logger without an event handler.
  *
- * Set pEventHandler before writing log messages, otherwise log calls cannot be
- * delivered.
+ * Set the event handler (setEventHandler()) before writing log messages,
+ * otherwise log calls are ignored.
  */
 CEventLogger::CEventLogger() { pEventHandler = nullptr;}
 
@@ -30,18 +30,49 @@ CEventLogger::CEventLogger(CEventHandler *oEventHandler) {
 
 /**
  * @brief Converts a log class character to its numeric priority.
- * @param cClass Log class character such as 'I', 'W' or 'E'.
+ * @param cClass Log class character such as 'I', 'W' or 'E' (case insensitive).
  * @return Index in LOG_CLASS_LEVEL_MASK, or 0 when not found.
  */
 int CEventLogger::getLogClassNumberFrom(const char cClass) {
     int nResult = 0;
+    const char cUpper = (char) toupper((unsigned char) cClass);
     const char *strLevelMask = LOG_CLASS_LEVEL_MASK; 
-    for(size_t nIdx = 0; nIdx < strlen(strLevelMask); nIdx++) {
-        if(strLevelMask[nIdx] == cClass) {
-            nResult = nIdx; break;
+    for(size_t nIdx = 0; strLevelMask[nIdx]; nIdx++) {
+        if(cUpper != '.' && strLevelMask[nIdx] == cUpper) {
+            nResult = (int) nIdx; break;
         }
     }
     return(nResult);
+}
+
+/**
+ * @brief Converts a numeric log class back to its character.
+ * @param nClassNo Index in LOG_CLASS_LEVEL_MASK.
+ * @return Log class character, 'I' for unknown/unused indexes.
+ */
+char CEventLogger::getClassCharFromLogClass(int nClassNo) {
+    const char *strLevelMask = LOG_CLASS_LEVEL_MASK;
+    if(nClassNo < 0 || nClassNo >= (int) strlen(strLevelMask) || strLevelMask[nClassNo] == '.') return('I');
+    return(strLevelMask[nClassNo]);
+}
+
+/**
+ * @brief Sends one entry to the bus - queued, if called from another context.
+ */
+void CEventLogger::publish(char cType, const char *pszText) {
+    if(!pEventHandler || !pszText) return;
+    if(CEventHandler::isLoopContext()) {
+        pEventHandler->sendEvent(this, MSG_LOG_ENTRY, pszText, cType);
+    } else {
+        pEventHandler->postEventText(this, MSG_LOG_ENTRY, pszText, cType);
+    }
+}
+
+/// @brief Marks a truncated entry with "..." at the end.
+static void markTruncated(char *pszBuffer, size_t nBufferSize, int nNeeded) {
+    if(nNeeded >= (int) nBufferSize && nBufferSize > 4) {
+        strcpy(&pszBuffer[nBufferSize - 4], "...");
+    }
 }
 
 /**
@@ -50,13 +81,14 @@ int CEventLogger::getLogClassNumberFrom(const char cClass) {
  * @param pszMessage printf-style flash string.
  */
 void CEventLogger::log(const char * pszType, const __FlashStringHelper* pszMessage,...) {
-    va_list args;
-    va_start(args, (const char*)pszMessage);
+    if(!pEventHandler || !pszMessage) return;
     char strBuffer[LOG_ENTRY_BUFFER_SIZE];
-    vsnprintf_P(strBuffer, sizeof(strBuffer), (const char *) pszMessage, args);
+    va_list args;
+    va_start(args, pszMessage);
+    int nNeeded = vsnprintf_P(strBuffer, sizeof(strBuffer), (const char *) pszMessage, args);
     va_end(args);
-    char cType = pszType == nullptr ? 'I' : pszType[0];
-    pEventHandler->sendEvent(this, MSG_LOG_ENTRY, strBuffer,cType );
+    markTruncated(strBuffer, sizeof(strBuffer), nNeeded);
+    publish(pszType == nullptr ? 'I' : pszType[0], strBuffer);
 }
 
 /**
@@ -65,23 +97,34 @@ void CEventLogger::log(const char * pszType, const __FlashStringHelper* pszMessa
  * @param pszMessage printf-style string.
  */
 void CEventLogger::log(const char * pszType, const char *pszMessage, ...) {
+    if(!pEventHandler || !pszMessage) return;
+    char tBuffer[LOG_ENTRY_BUFFER_SIZE];
     va_list args;
     va_start(args, pszMessage);
-    char tBuffer[LOG_ENTRY_BUFFER_SIZE];
-    vsnprintf_P(tBuffer, sizeof(tBuffer), pszMessage, args);
+    // vsnprintf_P: on ESP8266 the format may also be in flash (PSTR) - works for RAM too
+    int nNeeded = vsnprintf_P(tBuffer, sizeof(tBuffer), pszMessage, args);
     va_end(args);
-    char cType = pszType == nullptr ? 'I' : pszType[0];
-    pEventHandler->sendEvent(this, MSG_LOG_ENTRY, tBuffer, cType );
+    markTruncated(tBuffer, sizeof(tBuffer), nNeeded);
+    publish(pszType == nullptr ? 'I' : pszType[0], tBuffer);
 }
 
 /**
  * @brief Publishes a JSON log document as an event.
+ *
+ * From another context the document is copied (queued) - the caller's node
+ * does not exist anymore when the entry is written.
+ *
  * @param pszType Log class string. The first character is used.
  * @param pDoc JSON document/node to forward to log writers.
  */
 void CEventLogger::log(const char * pszType, JsonNode *pDoc) {
+    if(!pEventHandler || !pDoc) return;
     char cType = pszType == nullptr ? 'I' : pszType[0];
-    pEventHandler->sendEvent(this, MSG_LOG_ENTRY_JSON,pDoc, cType );
+    if(CEventHandler::isLoopContext()) {
+        pEventHandler->sendEvent(this, MSG_LOG_ENTRY_JSON, pDoc, cType);
+    } else {
+        pEventHandler->postEventJson(this, MSG_LOG_ENTRY_JSON, *pDoc, cType);
+    }
 }
 #pragma endregion
 
@@ -101,6 +144,7 @@ int CLogWriter::getLogLevel() {
  * @return Previous log level.
  */
 int CLogWriter::setLogLevel(int nLogLevel) {
+    if(nLogLevel < 0) nLogLevel = 0;
     int nOldLevel = m_nLogLevel;
     m_nLogLevel = nLogLevel;
     return(nOldLevel);
@@ -112,13 +156,8 @@ int CLogWriter::setLogLevel(int nLogLevel) {
  * @return true for classes listed in LOG_CLASS_TYPE_ALWAYS.
  */
 bool CLogWriter::isTypeToWriteAlways(const char cType) {
-    bool bResult = false;
-    for(size_t nIdx = 0; nIdx < strlen(LOG_CLASS_TYPE_ALWAYS); nIdx++) {
-        if(cType == LOG_CLASS_TYPE_ALWAYS[nIdx]) {
-            bResult = true; break;
-        }
-    }
-    return(bResult);
+    const char cUpper = (char) toupper((unsigned char) cType);
+    return(cUpper != 0 && strchr(LOG_CLASS_TYPE_ALWAYS, cUpper) != nullptr);
 }
 
 /**
@@ -127,12 +166,8 @@ bool CLogWriter::isTypeToWriteAlways(const char cType) {
  * @return true when the class priority is within the configured threshold.
  */
 bool CLogWriter::isLogLevelToWrite(const char cType) {
-    bool bResult = false;
     int nClass = CEventLogger::getLogClassNumberFrom(cType);
-    if(nClass >= 0 && nClass <= m_nLogLevel) {
-        bResult = true;
-    }
-    return(bResult);
+    return(nClass <= m_nLogLevel);
 }
 
 /**
@@ -162,16 +197,15 @@ void CLogWriter::writeLogEntry(const char *pszType, const char *pszMessage) {
  * @return EVENT_MSG_RESULT_OK after processing.
  */
 int CLogWriter::receiveEvent(const void *pSender, int nMsgType, const void *pMessage, int nClass) {
-    if(nMsgType == MSG_LOG_ENTRY || nMsgType == MSG_LOG_ENTRY_JSON) {
-        String strType = "";
-        char cLogClass = nClass;
+    (void) pSender;
+    if((nMsgType == MSG_LOG_ENTRY || nMsgType == MSG_LOG_ENTRY_JSON) && pMessage) {
+        char cLogClass = (char) nClass;
         if(isLogLevelToWrite(cLogClass) || isTypeToWriteAlways(cLogClass)) {
-            strType = cLogClass;
+            char szType[2] = { cLogClass, '\0' };
             if(nMsgType == MSG_LOG_ENTRY) {
-                writeLogEntry(strType.c_str(),(const char *) pMessage);
-            } 
-            else if (nMsgType == MSG_LOG_ENTRY_JSON) {
-                writeLogEntry(strType.c_str(),(JsonNode *)(pMessage));
+                writeLogEntry(szType,(const char *) pMessage);
+            } else {
+                writeLogEntry(szType,(JsonNode *)(pMessage));
             }
         }
     }
@@ -194,8 +228,8 @@ CStreamLogWriter::CStreamLogWriter(Stream *pStream) {
  * @param pszMessage Message text.
  */
 void CStreamLogWriter::writeLogEntry(const char *pszType, const char *pszMessage) {
-    if(pStream) {
-        pStream->printf("[%s] %s\n", pszType, pszMessage);
+    if(pStream && pszMessage) {
+        pStream->printf("[%s] %s\n", pszType ? pszType : "-", pszMessage);
     }
 }
 
@@ -205,23 +239,10 @@ void CStreamLogWriter::writeLogEntry(const char *pszType, const char *pszMessage
  * @param pDoc JSON node to serialize.
  */
 void CStreamLogWriter::writeLogEntry(const char *pszType, JsonNode *pDoc) {
-    if(pStream) {
-        pStream->write(pDoc->getAsJsonText());
-        pStream->println();
+    if(pStream && pDoc) {
+        const char *pszJson = pDoc->getAsJsonText();
+        pStream->printf("[%s] %s\n", pszType ? pszType : "-", pszJson ? pszJson : "");
     }
 }
 
 
-
-#pragma region Serial Log Writer, Implementation of CLogWriter
-/*
-void CSerialLogWriter::writeLogEntry(const char *pszType, const char *pszMessage) {
-    Serial.printf("%s%s\n", pszType, pszMessage);
-}
-
-void CSerialLogWriter::writeLogEntry(const char *strType, JsonDocument *pDoc) {
-    DEBUG_FUNC_START();
-    serializeJsonPretty(*pDoc,Serial);
-}
-*/
-#pragma endregion

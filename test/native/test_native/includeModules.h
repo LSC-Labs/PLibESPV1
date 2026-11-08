@@ -3,6 +3,9 @@
 #include <../src/ext/base64.cpp>
 #include <../src/LSCUtils.cpp>
 #include <../src/CJsonNode.cpp>
+#include <../src/JsonHelper.cpp>
 #include <../src/CConfigHandler.cpp>
+#include <../src/CStatusHandler.cpp>
+#include <../src/CEventHandler.cpp>
 #include <../src/CVar.cpp>
 #include <../src/CVarTable.cpp>
