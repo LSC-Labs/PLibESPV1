@@ -14,6 +14,9 @@
 #ifndef APPL_STATUS_SNAPSHOT_INTERVAL
     #define APPL_STATUS_SNAPSHOT_INTERVAL 1000  ///< ms between status snapshots for async callers
 #endif
+#ifndef APPL_SYSSTATUS_SNAPSHOT_INTERVAL
+    #define APPL_SYSSTATUS_SNAPSHOT_INTERVAL 1000  ///< min. ms between system status snapshots (only built on request)
+#endif
 
 
 
@@ -133,6 +136,10 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
     // Status snapshot for other contexts (async web server) - built in dispatch()
     String       m_strStatusSnapshot;
     CSimpleDelay m_oStatusSnapshotDelay;
+    // System status snapshot - expensive (file system usage), so only rebuilt after a request
+    String       m_strSystemStatusSnapshot;
+    CSimpleDelay m_oSystemStatusSnapshotDelay;
+    volatile bool m_bSystemStatusRequested = false;
     #ifdef ESP32
         std::mutex m_oStatusSnapshotLock;
     #endif
@@ -143,6 +150,8 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
     void updateSerialLogWriter();
     /// @brief Rebuild the status snapshot (loop context).
     void updateStatusSnapshot();
+    /// @brief Rebuild the system status snapshot (loop context).
+    void updateSystemStatusSnapshot();
 
     
     bool m_bStatusChanged   = true;
@@ -237,6 +246,18 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
          * from the loop context a fresh status is returned.
          */
         String getStatusSnapshot();
+
+        /**
+         * @brief Copy of the system status JSON (writeSystemStatusTo()) - safe from any context.
+         *
+         * Building the system status reads the file system usage, which must not be
+         * done in async callbacks (ESP8266: SYS context) and is too expensive for every
+         * loop. Therefore a call from another context returns the last snapshot and
+         * requests a new one, which dispatch() builds (at most every
+         * APPL_SYSSTATUS_SNAPSHOT_INTERVAL ms). From the loop context a fresh status
+         * is returned.
+         */
+        String getSystemStatusSnapshot();
 
         /**
          * @brief Return the compact state view of this device.

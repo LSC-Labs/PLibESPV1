@@ -95,6 +95,13 @@ void CAppl::dispatch(int nMsgType,const void *pMsg) {
 		updateStatusSnapshot();
 		m_oStatusSnapshotDelay.restartWith(APPL_STATUS_SNAPSHOT_INTERVAL);
 	}
+	// System status: only on request (first one is built in advance, so the first request has data)
+	if((m_bSystemStatusRequested || m_strSystemStatusSnapshot.length() == 0) &&
+	   (!m_oSystemStatusSnapshotDelay.isActive() || m_oSystemStatusSnapshotDelay.isDone())) {
+		m_bSystemStatusRequested = false;
+		updateSystemStatusSnapshot();
+		m_oSystemStatusSnapshotDelay.restartWith(APPL_SYSSTATUS_SNAPSHOT_INTERVAL);
+	}
 }
 
 /**
@@ -374,6 +381,37 @@ String CAppl::getStatusSnapshot() {
 		std::lock_guard<std::mutex> oGuard(m_oStatusSnapshotLock);
 	#endif
 	return(m_strStatusSnapshot.length() > 0 ? m_strStatusSnapshot : String("{}"));
+}
+
+/**
+ * @brief Rebuilds the system status snapshot (loop context, called by dispatch()).
+ */
+void CAppl::updateSystemStatusSnapshot() {
+	JsonNode oStatus;
+	writeSystemStatusTo(oStatus);
+	String strStatus = oStatus.getAsJsonText();
+	#ifdef ESP32
+		std::lock_guard<std::mutex> oGuard(m_oStatusSnapshotLock);
+	#endif
+	m_strSystemStatusSnapshot = strStatus;
+}
+
+/**
+ * @brief Returns a copy of the system status - safe from any context.
+ *
+ * Outside the loop the last snapshot is returned and a new one is requested
+ * (built by the next dispatch()).
+ */
+String CAppl::getSystemStatusSnapshot() {
+	if(CEventHandler::isLoopContext()) {
+		updateSystemStatusSnapshot();	// fresh status in the loop
+	} else {
+		m_bSystemStatusRequested = true;
+	}
+	#ifdef ESP32
+		std::lock_guard<std::mutex> oGuard(m_oStatusSnapshotLock);
+	#endif
+	return(m_strSystemStatusSnapshot.length() > 0 ? m_strSystemStatusSnapshot : String("{}"));
 }
 
 /**
