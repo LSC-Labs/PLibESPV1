@@ -20,6 +20,14 @@
 
 
 
+/**
+ * @brief Input pin with logical on/off (active low or active high).
+ *
+ * Internal pull resistors (bWithPullUpOrDown):
+ *  - active low  => pullup   (all pins, except ESP8266 GPIO16 and ESP32 GPIO34..39)
+ *  - active high => pulldown (ESP32: all pins except GPIO34..39; ESP8266: GPIO16 only -
+ *                   other ESP8266 pins need an external pulldown resistor)
+ */
 class CInputPinController : public CPinController {
 
     protected:

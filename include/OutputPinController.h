@@ -22,19 +22,33 @@
 #define DEVICE_STATE_INACTIVE 0
 
 
-/// @brief Base class to controll a pin as in or output with helper functions
+/**
+ * @brief Base class to control a pin as output (on/off and PWM level).
+ *
+ * @attention For OUTPUT pins the flag bLowLevelIsOn works INVERTED to its name
+ *            (kept for compatibility with existing projects):
+ *            - bLowLevelIsOn = true : ON writes HIGH, OFF writes LOW  (active high,
+ *              i.e. LED from GPIO to GND, common cathode RGB LED)
+ *            - bLowLevelIsOn = false: ON writes LOW,  OFF writes HIGH (active low,
+ *              i.e. LED from VCC to GPIO, common anode RGB LED, ESP8266 built-in LED)
+ *            PWM levels follow the same rule. Input pins (CInputPinController)
+ *            use the flag as named: true = LOW means "on".
+ */
 class COutputPinController : public CPinController {
     protected:
         int m_nLevelInPercent = 100;        // Active (PWM) Level in percent. 0 = off, 100 = on (Default is 100)
-        int m_nMaxOutputLevel = 255;        // Max value to write for Level (current ESP8266 is 255)
+        int m_nMaxOutputLevel = 255;        // Max PWM value (analogWrite range: ESP8266 core 3.x and ESP32 = 255)
         int m_nState = -1;                  // Current State (on/off/undefined: -1)
+        bool m_bPwmActive = false;          // ESP32: pin is routed to the PWM unit (LEDC) - digitalWrite has no effect
 
     public:
         /// @brief Create an unconfigured output pin controller.
         COutputPinController();
         /// @brief Create and configure an output pin controller.
+        /// @param bLowLevelIsOn true = active HIGH, false = active LOW (inverted to the name - see class doc).
         COutputPinController(int nSwitchPin, bool bLowLevelIsOn = false);
         /// @brief Configure the output pin and active-level logic.
+        /// @param bLowLevelIsOn true = active HIGH, false = active LOW (inverted to the name - see class doc).
         virtual void setup(int SwitchPin, bool bLowLevelIsOn = false);
         /// @brief Switch the controlled output off.
         virtual void switchOff();
@@ -53,6 +67,8 @@ class COutputPinController : public CPinController {
     protected:
         /// @brief Convert a percent value to the hardware PWM range.
         virtual int getPinLevelValueForPWM(int nLevelInPercent);
+        /// @brief Write an output level (0 = off, 100 = full on) - digital or PWM, see implementation.
+        void writeOutputLevel(int nLevelInPercent);
 };
 
 
