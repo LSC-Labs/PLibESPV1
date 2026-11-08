@@ -587,3 +587,164 @@ TEST(CJsonNode,testParseComplexJson) {
 
 #pragma endregion
 
+
+TEST(CJsonNode, RejectsMalformedDocumentsWithoutChangingTree) {
+    const char* invalid[] = {
+        "", " ", "{", "[", "{\"x\":", "{\"x\":1", "[1", "{]", "[}",
+        "{\"x\" 1}", "{x:1}", "{\"x\":}", "[,1]", "[1,]", "{\"x\":1,}",
+        "[1 2]", "[1:2]", "{}garbage", "{}{}", "true false", "[01]", "[+1]",
+        "[.1]", "[1.]", "[1e]", "[1e+]", "[NaN]", "[TRUE]", "[tru]",
+        "[\"unterminated]", "[\"\\", "[\"\\q\"]", "[\"a\nb\"]",
+        "[\"\\u12\"]", "[\"\\ud800\"]", "[\"\\udc00\"]", "[\"\\ud800\\u0041\"]",
+        "[\"\\u0000\"]", "{\"x\":1,\"x\":2}", "\v{}"
+    };
+    CJsonNode node;
+    ASSERT_NE(node.parse("{\"original\":42}"), nullptr);
+    for (const char* input : invalid) {
+        SCOPED_TRACE(input);
+        EXPECT_EQ(node.parse(input), nullptr);
+        EXPECT_STREQ(node.getAsJsonText(), "{\"original\":42}");
+    }
+    EXPECT_EQ(node.parse(nullptr), nullptr);
+    EXPECT_EQ(node.getValueAsInt("original"), 42);
+}
+
+TEST(CJsonNode, ParsesScalarsAndReplacesPreviousTree) {
+    const char* valid[] = {"0", "-0", "1.25e-10", "-42E+2", "true", "false", "null", "\"text\"", "{}", "[]"};
+    CJsonNode node;
+    for (const char* input : valid) {
+        SCOPED_TRACE(input);
+        ASSERT_NE(node.parse(input), nullptr);
+        EXPECT_STREQ(node.getAsJsonText(), input);
+    }
+    ASSERT_NE(node.parse(" {\"child\":{\"x\":1}} \r\n"), nullptr);
+    ASSERT_NE(node.find("child"), nullptr);
+    EXPECT_EQ(node.find("child")->getParentNode(), &node);
+    ASSERT_NE(node.parse("[2]"), nullptr);
+    EXPECT_EQ(node.Elements.size(), 1u);
+    EXPECT_EQ(node.Elements[0]->getParentNode(), &node);
+}
+
+TEST(CJsonNode, EscapesAndUnicodeRoundTrip) {
+    CJsonNode node;
+    ASSERT_NE(node.parse("{\"\":0,\"a.b\":1,\"q\\\"\\\\\":\"\\b\\f\\n\\r\\t\\/\\u00e4\\ud83d\\ude00\"}"), nullptr);
+    EXPECT_NE(node.find("a.b", false), nullptr);
+    ASSERT_NE(node.find("q\"\\", false), nullptr);
+    EXPECT_STREQ(node.find("q\"\\", false)->getValue(), "\b\f\n\r\t/ä😀");
+    CJsonNode copy;
+    ASSERT_NE(copy.parse(node.getAsJsonText()), nullptr);
+    EXPECT_STREQ(copy.getAsJsonText(), node.getAsJsonText());
+    ASSERT_NE(copy.parse(node.getAsJsonTextPretty()), nullptr);
+    EXPECT_NE(copy.find("", false), nullptr);
+}
+
+TEST(CJsonNode, LimitsContainerNesting) {
+    CJsonNode node;
+    std::string input(32, '[');
+    input += "0";
+    input += std::string(32, ']');
+    ASSERT_NE(node.parse(input.c_str()), nullptr);
+    input = "[" + input + "]";
+    EXPECT_EQ(node.parse(input.c_str()), nullptr);
+}
+
+TEST(CJsonNode, LongPathSegmentsDoNotOverflow) {
+    CJsonNode node;
+    std::string path(1024, 'a');
+    path += ".value";
+    node.setValue(path.c_str(), 7);
+    EXPECT_EQ(node.getValueAsInt(path.c_str()), 7);
+}
+
+TEST(CJsonNode, RejectsInvalidUtf8) {
+    const char* invalid[] = {"\"\x80\"", "\"\xc0\xaf\"", "\"\xe0\x80\xaf\"",
+        "\"\xed\xa0\x80\"", "\"\xf4\x90\x80\x80\"", "\"\xc2", "\"\xe2\x82"};
+    CJsonNode node;
+    for (const char* input : invalid) EXPECT_EQ(node.parse(input), nullptr);
+}
+
+TEST(CJsonNode, RejectsEveryTruncatedPrefix) {
+    const std::string document = "{\"key\":[true,false,null,-1.2e+3,\"a\\\"b\\u00e4\\ud83d\\ude00\",{}]}";
+    CJsonNode node;
+    for (size_t length = 0; length < document.size(); ++length) {
+        SCOPED_TRACE(length);
+        const std::string prefix = document.substr(0, length);
+        EXPECT_EQ(node.parse(prefix.c_str()), nullptr);
+    }
+    EXPECT_NE(node.parse(document.c_str()), nullptr);
+}
+
+// ---------------------------------------------------------------------------
+// Path handling of getArray / getObject / getElement ("a.b")
+// ---------------------------------------------------------------------------
+TEST(CJsonNode, testGetArrayWithPathCreatesOnce) {
+    CJsonNode oRoot;
+    CJsonNode *pFirst  = oRoot.getArray("a.list", true);
+    CJsonNode *pSecond = oRoot.getArray("a.list", true);
+    ASSERT_NE(pFirst, nullptr);
+    EXPECT_EQ(pFirst, pSecond);
+    EXPECT_EQ(pFirst->getParentNode(), oRoot.getObject("a"));
+    EXPECT_EQ(oRoot.getArray("a.list"), pFirst);
+    EXPECT_STREQ(oRoot.getAsJsonText(), "{\"a\":{\"list\":[]}}");
+}
+
+TEST(CJsonNode, testGetObjectWithPathCreatesOnce) {
+    CJsonNode oRoot;
+    CJsonNode *pFirst  = oRoot.getObject("a.b.c", true);
+    CJsonNode *pSecond = oRoot.getObject("a.b.c", true);
+    ASSERT_NE(pFirst, nullptr);
+    EXPECT_EQ(pFirst, pSecond);
+    EXPECT_EQ(pFirst->getParentNode(), oRoot.getObject("a.b"));
+    EXPECT_STREQ(oRoot.getAsJsonText(), "{\"a\":{\"b\":{\"c\":{}}}}");
+}
+
+TEST(CJsonNode, testGetElementWithPathCreatesOnce) {
+    CJsonNode oRoot;
+    CJsonNode *pFirst = oRoot.getElement("cfg.name", true);
+    ASSERT_NE(pFirst, nullptr);
+    pFirst->setValue("x");
+    EXPECT_EQ(oRoot.getElement("cfg.name", true), pFirst);
+    EXPECT_EQ(pFirst->getParentNode(), oRoot.getObject("cfg"));
+    EXPECT_STREQ(oRoot.getAsJsonText(), "{\"cfg\":{\"name\":\"x\"}}");
+}
+
+TEST(CJsonNode, testGetArrayFindsParsedPath) {
+    CJsonNode oRoot;
+    ASSERT_NE(oRoot.parse("{\"a\":{\"list\":[1,2]}}"), nullptr);
+    CJsonNode *pList = oRoot.getArray("a.list");
+    ASSERT_NE(pList, nullptr);
+    EXPECT_EQ(pList->Elements.size(), 2u);
+    EXPECT_EQ(oRoot.getArray("a.list", true), pList);   // no duplicate, data kept
+    EXPECT_STREQ(oRoot.getAsJsonText(), "{\"a\":{\"list\":[1,2]}}");
+}
+
+TEST(CJsonNode, testGetArrayWrongTypeWithoutCreate) {
+    CJsonNode oRoot;
+    ASSERT_NE(oRoot.parse("{\"a\":{\"v\":5}}"), nullptr);
+    EXPECT_EQ(oRoot.getArray("a.v"), nullptr);
+    EXPECT_EQ(oRoot.getArray("a.missing"), nullptr);
+    EXPECT_EQ(oRoot.getArray("x.y"), nullptr);
+    EXPECT_STREQ(oRoot.getAsJsonText(), "{\"a\":{\"v\":5}}");   // nothing created
+}
+
+TEST(CJsonNode, testGetArrayConvertsWrongTypeWithCreate) {
+    CJsonNode oRoot;
+    ASSERT_NE(oRoot.parse("{\"a\":{\"v\":5}}"), nullptr);
+    CJsonNode *pList = oRoot.getArray("a.v", true);
+    ASSERT_NE(pList, nullptr);
+    EXPECT_STREQ(oRoot.getAsJsonText(), "{\"a\":{\"v\":[]}}");
+}
+
+TEST(CJsonNode, testCreatePayloadStructureWithJsonPayload) {
+    CJsonNode oDoc;
+    CJsonNode *pPayload = oDoc.createPayloadStructure("update","status","{\"a\":1}");
+    ASSERT_NE(pPayload, nullptr);
+    EXPECT_TRUE(pPayload->isJsonObject());             // object - not a string
+    EXPECT_STREQ(oDoc.getAsJsonText(), "{\"command\":\"update\",\"data\":\"status\",\"payload\":{\"a\":1}}");
+}
+
+TEST(CJsonNode, testCreatePayloadStructureWithTextPayload) {
+    CJsonNode oDoc;
+    oDoc.createPayloadStructure("update","msg","hello");
+    EXPECT_STREQ(oDoc.getAsJsonText(), "{\"command\":\"update\",\"data\":\"msg\",\"payload\":\"hello\"}");
+}

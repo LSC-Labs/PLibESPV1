@@ -8,6 +8,9 @@
 // ****************************************************
 #ifndef APPL_SECURITY_TOKEN_PASS
     #define APPL_SECURITY_TOKEN_PASS "Kis8%$vvQ@ä+qw12"
+    // The default is public (source code) - access tokens use a random per-boot
+    // secret instead (see CAccessToken). Define your own value to use a fixed one.
+    #define APPL_SECURITY_TOKEN_PASS_IS_DEFAULT
 #endif
 
 // ****************************************************

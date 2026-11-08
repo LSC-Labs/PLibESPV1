@@ -56,7 +56,7 @@
 #define MSG_HA_FILL_DISCOVERY_CMPS  5401   // Home Assistant discovery message, pMessage is a JSON object to fill with the components data
 
 /**
- * Generic Payload Message, object is a JsonDocument in Message Payload structure
+ * Generic Payload Message, object is a JsonNode in Message Payload structure
  */
 #define MSG_JSON_OBJECT                0    // Object in message is a JSON object
 #define MSG_JSON_PAYLOAD               9    // Object in message is a JSON oject, element "payload" contains the message

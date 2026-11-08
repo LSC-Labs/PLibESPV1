@@ -52,6 +52,7 @@ protected:
 
     /// @brief Store the parent pointer used for tree navigation.
     void         setParentNode(JsonNode * pParentNode);
+    bool parseNode(const char*& input, unsigned depth);
     /// @brief Parse one scalar JSON token from the input string.
     const char*  parseValue(const char* pszJsonData, String& strValueData, bool& bHasQuotes);
     /// @brief Recursively serialize this node into the provided string buffer.
@@ -62,6 +63,8 @@ protected:
     void         setNodeValueType(bool bWriteWithQuotes = true);
     /// @brief Split a dotted JSON path and return the final element name.
     bool         getNameFromJsonPath(const char *pszName, String & strName);
+    /// @brief Common implementation of getObject/getArray/getElement (path aware).
+    CJsonNode*   getTypedNode(const char *pszName, ELEMENT_TYPE eType, bool bCreateIfNotExist);
     
     
 public:
@@ -209,7 +212,10 @@ public:
     /// @brief Return a named scalar value node, optionally creating/converting it.
     CJsonNode*  getElement( const char* pszName, bool bCreateIfNotExist = false);
 
-    /// @brief Parse JSON text into this node tree.
+    /// @brief Parse one complete JSON document, replacing the tree on success.
+    /// @return Closing delimiter (containers) or token end (scalars); nullptr on error.
+    /// @details Errors preserve the tree. Maximum nesting is 32 containers.
+    /// Duplicate object keys and embedded NUL (\u0000) are rejected.
     const char* parse(const char* pszJsonData);
 
     /// @brief Remove and delete the direct child with the given name.
@@ -265,12 +271,17 @@ public:
      * @brief Create the common command/data/payload message structure.
      * @return The payload object node so callers can fill it directly.
      */
+    /// @brief Create {"command":..,"data":..,"payload":{}} in this node.
+    /// @param pszPayload Optional payload: valid JSON is inserted as JSON (object/array/value),
+    ///        other text as string value.
+    /// @return The payload node.
     JsonNode * createPayloadStructure(const char* pszCommand, const char *pszDataType, const char *pszPayload = nullptr) {
         setValue("command",pszCommand);
         setValue("data",pszDataType);
         JsonNode *pPayload = getObject("payload",true);
-        if(pszPayload) {
-            pPayload->setValue(pszPayload);
+        if(pszPayload && pPayload) {
+            // parse() keeps the node unchanged on invalid JSON - then store the text
+            if(!pPayload->parse(pszPayload)) pPayload->setValue(pszPayload);
         }
         return(pPayload);
     }

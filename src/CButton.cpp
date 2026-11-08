@@ -19,7 +19,7 @@ CButton::CButton() {}
  * @brief Stops interrupt monitoring when the button object is destroyed.
  */
 CButton::~CButton() {
-    stopMonitoring();
+    stopMonitoring();       // the bus registration is removed automatically (IMsgEventReceiver)
 }
 
 /**
@@ -45,13 +45,17 @@ void CButton::setup(int nPin,bool bLowLevelIsOn, bool bUsePullUpDown) {
 }
 
 /**
- * @brief Attaches the interrupt handler when the selected pin supports it.
+ * @brief Attaches the interrupt handler and registers on the message bus.
+ *
+ * The bus registration is needed to process the pin changes in the loop.
  */
 void CButton::startMonitoring(){
     DEBUG_FUNC_START();
-    if(canSendInterrupts()) {
+    if(canSendInterrupts() && !m_bMonitoring) {
         DEBUG_INFO("BTN: - initializing interrupt handler....");
+        Appl.MsgBus.registerEventReceiver(this,"Button");
         attachInterrupt(m_nPin, std::bind(&CButton::interruptHandler, this), CHANGE);
+        m_bMonitoring = true;
     } 
     DEBUG_FUNC_END();
 }
@@ -60,48 +64,65 @@ void CButton::startMonitoring(){
  * @brief Detaches the interrupt handler from the configured pin.
  */
 void CButton::stopMonitoring(){
-    detachInterrupt(m_nPin);
+    if(m_bMonitoring) {
+        detachInterrupt(m_nPin);
+        m_bMonitoring = false;
+    }
 }
 
 /**
- * @brief Hardware interrupt handler that publishes button state changes.
+ * @brief Hardware interrupt handler - only remembers the change.
  *
- * The handler updates the cached state immediately and sends MSG_BUTTON_ON or
- * MSG_BUTTON_OFF through the application message bus. Software debounce is done
- * by isPressed(); the interrupt path is intentionally direct so transitions are
- * not lost.
+ * Runs in interrupt context: no events, no logging, no memory allocation, no
+ * mutex - all of that crashes in an ISR (ESP32 "Guru Meditation", ESP8266
+ * exception). The change is processed in the loop (processPinChange()).
  */
 void IRAM_ATTR CButton::interruptHandler() {
-    m_nCurStatus = isPinLogicalOn() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
-    DEBUG_INFOS("BTN: pin %d is %d (logicalOn == %d) - operation mode(%d)",
-                m_nPin,
-                digitalRead(m_nPin),
-                isPinLogicalOn(),
-                m_nMode);
-    int nMsg = m_nCurStatus == BUTTON_STATUS_ON ? MSG_BUTTON_ON : MSG_BUTTON_OFF;
-    Appl.MsgBus.sendEvent(this,nMsg ,nullptr,m_nPin);
-    DEBUG_INFOS("BTN: pin %d is %s (active level == %s)",
-                m_nPin,
-                m_nCurStatus == BUTTON_STATUS_ON ? "pressed" : "released",
-                m_bLowLevelIsOn ? "low" : "high");
+    m_bIrqChanged = true;
+}
 
+/**
+ * @brief Processes pin changes in the loop: debounce, then publish the new state.
+ *
+ * After a change the pin is read again when the debouncing time has elapsed.
+ * Only a state that differs from the last published state is sent.
+ */
+void CButton::processPinChange() {
+    if(m_bIrqChanged) {
+        m_bIrqChanged = false;
+        m_oDebounce.restart();              // (re)start debouncing - contact still bouncing
+        return;
+    }
+    if(!m_oDebounce.isActive() || !m_oDebounce.isDone()) return;
+    m_oDebounce.stop();
+    int nNewStatus = isPinLogicalOn() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
+    if(nNewStatus == m_nCurStatus) return;  // bounced back - no change
+    m_nCurStatus = nNewStatus;
+    DEBUG_INFOS("BTN: pin %d is %s", m_nPin, m_nCurStatus == BUTTON_STATUS_ON ? "pressed" : "released");
+    Appl.MsgBus.sendEvent(this, m_nCurStatus == BUTTON_STATUS_ON ? MSG_BUTTON_ON : MSG_BUTTON_OFF, nullptr, m_nPin);
+}
+
+/**
+ * @brief Handles MSG_APPL_LOOP (debouncing and events of the interrupt path).
+ */
+int CButton::receiveEvent(const void * pSender, int nMsg, const void * pMessage, int nMsgInfo) {
+    (void) pSender; (void) pMessage; (void) nMsgInfo;
+    if(nMsg == MSG_APPL_LOOP) processPinChange();
+    return(EVENT_MSG_RESULT_OK);
 }
 
 /**
  * @brief Reads the debounced button state.
  *
- * The pin is sampled only after the configured debounce interval has elapsed.
- * Between samples, the cached status is returned.
+ * With interrupt monitoring the state of the interrupt path is returned.
+ * Without, the pin is sampled at most once per debouncing time.
  *
  * @return true when the button is currently considered pressed.
  */
 bool CButton::isPressed() {
-    DEBUG_FUNC_START();
-    if(m_ulLastCheckTime + m_ulDebouncingTime < millis()) { 
+    if(!m_bMonitoring && (!m_oDebounce.isActive() || m_oDebounce.isDone())) {
         m_nCurStatus = isPinLogicalOn() ? BUTTON_STATUS_ON : BUTTON_STATUS_OFF;
-        m_ulLastCheckTime = millis();
+        m_oDebounce.restart();
     }
-    bool bResult = m_nCurStatus == BUTTON_STATUS_ON;
-    DEBUG_FUNC_END_PARMS("%d",bResult);
-    return(bResult);
+    return(m_nCurStatus == BUTTON_STATUS_ON);
 }
