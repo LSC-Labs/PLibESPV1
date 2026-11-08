@@ -128,3 +128,5 @@ TEST_F(CVarTableTest, getValueWithStringReference) {
     const char* result = varTable.getValue(strName, "default");
     EXPECT_STREQ(result, "strValue");
 }
+
+#include "../../shared/VarTableRegression.h"

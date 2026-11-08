@@ -24,6 +24,8 @@
 
 #include <DevelopmentHelper.h>
 #include <Vars.h>
+#include <memory>
+#include <new>
 // #include <JsonHelper.h>
 
 
@@ -33,38 +35,6 @@
 #ifndef LSC_VARS_CRITICAL_NAMES_KEY
     #define LSC_VARS_CRITICAL_NAMES_KEY "__CN"
 #endif
-
-#pragma region CVarTableEntry implementation
-
-/**
- * @brief create a new VarTable Entry object...
- *        The member pszKeyName, contains an empty string, or 
- *        the name of the variable in lowercase, if isCaseSensitive is false,
- *        or the name of the variable as is, if isCaseSensitive = true
- * @param pszVarName name of the var
- * @param isCaseSensitive is the context case - sensitive ?
- *
- *  */
-/*
- CVarTable::CVarTableEntry::CVarTableEntry(CVar * pVar, bool isCaseSensitive) {
-    this->pVar = pVar;
-    this->pszKeyName = strdup(pVar->getName());
-    if(!isCaseSensitive) strlwr(this->pszKeyName);
-    // this->pNextEntry = nullptr;
-}
-*/
-
-/**
- * @brief free the allocated memory for the key name and call the destructor of the var object
- * @details This destructor is called when the CVarTableEntry object is deleted.
- */
-/*
- CVarTable::CVarTableEntry::~CVarTableEntry() {
-    if(pszKeyName)  free(this->pszKeyName);
-    if(pVar)        delete(pVar);
-}
-    */
-#pragma endregion
 
 #pragma region CVarTable Constructor / destructor and helper...
 /** 
@@ -122,26 +92,29 @@ bool CVarTable::hasCriticalVars() {
  * @return nullptr or the var object
  */
 CVar * CVarTable::find(const char * pszName) {
-    CVar *pResult = nullptr;
-    if(pszName) {
-        char szKeyName[80];
-        strncpy(szKeyName,pszName,sizeof(szKeyName));
-        if(!isCaseSensitive) strlwr(szKeyName);
-        for(CVar * pVar : this->tVarEntries) {
-            if(pVar) {
-                if(strcmp(pVar->getKeyName(isCaseSensitive),szKeyName) == 0) {
-                    pResult = pVar;
-                    break;
-                }
+    if (!pszName) return nullptr;
+    // Compare directly: no fixed-size buffer and no allocation per lookup.
+    for (CVar* pVar : tVarEntries) {
+        if (!pVar) continue;
+        const unsigned char* key = reinterpret_cast<const unsigned char*>(pVar->getName());
+        const unsigned char* name = reinterpret_cast<const unsigned char*>(pszName);
+        while (*key && *name) {
+            unsigned char a = *key, b = *name;
+            if (!isCaseSensitive) {
+                if (a >= 'A' && a <= 'Z') a += 'a' - 'A';
+                if (b >= 'A' && b <= 'Z') b += 'a' - 'A';
             }
+            if (a != b) break;
+            ++key; ++name;
         }
+        if (!*key && !*name) return pVar;
     }
-    return(pResult);
+    return nullptr;
 }
 
 #ifndef NATIVE_RUNTIME
 CVar * CVarTable::find(const __FlashStringHelper* pszName) {
-    return(find((const char*) pszName));
+    return pszName ? find(String(pszName)) : nullptr;
 }
 #endif
 
@@ -155,11 +128,14 @@ CVar * CVarTable::find(String strName) {
  * @return pointer to the var or nullptr if it could not be created.
  *  */
 CVar * CVarTable::getOrCreateVarEntry(const char *pszName) {
+    if (!pszName) pszName = "";
     CVar * pVar = find(pszName);
     // Insert a new entriy if it does not exist
     if(pVar == nullptr) {
-        pVar = new CVar(pszName);
-        tVarEntries.push_back(pVar);
+        std::unique_ptr<CVar> entry(new (std::nothrow) CVar(pszName));
+        if (!entry || strcmp(entry->getName(), pszName) != 0) return nullptr;
+        tVarEntries.push_back(entry.get());
+        pVar = entry.release();
     }
     return(pVar);
 }
@@ -214,7 +190,10 @@ const char * CVarTable::getValue(const __FlashStringHelper *pszName, const char 
 
 const char * CVarTable::getValue(const __FlashStringHelper *pszName, const __FlashStringHelper *pszDefault) {
     CVar *pVar = find(pszName);
-    return(pVar ? pVar->getValue() : (const char *)pszDefault );
+    if (pVar) return pVar->getValue();
+    if (!pszDefault) return nullptr;
+    flashDefaultCache = String(pszDefault);
+    return flashDefaultCache.c_str();
 }
 
 int CVarTable::getIntValue(const __FlashStringHelper *pszName, int nDefault){
@@ -234,7 +213,7 @@ bool CVarTable::getBoolValue(const __FlashStringHelper * pszName, bool bDefault)
 
 CVar * CVarTable::set(const char * pszName, String strValue) {
     CVar *pVar = getOrCreateVarEntry(pszName);
-    pVar->setValue(strValue.c_str());
+    if (pVar) pVar->setValue(strValue.c_str());
     return(pVar);
 }
 
@@ -245,21 +224,25 @@ CVar * CVarTable::set(const char * pszName, const char *pszValue) {
 }
 CVar * CVarTable::set(const char * pszName, const int nValue) {
     CVar *pVar = getOrCreateVarEntry(pszName);
-    pVar->setValue(nValue);
+    if (pVar) pVar->setValue(nValue);
     return(pVar);
 }
 CVar * CVarTable::set(const char * pszName, const unsigned long ulValue) {
     CVar *pVar = getOrCreateVarEntry(pszName);
-    pVar->setValue(ulValue);
+    if (pVar) pVar->setValue(ulValue);
     return(pVar);
 }
 
 CVar * CVarTable::set(const char * pszName, bool bValue) {
     DEBUG_FUNC_START();
     CVar *pVar = getOrCreateVarEntry(pszName);
-    pVar->setValue(bValue);
+    if (pVar) pVar->setValue(bValue);
     DEBUG_FUNC_END();
     return(pVar);
+}
+
+CVar * CVarTable::set(String strName, const char* pszValue) {
+    return set(strName.c_str(), pszValue);
 }
 
 CVar * CVarTable::set(String strName, String strValue) {
@@ -277,19 +260,32 @@ CVar * CVarTable::set(String strName, bool bValue) {
     return(set(strName.c_str(),bValue));
 }
 #ifndef NATIVE_RUNTIME
+CVar* CVarTable::set(const __FlashStringHelper* name, const char* value) {
+    return set(String(name).c_str(), value);
+}
+CVar* CVarTable::set(const __FlashStringHelper* name, const __FlashStringHelper* value) {
+    return set(String(name).c_str(), String(value));
+}
+CVar* CVarTable::set(const char* name, const __FlashStringHelper* value) {
+    return set(name, String(value));
+}
+CVar* CVarTable::set(String name, const __FlashStringHelper* value) {
+    return set(name.c_str(), String(value));
+}
+
 CVar * CVarTable::set(const __FlashStringHelper* strName, String strValue) {
-    return(set((const char*) strName,strValue));
+    return set(String(strName).c_str(), strValue);
 }
 
 CVar * CVarTable::set(const __FlashStringHelper* strName, const int nValue) {
-    return(set((const char*) strName,nValue));
+    return set(String(strName).c_str(), nValue);
 }
 CVar * CVarTable::set(const __FlashStringHelper* strName, const unsigned long ulValue) {
-    return(set((const char*) strName,ulValue));
+    return set(String(strName).c_str(), ulValue);
 }
 
 CVar * CVarTable::set(const __FlashStringHelper* strName, bool bValue) {
-    return(set((const char* ) strName,bValue));
+    return set(String(strName).c_str(), bValue);
 }
 #endif
 #pragma endregion
@@ -303,75 +299,51 @@ CVar * CVarTable::set(const __FlashStringHelper* strName, bool bValue) {
  * Critical var names will be written in the JSON object with name defined in LSC_VARS_CRITICAL_NAMES_KEY.
  */
 void CVarTable::writeConfigTo(JsonNode &oCfgObj, bool bHideCritical) {
-    DEBUG_FUNC_START();
-    for(CVar * pVar : this->tVarEntries) {
-        bool showValue = true;
-        if(pVar) {
-            if(bHideCritical  && pVar->isCriticalVar()) showValue = false;
-
-            DEBUG_INFOS("Writing var '%s' value='%s' (critical=%d) (showValue=%d)",
-                        pVar->getName(),
-                        showValue ? pVar->getValue() : LSC_VARS_CRITICAL_ENTRY_MASK,
-                        pVar->isCriticalVar() ? 1 : 0,
-                        showValue ? 1 : 0);
-
-            oCfgObj[pVar->getName()] =  showValue ? 
-                                        pVar->getValue() :
-                                        LSC_VARS_CRITICAL_ENTRY_MASK;
-            }
-    }
-    if(hasCriticalVars()) {
-        JsonNode  * pCriticalNames = oCfgObj.getObject(LSC_VARS_CRITICAL_NAMES_KEY,true);
-        JsonNode oCriticalNames = *pCriticalNames;
-        int nCount = 0;
-        char tCountBuffer[80];
-        for(CVar * pVar : tVarEntries) {
-            if(pVar) {
-                if(pVar->isCriticalVar()) {
-                    nCount++;
-                    snprintf(tCountBuffer,sizeof(tCountBuffer),"n.%d",nCount);
-                    oCriticalNames[tCountBuffer] = pVar->getName();
-                }
-            }
+    if (!oCfgObj.isJsonObject()) return;
+    // Remove old metadata before rebuilding it (also when no secrets remain).
+    oCfgObj.remove(LSC_VARS_CRITICAL_NAMES_KEY);
+    JsonNode* criticalNames = nullptr;
+    int count = 0;
+    for (CVar* var : tVarEntries) {
+        if (!var || strcmp(var->getName(), LSC_VARS_CRITICAL_NAMES_KEY) == 0) continue;
+        JsonNode* value = oCfgObj.find(var->getName(), false);
+        if (!value) value = oCfgObj.createElement(var->getName());
+        value->setValue(bHideCritical && var->isCriticalVar() ?
+                        LSC_VARS_CRITICAL_ENTRY_MASK : var->getValue());
+        if (var->isCriticalVar()) {
+            if (!criticalNames) criticalNames = oCfgObj.createObject(LSC_VARS_CRITICAL_NAMES_KEY);
+            char key[32];
+            snprintf(key, sizeof(key), "n.%d", ++count);
+            criticalNames->setValue(key, var->getName());
         }
-        oCriticalNames["n.0"] = nCount;
     }
-    DEBUG_FUNC_END();
+    if (criticalNames) criticalNames->setValue("n.0", count);
 }
 
-/**
- * @brief read the config from a JSON object
- * @param oCfgObj JSON object to read the config from
- */
+/** @brief Import scalar values and bounded critical-name metadata. */
 void CVarTable::readConfigFrom(JsonNode &oCfgObj) {
-    DEBUG_FUNC_START();
-    for(JsonNode * pElement : oCfgObj.Elements) {
-        // If it is the special key name for critical name, skip it.
-        if(pElement->Name != LSC_VARS_CRITICAL_NAMES_KEY) {
-            String strValue = pElement->getValue();
-            // Set only if it is NOT a CRITICAL VALUE that is HIDDEN, to avoid loosing the original data.
-            // You have to use setVar() explicit for this value...
-            if(strValue != LSC_VARS_CRITICAL_ENTRY_MASK) {
-                set(pElement->Name,strValue.c_str());
-            }
-        }
-    }   
-
-    // Now correct the critical vars setting...
-    JsonNode * pCriticalNames = oCfgObj.getObject(LSC_VARS_CRITICAL_NAMES_KEY);
-    if(pCriticalNames) {
-        int nCount = pCriticalNames->getValueAsInt("n.0");
-        for(int i = 1; i <= nCount; i++) {
-            char szCountBuffer[80];
-            snprintf(szCountBuffer,sizeof(szCountBuffer), "n.%d",i);
-            const char *pszName = pCriticalNames->getValue(szCountBuffer);
-            CVar *pVar = find(pszName);
-            if(pVar != nullptr) {
-                pVar->setCriticalVar(true);
-            }
+    if (!oCfgObj.isJsonObject()) return;
+    for (JsonNode* element : oCfgObj.Elements) {
+        if (!element || !element->isJsonValue() || element->Name == LSC_VARS_CRITICAL_NAMES_KEY) continue;
+        const char* value = element->getValue();
+        if (value && strcmp(value, LSC_VARS_CRITICAL_ENTRY_MASK) != 0) {
+            set(element->Name.c_str(), value);
         }
     }
-    DEBUG_FUNC_END();
+    JsonNode* names = oCfgObj.getObject(LSC_VARS_CRITICAL_NAMES_KEY);
+    JsonNode* entries = names ? names->getObject("n") : nullptr;
+    if (!entries) return;
+    // Never trust n.0 as a loop bound: a malicious count could stall the device.
+    for (JsonNode* entry : entries->Elements) {
+        if (!entry || !entry->isJsonValue() || entry->Name == "0" || entry->Name.length() == 0) continue;
+        bool numeric = true;
+        for (size_t i = 0; i < entry->Name.length(); ++i) {
+            if (entry->Name[i] < '0' || entry->Name[i] > '9') { numeric = false; break; }
+        }
+        if (!numeric) continue;
+        CVar* var = find(entry->getValue());
+        if (var) var->setCriticalVar(true);
+    }
 }
 
 /**

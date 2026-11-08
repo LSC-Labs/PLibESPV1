@@ -1,6 +1,7 @@
 #pragma once
 #include <ConfigHandler.h>
 #include <vector>
+#include <cstddef>
 
 // class CVarTable;
 /// @brief Represents one named configuration variable.
@@ -19,10 +20,14 @@ class CVar  {
         ~CVar();
         /// @brief Create an empty variable.
         CVar();
+        CVar(const CVar&) = delete;
+        CVar& operator=(const CVar&) = delete;
         /// @brief Create a variable with a name and empty value.
         CVar(const char *pszName);
         /// @brief Create a string variable.
         CVar(const char *pszName, const char *pszValue);
+        CVar(const char* name, std::nullptr_t) : CVar(name, static_cast<const char*>(nullptr)) {}
+        template<typename T> CVar(std::nullptr_t, T value) : CVar(static_cast<const char*>(nullptr), value) {}
         /// @brief Create an integer variable.
         CVar(const char *pszName, const int   nValue);
         /// @brief Create a boolean variable.
@@ -31,6 +36,8 @@ class CVar  {
         #ifndef NATIVE_RUNTIME
             /// @brief Create a string variable from flash-string name.
             CVar(const __FlashStringHelper* pszName, const char * pszValue);
+            CVar(const char* pszName, const __FlashStringHelper* pszValue);
+            CVar(const __FlashStringHelper* name, std::nullptr_t) : CVar(name, static_cast<const char*>(nullptr)) {}
             /// @brief Create a string variable from flash-string name/value.
             CVar(const __FlashStringHelper* pszName, const __FlashStringHelper * pszValue);
             /// @brief Create an integer variable from flash-string name.
@@ -50,6 +57,7 @@ class CVar  {
         CVar * setCriticalVar(bool bIsCritical);
         /// @brief Set the variable value from text.
         CVar * setValue(const char * strValue);
+        CVar* setValue(std::nullptr_t) { return setValue(static_cast<const char*>(nullptr)); }
         /// @brief Set the variable value from an integer.
         CVar * setValue(const int  nValue);
         /// @brief Set the variable value from a boolean.
@@ -76,6 +84,9 @@ class CVar  {
             friend class CVar;
             std::vector<CVar *> tVarEntries;
             bool isCaseSensitive = false;
+            #ifndef NATIVE_RUNTIME
+                String flashDefaultCache;
+            #endif
             
         protected:
             bool prepareKeyName(char * szKeyName);
@@ -85,12 +96,16 @@ class CVar  {
             /// @brief Create a variable table with optional case-sensitive lookup.
             CVarTable(bool bCaseSensitive = false);
             /// @brief Delete all owned variables.
-            ~CVarTable();
+            virtual ~CVarTable();
+            // Owns its entries; shallow copies would double-delete them.
+            CVarTable(const CVarTable&) = delete;
+            CVarTable& operator=(const CVarTable&) = delete;
             /// @brief Return true when at least one variable is marked critical.
             bool hasCriticalVars();
             
             /// @brief Find a variable by name.
             CVar * find(const char *);
+            CVar* find(std::nullptr_t) { return nullptr; }
             /// @brief Find a variable by String name.
             CVar * find(String); 
             #ifndef NATIVE_RUNTIME
@@ -100,6 +115,13 @@ class CVar  {
             
             /// @brief Set or create a String variable.
             CVar * set(String strName, String strValue);
+            CVar * set(String strName, const char* pszValue);
+            CVar* set(String name, std::nullptr_t) { return set(name.c_str(), static_cast<const char*>(nullptr)); }
+            CVar* set(const char* name, std::nullptr_t) { return set(name, static_cast<const char*>(nullptr)); }
+            /// @brief A null name is normalized to the empty name.
+            template<typename T> CVar* set(std::nullptr_t, T value) {
+                return set(static_cast<const char*>(nullptr), value);
+            }
             /// @brief Set or create an integer variable.
             CVar * set(String strName, const int nValue);
             /// @brief Set or create an unsigned long variable.
@@ -137,10 +159,19 @@ class CVar  {
             
             #ifndef NATIVE_RUNTIME
                 CVar * set(const __FlashStringHelper*, String strValue );
+                CVar * set(const __FlashStringHelper*, const char* pszValue);
+                CVar* set(const __FlashStringHelper* name, std::nullptr_t) { return set(name, static_cast<const char*>(nullptr)); }
+                CVar * set(const __FlashStringHelper*, const __FlashStringHelper* pszValue);
+                CVar * set(const char* pszName, const __FlashStringHelper* pszValue);
+                CVar * set(String strName, const __FlashStringHelper* pszValue);
                 CVar * set(const __FlashStringHelper*, const int nValue);
                 CVar * set(const __FlashStringHelper*, const unsigned long ulValue );
                 CVar * set(const __FlashStringHelper*, bool   bValue );
                 const char * getValue(const __FlashStringHelper *pszName, const char * pszDefault);
+                const char* getValue(const __FlashStringHelper* name, std::nullptr_t) {
+                    return getValue(name, static_cast<const char*>(nullptr));
+                }
+                /// @brief Flash fallback is copied to RAM; valid until the next flash fallback call.
                 const char * getValue(const __FlashStringHelper *pszName, const __FlashStringHelper * pszDefault);
                 int          getIntValue( const __FlashStringHelper *pszName, int nDefault);
                 bool         getBoolValue(const __FlashStringHelper *pszName, bool bDefault);
@@ -148,7 +179,8 @@ class CVar  {
 
 
             // Implement the IConfigHandler interface
-            /// @brief Write table values into a JSON config node.
+            /// @brief Write table values into an object; names are literal keys.
+            /// @details __CN is reserved for critical-name metadata.
             virtual void writeConfigTo( JsonNode &oCfgObj, bool bHideCritical) override;
             /// @brief Read table values from a JSON config node.
             virtual void readConfigFrom(JsonNode &oCfgObj) override;

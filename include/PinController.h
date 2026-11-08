@@ -11,6 +11,6 @@
 
 class CPinController {
     protected:
-        int m_nPin           = -1;         // The pin to control
-        int m_bLowLevelIsOn  = false;      // If true, the pin is "active" on high, false, the pin is active on low
+        int  m_nPin           = -1;         // The pin to control (-1 = not configured)
+        bool m_bLowLevelIsOn  = false;      // true: LOW means "on" (active low), false: HIGH means "on" (active high)
     };

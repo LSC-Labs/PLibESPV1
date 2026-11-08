@@ -6,6 +6,7 @@
 #include <Vars.h>
 #include <LSCUtils.h>
 #include <DevelopmentHelper.h>
+#include <climits>
 
 #pragma region constructors
 
@@ -69,8 +70,13 @@ CVar::CVar(const char *pszName, const bool bValue) {
 /**
  * @brief Creates a variable from flash-string name and RAM value.
  */
+CVar::CVar(const char* pszName, const __FlashStringHelper* pszValue) {
+    setVarName(pszName);
+    setValue(pszValue);
+}
+
 CVar::CVar(const __FlashStringHelper *pszName, const char *pszValue) {
-    setVarName((const char *) pszName);
+    setVarName(String(pszName).c_str());
     setValue(pszValue);
 }
 
@@ -78,7 +84,7 @@ CVar::CVar(const __FlashStringHelper *pszName, const char *pszValue) {
  * @brief Creates a variable from flash-string name and flash-string value.
  */
 CVar::CVar(const __FlashStringHelper *pszName, const __FlashStringHelper *pszValue) {
-    setVarName((const char *) pszName);
+    setVarName(String(pszName).c_str());
     setValue(pszValue);
 }
 
@@ -86,7 +92,7 @@ CVar::CVar(const __FlashStringHelper *pszName, const __FlashStringHelper *pszVal
  * @brief Creates a variable from flash-string name and integer value.
  */
 CVar::CVar(const __FlashStringHelper *pszName, const int nValue) {
-    setVarName((const char *) pszName);
+    setVarName(String(pszName).c_str());
     setValue(nValue);
 }
 
@@ -94,7 +100,7 @@ CVar::CVar(const __FlashStringHelper *pszName, const int nValue) {
  * @brief Creates a variable from flash-string name and boolean value.
  */
 CVar::CVar(const __FlashStringHelper *pszName, const bool bValue) {
-    setVarName((const char *)pszName);
+    setVarName(String(pszName).c_str());
     setValue(bValue);
 }
 #endif
@@ -113,14 +119,17 @@ CVar::CVar(const __FlashStringHelper *pszName, const bool bValue) {
  * @param pszName New variable name. nullptr becomes an empty string.
  */
 void CVar::setVarName(const char *pszName) {
-    // Has already a name ?
-    if(this->pszName) free((void *) this->pszName);
-    this->pszName = strdup(pszName ? pszName : "");
-
-    // Set also the KeyName...
-    if(pszKeyName) free(pszKeyName);
-    pszKeyName = strdup(pszName ? pszName : "");
-    strlwr(pszKeyName);
+    // Allocate before releasing the old buffers: input may alias either buffer.
+    char* name = strdup(pszName ? pszName : "");
+    char* key = strdup(pszName ? pszName : "");
+    if (!name || !key) { free(name); free(key); return; }
+    for (char* p = key; *p; ++p) {
+        if (*p >= 'A' && *p <= 'Z') *p += 'a' - 'A';
+    }
+    free(this->pszName);
+    free(pszKeyName);
+    this->pszName = name;
+    pszKeyName = key;
 }
 
 #pragma endregion
@@ -143,8 +152,10 @@ CVar * CVar::setCriticalVar(bool bIsCritical) {
  * @return this for chained calls.
  */
 CVar * CVar::setValue(const char *pszValue){
-    if(this->pszValue)  free((void *) this->pszValue);
-    this->pszValue = strdup(pszValue ? pszValue : "");
+    char* value = strdup(pszValue ? pszValue : "");
+    if (!value) return this;
+    free(this->pszValue);
+    this->pszValue = value;
     return(this);
 }
 
@@ -154,8 +165,8 @@ CVar * CVar::setValue(const char *pszValue){
  * @return this for chained calls.
  */
 CVar * CVar::setValue(const __FlashStringHelper *pszValue){
-    const char *pszVarValue = (const char *) pszValue ? (const char *) pszValue : "";
-    setValue((const char *) pszVarValue);
+    String value(pszValue);
+    setValue(value.c_str());
     return(this);
 }
 #endif
@@ -225,7 +236,7 @@ bool CVar::isCriticalVar() {
  * @return Name pointer.
  */
 const char * CVar::getName() {
-    return(pszName);
+    return(pszName ? pszName : "");
 }
 
 /**
@@ -233,15 +244,18 @@ const char * CVar::getName() {
  * @return Value pointer.
  */
 const char * CVar::getValue() {
-    return(pszValue);
+    return(pszValue ? pszValue : "");
 }
 
 /**
  * @brief Converts the stored value to int.
- * @return atoi() result.
+ * @return Parsed value, clamped to the int range.
  */
 const int CVar::getIntValue() {
-    return(atoi(pszValue));
+    long value = strtol(getValue(), nullptr, 10);
+    if (value > INT_MAX) return INT_MAX;
+    if (value < INT_MIN) return INT_MIN;
+    return static_cast<int>(value);
 }
 
 /**
@@ -249,7 +263,7 @@ const int CVar::getIntValue() {
  * @return Result of LSC::isTrueValue() in non-explicit mode.
  */
 const bool CVar::getBoolValue() {
-    return(LSC::isTrueValue(pszValue,false));
+    return(*getValue() && LSC::isTrueValue(getValue(),false));
 }
 
 /**
@@ -257,7 +271,7 @@ const bool CVar::getBoolValue() {
  * @return strtoul() result using base 10.
  */
 const unsigned long CVar::getUnsignedLongValue() {
-    return(strtoul(pszValue, nullptr, 10));
+    return(strtoul(getValue(), nullptr, 10));
 }
 
 #pragma endregion
