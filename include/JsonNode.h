@@ -52,9 +52,9 @@ protected:
 
     /// @brief Store the parent pointer used for tree navigation.
     void         setParentNode(JsonNode * pParentNode);
-    bool parseNode(const char*& input, unsigned depth);
+    bool parseNode(const char*& input, unsigned depth, bool bLenient = false);
     /// @brief Parse one scalar JSON token from the input string.
-    const char*  parseValue(const char* pszJsonData, String& strValueData, bool& bHasQuotes);
+    const char*  parseValue(const char* pszJsonData, String& strValueData, bool& bHasQuotes, bool bLenient = false);
     /// @brief Recursively serialize this node into the provided string buffer.
     const char * serializeNode(String & strResultString, int nIdentDeep = 0);
     /// @brief Append indentation spaces used by pretty JSON serialization.
@@ -216,7 +216,11 @@ public:
     /// @return Closing delimiter (containers) or token end (scalars); nullptr on error.
     /// @details Errors preserve the tree. Maximum nesting is 32 containers.
     /// Duplicate object keys and embedded NUL (\u0000) are rejected.
-    const char* parse(const char* pszJsonData);
+    /// @param bLenient true: legacy mode for files written by older versions -
+    ///        accepts duplicate keys (last wins), empty values ("a": ,), trailing commas,
+    ///        unquoted keys/texts, raw control characters, Latin-1 bytes, unknown escapes,
+    ///        a UTF-8 BOM and content behind the document.
+    const char* parse(const char* pszJsonData, bool bLenient = false);
 
     /// @brief Remove and delete the direct child with the given name.
     void       remove(const char* pszName);

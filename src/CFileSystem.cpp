@@ -7,6 +7,7 @@
 #include <FileSystem.h>
 #include <LittleFS.h>
 #include <DevelopmentHelper.h>
+#include <Appl.h>
 
 namespace LSC {
     namespace FS {
@@ -254,9 +255,12 @@ size_t CFS::loadFileToBuffer(const char* strFileName, std::unique_ptr<char[]> &p
     // std::unique_ptr<char[]> ptrBuffer = nullptr;
     File oFile = LittleFS.open(strFileName,"r");
     if(oFile) {
-        pData = std::unique_ptr<char[]>(new char[oFile.size()]);
-        // std::unique_ptr<char[]> ptrBuffer(new char [oFile.size()]);
-        nDataLen = oFile.readBytes(pData.get(),oFile.size());
+        size_t nFileSize = oFile.size();
+        // +1: the buffer is used as C string (i.e. JSON parser) - it must be zero terminated,
+        // otherwise the reader runs into the heap data behind the file content.
+        pData = std::unique_ptr<char[]>(new char[nFileSize + 1]);
+        nDataLen = oFile.readBytes(pData.get(),nFileSize);
+        pData[nDataLen] = '\0';
         oFile.close();
     }
     return(nDataLen);
@@ -316,7 +320,14 @@ bool CFS::loadJsonContentFromFile(const char *strFileName,JsonNode &oDoc) {
         // parse() keeps oDoc unchanged and returns nullptr on invalid JSON
         bResult = oDoc.parse(ptrBuffer.get()) != nullptr;
         if(!bResult) {
-            DEBUG_INFOS(" --- invalid JSON in %s", strFileName);
+            // Files written by older versions are not always valid JSON - try the legacy mode.
+            // The file is written in valid JSON with the next save.
+            bResult = oDoc.parse(ptrBuffer.get(), true) != nullptr;
+            if(bResult) {
+                ApplLogWarnWithParms(F("%s is not valid JSON - loaded in legacy mode"), strFileName);
+            } else {
+                DEBUG_INFOS(" --- invalid JSON in %s", strFileName);
+            }
         }
     }
     DEBUG_FUNC_END_PARMS("%s",bResult ? "OK" : "NOT Loaded");

@@ -1035,30 +1035,51 @@ bool jsonHex4(const char*& p, unsigned& value) {
     }
     return true;
 }
-bool jsonString(const char*& p, String& out) {
+/// @brief Append a single (Latin-1) byte as UTF-8 sequence.
+void jsonLatin1(String& out, unsigned char c) {
+    if (c < 0x80) out += char(c);
+    else { out += char(0xc0 | (c >> 6)); out += char(0x80 | (c & 63)); }
+}
+
+/// @brief Parse a quoted JSON string.
+/// @param lenient true: legacy mode - raw control characters, invalid UTF-8 (read as Latin-1)
+///        and unknown escape sequences are accepted (as written by older versions).
+bool jsonString(const char*& p, String& out, bool lenient = false) {
     if (*p != '"') return false;
     ++p;
     while (*p && *p != '"') {
         unsigned char c = *p++;
-        if (c < 0x20) return false;
+        if (c < 0x20) {
+            if (!lenient) return false;
+            out += char(c);
+            continue;
+        }
         if (c != '\\') {
             if (c < 0x80) { out += char(c); continue; }
             unsigned code;
             unsigned count;
             unsigned minimum;
+            bool valid = true;
             if (c >= 0xc2 && c <= 0xdf) { code = c & 31; count = 1; minimum = 0x80; }
             else if (c >= 0xe0 && c <= 0xef) { code = c & 15; count = 2; minimum = 0x800; }
             else if (c >= 0xf0 && c <= 0xf4) { code = c & 7; count = 3; minimum = 0x10000; }
-            else return false;
-            out += char(c);
-            for (unsigned i = 0; i < count; ++i) {
+            else { valid = false; count = 0; code = 0; minimum = 0; }
+            const char *pSeq = p;           // first continuation byte
+            for (unsigned i = 0; valid && i < count; ++i) {
                 unsigned char next = *p;
-                if ((next & 0xc0) != 0x80) return false;
+                if ((next & 0xc0) != 0x80) { valid = false; break; }
                 ++p;
                 code = (code << 6) | (next & 63);
-                out += char(next);
             }
-            if (code < minimum || code > 0x10ffff || (code >= 0xd800 && code <= 0xdfff)) return false;
+            if (valid && (code < minimum || code > 0x10ffff || (code >= 0xd800 && code <= 0xdfff))) valid = false;
+            if (valid) {
+                out += char(c);
+                for (const char *q = pSeq; q < p; ++q) out += *q;
+            } else {
+                if (!lenient) return false;
+                p = pSeq;                   // byte is not UTF-8 - take it as Latin-1
+                jsonLatin1(out, c);
+            }
             continue;
         }
         char escape = *p;
@@ -1096,7 +1117,10 @@ bool jsonString(const char*& p, String& out) {
             }
             break;
         }
-        default: return false;
+        default:
+            if (!lenient) return false;
+            out += escape;          // legacy: unknown escape => the character itself
+            break;
         }
     }
     if (*p != '"') return false;
@@ -1116,48 +1140,69 @@ void jsonQuoted(String& out, const String& value) {
 }
 }
 
-const char* CJsonNode::parseValue(const char* p, String& out, bool& quoted) {
+namespace {
+/// @brief Legacy delimiter of an unquoted token.
+bool jsonIsBareEnd(char c) {
+    return c == 0 || c == ',' || c == '}' || c == ']' || c == ':' || c == ' ' || c == '\t' || c == '\r' || c == '\n';
+}
+}
+
+const char* CJsonNode::parseValue(const char* p, String& out, bool& quoted, bool lenient) {
     out.clear();
     quoted = false;
     if (!p) return nullptr;
     p = jsonWhite(p);
     if (*p == '"') {
         quoted = true;
-        return jsonString(p, out) ? p : nullptr;
+        return jsonString(p, out, lenient) ? p : nullptr;
     }
+    // Legacy: an empty value ("key": ,) - stored as null
+    if (lenient && (*p == ',' || *p == '}' || *p == ']')) return p;
+
     const char* start = p;
+    bool valid = true;
     if (*p == '-' || (*p >= '0' && *p <= '9')) {
         if (*p == '-') ++p;
         if (*p == '0') ++p;
         else {
-            if (*p < '1' || *p > '9') return nullptr;
+            if (*p < '1' || *p > '9') valid = false;
             while (*p >= '0' && *p <= '9') ++p;
         }
-        if (*p == '.') {
+        if (valid && *p == '.') {
             ++p;
-            if (*p < '0' || *p > '9') return nullptr;
+            if (*p < '0' || *p > '9') valid = false;
             while (*p >= '0' && *p <= '9') ++p;
         }
-        if (*p == 'e' || *p == 'E') {
+        if (valid && (*p == 'e' || *p == 'E')) {
             ++p;
             if (*p == '+' || *p == '-') ++p;
-            if (*p < '0' || *p > '9') return nullptr;
+            if (*p < '0' || *p > '9') valid = false;
             while (*p >= '0' && *p <= '9') ++p;
         }
     } else {
         const char* literal = *p == 't' ? "true" : *p == 'f' ? "false" : *p == 'n' ? "null" : nullptr;
-        if (!literal) return nullptr;
-        while (*literal) { if (*p != *literal) return nullptr; ++p; ++literal; }
+        if (!literal) valid = false;
+        while (valid && *literal) { if (*p != *literal) valid = false; else { ++p; ++literal; } }
+    }
+    // Legacy: the token must end here - otherwise it is an unquoted text (i.e. 1.2.3, +5, on)
+    if (valid && lenient && !jsonIsBareEnd(*p)) valid = false;
+    if (!valid) {
+        if (!lenient) return nullptr;
+        // Legacy: take the unquoted text up to the next delimiter as string value
+        p = start;
+        while (!jsonIsBareEnd(*p)) ++p;
+        if (p == start) return nullptr;
+        quoted = true;
     }
     while (start != p) out += *start++;
     return p;
 }
 
-bool CJsonNode::parseNode(const char*& p, unsigned depth) {
+bool CJsonNode::parseNode(const char*& p, unsigned depth, bool lenient) {
     p = jsonWhite(p);
     if (*p != '{' && *p != '[') {
         m_nObjectType = VALUE;
-        const char* end = parseValue(p, m_strValue, m_bWriteValueWithQuotes);
+        const char* end = parseValue(p, m_strValue, m_bWriteValueWithQuotes, lenient);
         if (!end) return false;
         p = end;
         return true;
@@ -1167,33 +1212,57 @@ bool CJsonNode::parseNode(const char*& p, unsigned depth) {
     m_nObjectType = object ? OBJECT : ARRAY;
     char close = object ? '}' : ']';
     p = jsonWhite(p);
+    // Legacy: leading / repeated commas ([,1,,2]) are skipped
+    while (lenient && *p == ',') p = jsonWhite(p + 1);
     if (*p == close) { ++p; return true; }
     for (;;) {
         String key;
         if (object) {
-            if (!jsonString(p, key)) return false;
+            if (*p == '"') {
+                if (!jsonString(p, key, lenient)) return false;
+            } else {
+                // Legacy: unquoted key name
+                if (!lenient) return false;
+                const char* start = p;
+                while (!jsonIsBareEnd(*p)) ++p;
+                if (p == start) return false;
+                while (start != p) key += *start++;
+            }
             p = jsonWhite(p);
             if (*p != ':') return false;
             ++p;
             // Ambiguous duplicate keys are rejected; dots remain literal key characters.
-            if (find(key.c_str(), false)) return false;
+            // Legacy: older versions could write a key twice - the last one wins.
+            if (find(key.c_str(), false)) {
+                if (!lenient) return false;
+                remove(key.c_str());
+            }
         }
         CJsonNode* child = new CJsonNode(key.c_str());
         child->setParentNode(this);
         Elements.push_back(child);
-        if (!child->parseNode(p, depth + 1)) return false;
+        if (!child->parseNode(p, depth + 1, lenient)) return false;
         p = jsonWhite(p);
         if (*p == close) { ++p; return true; }
         if (*p != ',') return false;
         p = jsonWhite(p + 1);
+        if (lenient) {
+            // Legacy: trailing / repeated commas ({"a":1,} or [1,,2])
+            while (*p == ',') p = jsonWhite(p + 1);
+            if (*p == close) { ++p; return true; }
+        }
     }
 }
 
-const char* CJsonNode::parse(const char* input) {
+const char* CJsonNode::parse(const char* input, bool lenient) {
     if (!input) return nullptr;
+    // Legacy: UTF-8 byte order mark (i.e. file edited with a windows editor)
+    if (lenient && (unsigned char) input[0] == 0xef && (unsigned char) input[1] == 0xbb && (unsigned char) input[2] == 0xbf) input += 3;
     CJsonNode parsed;
     const char* end = input;
-    if (!parsed.parseNode(end, 0) || *jsonWhite(end)) return nullptr;
+    if (!parsed.parseNode(end, 0, lenient)) return nullptr;
+    // Strict: nothing may follow the document. Legacy: content behind the document is ignored.
+    if (!lenient && *jsonWhite(end)) return nullptr;
     clear();
     Elements.swap(parsed.Elements);
     m_strValue = parsed.m_strValue;
