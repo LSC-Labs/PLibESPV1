@@ -1,0 +1,51 @@
+#!/bin/sh
+# Runs the JavaScript tests of the web GUI (test/web) on this computer - no ESP board needed.
+#
+#   test/web/*.test.mjs : web runtime (src/web/js/runtime.js) and pages (src/web/pages)
+#                         in a simulated browser window (jsdom)
+#
+# Usage: ./runJavaScriptTests [node test options] [test files]
+#   ./runJavaScriptTests                                    all tests
+#   ./runJavaScriptTests --test-name-pattern="CDialog"      only matching tests
+#   ./runJavaScriptTests test/web/pages.wifi.test.mjs       only this file
+#   PLIB_LIB_ROOT=<path> ./runJavaScriptTests               test another checkout (e.g. an old version)
+#
+# Installs the npm dependencies (jsdom) on the first run.
+# Exit code 0 if all tests pass, 1 otherwise.
+
+cd "$(dirname "$0")" || exit 1
+
+if ! command -v node >/dev/null 2>&1; then
+    echo "=== node not found - install Node.js (>= 22)"
+    exit 1
+fi
+
+if [ ! -d node_modules/jsdom ]; then
+    echo "=== installing npm dependencies (jsdom)"
+    npm install --no-audit --no-fund || exit 1
+fi
+
+# Default: all test files - unless test files are given as arguments
+sFiles="test/web/*.test.mjs"
+for sArg in "$@"; do
+    case "$sArg" in
+        *.mjs|*.js|*.cjs) sFiles="" ;;
+    esac
+done
+
+echo "=== node --test ${sFiles:-(selected files)}"
+# --test-force-exit: open timers of a defective runtime must not block the test run
+if [ -n "$sFiles" ]; then
+    node --test --test-force-exit "$@" "$sFiles"
+else
+    node --test --test-force-exit "$@"
+fi
+nResult=$?
+
+if [ $nResult -eq 0 ]; then
+    echo "=== javascript tests: all passed"
+else
+    echo "=== javascript tests: FAILED"
+    nResult=1
+fi
+exit $nResult

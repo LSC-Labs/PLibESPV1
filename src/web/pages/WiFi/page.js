@@ -84,7 +84,8 @@ class CWiFiPage extends CPageHandler {
                     let oOpt = document.createElement("option");
                     oOpt.value = oListOfSSIDs[i].ssid;
                     oOpt.bssidvalue = oListOfSSIDs[i].bssid;
-                    oOpt.innerHTML = oListOfSSIDs[i].ssid + " (" + nPercent + "%) - " + oListOfSSIDs[i].bssid ;
+                    // textContent - the SSID is chosen by foreign networks and must not be interpreted as html
+                    oOpt.textContent = oListOfSSIDs[i].ssid + " (" + nPercent + "%) - " + oListOfSSIDs[i].bssid ;
                     oSelect.appendChild(oOpt);
                 }
             });

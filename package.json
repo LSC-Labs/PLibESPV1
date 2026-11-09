@@ -12,7 +12,6 @@
   "bugs": {
     "url": "https://github.com/lsc-labs/PLibESPV1/issues"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lsc-labs/PLibESPV1.git"
@@ -28,10 +27,12 @@
   "scripts": {
     "build-doc": "bash scripts/build-doc.sh",
     "css-compile": "sass         --style expanded --source-map --embed-sources --no-error-css scss/:src/web/css/",
-    "css-watch":   "sass --watch --style expanded --source-map --embed-sources --no-error-css scss/:src/web/css/"
+    "css-watch": "sass --watch --style expanded --source-map --embed-sources --no-error-css scss/:src/web/css/",
+    "test-web": "node --test --test-force-exit \"test/web/*.test.mjs\""
   },
   "devDependencies": {
     "bootstrap": "^5.3.5",
+    "jsdom": "^26.1.0",
     "sass": "^1.89.2"
   }
 }
