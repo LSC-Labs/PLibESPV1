@@ -805,3 +805,21 @@ TEST(CJsonNode,testStrictValidJsonUnchangedInLegacyMode) {
 }
 
 #pragma endregion
+
+// NaN / infinite are written as null (valid JSON), not as "nan" / "inf"
+TEST(CJsonNode,testFloatNaNWrittenAsNull) {
+    CJsonNode oNode;
+    oNode["a"] = NAN;
+    oNode["b"] = INFINITY;
+    oNode["c"] = 1.5f;
+    CJsonNode oCheck;
+    EXPECT_NE(oCheck.parse(oNode.getAsJsonText()), nullptr) << oNode.getAsJsonText();
+    EXPECT_EQ(strstr(oNode.getAsJsonText(),"nan"), nullptr);
+}
+
+// The error offset points to the invalid part
+TEST(CJsonNode,testParseErrorOffset) {
+    CJsonNode oNode;
+    EXPECT_EQ(oNode.parse("{\"a\":1,\"b\":nan}"), nullptr);
+    EXPECT_EQ(CJsonNode::getLastParseErrorOffset(), (size_t) 11);
+}

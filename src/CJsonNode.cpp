@@ -3,6 +3,7 @@
 #endif
 #include "JsonNode.h"
 #include "LSCUtils.h"
+#include <math.h>
 #include "DevelopmentHelper.h"
 
 namespace { void jsonQuoted(String& out, const String& value); }
@@ -280,7 +281,12 @@ CJsonNode* CJsonNode::setValue(unsigned long ulValue) {
  * @brief Store an unquoted floating point value, but only if it is not NaN.
  */
 CJsonNode* CJsonNode::setValue(float fValue) {
-    if(fValue != NAN) {
+    // NaN / infinite can not be written as JSON number ("nan" is invalid JSON) => null
+    // (note: "fValue != NAN" is always true - NaN is not equal to anything)
+    if(isnan(fValue) || isinf(fValue)) {
+        this->m_strValue = "";              // unquoted empty value is written as null
+        setNodeValueType(false);
+    } else {
         char szBuffer[256];
         snprintf(szBuffer,sizeof(szBuffer),"%f",fValue);
         this->m_strValue = szBuffer;
@@ -1254,15 +1260,19 @@ bool CJsonNode::parseNode(const char*& p, unsigned depth, bool lenient) {
     }
 }
 
+size_t CJsonNode::s_nLastParseErrorOffset = 0;
+
 const char* CJsonNode::parse(const char* input, bool lenient) {
+    s_nLastParseErrorOffset = 0;
     if (!input) return nullptr;
+    const char* origin = input;
     // Legacy: UTF-8 byte order mark (i.e. file edited with a windows editor)
     if (lenient && (unsigned char) input[0] == 0xef && (unsigned char) input[1] == 0xbb && (unsigned char) input[2] == 0xbf) input += 3;
     CJsonNode parsed;
     const char* end = input;
-    if (!parsed.parseNode(end, 0, lenient)) return nullptr;
+    if (!parsed.parseNode(end, 0, lenient)) { s_nLastParseErrorOffset = (size_t)(end - origin); return nullptr; }
     // Strict: nothing may follow the document. Legacy: content behind the document is ignored.
-    if (!lenient && *jsonWhite(end)) return nullptr;
+    if (!lenient && *jsonWhite(end)) { s_nLastParseErrorOffset = (size_t)(jsonWhite(end) - origin); return nullptr; }
     clear();
     Elements.swap(parsed.Elements);
     m_strValue = parsed.m_strValue;

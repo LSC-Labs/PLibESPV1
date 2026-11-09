@@ -41,6 +41,7 @@ public:
     std::vector<CJsonNode*> Elements;
 
 protected:
+    static size_t   s_nLastParseErrorOffset;
     JsonNode      * m_pParentNode = nullptr;
     bool            m_bWriteValueWithQuotes = true;
     ELEMENT_TYPE    m_nObjectType = ELEMENT_TYPE::OBJECT;
@@ -221,6 +222,8 @@ public:
     ///        unquoted keys/texts, raw control characters, Latin-1 bytes, unknown escapes,
     ///        a UTF-8 BOM and content behind the document.
     const char* parse(const char* pszJsonData, bool bLenient = false);
+    /// @brief Offset (in the input) where the last failed parse() stopped - for diagnostics.
+    static size_t getLastParseErrorOffset() { return(s_nLastParseErrorOffset); }
 
     /// @brief Remove and delete the direct child with the given name.
     void       remove(const char* pszName);
