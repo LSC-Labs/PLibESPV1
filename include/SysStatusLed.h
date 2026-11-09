@@ -7,11 +7,14 @@
 #ifndef STATUSLED_WEAK_RSSI
     #define STATUSLED_WEAK_RSSI  -82        ///< below this RSSI (dBm) the station LED is yellow
 #endif
+#ifndef STATUSLED_OTA_TIMEOUT
+    #define STATUSLED_OTA_TIMEOUT  15000    ///< ms without OTA event => firmware update no longer shown
+#endif
 
 /**
  * @brief RGB LED that shows the system state (register it on the message bus).
  *
- * Priority: reboot (red) > button pressed (fast yellow) > WiFi state:
+ * Priority: reboot (red) > firmware update (fast yellow) > button pressed (fast yellow) > WiFi state:
  *  - access point: blue
  *  - station connected: green, weak signal: yellow, connection lost: red
  *  - no WiFi / connecting: yellow
@@ -23,6 +26,10 @@ class CSysStatusLed : public CRGBLed, public IMsgEventReceiver {
     bool isInAccessPointMode = false;
     bool isInStationMode = false;
     bool isWiFiConnected = false;
+    bool isOtaRunning = false;
+
+    // Firmware update: no OTA event for this time => update is treated as ended (i.e. client disconnect)
+    CSimpleDelay  m_oOtaTimeout   = CSimpleDelay(STATUSLED_OTA_TIMEOUT);
 
     // Current blink pattern - a change restarts all channels in sync
     int           m_nBlinkColor   = -1;

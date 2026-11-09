@@ -131,9 +131,32 @@ class CFirmwarePage extends CPageHandler {
                     let oFormData = new FormData();
                     oFormData.append("bin", oFile, oFile.name);
                     
-                    fetch('/update',{ 
-                        method:'POST', 
+                    // The server needs an authentication for the update - use the access token
+                    // of the login (fetch() has no basic auth credentials).
+                    let oHeaders = {};
+                    let strToken = CSecurity.AccessToken;
+                    if(Utils.isString(strToken)) oHeaders["AUTHTOKEN"] = strToken;
+
+                    // On error: stop the wait dialog (no reboot follows) and show the reason
+                    let fnFailed = (strReason) => {
+                        clearInterval(oDlg._ActTimerID);
+                        oDlg.close();
+                        alert("Firmware update failed: " + strReason);
+                    };
+                    fetch('/update',{
+                        method:'POST',
+                        headers: oHeaders,
                         body: oFormData
+                    })
+                    .then(oResponse => {
+                        if(!oResponse.ok) {
+                            return oResponse.text().then(strText => fnFailed(oResponse.status + " - " + strText));
+                        }
+                    })
+                    .catch(ex => {
+                        // The device reboots after a successful update - a lost connection
+                        // after the upload is not an error, so only log it.
+                        console.log("Firmware update request: " + ex);
                     });
                     break;
             }

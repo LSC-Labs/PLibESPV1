@@ -39,6 +39,16 @@ int CSysStatusLed::receiveEvent(const void * pSender, int nMsgId, const void * p
                                   isRebootRequested     = true;   
                                   DEBUG_INFO("STATUSLED: Reboot requested...");   
                                   break;
+        // Firmware update - every progress event keeps the update display alive
+        case MSG_OTA_START      :
+        case MSG_OTA_PROGRESS   : isOtaRunning = true;
+                                  m_oOtaTimeout.restart();
+                                  break;
+        case MSG_OTA_END        :
+        case MSG_OTA_ERROR      : isOtaRunning = false;
+                                  m_oOtaTimeout.stop();
+                                  DEBUG_INFO("STATUSLED: Firmware update ended...");
+                                  break;
         case MSG_BUTTON_ON      : isButtonPressed        = true;   DEBUG_INFO("STATUSLED: Button pressed received...");   break;
         case MSG_BUTTON_OFF     : isButtonPressed        = false;  DEBUG_INFO("STATUSLED: Button released received..."); break;
         case MSG_WIFI_CONNECTED: 
@@ -87,8 +97,11 @@ void CSysStatusLed::updateLED() {
     if(isRebootRequested) {
         m_nBlinkColor = -1;                 // next blink pattern starts fresh
         setColor(RGB_COLOR::RED);
+    } else if(isOtaRunning && !m_oOtaTimeout.isDone()) {
+        // Firmware update running - fast yellow blinking
+        showBlink(RGB_COLOR::YELLOW,50,50);
     } else if(isButtonPressed) {
-        showBlink(RGB_COLOR::YELLOW,100,100);
+        showBlink(RGB_COLOR::GREEN,100,100);
     }  else {
         // Normal operation...
         int nColor = RGB_COLOR::YELLOW;     // no WiFi / connecting
