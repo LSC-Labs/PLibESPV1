@@ -23,39 +23,12 @@
     and the application specific one
    -->
   <!--
-    Load error handling (i.e. Safari):
-    The device answers every request with "Connection: close", so every file needs its own
-    connection. Safari opens many connections in parallel - the device may refuse some of them,
-    and Safari does not retry a failed stylesheet / script (=> page without formatting).
-    - a failed stylesheet is loaded again (max. 5 times, delayed)
-    - a failed script reloads the page (max. 2 times, the order of the scripts is important)
+    Note: the build (scripts/_compilePages.js) embeds the local stylesheets and scripts
+    into this page - the start page is one single request (small devices / Safari).
   -->
-  <script>
-    function lscLoadError(oEl) {
-      try {
-        window._lscLoadError = true;
-        if (oEl.tagName === "LINK") {
-          var nRetry = (oEl._nRetry || 0) + 1;
-          if (nRetry > 5) return;
-          oEl._nRetry = nRetry;
-          setTimeout(function() { oEl.href = oEl.href.split("?")[0] + "?retry=" + nRetry; }, 300 * nRetry);
-        } else {
-          var strKey = "lscReloadCount";
-          var nCount = +(sessionStorage.getItem(strKey) || 0);
-          if (nCount < 2) {
-            sessionStorage.setItem(strKey, nCount + 1);
-            setTimeout(function() { location.reload(); }, 500);
-          }
-        }
-      } catch (e) {}
-    }
-    window.addEventListener("load", function() {
-      try { if (!window._lscLoadError) sessionStorage.removeItem("lscReloadCount"); } catch (e) {}
-    });
-  </script>
-  <link rel="stylesheet" href="css/_runtime.css" onerror="lscLoadError(this)"> <!-- basic runtime -->
-  <link rel="stylesheet" href="css/_pages.css"   onerror="lscLoadError(this)"> <!-- pages stylesheets -->
-  <link rel="stylesheet" href="css/app.css"      onerror="lscLoadError(this)"> <!-- app specific stylesheets -->
+  <link rel="stylesheet" href="css/_runtime.css"> <!-- basic runtime -->
+  <link rel="stylesheet" href="css/_pages.css"> <!-- pages stylesheets -->
+  <link rel="stylesheet" href="css/app.css"> <!-- app specific stylesheets -->
 
   <!--
     Javascript... 
@@ -63,10 +36,10 @@
     - the runtime library
     - the application specific scripts
   -->
-  <script type="text/javascript" src="js/settings.js" onerror="lscLoadError(this)"></script>
-  <script type="text/javascript" src="js/_runtime.js" defer onerror="lscLoadError(this)"></script>
-  <script type="text/javascript" src="js/_pages.js" defer onerror="lscLoadError(this)"></script>
-  <script type="text/javascript" src="js/index.js" defer onerror="lscLoadError(this)"></script>
+  <script type="text/javascript" src="js/settings.js"></script>
+  <script type="text/javascript" src="js/_runtime.js" defer></script>
+  <script type="text/javascript" src="js/_pages.js" defer></script>
+  <script type="text/javascript" src="js/index.js" defer></script>
 </head>
 <body>
   <!-- mainPage is the primary screen to be used for all device  operation -->

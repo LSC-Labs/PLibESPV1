@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import zlib from 'zlib';
 import gulp from 'gulp';
 import gzip from 'gulp-gzip';
 import debug from 'gulp-debug';
@@ -88,6 +89,73 @@ function minimizeLanguages() {
         .pipe(gulp.dest(strTargetPath))
         .pipe(gzip({append:true}))
         .pipe(gulp.dest(strPackedPath));
+}
+
+/**
+ * Embeds the local stylesheets and scripts into the (minimized) index.html.
+ *
+ * The device answers every request with "Connection: close" - every file needs its own
+ * connection. Browsers (especially Safari) load all files of the page in parallel, which
+ * exhausts the few connections / the heap of small devices (ESP8266): files are missing
+ * (page without formatting) or the device crashes. With the embedded files the start page
+ * is one single request.
+ *
+ * - <link rel="stylesheet" href="css/x.css">  => <style>...</style>   (same position)
+ * - <script src="js/x.js"></script>           => <script>...</script> (same position)
+ * - <script src="js/x.js" defer></script>     => moved to the end of the body (defer order)
+ * External URLs (http..., //...) and missing files are not touched.
+ * The files are still delivered separately - other pages may use them.
+ */
+function inlineIndexAssets(cb) {
+    const strDistPath   = Settings.getWebDistPath();
+    const strPackedPath = Settings.getWebPackedPath();
+    const strIndexFile  = path.join(strDistPath, "index.html");
+    if(!fs.existsSync(strIndexFile)) { cb(); return; }
+
+    const isLocal = (strUrl) => strUrl && !/^([a-z]+:)?\/\//i.test(strUrl);
+    const readAsset = (strUrl) => {
+        let strFile = path.join(strDistPath, strUrl.split("?")[0].replace(/^\//, ""));
+        return fs.existsSync(strFile) ? fs.readFileSync(strFile, "utf8") : null;
+    };
+    let nInlined = 0;
+    let tDeferred = [];
+    let strHtml = fs.readFileSync(strIndexFile, "utf8");
+
+    // Stylesheets
+    strHtml = strHtml.replace(/<link\b[^>]*>/gi, (strTag) => {
+        let oHref = strTag.match(/\bhref\s*=\s*["']?([^"'\s>]+)/i);
+        if(!/\brel\s*=\s*["']?stylesheet/i.test(strTag) || !oHref || !isLocal(oHref[1])) return strTag;
+        let strCSS = readAsset(oHref[1]);
+        if(strCSS === null) { console.log(` [W] inline: ${oHref[1]} not found - not embedded`); return strTag; }
+        nInlined++;
+        return "<style>" + strCSS.replace(/<\/style/gi, "<\\/style") + "</style>";
+    });
+
+    // Scripts with src
+    strHtml = strHtml.replace(/<script\b([^>]*)>\s*<\/script>/gi, (strTag, strAttrs) => {
+        let oSrc = strAttrs.match(/\bsrc\s*=\s*["']?([^"'\s>]+)/i);
+        if(!oSrc || !isLocal(oSrc[1])) return strTag;
+        let strJS = readAsset(oSrc[1]);
+        if(strJS === null) { console.log(` [W] inline: ${oSrc[1]} not found - not embedded`); return strTag; }
+        nInlined++;
+        // "</script" inside the code would end the script element
+        let strInline = "<script>" + strJS.replace(/<\/script/gi, "<\\/script") + "\n</script>";
+        if(/\bdefer\b/i.test(strAttrs)) {
+            tDeferred.push(strInline);
+            return "";
+        }
+        return strInline;
+    });
+    if(tDeferred.length > 0) {
+        let nBodyEnd = strHtml.toLowerCase().lastIndexOf("</body>");
+        if(nBodyEnd < 0) strHtml += tDeferred.join("");
+        else strHtml = strHtml.substring(0, nBodyEnd) + tDeferred.join("") + strHtml.substring(nBodyEnd);
+    }
+
+    fs.writeFileSync(strIndexFile, strHtml);
+    fs.writeFileSync(path.join(strPackedPath, "index.html.gz"), zlib.gzipSync(Buffer.from(strHtml, "utf8"), { level: 9 }));
+    console.log(` - index.html : ${nInlined} stylesheets/scripts embedded`);
+    cb();
 }
 
 // #endregion
@@ -217,6 +285,7 @@ export async function runCompilePages(cb, oSettings) {
                                     minimizeCSS,
                                     minimizeScripts,
                                     minimizeLanguages,
+                                    inlineIndexAssets,      // after HTML, CSS and JS are minimized
                                     buildHeaderFiles
                                 );
     return new Promise((resolve, reject) => {
