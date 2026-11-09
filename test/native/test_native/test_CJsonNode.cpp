@@ -748,3 +748,60 @@ TEST(CJsonNode, testCreatePayloadStructureWithTextPayload) {
     oDoc.createPayloadStructure("update","msg","hello");
     EXPECT_STREQ(oDoc.getAsJsonText(), "{\"command\":\"update\",\"data\":\"msg\",\"payload\":\"hello\"}");
 }
+
+#pragma region legacy (lenient) parsing
+
+// Strict parsing rejects, legacy parsing accepts files written by older versions
+static void expectLegacyOnly(const char *pszJson, CJsonNode &oNode) {
+    EXPECT_EQ(oNode.parse(pszJson), nullptr) << "strict should reject: " << pszJson;
+    EXPECT_NE(oNode.parse(pszJson, true), nullptr) << "legacy should accept: " << pszJson;
+    // The result is written as valid JSON again
+    CJsonNode oCheck;
+    EXPECT_NE(oCheck.parse(oNode.getAsJsonText()), nullptr) << "re-serialized: " << oNode.getAsJsonText();
+}
+
+TEST(CJsonNode,testLegacyDuplicateKeysLastWins) {
+    CJsonNode oNode;
+    expectLegacyOnly("{\"wifi\":{\"ssid\":\"old\"},\"wifi\":{\"ssid\":\"new\",\"ap_mode\":false}}", oNode);
+    ASSERT_NE(oNode.getObject("wifi"), nullptr);
+    EXPECT_STREQ(oNode.getObject("wifi")->getValue("ssid"), "new");
+    EXPECT_EQ(oNode.Elements.size(), (size_t) 1);
+}
+
+TEST(CJsonNode,testLegacyEmptyValueAndTrailingComma) {
+    CJsonNode oNode;
+    expectLegacyOnly("{\"wifi\":{\"ipaddress\": ,\"ssid\":\"MyNet\",},\"msgs\":[1,2,],}", oNode);
+    EXPECT_STREQ(oNode.getObject("wifi")->getValue("ssid"), "MyNet");
+    EXPECT_TRUE(oNode.getObject("wifi")->exists("ipaddress"));
+    EXPECT_EQ(oNode.getArray("msgs")->Elements.size(), (size_t) 2);
+}
+
+TEST(CJsonNode,testLegacyRawControlCharsAndLatin1) {
+    CJsonNode oNode;
+    expectLegacyOnly("{\"pwd\":\"a\tb\",\"name\":\"K\xfc" "che\"}", oNode);
+    EXPECT_STREQ(oNode.getValue("pwd"), "a\tb");
+    EXPECT_STREQ(oNode.getValue("name"), "K\xc3\xbc" "che");      // Latin-1 => UTF-8
+}
+
+TEST(CJsonNode,testLegacyUnquotedTextBomAndTrailingContent) {
+    CJsonNode oNode;
+    expectLegacyOnly("\xef\xbb\xbf{\"ip\":192.168.4.1,\"on\":true,\"n\":-5} garbage", oNode);
+    EXPECT_STREQ(oNode.getValue("ip"), "192.168.4.1");
+    EXPECT_EQ(oNode.getValueAsInt("n"), -5);
+    EXPECT_TRUE(oNode.getValueAsBool("on"));
+}
+
+TEST(CJsonNode,testLegacyStillRejectsBrokenStructure) {
+    CJsonNode oNode;
+    EXPECT_EQ(oNode.parse("{\"a\":\"unterminated}", true), nullptr);
+    EXPECT_EQ(oNode.parse("{\"a\":{\"b\":1}", true), nullptr);
+}
+
+TEST(CJsonNode,testStrictValidJsonUnchangedInLegacyMode) {
+    CJsonNode oStrict, oLegacy;
+    EXPECT_NE(oStrict.parse(T2), nullptr);
+    EXPECT_NE(oLegacy.parse(T2, true), nullptr);
+    EXPECT_STREQ(oStrict.getAsJsonText(), oLegacy.getAsJsonText());
+}
+
+#pragma endregion

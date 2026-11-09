@@ -478,16 +478,24 @@ bool CWebSocket::dispatchJsonMessage(JsonNode & oJsonRequest, CWebSocketMessage 
 			if(isAuthenticated) { // To ensure - only if authenticated...
 				JsonNode * pPayload = oJsonRequest.createPayloadStructure("backup","config");
 				if(pPayload) {
+					// The backup is the config file as stored in the file system.
+					// Only if the file is missing or invalid, the current (in memory) config is used.
+					// Note: writeConfigTo() must not be called on a loaded file - it would overwrite
+					// all file values with the in memory values (i.e. defaults, if the load failed at boot).
+					bool bFileLoaded = false;
 					if(oFS.fileExists(JSON_APPL_CONFIG_FILE)) {
 						String strData;
-						oFS.loadFileToString(JSON_APPL_CONFIG_FILE,strData);
-						if(!pPayload->parse(strData.c_str())) {
+						if(oFS.loadFileToString(JSON_APPL_CONFIG_FILE,strData)) {
+							// strict first, then legacy mode (files written by older versions)
+							bFileLoaded = pPayload->parse(strData.c_str()) != nullptr || pPayload->parse(strData.c_str(),true) != nullptr;
+						}
+						if(!bFileLoaded) {
 							ApplLogWarnWithParms(F("WS: Config file %s is not valid JSON, using current config"),JSON_APPL_CONFIG_FILE);
 						}
 					} else {
 						ApplLogWarnWithParms(F("WS: Config file %s not found, using current config"),JSON_APPL_CONFIG_FILE);
 					}
-					Appl.writeConfigTo(*pPayload,false);
+					if(!bFileLoaded) Appl.writeConfigTo(*pPayload,false);
 				}
 				sendJsonDocMessage(oJsonRequest,pMessage);
 			}
