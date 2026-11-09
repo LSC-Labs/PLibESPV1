@@ -21,22 +21,13 @@ struct WebServerConfig {
     String UserName = "admin";
     // String Passwd   = "admin";
 
-    /// @brief Authenticate a request against configured user and application password.
+    /// @brief Authenticate a request against configured user and application password,
+    ///        or by the access token (header "AUTHTOKEN") returned by /login.
     /// @param pRequest Request to authenticate.
     /// @param pszReason Optional reason used for failed-auth logging.
     /// @param bLogFailed true to write failed attempts to the application log.
     /// @return true if the request has valid credentials.
-    bool authenticate(AsyncWebServerRequest *pRequest, const char* pszReason, bool bLogFailed) {
-        if(!pRequest) return(false);
-        bool bAuthenticated = pRequest->authenticate(UserName.c_str(),Appl.getDevicePwd().c_str());
-        if(!bAuthenticated && bLogFailed && pRequest->client()) {
-            IPAddress oRemoteIP = pRequest->client()->remoteIP();
-            ApplLogWarnWithParms(F("unauthorized web access (%s): %s"),
-                                    oRemoteIP.toString().c_str(),
-                                    pszReason ? pszReason : "-");        
-        }
-        return(bAuthenticated);
-    }
+    bool authenticate(AsyncWebServerRequest *pRequest, const char* pszReason, bool bLogFailed);
 };
 
 /// @brief Status of the web server module.

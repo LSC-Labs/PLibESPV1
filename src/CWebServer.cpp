@@ -156,6 +156,28 @@ int CWebServer::receiveEvent(const void * pSender, int nMsg, const void * pMessa
  * The token is bound to the remote client IP address and is returned in the
  * AUTHTOKEN header after successful authentication.
  */
+bool WebServerConfig::authenticate(AsyncWebServerRequest *pRequest, const char* pszReason, bool bLogFailed) {
+    if(!pRequest) return(false);
+    bool bAuthenticated = pRequest->authenticate(UserName.c_str(),Appl.getDevicePwd().c_str());
+    // Access token of the web frontend (from /login) - bound to the client IP address.
+    // Used by fetch() requests (i.e. firmware upload), which have no basic auth credentials.
+    if(!bAuthenticated && pRequest->client() && pRequest->hasHeader("AUTHTOKEN")) {
+        const AsyncWebHeader *pHeader = pRequest->getHeader("AUTHTOKEN");
+        if(pHeader && pHeader->value().length() > 10) {
+            String strIPAddress = pRequest->client()->remoteIP().toString();
+            CAccessToken oToken(pHeader->value().c_str());
+            bAuthenticated = oToken.isAuthValid(strIPAddress.c_str(),APPL_SECURITY_TOKEN_KEY);
+        }
+    }
+    if(!bAuthenticated && bLogFailed && pRequest->client()) {
+        IPAddress oRemoteIP = pRequest->client()->remoteIP();
+        ApplLogWarnWithParms(F("unauthorized web access (%s): %s"),
+                                oRemoteIP.toString().c_str(),
+                                pszReason ? pszReason : "-");
+    }
+    return(bAuthenticated);
+}
+
 void CWebServer::setNewAuthHeader(AsyncWebServerRequest *pRequest, AsyncWebServerResponse *pResponse){
     String strIPAddress;
     if(pRequest && pRequest->client()) strIPAddress = pRequest->client()->remoteIP().toString();
@@ -363,8 +385,10 @@ void CWebServer::registerDefaults() {
         // Called after the upload - report the real result
         [this](AsyncWebServerRequest *pRequest) {
             DEBUG_INFO("WEB:/update (POST) - result");
-            if (!Config.authenticate(pRequest,"update",true)) {
-                return pRequest->requestAuthentication();
+            if (!Config.authenticate(pRequest,"update",false)) {
+                // Plain 401 (no WWW-Authenticate) - the frontend shows the error,
+                // a browser login popup would not resend the firmware anyway.
+                return pRequest->send(401, "text/plain", "Unauthorized - please sign in again");
             }
             bool bOk = (m_pOtaOwner == pRequest) && !m_bOtaError && !Update.hasError();
             String strResult = bOk ? String("OK") : (m_pOtaOwner == pRequest ? OTA_ERROR_STRING() : String("Another update is running"));
@@ -399,7 +423,10 @@ void CWebServer::registerDefaults() {
                 // Client disconnects during the update => abort and release the slot
                 pRequest->onDisconnect([this, pRequest]() {
                     if (m_pOtaOwner == pRequest) {
-                        if (Update.isRunning()) OTA_ABORT();
+                        if (Update.isRunning()) {
+                            OTA_ABORT();
+                            Appl.MsgBus.postEventText(this,MSG_OTA_ERROR,"Client disconnected",0);
+                        }
                         m_pOtaOwner = nullptr;
                     }
                 });
@@ -421,6 +448,7 @@ void CWebServer::registerDefaults() {
             if (final) {
                 if (Update.end(true)) {
                     ApplLogInfoWithParms(F("Firmware update finished (%uB)"),(unsigned) nDone);
+                    Appl.MsgBus.postEvent(this,MSG_OTA_END,(int) nDone);
                 } else {
                     m_bOtaError = true;
                     ApplLogErrorWithParms(F("Firmware update failed: %s"),OTA_ERROR_STRING().c_str());
