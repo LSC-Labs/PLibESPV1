@@ -320,6 +320,12 @@ bool CFS::loadJsonContentFromFile(const char *strFileName,JsonNode &oDoc) {
         // parse() keeps oDoc unchanged and returns nullptr on invalid JSON
         bResult = oDoc.parse(ptrBuffer.get()) != nullptr;
         if(!bResult) {
+            // Show where the strict parser stopped (helps to find the invalid part)
+            size_t nPos = JsonNode::getLastParseErrorOffset();
+            if(nPos > (size_t) nSize) nPos = (size_t) nSize;
+            size_t nFrom = nPos > 30 ? nPos - 30 : 0;
+            ApplLogWarnWithParms(F("%s: invalid JSON at offset %u: ...%.*s<<<HERE"), strFileName,
+                                 (unsigned) nPos, (int) (nPos - nFrom), ptrBuffer.get() + nFrom);
             // Files written by older versions are not always valid JSON - try the legacy mode.
             // The file is written in valid JSON with the next save.
             bResult = oDoc.parse(ptrBuffer.get(), true) != nullptr;
