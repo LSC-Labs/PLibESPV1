@@ -241,7 +241,10 @@ bool CAppl::readConfigFrom(const char *pszConfigFileName, int nJsonDocSize) {
 		migrateConfig(oCfgData);
         readConfigFrom(oCfgData);
 		bResult = true;
-    }
+    } else if(oFS.fileExists(pszConfigFileName)) {
+		// The file is in place, but could not be read/parsed - the defaults are used !
+		ApplLogErrorWithParms(F("Config file %s could not be loaded (invalid JSON ?) - using defaults"),pszConfigFileName);
+	}
 	DEBUG_FUNC_END_PARMS("%d",bResult);
     return(bResult);
 }
