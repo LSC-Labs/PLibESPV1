@@ -29,13 +29,13 @@ var Settings = new CConfig(DEFAULTS);
 
 // #region Minimize functions
 
-async function minimizeHTML(cb) {
+function minimizeHTML() {
     let strSourcePath   = Settings.getWebSourcePath() + "/*.html";
     let strTargetPath   = Settings.getWebDistPath();
     let strTempSrcPath  = Settings.getWebTempPath() + "/src";
     let strPackedPath   = Settings.getWebPackedPath();
 
-    gulp.src(strSourcePath)
+    return gulp.src(strSourcePath)
         .pipe(debug({ title: 'min HTML :'}))
         .pipe(preprocess())
         .pipe(gulp.dest(strTempSrcPath))
@@ -43,16 +43,15 @@ async function minimizeHTML(cb) {
         .pipe(gulp.dest(strTargetPath))
         .pipe(gzip({append:true}))
         .pipe(gulp.dest(strPackedPath));
-    cb();
 }
 
-async function minimizeScripts(cb) {
+function minimizeScripts() {
     let strSourcePath = Settings.getWebSourcePath() + "/js/*.js";
     let strTargetPath = Settings.getWebDistPath() + "/js";
     let strTempSrcPath  = Settings.getWebTempPath() + "/src/js";
     let strPackedPath = Settings.getWebPackedPath();
     
-    gulp.src(strSourcePath)
+    return gulp.src(strSourcePath)
     .pipe(debug({ title: 'min JS   :'}))
     .pipe(preprocess())
     .pipe(gulp.dest(strTempSrcPath))
@@ -60,15 +59,14 @@ async function minimizeScripts(cb) {
     .pipe(gulp.dest(strTargetPath))
     .pipe(gzip({append:true}))
     .pipe(gulp.dest(strPackedPath));
-    cb();
-} 
+}
 
-async function minimizeCSS(cb) {
+function minimizeCSS() {
     let strSourcePath = Settings.getWebSourcePath() + "/css/*.css";
     let strTargetPath = Settings.getWebDistPath() + "/css";
     let strPackedPath = Settings.getWebPackedPath();
     console.log(`CSS minimize "${strSourcePath}" ==> ${strTargetPath}`);
-    gulp.src(strSourcePath)
+    return gulp.src(strSourcePath)
         .pipe(debug({ title: 'min CSS  :'}))
         .pipe(purge({
                 trim : true,
@@ -78,27 +76,25 @@ async function minimizeCSS(cb) {
         .pipe(gulp.dest(strTargetPath))
         .pipe(gzip({append:true}))
         .pipe(gulp.dest(strPackedPath));
-    cb();
 }
 
-async function minimizeLanguages(cb) {
+function minimizeLanguages() {
     let strSourcePath = Settings.getWebSourcePath() + "/i18n/*.json";
     let strTargetPath = Settings.getWebDistPath() + "/i18n";
     let strPackedPath = Settings.getWebPackedPath();
-    gulp.src(strSourcePath)
+    return gulp.src(strSourcePath)
         .pipe(debug({ title: 'min i18n :'}))
         .pipe(jsonmin())
         .pipe(gulp.dest(strTargetPath))
         .pipe(gzip({append:true}))
         .pipe(gulp.dest(strPackedPath));
-    cb();
 }
 
 // #endregion
 
 // #region build of cpp header information of packed files
 
-async function buildHeaderFiles(cb) {
+function buildHeaderFiles(cb) {
 
     // let strScanMask = Settings.getWebPackedPath() + "/*.gz";
     let fTotalSize = 0;
@@ -113,20 +109,21 @@ async function buildHeaderFiles(cb) {
             if(nPackedFileSize == tData.length) {
                 console.log(` - file size (${nPackedFileSize})\tis OK ${strPackedFileName}\t ==> ${strHeaderFileName}`);
                 let strIncludeName = path.basename(strPackedFileName);
-                let oWS = fs.createWriteStream(strHeaderFileName);
-                oWS.on("error", function(oErr) { console.log(oErr) });
-                oWS.write("#pragma once\n");
-                oWS.write("#define " + strIncludeName.replace(/\.|-/g, "_") + "_len " + nPackedFileSize + "\n");
-                oWS.write("const uint8_t " + strIncludeName.replace(/\.|-/g, "_") + "[] PROGMEM = {")
+                const strVarName = strIncludeName.replace(/\.|-/g, "_");
+                const tLines = [
+                    "#pragma once\n",
+                    "#define " + strVarName + "_len " + nPackedFileSize + "\n",
+                    "const uint8_t " + strVarName + "[] PROGMEM = {"
+                ];
                 for(let i = 0; i < tData.length; i++) {
-                    if (i % 1000 == 0) oWS.write("\n");
-                    oWS.write('0x' + ('00' + tData[i].toString(16)).slice(-2));
-                    if (i < tData.length - 1) oWS.write(',');
+                    if (i % 1000 == 0) tLines.push("\n");
+                    tLines.push('0x' + ('00' + tData[i].toString(16)).slice(-2));
+                    if (i < tData.length - 1) tLines.push(',');
                 }
-                oWS.write("\n};");
+                tLines.push("\n};");
                 // No timestamp to avoid github change...
-                // oWS.write("\n// TS: " + new Date().toISOString()); 
-                oWS.end();
+                // Synchronous write - the header is complete, when this task ends.
+                fs.writeFileSync(strHeaderFileName, tLines.join(""));
                 fTotalSize += nPackedFileSize;
             }
         }
@@ -135,7 +132,7 @@ async function buildHeaderFiles(cb) {
     console.log("Web Frontend size in memory : " + fTotalSize + " bytes");
     console.log("==================================================================");
     let strTouchFile = Settings.getData("touchAfterPagesCompiled");
-    if (typeof strTouchFile === 'string' || myVar instanceof String) {
+    if (typeof strTouchFile === 'string' || strTouchFile instanceof String) {
         removeObjectFilesOf(strTouchFile);
     } else {
         for(let strTouchFile of Settings.getData("touchAfterPagesCompiled",[])) {
@@ -213,14 +210,16 @@ export async function runCompilePages(cb, oSettings) {
     Settings.addConfig(oSettings);
     
     
-    const runMinimizeJob = gulp.series(   
+    // gulp.series() returns a task function - it has to be called with a done callback,
+    // otherwise nothing waits for the streams and the headers are built from old *.gz files.
+    const runCompileJob = gulp.series(
                                     minimizeHTML,
                                     minimizeCSS,
                                     minimizeScripts,
                                     minimizeLanguages,
+                                    buildHeaderFiles
                                 );
-                                
-    const runBuildHeaders = gulp.series(buildHeaderFiles);
-    await runMinimizeJob();
-    return await runBuildHeaders();
+    return new Promise((resolve, reject) => {
+        runCompileJob((oErr) => oErr ? reject(oErr) : resolve());
+    });
 }

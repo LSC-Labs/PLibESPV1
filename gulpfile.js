@@ -40,9 +40,10 @@ gulp.task('buildPages', (cb) => {
 });
 
 import {runCompilePages} from '../_compilePages.js';
-gulp.task('compilePages', async(cb) => {
+gulp.task('compilePages', () => {
     console.log("Compiling pages...");
-    runCompilePages(cb,Settings);
+    // return the promise - gulp waits until all files and headers are written
+    return runCompilePages(undefined,Settings);
 });
 
 // #endregion
