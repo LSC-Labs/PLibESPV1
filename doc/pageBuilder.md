@@ -32,3 +32,23 @@ Properties of pages.json
 ||includes | string |c++ include directory, to be used to include the compiled files into the source code.
 
 
+
+## Sync files (`npm run sync-RuntimeFiles`)
+`scripts/syncFiles.js` processes the instructions in `sync.files` of pages.json: `"<source> <cmd> <target>"`.
+The source is searched in the project first, then in `sync.locations` (default `.` and `lib/PLibESPV1`).
+
+|cmd|Description|
+|--|--|
+|`=`|copy only, if the target does not exist (initial copy, i.e. templates)|
+|`>`|copy source to target, if the source is newer|
+|`<`|copy the target back to the source, if the target is newer|
+|`<>`|copy in the direction of the newer file|
+
+If the source is a **folder**, all files of the folder (including sub folders) are synced into the
+target folder with the same command, e.g. to take over a page of the library into the project:
+
+    "lib/PLibESPV1/src/web/pages/Status  =  src/web/pages/Status"
+
+Each file is reported with its result:
+🆕 new (copied) · 🔄 updated (overwritten) · ⬅️ copied back · ✅ up to date · ⏭️ kept (`=`, target exists) · ⚠️ source missing · ❌ error.
+A summary is printed at the end, the exit code is 1 if an error occurred.
