@@ -54,6 +54,13 @@
 /// @brief Marker for "no reconnect scheduled" in WiFiStatus::restartTimeInMillis
 #define WIFI_NO_RESTART ((unsigned long) -1)
 
+/// Default PHY mode in station mode: "n" (802.11b/g/n), "g" (802.11b/g) or "b" (802.11b) - ESP8266 only.
+/// "g" avoids crashes in the ESP8266 SDK (memcpy to NULL in ieee80211_setup_ratetable,
+/// called by cnx_update_bss_more) when the router changes its HT/11n parameters.
+#ifndef WIFI_DEFAULT_PHY_MODE
+    #define WIFI_DEFAULT_PHY_MODE "n"
+#endif
+
 #ifndef WIFI_HIDDEN_PASSWORD
     #define WIFI_HIDDEN_PASSWORD HIDDEN_PASSWORD_MASK
 #endif
@@ -103,6 +110,9 @@ struct WiFiConfig {
 
     /// @brief true to use DHCP in station mode.
     bool      dhcpEnabled = true;
+
+    /// @brief PHY mode in station mode: "n", "g" or "b" (ESP8266 only, see WIFI_DEFAULT_PHY_MODE).
+    String    phyMode     = WIFI_DEFAULT_PHY_MODE;
 
     /// @brief Static station IP address used when DHCP is disabled.
     IPAddress ipAddress;

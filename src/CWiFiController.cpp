@@ -33,6 +33,7 @@ const char * WIFI_SSID              = "ssid";
 const char * WIFI_BSSID             = "bssid";
 const char * WIFI_PASSWORD          = "wifi_pwd";
 const char * WIFI_DHCP              = "dhcp";
+const char * WIFI_PHY_MODE          = "phymode";
 const char * WIFI_IPADDRESS         = "ipaddress";
 const char * WIFI_SUBNETMASK        = "subnet";
 const char * WIFI_GATEWAY           = "gwip";
@@ -120,6 +121,7 @@ void CWiFiController::writeConfigTo(JsonNode &oCfgNode,bool bHideCritical) {
     oCfgNode[WIFI_BSSID]           = getConfigBSSIDAsString(); //  Config.wifi_bssid;
     oCfgNode[WIFI_PASSWORD]        = (const char *) (bHideCritical ? WIFI_HIDDEN_PASSWORD : Config.wifi_Password.c_str());
     oCfgNode[WIFI_DHCP]            = Config.dhcpEnabled;
+    oCfgNode[WIFI_PHY_MODE]        = Config.phyMode;
 
     if(isIPSet(Config.ipAddress))     oCfgNode[WIFI_IPADDRESS]   = Config.ipAddress.toString().c_str();
     if(isIPSet(Config.ipSubnetMask))  oCfgNode[WIFI_SUBNETMASK]  = Config.ipSubnetMask.toString().c_str();
@@ -158,6 +160,12 @@ void CWiFiController::readConfigFrom(JsonNode &oCfgNode) {
         LSC::parseBytesToArray(Config.wifi_bssid, pszBSSID,':',sizeof(Config.wifi_bssid),16);
     }
     oCfgNode.storeValueIf(WIFI_DHCP,             & Config.dhcpEnabled);
+    String strPhyMode;
+    if(oCfgNode.storeValueIf(WIFI_PHY_MODE, strPhyMode)) {
+        strPhyMode.toLowerCase();
+        // Only valid values - otherwise the current mode is kept
+        if(strPhyMode == "n" || strPhyMode == "g" || strPhyMode == "b") Config.phyMode = strPhyMode;
+    }
     storeIPAddressIf(oCfgNode,WIFI_IPADDRESS,      Config.ipAddress);
     storeIPAddressIf(oCfgNode,WIFI_SUBNETMASK,     Config.ipSubnetMask);
     storeIPAddressIf(oCfgNode,WIFI_GATEWAY,        Config.ipGateway);
@@ -262,6 +270,10 @@ void CWiFiController::writeStatusTo(JsonNode &oStatusNode, int nLevel) {
 	oStatusNode["gateway"]  = gwaddr.toString().c_str(); // getAddressAsString(gwaddr);
 	oStatusNode["netmask"]  = nmaddr.toString().c_str(); //getAddressAsString(nmaddr);
     oStatusNode["hostname"] = WiFi.getHostname();
+#ifndef ESP32
+    WiFiPhyMode_t eMode = WiFi.getPhyMode();
+    oStatusNode["phymode"]  = eMode == WIFI_PHY_MODE_11B ? "b" : (eMode == WIFI_PHY_MODE_11G ? "g" : "n");
+#endif
     // RSSI is only meaningful for a station connection
     if(Status.isInStationMode && WiFi.isConnected()) oStatusNode["rssi"] = WiFi.RSSI();
     DEBUG_FUNC_END();
@@ -405,6 +417,15 @@ bool CWiFiController::joinNetwork(const char *pszSSID, const char *pszPassword, 
 
     WiFi.persistent(false);                 // before mode(), so nothing is written to flash
     WiFi.mode(WIFI_STA);
+#ifndef ESP32
+    // PHY mode before begin() - "g" avoids SDK crashes on HT/11n changes of the router
+    WiFiPhyMode_t ePhyMode = WIFI_PHY_MODE_11N;
+    if(Config.phyMode == "g")      ePhyMode = WIFI_PHY_MODE_11G;
+    else if(Config.phyMode == "b") ePhyMode = WIFI_PHY_MODE_11B;
+    if(!WiFi.setPhyMode(ePhyMode)) {
+        ApplLogWarnWithParms(F("WiFi: PHY mode %s could not be set"), Config.phyMode.c_str());
+    }
+#endif
 
     if (!Config.dhcpEnabled)
     {
