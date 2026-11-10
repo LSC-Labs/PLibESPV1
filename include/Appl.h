@@ -14,6 +14,9 @@
 #ifndef APPL_STATUS_SNAPSHOT_INTERVAL
     #define APPL_STATUS_SNAPSHOT_INTERVAL 1000  ///< ms between status snapshots for async callers
 #endif
+#ifndef APPL_STATUS_SNAPSHOT_MAX_AGE
+    #define APPL_STATUS_SNAPSHOT_MAX_AGE 30000  ///< ms - snapshot is rebuilt without request after this time
+#endif
 #ifndef APPL_SYSSTATUS_SNAPSHOT_INTERVAL
     #define APPL_SYSSTATUS_SNAPSHOT_INTERVAL 1000  ///< min. ms between system status snapshots (only built on request)
 #endif
@@ -132,7 +135,8 @@ struct ApplConfig {
 class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
     ApplConfig  m_oCfg;   
     CSysStatus  m_oSystemStatus;
-    JsonNode    m_oStatus;              // used by getStatus() - loop context only
+    JsonNode    m_oStatus;              // used by getStatus() - loop context only (kept until the next call!)
+    String      m_strStatusText;        // result of getStatusAsText()/getStateAsText() - loop context only
     // Status snapshot for other contexts (async web server) - built in dispatch()
     String       m_strStatusSnapshot;
     CSimpleDelay m_oStatusSnapshotDelay;
@@ -140,6 +144,8 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
     String       m_strSystemStatusSnapshot;
     CSimpleDelay m_oSystemStatusSnapshotDelay;
     volatile bool m_bSystemStatusRequested = false;
+    volatile bool m_bStatusRequested       = false;     // status snapshot requested by another context
+    unsigned long m_ulStatusSnapshotTime   = 0;         // millis() of the last status snapshot
     #ifdef ESP32
         std::mutex m_oStatusSnapshotLock;
     #endif
@@ -156,6 +162,7 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
     
     bool m_bStatusChanged   = true;
     bool m_isRebootPending  = false;
+    char m_szRebootSource[28] = {0};    // source of the reboot request (reset reason after restart)
     // CSimpleDelay m_oRebootDelay;
     unsigned long   m_ulLastStatusUpdate = 0;
     time_t          m_oRawTime;   
@@ -218,6 +225,14 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
         void migrateConfig(JsonNode &oDoc);
 
         /**
+         * @brief Removes legacy configuration keys (web/httpPasswd, wifi/hostname).
+         * Used by saveConfig() - the existing file is loaded first to keep unknown keys,
+         * so without this the legacy keys would stay in the file forever.
+         * @param oDoc Root configuration node.
+         */
+        static void removeLegacyConfigKeys(JsonNode &oDoc);
+
+        /**
          * @brief Persist the current configuration to the file system.
          * @param pszFileName Config file path.
          * @param nJsonDocSize Unused (kept for compatibility, JsonNode allocates dynamically).
@@ -227,6 +242,10 @@ class CAppl : public CConfigHandler, public CStatusHandler, IMsgEventReceiver {
 
         /**
          * @brief Build and return the reusable application status node.
+         *
+         * Note: the tree stays in memory until the next call (several KB heap on
+         * ESP8266). Prefer writeStatusTo() into an own (local) JsonNode or
+         * getStatusAsText() - both free the tree directly.
          * @param nLevel Requested status detail level.
          * @return Pointer owned by CAppl; do not delete it.
          */
