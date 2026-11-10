@@ -77,6 +77,11 @@ public:
     /// @brief Create a JSON node with an optional name and explicit node type.
     CJsonNode(const char* pszName, ELEMENT_TYPE eType = ELEMENT_TYPE::OBJECT);
 
+    /// @brief Not copyable - the node owns its children (raw pointers).
+    /// A (shallow) copy would delete the children twice. Pass nodes by reference.
+    CJsonNode(const CJsonNode &) = delete;
+    CJsonNode & operator=(const CJsonNode &) = delete;
+
     /// @brief Delete all child nodes on destruction.
     virtual ~CJsonNode() {
         clear();
@@ -294,6 +299,9 @@ public:
     }
     /// @brief Serialize this node tree as compact JSON.
     const char* getAsJsonText();
+    /// @brief Serialize this node tree directly into strTarget (replaces the content).
+    /// No internal cache copy - use this for large documents to save heap.
+    void serializeTo(String &strTarget, bool bPretty = false);
     /// @brief Serialize this node tree as pretty-printed JSON.
     const char* getAsJsonTextPretty();
 };

@@ -932,6 +932,18 @@ const char* CJsonNode::getAsJsonText() {
 }
 
 /**
+ * @brief Serialize this node tree directly into strTarget (replaces the content).
+ *
+ * Other than getAsJsonText() the text is not kept in the node, so no second
+ * copy exists - the caller can move the String to its final location.
+ */
+void CJsonNode::serializeTo(String &strTarget, bool bPretty) {
+    strTarget = "";
+    strTarget.reserve(bPretty ? 1024 + 256 : 1024);
+    serializeNode(strTarget, bPretty ? 0 : -1);
+}
+
+/**
  * @brief Serialize this node tree as pretty-printed JSON.
  *
  * The returned pointer belongs to the internal serialization cache and remains
