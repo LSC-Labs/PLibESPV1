@@ -403,7 +403,7 @@ void CMQTTController::processConnectionEvents() {
     }
     if(m_bEvtConnected) {
         m_bEvtConnected = false;
-        ApplLogInfoWithParms("MQTT session established (%d/%d)",(int) m_bSessionPresent,(int) connected());
+        ApplLogInfoWithParms("MQTT session established (%d)",(int) connected());
         Appl.MsgBus.sendEvent(this,MSG_MQTT_CONNECTED,this,0);
         // Publish the discovery on every new connection - HA does not request it
         // when only the device (re)connects (only on its own birth message).

@@ -2,6 +2,7 @@
     #undef DEBUGINFOS
 #endif
 #include <WebServer.h>
+#include <SysStatus.h>
 #include <Security.h>
 #include <AccessToken.h>
 #include <FileSystem.h>
@@ -40,7 +41,41 @@ const char * WEBSERVER_AUTOREDIRECT_MODE       = "autoRedirectMode";
  * @param nPortNumber TCP port to listen on.
  */
 CWebServer::CWebServer(int nPortNumber)
-	: AsyncWebServer(nPortNumber) {}
+	: AsyncWebServer(nPortNumber) {
+    // Replace the connection handler of AsyncWebServer (same logic, but with a memory guard):
+    // - reject new connections when the heap is low (the WiFi stack needs memory, too)
+    // - std::nothrow: with exceptions enabled, a plain new throws std::bad_alloc in the
+    //   async context instead of returning nullptr => abort
+    _server.onClient([](void *pArg, AsyncClient *pClient) {
+        if(pClient == nullptr) return;
+        CWebServer *pServer = (CWebServer *) pArg;
+        CSysStatus::updateMinFreeHeap();    // also track the heap in the async context (scanner bursts)
+        if(!hasMemoryForConnection()) {
+            pServer->Status.RejectedConnections++;
+            pClient->abort();               // RST - frees the pcb immediately
+            delete pClient;
+            return;
+        }
+        pClient->setRxTimeout(3);
+        AsyncWebServerRequest *pRequest = new (std::nothrow) AsyncWebServerRequest(pServer, pClient);
+        if(pRequest == nullptr) {
+            pServer->Status.RejectedConnections++;
+            pClient->abort();
+            delete pClient;
+        }
+    }, this);
+}
+
+/**
+ * @brief true, if enough heap is free to accept another connection.
+ */
+bool CWebServer::hasMemoryForConnection() {
+    #ifdef ESP32
+        return(ESP.getFreeHeap() >= WEBSERVER_MIN_FREE_HEAP && ESP.getMaxAllocHeap() >= WEBSERVER_MIN_FREE_BLOCK);
+    #else
+        return(ESP.getFreeHeap() >= WEBSERVER_MIN_FREE_HEAP && ESP.getMaxFreeBlockSize() >= WEBSERVER_MIN_FREE_BLOCK);
+    #endif
+}
 
 /**
  * @brief Starts the server and marks it as started in the status.
@@ -105,6 +140,7 @@ void CWebServer::writeStatusTo(JsonNode &oStatusNode, int nLevel) {
     oStatusNode["started"] = Status.Started;
     oStatusNode["captivePortal"] = Status.CaptivePortalActive;
     oStatusNode[WEBSERVER_AUTOREDIRECT_MODE] = Status.AutoRedirectMode;
+    oStatusNode["rejected"] = (unsigned long) Status.RejectedConnections;
 }
 
 /**
@@ -138,6 +174,14 @@ int CWebServer::receiveEvent(const void * pSender, int nMsg, const void * pMessa
             break;
         }
         case MSG_APPL_LOOP: {
+            // Report rejected connections (max. every 10s - a scanner rejects many)
+            if(Status.RejectedConnections != Status.LoggedRejectedConnections && m_oRejectLogDelay.isDone()) {
+                uint32_t nRejected = Status.RejectedConnections;
+                ApplLogWarnWithParms(F("WEB: %u connection(s) rejected - low memory (free heap %u B)"),
+                                     (unsigned) (nRejected - Status.LoggedRejectedConnections), (unsigned) ESP.getFreeHeap());
+                Status.LoggedRejectedConnections = nRejected;
+                m_oRejectLogDelay.restart();
+            }
             if(m_bRebootAfterOta) {
                 m_bRebootAfterOta = false;
                 Appl.MsgBus.sendEvent(nullptr,MSG_REBOOT_REQUEST,"Firmware update",0);
@@ -358,7 +402,10 @@ void CWebServer::registerDefaults() {
             pResponse->addHeader("Cache-Control", "no-cache");
             pRequest->send(pResponse);
         } else {
-            ApplLogErrorWithParms(F("WEB: 404 Not found: %s"),pRequest->url().c_str());
+            // Method and client help to find the source of unexpected requests
+            String strClient = pRequest->client() ? pRequest->client()->remoteIP().toString() : String("-");
+            ApplLogErrorWithParms(F("WEB: 404 Not found: %s %s (client %s)"),
+                                  pRequest->methodToString(), pRequest->url().c_str(), strClient.c_str());
             pRequest->send(404, "text/plain", "Not found");
         }
 	});

@@ -453,13 +453,13 @@ bool CWebSocket::dispatchJsonMessage(JsonNode & oJsonRequest, CWebSocketMessage 
 				DEBUG_INFO(" - saving config...");
 				Appl.saveConfig();
 				DEBUG_INFO(" - requesting reboot...");
-				Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,nullptr,0);
+				Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,"WebSocket: save config",0);
 			}
 		}
 		else if (strCommand.equalsIgnoreCase(F("restart")))
 		{
 			if(isAuthenticated) {
-				Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,nullptr,0);
+				Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,"WebSocket: restart",0);
 			}
 		}
 		// Note for the scan receivers: pMessage->pClient is only valid during this call
@@ -515,7 +515,7 @@ bool CWebSocket::dispatchJsonMessage(JsonNode & oJsonRequest, CWebSocketMessage 
 					bSaved = oFS.saveJsonContentToFile(JSON_APPL_CONFIG_FILE,*pCfgData);
 				}
 				if(bSaved) {
-					Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,nullptr,0);
+					Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,"WebSocket: restore backup",0);
 				} else {
 					ApplLogErrorWithParms("WS: restore backup failed (%s)", bValid ? "write error" : "invalid data");
 					JsonNode oReply;
@@ -530,7 +530,7 @@ bool CWebSocket::dispatchJsonMessage(JsonNode & oJsonRequest, CWebSocketMessage 
 			if(isAuthenticated) {
 				ApplLogInfo("WS: Restoring factory settings...");
 				oFS.deleteFile(JSON_APPL_CONFIG_FILE);
-				Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,nullptr,0);
+				Appl.MsgBus.sendEvent(this,MSG_REBOOT_REQUEST,"WebSocket: factory reset",0);
 			}
 		}
 		else bResult = false;

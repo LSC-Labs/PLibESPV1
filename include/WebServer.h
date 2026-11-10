@@ -5,10 +5,23 @@
 #include <Network.h>
 #include <FS.h>
 #include <WebSocket.h>
+#include <SimpleDelay.h>
 
 /// @brief Page the captive portal redirects to (start page of the portal).
 #ifndef WEBSERVER_CAPTIVE_START_PAGE
     #define WEBSERVER_CAPTIVE_START_PAGE "/"
+#endif
+
+/// @brief New connections are rejected below this free heap (bytes).
+/// Protects the WiFi/TCP stack: the ESP8266 SDK crashes (i.e. memcpy to NULL in
+/// ieee80211_setup_ratetable) if its allocations fail - network scanners open
+/// several connections at once and each one can hold several KB.
+#ifndef WEBSERVER_MIN_FREE_HEAP
+    #define WEBSERVER_MIN_FREE_HEAP  8192
+#endif
+/// @brief New connections are rejected if the largest free block is smaller (bytes).
+#ifndef WEBSERVER_MIN_FREE_BLOCK
+    #define WEBSERVER_MIN_FREE_BLOCK 4096
 #endif
 
 /// @brief Runtime configuration of the web server module.
@@ -39,6 +52,10 @@ struct WebServerStatus {
     /// @brief true if unknown pages are currently redirected
     ///        (Config.AutoRedirectMode && CaptivePortalActive).
     bool   AutoRedirectMode = false;
+    /// @brief Connections rejected because of low memory (since start).
+    volatile uint32_t RejectedConnections = 0;
+    /// @brief Value of RejectedConnections at the last log entry.
+    uint32_t LoggedRejectedConnections = 0;
 };
 
 /**
@@ -57,6 +74,9 @@ class CWebServer : public AsyncWebServer, public IModule {
         bool                   m_bOtaError      = false;
         size_t                 m_nOtaProgressSent = 0;
         volatile bool          m_bRebootAfterOta = false;   // executed in MSG_APPL_LOOP
+        CSimpleDelay           m_oRejectLogDelay = CSimpleDelay(10000);  // rate limit of the reject log
+        /// @brief true, if enough heap is free to accept another connection.
+        static bool hasMemoryForConnection();
 
         /// @brief Recalculate Status.AutoRedirectMode from config and captive portal state.
         void updateRedirectMode();

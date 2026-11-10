@@ -21,15 +21,11 @@
 #include <WebRoutes.h>
 #include <WebServer.h>
 #include <Appl.h>
+// Only the files the browser really requests are embedded. All stylesheets and
+// scripts (css/*.css, js/*.js) are inlined into index.html at build time
+// (scripts/_compilePages.js - inlineIndexAssets), so they need no own route.
 #include <web/index.html.gz.h>
-#include <web/app.css.gz.h>
-#include <web/index.js.gz.h>
-#include <web/settings.js.gz.h>
-#include <web/_runtime.css.gz.h>
-#include <web/_runtime.js.gz.h>
 #include <web/_pages.html.gz.h>
-#include <web/_pages.js.gz.h>
-#include <web/_pages.css.gz.h>
 #include <web/de.json.gz.h>
 #include <web/en.json.gz.h>
 
@@ -69,13 +65,6 @@ void registerWebRoutes(CWebServer &oWebServer) {
     // Embedded web pages
     addGzipRoute(oWebServer, "/index.html",       "text/html",        index_html_gz,    index_html_gz_len);
     addGzipRoute(oWebServer, "/_pages.html",      "text/html",        _pages_html_gz,   _pages_html_gz_len);
-    addGzipRoute(oWebServer, "/css/_runtime.css", "text/css",         _runtime_css_gz,  _runtime_css_gz_len);
-    addGzipRoute(oWebServer, "/css/_pages.css",   "text/css",         _pages_css_gz,    _pages_css_gz_len);
-    addGzipRoute(oWebServer, "/css/app.css",      "text/css",         app_css_gz,       app_css_gz_len);
-    addGzipRoute(oWebServer, "/js/settings.js",   "text/javascript",  settings_js_gz,   settings_js_gz_len);
-    addGzipRoute(oWebServer, "/js/index.js",      "text/javascript",  index_js_gz,      index_js_gz_len);
-    addGzipRoute(oWebServer, "/js/_runtime.js",   "text/javascript",  _runtime_js_gz,   _runtime_js_gz_len);
-    addGzipRoute(oWebServer, "/js/_pages.js",     "text/javascript",  _pages_js_gz,     _pages_js_gz_len);
     addGzipRoute(oWebServer, "/i18n/de.json",     "application/json", de_json_gz,       de_json_gz_len);
     addGzipRoute(oWebServer, "/i18n/en.json",     "application/json", en_json_gz,       en_json_gz_len);
 

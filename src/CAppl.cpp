@@ -89,9 +89,17 @@ void CAppl::start(void * pMsg, int nType) {
  */
 void CAppl::dispatch(int nMsgType,const void *pMsg) {
 	MsgBus.processDeferredEvents();	// events/log entries from other contexts (async callbacks)
+	CSysStatus::updateMinFreeHeap();	// minimum free heap (status and crash record)
 	this->MsgBus.sendEvent(this,MSG_APPL_LOOP,pMsg,nMsgType);
-	// Status copy for async callers (web server) - built here in the loop context
-	if(!m_oStatusSnapshotDelay.isActive() || m_oStatusSnapshotDelay.isDone()) {
+	// Status copy for async callers (web server) - built here in the loop context.
+	// Building the status needs several KB heap for a short time - so only after a
+	// request (max. every APPL_STATUS_SNAPSHOT_INTERVAL ms) or when the snapshot is
+	// older than APPL_STATUS_SNAPSHOT_MAX_AGE ms (first request gets a recent value).
+	bool bSnapshotTooOld = m_strStatusSnapshot.length() == 0 ||
+	                       (millis() - m_ulStatusSnapshotTime) >= APPL_STATUS_SNAPSHOT_MAX_AGE;
+	if((m_bStatusRequested || bSnapshotTooOld) &&
+	   (!m_oStatusSnapshotDelay.isActive() || m_oStatusSnapshotDelay.isDone())) {
+		m_bStatusRequested = false;
 		updateStatusSnapshot();
 		m_oStatusSnapshotDelay.restartWith(APPL_STATUS_SNAPSHOT_INTERVAL);
 	}
@@ -136,6 +144,10 @@ int CAppl::receiveEvent(const void * pSender, int nMsg, const void * pMessage, i
 			// if reboot is already pending, to avoid loops... (multi CAppl instances)
 			if(!m_isRebootPending) {
 				m_isRebootPending = true;
+				// Remember the source for the reset reason after the restart.
+				// The payload of MSG_REBOOT_REQUEST is a text (i.e. "Button") or nullptr.
+				snprintf(m_szRebootSource, sizeof(m_szRebootSource), "%s",
+				         pMessage ? (const char *) pMessage : "Reboot request");
 				nResult = EVENT_MSG_CALL_AGAIN_WHEN_ALL_OK;
 			} else {
 				reboot(nClass > 0 ? nClass : 3000,true);
@@ -175,7 +187,8 @@ void CAppl::reboot(int nDelay, bool bForce) {
 	Log.log("W",F("Rebooting..."));
 	int nResult = MsgBus.sendEvent(this,MSG_APPL_SHUTDOWN,nullptr,0);
 	if(nResult == EVENT_MSG_RESULT_OK || bForce) {
-		Log.log("W",F("Restarting system..."));
+		Log.log("W",F("Restarting system (%s)..."), m_szRebootSource[0] ? m_szRebootSource : "reboot()");
+		CSysStatus::markRequestedRestart(m_szRebootSource[0] ? m_szRebootSource : "reboot()");
 		delay(nDelay);
 		ESP.restart();
 	}
@@ -258,13 +271,14 @@ bool CAppl::readConfigFrom(const char *pszConfigFileName, int nJsonDocSize) {
  */
 void CAppl::migrateConfig(JsonNode & oCfgData) {
 
+	// Values of the legacy keys are taken over as start values - if devicepwd / devicename
+	// are in place, readConfigFrom() reads them afterwards and they win.
 	JsonNode * pCfgWeb = oCfgData.getObject("web");
 	if( pCfgWeb ) {
 		// Old location of the device password in web - httpPasswd
 		const char * pszPasswdKeyName = "httpPasswd";
 		if(pCfgWeb->exists(pszPasswdKeyName)) {
 			m_oCfg.strDevicePwd = pCfgWeb->getValue(pszPasswdKeyName);
-			pCfgWeb->remove(pszPasswdKeyName);
 		}
 	}
 	JsonNode * pCfgWiFi = oCfgData.getObject("wifi");
@@ -272,13 +286,19 @@ void CAppl::migrateConfig(JsonNode & oCfgData) {
 		const char * pszHostnameKey = "hostname";
 		if(pCfgWiFi->exists(pszHostnameKey)) {
 			m_oCfg.strDeviceName = pCfgWiFi->getValue(pszHostnameKey);
-			pCfgWiFi->remove(pszHostnameKey);
 		}
-
 	}
+	removeLegacyConfigKeys(oCfgData);
 
 	// Now iterate through the handler...
 	CConfigHandler::migrateConfig(oCfgData,oCfgData);
+}
+
+void CAppl::removeLegacyConfigKeys(JsonNode & oCfgData) {
+	JsonNode * pCfgWeb = oCfgData.getObject("web");
+	if(pCfgWeb && pCfgWeb->exists("httpPasswd")) 	pCfgWeb->remove("httpPasswd");
+	JsonNode * pCfgWiFi = oCfgData.getObject("wifi");
+	if(pCfgWiFi && pCfgWiFi->exists("hostname")) 	pCfgWiFi->remove("hostname");
 }
 
 
@@ -300,6 +320,8 @@ bool CAppl::saveConfig(const char *pszConfigFileName, int nJsonDocSize) {
 	// load existing config file from the file system first, to keep unknown settings in place
 	// then write the current config into the loaded document...
 	oFS.loadJsonContentFromFile(pszConfigFileName,oCfgDoc);
+	// ... but not the legacy keys (already migrated on load)
+	removeLegacyConfigKeys(oCfgDoc);
 	// Add the current timestamp
 	oCfgDoc["TS"] = getISODateTime();
 	writeConfigTo(oCfgDoc,false);
@@ -354,8 +376,13 @@ JsonNode *  CAppl::getStatus(int nLevel) {
  * only. Other contexts (async web server) use getStatusSnapshot().
  */
 const char * CAppl::getStatusAsText(int nLevel) {
-    JsonNode * pStatus = getStatus(nLevel);
-    return(pStatus->getAsJsonText());
+	// Temporary tree - freed directly after serializing (the tree needs several KB heap)
+	{
+		JsonNode oStatus;
+		writeStatusTo(oStatus, nLevel);
+		oStatus.serializeTo(m_strStatusText);
+	}
+    return(m_strStatusText.c_str());
 }
 
 /**
@@ -364,13 +391,18 @@ const char * CAppl::getStatusAsText(int nLevel) {
  * Uses an own JsonNode - the shared m_oStatus may be in use by the caller.
  */
 void CAppl::updateStatusSnapshot() {
-	JsonNode oStatus;
-	writeStatusTo(oStatus, STATUS_LEVEL_INFO);
-	String strStatus = oStatus.getAsJsonText();
+	String strStatus;
+	{
+		// Tree is freed before the snapshot is replaced (lower heap peak)
+		JsonNode oStatus;
+		writeStatusTo(oStatus, STATUS_LEVEL_INFO);
+		oStatus.serializeTo(strStatus);
+	}
 	#ifdef ESP32
 		std::lock_guard<std::mutex> oGuard(m_oStatusSnapshotLock);
 	#endif
-	m_strStatusSnapshot = strStatus;
+	m_strStatusSnapshot = std::move(strStatus);		// no copy
+	m_ulStatusSnapshotTime = millis();
 }
 
 /**
@@ -379,6 +411,8 @@ void CAppl::updateStatusSnapshot() {
 String CAppl::getStatusSnapshot() {
 	if(CEventHandler::isLoopContext()) {
 		updateStatusSnapshot();			// fresh status in the loop
+	} else {
+		m_bStatusRequested = true;		// next dispatch() builds a fresh one
 	}
 	#ifdef ESP32
 		std::lock_guard<std::mutex> oGuard(m_oStatusSnapshotLock);
@@ -390,13 +424,16 @@ String CAppl::getStatusSnapshot() {
  * @brief Rebuilds the system status snapshot (loop context, called by dispatch()).
  */
 void CAppl::updateSystemStatusSnapshot() {
-	JsonNode oStatus;
-	writeSystemStatusTo(oStatus);
-	String strStatus = oStatus.getAsJsonText();
+	String strStatus;
+	{
+		JsonNode oStatus;
+		writeSystemStatusTo(oStatus);
+		oStatus.serializeTo(strStatus);
+	}
 	#ifdef ESP32
 		std::lock_guard<std::mutex> oGuard(m_oStatusSnapshotLock);
 	#endif
-	m_strSystemStatusSnapshot = strStatus;
+	m_strSystemStatusSnapshot = std::move(strStatus);
 }
 
 /**
@@ -428,7 +465,7 @@ JsonNode * CAppl::getState() { return(getStatus(STATUS_LEVEL_STATE)); }
  * @returns pointer to a json formated state string (do not delete or free this pointer !)
  */
 const char * CAppl::getStateAsText() { 
-	return(getStatus(STATUS_LEVEL_STATE)->getAsJsonText()); 
+	return(getStatusAsText(STATUS_LEVEL_STATE)); 
 }
 /**
  * @brief Write application metadata and module status into a JSON node.
