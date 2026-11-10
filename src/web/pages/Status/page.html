@@ -1,0 +1,160 @@
+<!--
+    Status page (PLibESPV1)
+
+    Shows the device, memory, battery (if available), network and message broker status.
+    The values are read from apiV1/status and apiV1/sysstatus (see WebRoutes.cpp)
+    and refreshed every 5 seconds while the page is shown.
+    The menu entry "Status" is part of the default menu (settings.js).
+-->
+<div id="StatusPage">
+    <!-- Status of $(prog_name) Ver.: $(prog_ver) -->
+    <legend data-i18n="Status.legend"></legend>
+
+    
+    <div class="row text-center">
+        <div class="col-md-8 col-md-offset-2">
+
+            <!-- Device Status Table -->
+            <div class="panel panel-default table-responsive">
+                <table class="table table-hover table-striped table-condensed">
+                    
+                    <caption data-i18n="Status.panel.device"></caption>
+                    <tr>
+                        <!-- system/host name -->
+                        <th data-i18n="Status.hostname"></th>
+                        <td data-cfg="wifi_hostname"></td>
+                    </tr>
+                    <tr>
+                        <!-- uptime -->
+                        <th data-i18n="Status.uptime"></th>
+                        <td data-cfg="uptime"></td>
+                    </tr>
+                    <tr>
+                        <!-- reason of the last reset (exception, watchdog...) -->
+                        <th data-i18n="Status.resetReason"></th>
+                        <td data-cfg="reset_reason"></td>
+                    </tr>
+                    <tr>
+                         <!-- Flash size -->
+                        <th data-i18n="Status.flashSize"></th>
+                        <td >
+                            <span data-cfg="flash_size"></span> Bytes
+                        </td>
+                    </tr>
+                    <tr>
+                         <!-- sketch size -->
+                        <th data-i18n="Status.sketchSize"></th>
+                        <td >
+                            <span data-cfg="sketch_size"></span> Bytes
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- Program memory: sketch in relation to the sketch area (sketch + free OTA space) -->
+                        <th data-i18n="Status.flashUsage"></th>
+                        <td>
+                            <div class="progressBar">
+                                <div id="flashUsage" class="usageStatus usageOK"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- Heap: free / largest block / fragmentation -->
+                        <th data-i18n="Status.heap"></th>
+                        <td id="heapUsage"></td>
+                    </tr>
+                    <tr>
+                        <!-- File system usage -->
+                        <th data-i18n="Status.fsUsage"></th>
+                        <td id="fsUsage"></td>
+                    </tr>
+                    <tr id="batteryRow" style="display:none">
+                        <!-- Battery voltage - only shown, if a battery is available (bat_available) -->
+                        <th data-i18n="Status.battery"></th>
+                        <td><span data-cfg="bat_volt"></span> V</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Network and WiFi Status Table-->
+            <div class="panel panel-default table-responsive">
+                <table class="table table-hover table-striped table-condensed">
+                    <!-- Network -->
+                    <caption data-i18n="Status.panel.network"></caption>
+                    <tr>
+                        <!-- SSID of the current network -->
+                        <th data-i18n="Status.ssid"></th>
+                        <td data-cfg="wifi_ssid"></td>
+                    </tr>
+                    <tr>
+                        <!-- Signal strength in rssi -->
+                        <th data-i18n="Status.rssi" ></th>
+                        <td><span data-cfg="wifi_rssi"></span> dB</td>
+                    </tr>
+                    <tr>
+                        <!-- WiFi standard (PHY mode) -->
+                        <th data-i18n="Status.phymode"></th>
+                        <td>802.11<span data-cfg="wifi_phymode"></span></td>
+                    </tr>
+                    <tr>
+                        <!-- IP address of the device -->
+                        <th data-i18n="Status.ip"></th>
+                        <td data-cfg="wifi_ip"></td>
+                    </tr>
+                    <tr>
+                        <!-- Gateway address -->
+                        <th data-i18n="Status.gateway"></th>
+                        <td data-cfg="wifi_gateway"></td>
+                    </tr>
+                    <tr>
+                        <!-- Network mask -->
+                        <th data-i18n="Status.netmask"></th>
+                        <td data-cfg="wifi_netmask"></td>
+                    </tr>
+                    <tr>
+                        <!-- DNS server address -->
+                        <th data-i18n="Status.dns"></th>
+                        <td data-cfg="wifi_dns"></td>
+                    </tr>
+                    <tr>
+                        <!-- MAC address -->
+                        <th data-i18n="Status.mac"></th>
+                        <td data-cfg="wifi_mac"></td>
+                    </tr>
+                </table> 
+            </div>
+            
+            <!-- Message Broker Status Table -->
+            <div class="panel panel-default table-responsive">
+                <table class="table table-hover table-striped table-condensed">
+                    <!-- MQTT -->
+                    <caption data-i18n="Status.panel.mqtt"></caption>
+                    <tr>
+                        <!-- Enabled -->
+                        <th data-i18n="Status.enabled"></th>
+                        <td data-cfg="mqtt_isEnabled"></td>
+                    </tr>
+                    <tr>
+                        <!-- Connected -->
+                        <th data-i18n="Status.connected"></th>
+                        <td data-cfg="mqtt_isConnected"></td>
+                    </tr>
+                    <tr>
+                        <!-- Last connection start -->
+                        <th data-i18n="Status.lastConStart"></th>
+                        <td data-cfg="mqtt_started"></td>
+                    </tr>
+                    <tr>
+                        <!-- Last connection lost -->
+                        <th data-i18n="Status.lastConLost"></th>
+                        <td data-cfg="mqtt_disconTS"></td>
+                    </tr>
+                    <tr>
+                        <!-- Disconnection reason -->
+                        <th data-i18n="Status.disconReason"></th>
+                        <td data-cfg="mqtt_disconReason"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

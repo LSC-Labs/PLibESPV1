@@ -1,0 +1,38 @@
+{
+    "Status": {
+        "legend": "Status of $(prog_name) Ver.: $(prog_ver)",
+        "panel": {
+            "device": "Device",
+            "network": "Network",
+            "mqtt": "Message broker"
+        },
+        "hostname": "Systemname",
+        "uptime": "Uptime",
+        "resetReason": "Last reset",
+        "flashSize": "Flash size",
+        "sketchSize": "Sketch size",
+        "flashUsage": "Program memory",
+        "battery": "Battery",
+        "ssid": "SSID",
+        "rssi": "Signal strength",
+        "phymode": "WiFi standard",
+        "ip": "IP address",
+        "gateway": "Gateway address",
+        "netmask": "Network mask",
+        "dns": "DNS server",
+        "mac": "MAC address",
+        "enabled": "Enabled",
+        "connected": "Connected",
+        "lastConStart": "Last Connection start",
+        "lastConLost": "Last Connection lost",
+        "disconReason": "Disconnect reason",
+        "memOK": "Sketch $(sketch_kb) KB of $(sketch_area_kb) KB ($(flash_used_percent)%) - OTA update possible (up to $(sketch_free_kb) KB)",
+        "memWarn": "Not enough memory for an OTA update! Sketch $(sketch_kb) KB, only $(sketch_free_kb) KB free.",
+        "fsUsage": "File system",
+        "heap": "Heap",
+        "fsOK": "$(fs_used_kb) KB of $(fs_total_kb) KB used ($(fs_used_percent)%)",
+        "fsWarn": "File system almost full! $(fs_used_kb) KB of $(fs_total_kb) KB used ($(fs_used_percent)%)",
+        "heapInfo": "$(heap_free_kb) KB free (min. $(heap_min_kb) KB), largest block $(heap_block_kb) KB, fragmentation $(heap_frag)%",
+        "heapWarn": "Low free heap or high fragmentation - restarts possible!"
+    }
+}

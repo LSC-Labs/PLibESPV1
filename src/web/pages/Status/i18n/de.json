@@ -1,0 +1,38 @@
+{
+    "Status": {
+        "legend": "Status - $(prog_name) Ver.: $(prog_ver)",
+        "panel": {
+            "device": "Gerät",
+            "network": "Netzwerk",
+            "mqtt": "Message Broker"
+        },
+        "hostname": "Systemname",
+        "uptime": "Laufzeit",
+        "resetReason": "Letzter Neustart",
+        "flashSize": "Größe des Flash",
+        "sketchSize": "Größe des Sketches",
+        "flashUsage": "Programmspeicher",
+        "battery": "Batterie",
+        "ssid": "SSID",
+        "rssi": "Signal Stärke",
+        "phymode": "WLAN-Standard",
+        "ip": "IP Adresse",
+        "gateway": "Gateway Adresse",
+        "netmask": "Netzwerk Maske",
+        "dns": "DNS Server",
+        "mac": "MAC Adresse",
+        "enabled": "Aktiviert",
+        "connected": "Verbunden",
+        "lastConStart": "Start der Verbindung",
+        "lastConLost": "Ende der letzten Verbindung",
+        "disconReason": "Ursache des Abbruchs",
+        "memOK": "Sketch $(sketch_kb) KB von $(sketch_area_kb) KB ($(flash_used_percent)%) - OTA Update möglich (bis $(sketch_free_kb) KB)",
+        "memWarn": "Zu wenig Speicher für ein OTA Update! Sketch $(sketch_kb) KB, frei nur $(sketch_free_kb) KB.",
+        "fsUsage": "Dateisystem",
+        "heap": "Arbeitsspeicher",
+        "fsOK": "$(fs_used_kb) KB von $(fs_total_kb) KB belegt ($(fs_used_percent)%)",
+        "fsWarn": "Dateisystem fast voll! $(fs_used_kb) KB von $(fs_total_kb) KB belegt ($(fs_used_percent)%)",
+        "heapInfo": "$(heap_free_kb) KB frei (min. $(heap_min_kb) KB), größter Block $(heap_block_kb) KB, Fragmentierung $(heap_frag)%",
+        "heapWarn": "Wenig freier Arbeitsspeicher oder starke Fragmentierung - Neustarts möglich!"
+    }
+}

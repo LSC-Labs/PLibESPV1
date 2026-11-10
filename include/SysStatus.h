@@ -101,6 +101,7 @@
 class CSysStatus : public IStatusHandler {
     private :
         char     m_szChipID[16] = {0};      // hex chip id (cached)
+        char     m_szResetReason[160] = {0}; // reason of the last reset incl. crash info (cached - does not change at runtime)
         uint32_t m_ulSketchSize      = 0;   // cached, 0 = not read yet
         uint32_t m_ulFreeSketchSpace = 0;
         uint32_t m_ulFlashRealSize   = 0;
@@ -113,6 +114,19 @@ class CSysStatus : public IStatusHandler {
         const char * getChipID();
         /// @brief Chip model, i.e. "ESP32-D0WDQ6" or "ESP8266".
         const char * getChipModel();
+        /// @brief Reason of the last reset (i.e. "Exception", "Hardware Watchdog", "Software/System restart").
+        ///
+        /// Includes the source of a requested restart (see markRequestedRestart()) or the
+        /// crash information (abort/panic, exception, watchdog, last failed allocation),
+        /// stored in the RTC memory before the reset.
+        const char * getResetReason();
+
+        /// @brief Remember the source of a requested restart (i.e. "Button") - call before ESP.restart().
+        static void markRequestedRestart(const char *pszSource);
+        /// @brief Track the minimum of the free heap - call regularly (loop).
+        static void updateMinFreeHeap();
+        /// @brief Minimum free heap since start (as tracked by updateMinFreeHeap()).
+        static uint32_t getMinFreeHeap();
         uint32_t getFlashChipId();
         uint32_t getFlashChipRealSize();
         uint32_t getFlashChipSize();
