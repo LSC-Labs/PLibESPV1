@@ -2921,6 +2921,17 @@ class CSideBar extends CMenuBar {
 
     show() { this.ac("show");}
     hide() { this.rc("show") }
+
+    /**
+     * A page has been selected in the menu.
+     * In the narrow view, the expanded sidebar is hidden again (the class "show" is only
+     * active in the narrow view - so no effect in the wide view).
+     * Expanding a sub menu (dropdown button) is handled by onToggleSubMenu() - the sidebar stays open.
+     */
+    onClicked(oEvent) {
+        super.onClicked(oEvent);
+        this.hide();
+    }
 }
 
 // #endregion
