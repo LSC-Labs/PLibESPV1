@@ -28,6 +28,13 @@
             "info": "Hide the SSID of the access point.",
             "label": "Hide SSID"
         },
+        "phymode": {
+            "info": "WiFi standard (ESP8266 only). 802.11g avoids crashes in the ESP8266 SDK when the router changes its 11n settings (i.e. channel width, mesh). Active after a restart.",
+            "label": "WiFi standard",
+            "n": "802.11b/g/n",
+            "g": "802.11b/g (more stable)",
+            "b": "802.11b"
+        },
         "dhcp": {
             "info": "Use DHCP or static ip addresses.",
             "label": "Use DHCP"

@@ -126,6 +126,21 @@
         </div>
     </div>
 
+    <!-- PHY mode (Station mode only, ESP8266) -->
+    <div class="row form-group" data-viewon="ap_mode=0" data-auth="RO">
+        <label class="$(col-label-class) info-icon" data-i18n="@title:WiFi.phymode.info">
+            <span data-i18n="WiFi.phymode.label"></span>
+            <icon data-icon="Info"></icon>
+        </label>
+        <span class="$(col-input-class)">
+            <select class="form-control input-sm" name="phymode">
+                <option value="n" data-i18n="WiFi.phymode.n"></option>
+                <option value="g" data-i18n="WiFi.phymode.g"></option>
+                <option value="b" data-i18n="WiFi.phymode.b"></option>
+            </select>
+        </span>
+    </div>
+
    
     <div id="ip_statics" style="display:none" data-viewon="dhcp_on=0|ap_mode=1" data-auth="RO">
          <!-- Static IP address-->

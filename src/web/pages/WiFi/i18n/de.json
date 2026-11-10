@@ -32,6 +32,13 @@
             "info": "Die SSID des Access Points verstecken.",
             "label": "Verstecke SSID"
         },
+        "phymode": {
+            "info": "WLAN-Standard (nur ESP8266). 802.11g vermeidet Abstürze im ESP8266-SDK, wenn der Router seine 11n-Einstellungen ändert (z.B. Kanalbreite, Mesh). Wird nach einem Neustart aktiv.",
+            "label": "WLAN-Standard",
+            "n": "802.11b/g/n",
+            "g": "802.11b/g (stabiler)",
+            "b": "802.11b"
+        },
         "dhcp": {
             "info": "DHCP oder eine feste IP Adresse.",
             "label": "Nutze DHCP"
