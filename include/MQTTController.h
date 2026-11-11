@@ -42,6 +42,10 @@
 
 #define MQTT_STATE_AVAILABLE       "online"
 #define MQTT_STATE_UNAVAILABLE     "offline"
+
+// nClass flag for MSG_MQTT_SEND_JSONSTATE / MSG_MQTT_SEND_TEXTSTATE:
+// publish the state as retained message (HA gets the last state after its restart).
+#define MQTT_SEND_RETAINED         1
 #define MQTT_STATE_BOOTING         "booting"
 
 class MQTTMessage;
@@ -149,6 +153,8 @@ class CMQTTController : public AsyncMqttClient, public ApplModule, public IRegis
         bool   m_bSetupDone    = false;
 
         CSimpleDelay  m_oHeartBeatDelay;           // interval of the heartbeat (expired = send now)
+        bool          m_bDiscoveryPending = false;  // discovery could not be published - retry
+        CSimpleDelay  m_oDiscoveryRetryDelay;      // delay between discovery publish attempts
 
         // Set in the async callbacks, processed in dispatch()
         volatile bool m_bEvtConnected     = false;
@@ -201,9 +207,9 @@ class CMQTTController : public AsyncMqttClient, public ApplModule, public IRegis
         const char * getDeviceCommandBaseTopicPath();
         
         /// @brief Publish the current device state from a JSON node.
-        void publishDeviceState(JsonNode & oStateData);
+        void publishDeviceState(JsonNode & oStateData, bool bRetain = false);
         /// @brief Publish the current device state from serialized JSON/text.
-        void publishDeviceState(const char * pszStateData);
+        void publishDeviceState(const char * pszStateData, bool bRetain = false);
         /// @brief Publish a JSON node below the device topic prefix.
         void publishDeviceTopic(String strTopic,      JsonNode     &oDataNode,   int nQOS = 0, bool bRetain = false);
         /// @brief Publish a JSON node below the device topic prefix.

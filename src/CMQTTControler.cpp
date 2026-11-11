@@ -264,13 +264,13 @@ int CMQTTController::receiveEvent(const void * pSender, int nMsg, const void * p
 
         case MSG_MQTT_SEND_JSONSTATE: {
                 JsonNode * pMsgObj = (JsonNode * ) pMessage;
-                if(pMsgObj) publishDeviceState(*pMsgObj);
+                if(pMsgObj) publishDeviceState(*pMsgObj, (nClass & MQTT_SEND_RETAINED) != 0);
             }
             break;
 
         case MSG_MQTT_SEND_TEXTSTATE: {
                 const char * pMsgObj = (const char * ) pMessage;
-                publishDeviceState(pMsgObj);
+                publishDeviceState(pMsgObj, (nClass & MQTT_SEND_RETAINED) != 0);
             }
             break;
         
@@ -371,6 +371,10 @@ void CMQTTController::setup(int nPublishInterval) {
 void CMQTTController::dispatch() {
     processConnectionEvents();
     enableConnection();
+    // Retry a failed Home Assistant discovery (i.e. not enough contiguous heap)
+    if(m_bDiscoveryPending && connected() && m_oDiscoveryRetryDelay.isDone()) {
+        publishHomeAssistantDiscovery();
+    }
     publishHeartBeat(false);
     // Take each message out of the queue before it is processed (queue is filled async)
     for(int nCount = 0; nCount < MQTT_MAX_QUEUED_MESSAGES; nCount++) {
@@ -462,18 +466,18 @@ void CMQTTController::publishDeviceTopic(const char *pszTopic, const char * pszD
 /**
  * @brief Publishes device state JSON to the state topic.
  */
-void CMQTTController::publishDeviceState(JsonNode & oStateData) {
+void CMQTTController::publishDeviceState(JsonNode & oStateData, bool bRetain) {
     DEBUG_FUNC_START();
-    publishDeviceTopic(MQTT_MSG_TOPIC_STATE,oStateData);
+    publishDeviceTopic(MQTT_MSG_TOPIC_STATE,oStateData,0,bRetain);
     DEBUG_FUNC_END();
 }
 
 /**
  * @brief Publishes device state text to the state topic.
  */
-void CMQTTController::publishDeviceState(const char * pszStateData) {
+void CMQTTController::publishDeviceState(const char * pszStateData, bool bRetain) {
     DEBUG_FUNC_START();
-    publishDeviceTopic(MQTT_MSG_TOPIC_STATE,pszStateData);
+    publishDeviceTopic(MQTT_MSG_TOPIC_STATE,pszStateData,0,bRetain);
     DEBUG_FUNC_END();
 }
 
@@ -542,11 +546,17 @@ void CMQTTController::forgetRegisteredObject(const void *pObject) {
  */
 void CMQTTController::publishHomeAssistantDiscovery() {
     DEBUG_FUNC_START();
+    m_bDiscoveryPending = false;
     if(connected() && Config.useHA) {
+      const char * pszDeviceName = WiFi.getHostname();
+      if(!pszDeviceName || !*pszDeviceName) pszDeviceName = "lsc-device";
+      String strDiscoveryTopic = Config.HADiscoveryPrefix + "/device/" + pszDeviceName + "/config";
+      String strDiscovery;
+      {
+        // Build the document in an own scope: the JSON tree is released before
+        // publishing, so only the serialized text and the MQTT packet use heap.
         JsonNode oDiscovery;
         JsonNode *pDevice = oDiscovery.getObject("dev",true);
-        const char * pszDeviceName = WiFi.getHostname();
-        if(!pszDeviceName || !*pszDeviceName) pszDeviceName = "esp-device";
         String strCfgUrl = "http://";
         strCfgUrl += pszDeviceName;
 
@@ -592,18 +602,28 @@ void CMQTTController::publishHomeAssistantDiscovery() {
         oDiscovery["state_topic"]           = this->m_pszPublishStateTopic;
         oDiscovery["availability_topic"]    = this->m_pszPublishAvailabilityTopic;
 
-        DEBUG_INFOS("Sending discovery info to %s",(Config.HADiscoveryPrefix + "/device/" + pszDeviceName + "/config").c_str());
+        DEBUG_INFOS("Sending discovery info to %s",strDiscoveryTopic.c_str());
         DEBUG_JSON_OBJ(oDiscovery);
-    
-        const char * pszMsg = oDiscovery.getAsJsonText();
-        // Now publish the discover information on the message broker with the topic: homeassistant/device/{device_name}/config
-        publish(
-                (Config.HADiscoveryPrefix + "/device/" + pszDeviceName + "/config").c_str(), 
-                0,                              // QoS 0
-                false,                           // As retain message. 
-                pszMsg   // Publish the document as string
-            );       
-        DEBUG_INFOS("HA Discovery published: %s",pszMsg);
+        oDiscovery.serializeTo(strDiscovery);
+      }
+      // Publish on homeassistant/device/{device_name}/config - NOT retained (by intention).
+      // HA gets it on every (re)connect of the device and on its own birth message.
+      // AsyncMqttClient silently drops a message (returns 0) when the largest free
+      // heap block is below MQTT_MIN_FREE_MEMORY - then retry later.
+      uint16_t nPacketId = publish(strDiscoveryTopic.c_str(), 0, false, strDiscovery.c_str(), strDiscovery.length());
+      if(nPacketId == 0) {
+          m_bDiscoveryPending = true;
+          m_oDiscoveryRetryDelay.start(5000);
+          #ifdef ESP32
+              unsigned nMaxBlock = (unsigned) ESP.getMaxAllocHeap();
+          #else
+              unsigned nMaxBlock = (unsigned) ESP.getMaxFreeBlockSize();
+          #endif
+          ApplLogWarnWithParms("MQTT: HA discovery not sent (%u bytes, max free block %u) - retry in 5s",
+                               (unsigned) strDiscovery.length(), nMaxBlock);
+      } else {
+          ApplLogInfoWithParms("MQTT: HA discovery published (%u bytes)", (unsigned) strDiscovery.length());
+      }
     }
     DEBUG_FUNC_END();
 }
