@@ -184,6 +184,8 @@ void CWiFiController::insertComponentDiscovery(const char * pszComponentName, Js
     if(!pSensor) return;
     pSensor->setValue("p",                   "sensor");
     pSensor->setValue("device_class",        "signal_strength");
+    pSensor->setValue("state_class",         "measurement");
+    pSensor->setValue("entity_category",     "diagnostic");   // shown under "Diagnostic", not as main sensor
     pSensor->setValue("unit_of_measurement", "dBm");
     pSensor->setValue("value_template" ,     szValueTemplate);
     pSensor->setValue("unique_id",           strCompID.c_str());
