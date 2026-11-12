@@ -79,8 +79,10 @@ const char * CSysStatus::getChipModel() {
  *   it can not be distinguished from a requested restart.
  */
 namespace {
-    const uint32_t RESET_RECORD_MAGIC = 0x4c534352;     // "LSCR"
+    const uint32_t RESET_RECORD_MAGIC = 0x4c534332;     // "LSC2" (v2: excvaddr + stack addresses)
     enum : uint32_t { RESET_RECORD_NONE = 0, RESET_RECORD_REQUESTED = 1, RESET_RECORD_CRASH = 2 };
+    // Number of stack code addresses stored in a crash record (RTC memory is limited)
+    const uint32_t RESET_RECORD_STACK_ADDRS = 8;
 
     struct ResetRecord {
         uint32_t ulMagic;
@@ -93,6 +95,9 @@ namespace {
         uint32_t ulMinFreeHeap;     // minimum free heap before the reset
         uint32_t ulUptimeSec;       // uptime at the reset
         char     szSource[28];      // requested: source of the restart
+        uint32_t ulExcVaddr;        // crash: memory address that caused the exception (i.e. 0 = NULL pointer)
+        uint32_t ulStackAddrCount;  // crash: number of valid entries in ulStackAddr
+        uint32_t ulStackAddr[RESET_RECORD_STACK_ADDRS]; // crash: code addresses found on the stack (call chain candidates)
     };
 
     // Minimum free heap since start - read by the crash callback (no function calls there)
@@ -135,7 +140,6 @@ extern "C" {
      * Define LSC_NO_CRASH_CALLBACK, if the application has its own callback.
      */
     void custom_crash_callback(struct rst_info *pRstInfo, uint32_t ulStack, uint32_t ulStackEnd) {
-        (void) ulStack; (void) ulStackEnd;
         ResetRecord oRecord;
         memset(&oRecord, 0, sizeof(oRecord));
         oRecord.ulMagic         = RESET_RECORD_MAGIC;
@@ -147,6 +151,19 @@ extern "C" {
         oRecord.ulFailAllocSize = (uint32_t) umm_last_fail_alloc_size;
         oRecord.ulMinFreeHeap   = s_ulMinFreeHeap;
         oRecord.ulUptimeSec     = millis() / 1000;
+        oRecord.ulExcVaddr      = pRstInfo ? pRstInfo->excvaddr : 0;
+        // Scan the stack for code addresses (flash 0x402xxxxx / IRAM 0x401xxxxx) - the
+        // same candidates the exception decoder shows. Decode with addr2line and the
+        // firmware.elf of the flashed build. The first entries are the nearest callers.
+        if(ulStack && ulStackEnd > ulStack && (ulStack & 3) == 0) {
+            for(uint32_t ulPos = ulStack; ulPos + 4 <= ulStackEnd
+                    && oRecord.ulStackAddrCount < RESET_RECORD_STACK_ADDRS; ulPos += 4) {
+                uint32_t ulValue = *(volatile uint32_t *) ulPos;
+                bool bIsCode = (ulValue >= 0x40200000 && ulValue < 0x40300000) ||
+                               (ulValue >= 0x40100000 && ulValue < 0x40108000);
+                if(bIsCode) oRecord.ulStackAddr[oRecord.ulStackAddrCount++] = ulValue;
+            }
+        }
         writeResetRecord(oRecord);
     }
 }
@@ -237,7 +254,8 @@ const char * CSysStatus::getResetReason() {
         int nLen = snprintf(m_szResetReason, sizeof(m_szResetReason), "%s", pszCrash);
         if(oRecord.ulReason == 2 && nLen < (int) sizeof(m_szResetReason)) {
             nLen += snprintf(&m_szResetReason[nLen], sizeof(m_szResetReason) - nLen,
-                             " (%u) at 0x%08x", (unsigned) oRecord.ulExcCause, (unsigned) oRecord.ulEpc1);
+                             " (%u) at 0x%08x, addr 0x%08x", (unsigned) oRecord.ulExcCause,
+                             (unsigned) oRecord.ulEpc1, (unsigned) oRecord.ulExcVaddr);
         }
         if(oRecord.ulFailAllocAddr && nLen < (int) sizeof(m_szResetReason)) {
             nLen += snprintf(&m_szResetReason[nLen], sizeof(m_szResetReason) - nLen,
@@ -245,10 +263,25 @@ const char * CSysStatus::getResetReason() {
                              (unsigned) oRecord.ulFailAllocSize, (unsigned) oRecord.ulFailAllocAddr);
         }
         if(nLen < (int) sizeof(m_szResetReason)) {
-            snprintf(&m_szResetReason[nLen], sizeof(m_szResetReason) - nLen,
-                     " - min. heap %u B, after %lus",
-                     (unsigned) (oRecord.ulMinFreeHeap == 0xFFFFFFFF ? 0 : oRecord.ulMinFreeHeap),
-                     (unsigned long) oRecord.ulUptimeSec);
+            // 0xFFFFFFFF: the heap was never measured (crash before the first loop / web request)
+            if(oRecord.ulMinFreeHeap == 0xFFFFFFFF) {
+                nLen += snprintf(&m_szResetReason[nLen], sizeof(m_szResetReason) - nLen,
+                                 " - min. heap n/a, after %lus", (unsigned long) oRecord.ulUptimeSec);
+            } else {
+                nLen += snprintf(&m_szResetReason[nLen], sizeof(m_szResetReason) - nLen,
+                                 " - min. heap %u B, after %lus",
+                                 (unsigned) oRecord.ulMinFreeHeap, (unsigned long) oRecord.ulUptimeSec);
+            }
+        }
+        // Call chain candidates - decode with:
+        // xtensa-lx106-elf-addr2line -pfiaC -e .pio/build/<env>/firmware.elf <addresses>
+        uint32_t ulCount = oRecord.ulStackAddrCount <= RESET_RECORD_STACK_ADDRS ? oRecord.ulStackAddrCount : 0;
+        if(ulCount > 0 && nLen < (int) sizeof(m_szResetReason)) {
+            nLen += snprintf(&m_szResetReason[nLen], sizeof(m_szResetReason) - nLen, " - stack:");
+            for(uint32_t nIdx = 0; nIdx < ulCount && nLen < (int) sizeof(m_szResetReason); nIdx++) {
+                nLen += snprintf(&m_szResetReason[nLen], sizeof(m_szResetReason) - nLen,
+                                 " 0x%08x", (unsigned) oRecord.ulStackAddr[nIdx]);
+            }
         }
     } else if(bHasRecord && oRecord.ulType == RESET_RECORD_REQUESTED && bSoftRestart) {
         snprintf(m_szResetReason, sizeof(m_szResetReason), "%s (%s, after %lus)",

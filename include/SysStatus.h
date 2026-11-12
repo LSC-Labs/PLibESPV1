@@ -101,7 +101,7 @@
 class CSysStatus : public IStatusHandler {
     private :
         char     m_szChipID[16] = {0};      // hex chip id (cached)
-        char     m_szResetReason[160] = {0}; // reason of the last reset incl. crash info (cached - does not change at runtime)
+        char     m_szResetReason[256] = {0}; // reason of the last reset incl. crash info (cached - does not change at runtime)
         uint32_t m_ulSketchSize      = 0;   // cached, 0 = not read yet
         uint32_t m_ulFreeSketchSpace = 0;
         uint32_t m_ulFlashRealSize   = 0;
