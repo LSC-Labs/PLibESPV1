@@ -276,9 +276,14 @@ class CWiFiController : public IModule, public IHomeAssistantComponent {
             /**
              * @brief Join an existing WiFi network in station mode.
              */
-            bool joinNetwork(const char * pszSSID, 
-                            const char * pszPassword, 
+            bool joinNetwork(const char * pszSSID,
+                            const char * pszPassword,
                             byte bSSID[6]);
+
+            /**
+             * @brief Set the network hostname from the configured device name (sanitized).
+             */
+            void applyHostname();
 
             /**
              * @brief Build and send the JSON payload for an asynchronous scan result.

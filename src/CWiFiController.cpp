@@ -420,6 +420,9 @@ bool CWiFiController::joinNetwork(const char *pszSSID, const char *pszPassword, 
     WiFi.persistent(false);                 // before mode(), so nothing is written to flash
     WiFi.mode(WIFI_STA);
 #ifndef ESP32
+    // ESP8266: the SDK may reset the station hostname to "ESP-xxxxxx" on a mode change.
+    // Set it after mode() and before begin(), so DHCP (and MQTT/HA) use the device name.
+    applyHostname();
     // PHY mode before begin() - "g" avoids SDK crashes on HT/11n changes of the router
     WiFiPhyMode_t ePhyMode = WIFI_PHY_MODE_11N;
     if(Config.phyMode == "g")      ePhyMode = WIFI_PHY_MODE_11G;
@@ -477,6 +480,39 @@ bool CWiFiController::joinNetwork(const char *pszSSID, const char *pszPassword, 
 
 
 /**
+ * @brief Build a valid network hostname from the device name.
+ *
+ * Only a..z, A..Z, 0..9 and '-' are allowed (RFC 952/1123), max. 32 chars (SDK limit).
+ * Other characters (i.e. blanks) are replaced by '-'. An invalid name would be
+ * rejected by the SDK and the default "ESP-xxxxxx" would be used instead.
+ */
+static String toValidHostname(const String &strName) {
+    String strResult;
+    for (size_t nIdx = 0; nIdx < strName.length() && strResult.length() < 32; nIdx++) {
+        char c = strName[nIdx];
+        bool bValid = (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
+        if (bValid) strResult += c;
+        else if (strResult.length() > 0 && strResult[strResult.length() - 1] != '-') strResult += '-';
+    }
+    while (strResult.length() > 0 && strResult[strResult.length() - 1] == '-') {
+        strResult.remove(strResult.length() - 1);
+    }
+    if (strResult.length() == 0) strResult = WIFI_DEFAULT_AP_SSID_PREFIX;
+    return(strResult);
+}
+
+/**
+ * @brief Set the network hostname from the configured device name.
+ */
+void CWiFiController::applyHostname() {
+    String strHostname = toValidHostname(Appl.getDeviceName());
+    if(!WiFi.hostname(strHostname)) {
+        ApplLogWarnWithParms(F("WiFi: hostname %s could not be set"), strHostname.c_str());
+    }
+    DEBUG_INFOS("WiFi: hostname set to %s",strHostname.c_str());
+}
+
+/**
  * @brief Start WiFi using either default AP mode or the loaded configuration.
  * 
  * Station mode failures optionally fall back to AP mode or schedule a retry,
@@ -499,7 +535,7 @@ void CWiFiController::startWiFi(bool bUseConfigData)
         // wifiConnectHandler = WiFi.onStationModeConnected(onWifiConnect);
         // wifiDisconnectHandler = WiFi.onStationModeDisconnected(onWifiDisconnect);
         // wifiOnStationModeGotIPHandler = WiFi.onStationModeGotIP(onWifiGotIP);
-        WiFi.hostname(Appl.getDeviceName());
+        applyHostname();    // ESP32: must be set before mode() - ESP8266: set again in joinNetwork()
         bool bIsConnected = false;
         if(Config.accessPointMode) {
             bIsConnected = startAccessPoint(true);
