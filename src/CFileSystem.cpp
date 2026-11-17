@@ -290,14 +290,37 @@ bool CFS::loadFileToString(const char* strFileName, String &strResult) {
  * @return true when the file was opened and written.
  */
 bool CFS::saveJsonContentToFile(const char* strFileName, JsonNode &oDoc) {
+    if(!strFileName || !*strFileName) return(false);
+    // Serialize FIRST - before, the file was opened with "w" (truncated) and then serialized:
+    // no heap for the text (nullptr) or a crash/reset at this moment left an EMPTY file
+    // (i.e. config.json => all settings lost, device starts as access point).
+    const char *pszData = oDoc.getAsJsonText();
+    size_t nLen = pszData ? strlen(pszData) : 0;
+    if(nLen == 0) {
+        ApplLogErrorWithParms(F("%s not saved - JSON text could not be created (heap ?)"), strFileName);
+        return(false);
+    }
+    // Write to a temporary file and replace the target afterwards - the old file
+    // stays intact until the new one is completely written.
+    String strTmpFile = String(strFileName) + ".tmp";
     bool bResult = false;
-    File oFile = LittleFS.open(strFileName, "w");
-    if (oFile)
-    {
-        const char *pszData = oDoc.getAsJsonText();
-        size_t nLen = pszData ? strlen(pszData) : 0;
+    File oFile = LittleFS.open(strTmpFile.c_str(), "w");
+    if (oFile) {
         bResult = oFile.write((const uint8_t *) pszData, nLen) == nLen;
         oFile.close();
+    }
+    if(bResult) {
+        // littlefs replaces an existing target in one step
+        bResult = LittleFS.rename(strTmpFile.c_str(), strFileName);
+        if(!bResult) {
+            // Fallback for file systems, that do not replace an existing target
+            LittleFS.remove(strFileName);
+            bResult = LittleFS.rename(strTmpFile.c_str(), strFileName);
+        }
+    }
+    if(!bResult) {
+        LittleFS.remove(strTmpFile.c_str());
+        ApplLogErrorWithParms(F("%s could not be written"), strFileName);
     }
     return(bResult);
 }
@@ -316,6 +339,10 @@ bool CFS::loadJsonContentFromFile(const char *strFileName,JsonNode &oDoc) {
     // (void) nSize;
     DEBUG_INFOS(" --- loaded %d bytes %s",nSize,ptrBuffer ? ptrBuffer.get() : "-nullptr-");
     bool bResult = false;
+    if(nSize <= 0 && fileExists(strFileName)) {
+        // Not a JSON problem - the file is empty (i.e. an interrupted save of an older version)
+        ApplLogWarnWithParms(F("%s is empty or could not be read"), strFileName);
+    }
     if(ptrBuffer && nSize > 0) {
         // parse() keeps oDoc unchanged and returns nullptr on invalid JSON
         bResult = oDoc.parse(ptrBuffer.get()) != nullptr;

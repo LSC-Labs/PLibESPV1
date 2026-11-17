@@ -27,7 +27,7 @@
 #include <NamedValueTable.h>
 #include <SimpleDelay.h>
 
-#include <queue>
+#include <RingQueue.h>
 #ifdef ESP32
     #include <mutex>
 #endif
@@ -165,7 +165,8 @@ class CMQTTController : public AsyncMqttClient, public ApplModule, public IRegis
         #ifdef ESP32
             std::mutex m_oQueueLock;               // message queue: filled async, drained in loop
         #endif
-        std::queue<MQTTMessage * > m_tMessageQeue; // FiFo queue with Message pointer...
+        // FiFo queue with Message pointer - fixed ring buffer (std::queue allocates ~560 bytes heap when empty)
+        CRingQueue<MQTTMessage *, MQTT_MAX_QUEUED_MESSAGES> m_tMessageQeue;
         CNamedValueTable<IHomeAssistantComponent *> m_tComponentHandlerByName;
         CSimpleDelay m_oTryConnectDelay;
 
@@ -261,9 +262,12 @@ class MQTTMessage {
     char * DeviceCmdTopic; // Command topic for this device, if the message is a command topic.
 
     /// @brief Copy topic and payload into an owned message object.
-    MQTTMessage(const char * pszTopic, const char *pszMessage, CMQTTController * pController = nullptr) : pController(pController) {
+    /// @param pszAdoptMessage optional: malloc'ed payload, that is taken over (not copied) -
+    ///        saves a second copy of the payload in the heap. pszMessage is ignored then.
+    MQTTMessage(const char * pszTopic, const char *pszMessage, CMQTTController * pController = nullptr,
+                char *pszAdoptMessage = nullptr) : pController(pController) {
         Topic = strdup(pszTopic ? pszTopic : "");
-        Message = strdup(pszMessage ? pszMessage : "");
+        Message = pszAdoptMessage ? pszAdoptMessage : strdup(pszMessage ? pszMessage : "");
         if(isDeviceCommandTopic()) {
             // Skip the command topic prefix and the following slash
             // (plain pointer arithmetic - works with Arduino String and std::string runtimes)

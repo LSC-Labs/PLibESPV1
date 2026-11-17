@@ -2,8 +2,7 @@
 #include <Runtime.h>
 #include <functional>
 #include <vector>
-#include <queue>
-#include <deque>
+#include <RingQueue.h>
 #ifdef ESP32
     #include <mutex>
 #endif
@@ -18,7 +17,12 @@
 #define EVENT_MSG_RESULT_STOP_PROCESSING 99
 
 #ifndef EVENT_DEFERRED_MAX_ENTRIES
-    #define EVENT_DEFERRED_MAX_ENTRIES   32     ///< events waiting for delivery in the loop
+    #if defined(ESP8266)
+        // RAM: the queue is a fixed array (20 bytes per entry) - see CRingQueue
+        #define EVENT_DEFERRED_MAX_ENTRIES   16     ///< events waiting for delivery in the loop
+    #else
+        #define EVENT_DEFERRED_MAX_ENTRIES   32     ///< events waiting for delivery in the loop
+    #endif
 #endif
 
 class CJsonNode;
@@ -76,7 +80,8 @@ class CEventHandler : public IRegistry
             uint8_t eKind    = 0;       // 0 = no payload, 1 = text, 2 = JSON text
             char   *pszData  = nullptr; // owned copy of the payload
         };
-        std::deque<DeferredEvent> m_tDeferredEvents;
+        // Fixed ring buffer - std::deque allocates ~560 bytes heap even when empty
+        CRingQueue<DeferredEvent, EVENT_DEFERRED_MAX_ENTRIES> m_tDeferredEvents;
         unsigned int  m_nDeferredDropped     = 0;      // lost because the queue was full
         bool          m_bProcessingDeferred  = false;
         #ifdef ESP32

@@ -46,7 +46,7 @@ CEventHandler::~CEventHandler() {
         if(pEntry->value) pEntry->value->m_oEventRegistrations.detach(this);
     }
     EVENT_DEFERRED_LOCK();
-    for(auto &oEvent : m_tDeferredEvents) free(oEvent.pszData);
+    for(size_t nIdx = 0; nIdx < m_tDeferredEvents.size(); nIdx++) free(m_tDeferredEvents[nIdx].pszData);
     m_tDeferredEvents.clear();
 }
 #include <DevelopmentHelper.h>

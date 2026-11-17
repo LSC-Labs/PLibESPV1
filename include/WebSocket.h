@@ -6,7 +6,7 @@
 #include "JsonNode.h"
 #include "Network.h"
 #include "DevelopmentHelper.h"
-#include <queue>
+#include <RingQueue.h>
 #include <new>
 #ifdef ESP32
     #include <mutex>
@@ -151,7 +151,8 @@ struct WebSocketStatus {
  */
 class CWebSocket : public AsyncWebSocket, public IMsgEventReceiver {
     private:
-        std::queue<CWebSocketMessage *> m_tMsgQueue;
+        // Fixed ring buffer - std::queue allocates ~560 bytes heap even when empty
+        CRingQueue<CWebSocketMessage *, WS_MAX_QUEUED_MESSAGES> m_tMsgQueue;
         #ifdef ESP32
             std::mutex      m_oQueueLock;   // queue is filled by AsyncTCP task, drained by loop()
         #endif

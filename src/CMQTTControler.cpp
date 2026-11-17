@@ -717,8 +717,10 @@ void CMQTTController::onMqttMessage(char *pszTopic, char *pszPayload, AsyncMqttC
     }
     // Last Block received ? => store data in queue
     if(nIndex + nLen == nTotal) {
-        MQTTMessage *pMessage = new (std::nothrow) MQTTMessage(pszTopic, m_pszMessageBuffer, this);
-        freeOwnedString(m_pszMessageBuffer);
+        // The message takes over the assembled buffer (no second copy of the payload)
+        MQTTMessage *pMessage = new (std::nothrow) MQTTMessage(pszTopic, nullptr, this, m_pszMessageBuffer);
+        if(pMessage) m_pszMessageBuffer = nullptr;      // owned by the message now
+        else         freeOwnedString(m_pszMessageBuffer);
         m_nMessageBufferSize = 0;
         if(pMessage) {
             bool bQueued = false;
